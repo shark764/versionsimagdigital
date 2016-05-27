@@ -44,8 +44,8 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
-!/src/Minsal/SimagdBundle/Resources/public/bootstrap3-dialog-master/dist/
-!/src/Minsal/SimagdBundle/Resources/public/bootstrapvalidator-dist-0.5.2/dist/
+#!/src/Minsal/SimagdBundle/Resources/public/bootstrap3-dialog-master/dist/
+#!/src/Minsal/SimagdBundle/Resources/public/bootstrapvalidator-dist-0.5.2/dist/
 
 #prueba
 #src/Minsal/SimagdBundle/Funciones/*
