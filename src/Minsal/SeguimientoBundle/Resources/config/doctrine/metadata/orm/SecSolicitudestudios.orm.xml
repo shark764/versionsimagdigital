@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SecSolicitudestudios" table="sec_solicitudestudios">
+    <indexes>
+      <index name="fki_sec_solicitud_estudfios_mnt_aten_area_mod_estab" columns="id_atencion"/>
+      <index name="fki_fos_user_user_sec_solicitudestudios" columns="idusuarioreg"/>
+      <index name="IDX_7CE0B616DA799B26" columns="id_establecimiento_externo"/>
+      <index name="IDX_7CE0B6167DFA12F6" columns="id_establecimiento"/>
+      <index name="IDX_7CE0B616265DE1E3" columns="estado"/>
+      <index name="IDX_7CE0B616701624C4" columns="id_expediente"/>
+      <index name="IDX_7CE0B61631827296" columns="id_historial_clinico"/>
+      <index name="IDX_7CE0B616174D74B2" columns="idtiposolicitud"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="fechaSolicitud" type="date" column="fecha_solicitud" nullable="true"/>
+    <field name="fechahorareg" type="datetime" column="fechahorareg" nullable="true"/>
+    <field name="impresiones" type="integer" column="impresiones" nullable="true"/>
+    <field name="cama" type="integer" column="cama" nullable="true"/>
+    <many-to-one field="idusuarioreg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="idusuarioreg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idHistorialClinico" target-entity="SecHistorialClinico">
+      <join-columns>
+        <join-column name="id_historial_clinico" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idtiposolicitud" target-entity="LabTiposolicitud">
+      <join-columns>
+        <join-column name="idtiposolicitud" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idExpediente" target-entity="MntExpediente">
+      <join-columns>
+        <join-column name="id_expediente" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="estado" target-entity="CtlEstadoServicioDiagnostico">
+      <join-columns>
+        <join-column name="estado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimientoExterno" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento_externo" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimiento" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idAtencion" target-entity="CtlAtencion">
+      <join-columns>
+        <join-column name="id_atencion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

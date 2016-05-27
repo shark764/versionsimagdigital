@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ImgPendienteLectura" table="img_pendiente_lectura">
+    <indexes>
+      <index name="IDX_5A209F077DFA12F6" columns="id_establecimiento"/>
+      <index name="IDX_5A209F076196B359" columns="id_estudio"/>
+      <index name="IDX_5A209F07C7F5B193" columns="id_radiologo_anexa"/>
+      <index name="IDX_5A209F076E8C181B" columns="id_radiologo_asignado"/>
+      <index name="IDX_5A209F07526C8D52" columns="id_solicitud_diagnostico"/>
+      <index name="IDX_5A209F078AAAED82" columns="id_asigna_radiologo"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="fechaIngresoLista" type="datetime" column="fecha_ingreso_lista" nullable="true"/>
+    <field name="solicitudPostEstudio" type="boolean" column="solicitud_post_estudio" nullable="true"/>
+    <field name="anexadoPorRadiologo" type="boolean" column="anexado_por_radiologo" nullable="true"/>
+    <many-to-one field="idSolicitudDiagnostico" target-entity="ImgSolicitudDiagnostico">
+      <join-columns>
+        <join-column name="id_solicitud_diagnostico" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idAsignaRadiologo" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_asigna_radiologo" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idRadiologoAsignado" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_radiologo_asignado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idRadiologoAnexa" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_radiologo_anexa" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstudio" target-entity="ImgEstudioPaciente">
+      <join-columns>
+        <join-column name="id_estudio" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimiento" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,84 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    
+    {# Bootstrap #}
+    {#<link href="{{ asset('bundles/minsalsimagd/bootstrap-3.3.4-dist/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/minsalsimagd/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css') }}" type="text/css" rel="stylesheet" />#}
+    
+    {# Twitter Typeahead #}
+    <link href="{{ asset('bundles/minsalsimagd/css/typeahead.css') }}" type="text/css" rel="stylesheet" />
+    
+    {# bootstrap-table #}
+    <link href="{{ asset('bundles/minsalsimagd/bootstrap-table-master/dist/bootstrap-table.min.css') }}" type="text/css" rel="stylesheet" media="screen" />
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    {# Bootstrap #}
+    {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap-3.3.4-dist/js/bootstrap.min.js') }}" ></script>#}
+
+    {# jquery-formparams #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/jquery.formparams.min.js') }}" ></script>
+    
+    {# Twitter Typeahead #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/typeahead.js-master/dist/typeahead.bundle.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/typeahead.js-master/dist/bloodhound.js') }}" ></script>
+    
+    {# bootstrap-table #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap-table-master/dist/bootstrap-table.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap-table-master/dist/locale/bootstrap-table-es-CR.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap-table-master/dist/extensions/filter-control/bootstrap-table-filter-control.min.js') }}" ></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgSolicitudEstudioComplementarioAdmin/solcmpl_list_v2.js') }}" ></script>
+
+{% endblock %}
+    
+{% block sonata_admin_content -%}
+            
+        <table class="table table-condensed" id="table-lista-solicitudes-estudio-compl"
+               data-toggle="table"
+               data-url="{{ path('simagd_solicitud_estudio_complementario_listarSolicitudesEstudioComplementario') }}"
+               data-cache="false"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-show-columns="true"
+               data-search="true"
+               data-select-item-name="listaSolicitudesEstudioComplementarioToolbar"
+               data-pagination="true"
+               data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+               {#data-sort-name="id"
+               data-sort-order="desc"#}
+               data-classes="table table-hover table-condensed table-no-bordered"
+               data-filter-control="true"
+               data-height="760">
+            <thead>
+                <tr style="background-color: #31708f; color: #fff;">
+                    {#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
+                    <th data-field="id" class="col-md-1" data-align="center" data-halign="center" data-sortable="true">ID</th>
+                    <th data-field="origen"  data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>
+                    <th data-field="paciente"  data-switchable="false" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Paciente</th>
+                    <th data-field="solicitante"  data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Remitió</th>
+                    <th data-field="areaAtencion"  data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Procedencia</th>
+                    <th data-field="atencion"  data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Servicio clínico</th>
+                    <th data-field="modalidad"  class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Modalidad</th>
+                    <th data-field="referido"  data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizado en</th>
+                    <th data-field="tecnologo"  data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizó</th>
+                    <th data-field="fechaEstudio"  data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se registró estudio</th>
+                    <th data-field="fechaSolEstudio"  data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se solicitó estudio</th>
+                    <th data-field="fechaSolEstudioCmpl"  class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se solicitó estudio ( Compl )</th>
+                    <th data-field="modalidadEstCompl"  class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Modalidad ( Compl )</th>
+                    <th data-field="prioridad"  class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Prioridad</th>
+                    <th data-field="solicitanteEstCmpl"  class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Solicitó</th>
+                    <th data-field="solicitado"  class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Solicitado a</th>
+                    <th data-field="action" data-formatter="actionSolEstudioCmplFormatter" data-events="actionSolEstudioCmplEvents" class="col-md-1"></th>
+                </tr>
+            </thead>
+        </table>
+    
+{% endblock %}

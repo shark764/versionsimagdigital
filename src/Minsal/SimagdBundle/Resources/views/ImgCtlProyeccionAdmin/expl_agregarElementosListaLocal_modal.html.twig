@@ -1,0 +1,52 @@
+{# empty Twig template #}
+    
+<div id="asignarProyeccionListaLocal-modal" class="modal fade justify-bootstrap-div-container" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false" data-focus-on="input:first" aria-labelledby="mySmallModalLabel" data-width="760">
+    <div class="modal-content panel-element-v2">
+        <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+            <h4 class="modal-title"><i class="fa fa-list-alt"></i> <i class="fa fa-hospital-o"></i> Agregar proyecciones a lista local</h4>
+        </div>
+
+        <div class="modal-body">
+            <div class="row outer" style="padding-left: 15px; padding-right: 15px;">
+
+                <form id="asignarProyeccionListaLocal-form" action="{{ path('simagd_proyeccion_asignarElementoListaLocal') }}" method="post" class="form-horizontal simagd-form-custom-class"
+                    data-fv-framework="bootstrap"
+                    data-fv-icon-valid="glyphicon glyphicon-ok"
+                    data-fv-icon-invalid="glyphicon glyphicon-remove"
+                    data-fv-icon-validating="glyphicon glyphicon-refresh"
+
+                    data-fv-message="El valor introducido no es válido">
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label required">Modalidad de Diagnóstico por imagen</label>
+                        <div class="col-sm-8">
+                            <select id="formPryLocalListIdAreaServicioApoyo" name="formPryLocalListIdAreaServicioApoyo" class="form-control select2-select" data-default="{{ default_mldRx }}" data-apply-formatter="mld"
+                                      {#data-fv-row=".col-xs-8"#}
+
+                                      data-fv-notempty="true"
+                                      data-fv-notempty-message="Seleccione un elemento" >
+                                <option value=""></option>
+                                <optgroup label="Imagenología">
+                                    {% for modalidad in modalidades %}
+                                        <option value="{{ modalidad.id }}">{{ modalidad }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+                
+            </div>
+            
+        </div>
+
+        <div class="modal-footer" style="margin-top: 0px;">
+            <span class="text-info"><span class="glyphicon glyphicon-question-sign"></span> ¿Está seguro que desea continuar? &nbsp;</span>
+            <button type="button" data-dismiss="modal" class="btn btn-primary-v2"><i class="fa fa-times"></i> No, Cerrar</button>
+            <button type="submit" id="btn_agregar_pryXLocalList" name="btn_agregar_pryXLocalList" class="btn btn-element-v2" ><i class="fa fa-check-circle"></i> Si, Continuar</button>
+        </div>
+        
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->

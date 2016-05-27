@@ -1,0 +1,110 @@
+{# empty Twig template #}
+
+    <div class="col-xs-9">{# usar PILLS en lugar de tabs en simagd-info   http://api.jquery.com/jquery.param/ #}
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="pacienteInfo" >
+                {% include 'MinsalSimagdBundle:show_entity_block:pct_bloque_informacion.html.twig' %}
+            </div>
+            {% if historiaClinicaInfo is not null %}
+                <div class="tab-pane fade" id="historiaClinicaInfo" >
+                    {% include 'MinsalSimagdBundle:show_entity_block:hcl_bloque_informacion.html.twig' %}
+                </div>
+            {% endif %}
+            {% if preinscripcionInfo is not null %}
+                <div class="tab-pane fade" id="preinscripcionInfo" >
+                    {% include 'MinsalSimagdBundle:show_entity_block:prc_bloque_informacion.html.twig' %}
+                </div>
+            {% endif %}
+            {% if citaInfo is not null %}
+                <div class="tab-pane fade" id="citaInfo" >
+                    {% include 'MinsalSimagdBundle:show_entity_block:cit_bloque_informacion.html.twig' %}
+                </div>
+            {% endif %}
+            {% if procedimientoRealizadoInfo is not null %}
+                <div class="tab-pane fade" id="procedimientoRealizadoInfo" >
+                    {% include 'MinsalSimagdBundle:show_entity_block:prz_bloque_informacion.html.twig' %}
+                </div>
+            {% endif %}
+            {% if solicitudDiagnosticoInfo is not null %}
+                <div class="tab-pane fade" id="solicitudDiagnosticoInfo" >
+                    {% include 'MinsalSimagdBundle:show_entity_block:soldiag_bloque_informacion.html.twig' %}
+                </div>
+            {% endif %}
+            {% if lecturaInfo is not null %}
+                <div class="tab-pane fade" id="lecturaInfo" >
+                    {% include 'MinsalSimagdBundle:show_entity_block:lct_bloque_informacion.html.twig' %}
+                </div>
+            {% endif %}
+            {% if diagnosticoInfo is not null %}
+                <div class="tab-pane fade" id="diagnosticoInfo" >
+                    {% include 'MinsalSimagdBundle:show_entity_block:diag_bloque_informacion.html.twig' %}
+                </div>
+            {% endif %}
+            {% if notaDiagInfo | length > 0 %}
+                <div class="tab-pane fade" id="notaDiagInfo" >
+                    {% include 'MinsalSimagdBundle:show_entity_block:notdiag_bloque_informacion.html.twig' %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-xs-3"> <!-- required for floating -->
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs tabs-right">
+            <li class="active"><a href="#pacienteInfo" data-toggle="pill"><span class="glyphicon glyphicon-user"></span> Paciente</a></li>
+            {% if historiaClinicaInfo is not null %}
+                <li><a href="#historiaClinicaInfo" data-toggle="pill"><span class="glyphicon glyphicon-list-alt"></span> Historia clínica</a></li>
+            {% endif %}
+            {% if preinscripcionInfo is not null %}
+                <li><a href="#preinscripcionInfo" data-toggle="pill"><span class="glyphicon glyphicon-list-alt"></span> Solicitud de estudio</a></li>
+            {% endif %}
+            {% if citaInfo is not null %}
+                <li><a href="#citaInfo" data-toggle="pill"><span class="glyphicon glyphicon-floppy-saved"></span> Cita</a></li>
+            {% endif %}
+            {% if procedimientoRealizadoInfo is not null %}
+                <li><a href="#procedimientoRealizadoInfo" data-toggle="pill"><span class="glyphicon glyphicon-floppy-saved"></span> Examen realizado</a></li>
+            {% endif %}
+            {% if solicitudDiagnosticoInfo is not null %}
+                <li><a href="#solicitudDiagnosticoInfo" data-toggle="pill"><span class="glyphicon glyphicon-list"></span> Solicitud de diagnóstico</a></li>
+            {% endif %}
+            {% if lecturaInfo is not null %}
+                <li><a href="#lecturaInfo" data-toggle="pill"><span class="glyphicon glyphicon-list"></span> Interpretación</a></li>
+            {% endif %}
+            {% if diagnosticoInfo is not null %}
+                <li><a href="#diagnosticoInfo" data-toggle="pill"><span class="glyphicon glyphicon-paperclip"></span> Diagnóstico</a></li>
+            {% endif %}
+            {% if notaDiagInfo | length > 0 %}
+                <li><a href="#notaDiagInfo" data-toggle="pill"><span class="glyphicon glyphicon-comment"></span> Notas agregadas <span class="badge">{{ notaDiagInfo | length }}</span></a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    {# muestra de información completa #}
+    {% if pacienteInfo is not null %}
+        {% include 'MinsalSimagdBundle:show_container_fullEntity:pct_total_info_modal.html.twig' %}     {# paciente #}
+    {% endif %}
+    {% if historiaClinicaInfo is not null %}
+        {% include 'MinsalSimagdBundle:show_container_fullEntity:hcl_total_info_modal.html.twig' %}     {# historial clínico #}
+    {% endif %}
+    {% if preinscripcionInfo is not null %}
+        {% include 'MinsalSimagdBundle:show_container_fullEntity:prc_total_info_modal.html.twig' %}     {# preinscripcion #}
+    {% endif %}
+    {% if citaInfo is not null %}
+        {% include 'MinsalSimagdBundle:show_container_fullEntity:cit_total_info_modal.html.twig' %}     {# cita #}
+    {% endif %}
+    {% if procedimientoRealizadoInfo is not null %}
+        {% include 'MinsalSimagdBundle:show_container_fullEntity:prz_total_info_modal.html.twig' %}     {# examen realizado #}
+    {% endif %}
+    {% if solicitudDiagnosticoInfo is not null %}
+        {% include 'MinsalSimagdBundle:show_container_fullEntity:soldiag_total_info_modal.html.twig' %} {# solicitud de diagnóstico #}
+    {% endif %}
+    {% if lecturaInfo is not null %}
+        {% include 'MinsalSimagdBundle:show_container_fullEntity:lct_total_info_modal.html.twig' %}     {# lectura #}
+    {% endif %}
+    {% if diagnosticoInfo is not null %}
+        {% include 'MinsalSimagdBundle:show_container_fullEntity:diag_total_info_modal.html.twig' %}    {# diagnóstico #}
+    {% endif %}
+    {% if notaDiagInfo | length > 0 %}
+        {% include 'MinsalSimagdBundle:show_container_fullEntity:notdiag_total_info_modal.html.twig' %}     {# nota-diagnóstico #}
+    {% endif %}

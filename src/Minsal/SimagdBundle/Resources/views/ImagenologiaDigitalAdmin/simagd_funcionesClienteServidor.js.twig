@@ -1,0 +1,32 @@
+{# empty Twig template #}
+
+    {# <script type="text/javascript">
+        
+        jQuery(document).ready(function() {
+
+            /** Agregar enlace para "Crear/Actualizar y Mostrar" */
+	    var redirectUrlBtn = 'btn_create_and_show';
+	    var textRedirectUrlBtn = ' Crear y mostrar';
+
+            {% if object.id is not null %}
+            	redirectUrlBtn = 'btn_edit_and_show';
+		textRedirectUrlBtn = ' Actualizar y mostrar';
+            {% endif %}
+
+	    $('div .form-actions').prepend($('<button type="submit">')
+                                                .attr({ id : redirectUrlBtn,
+                                                        name : redirectUrlBtn
+                                                    })
+                                                .addClass('btn btn-primary-v2')
+                                                .append($('<i>')
+                                                            .addClass('fa fa-save')
+                                                        )
+                                                .append(' ')
+                                                .append($('<i>')
+                                                            .addClass('fa fa-eye')
+                                                        )
+                                                .append(textRedirectUrlBtn)
+                                            ).append(' ');
+        });
+        
+    </script> #}

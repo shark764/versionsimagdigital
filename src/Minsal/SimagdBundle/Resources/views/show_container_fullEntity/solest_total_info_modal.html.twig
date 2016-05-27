@@ -1,0 +1,107 @@
+{# empty Twig template #}
+
+    <div id="solicitudEstFullData-showModalContainer" class="modal container fade justify-bootstrap-div-container simagd-full-form-container simagd-full-data-view" role="dialog" tabindex="-1" style="display: none;" data-backdrop="true" data-keyboard="true">
+	<div class="modal-content panel-info-v2">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+                <h4 class="modal-title"><i class="fa fa-folder-open"></i> Solicitud de Estudio</h4>
+            </div>
+
+            <div class="modal-body">
+
+		<div {#style="padding-left: 15px; padding-right: 15px;"#}>
+                
+                {#<div class="panel panel-info-v2">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> <i class="fa fa-desktop"></i> Detalles de la solicitud y líneas de solicitud </h3>
+                    </div>
+                    <div class="panel-body" >#}
+		
+		    <div class="row outer simagd-filter-content-layout" style="padding-left: 15px; padding-right: 15px; {#height: 500px; overflow-y: auto;#}">
+                
+                        <table class="table table-condensed">
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Fecha de solicitud:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudEstInfo.fechaSolicitud|format_date('EEEE, MMMM d, yyyy', 'es_ES') }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Creado:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudEstInfo.fechahorareg|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ solicitudEstInfo.fechahorareg|date('H:i:s A') }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Generada en:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudEstInfo.idestablecimiento }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Estado:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudEstInfo.estado }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Servicio solicitado:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudEstInfo.idAtencion }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Úsuario que registró:</span></th>
+                                <td class="col-md-4">
+                                    {% if solicitudEstInfo.idusuarioreg is not null %}
+                                        {{ solicitudEstInfo.idusuarioreg }} <strong> ( {{ solicitudEstInfo.idusuarioreg.username }} ) </strong>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Impresiones:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudEstInfo.impresiones }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Cama:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudEstInfo.cama }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Solicitado para:</span></th>
+                                <td colspan="3" class="col-md-4">
+                                    {{ solicitudEstInfo.idEstablecimientoExterno }}
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td colspan="4" class="col-md-12">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <th colspan="4" class="col-md-12">
+                                    <span class="text-primary"><strong> <i class="fa fa-list"></i> Exámenes de Imagenología solicitados:</strong></span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Detalles de la Solicitud:</span></th>
+                                <td colspan="3" class="col-md-4">
+                                    <ul>
+                                        {% for detalleSolEst in detalleSolEstInfo %}
+                                            <li>
+                                                <a data-toggle="modal" href="#" data-id="{{ detalleSolEst.id }}" data-target="#detalleSolEstFullData-showModalContainer" class="open-detalleEstSolDialog btn-link" title="Abrir detalle de la Solicitud">
+                                                    <i class="fa fa-external-link-square"></i>
+                                                </a> &nbsp;
+                                                <strong> {{ detalleSolEst.idexamen.idAreaServicioDiagnostico }} </strong> : {{ detalleSolEst.idexamen.idExamenServicioDiagnostico }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            
+                        </table>
+
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+            </div>
+	</div><!-- /.modal-content -->
+    </div><!-- /.modal -->

@@ -1,0 +1,200 @@
+{# empty Twig template #}
+
+{# modal-event-calendar #}
+<div id="crearSolicitudEstudioComplementarioFastFormat-modal" class="modal container fade justify-bootstrap-div-container simagd-full-form-container" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false" data-focus-on="input:first">
+    <div class="modal-content panel-primary-v2">
+        <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+            <h4 class="modal-title"><i class="fa fa-eye"></i> <i class="fa fa-pencil-square"></i> <span id="formSolcmplFastRequestTitle">Crear solicitud de estudio complementario - <span class="badge badge-primary-v2" style="">Formato rápido</span></span></h4>
+        </div>
+
+        <div class="modal-body">
+
+	    <div class="row outer" style="padding-left: 15px; padding-right: 15px;">
+		{#<div class="box box-primary-v2" >
+		    <div class="box-header">
+			<h4 class="box-title">
+			    <span id="formSolcmplFastRequestLabel" class="label label-primary-v2"> Formulario para registro </span>
+			</h4>
+		    </div>
+		    <div class="box-body">#}
+		    
+			<h4 class="" style="padding-left: 15px;">
+			    <span id="formSolcmplFastRequestLabel" class="label label-primary-v2"> Formulario para registro </span>
+			</h4>
+			<br/>
+
+			<form id="crearSolicitudEstudioComplementarioFastFormat-form" action="{{ path('simagd_solicitud_estudio_complementario_crearSolicitudEstudioComplementarioFastFormat') }}" method="post" class="form-horizontal simagd-form-custom-class"
+			    data-fv-framework="bootstrap"
+			    data-fv-icon-valid="glyphicon glyphicon-ok"
+			    data-fv-icon-invalid="glyphicon glyphicon-remove"
+			    data-fv-icon-validating="glyphicon glyphicon-refresh"
+
+			    data-fv-message="El valor introducido no es válido">
+
+			    <ul class="nav nav-pills nav-stacked col-md-3 col-xs-3" style="padding-left: 15px;"> <!-- required for floating -->
+				<!-- Nav tabs -->
+                                <li class="active"><a href="#solicitudSolcmplShortFormatTab" data-toggle="pill"> <span class="glyphicon glyphicon-random"></span> Solicitud de estudio <i class="fa"></i></a></li>
+                            </ul>
+                            
+                            <!-- Tab panes -->
+                            <div class="tab-content col-md-9 col-xs-9">
+                                <div class="tab-pane fade in active" id="solicitudSolcmplShortFormatTab" >
+
+                                    <input type="hidden" id="formSolcmplFastRequestId" name="formSolcmplFastRequestId" value="" />
+                                    <input type="hidden" id="formSolcmplFastRequestIdSolicitudEstudio" name="formSolcmplFastRequestIdSolicitudEstudio" value="" />
+                                    <input type="hidden" id="formSolcmplFastRequestIdEstudioPadre" name="formSolcmplFastRequestIdEstudioPadre" value="" />
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">Radiólogo</label>
+                                        <div class="col-xs-8">
+                                            <select id="formSolcmplFastRequestIdRadiologo" name="formSolcmplFastRequestIdRadiologo" class="form-control select2-select" data-default="{{ collection_default_empLogged.id }}" data-apply-formatter="user"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Seleccione un elemento" >
+                                                <option value=""></option>
+                                                {% for tipo in collection_tiposEmpleado if tipo.codigo == 'MED' or tipo.codigo == 'TRY' %}
+                                                    <optgroup label="{{ tipo }}">
+                                                    {% for radiologo in collection_radiologos if radiologo.idTipoEmpleado is not null and radiologo.idTipoEmpleado.id == tipo.id %}
+                                                        <option value="{{ radiologo.id }}" {% if radiologo.id == collection_default_empLogged.id %} selected {% endif %}>{{ radiologo }}</option>
+                                                    {% endfor %}
+                                                    </optgroup>
+                                                {% endfor %}
+                                                {% for radiologo in collection_radiologos if radiologo.idTipoEmpleado is null %}
+                                                    <option value="{{ radiologo.id }}" {% if radiologo.id == collection_default_empLogged.id %} selected {% endif %}>{{ radiologo }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">Prioridad</label>
+                                        <div class="col-xs-8">
+                                            <select id="formSolcmplFastRequestIdPrioridadAtencion" name="formSolcmplFastRequestIdPrioridadAtencion" class="form-control select2-select" data-default="{{ collection_default_prAtn }}" data-apply-formatter="prAtn"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Seleccione un elemento" >
+                                                <option value=""></option>
+                                                {% for prioridad in collection_prioridades %}
+                                                    <option value="{{ prioridad.id }}" {% if prioridad.id == collection_default_prAtn %} selected {% endif %}>{{ prioridad }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">Justificación de la solicitud</label>
+                                        <div class="col-xs-8">
+                                            <textarea rows="2" class="form-control" name="formSolcmplFastRequestJustificacion" id="formSolcmplFastRequestJustificacion" placeholder="Digite la justificación de la solicitud del estudio" maxlength="100" style="resize: none"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Este campo es requerido"
+
+                                                      data-fv-stringlength="true"
+                                                      data-fv-stringlength-min="15"
+                                                      data-fv-stringlength-max="100"
+                                                      data-fv-stringlength-message="15 caracteres mínimo"
+
+                                                      data-fv-regexp="true"
+                                                      data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$"
+                                                      data-fv-regexp-message="Texto contiene caracteres no permitidos" /></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label required">Modalidad</label>
+                                        <div class="col-xs-8">
+                                            <select id="formSolcmplFastRequestIdAreaServicioDiagnostico" name="formSolcmplFastRequestIdAreaServicioDiagnostico" class="form-control select2-select" data-default="{{ collection_default_mldRx }}" data-apply-formatter="mld"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Seleccione un elemento"
+
+                                                      data-fv-callback="true"
+                                                      data-fv-callback-message="Debe seleccionar al menos una proyección"
+                                                      data-fv-callback-callback="checkProyeccionesModalidad" >
+                                                <option value=""></option>
+                                                <optgroup label="Servicio de Diagnóstico por imagen">
+                                                    {% for modalidad in collection_modalidades %}
+                                                        <option value="{{ modalidad.id }}" {% if modalidad.id == collection_default_mldRx %} selected {% endif %}>{{ modalidad }}</option>
+                                                    {% endfor %}
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label required">Proyecciones</label>
+                                        <div class="col-xs-8">
+                                            <select id="formSolcmplFastRequestSolicitudEstudioProyeccion" name="formSolcmplFastRequestSolicitudEstudioProyeccion[]" class="form-control select2-select" data-apply-formatter="pry" multiple
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Seleccione un elemento" >
+                                                {#<option value=""></option>#}
+                                                {% for examen in collection_examenes %}
+                                                    <optgroup label="{{ examen }}">
+                                                    {% for proyeccion in collection_proyecciones if proyeccion.idExamenServicioDiagnostico is not null and proyeccion.idExamenServicioDiagnostico.id == examen.id %}
+                                                        <option value="{{ proyeccion.id }}">{{ proyeccion }}</option>
+                                                    {% endfor %}
+                                                    </optgroup>
+                                                {% endfor %}
+                                                {% for proyeccion in collection_proyecciones if proyeccion.idExamenServicioDiagnostico is null %}
+                                                    <option value="{{ proyeccion.id }}">{{ proyeccion }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">Indicaciones para la realización del estudio</label>
+                                        <div class="col-xs-8">
+                                            <textarea rows="2" class="form-control" name="formSolcmplFastRequestIndicaciones" id="formSolcmplFastRequestIndicaciones" placeholder="Digite las indicaciones para el estudio" style="resize: none"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-stringlength="true"
+                                                      data-fv-stringlength-min="15"
+                                                      data-fv-stringlength-message="15 caracteres mínimo"
+
+                                                      data-fv-regexp="true"
+                                                      data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$"
+                                                      data-fv-regexp-message="Texto contiene caracteres no permitidos" /></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="{#margin-top: 15px;#} visibility: hidden;">
+                                <div class="col-xs-8 col-xs-offset-4">
+                                    <button type="submit" class="btn btn-primary-v2 btn-xs"><i class="glyphicon glyphicon-ok"></i> Enviar</button>
+                                </div>
+                            </div>
+                
+			</form>
+				
+		    {#</div>
+		</div>#}
+	    </div>
+            
+        </div>
+
+        <div class="modal-footer" style="margin-top: 0px;">
+	    <a title="Recuperar estudio realizado" target="_blank" class="btn btn-element-v2" href="javascript:void(0)" id="btn_descargar_estudio_solcmpl"
+		{% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN') ) %} disabled="disabled" {% endif %}>
+		<i class="fa fa-eye"></i> Recuperar Estudio</a>
+
+            <!-- --| custom buttons for footer -->
+            <span class="btn-separator"></span>
+            
+            <span class="text-info" style="margin-left: 15px"><span class="glyphicon glyphicon-question-sign"></span> ¿Está seguro que desea continuar? &nbsp;</span>
+            <button type="button" data-dismiss="modal" class="btn btn-primary-v2"><i class="fa fa-times"></i> No, Cerrar</button>
+            <button type="submit" id="btn_agregar_solcmplFastRequest" name="btn_agregar_solcmplFastRequest" class="btn btn-primary-v2" ><i class="fa fa-check-circle"></i> Si, Continuar</button>
+            <button type="submit" id="btn_editar_solcmplFastRequest" name="btn_editar_solcmplFastRequest" class="btn btn-element-v2" style="display: none;" ><i class="fa fa-check-square-o"></i> Si, Editar</button>
+        </div>
+        
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->

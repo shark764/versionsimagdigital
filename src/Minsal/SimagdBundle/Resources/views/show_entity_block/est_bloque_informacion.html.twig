@@ -1,0 +1,56 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed">
+        {% if estudioPacienteInfo is not null %}
+            <tr>
+                <th class="col-md-2">Creado:</th>
+                <td class="col-md-4">
+                    {{ estudioPacienteInfo.fechaEstudio|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ estudioPacienteInfo.fechaEstudio|date('H:i:s A') }}
+                </td>
+                <th class="col-md-2">Uid:</th>
+                <td class="col-md-4">
+                    {{ estudioPacienteInfo.estudioUid }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Series:</th>
+                <td class="col-md-4">
+                    {{ estudioPacienteInfo.seriesUid }}
+                </td>
+                <th class="col-md-2">Servidor:</th>
+                <td class="col-md-4">
+                    {{ estudioPacienteInfo.servidor }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Creado en:</th>
+                <td colspan="3" class="col-md-4">
+                    {{ estudioPacienteInfo.idEstablecimiento }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Estudio:</th>
+                <td class="col-md-4">
+                    {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN') %}
+                        {% include 'MinsalSimagdBundle:ImgEstudioPacienteAdmin:est_recuperarEstudio_button.html.twig'
+                                                ignore missing with { 'estudioPaciente': estudioPacienteInfo } %}
+                    {% else %}
+                        <i class="fa fa-exclamation-triangle"></i> <i class="text-warning">No puede ver este enlace</i>
+                    {% endif %}
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td class="col-md-12">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only"> Cerrar </span>
+                        </button>
+                        <strong>Sin resultados!</strong> No se encontró registro.
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    </table>

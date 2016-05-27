@@ -1,0 +1,137 @@
+{# empty Twig template #}
+    
+<div id="bsmodal_addDiagnosisAsPattern-modal" class="modal fade justify-bootstrap-div-container" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false" data-focus-on="input:first" aria-labelledby="mySmallModalLabel" data-width="760">
+    <div class="modal-content panel-element-v2">
+        <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+            <h4 class="modal-title"><i class="fa fa-user-md"></i> <i class="fa fa-microphone"></i> Agregar diagnóstico como patrón</h4>
+        </div>
+
+        <div class="modal-body">
+            <div class="row outer" style="padding-left: 15px; padding-right: 15px;">
+
+                <form id="bsform_addDiagnosisAsPattern-form" action="{{ path('simagd_patron_diagnostico_addDiagnosisAsPattern') }}" method="post" class="form-horizontal simagd-form-custom-class" data-clientside-validation="modal"
+                    data-fv-framework="bootstrap"
+                    data-fv-icon-valid="glyphicon glyphicon-ok"
+                    data-fv-icon-invalid="glyphicon glyphicon-remove"
+                    data-fv-icon-validating="glyphicon glyphicon-refresh"
+
+                    data-fv-message="El valor introducido no es válido">
+
+                    <input type="hidden" id="form_diagAsPattern_id" name="form_diagAsPattern_id" value="" />
+
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">Hallazgos</label>
+                        <div class="col-xs-8">
+                            <p class="form-control-static" id="form_diagAsPattern_hallazgos-static-label"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">Conclusión</label>
+                        <div class="col-xs-8">
+                            <p class="form-control-static" id="form_diagAsPattern_conclusion-static-label"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">Recomendaciones</label>
+                        <div class="col-xs-8">
+                            <p class="form-control-static" id="form_diagAsPattern_recomendaciones-static-label"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label required">Nombre</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="form_diagAsPattern_nombre" name="form_diagAsPattern_nombre" placeholder="Nombre del patrón de resultados" maxlength="255"
+                                      {#data-fv-row=".col-xs-8"#}
+
+                                      data-fv-notempty="true"
+                                      data-fv-notempty-message="Este campo es requerido"
+
+                                      data-fv-stringlength="true"
+                                      data-fv-stringlength-min="5"
+                                      data-fv-stringlength-max="255"
+                                      data-fv-stringlength-message="5 caracteres mínimo"
+
+                                      data-fv-regexp="true"
+                                      data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$"
+                                      data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Código</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="form_diagAsPattern_codigo" name="form_diagAsPattern_codigo" placeholder="Código del patrón de resultados" maxlength="6"
+                                      {#data-fv-row=".col-xs-8"#}
+
+                                      data-fv-stringlength="true"
+                                      data-fv-stringlength-min="4"
+                                      data-fv-stringlength-max="6"
+                                      data-fv-stringlength-message="4 caracteres mínimo"
+
+                                      data-fv-regexp="true"
+                                      data-fv-regexp-regexp="^[a-zA-Z0-9]+$"
+                                      data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label required">Modalidad</label>
+                        <div class="col-xs-8">
+                            <select id="form_diagAsPattern_idAreaServicioDiagnostico" name="form_diagAsPattern_idAreaServicioDiagnostico" class="form-control select2-select" data-default="{{ form_currentstudy_mldRx is not null ? form_currentstudy_mldRx.getId() : null }}" data-apply-formatter="mld"
+                                      {#data-fv-row=".col-xs-8"#}
+
+                                      data-fv-notempty="true"
+                                      data-fv-notempty-message="Seleccione un elemento"
+
+                                      data-fv-callback="true"
+                                      data-fv-callback-message="Debe seleccionar al menos una proyección"
+                                      data-fv-callback-callback="checkProyeccionesModalidad" >
+                                <option value=""></option>
+                                <optgroup label="Servicio de Diagnóstico por imagen">
+                                    {% for modalidad in collection_modalidades %}
+                                        <option value="{{ modalidad.id }}" {% if form_currentstudy_mldRx is not null and modalidad.id == form_currentstudy_mldRx.getId() %} selected {% endif %}>{{ modalidad }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label required">Tipo de resultado</label>
+                        <div class="col-xs-8">
+                            <select id="form_diagAsPattern_idTipoResultado" name="form_diagAsPattern_idTipoResultado" class="form-control select2-select" data-default="{{ form_currentdiagnosis_tipoResult is not null ? form_currentdiagnosis_tipoResult.getId() : null }}"
+                                      {#data-fv-row=".col-xs-8"#}
+
+                                      data-fv-notempty="true"
+                                      data-fv-notempty-message="Seleccione un elemento" >
+                                <option value=""></option>
+                                <optgroup label="Determinado">
+                                    {% for tipoResultado in collection_tiposResultado if tipoResultado.getIndeterminado == false %}
+                                        <option value="{{ tipoResultado.id }}" {% if form_currentdiagnosis_tipoResult is not null and tipoResultado.id == form_currentdiagnosis_tipoResult.getId() %} selected {% endif %}>{{ tipoResultado }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                                <optgroup label="Indeterminado">
+                                    {% for tipoResultado in collection_tiposResultado if tipoResultado.getIndeterminado != false %}
+                                        <option value="{{ tipoResultado.id }}" {% if form_currentdiagnosis_tipoResult is not null and tipoResultado.id == form_currentdiagnosis_tipoResult.getId() %} selected {% endif %}>{{ tipoResultado }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+                
+            </div>
+            
+        </div>
+
+        <div class="modal-footer" style="margin-top: 0px;">
+            <button type="button" data-dismiss="modal" class="btn btn-primary-v2"><i class="fa fa-times"></i> No, Cerrar</button>
+            <button type="submit" id="btn_agregar_diagAsPattern" name="btn_agregar_diagAsPattern" data-submit="create" class="btn btn-element-v2" ><i class="fa fa-check-circle"></i> Si, Continuar</button>
+            <button type="submit" id="btn_editar_diagAsPattern" name="btn_editar_diagAsPattern" data-submit="edit" class="btn btn-element-v2" style="display: none;" ><i class="fa fa-check-square-o"></i> Si, Editar</button>
+        </div>
+        
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->

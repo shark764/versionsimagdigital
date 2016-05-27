@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ImgExclusionBloqueo" table="img_exclusion_bloqueo">
+    <indexes>
+      <index name="IDX_4778C24037A05A00" columns="id_bloqueo_agenda"/>
+      <index name="IDX_4778C240B781D14A" columns="id_radiologo_excluido"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="idx_radiologo_bloqueo" columns="id_radiologo_excluido,id_bloqueo_agenda"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <many-to-one field="idRadiologoExcluido" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_radiologo_excluido" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idBloqueoAgenda" target-entity="ImgBloqueoAgenda">
+      <join-columns>
+        <join-column name="id_bloqueo_agenda" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

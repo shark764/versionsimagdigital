@@ -1,0 +1,74 @@
+{# empty Twig template #}
+
+    <div class="tab-pane fade {% if tab_active != false %}in active{% endif %}" id="lct_citaTab" >
+        <div class="box box-{{ box_style|default('primary-v2') }} non-titled-sonata-box">
+            <div class="box-body">
+                <table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">id:</span></th>
+                        <td colspan="3" class="col-md-9" ><span class="badge">{{ object_study_cit.id }}</span></td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Creada:</span></th>
+                        <td colspan="3" class="col-md-9" >{{ object_study_cit.fechaCreacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ object_study_cit.fechaCreacion|date('H:i:s A') }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Registró:</span></th>
+                        <td class="col-md-3" >{{ object_study_cit.idEmpleado }}</td>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Usuario:</span></th>
+                        <td class="col-md-3" >{{ object_study_cit.idUserPrg.idEmpleado }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Fecha programada:</span></th>
+                        <td class="col-md-3" >{{ object_study_cit.fechaHoraInicio|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ object_study_cit.fechaHoraInicio|date('H:i:s A') }}</td>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Fecha programada anterior:</span></th>
+                        <td class="col-md-3" >
+			    {% if object_study_cit.fechaHoraInicioAnterior is not null %}
+				{{ object_study_cit.fechaHoraInicioAnterior|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ object_study_cit.fechaHoraInicioAnterior|date('H:i:s A') }}
+			    {% endif %}
+			</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Estado:</span></th>
+                        <td colspan="3" class="col-md-9" >{{ object_study_cit.idEstadoCita }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Se confirmó:</span></th>
+                        <td colspan="3" class="col-md-9" >{{ object_study_cit.fechaConfirmacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ object_study_cit.fechaConfirmacion|date('H:i:s A') }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Tecnólogo asignado:</span></th>
+                        <td colspan="3" class="col-md-9" >{{ object_study_cit.idTecnologoProgramado }}</td>
+                    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Reprogramada:</span></th>
+			<td class="col-md-3" >{{ object_study_cit.reprogramada ? 'Si' : 'No' }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Se reprogramó:</span></th>
+			<td class="col-md-3" >
+			    {% if object_study_cit.fechaReprogramacion is not null %}
+				{{ object_study_cit.fechaReprogramacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ object_study_cit.fechaReprogramacion|date('H:i:s A') }}
+			    {% endif %}
+			</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Incidencias:</span></th>
+			<td colspan="3" class="col-md-9" >
+                            <pre class="pre-display-code-natural">{{ object_study_cit.incidencias }}</pre>
+                        </td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Observaciones:</span></th>
+			<td colspan="3" class="col-md-9" >
+                            <pre class="pre-display-code-natural">{{ object_study_cit.observaciones }}</pre>
+                        </td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Justificación de anulación/cancelación:</span></th>
+			<td colspan="3" class="col-md-9" >
+                            <pre class="pre-display-code-natural">{{ object_study_cit.razonAnulada }}</pre>
+                        </td>
+		    </tr>
+                </table>
+            </div>
+        </div>
+    </div>

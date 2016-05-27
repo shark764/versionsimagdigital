@@ -1,0 +1,167 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            /** Validación de formulario de inserción/actualización */
+            jQuery('#simagd_entity_full_admin_form').formValidation({
+                excluded: [':disabled'],
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    '{{ admin.uniqId }}[idEmpleado]': {
+                        message: 'El empleado transcriptor de la lectura es inválido',
+                        validators: {
+                            notEmpty: {
+                                message: 'El empleado transcriptor de la lectura es requerido'
+                            }
+                        }
+                    },
+                    {#'{{ admin.uniqId }}[transcripcion]': {
+                        message: 'Transcripción de resultados inválida',
+                        validators: {
+                            /*stringLength: {
+                                min: 15,
+                                message: 'Transcripción de resultados debe contener al menos 15 caracteres'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },*/
+                        }
+                    },#}
+                    '{{ admin.uniqId }}[hallazgos]': {
+                        message: 'Hallazgos encontrados inválidos',
+                        validators: {
+                            /*stringLength: {
+                                min: 15,
+                                message: 'Hallazgos encontrados deben contener al menos 15 caracteres'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },*/
+                        }
+                    },
+                    '{{ admin.uniqId }}[conclusion]': {
+                        message: 'Conclusión del diagnóstico inválida',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 255,
+                                message: 'Conclusión del diagnóstico debe contener al menos 15 caracteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[idEstadoDiagnostico]': {
+                        message: 'Estado en que se encuentra la transcripción es inválido',
+                        validators: {
+                            notEmpty: {
+                                message: 'Estado en que se encuentra la transcripción es requerido'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[incidencias]': {
+                        message: 'Incidencias de la transcripción inválidas',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 255,
+                                message: 'Incidencias de la transcripción deben contener al menos 15 caracteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                            callback: {
+                                message: 'Transcripción sin lectura seleccionada',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                    var lecturaVal = $("input[id='" + $token + "_idLectura']").val();
+                                    var existsVal = false;
+                                    
+                                    existsVal = lecturaVal ? true : false;
+                                    
+                                    return existsVal;
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[observaciones]': {
+                        message: 'Observaciones a la transcripción inválidas',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 255,
+                                message: 'Observaciones a la transcripción deben contener al menos 15 caracteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },/** http://stackoverflow.com/questions/5143516/detecting-onchange-events-from-a-ckeditor-using-jquery */
+                    '{{ admin.uniqId }}[errores]': {
+                        message: 'Errores de la transcripción inválidos',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                message: 'Errores de la transcripción deben contener al menos 15 caracteres'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                            callback: {
+                                message: 'El campo no es válido',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                    var textVal = validator.getFieldElements('{{ admin.uniqId }}[errores]').val();
+                                    var optionVal = $("input[name='{{ admin.uniqId }}[idEstadoDiagnostico]']:checked").val();
+                                    
+                                    if ( optionVal == 4 ) {
+                                        if (textVal != null && textVal.length >= 1) {
+                                            return true;
+                                        }
+                                        else {
+                                            return {
+                                                valid: false,
+                                                message: 'Por favor describa los errores que encontró en la transcripción'
+                                            };
+                                        }
+                                    }
+                                    else {
+                                        if (textVal != null && textVal.length >= 1) {
+                                            return {
+                                                valid: false,
+                                                message: 'Estado no requiere se complete este campo'
+                                            };
+                                        }
+                                        else {
+                                            return true;
+                                        }
+                                    }
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                }
+            });
+            
+            /** Validación para estado del diagnóstico */
+            $(document).on('ifChanged ifClicked ifChecked', "input[name='{{ admin.uniqId }}[idEstadoDiagnostico]']", function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', '{{ admin.uniqId }}[errores]');
+            });
+            $(document).on('keyup change blur', "textarea[id='" + $token + "_errores']", function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', '{{ admin.uniqId }}[idEstadoDiagnostico]');
+            });
+        });
+    </script>

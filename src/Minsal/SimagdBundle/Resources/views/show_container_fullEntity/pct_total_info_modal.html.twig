@@ -1,0 +1,154 @@
+{# empty Twig template #}
+
+    <div id="pacienteFullData-showModalContainer" class="modal container fade justify-bootstrap-div-container simagd-full-form-container simagd-full-data-view" role="dialog" tabindex="-1" style="display: none;" data-backdrop="true" data-keyboard="true">
+	<div class="modal-content panel-info-v2">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+                <h4 class="modal-title"><i class="fa fa-folder-open"></i> Paciente registrado</h4>
+            </div>
+
+            <div class="modal-body">
+
+		<div {#style="padding-left: 15px; padding-right: 15px;"#}>
+                
+                {#<div class="panel panel-info-v2">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> <i class='fa fa-wheelchair'></i> Información del paciente </h3>
+                    </div>
+                    <div class="panel-body" >#}
+		
+		    <div class="row outer simagd-filter-content-layout" style="padding-left: 15px; padding-right: 15px; {#height: 500px; overflow-y: auto;#}">
+                
+                        <table class="table table-condensed">
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Expediente:</span></th>
+                                <td class="col-md-4">
+                                    {% if expedienteInfo is not null %}
+                                        {{ expedienteInfo.numero }}
+                                    {% endif %}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Nombre del padre:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.nombrePadre }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Habilitado:</span></th>
+                                <td class="col-md-4">
+                                    {% if expedienteInfo is not null %}
+                                        {{ expedienteInfo.habilitado ? 'Si' : 'No' }}
+                                    {% endif %}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Nombre de la madre:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.nombreMadre }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Creado:</span></th>
+                                <td class="col-md-4">
+                                    {% if expedienteInfo is not null and expedienteInfo.fechaCreacion is not null %}
+                                        {{ expedienteInfo.fechaCreacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ expedienteInfo.horaCreacion|date('H:i:s A') }}
+                                    {% endif %}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Nombre de responsable:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.nombreResponsable }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Nombre:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.primerApellido ~ ' ' ~ pacienteInfo.segundoApellido ~ ', ' ~ pacienteInfo.primerNombre ~ ' ' ~ pacienteInfo.segundoNombre }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Registrado:</span></th>
+                                <td class="col-md-4">
+                                    {% if pacienteInfo.fechaRegistro is not null %}
+                                        {{ pacienteInfo.fechaRegistro|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ pacienteInfo.fechaRegistro|date('H:i:s A') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Nació:</span></th>
+                                <td class="col-md-4">
+                                    {% if pacienteInfo.fechaNacimiento is not null %}
+                                        {{ pacienteInfo.fechaNacimiento|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ pacienteInfo.horaNacimiento|date('H:i:s A') }}
+                                    {% endif %}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Ocupación:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.idOcupacion }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Identificación:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.numeroDocIdePaciente }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Nacionalidad:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.idNacionalidad }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Direccion:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.direccion }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Responsable:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.idParentescoResponsable }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Teléfono de casa:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.telefonoCasa }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Sexo:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.idSexo }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Trabaja en:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.lugarTrabajo }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Nació en el municipio de:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.idMunicipioNacimiento }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Asegurado:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.asegurado ? 'Si' : 'No' }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Reside en el municipio de:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.idMunicipioDomicilio }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Numero de afiliación:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.numeroAfiliacion }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Estado civil:</span></th>
+                                <td class="col-md-4">
+                                    {{ pacienteInfo.idEstadoCivil }}
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+            </div>
+	</div><!-- /.modal-content -->
+    </div><!-- /.modal -->

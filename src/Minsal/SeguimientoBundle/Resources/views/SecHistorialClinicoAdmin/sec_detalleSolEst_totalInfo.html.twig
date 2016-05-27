@@ -1,0 +1,75 @@
+{# empty Twig template #}
+
+{# modal-event-calendar #}
+<div id="detalleSolEstFullData-showModalContainer" class="modal container fade justify-bootstrap-div-container" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false">
+    <div class="modal-content panel-info">
+        <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+            <h4 class="modal-title"><i class="fa fa-check-square-o"></i> Detalle de la Solicitud de Estudio</h4>
+        </div>
+
+        <div class="modal-body">
+
+            {% for detalleSolEst in detallesSolEst %}
+                <div data-id="{{ detalleSolEst.id }}" class="div-det-est-sol-completa-info">
+
+                    <table class="table table-condensed">
+                        <tr>
+                            <th class="col-md-2"><span class="simagd-text-primary">Registrado:</span></th>
+                            <td class="col-md-4">
+                                {{ detalleSolEst.fechahorareg|format_date('EEEE, MMMM d, yyyy', 'es_ES') }}
+                            </td>
+                            <th class="col-md-2"><span class="simagd-text-primary">Solicitó:</span></th>
+                            <td class="col-md-4">
+                                {{ detalleSolEst.idempleado }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-2"><span class="simagd-text-primary">Solicitado desde:</span></th>
+                            <td class="col-md-4">
+                                {{ detalleSolEst.idestablecimiento }}
+                            </td>
+                            <th class="col-md-2"><span class="simagd-text-primary">Solicitado hacia:</span></th>
+                            <td class="col-md-4">
+                                {{ detalleSolEst.idestablecimientoexterno }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-2"><span class="simagd-text-primary">Modalidad/Área:</span></th>
+                            <td class="col-md-4">
+                                {{ detalleSolEst.idexamen.idAreaServicioDiagnostico }}
+                            </td>
+                            <th class="col-md-2"><span class="simagd-text-primary">Examen requerido:</span></th>
+                            <td class="col-md-4">
+                                {{ detalleSolEst.idexamen.idExamenServicioDiagnostico }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-2"><span class="simagd-text-primary">Estado:</span></th>
+                            <td class="col-md-4">
+                                {{ detalleSolEst.estadodetalle }}
+                            </td>
+                            <th class="col-md-2"><span class="simagd-text-primary">Usuario que registró:</span></th>
+                            <td class="col-md-4">
+                                {{ detalleSolEst.idusuarioreg }} <strong> ( {{ detalleSolEst.idusuarioreg.username }} ) </strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-2"><span class="simagd-text-primary">Indicación:</span></th>
+                            <td class="col-md-4">
+                                {{ detalleSolEst.indicacion }}
+                            </td>
+                            <th class="col-md-2"><span class="simagd-text-primary">Observación:</span></th>
+                            <td class="col-md-4">
+                                {{ detalleSolEst.observacion }}
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            {% endfor %}
+            
+        </div>
+        
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->

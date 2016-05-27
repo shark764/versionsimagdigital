@@ -1,0 +1,79 @@
+{# empty Twig template #}
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        
+        $("input[id='habilitado']").iCheck({
+            checkboxClass: 'icheckbox_minimal-green',
+            radioClass: 'iradio_minimal-green',
+        });
+        
+        /** set select2 */
+        $("select[id='idAreaServicioDiagnostico']").select2({
+            placeholder: '',
+            allowClear: true,
+            dropdownAutoWidth : true
+        });
+
+	$(document).on("click", ".open-agregarEnLocalDialog", function () {
+            var explId = jQuery(this).data('id');
+            $("input[id='exploracion']").val( explId );
+            
+            var exmId = jQuery(this).data('exm');
+            $("input[id='idExamenServicioDiagnostico']").val( exmId );
+            
+            $("select[id='idAreaServicioDiagnostico']").select2('val', '');
+
+            $("input[id='areaExmEstab']").val('');
+            
+            $("textarea[id='observaciones']").val('');
+            //$("input[id='habilitado']").prop("checked", true);
+            $("form[id='agregarEnLocalForm']").data('formValidation').resetForm();
+	});
+        
+        $("select[id='idAreaServicioDiagnostico']").change(function() {
+            /** obtener MntAreaExamenEstab */
+            var idAreaServicioDiagnostico = jQuery(this).val();
+            var idExamenServicioDiagnostico = $("input[id='idExamenServicioDiagnostico']").val();
+            var inputDatos = "input[id='areaExmEstab']";
+            var ruta = 'simagd_solicitud_estudio_valorCampoCompuesto';
+            var selector = 'mr';
+            getValorCampoCompuesto(idAreaServicioDiagnostico, idExamenServicioDiagnostico, inputDatos, ruta, selector);
+        });
+        
+        /** Validación de formulario de inserción/actualización */
+        $("form[id='agregarEnLocalForm']").formValidation({
+            excluded: [':disabled'],
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                idAreaServicioDiagnostico: {
+                    message: 'Modalidad es inválida',
+                    validators: {
+                        notEmpty: {
+                            message: 'Modalidad es requerida'
+                        }
+                    }
+                },
+                observaciones: {
+                    message: 'Las observaciones digitadas de la proyección no son válidas',
+                    validators: {
+                        stringLength: {
+                            min: 5,
+                            max: 255,
+                            message: 'Las observaciones de la proyección deben contener al menos 5 carácteres y máximo 255'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                            message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                        },
+                    }
+                },
+            }
+        });
+        
+    });
+</script>

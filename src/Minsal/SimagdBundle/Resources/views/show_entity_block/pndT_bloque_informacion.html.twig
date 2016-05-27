@@ -1,0 +1,35 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed">
+        {% if pendienteTranscripcionInfo is not null %}
+            <tr>
+                <th class="col-md-2">Ingresó a la lista:</th>
+                <td class="col-md-4">
+                    {{ pendienteTranscripcionInfo.fechaIngresoLista|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ pendienteTranscripcionInfo.fechaIngresoLista|date('H:i:s A') }}
+                </td>
+                <th class="col-md-2">Transcribir lectura en:</th>
+                <td class="col-md-4">
+                    {{ pendienteTranscripcionInfo.idEstablecimiento }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Impugnado:</th>
+                <td class="col-md-4">
+                    {{ pendienteTranscripcionInfo.fueImpugnado ? 'Si' : 'No' }}
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td class="col-md-12">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only"> Cerrar </span>
+                        </button>
+                        <strong>Sin resultados!</strong> No se encontró registro.
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    </table>

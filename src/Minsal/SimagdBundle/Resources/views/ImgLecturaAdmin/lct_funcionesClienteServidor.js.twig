@@ -1,0 +1,23 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+
+            /** Bloqueo de empleado */
+            if ($is_admin === false) {
+		$("select[id='" + $token "_idEmpleado']").select2()
+			.on('select2-selecting', function(e) {
+			    e.preventDefault();
+			});
+            }
+
+            /** Bloqueo Estado */
+            if ( $("input[id='" + $token "_setLockEstado']").val() ) {
+		$("select[id='" + $token "_idEstadoLectura']").select2()
+			.on('select2-selecting', function(e) {
+			    e.preventDefault();
+			});
+            }
+            
+        });
+    </script>

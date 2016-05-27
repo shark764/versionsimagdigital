@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ImgCtlConfiguracionAgenda" table="img_ctl_configuracion_agenda">
+    <indexes>
+      <index name="IDX_16E64C79A7750BE9" columns="id_area_examen_estab"/>
+      <index name="IDX_16E64C79AC39DE56" columns="id_user_mod"/>
+      <index name="IDX_16E64C79D8A5832B" columns="id_user_reg"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="maximoCitasDia" type="smallint" column="maximo_citas_dia" nullable="true"/>
+    <field name="maximoCitasTurno" type="smallint" column="maximo_citas_turno" nullable="true"/>
+    <field name="maximoCitasHora" type="smallint" column="maximo_citas_hora" nullable="true"/>
+    <field name="maximoCitasMedico" type="smallint" column="maximo_citas_medico" nullable="true"/>
+    <many-to-one field="idUserReg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_reg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUserMod" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_mod" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idAreaExamenEstab" target-entity="MntAreaExamenEstablecimiento">
+      <join-columns>
+        <join-column name="id_area_examen_estab" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

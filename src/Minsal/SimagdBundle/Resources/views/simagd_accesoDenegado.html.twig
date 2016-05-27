@@ -1,0 +1,33 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_layout.html.twig' %}
+    
+{% block sonata_admin_content -%}
+
+    <div id="simagd-access-denied-container" style="height: 400px; min-height: 400px;">
+        {% set simagd_vars = { 'simagd_title': 'IMAGENOLOGÍA DIGITAL',
+                            'simagd_message': '<span class="text-danger">No está autorizado para ver el contenido al que intentó acceder</span>'
+        }%}
+        {% include 'MinsalSimagdBundle:Menu:simagd_cabecera.html.twig' ignore missing with simagd_vars %}
+
+        <h4><span class="simagd-text-primary"><img class="icono" src={{ asset('bundles/minsalsimagd/images/Stop.png') }} /><strong>Acceso Denegado</strong></span></h4>
+
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only"> Cerrar </span>
+            </button>
+            <span>
+                <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+                <strong>ACCESO DENEGADO!</strong> &nbsp; No tiene autorización para ver este contenido.
+            </span> 
+        </div>
+
+        <p class="text-danger" style="margin-left: 25px;">
+            Usted ha sido redirigido hacia esta página por motivos de seguridad.
+            Intentó acceder a contenido al cual no posee permisos para ver.<br/>
+            Por favor intente con otra opción del menú o consulte al administrador del sistema para mayor información.
+        </p>
+    </div>
+
+{% endblock -%}

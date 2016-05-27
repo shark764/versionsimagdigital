@@ -1,0 +1,79 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed">
+        {% if preinscripcionInfo is not null %}
+            <tr>
+                <th class="col-md-2">Preinscribe:</th>
+                <td class="col-md-4">
+                    {{ preinscripcionInfo.idEmpleado }}
+                </td>
+                <th class="col-md-2">Modalidad que solicita:</th>
+                <td class="col-md-4">
+                    {{ preinscripcionInfo.idAreaServicioDiagnostico }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Creada en:</th>
+                <td class="col-md-4">
+                    {{ preinscripcionInfo.idAtenAreaModEstab.idEstablecimiento }}
+                </td>
+                <th class="col-md-2">Estado clínico:</th>
+                <td class="col-md-4">
+                    {{ preinscripcionInfo.estadoClinico }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Proviene de:</th>
+                <td class="col-md-4">
+                    {{ preinscripcionInfo.idAtenAreaModEstab.idAreaModEstab.idAreaAtencion }}
+                </td>
+                <th class="col-md-2">Próxima consulta médica:</th>
+                <td class="col-md-4">
+                    {{ preinscripcionInfo.fechaProximaConsulta|format_date('EEEE, MMMM d, yyyy', 'es_ES') }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Servicio que refiere:</th>
+                <td class="col-md-4">
+                    {{ preinscripcionInfo.idAtenAreaModEstab.idAtencion }}
+                </td>
+                <th class="col-md-2">Requiere cita:</th>
+                <td class="col-md-4">
+                    {{ preinscripcionInfo.requiereCita ? 'Si' : 'No' }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2"><span class="simagd-text-primary">Proyecciones:</span></th>
+                <td colspan="3" class="col-md-4">
+                    <ul>
+                        {% for exploracion in preinscripcionInfo.solicitudEstudioProyeccion %}
+                            <li>
+                                <a data-toggle="modal" href="#" data-id="{{ exploracion.id }}" data-target="#exploracionSolFullData-showModalContainer" class="open-explSolDialog btn-link" title="Abrir detalles de la Proyección">
+                                    <i class="fa fa-external-link-square"></i>
+                                </a> &nbsp;
+                                <strong> {{ exploracion.idProyeccionSolicitada.idExamenServicioDiagnostico }} </strong> : {{ exploracion.idProyeccionSolicitada }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="col-md-4">
+                    <button class='btn btn-primary' data-toggle='modal' href='#preinscripcionFullData-showModalContainer' id='btn-ver-prc-total-info'>
+                        <i class="fa fa-plus-circle"></i> Ver más
+                    </button>
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <th class="col-md-4">Sin resultados</th>
+                <td class="col-md-8">
+                    <span class="form-control-static text-warning"> Solicitud de estudio a citar no encontrada </span>
+                </td>
+            </tr>
+        {% endif %}
+    </table>
+
+    {% include 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_exploracionSol_totalInfo.html.twig'
+                            ignore missing with { 'explSolicitadas': preinscripcionInfo.solicitudEstudioProyeccion } %}     {# proyección solicitada #}

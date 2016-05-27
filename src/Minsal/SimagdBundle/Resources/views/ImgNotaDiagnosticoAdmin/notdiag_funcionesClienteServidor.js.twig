@@ -1,0 +1,17 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+
+            /** Bloqueo de empleado */
+            {% if not is_granted('ROLE_ADMIN') %}
+                
+                $("div.notdiag-with-notas-nota").find('select').select2()
+                        .on('select2-selecting', function(e) {
+                            e.preventDefault();
+                        });
+                        
+            {% endif %}
+            
+        });
+    </script>

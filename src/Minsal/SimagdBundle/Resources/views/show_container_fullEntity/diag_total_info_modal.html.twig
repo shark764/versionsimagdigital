@@ -1,0 +1,112 @@
+{# empty Twig template #}
+
+    <div id="diagnosticoFullData-showModalContainer" class="modal container fade justify-bootstrap-div-container simagd-full-form-container simagd-full-data-view" role="dialog" tabindex="-1" style="display: none;" data-backdrop="true" data-keyboard="true">
+	<div class="modal-content panel-info-v2">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+                <h4 class="modal-title"><i class="fa fa-folder-open"></i> Diagnóstico radiológico transcrito</h4>
+            </div>
+
+            <div class="modal-body">
+                
+                <div class="panel panel-info-v2">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> <i class="fa fa-file-text"></i> Detalles del diagnóstico </h3>
+                    </div>
+                    <div class="panel-body" >
+                
+                        <table class="table table-condensed">
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Hallazgos:</span></th>
+                                <td colspan="3" class="col-md-10">
+                                    {{ diagnosticoInfo.hallazgos|raw }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Conclusión:</span></th>
+                                <td colspan="3" class="col-md-10">
+                                    {{ diagnosticoInfo.conclusion }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Recomendaciones:</span></th>
+                                <td colspan="3" class="col-md-10">
+                                    {{ diagnosticoInfo.recomendaciones }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Errores en la transcripción:</span></th>
+                                <td colspan="3" class="col-md-10">
+                                    {{ diagnosticoInfo.errores }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Transcribió:</span></th>
+                                <td class="col-md-4">
+                                    {{ diagnosticoInfo.idEmpleado }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Usuario que transcribió:</span></th>
+                                <td class="col-md-4">
+                                    {{ diagnosticoInfo.idUserReg.idEmpleado }} <strong> ( {{ diagnosticoInfo.idUserReg.username }} ) </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Tipo de empleado:</span></th>
+                                <td class="col-md-4">
+                                    {{ diagnosticoInfo.idEmpleado.idTipoEmpleado }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Último usuario que editó:</span></th>
+                                <td class="col-md-4">
+                                    {% if diagnosticoInfo.idUserMod is not null %}
+                                        {{ diagnosticoInfo.idUserMod.idEmpleado }} <strong> ( {{ diagnosticoInfo.idUserMod.username }} ) </strong>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Estado:</span></th>
+                                <td class="col-md-4">
+                                    {{ diagnosticoInfo.idEstadoDiagnostico }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Incidencias:</span></th>
+                                <td class="col-md-4">
+                                    {{ diagnosticoInfo.incidencias }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Se transcribió:</span></th>
+                                <td class="col-md-4">
+                                    {% if diagnosticoInfo.fechaTranscrito is not null %}
+                                        {{ diagnosticoInfo.fechaTranscrito|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ diagnosticoInfo.fechaTranscrito|date('H:i:s A') }}
+                                    {% endif %}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Observaciones:</span></th>
+                                <td class="col-md-4">
+                                    {{ diagnosticoInfo.observaciones }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Se aprobó:</span></th>
+                                <td class="col-md-4">
+                                    {% if diagnosticoInfo.fechaAprobado is not null %}
+                                        {{ diagnosticoInfo.fechaAprobado|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ diagnosticoInfo.fechaAprobado|date('H:i:s A') }}
+                                    {% endif %}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Se corrigió:</span></th>
+                                <td class="col-md-4">
+                                    {% if diagnosticoInfo.fechaCorregido is not null %}
+                                        {{ diagnosticoInfo.fechaCorregido|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ diagnosticoInfo.fechaCorregido|date('H:i:s A') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+            </div>
+	</div><!-- /.modal-content -->
+    </div><!-- /.modal -->

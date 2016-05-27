@@ -1,0 +1,83 @@
+{# empty Twig template #}
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        
+        $("input[name='estadoCitaId']").iCheck({
+            checkboxClass: 'icheckbox_minimal-red',
+            radioClass: 'iradio_minimal-red',
+        });
+
+	$(document).on("click", ".open-cancelCitaDialog", function () {
+            var citaId = jQuery(this).data('id');
+            $("input[id='citaId']").val( citaId );
+
+            $("textarea[id='razonAnuladaCita']").val('');
+            //$("#estadoCitaId6").prop("checked", true);
+            $("form[id='cancelarCitaForm']").data('formValidation').resetForm();
+            //$("form[id='cancelarCitaForm']").get(0).reset();
+	});
+        
+        /** Validación de formulario de inserción/actualización */
+        $("form[id='cancelarCitaForm']").formValidation({
+            excluded: [':disabled'],
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {/** RAZON ANULADA Y ESTADO TIENEN EL MISMO CALLBACK -- REVISAR */
+                razonAnuladaCita: {
+                    message: 'Razón de cambio de estado no válida',
+                    validators: {
+                        notEmpty: {
+                            message: 'Razón de cambio de estado requerida'
+                        },
+                        stringLength: {
+                            min: 15,
+                            max: 150,
+                            message: 'Este campo debe contener al menos 15 caracteres y máximo 150'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                            message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                        },
+                    }
+                },
+                estadoCitaId: {
+                    message: 'El elemento del formulario no es válido',
+                    validators: {
+                        notEmpty: {
+                            message: 'En qué estado desea guardar la cita'
+                        },
+                    }
+                },
+            }
+        /*})
+        .on('success.form.bv', function(e) {
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the BootstrapValidator instance
+            var bv = $form.data('formValidation');
+
+            // Use Ajax to submit form data
+            $.post($form.attr('action'), $form.serialize(), function(result) {
+                if ( result.responseCode == 200 ){
+                    generarMensajeToast('notice', 'Cita ha sido actualizada exitosamente', 'Información' );
+                    
+                    var citaInputHiddenId = $form.find('input[name="citaId"]').val();
+                    $("a[data-id='" + citaInputHiddenId + "']").remove();
+                } else{
+                    generarMensajeToast('error', 'Ocurrió un error al actualizar la cita', 'Error' );
+                }
+                // ... Process the result ...
+                console.log($form.attr('action') );
+            }, 'json');*/
+        });
+        
+    });
+</script>

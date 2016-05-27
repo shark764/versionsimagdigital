@@ -1,0 +1,50 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed">
+        {% if diagnosticoInfo is not null %}
+            <tr>
+                <th class="col-md-2">Transcribió:</th>
+                <td class="col-md-4">
+                    {{ diagnosticoInfo.idEmpleado }}
+                </td>
+                <th class="col-md-2">Se transcribió:</th>
+                <td class="col-md-4">
+                    {% if diagnosticoInfo.fechaTranscrito is not null %}
+                    	{{ diagnosticoInfo.fechaTranscrito|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ diagnosticoInfo.fechaTranscrito|date('H:i:s A') }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Estado:</th>
+                <td class="col-md-4">
+                    {{ diagnosticoInfo.idEstadoDiagnostico }}
+                </td>
+                <th class="col-md-2">Se aprobó:</th>
+                <td class="col-md-4">
+                    {% if diagnosticoInfo.fechaAprobado is not null %}
+                    	{{ diagnosticoInfo.fechaAprobado|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ diagnosticoInfo.fechaAprobado|date('H:i:s A') }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="col-md-4">
+                    <button class='btn btn-primary' data-toggle='modal' href='#diagnosticoFullData-showModalContainer' id='btn-ver-diag-total-info'>
+                        <i class="fa fa-plus-circle"></i> Ver más
+                    </button>
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td class="col-md-12">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only"> Cerrar </span>
+                        </button>
+                        <strong>Sin resultados!</strong> No se encontró registro.
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    </table>

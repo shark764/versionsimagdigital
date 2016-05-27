@@ -1,0 +1,75 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed">
+        {% if establecimientoInfo is not null %}
+            <tr>
+                <th class="col-md-2">Nombre:</th>
+                <td class="col-md-4">
+                    {{ establecimientoInfo.nombre }}
+                </td>
+                <th class="col-md-2">Dirección:</th>
+                <td class="col-md-4">
+                    {{ establecimientoInfo.direccion }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Teléfono:</th>
+                <td class="col-md-4">
+                    {{ establecimientoInfo.telefono }}
+                </td>
+                <th class="col-md-2">Nivel de atención:</th>
+                <td class="col-md-4">
+                    {{ establecimientoInfo.idNivelMinsal }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Código ( UCSF ):</th>
+                <td class="col-md-4">
+                    {{ establecimientoInfo.codUcsf }}
+                </td>
+                <th class="col-md-2">Activo:</th>
+                <td class="col-md-4">
+                    {{ establecimientoInfo.activo ? 'Si' : 'No' }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Tipo de expediente:</th>
+                <td class="col-md-4">
+                    {{ establecimientoInfo.tipoExpediente }}
+                </td>
+                <th class="col-md-2">Configurado:</th>
+                <td class="col-md-4">
+                    {{ establecimientoInfo.configurado ? 'Si' : 'No' }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Tipo de establecimiento:</th>
+                <td class="col-md-4">
+                    {{ establecimientoInfo.idTipoEstablecimiento }}
+                </td>
+                <th class="col-md-2">Municipio:</th>
+                <td class="col-md-4">
+                    {{ establecimientoInfo.idMunicipio }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Establecimiento padre:</th>
+                <td class="col-md-4">
+                    {{ establecimientoInfo.idEstablecimientoPadre }}
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td class="col-md-12">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only"> Cerrar </span>
+                        </button>
+                        <strong>Sin resultados!</strong> No se encontró registro.
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    </table>

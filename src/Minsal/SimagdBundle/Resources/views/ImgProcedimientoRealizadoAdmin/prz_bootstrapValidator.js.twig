@@ -1,0 +1,157 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        //options
+        //http://bootstrapvalidator.com/api/#update-message
+        
+        jQuery(document).ready(function() {
+            /** Validación de formulario de inserción/actualización */
+            jQuery('#simagd_entity_full_admin_form').formValidation({
+                excluded: [':disabled'],
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    '{{ admin.uniqId }}[hipotesisDiagnostica]': {
+                        message: 'Hipótesis diagnóstica inválida',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 150,
+                                message: 'La hipótesis diagnóstica debe contener al menos 15 caracteres y máximo 150'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[equipoUtilizado]': {
+                        message: 'Valor en equipo utilizado inválido',
+                        validators: {
+                            stringLength: {
+                                min: 5,
+                                max: 100,
+                                message: 'El texto en equipo utilizado debe contener al menos 5 caracteres y máximo 100'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[tecnicaUtilizada]': {
+                        message: 'Técnica utilizada inválida',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 150,
+                                message: 'La técnica utilizada debe contener al menos 15 caracteres y máximo 150'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[observaciones]': {
+                        message: 'Observaciones al registro de examen inválidas',
+                        validators: {
+                            stringLength: {
+                                min: 5,
+                                max: 255,
+                                message: 'Las observaciones al registro de examen deben contener al menos 5 caracteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                            callback: {
+                                message: 'Registro de examen sin preinscripción seleccionada',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                    var preinscripcionVal = $("input[id='" + $token + "_idSolicitudEstudio']").val();
+                                    var existsVal = false;
+                                    
+                                    existsVal = preinscripcionVal ? true : false;
+                                    
+                                    return existsVal;
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[salaRealizado]': {
+                        message: 'El valor de la sala de realización no es válido',
+                        validators: {
+                            stringLength: {
+                                min: 1,
+                                max: 50,
+                                message: 'El valor de la sala de realización debe contener al menos 5 carácteres y máximo 50'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9;,:\.()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ;,:.()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[idEstadoProcedimientoRealizado]': {
+                        message: 'Estado seleccionado inválido',
+                        validators: {
+                            notEmpty: {
+                                message: 'Estado en que se encuentra el registro de examen es requerido'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[incidencias]': {
+                        message: 'Valor en incidencias del registro de examen inválido',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 255,
+                                message: 'Este campo debe contener al menos 15 caracteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                            callback: {
+                                message: 'El campo no es válido',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                    var textVal = validator.getFieldElements('{{ admin.uniqId }}[incidencias]').val();
+                                    var optionVal = $("input[name='{{ admin.uniqId }}[idEstadoProcedimientoRealizado]']:checked").val();
+                                    
+                                    if ( optionVal >= 6 && optionVal <= 9 ) {
+                                        if (textVal != null && textVal.length >= 1) {
+                                            return true;
+                                        }
+                                        else {
+                                            return {
+                                                valid: false,
+                                                message: 'El estado seleccionado requiere descripción, por favor utilice este campo'
+                                            };
+                                        }
+                                    }
+                                    else {
+                                        return true;
+                                    }
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                }
+            });
+            
+            /** Validación para estado de procedimiento realizado */
+            $(document).on('ifChanged ifClicked ifChecked', "input[name='{{ admin.uniqId }}[idEstadoProcedimientoRealizado]']", function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', '{{ admin.uniqId }}[incidencias]');
+            });
+            $(document).on('keyup change blur', "textarea[id='" + $token + "_incidencias']", function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', '{{ admin.uniqId }}[idEstadoProcedimientoRealizado]');
+            });
+        });
+    </script>

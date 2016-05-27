@@ -1,0 +1,28 @@
+{# empty Twig template #}
+
+<script type="text/javascript">
+    
+    jQuery(document).ready(function() {
+    
+        //Mensajes de alerta, registros pendientes antes de próxima consulta médica
+        var $items = $('table').find('tbody');
+        var itemsLDanger = $items.find('tr.danger').length;
+        var itemsLWarning = $items.find('tr.warning').length;
+
+        if ( itemsLDanger ) {
+            setTimeout(function() {
+              // Do something after 2 seconds
+              generarMensajeToast('error', itemsLDanger + ' Filas marcadas en rojo. <br/>Menos de {{ _minDanger }} días restantes para ser concluidas.', '{{ _msjTitle|raw }}' );
+            }, 2000);
+        }
+
+        if ( itemsLWarning ) {
+            setTimeout(function() {
+              // Do something after 2 seconds
+              generarMensajeToast('warning', itemsLWarning + ' Filas marcadas en amarillo. <br/>Menos de {{ _minWarning }} días restantes para ser concluidas.', '{{ _msjTitle|raw }}' );
+            }, itemsLDanger ? 4000 : 2000);
+        }
+
+    });
+
+</script>

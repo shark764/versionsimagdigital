@@ -1,0 +1,23 @@
+{# empty Twig template #}
+
+{#    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            
+            var idExamenPadre = '-1';
+            
+            {% if object.idExamenServicioDiagnostico is not null %}
+                                                                
+                idExamenPadre = {{ object.idExamenServicioDiagnostico.getId()|escape('js') }};
+                console.log(idExamenPadre );
+                
+            {% endif %}
+
+	    /** envío de datos para Action que muestra info-modal */
+	    $("div[id='custom-entity-content-body']")
+                        .load( Routing.generate('simagd_imagenologia_digital_mostrarInformacionModal',
+                                    { selectorAliasModal: '{{ _entityCustomAlias }}', idExamenPadre: idExamenPadre }
+                            ));
+            
+        });
+        
+    </script>#}

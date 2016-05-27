@@ -1,0 +1,9 @@
+{# empty Twig template #}
+
+    {% if "now"|date('Y-m-d') >= _proximaConsulta|date_modify("-" ~ _dangerRow ~ " day")|date('Y-m-d') %}
+        <tr class="danger" title="{{ _proximaConsultaTitle }}">
+    {% elseif "now"|date('Y-m-d') >= _proximaConsulta|date_modify("-" ~ _warningRow ~ " day")|date('Y-m-d') %}
+        <tr class="warning" title="{{ _proximaConsultaTitle }}">
+    {% else %}
+        <tr title="{{ _proximaConsultaTitle }}">
+    {% endif %}

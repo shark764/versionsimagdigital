@@ -1,0 +1,167 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            
+            /** Validación de formulario de inserción/actualización */
+            jQuery('#simagd_entity_full_admin_form').formValidation({
+                excluded: [':disabled'],
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    primerNombre: {
+                        message: 'Texto digitado es inválido',
+                        validators: {
+                            stringLength: {
+                                min: 3,
+                                message: 'Digite al menos 3 caracteres para iniciar búsqueda'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ]+$/,
+                                message: 'Solo se aceptan caracteres alfabéticos'
+                            },
+                        }
+                    },
+                    segundoNombre: {
+                        message: 'Texto digitado es inválido',
+                        validators: {
+                            stringLength: {
+                                min: 3,
+                                message: 'Digite al menos 3 caracteres para iniciar búsqueda'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ]+$/,
+                                message: 'Solo se aceptan caracteres alfabéticos'
+                            },
+                        }
+                    },
+                    tercerNombre: {
+                        message: 'Texto digitado es inválido',
+                        validators: {
+                            stringLength: {
+                                min: 3,
+                                message: 'Digite al menos 3 caracteres para iniciar búsqueda'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ]+$/,
+                                message: 'Solo se aceptan caracteres alfabéticos'
+                            },
+                        }
+                    },
+                    primerApellido: {
+                        message: 'Texto digitado es inválido',
+                        validators: {
+                            stringLength: {
+                                min: 3,
+                                message: 'Digite al menos 3 caracteres para iniciar búsqueda'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ]+$/,
+                                message: 'Solo se aceptan caracteres alfabéticos'
+                            },
+                        }
+                    },
+                    segundoApellido: {
+                        message: 'Texto digitado es inválido',
+                        validators: {
+                            stringLength: {
+                                min: 3,
+                                message: 'Digite al menos 3 caracteres para iniciar búsqueda'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ]+$/,
+                                message: 'Solo se aceptan caracteres alfabéticos'
+                            },
+                        }
+                    },
+                    numeroExp: {
+                        message: 'Texto digitado es inválido',
+                        validators: {
+                            stringLength: {
+                                min: 1,
+                                message: 'Digite al menos 1 caracter para iniciar búsqueda'
+                            },
+                            regexp: {
+                                regexp: /^[0-9\-]+$/,
+                                message: 'Solo se aceptan caracteres numéricos y guión separador'
+                            },
+                        }
+                    },
+                    dui: {
+                        message: 'El médico intérprete del estudio es inválido',
+                        validators: {
+                            callback: {
+                                message: 'Documento Único de Identidad no es válido',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                            
+                                    if (value === '') { return true; }
+
+				    // Longitud del DUI
+		                    if (value.length < 10) {
+		                        return {
+		                            valid: false,
+		                            message: 'Número de DUI debe contener 10 carácteres, inlcuyendo guión separador'
+		                        };
+		                    }
+
+				    var regexDUIPattern = /(^\d{8})-(\d$)/;
+				    if ( !regexDUIPattern.test(value) ) {
+		                        return {
+		                            valid: false,
+		                            message: 'Número de DUI no corresponde al patrón \'99999999-9\''
+		                        };
+				    }
+				    
+				    if ( !$("input[name='dui']").isValidDUI() ) {
+		                        return {
+		                            valid: false,
+		                            message: 'Texto digitado no corresponde a un Número de DUI válido'
+		                        };
+				    }
+
+	                            return true;
+				    
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                }
+            })
+            .on('success.form.bv', function(e) {
+                // Prevent form submission
+                e.preventDefault();
+
+                // Get the form instance
+                var $form = $(e.target);
+
+                // Get the BootstrapValidator instance
+                var bv = $form.data('formValidation');
+                
+                var $formParam_object = $form.formParams();
+
+		console.log($formParam_object );
+                
+                if (!$form.checkIfEmptyForm()) {
+                    /*$("div[id='container_resultado_busquedaPaciente']").load(Routing.generate('simagd_imagenologia_digital_resultadosBusquedaPaciente'), $("form[id='formBusquedaPaciente']").serialize());*/
+                    $("div[id='container_resultado_busquedaPaciente']").fadeIn( "fast" );
+                    $("div[id='container_menu_historiaImagenologica']").fadeOut( "fast" );
+            
+                    //$('#table-resultado-busqueda').bootstrapTable('refresh', { query: $formParam_object });
+                    $('#table-resultado-busqueda').bootstrapTable('refresh', { url: Routing.generate('simagd_imagenologia_digital_resultadosBusquedaPaciente', $formParam_object) });
+                    
+		    generarMensajeToast('notice', 'Espere mientras se cargan los resultados.', 'Su búsqueda ha finalizado:' );
+                    
+                }
+                else {
+		    generarMensajeToast('error', 'Formulario vacío.', 'Error en la búsqueda:' );
+                }
+                
+            });
+            
+        });
+    </script>

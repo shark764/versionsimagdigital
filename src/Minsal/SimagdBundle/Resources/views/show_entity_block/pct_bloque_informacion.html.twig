@@ -1,0 +1,96 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed">
+        {% if pacienteInfo is not null %}
+            <tr>
+                <th class="col-md-2">Posee expediente:</th>
+                <td class="col-md-4">
+                    {{ expedienteInfo is not null ? 'Si' : 'No' }}
+                </td>
+                <th class="col-md-2">Creado:</th>
+                <td class="col-md-4">
+                    {% if expedienteInfo is not null and expedienteInfo.fechaCreacion is not null %}
+                        {{ expedienteInfo.fechaCreacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ expedienteInfo.horaCreacion|date('H:i:s A') }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Expediente:</th>
+                <td class="col-md-4">
+                    {% if expedienteInfo is not null %}
+                        {{ expedienteInfo.numero }}
+                    {% endif %}
+                </td>
+                <th class="col-md-2">Habilitado:</th>
+                <td class="col-md-4">
+                    {% if expedienteInfo is not null %}
+                        {{ expedienteInfo.habilitado ? 'Si' : 'No' }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Nombre:</th>
+                <td class="col-md-4">
+                    {{ pacienteInfo.primerApellido ~ ' ' ~ pacienteInfo.segundoApellido ~ ', ' ~ pacienteInfo.primerNombre ~ ' ' ~ pacienteInfo.segundoNombre }}
+                </td>
+                <th class="col-md-2">Registrado:</th>
+                <td class="col-md-4">
+                    {% if pacienteInfo.fechaRegistro is not null %}
+                        {{ pacienteInfo.fechaRegistro|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ pacienteInfo.fechaRegistro|date('H:i:s A') }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Nació:</th>
+                <td class="col-md-4">
+                    {% if pacienteInfo.fechaNacimiento is not null %}
+                        {{ pacienteInfo.fechaNacimiento|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ pacienteInfo.horaNacimiento|date('H:i:s A') }}
+                    {% endif %}
+                </td>
+                <th class="col-md-2">Ocupación:</th>
+                <td class="col-md-4">
+                    {{ pacienteInfo.idOcupacion }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Identificación:</th>
+                <td class="col-md-4">
+                    {{ pacienteInfo.numeroDocIdePaciente }}
+                </td>
+                <th class="col-md-2">Nacionalidad:</th>
+                <td class="col-md-4">
+                    {{ pacienteInfo.idNacionalidad }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Sexo:</th>
+                <td class="col-md-4">
+                    {{ pacienteInfo.idSexo }}
+                </td>
+                <th class="col-md-2">Estado civil:</th>
+                <td class="col-md-4">
+                    {{ pacienteInfo.idEstadoCivil }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="col-md-4">
+                    <button class='btn btn-primary' data-toggle='modal' href='#pacienteFullData-showModalContainer' id='btn-ver-pct-total-info'>
+                        <i class="fa fa-plus-circle"></i> Ver más
+                    </button>
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td class="col-md-12">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only"> Cerrar </span>
+                        </button>
+                        <strong>Sin resultados!</strong> No se encontró registro.
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    </table>

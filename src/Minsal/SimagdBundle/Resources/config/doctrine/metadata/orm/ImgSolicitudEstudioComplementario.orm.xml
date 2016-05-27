@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ImgSolicitudEstudioComplementario" table="img_solicitud_estudio_complementario">
+    <indexes>
+      <index name="IDX_B9037825992127D5" columns="id_area_servicio_diagnostico"/>
+      <index name="IDX_B90378259A3949E3" columns="id_establecimiento_solicitado"/>
+      <index name="IDX_B9037825AB124167" columns="id_estado_solicitud"/>
+      <index name="IDX_B9037825F485B2E3" columns="id_estudio_padre"/>
+      <index name="IDX_B90378257E7CB1E8" columns="id_prioridad_atencion"/>
+      <index name="IDX_B90378254E924116" columns="id_radiologo_solicita"/>
+      <index name="IDX_B90378256AAA01BF" columns="id_solicitud_estudio"/>
+      <index name="IDX_B9037825D8A5832B" columns="id_user_reg"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="fechaSolicitud" type="datetime" column="fecha_solicitud" nullable="true"/>
+    <field name="justificacion" type="string" column="justificacion" length="255" nullable="true"/>
+    <field name="indicacionesEstudio" type="text" column="indicaciones_estudio" nullable="true"/>
+    <many-to-one field="idRadiologoSolicita" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_radiologo_solicita" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idSolicitudEstudio" target-entity="ImgSolicitudEstudio">
+      <join-columns>
+        <join-column name="id_solicitud_estudio" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUserReg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_reg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idPrioridadAtencion" target-entity="ImgCtlPrioridadAtencion">
+      <join-columns>
+        <join-column name="id_prioridad_atencion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstudioPadre" target-entity="ImgEstudioPaciente">
+      <join-columns>
+        <join-column name="id_estudio_padre" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimientoSolicitado" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento_solicitado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstadoSolicitud" target-entity="ImgCtlEstadoSolicitud">
+      <join-columns>
+        <join-column name="id_estado_solicitud" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idAreaServicioDiagnostico" target-entity="CtlAreaServicioDiagnostico">
+      <join-columns>
+        <join-column name="id_area_servicio_diagnostico" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

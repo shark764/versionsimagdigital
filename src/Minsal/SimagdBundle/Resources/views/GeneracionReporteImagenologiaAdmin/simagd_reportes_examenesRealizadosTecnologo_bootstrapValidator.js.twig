@@ -1,0 +1,120 @@
+{# empty Twig template #}
+
+{# BOOTSTRAP VALIDATOR - CSS
+http://doc.javake.cn/bootstrap-validator/validators/ip/
+https://github.com/nghuuphuoc/bootstrapvalidator/blob/master/demo/selector.html
+http://www.bootply.com/dzv0yijvI5
+http://getbootstrap.com/css/#forms-horizontal
+https://fk.github.io/select2-bootstrap-css/master.html
+http://habrahabr.ru/post/142304/
+#}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+
+            /** Validación de formulario de envío de parametros */
+            $("form[id='formExamenesRealizadosTecnologo']").bootstrapValidator({
+                //excluded: [':disabled'],
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    fechaIni_6: {
+                        message: 'Fecha es inválida',
+                        validators: {
+                            notEmpty: {
+                                message: 'Fecha de inicio es requerida'
+                            },
+                        }
+                    },
+                    fechaFin_6: {
+                        message: 'Fecha es inválida',
+                        validators: {
+                            callback: {
+                                message: 'No puede seleccionar esta fecha',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                            
+                                    if (value === '') { return true; }
+                                    
+                                    var dateIniAsObject = $("#fechaIni_6").datepicker( 'getDate' );
+                                    var dateFinAsObject = $("#fechaFin_6").datepicker( 'getDate' );
+                                    
+		                    if ( dateIniAsObject && dateFinAsObject && dateIniAsObject > dateFinAsObject ) {
+		                        return {
+		                            valid: false,
+		                            message: 'Fecha inicial no puede ser mayor a final'
+		                        };
+		                    }
+
+	                            return true;
+				    
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                    tecnologoRealizo_6: {
+                        message: 'Tecnólogo es inválido',
+                        validators: {
+                            notEmpty: {
+                                message: 'Tecnólogo examinante es requerido'
+                            },
+                        }
+                    },
+                }
+            })
+            .on('success.form.bv', function(e) {
+                // Prevent form submission
+                e.preventDefault();
+
+                // Get the form instance
+                var $form = $(e.target);
+
+                // Get the BootstrapValidator instance
+                var bv = $form.data('bootstrapValidator');
+                
+                var $formParam_object = $form.formParams();
+		var opcionesGeneralesObject = {
+			report_format: $("select[id='report_format']").val(),
+			limite_resultados: $("select[id='limite_resultados']").val()
+		};
+		$.extend( $formParam_object, opcionesGeneralesObject );
+
+		console.log($formParam_object );
+                
+                var url = Routing.generate('simagd_generacion_reporte_generarReporteImagenologico', $formParam_object);
+                window.open(url, '_blank');
+
+                console.log(url );
+            });
+            
+        });
+    </script>
+    
+    
+    {# bt submit handler 
+http://stackoverflow.com/questions/19554488/request-uri-too-large-need-to-use-serialized-with-post
+http://community.sitepoint.com/t/form-wont-submit-after-validation-triggers/43276
+http://stackoverflow.com/questions/20893573/ajax-submits-the-form-even-if-its-not-validated-with-bootstrap-validation
+http://stackoverflow.com/questions/24376727/stopping-default-form-submit-in-bootstrap-validator-form
+http://bootstrapvalidator.com/examples/ajax-submit/
+http://bootstrapvalidator.com/api/
+
+http://www.papalporno.com/video/devon-and-regan-reese-lesbian-action/579751
+http://www.papalporno.com/quartnee-reese/all/videos/2.html
+    #}
+    
+    {# bootstrap
+http://doc.javake.cn/bootstrap-validator/examples/
+http://jsfiddle.net/T86h8/
+http://bootstrapvalidator.com/examples/multiple/
+http://bootstrapvalidator.com/validators/different/
+http://stackoverflow.com/questions/17135127/bootstrap-radio-group-jquery-validation
+http://jsfiddle.net/3vwWL/
+http://www.templatemonster.com/help/es/js-animated-how-to-work-with-fullcalendar-plugin.html
+http://sonata-project.org/bundles/core/master/doc/_images/datepicker.png
+https://www.google.com.sv/?gws_rd=cr,ssl&ei=ez9lVMa3FcOdNo6Dg6gP
+#}

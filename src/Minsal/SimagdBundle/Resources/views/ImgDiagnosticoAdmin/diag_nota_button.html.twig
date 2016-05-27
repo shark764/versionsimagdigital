@@ -1,0 +1,13 @@
+{# empty Twig template #}
+
+{% if admin.hasRoute('nota') and object.idEstadoDiagnostico.id in [6] and
+		( ( ( app.user.getIdEmpleado.getIdTipoEmpleado.codigo == 'MED' or app.user.getIdEmpleado.getIdTipoEmpleado.codigo == 'TRY' ) and
+		( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_NOTA_DIAGNOSTICO_CREATE') or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_NOTA_DIAGNOSTICO_EDIT') ) ) or
+                    is_granted('ROLE_ADMIN') )
+%}
+
+    <a class="text-warning sonata-action-element" href="{{ admin.generateObjectUrl('nota', object) }}" title="Agregar nota al diagnóstico">
+        <i class="glyphicon glyphicon-comment"></i>
+        Agregar nota</a>
+
+{% endif %}

@@ -1,0 +1,223 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+/*        http://doc.javake.cn/bootstrap-validator/settings/
+        https://github.com/nghuuphuoc/bootstrapvalidator/blob/master/demo/selector.html
+        http://www.bootply.com/dzv0yijvI5
+        http://bootstrapvalidator.com/examples/icheck/
+        http://bootstrapvalidator.com/api/#revalidate-field*/
+    
+        jQuery(document).ready(function() {
+            /** Validación de formulario de inserción/actualización */
+            jQuery('#simagd_entity_full_admin_form').formValidation({
+                excluded: [':disabled'],
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {/** RAZON ANULADA Y ESTADO TIENEN EL MISMO CALLBACK -- REVISAR */
+                    '{{ admin.uniqId }}[fechaProgramada]': {
+                        message: 'El elemento del formulario no es válido',
+                        validators: {
+                            notEmpty: {
+                                message: 'Fecha de programación de cita requerida'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[observaciones]': {
+                        message: 'El elemento del formulario no es válido',
+                        validators: {
+                            stringLength: {
+                                min: 5,
+                                max: 255,
+                                message: 'La descripión debe contener al menos 5 caracteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[razonAnulada]': {
+                        message: 'El elemento del formulario no es válido',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 150,
+                                message: 'Este campo debe contener al menos 15 caracteres y máximo 150'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                            callback: {
+                                message: 'El campo no es válido',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                    var textVal = validator.getFieldElements('{{ admin.uniqId }}[razonAnulada]').val();
+                                    var optionVal = $("input[name='{{ admin.uniqId }}[idEstadoCita]']:checked").val();
+                                    
+                                    if ( optionVal == 5 || optionVal == 6 ) {
+                                        if (textVal != null && textVal.length >= 1) {
+                                            return true;
+                                        }
+                                        else {
+                                            return {
+                                                valid: false,
+                                                message: 'Estado seleccionado requiere justificación, por favor utilice este campo'
+                                            };
+                                        }
+                                    }
+                                    else {
+                                        if (textVal != null && textVal.length >= 1) {
+                                            return {
+                                                valid: false,
+                                                message: 'Estado no requiere se complete este campo'
+                                            };
+                                        }
+                                        else {
+                                            return true;
+                                        }
+                                    }
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[nombreResponsableAutoriza]': {
+                        message: 'El elemento del formulario no es válido',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 75,
+                                message: 'Este campo debe contener al menos 15 caracteres y máximo 75'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ,\.\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, ,. )'
+                            },
+                            callback: {
+                                message: 'El campo no es válido',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                    var textVal = validator.getFieldElements('{{ admin.uniqId }}[nombreResponsableAutoriza]').val();
+                                    var checkboxAutorizarVal = $("input:checkbox[id='" + $token + "_necesitaAutorizacion']");
+                                    var checkboxAutorizadaVal = $("input:checkbox[id='" + $token + "_citaAutorizada']");
+                                            
+                                    if (textVal != null && textVal.length >= 1) {
+                                        if (checkboxAutorizarVal.is(':checked') && checkboxAutorizadaVal.is(':checked')) {
+                                            return true;
+                                        }
+                                        else {
+                                            return false;
+                                        }
+                                    }
+                                    else {
+                                        if (checkboxAutorizarVal.is(':checked') || checkboxAutorizadaVal.is(':checked')) {
+                                            return false;
+                                        }
+                                        else {
+                                            return true;
+                                        }
+                                    }
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[idResponsableAutoriza]': {
+                        message: 'El elemento del formulario no es válido',
+                        validators: {
+                            callback: {
+                                message: 'El elemento seleccionado no es válido',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                    var optionVal = validator.getFieldElements('{{ admin.uniqId }}[idResponsableAutoriza]').val();
+                                    var checkboxAutorizarVal = $("input:checkbox[id='" + $token + "_necesitaAutorizacion']");
+                                    var checkboxAutorizadaVal = $("input:checkbox[id='" + $token + "_citaAutorizada']");
+                                            
+                                    if (optionVal != null && optionVal.length >= 1) {
+                                        if (checkboxAutorizarVal.is(':checked') && checkboxAutorizadaVal.is(':checked')) {
+                                            return true;
+                                        }
+                                        else {
+                                            return false;
+                                        }
+                                    }
+                                    else {
+                                        if (checkboxAutorizarVal.is(':checked') || checkboxAutorizadaVal.is(':checked')) {
+                                            return false;
+                                        }
+                                        else {
+                                            return true;
+                                        }
+                                    }
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[idEstadoCita]': {
+                        message: 'El elemento del formulario no es válido',
+                        validators: {
+                            notEmpty: {
+                                message: 'Se requiere especifique en que estado se encuentra la cita'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[incidencias]': {
+                        message: 'El elemento del formulario no es válido',
+                        validators: {
+                            stringLength: {
+                                min: 5,
+                                max: 255,
+                                message: 'Este campo debe contener al menos 5 caracteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                            callback: {
+                                message: 'Cita sin preinscripción seleccionada',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                    var preinscripcionVal = $("input[id='" + $token + "_idSolicitudEstudio']").val();
+                                    var existsVal = false;
+                                    
+                                    existsVal = preinscripcionVal ? true : false;
+                                    
+                                    return existsVal;
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                }
+            });
+            
+            /** Validación para autorización de estudio */
+            $(document).on('ifChanged', "input:checkbox[id='" + $token + "_necesitaAutorizacion'], input:checkbox[id='" + $token + "_citaAutorizada']", function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', '{{ admin.uniqId }}[idResponsableAutoriza]');
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', '{{ admin.uniqId }}[nombreResponsableAutoriza]');
+            });
+            $("select[id='" + $token + "_idResponsableAutoriza']").change(function() {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', '{{ admin.uniqId }}[nombreResponsableAutoriza]');
+            });
+            
+            /** Validación para estado de cita */
+            $(document).on('ifChanged ifClicked ifChecked', "input[name='{{ admin.uniqId }}[idEstadoCita]']", function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', '{{ admin.uniqId }}[razonAnulada]');
+            });
+            $(document).on('keyup change blur', "textarea[id='" + $token + "_razonAnulada']", function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', '{{ admin.uniqId }}[idEstadoCita]');
+            });
+
+            /** Validación para programación de cita */
+            $(document).on('change', "input[id='" + $token + "_fechaProgramada']", function( event ) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', jQuery(this).attr('name'));
+                console.log(jQuery(this).attr('name') );
+            });
+        
+        });
+    </script>

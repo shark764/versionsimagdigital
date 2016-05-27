@@ -1,0 +1,758 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_list_v2.html.twig' %}
+
+{# Permisos lecturas #}
+{% set _LCT_ALLOW_CREATE = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _LCT_ALLOW_EDIT = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_EDIT') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _LCT_ALLOW_LIST = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _LCT_ALLOW_VIEW = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_VIEW') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{# Permisos diagnósticos #}
+{% set _DIAG_ALLOW_CREATE = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _DIAG_ALLOW_EDIT = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_EDIT') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _DIAG_ALLOW_LIST = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _DIAG_ALLOW_VIEW = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_VIEW') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{# Permisos notas #}
+{% set _NOTDIAG_ALLOW_CREATE = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_NOTA_DIAGNOSTICO_CREATE') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _NOTDIAG_ALLOW_EDIT = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_NOTA_DIAGNOSTICO_EDIT') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _NOTDIAG_ALLOW_LIST = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_NOTA_DIAGNOSTICO_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _NOTDIAG_ALLOW_VIEW = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_NOTA_DIAGNOSTICO_VIEW') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{# Permisos pendiente lecturas #}
+{% set _PNDL_ALLOW_CREATE   = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PENDIENTE_LECTURA_CREATE') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _PNDL_ALLOW_EDIT     = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PENDIENTE_LECTURA_EDIT') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _PNDL_ALLOW_LIST     = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PENDIENTE_LECTURA_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{# Permisos pendiente lecturas personales #}
+{% set _PNDLPR_ALLOW_LIST = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_MIS_LECTURAS_NO_CONCLUIDAS_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{# Permisos pendiente transcripciones #}
+{% set _PNDT_ALLOW_CREATE   = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PENDIENTE_TRANSCRIPCION_CREATE') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _PNDT_ALLOW_EDIT     = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PENDIENTE_TRANSCRIPCION_EDIT') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _PNDT_ALLOW_LIST     = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PENDIENTE_TRANSCRIPCION_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{# Permisos pendiente transcripciones personales #}
+{% set _PNDTPR_ALLOW_LIST   = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_MIS_TRANSCRIPCIONES_NO_CONCLUIDAS_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{# Permisos validar #}
+{% set _PNDV_ALLOW_CREATE   = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PENDIENTE_VALIDACION_CREATE') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _PNDV_ALLOW_EDIT = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PENDIENTE_VALIDACION_EDIT') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _PNDV_ALLOW_LIST = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PENDIENTE_VALIDACION_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {# bootstrap text-editor summernote #}
+    <link href="{{ asset('bundles/minsalsimagd/summernote-master/dist/summernote.css') }}" type="text/css" rel="stylesheet" />
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        /*
+         * 
+         * @type String
+         * navbar menu container for bstables
+         */
+        var $pattern_bstable_container  = 'menu-listas-resultados-radiologicos';
+        
+        /** Lista de patrones para diagnósticos */
+	var {#$DIAGNOSTIC_PATTERN_LIST            = null,#}
+            $isGranted_assigInterpretationWorklist,
+            $isGranted_assigTranscriptionWorklist,
+            $isGranted_assigValidationWorklist;
+
+        $isGranted_assigInterpretationWorklist	= {% if _PNDL_ALLOW_EDIT == true or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') %} true {% else %} false {% endif %};
+        $isGranted_assigTranscriptionWorklist	= {% if _PNDT_ALLOW_EDIT == true or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') %} true {% else %} false {% endif %};
+        $isGranted_assigValidationWorklist	= {% if _PNDV_ALLOW_EDIT == true and (is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') and is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE')) %} true {% else %} false {% endif %};
+	
+        {#jQuery(document).ready(function() {
+            /*
+             * get sources from remote
+             */
+            var $getJSON_url            = 'simagd_patron_diagnostico_listarPatronesDiagnostico';  // --| url to get the sources
+            $.getJSON(Routing.generate($getJSON_url), {
+                filters: JSON.stringify([]),
+            })
+            .done(function(data) {
+                /*
+                 * set the sources in $DIAGNOSTIC_PATTERN_LIST object
+                 */
+                $DIAGNOSTIC_PATTERN_LIST        = data;
+                console.log('set the sources in $DIAGNOSTIC_PATTERN_LIST object', data);
+            })
+            .fail(function(jqxhr, textStatus, error) {
+                var err                 = textStatus + ", " + error;
+                console.log( "Request failed: " + err );
+                
+                $DIAGNOSTIC_PATTERN_LIST        = [];
+            });
+        });#}
+
+        (function ($) {
+            /*
+             * 
+             * @type type
+             * Global variables for plugin
+             */
+            window.$DIAGNOSTIC_PATTERN_LIST = null;   // --| build data collection
+            $DIAGNOSTIC_PATTERN_LIST    = JSON.parse('{{ DIAGNOSTIC_PATTERN_LIST|json_encode|e('js')|raw }}');
+            console.log('$DIAGNOSTIC_PATTERN_LIST', $DIAGNOSTIC_PATTERN_LIST);
+
+        }(jQuery));
+        
+        console.log('%c typeahead overslap button can be solved by adding 100% width again', 'background: #f00; color: #bada55');
+        
+    </script>
+
+    {# bootstrap text-editor summernote #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/summernote-master/dist/summernote.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/summernote-master/lang/summernote-es-ES.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_summernote_config.js') }}" ></script>
+    
+    {# google chrome - SpeechRecognition #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_webkitSpeechRecognition.js') }}" ></script>
+
+    {# Script lct #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgLecturaAdmin/lct_list_v2.js') }}" ></script>
+    {# Script diag #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgDiagnosticoAdmin/diag_list_v2.js') }}" ></script>
+    {# Script notdiag #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgNotaDiagnosticoAdmin/notdiag_list_v2.js') }}" ></script>
+
+    {# Script pndL #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgPendienteLecturaAdmin/pndL_assignRadX_alert.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgPendienteLecturaAdmin/pndL_list_v2.js') }}" ></script>
+    {# Script pndLPr #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgPendienteLecturaAdmin/pndL_personal_list_v2.js') }}" ></script>
+
+    {# Script pndT #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgPendienteTranscripcionAdmin/pndT_assignTrcX_alert.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgPendienteTranscripcionAdmin/pndT_list_v2.js') }}" ></script>
+    {# Script pndTPr #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgPendienteTranscripcionAdmin/pndT_personal_list_v2.js') }}" ></script>
+    
+    {# Scripts pndV #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgPendienteValidacionAdmin/pndV_valid_diag_alert.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgPendienteValidacionAdmin/pndV_assignRadXValid_alert.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgPendienteValidacionAdmin/pndV_list_v2.js') }}" ></script>
+
+{% endblock %}
+
+{% block simagd_bs_alert %}
+    {{ parent() }}
+
+    {% include 'MinsalSimagdBundle:ImgPendienteLecturaAdmin:pndL_assignRadX_alert.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgPendienteTranscripcionAdmin:pndT_assignTrcX_alert.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgPendienteValidacionAdmin:pndV_assignRadXValid_alert.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgPendienteValidacionAdmin:pndV_valid_diag_alert.html.twig' %}
+{% endblock %}
+    
+{% block simagd_navbar_menu_label %}
+    <i class="fa fa-user-md"></i> <i class="fa fa-microphone"></i> Resultados de Rayos X
+{% endblock %}
+
+{% block simagd_navbar_left_nav %}
+    <li class="list-table-link-navbar-parent dropdown active">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="text-info"><i class="fa fa-microphone"></i> <i class="fa fa-list-ul"></i> </span> Resultados <span class="text-info"><span class="caret"></span></span></a>
+	<ul class="dropdown-menu" role="menu">
+	    <li class="list-table-link-navbar active {% if _LCT_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
+		<a href="javascript:void(0)" id="show-table-lecturas-list" data-divtabletarget="div-resultado-lecturas-realizadas"
+			{% if _LCT_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+                    <span class="glyphicon glyphicon-adjust "></span> Interpretaciones
+		</a>
+	    </li>
+	    <li class="divider"></li>
+	    <li class="list-table-link-navbar {% if _DIAG_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
+		<a href="javascript:void(0)" id="show-table-diagnosticos-list" data-divtabletarget="div-resultado-diagnosticos-transcritos"
+			{% if _DIAG_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+		    <span class="glyphicon glyphicon-headphones "></span> Transcripciones
+		</a>
+	    </li>
+	    <li class="divider"></li>
+	    <li class="list-table-link-navbar {% if _NOTDIAG_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
+		<a href="javascript:void(0)" id="show-table-notas-diagnostico-list" data-divtabletarget="div-resultado-notas-diagnostico"
+			{% if _NOTDIAG_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+		    <span class="glyphicon glyphicon-comment "></span> Notas a diagnósticos
+		</a>
+	    </li>
+	</ul>
+    </li>
+{% endblock %}
+
+{% block simagd_navbar_middle_nav %}
+    <form class="navbar-form navbar-left navbar-input-group" role="search">
+	<div class="form-group has-feedback">
+	    <input type="text" class="typeahead explocal_navbar_typeahead form-control" autocomplete="off" placeholder="expediente" id="navbar_filter_expNumero" name="navbar_filter_expNumero" data-xparam-filter="true">
+	    <i class="glyphicon glyphicon-remove-circle form-control-feedback typeahead-custom-clear" id="clear-typeahead-filter-exp"></i>
+	</div>
+        <button type="submit" id="btn_search_filter_expNumero" name="btn_search_filter_expNumero" class="btn btn-primary-v2 {#btn-sm#}">
+            <i class="fa fa-search"></i>
+        </button>
+    </form>
+{% endblock %}
+
+{% block simagd_navbar_right_nav %}
+    <li class="list-table-link-navbar-parent dropdown">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="text-info"><i class="fa fa-microphone"></i> <i class="fa fa-list-ul"></i> </span> Resultados pendientes <span class="text-info"><span class="caret"></span></span></a>
+	<ul class="dropdown-menu" role="menu">
+	    <li class="list-table-link-navbar {% if _PNDL_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
+		<a href="javascript:void(0)" id="show-table-general-list" data-divtabletarget="div-resultado-lecturas-pendientes"
+			{% if _PNDL_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+                    <span class="glyphicon glyphicon-tasks "></span> Interpretaciones pendientes
+		</a>
+	    </li>
+	    <li class="list-table-link-navbar {% if _PNDLPR_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
+		<a href="javascript:void(0)" id="show-table-personal-list" data-divtabletarget="div-resultado-lecturas-personal-pendientes"
+			{% if _PNDLPR_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+		    <span class="glyphicon glyphicon-user "></span> Listado personal
+		</a>
+	    </li>
+	    <li class="divider"></li>
+	    <li class="list-table-link-navbar {% if _PNDT_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
+		<a href="javascript:void(0)" id="show-trc_table-general-list" data-divtabletarget="div-resultado-transcripciones-pendientes"
+		    {% if _PNDT_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+                    <span class="glyphicon glyphicon-tasks "></span> Transcripciones pendientes
+		</a>
+	    </li>
+	    <li class="list-table-link-navbar {% if _PNDTPR_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
+		<a href="javascript:void(0)" id="show-trc-table-personal-list" data-divtabletarget="div-resultado-transcripciones-personal-pendientes"
+		    {% if _PNDTPR_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+		    <span class="glyphicon glyphicon-user "></span> Listado personal
+		</a>
+	    </li>
+	    <li class="divider"></li>
+	    <li class="list-table-link-navbar {% if _PNDV_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
+		<a href="javascript:void(0)" id="show-table-sin-validar-list" data-divtabletarget="div-resultado-sin-validar"
+			{% if _PNDV_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+		    <span class="glyphicon glyphicon-check "></span> Resultados sin validar
+		</a>
+	    </li>
+	</ul>
+    </li>
+    <li>
+        <div style="padding-top: 10px; padding-left: 10px;">
+            <button id="btn_start_recognition" class="btn btn-element-v2 btn-sm btn_start_recognition" title="Iniciar transcripción por voz" >
+                <i class="fa fa-microphone" id="icon_start_recognition"></i>
+            </button>
+        </div>
+    </li>
+{% endblock %}
+    
+{% block sonata_admin_content -%}
+    {#<span class="label label-primary-v2">NOTA DIAG NO PUEDE TENER EL summernote EMPTY</span>
+    <span class="label label-success-v2">|RAW DEBE SER EL ULTIMO FILTRO EN TWIG</span>#}
+    {#<span class="label label-primary-v2">TRIGGERS DEBEN SER REVISADOS, SOBRE TODO LOS DE PENDIENTE_LECTURA<br/></span>#}
+    {{ parent() }}
+
+    {% if _LCT_ALLOW_LIST == true %}
+        <!-- toolbar for table-lista-lecturas -->
+        {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'lct' } %}
+        <!-- END --| toolbar for table-lista-lecturas -->
+        
+	<div id="div-resultado-lecturas-realizadas" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_lectura_listarLecturas') }}">
+	    <table class="table table-condensed" id="table-lista-lecturas"
+		  data-toggle="table"
+		  data-id-field="lct_id"
+		  data-url="{{ path('simagd_lectura_listarLecturas') }}"
+		  data-backup-url="simagd_lectura_listarLecturas"
+                  data-toolbar="#bs_lct_toolbar"
+		  data-cache="false"
+		  data-show-refresh="true"
+		  data-show-toggle="true"
+		  data-show-columns="true"
+		  data-search="true"
+		  data-select-item-name="listaLecturasToolbar"
+		  data-pagination="true"
+		  data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+{#                  data-detail-view="true"#}
+{#                  data-detail-formatter="lct_detailFormatter"#}
+		  {#data-sort-name="id"
+		  data-sort-order="desc"#}
+		  data-classes="table table-hover table-condensed table-no-bordered"
+		  data-height="760">
+		<thead>
+		    <tr style="background-color: #31708f; color: #fff;">
+			{#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
+			<th data-field="lct_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
+			<th data-field="prc_origen" data-filter-bstable-apply="true" data-filter-bstable-by="stdroot_id" data-filter-bstable-type="select2" data-formatter="simagdOrigenFormatter" {#data-visible="false"#} class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>
+			<th data-field="prc_paciente" data-filter-bstable-apply="false" data-filter-bstable-by="pct_id" data-filter-bstable-type="select2" data-filter-bstable-remote-data-source="true" data-formatter="simagdPacienteFormatter" data-switchable="false" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Paciente</th>
+			<th data-field="prc_solicitante" data-filter-bstable-apply="true" data-filter-bstable-by="empprc_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Solicitó</th>
+			<th data-field="prc_areaAtencion" data-filter-bstable-apply="true" data-filter-bstable-by="ar_id" data-filter-bstable-type="select2" data-formatter="simagdAreaAtencionFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Procedencia</th>
+			<th data-field="prc_atencion" data-filter-bstable-apply="true" data-filter-bstable-by="atn_id" data-filter-bstable-type="select2" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Servicio clínico</th>
+			<th data-field="prc_modalidad" data-filter-bstable-apply="true" data-filter-bstable-by="m_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Modalidad</th>
+			<th data-field="prc_referido" data-filter-bstable-apply="true" data-filter-bstable-by="stdref_id" data-filter-bstable-type="select2" data-formatter="simagdReferidoFormatter" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizado en</th>
+			<th data-field="prz_tecnologo" data-filter-bstable-apply="true" data-filter-bstable-by="tcnlprz_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizó</th>
+			<th data-field="prz_estado" data-filter-bstable-apply="true" data-filter-bstable-by="statusprz_id" data-filter-bstable-type="select2" data-visible="false" data-formatter="simagdEstadoEstudioFormatter" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Estado (estudio)</th>
+			<th data-field="lct_estado" data-filter-bstable-apply="true" data-filter-bstable-by="statuslct_id" data-filter-bstable-type="select2" class="col-md-1" data-formatter="simagdEstadoLecturaFormatter" data-align="left" data-halign="center" data-sortable="true">Estado</th>
+			<th data-field="lct_tipoResultado" data-filter-bstable-apply="true" data-filter-bstable-by="tipoR_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Tipo de Resultado</th>
+			<th data-field="lct_radiologo" data-filter-bstable-apply="true" data-filter-bstable-by="emplct_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Interpretó</th>
+			<th data-field="lct_fechaLectura" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se interpretó</th>
+			<th data-field="lct_correlativo" data-filter-bstable-apply="true" data-filter-bstable-type="text" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Correlativo</th>
+			<th data-field="lct_lecturaRemota" data-formatter="remotaFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Fué remota</th>
+			<th data-field="lct_solicitadaPorRadiologo" data-formatter="solicitadaPorRadiologoFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Requerido por radiólogo</th>
+			<th data-field="lct_radiologoSol" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Requirió (Radiólogo)</th>
+			<th data-field="lct_radiologoVal" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Validará</th>
+			<th data-field="action" data-formatter="lectura_actionFormatter" data-events="lectura_actionEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+		    </tr>
+		</thead>
+	    </table>
+	</div>
+    {% endif %}
+
+    {% if _DIAG_ALLOW_LIST == true %}
+        <!-- toolbar for table-lista-diagnosticos -->
+        {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'diag' } %}
+        <!-- END --| toolbar for table-lista-diagnosticos -->
+        
+	<div id="div-resultado-diagnosticos-transcritos" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_diagnostico_listarDiagnosticos') }}">
+	    <table class="table table-condensed" id="table-lista-diagnosticos"
+		  data-toggle="table"
+		  data-id-field="diag_id"
+		  data-url=""
+                  data-backup-url="simagd_diagnostico_listarDiagnosticos"
+                  data-toolbar="#bs_diag_toolbar"
+		  data-cache="false"
+		  data-show-refresh="true"
+		  data-show-toggle="true"
+		  data-show-columns="true"
+		  data-search="true"
+		  data-select-item-name="listaDiagnosticosToolbar"
+		  data-pagination="true"
+		  data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+		  {#data-sort-name="id"
+		  data-sort-order="desc"#}
+		  data-classes="table table-hover table-condensed table-no-bordered"
+		  data-height="760">
+		<thead>
+		    <tr style="background-color: #31708f; color: #fff;">
+			{#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
+			<th data-field="diag_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
+			<th data-field="prc_origen" data-filter-bstable-apply="true" data-filter-bstable-by="stdroot_id" data-filter-bstable-type="select2" data-formatter="simagdOrigenFormatter" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>
+			<th data-field="prc_paciente" data-filter-bstable-apply="false" data-filter-bstable-by="pct_id" data-filter-bstable-type="select2" data-filter-bstable-remote-data-source="true" data-formatter="simagdPacienteFormatter" data-switchable="false" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Paciente</th>
+			<th data-field="prc_solicitante" data-filter-bstable-apply="true" data-filter-bstable-by="empprc_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Solicitó</th>
+			<th data-field="prc_areaAtencion" data-filter-bstable-apply="true" data-filter-bstable-by="ar_id" data-filter-bstable-type="select2" data-formatter="simagdAreaAtencionFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Procedencia</th>
+			<th data-field="prc_atencion" data-filter-bstable-apply="true" data-filter-bstable-by="atn_id" data-filter-bstable-type="select2" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Servicio clínico</th>
+			<th data-field="prc_modalidad" data-filter-bstable-apply="true" data-filter-bstable-by="m_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Modalidad</th>
+			<th data-field="prz_tecnologo" data-filter-bstable-apply="true" data-filter-bstable-by="tcnlprz_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizó</th>
+			<th data-field="diag_estado" data-filter-bstable-apply="true" data-filter-bstable-by="statusdiag_id" data-filter-bstable-type="select2" data-formatter="simagdEstadoDiagnosticoFormatter" class="col-md-1"  data-align="left" data-halign="center" data-sortable="true">Estado</th>
+			<th data-field="diag_fechaRegistro" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se registró</th>
+			<th data-field="diag_transcriptor" data-filter-bstable-apply="true" data-filter-bstable-by="empdiag_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Transcribió</th>
+			<th data-field="diag_fechaTranscrito" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se transcribió</th>
+			<th data-field="lct_radiologo" data-filter-bstable-apply="true" data-filter-bstable-by="emplct_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Interpretó</th>
+			<th data-field="diag_fechaAprobado" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se aprobó</th>
+			<th data-field="lct_correlativo" data-filter-bstable-apply="true" data-filter-bstable-type="text" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Correlativo</th>
+			<th data-field="lct_fechaLectura" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se interpretó</th>
+			<th data-field="action" data-formatter="diagnostico_actionFormatter" data-events="diagnostico_actionEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+		    </tr>
+		</thead>
+	    </table>
+	</div>
+	
+        {#{% include 'MinsalSimagdBundle:ImgDiagnosticoAdmin:diag_filtrarData.html.twig' %}#}    {# filtrar diagnósticos #}
+    {% endif %}
+
+    {% if _NOTDIAG_ALLOW_LIST == true %}
+        <!-- toolbar for table-lista-notas-diagnosticos -->
+        {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'notdiag' } %}
+        <!-- END --| toolbar for table-lista-notas-diagnosticos -->
+        
+	<div id="div-resultado-notas-diagnostico" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_nota_listarNotasDiagnostico') }}">
+	    <table class="table table-condensed" id="table-lista-notas-diagnostico"
+		  data-toggle="table"
+		  data-id-field="notdiag_id"
+		  data-url=""
+                  data-backup-url="simagd_nota_listarNotasDiagnostico"
+                  data-toolbar="#bs_notdiag_toolbar"
+		  data-cache="false"
+		  data-show-refresh="true"
+		  data-show-toggle="true"
+		  data-show-columns="true"
+		  data-search="true"
+		  data-select-item-name="listaNotasDiagnosticoToolbar"
+		  data-pagination="true"
+		  data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+		  {#data-sort-name="id"
+		  data-sort-order="desc"#}
+		  data-classes="table table-hover table-condensed table-no-bordered"
+		  data-height="760">
+		<thead>
+		    <tr style="background-color: #31708f; color: #fff;">
+			{#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
+			<th data-field="notdiag_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
+			<th data-field="prc_origen" data-filter-bstable-apply="true" data-filter-bstable-by="stdroot_id" data-filter-bstable-type="select2" data-formatter="simagdOrigenFormatter" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>
+			<th data-field="prc_paciente" data-filter-bstable-apply="false" data-filter-bstable-by="pct_id" data-filter-bstable-type="select2" data-filter-bstable-remote-data-source="true" data-formatter="simagdPacienteFormatter" data-switchable="false" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Paciente</th>
+			<th data-field="prc_solicitante" data-filter-bstable-apply="true" data-filter-bstable-by="empprc_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Solicitó</th>
+			<th data-field="prc_areaAtencion" data-filter-bstable-apply="true" data-filter-bstable-by="ar_id" data-filter-bstable-type="select2" data-formatter="simagdAreaAtencionFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Procedencia</th>
+			<th data-field="prc_atencion" data-filter-bstable-apply="true" data-filter-bstable-by="atn_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Servicio clínico</th>
+			<th data-field="prc_modalidad" data-filter-bstable-apply="true" data-filter-bstable-by="m_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Modalidad</th>
+			<th data-field="prz_tecnologo" data-filter-bstable-apply="true" data-filter-bstable-by="tcnlprz_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizó</th>
+			<th data-field="prc_referido" data-filter-bstable-apply="true" data-filter-bstable-by="stdref_id" data-filter-bstable-type="select2" data-formatter="simagdReferidoFormatter" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Estudio realizado en</th>
+			<th data-field="diag_transcriptor" data-filter-bstable-apply="true" data-filter-bstable-by="empdiag_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Transcribió</th>
+			<th data-field="diag_fechaRegistro" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se registró</th>
+			<th data-field="diag_fechaTranscrito" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se transcribió</th>
+			<th data-field="lct_radiologo" data-filter-bstable-apply="true" data-filter-bstable-by="emplct_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Interpretó</th>
+			<th data-field="lct_fechaLectura" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se interpretó</th>
+			<th data-field="lct_diagnosticante" data-filter-bstable-apply="true" data-filter-bstable-by="stdlct_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Interpretado en</th>
+			<th data-field="diag_fechaAprobado" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se aprobó</th>
+			<th data-field="diag_estado" data-filter-bstable-apply="true" data-filter-bstable-by="statusdiag_id" data-filter-bstable-type="select2" data-formatter="simagdEstadoDiagnosticoFormatter" class="col-md-1"  data-align="left" data-halign="center" data-sortable="true">Estado</th>
+			<th data-field="lct_correlativo" data-filter-bstable-apply="true" data-filter-bstable-type="text" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Correlativo</th>
+			<th data-field="notdiag_emisorNota" data-filter-bstable-apply="true" data-filter-bstable-by="empnotdiag_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Emitió</th>
+			<th data-field="notdiag_tipoNota" data-filter-bstable-apply="true" data-filter-bstable-by="tipoN_id" data-filter-bstable-type="select2" data-formatter="simagdTipoNotaFormatter" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Tipo</th>
+			<th data-field="notdiag_fechaEmision" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se emitió</th>
+			<th data-field="action" data-formatter="notadiagnostico_actionFormatter" data-events="notadiagnostico_actionEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+		    </tr>
+		</thead>
+	    </table>
+	</div>
+    {% endif %}
+
+    {% if _PNDL_ALLOW_LIST == true %}
+        <!-- toolbar for table-lista-lecturas-pendientes -->
+        {% set code_entity  = 'pndL' %}
+        <div id="bs_{{ code_entity }}_toolbar" class="table_bsTable_toolbar"> <!-- toolbar for table-lista-entity -->
+
+            {#<div class="columns columns-left btn-group pull-left">#}
+                <!-- Single button -->
+                <div class="btn-group">
+                    <button type="button" id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
+                        <i class="glyphicon glyphicon-filter"></i>
+                        Filtrar <span class="caret"></span>
+                    </button>
+                    <!-- Menu -->
+                    <ul class="dropdown-menu table_bsTable_toolbar_menuFilter" id="bs_{{ code_entity }}_menuFilter" >
+                    </ul>
+                </div>
+                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
+                    <i class="glyphicon glyphicon-repeat"></i>
+                </button>
+                <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+
+                <!-- --| custom buttons for toolbar -->
+                <span class="btn-separator"></span>
+
+                <button id="btn_add_item_radx_worklist" class="btn btn-element-v2 btn_add_item_radx_worklist" title="Asignar lectura a lista de Radiológo" style="margin-left: 15px" disabled="disabled">
+                    <i class="glyphicon glyphicon-user "></i>
+                </button>
+                <!-- END --| custom buttons for toolbar -->
+            {#</div>#}
+
+        </div> <!-- END --| toolbar for table-lista-lecturas-pendientes -->
+
+	<div id="div-resultado-lecturas-pendientes" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_sin_lectura_listarPendientesLectura') }}">
+	    <table class="table table-condensed" id="table-lista-pendientes-lectura"
+		    data-toggle="table"
+		    data-id-field="pndL_id"
+		    data-url="{{ path('simagd_sin_lectura_listarPendientesLectura') }}"
+		    data-backup-url="simagd_sin_lectura_listarPendientesLectura"
+                    data-toolbar="#bs_pndL_toolbar"
+		    data-cache="false"
+		    data-show-refresh="true"
+		    data-show-toggle="true"
+		    data-show-columns="true"
+		    data-search="true"
+		    data-select-item-name="listaPendientesLecturaToolbar"
+		    data-pagination="true"
+		    data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+		    {#data-sort-name="id"
+		    data-sort-order="desc"#}
+		    data-classes="table table-hover table-condensed table-no-bordered"
+		    data-height="760">
+		<thead>
+		    <tr style="background-color: #31708f; color: #fff;">
+			{#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
+			<th data-field="pndL_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
+			<th data-field="prc_origen" data-filter-bstable-apply="true" data-filter-bstable-by="stdroot_id" data-filter-bstable-type="select2" data-formatter="simagdOrigenFormatter" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>
+			<th data-field="prc_paciente" data-filter-bstable-apply="false" data-filter-bstable-by="pct_id" data-filter-bstable-type="select2" data-filter-bstable-remote-data-source="true" data-formatter="simagdPacienteFormatter" data-switchable="false" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Paciente</th>
+			<th data-field="prc_solicitante" data-filter-bstable-apply="true" data-filter-bstable-by="[empprc_id, empcmpl_id]" data-filter-bstable-type="select2" data-formatter="simagdSolicitanteEstudioFormatter" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Solicitó</th>
+			<th data-field="prc_areaAtencion" data-filter-bstable-apply="true" data-filter-bstable-by="ar_id" data-filter-bstable-type="select2" data-formatter="simagdAreaAtencionFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Procedencia</th>
+			<th data-field="prc_atencion" data-filter-bstable-apply="true" data-filter-bstable-by="atn_id" data-filter-bstable-type="select2" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Servicio clínico</th>
+			<th data-field="prc_modalidad" data-filter-bstable-apply="true" data-filter-bstable-by="[m_id, mcmpl_id]" data-filter-bstable-type="select2" data-formatter="simagdModalidadSolicitadaFormatter" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Modalidad</th>
+			<th data-field="pndR_tipo" data-formatter="simagdTipoEstudioFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Tipo</th>
+			<th data-field="pndL_establecimiento" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Interpretar en</th>
+			<th data-field="prz_tecnologo" data-filter-bstable-apply="true" data-filter-bstable-by="tcnlprz_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizó</th>
+			<th data-field="prz_estado" data-filter-bstable-apply="true" data-filter-bstable-by="statusprz_id" data-filter-bstable-type="select2" data-visible="false" data-formatter="simagdEstadoEstudioFormatter" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Estado</th>
+			<th data-field="pndL_fechaIngresoLista" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" class="col-md-2" data-align="right" data-halign="center" data-sortable="true">Ingresó en lista</th>
+			<th data-field="pndL_postEstudio" data-filter-bstable-apply="true" data-filter-bstable-by="pndL_solicitudPostEstudio" data-filter-bstable-type="boolean" data-filter-bstable-data-source="getPostEstudioSourceData" data-formatter="postEstudioFormatter" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Post Estudio</th>
+			<th data-field="action" data-formatter="pendienteLectura_actionFormatter" data-events="pendienteLectura_actionEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+                        <th data-field="pndL_chk" data-checkbox="true" data-formatter="selectableRowFormatter" class="col-md-1" data-align="center" data-halign="center" data-valign="middle"></th>
+		    </tr>
+		</thead>
+	    </table>
+	</div>
+    {% endif %}
+
+    {% if _PNDLPR_ALLOW_LIST == true %}
+        <!-- toolbar for table-lista-lecturas -->
+        {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'pndLPr' } %}
+        <!-- END --| toolbar for table-lista-lecturas -->
+
+	<div id="div-resultado-lecturas-personal-pendientes" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_mi_lista_sin_lectura_listarPendientesLectura') }}">
+	    <table class="table table-condensed" id="table-lista-personal-pendientes-lectura"
+		    data-toggle="table"
+		    data-id-field="pndL_id"
+		    data-url=""
+                    data-backup-url="simagd_mi_lista_sin_lectura_listarPendientesLectura"
+		    data-toolbar="#bs_pndLPr_toolbar"
+		    data-cache="false"
+		    data-show-refresh="true"
+		    data-show-toggle="true"
+		    data-show-columns="true"
+		    data-search="true"
+		    data-select-item-name="listaPersonalPendientesLecturaToolbar"
+		    data-pagination="true"
+		    data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+		    {#data-sort-name="id"
+		    data-sort-order="desc"#}
+		    data-classes="table table-hover table-condensed table-no-bordered"
+		    data-height="760">
+		<thead>
+		    <tr style="background-color: #31708f; color: #fff;">
+			{#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
+			<th data-field="pndL_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
+			<th data-field="prc_origen" data-filter-bstable-apply="true" data-filter-bstable-by="stdroot_id" data-filter-bstable-type="select2" data-formatter="simagdOrigenFormatter" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>
+			<th data-field="prc_paciente" data-filter-bstable-apply="false" data-filter-bstable-by="pct_id" data-filter-bstable-type="select2" data-filter-bstable-remote-data-source="true" data-formatter="simagdPacienteFormatter" data-switchable="false" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Paciente</th>
+			<th data-field="prc_solicitante" data-filter-bstable-apply="true" data-filter-bstable-by="[empprc_id, empcmpl_id]" data-filter-bstable-type="select2" data-formatter="simagdSolicitanteEstudioFormatter" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Solicitó</th>
+			<th data-field="prc_areaAtencion" data-filter-bstable-apply="true" data-filter-bstable-by="ar_id" data-filter-bstable-type="select2" data-formatter="simagdAreaAtencionFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Procedencia</th>
+			<th data-field="prc_atencion" data-filter-bstable-apply="true" data-filter-bstable-by="atn_id" data-filter-bstable-type="select2" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Servicio clínico</th>
+			<th data-field="prc_modalidad" data-filter-bstable-apply="true" data-filter-bstable-by="[m_id, mcmpl_id]" data-filter-bstable-type="select2" data-formatter="simagdModalidadSolicitadaFormatter" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Modalidad</th>
+			<th data-field="pndR_tipo" data-formatter="simagdTipoEstudioFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Tipo</th>
+			<th data-field="pndL_establecimiento" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Interpretar en</th>
+			<th data-field="prz_tecnologo" data-filter-bstable-apply="true" data-filter-bstable-by="tcnlprz_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizó</th>
+			<th data-field="prz_estado" data-filter-bstable-apply="true" data-filter-bstable-by="statusprz_id" data-filter-bstable-type="select2" data-visible="false" data-formatter="simagdEstadoEstudioFormatter" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Estado</th>
+			<th data-field="pndL_fechaIngresoLista" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" class="col-md-2" data-align="right" data-halign="center" data-sortable="true">Ingresó en lista</th>
+			<th data-field="pndL_postEstudio" data-filter-bstable-apply="true" data-filter-bstable-by="pndL_solicitudPostEstudio" data-filter-bstable-type="boolean" data-filter-bstable-data-source="getPostEstudioSourceData" data-formatter="postEstudioFormatter" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Post Estudio</th>
+			<th data-field="action" data-formatter="pendienteLectura_personal_actionFormatter" data-events="pendienteLectura_personal_actionEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+		    </tr>
+		</thead>
+	    </table>
+	</div>
+    {% endif %}
+
+    {% if _PNDT_ALLOW_LIST == true %}
+        <!-- toolbar for table-lista-transcripciones-pendientes -->
+        {% set code_entity  = 'pndT' %}
+        <div id="bs_{{ code_entity }}_toolbar" class="table_bsTable_toolbar"> <!-- toolbar for table-lista-entity -->
+
+            {#<div class="columns columns-left btn-group pull-left">#}
+                <!-- Single button -->
+                <div class="btn-group">
+                    <button type="button" id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
+                        <i class="glyphicon glyphicon-filter"></i>
+                        Filtrar <span class="caret"></span>
+                    </button>
+                    <!-- Menu -->
+                    <ul class="dropdown-menu table_bsTable_toolbar_menuFilter" id="bs_{{ code_entity }}_menuFilter" >
+                    </ul>
+                </div>
+                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
+                    <i class="glyphicon glyphicon-repeat"></i>
+                </button>
+                <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+
+                <!-- --| custom buttons for toolbar -->
+                <span class="btn-separator"></span>
+
+                <button id="btn_add_item_trcx_worklist" class="btn btn-element-v2 btn_add_item_trcx_worklist" title="Asignar lectura a lista de Transcriptor" style="margin-left: 15px" disabled="disabled">
+                    <i class="glyphicon glyphicon-user "></i>
+                </button>
+                <!-- END --| custom buttons for toolbar -->
+            {#</div>#}
+
+        </div> <!-- END --| toolbar for table-lista-transcripciones-pendientes -->
+
+	<div id="div-resultado-transcripciones-pendientes" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_sin_transcribir_listarPendientesTranscripcion') }}">
+	    <table class="table table-condensed" id="table-lista-pendientes-transcripcion"
+		  data-toggle="table"
+		  data-id-field="pndT_id"
+		  data-url="{{ path('simagd_sin_transcribir_listarPendientesTranscripcion') }}"
+		  data-backup-url="simagd_sin_transcribir_listarPendientesTranscripcion"
+		  data-toolbar="#bs_pndT_toolbar"
+		  data-cache="false"
+		  data-show-refresh="true"
+		  data-show-toggle="true"
+		  data-show-columns="true"
+		  data-search="true"
+		  data-select-item-name="listaPendientesTranscripcionToolbar"
+		  data-pagination="true"
+		  data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+		  {#data-sort-name="id"
+		  data-sort-order="desc"#}
+		  data-classes="table table-hover table-condensed table-no-bordered"
+		  data-height="760">
+		<thead>
+		    <tr style="background-color: #31708f; color: #fff;">
+			{#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
+			<th data-field="pndT_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
+			<th data-field="prc_origen" data-filter-bstable-apply="true" data-filter-bstable-by="stdroot_id" data-filter-bstable-type="select2" data-formatter="simagdOrigenFormatter" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>
+			<th data-field="prc_paciente" data-filter-bstable-apply="false" data-filter-bstable-by="pct_id" data-filter-bstable-type="select2" data-filter-bstable-remote-data-source="true" data-formatter="simagdPacienteFormatter" data-switchable="false" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Paciente</th>
+			<th data-field="prc_solicitante" data-filter-bstable-apply="true" data-filter-bstable-by="empprc_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Solicitó</th>
+			<th data-field="prc_areaAtencion" data-filter-bstable-apply="true" data-filter-bstable-by="ar_id" data-filter-bstable-type="select2" data-formatter="simagdAreaAtencionFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Procedencia</th>
+			<th data-field="prc_atencion" data-filter-bstable-apply="true" data-filter-bstable-by="atn_id" data-filter-bstable-type="select2" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Servicio clínico</th>
+			<th data-field="prc_modalidad" data-filter-bstable-apply="true" data-filter-bstable-by="m_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Modalidad</th>
+			<th data-field="prc_referido" data-filter-bstable-apply="true" data-filter-bstable-by="stdref_id" data-filter-bstable-type="select2" data-formatter="simagdReferidoFormatter" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizado en</th>
+			<th data-field="prz_tecnologo" data-filter-bstable-apply="true" data-filter-bstable-by="tcnlprz_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizó</th>
+			<th data-field="lct_radiologo" data-filter-bstable-apply="true" data-filter-bstable-by="emplct_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Interpretó</th>
+			<th data-field="lct_estado" data-filter-bstable-apply="true" data-filter-bstable-by="statuslct_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Estado</th>
+			<th data-field="lct_fechaLectura" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se interpretó</th>
+			<th data-field="lct_correlativo" data-filter-bstable-apply="true" data-filter-bstable-type="text" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Correlativo</th>
+			<th data-field="pndT_fechaIngresoLista" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" class="col-md-2" data-align="right" data-halign="center" data-sortable="true">Ingresó en lista</th>
+			<th data-field="pndT_fueImpugnado" data-filter-bstable-apply="true" data-filter-bstable-type="boolean" data-formatter="impugnadoFormatter" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Para corrección</th>
+			<th data-field="action" data-formatter="pendienteTranscripcion_actionFormatter" data-events="pendienteTranscripcion_actionEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+                        <th data-field="pndT_chk" data-checkbox="true" data-formatter="selectableRowFormatter" class="col-md-1" data-align="center" data-halign="center" data-valign="middle"></th>
+		    </tr>
+		</thead>
+	    </table>
+	</div>
+    {% endif %}
+
+    {% if _PNDTPR_ALLOW_LIST == true %}
+        <!-- toolbar for table-lista-lecturas -->
+        {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'pndTPr' } %}
+        <!-- END --| toolbar for table-lista-lecturas -->
+
+	<div id="div-resultado-transcripciones-personal-pendientes" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_mi_lista_sin_transcribir_listarPendientesTranscripcion') }}">
+	    <table class="table table-condensed" id="table-lista-personal-pendientes-transcripcion"
+		  data-toggle="table"
+		  data-id-field="pndT_id"
+		  data-url=""
+                  data-backup-url="simagd_mi_lista_sin_transcribir_listarPendientesTranscripcion"
+		  data-toolbar="#bs_pndTPr_toolbar"
+		  data-cache="false"
+		  data-show-refresh="true"
+		  data-show-toggle="true"
+		  data-show-columns="true"
+		  data-search="true"
+		  data-select-item-name="listaPersonalPendientesTranscripcionToolbar"
+		  data-pagination="true"
+		  data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+		  {#data-sort-name="id"
+		  data-sort-order="desc"#}
+		  data-classes="table table-hover table-condensed table-no-bordered"
+		  data-height="760">
+		<thead>
+		    <tr style="background-color: #31708f; color: #fff;">
+			{#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
+			<th data-field="pndT_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
+			<th data-field="prc_origen" data-filter-bstable-apply="true" data-filter-bstable-by="stdroot_id" data-filter-bstable-type="select2" data-formatter="simagdOrigenFormatter" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>
+			<th data-field="prc_paciente" data-filter-bstable-apply="false" data-filter-bstable-by="pct_id" data-filter-bstable-type="select2" data-filter-bstable-remote-data-source="true" data-formatter="simagdPacienteFormatter" data-switchable="false" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Paciente</th>
+			<th data-field="prc_solicitante" data-filter-bstable-apply="true" data-filter-bstable-by="empprc_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Solicitó</th>
+			<th data-field="prc_areaAtencion" data-filter-bstable-apply="true" data-filter-bstable-by="ar_id" data-filter-bstable-type="select2" data-formatter="simagdAreaAtencionFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Procedencia</th>
+			<th data-field="prc_atencion" data-filter-bstable-apply="true" data-filter-bstable-by="atn_id" data-filter-bstable-type="select2" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Servicio clínico</th>
+			<th data-field="prc_modalidad" data-filter-bstable-apply="true" data-filter-bstable-by="m_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Modalidad</th>
+			<th data-field="prc_referido" data-filter-bstable-apply="true" data-filter-bstable-by="stdref_id" data-filter-bstable-type="select2" data-formatter="simagdReferidoFormatter" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizado en</th>
+			<th data-field="prz_tecnologo" data-filter-bstable-apply="true" data-filter-bstable-by="tcnlprz_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizó</th>
+			<th data-field="lct_radiologo" data-filter-bstable-apply="true" data-filter-bstable-by="emplct_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Interpretó</th>
+			<th data-field="lct_estado" data-filter-bstable-apply="true" data-filter-bstable-by="statuslct_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Estado</th>
+			<th data-field="lct_fechaLectura" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se interpretó</th>
+			<th data-field="lct_correlativo" data-filter-bstable-apply="true" data-filter-bstable-type="text" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Correlativo</th>
+			<th data-field="pndT_fechaIngresoLista" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" class="col-md-2" data-align="right" data-halign="center" data-sortable="true">Ingresó en lista</th>
+			<th data-field="pndT_fueImpugnado" data-filter-bstable-apply="true" data-filter-bstable-type="boolean" data-formatter="impugnadoFormatter" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Para corrección</th>
+			<th data-field="action" data-formatter="pendienteTranscripcion_personal_actionFormatter" data-events="pendienteTranscripcion_personal_actionEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+		    </tr>
+		</thead>
+	    </table>
+	</div>
+    {% endif %}
+
+    {% if _PNDV_ALLOW_LIST == true %}
+        <!-- toolbar for table-lista-validaciones-pendientes -->
+        {% set code_entity  = 'pndV' %}
+        <div id="bs_{{ code_entity }}_toolbar" class="table_bsTable_toolbar"> <!-- toolbar for table-lista-entity -->
+
+            {#<div class="columns columns-left btn-group pull-left">#}
+                <!-- Single button -->
+                <div class="btn-group">
+                    <button type="button" id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
+                        <i class="glyphicon glyphicon-filter"></i>
+                        Filtrar <span class="caret"></span>
+                    </button>
+                    <!-- Menu -->
+                    <ul class="dropdown-menu table_bsTable_toolbar_menuFilter" id="bs_{{ code_entity }}_menuFilter" >
+                    </ul>
+                </div>
+                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
+                    <i class="glyphicon glyphicon-repeat"></i>
+                </button>
+                <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+
+                <!-- --| custom buttons for toolbar -->
+                <span class="btn-separator"></span>
+
+                <button id="btn_add_item_radx_validation_worklist" class="btn btn-element-v2 btn_add_item_radx_validation_worklist" title="Asignar diagnóstico a lista de Radiológo" style="margin-left: 15px" disabled="disabled">
+                    <i class="glyphicon glyphicon-user "></i>
+                </button>
+                <!-- END --| custom buttons for toolbar -->
+            {#</div>#}
+
+        </div> <!-- END --| toolbar for table-lista-validaciones-pendientes -->
+
+	{% include 'MinsalSimagdBundle:ImgPendienteValidacionAdmin:pndV_list_v2.html.twig'
+            ignore missing with { 'view_menu_class': 'menu-listas-resultados-radiologicos' } %}    {# Resultados sin validar #}
+    {% endif %}
+
+    <!-- form for assign radX to rows -->
+    {% if _PNDL_ALLOW_EDIT == true or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') %}
+        {% include 'MinsalSimagdBundle:ImgPendienteLecturaAdmin:pndL_asignarRadiologoListaTrabajo_modal.html.twig'
+		ignore missing with { 'radiologos': radiologos, 'default_empLogged': default_empLogged } %}
+    {% endif %}
+
+    <!-- form for assign trcX to rows -->
+    {% if _PNDT_ALLOW_EDIT == true or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') %}
+        {% include 'MinsalSimagdBundle:ImgPendienteTranscripcionAdmin:pndT_asignarTranscriptorListaTrabajo_modal.html.twig'
+		ignore missing with { 'transcriptores': transcriptores, 'default_empLogged': default_empLogged } %}
+    {% endif %}
+
+    <!-- form for assign radX to validation rows -->
+    {% if _PNDV_ALLOW_EDIT == true and (is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') and is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE')) %}
+        {% include 'MinsalSimagdBundle:ImgPendienteValidacionAdmin:pndV_asignarRadiologoListaTrabajo_modal.html.twig'
+		ignore missing with { 'radiologos': radiologos, 'default_empLogged': default_empLogged } %}
+    {% endif %}
+    
+    {% if _DIAG_ALLOW_CREATE == true or _DIAG_ALLOW_EDIT == true %}
+        {% include 'MinsalSimagdBundle:ImgDiagnosticoAdmin:diag_transcribirDiagnostico_modal.html.twig'
+            ignore missing with { 'estados': estadosDiag, 'transcriptores': transcriptores, 'default_empLogged': default_empLogged, 'estadoDiagDefault': estadoDiagDefault, 'patronesDiag': patronesDiag } %}
+    {% endif %}
+    {% if _NOTDIAG_ALLOW_CREATE == true or _NOTDIAG_ALLOW_EDIT == true %}
+        {% include 'MinsalSimagdBundle:ImgNotaDiagnosticoAdmin:notdiag_crearNota_modal.html.twig'
+            ignore missing with { 'tipos': tiposNota, 'radiologos': radiologos, 'default_empLogged': default_empLogged, 'tipoNotaDefault': tipoNotaDefault } %}
+    {% endif %}
+
+    {% if _LCT_ALLOW_VIEW == true %}
+        {% include 'MinsalSimagdBundle:show_container_fullEntity:lct_total_info_modal_v2.html.twig' %}    	{# lectura #}
+    {% endif %}
+    {% if _DIAG_ALLOW_VIEW == true %}
+        {% include 'MinsalSimagdBundle:show_container_fullEntity:diag_total_info_modal_v2.html.twig' %}    	{# diagnóstico #}
+    {% endif %}
+    {% if _NOTDIAG_ALLOW_VIEW == true %}
+	{% include 'MinsalSimagdBundle:show_container_fullEntity:notdiag_total_info_modal_v2.html.twig' %} 	{# nota-diagnóstico #}
+    {% endif %}
+    
+    {#<div class="container">
+     <h3>Animated button</h3>
+	<button id="__yeah" class="btn btn-primary active btn-xs"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+	<button id="__yeah2" class="btn btn-primary active btn-xs"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+	<button id="__yeah3" class="btn btn-primary active btn-xs"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+	<button id="__yeah4" class="btn btn-primary active btn-xs"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+    </div>#}
+    
+    {# dump(arrayObj3) #}
+    {# {% for patronDiag in patronesDiag %}
+	    {{ patronDiag.hallazgos|trim|raw }}
+	    {{ patronDiag.conclusion|trim|raw }}
+	    {{ patronDiag.recomendaciones|trim|raw }}
+    {% endfor %} #}
+    
+    {% include 'MinsalSimagdBundle:ImgLecturaAdmin:lct_speechRecognition_modal.html.twig' %}    {# speech recognition #}
+    
+{% endblock %}

@@ -1,0 +1,63 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed table-hover">
+        {% if notaDiagInfo is not null %}
+            <caption>
+                <div class="text-left">
+                    <i class="fa fa-comment"></i> <span class="text-primary"><strong>Notas agregadas al Diagnóstico</strong></span>
+                </div>
+            </caption>
+            <thead>
+                <tr>
+                    <th class="col-md-6"><span class="simagd-text-primary">Creada en:</span></th>
+                    <th class="col-md-4"><span class="simagd-text-primary">Agregó:</span></th>
+                    <th class="col-md-2"><span class="simagd-text-primary">Tipo:</span></th>
+                    <th class="col-md-1"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for notaDiag in notaDiagInfo %}
+                    {% set _tipoNota = notaDiag.idTipoNotaDiagnostico.id %}
+                    {% if _tipoNota == 1 or _tipoNota == 3 %}
+                        <tr class="info">
+                    {#{% elseif _tipoNota == 5 or _tipoNota == 8 %}
+                        <tr class="warning">#}
+                    {% elseif _tipoNota == 2 or _tipoNota == 4 %}
+                        <tr class="danger">
+                    {#{% elseif _tipoNota == 6 or _tipoNota == 7 %}
+                        <tr class="primary">#}
+                    {% else %}
+                        <tr>
+                    {% endif %}
+                        <td class="col-md-6">
+                            {{ notaDiag.idEstablecimiento }}
+                        </td>
+                        <td class="col-md-4">
+                            {{ notaDiag.idEmpleado }}
+                        </td>
+                        <td class="col-md-2">
+                            {{ notaDiag.idTipoNotaDiagnostico }}
+                        </td>
+                        <td class="col-md-1">
+                            <a data-toggle="modal" href="#" data-id="{{ notaDiag.id }}" data-target="#contenidoFullData-showModalContainer" class="open-notaDiagDialog btn-link" title="Abrir detalles de la Nota">
+                                <i class="fa fa-external-link-square"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        {% else %}
+            <tr>
+                <td class="col-md-12">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only"> Cerrar </span>
+                        </button>
+                        <strong>Sin resultados!</strong> No se encontró registro.
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    </table>

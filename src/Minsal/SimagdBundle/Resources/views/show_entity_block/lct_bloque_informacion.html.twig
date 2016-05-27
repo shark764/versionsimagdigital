@@ -1,0 +1,56 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed">
+        {% if lecturaInfo is not null %}
+            <tr>
+                <th class="col-md-2">Interpretó:</th>
+                <td class="col-md-4">
+                    {{ lecturaInfo.idEmpleado }}
+                </td>
+                <th class="col-md-2">Número correlativo:</th>
+                <td class="col-md-4">
+                    {{ lecturaInfo.correlativo }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Estudio leido en:</th>
+                <td class="col-md-4">
+                    {{ lecturaInfo.idEstablecimiento }}
+                </td>
+                <th class="col-md-2">Se dió lectura:</th>
+                <td class="col-md-4">
+                    {{ lecturaInfo.fechaLectura|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ lecturaInfo.fechaLectura|date('H:i:s A') }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Estado:</th>
+                <td class="col-md-4">
+                    {{ lecturaInfo.idEstadoLectura }}
+                </td>
+                <th class="col-md-2">Tipo de resultado:</th>
+                <td class="col-md-4">
+                    {{ lecturaInfo.idTipoResultado }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="col-md-4">
+                    <button class='btn btn-primary' data-toggle='modal' href='#lecturaFullData-showModalContainer' id='btn-ver-lct-total-info'>
+                        <i class="fa fa-plus-circle"></i> Ver más
+                    </button>
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td class="col-md-12">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only"> Cerrar </span>
+                        </button>
+                        <strong>Sin resultados!</strong> No se encontró registro.
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    </table>

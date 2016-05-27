@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte3" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6f7145d0-b363-448d-8358-2ddf6e2e5e85">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="datos" uuid="28bd82d4-547e-4374-9e1c-dddac052ebf2">
+		<parameter name="estab" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[$P{estab}]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT mex.numero as numeroexp, (coalesce(mp.primer_nombre ||' '||
+mp.segundo_nombre ||' '|| coalesce(mp.tercer_nombre, '') ||' '|| mp.primer_apellido ||' '|| mp.segundo_apellido
+ ||' '|| coalesce(mp.apellido_casada, ''))) as nombre,asap.nombrearea as modalidad,prz.fecha as fecha, prz.nombre_estado as estado , memp.nombreempleado as nombremedico, stdprc.nombre as origen, ar.nombre as procedencia, atn.nombre as servicio FROM img_solicitud_estudio pin INNER JOIN
+(select  imgpr.id_tecnologo_realiza,imgpr.id_solicitud_estudio,epr.nombre_estado,(case when imgpr.fecha_realizado is not null
+then imgpr.fecha_realizado::date else imgpr.fecha_almacenado::date end) as fecha  from img_procedimiento_realizado imgpr inner join img_ctl_estado_procedimiento_realizado epr
+on imgpr.id_estado_procedimiento_realizado = epr.id where (imgpr.id_estado_procedimiento_realizado = 3 OR imgpr.id_estado_procedimiento_realizado = 5)
+and ((imgpr.fecha_realizado::date between '2014-12-01' and '2014-12-20') OR (imgpr.fecha_almacenado::date between '2014-12-01' and '2014-12-20') )) as prz
+on pin.id = prz.id_solicitud_estudio
+inner join ctl_area_servicio_diagnostico asap on pin.id_area_servicio_diagnostico = asap.id
+inner join mnt_expediente mex on mex.id = pin.id_expediente
+inner join mnt_paciente mp on mex.id_paciente = mp.id
+inner join mnt_aten_area_mod_estab aams on aams.id = pin.id_aten_area_mod_estab
+inner join ctl_establecimiento stdprc on stdprc.id = aams.id_establecimiento
+inner join ctl_atencion atn on atn.id = aams.id_atencion
+inner join mnt_area_mod_estab ams on ams.id = aams.id_area_mod_estab
+inner join ctl_area_atencion ar on ar.id = ams.id_area_atencion
+inner join mnt_empleado memp on memp.id = prz.id_tecnologo_realiza
+where pin.id_establecimiento_referido = $P{estab} order by nombre,fecha]]>
+		</queryString>
+		<field name="numeroexp" class="java.lang.String"/>
+		<field name="nombre" class="java.lang.String">
+			<fieldDescription><![CDATA[Nombre del área de atención]]></fieldDescription>
+		</field>
+		<field name="modalidad" class="java.lang.String"/>
+		<field name="fecha" class="java.sql.Date">
+			<fieldDescription><![CDATA[Fecha de la cita medica]]></fieldDescription>
+		</field>
+		<field name="estado" class="java.lang.String">
+			<fieldDescription><![CDATA[Nombre del estado de la cita]]></fieldDescription>
+		</field>
+		<field name="nombremedico" class="java.lang.String"/>
+		<field name="origen" class="java.lang.String"/>
+		<field name="procedencia" class="java.lang.String"/>
+		<field name="servicio" class="java.lang.String">
+			<fieldDescription><![CDATA[Servicio hopitalario al que sera referido si es de ingreso medico]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="estab" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[$P{estab}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT mex.numero as numeroexp, (coalesce(mp.primer_nombre ||' '||
+mp.segundo_nombre ||' '|| coalesce(mp.tercer_nombre, '') ||' '|| mp.primer_apellido ||' '|| mp.segundo_apellido
+ ||' '|| coalesce(mp.apellido_casada, ''))) as nombre,asap.nombrearea as modalidad,prz.fecha as fecha, prz.nombre_estado as estado , memp.nombreempleado as nombremedico, stdprc.nombre as origen, ar.nombre as procedencia, atn.nombre as servicio FROM img_solicitud_estudio pin INNER JOIN
+(select  imgpr.id_tecnologo_realiza,imgpr.id_solicitud_estudio,epr.nombre_estado,(case when imgpr.fecha_realizado is not null
+then imgpr.fecha_realizado::date else imgpr.fecha_almacenado::date end) as fecha  from img_procedimiento_realizado imgpr inner join img_ctl_estado_procedimiento_realizado epr
+on imgpr.id_estado_procedimiento_realizado = epr.id where (imgpr.id_estado_procedimiento_realizado = 3 OR imgpr.id_estado_procedimiento_realizado = 5)
+and ((imgpr.fecha_realizado::date between '2014-12-01' and '2014-12-20') OR (imgpr.fecha_almacenado::date between '2014-12-01' and '2014-12-20') )) as prz
+on pin.id = prz.id_solicitud_estudio
+inner join ctl_area_servicio_diagnostico asap on pin.id_area_servicio_diagnostico = asap.id
+inner join mnt_expediente mex on mex.id = pin.id_expediente
+inner join mnt_paciente mp on mex.id_paciente = mp.id
+inner join mnt_aten_area_mod_estab aams on aams.id = pin.id_aten_area_mod_estab
+inner join ctl_establecimiento stdprc on stdprc.id = aams.id_establecimiento
+inner join ctl_atencion atn on atn.id = aams.id_atencion
+inner join mnt_area_mod_estab ams on ams.id = aams.id_area_mod_estab
+inner join ctl_area_atencion ar on ar.id = ams.id_area_atencion
+inner join mnt_empleado memp on memp.id = prz.id_tecnologo_realiza
+where pin.id_establecimiento_referido = $P{estab} order by nombre,fecha]]>
+	</queryString>
+	<field name="numeroexp" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre del área de atención]]></fieldDescription>
+	</field>
+	<field name="modalidad" class="java.lang.String"/>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[Fecha de la cita medica]]></fieldDescription>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre del estado de la cita]]></fieldDescription>
+	</field>
+	<field name="nombremedico" class="java.lang.String"/>
+	<field name="origen" class="java.lang.String"/>
+	<field name="procedencia" class="java.lang.String"/>
+	<field name="servicio" class="java.lang.String">
+		<fieldDescription><![CDATA[Servicio hopitalario al que sera referido si es de ingreso medico]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="235" y="59" width="100" height="20" uuid="09cd4f30-87e7-4ce7-afbd-4075da7364b1"/>
+				<text><![CDATA[nnnnnn]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="100" height="20" uuid="9b251cc5-9df8-448c-9594-d580d8784d51"/>
+				<text><![CDATA[Numero Expediente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="2" width="100" height="20" uuid="078a07ae-5dd1-43f9-817d-f7da601e8bfa"/>
+				<text><![CDATA[Nombre del área de atención]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="2" width="100" height="20" uuid="97bcd3e0-165e-4d6f-ae69-552c626c776d"/>
+				<text><![CDATA[Modalidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="2" width="100" height="20" uuid="3845e549-fd4b-41e1-9df7-a43456f906f1"/>
+				<text><![CDATA[Fecha de la cita medica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="2" width="100" height="20" uuid="a598f554-14c5-44fe-9e13-dafd2cadb8dc"/>
+				<text><![CDATA[Nombre del estado de la cita]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="539" y="2" width="100" height="20" uuid="717e2bd4-83e0-4fe2-8cbc-f19989b0c729"/>
+				<text><![CDATA[nombremedico]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="e48a6b1d-a684-42a2-9c9a-6d3c59741a44"/>
+				<textFieldExpression><![CDATA[$F{numeroexp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="6ab9c5f2-58c8-4eb6-835a-040d96c02111"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="43ea57cc-f0c7-42b1-a84b-27486eab493c"/>
+				<textFieldExpression><![CDATA[$F{modalidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM/dd/yyyy">
+				<reportElement x="300" y="0" width="100" height="20" uuid="29dfc992-21c0-404b-b087-4ce6b43aeff9"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="100" height="20" uuid="a3e191e2-c800-40c0-948a-6272698e3dc1"/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="0" width="72" height="20" uuid="62bb4a88-2ca8-4ae6-b0b7-189bbe7adbdf"/>
+				<textFieldExpression><![CDATA[$F{nombremedico}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,7 @@
+{# empty Twig template #}
+    
+    {# Recuperación de estudio #}
+    {% if ( estudioPacienteObject is not null ) %}
+        {% include 'MinsalSimagdBundle:ImgEstudioPacienteAdmin:est_recuperarEstudio_button.html.twig'
+                                ignore missing with { 'estudioPaciente': estudioPacienteObject } %}
+    {% endif %}

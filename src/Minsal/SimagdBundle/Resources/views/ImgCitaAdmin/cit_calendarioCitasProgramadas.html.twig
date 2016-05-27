@@ -1,0 +1,193 @@
+{# empty Twig template #}
+
+    <div id="citas-calendario" class="modal container fade justify-bootstrap-div-container" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false">
+	<div class="modal-content panel-primary-v2">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+                <h4 class="modal-title">Imagenología - Citas programadas</h4>
+            </div>
+
+            <div class="modal-body">
+                
+                <div class="row outer">
+
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"> Información relevante </h3>
+                            </div>
+                            <div class="panel-body" >
+
+                                <div class="tabbable tabs-below">
+
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a href="#tab-info-preinscripcion" data-toggle="pill"><span class="glyphicon glyphicon-list-alt"></span> Solicitud de estudio</a></li>
+                                        <li><a href="#tab-info-parametros-cita" data-toggle="pill"><span class="glyphicon glyphicon-tasks"></span> Parámetros</a></li>
+                                        <li><a href="#tab-info-reservas-cita" data-toggle="pill"><span class="glyphicon glyphicon-calendar"></span> Espacios</a></li>
+                                    </ul>
+
+                                    <br/>
+
+                                    <div class="tab-content">
+
+                                        <div class="tab-pane fade in active" id="tab-info-preinscripcion">
+                                            <table class="table table-condensed">
+
+                                                {% if object.idSolicitudEstudio is not null %}
+
+                                                    <tr>
+                                                        <th class="col-md-4">Nombre completo</th>
+                                                        <td class="col-md-8">
+                                                            <span class="form-control-static"> {{ object.idSolicitudEstudio.idExpediente.idPaciente|raw }} </span>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th class="col-md-4">Modalidad</th>
+                                                        <td class="col-md-8">
+                                                            <span class="form-control-static"> {{ object.idSolicitudEstudio.idAreaServicioDiagnostico|raw }} </span>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th class="col-md-4">Proyecciones</th>
+                                                        <td class="col-md-8">
+                                                            <ul>
+                                                                {% for exploracion in object.idSolicitudEstudio.solicitudEstudioProyeccion %}
+                                                                    <li> <span class="form-control-static"> {{ exploracion.idProyeccionSolicitada|raw }} </span> </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th class="col-md-4">Próxima cita médica</th>
+                                                        <td class="col-md-8">
+                                                            <span class="form-control-static"> {{ object.idSolicitudEstudio.fechaProximaConsulta|format_date('EEEE, MMMM d, yyyy', 'es_ES') }} </span>
+                                                        </td>
+                                                    </tr>
+
+                                                {% else %}
+
+                                                    <tr>
+                                                        <th class="col-md-4">Error</th>
+                                                        <td class="col-md-8">
+                                                            <span class="form-control-static text-danger"> Ninguna preinscripción seleccionada </span>
+                                                        </td>
+                                                    </tr>
+
+                                                {% endif %}
+
+                                            </table>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="tab-info-parametros-cita">
+                                            <table class="table table-condensed">
+
+                                                {% if object.idConfiguracionAgenda is not null %}
+
+                                                    <tr>
+                                                        <th class="col-md-4">Máximo por día</th>
+                                                        <td class="col-md-8">
+                                                            <span class="form-control-static"> {{ object.idConfiguracionAgenda.maximoCitasDia|raw }} </span>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th class="col-md-4">Máximo por turno</th>
+                                                        <td class="col-md-8">
+                                                            <span class="form-control-static"> {{ object.idConfiguracionAgenda.maximoCitasTurno|raw }} </span>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th class="col-md-4">Máximo por hora</th>
+                                                        <td class="col-md-8">
+                                                            <span class="form-control-static"> {{ object.idConfiguracionAgenda.maximoCitasHora|raw }} </span>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th class="col-md-4">Máximo por médico</th>
+                                                        <td class="col-md-8">
+                                                            <span class="form-control-static"> {{ object.idConfiguracionAgenda.maximoCitasMedico|raw }} </span>
+                                                        </td>
+                                                    </tr>
+
+                                                {% else %}
+
+                                                    <tr>
+                                                        <th class="col-md-4">Advertencia</th>
+                                                        <td class="col-md-8">
+                                                            <span class="form-control-static text-danger"> No se pudieron obtener parámetros para citar el estudio a realizar </span>
+                                                        </td>
+                                                    </tr>
+
+                                                {% endif %}
+
+                                            </table>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="tab-info-reservas-cita">
+                                            {# Tabla con espacios reservados #}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>{# col #}
+
+                    <div class="col-lg-7 col-md-7 col-sm-7">
+
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"> Calendarización </h3>
+                            </div>
+                            <div class="panel-body" >
+
+                                {# calendario #}
+                                <div id='calendar'></div>
+
+                            </div>
+                        </div>
+
+                    </div>{# col #}
+
+                </div>{# row #}
+
+            </div>{# body #}
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+            </div>
+            
+	</div><!-- /.modal-content -->
+        
+    </div>{# modal #}
+    
+    {#<div class="text-center">
+        <button class="demo btn btn-primary-v2 btn-large" data-toggle="modal" href="#citas-calendario" id="btn-ver-calendario"> <i class="fa fa-calendar"></i> Ver calendario </button>
+    </div>#}
+
+
+    {# modal-event-calendar #}
+    <div id="fullCalModal" class="modal fade justify-bootstrap-div-container" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false">
+	<div class="modal-content panel-success">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+                <h4 id="eventModalTitle" class="modal-title"></h4>
+            </div>
+
+            <div id="eventModalBody" class="modal-body"></div>
+
+            <div class="modal-footer" style="margin-top: 0px;">
+                <button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+                <a id="eventUrl" class="btn btn-info" target="_blank"> <span class="glyphicon glyphicon-folder-open"></span>&nbsp; Consultar </a>
+            </div>
+	</div><!-- /.modal-content -->
+    </div><!-- /.modal -->

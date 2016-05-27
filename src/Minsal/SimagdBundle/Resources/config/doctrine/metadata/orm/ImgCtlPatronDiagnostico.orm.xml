@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ImgCtlPatronDiagnostico" table="img_ctl_patron_diagnostico">
+    <indexes>
+      <index name="IDX_1C3A36CE992127D5" columns="id_area_servicio_diagnostico"/>
+      <index name="IDX_1C3A36CE592B0EA1" columns="id_empleado_registra"/>
+      <index name="IDX_1C3A36CE7DFA12F6" columns="id_establecimiento"/>
+      <index name="IDX_1C3A36CE29CF97D1" columns="id_radiologo_define"/>
+      <index name="IDX_1C3A36CED426DB54" columns="id_tipo_resultado"/>
+      <index name="IDX_1C3A36CEAC39DE56" columns="id_user_mod"/>
+      <index name="IDX_1C3A36CED8A5832B" columns="id_user_reg"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="idx_codigo_patron_diagnostico_establecimiento" columns="codigo,id_establecimiento"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="hallazgos" type="text" column="hallazgos" nullable="true"/>
+    <field name="conclusion" type="text" column="conclusion" nullable="true"/>
+    <field name="recomendaciones" type="text" column="recomendaciones" nullable="true"/>
+    <field name="indicacionesGenerales" type="string" column="indicaciones_generales" length="255" nullable="true"/>
+    <field name="observaciones" type="string" column="observaciones" length="255" nullable="true"/>
+    <field name="fechaHoraReg" type="datetime" column="fecha_hora_reg" nullable="true"/>
+    <field name="fechaHoraMod" type="datetime" column="fecha_hora_mod" nullable="true"/>
+    <field name="nombre" type="string" column="nombre" length="255" nullable="false"/>
+    <field name="codigo" type="string" column="codigo" nullable="true"/>
+    <field name="habilitado" type="boolean" column="habilitado" nullable="true"/>
+    <many-to-one field="idUserMod" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_mod" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUserReg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_reg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idTipoResultado" target-entity="ImgCtlTipoResultado">
+      <join-columns>
+        <join-column name="id_tipo_resultado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idRadiologoDefine" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_radiologo_define" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEmpleadoRegistra" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_empleado_registra" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimiento" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idAreaServicioDiagnostico" target-entity="CtlAreaServicioDiagnostico">
+      <join-columns>
+        <join-column name="id_area_servicio_diagnostico" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

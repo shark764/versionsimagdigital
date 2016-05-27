@@ -1,0 +1,130 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    
+    {# select2-bootstrap #}
+    <link href="{{ asset('bundles/minsalsimagd/css/select2-bootstrap.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/jquery.formparams.min.js') }}" ></script>
+    
+    {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_reportes_pacientesAtendidos_bootstrapValidator.js.twig' %}
+    {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_reportes_pacientesAtendidosMedico_bootstrapValidator.js.twig' %}
+    {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_reportes_examenesRealizados_bootstrapValidator.js.twig' %}
+    {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_reportes_examenesRealizadosModalidad_bootstrapValidator.js.twig' %}
+    {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_reportes_examenesRealizadosPaciente_bootstrapValidator.js.twig' %}
+    {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_reportes_examenesRealizadosTecnologo_bootstrapValidator.js.twig' %}
+    {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_reportes_estudiosSolicitadosMedicoModalidad_bootstrapValidator.js.twig' %}
+    {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_reportes_estudiosDiagnosticadosRadiologoModalidad_bootstrapValidator.js.twig' %}
+    {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_reportes_pacientesAtendidosTecnologoModalidad_bootstrapValidator.js.twig' %}
+
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/GeneracionReporteImagenologiaAdmin/simagd_generar_reportes.js') }}" ></script>
+
+{% endblock %}
+    
+{% block sonata_admin_content -%}
+
+    {% set simagd_vars = { 'simagd_title': 'IMAGENOLOGÍA DIGITAL',
+                        'simagd_message': 'Utilice este formulario para generar un reporte de Imagenología'
+    }%}
+    {% include 'MinsalSimagdBundle:Menu:simagd_cabecera.html.twig' ignore missing with simagd_vars %}
+    
+    <br/>
+
+    <h4><img class="icono" src={{ asset('bundles/minsalsimagd/images/medicina-ortomolecular.png') }} />Generación de Reportes</h4>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"> <i class="fa fa-clipboard"></i> Introduzca los parámetros para generar un Reporte</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-8">{# usar PILLS en lugar de tabs en simagd-info   http://api.jquery.com/jquery.param/ #}
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="pacientesAtendidos" >
+                        {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_report_pacientesAtendidos.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade" id="pacientesAtendidosMedico" >
+                        {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_report_pacientesAtendidosMedico.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade" id="examenesRealizados" >
+                        {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_report_examenesRealizados.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade" id="examenesRealizadosModalidad" >
+                        {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_report_examenesRealizadosModalidad.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade" id="examenesRealizadosPaciente" >
+                        {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_report_examenesRealizadosPaciente.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade" id="examenesRealizadosTecnologo" >
+                        {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_report_examenesRealizadosTecnologo.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade" id="estudiosSolicitadosMedicoModalidad" >
+                        {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_report_estudiosSolicitadosMedicoModalidad.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade" id="estudiosDiagnosticadosRadiologoModalidad" >
+                        {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_report_estudiosDiagnosticadosRadiologoModalidad.html.twig' %}
+                    </div>
+                    <div class="tab-pane fade" id="pacientesAtendidosTecnologoModalidad" >
+                        {% include 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_report_pacientesAtendidosTecnologoModalidad.html.twig' %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-4" > <!-- required for floating -->
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs tabs-right">
+                    <li class="active"><a href="#pacientesAtendidos" data-toggle="pill"><span class="glyphicon glyphicon-user"></span> Pacientes atendidos</a></li>
+                    <li><a href="#pacientesAtendidosMedico" data-toggle="pill"><span class="glyphicon glyphicon-tags"></span> Pacientes atendidos por Tecnólogo</a></li>
+                    <li><a href="#examenesRealizados" data-toggle="pill"><span class="glyphicon glyphicon-film"></span> Exámenes realizados</a></li>
+                    <li><a href="#examenesRealizadosModalidad" data-toggle="pill"><span class="glyphicon glyphicon-tasks"></span> Exámenes realizados por Modalidad</a></li>
+                    <li><a href="#examenesRealizadosPaciente" data-toggle="pill"><span class="glyphicon glyphicon-list-alt"></span> Exámenes realizados por Paciente</a></li>
+                    <li><a href="#examenesRealizadosTecnologo" data-toggle="pill"><span class="glyphicon glyphicon-th-list"></span> Exámenes realizados por Tecnólogo</a></li>
+                    <li><a href="#estudiosSolicitadosMedicoModalidad" data-toggle="pill"><span class="glyphicon glyphicon-inbox"></span> Estudios solicitados por Médico y Modalidad</a></li>
+                    <li><a href="#estudiosDiagnosticadosRadiologoModalidad" data-toggle="pill"><span class="glyphicon glyphicon-paperclip"></span> Estudios diagnosticados por Radiólogo y Modalidad</a></li>
+                    <li><a href="#pacientesAtendidosTecnologoModalidad" data-toggle="pill"><span class="glyphicon glyphicon-eye-open"></span> Pacientes atendidos por Tecnólogo y Modalidad</a></li>
+                </ul>
+            </div>
+    
+        </div>
+    </div>
+    
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="javascript:void(0)">Opciones</a>
+        </div>
+ 
+        <form class="navbar-form form-horizontal" action="#" id="form-navbar" >
+            <div class="form-group col-sm-8">
+                <div class="col-sm-3">
+                    <select class="form-control" id="report_format" name="report_format" required >
+                        {#<option value=""></option>#}
+                        <option value="PDF">PDF</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <select class="form-control" id="limite_resultados" name="limite_resultados" >
+                        <option value=""></option>
+                        {% for i in range(low=50, high=2000, step=50) %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                        {% for i in range(low=2500, high=10000, step=500) %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <a id="iniciar-generar-reporte" class="btn btn-primary-v2" href="javascript:void(0)">
+                    <span class="glyphicon glyphicon-export"></span>
+                    Generar Reporte
+                </a>
+            </div>
+        </form>
+    </nav>
+
+{% endblock -%}

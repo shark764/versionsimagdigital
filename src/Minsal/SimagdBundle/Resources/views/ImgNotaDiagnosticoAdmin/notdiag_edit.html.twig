@@ -1,0 +1,63 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_edit.html.twig' %}
+
+{% set _pacienteTitle = object.idDiagnostico is not null ? object.idDiagnostico.idLectura.idEstudio.idExpediente.idPaciente|truncate(50) : 'No hay diagnóstico' %}
+{% set _notdiagMessageTemplate = action is defined and action == 'edit' ?
+        '<i class="fa fa-comment"></i> <i class="fa fa-pencil-square-o"></i> Edición de nota agregada al diagnóstico para: <i>' ~ _pacienteTitle ~ '</i>' :
+        '<i class="fa fa-comment"></i> <i class="fa fa-plus-circle"></i> Agregar nota a diagnóstico de estudio de: <i>' ~ _pacienteTitle ~ '</i>' %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgNotaDiagnosticoAdmin/notdiag_config_notaDiag_modal.js') }}" ></script>
+    
+    {% include 'MinsalSimagdBundle:ImgNotaDiagnosticoAdmin:notdiag_bootstrapValidator.js.twig' %}
+    
+    {% include 'MinsalSimagdBundle:ImgNotaDiagnosticoAdmin:notdiag_funcionesClienteServidor.js.twig' %}
+    
+    {% if ( object.idDiagnostico is not null ) and ( ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_NOTA_DIAGNOSTICO_CREATE') and
+                                is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') ) or is_granted('ROLE_ADMIN') ) %}
+        {% include 'MinsalSimagdBundle:ImgEstudioPacienteAdmin:est_recuperarEstudio.js.twig'
+                        ignore missing with { 'estudioPaciente': object.idDiagnostico.idLectura.idEstudio } %}
+    {% endif %}
+{% endblock %}
+
+{% block actions %}
+    {#<li>{% include 'SonataAdminBundle:Button:show_button.html.twig' %}</li>#}
+    <li>{% include 'SonataAdminBundle:Button:history_button.html.twig' %}</li>
+    <li>{% include 'SonataAdminBundle:Button:acl_button.html.twig' %}</li>
+    <li>{% include 'SonataAdminBundle:Button:list_button.html.twig' %}</li>
+    {#<li>{% include 'SonataAdminBundle:Button:create_button.html.twig' %}</li>#}
+{% endblock %}
+
+{% block simagd_form_navbar_brand_title %}
+    <span class="navbar-brand">
+        <span class="label label-{{ action is defined and action == 'edit' ? 'primary-v2' : 'element-v2' }}"> {{ _notdiagMessageTemplate|raw }} </span>
+    </span>
+{% endblock %}
+    
+{% block form %}
+    {% set notdiag_vars = { 'simagd_title': 'FORMULARIO PARA AGREGAR NOTA A DIAGNÓSTICO RADIOLÓGICO',
+                        'simagd_message': 'Llene este formulario para registrar una nota u observación a un diagnóstico'
+    }%}
+    {% include 'MinsalSimagdBundle:Menu:simagd_cabecera.html.twig' ignore missing with notdiag_vars %}
+    
+    {{ block('parentForm') }}
+    
+    {#  http://getbootstrap.com/2.3.2/components.html#navs --> Tabs on the left --> VENTANITAS SUPPORT 
+        http://getbootstrap.com/2.3.2/base-css.html#forms --> PLANTE DE LOS FORM
+    #}
+{% endblock %}
+
+{# muestra de información de apoyo #}
+{% block custom_entity_support %}
+    <div id="custom-entity-content-body">
+        {% if object.idDiagnostico is not null %}
+            {{ render(controller( 'MinsalSimagdBundle:ImgNotaDiagnosticoAdmin:mostrarInformacionModal',
+                                                    { 'idDiagnosticoPadre' : object.idDiagnostico.id,
+                                                        'id' : object.id ? object.id : -1,
+                                                        '_sonata_admin' : 'minsal_simagd.admin.img_nota_diagnostico' } )) }}
+        {% endif %}
+    </div>
+{% endblock %}

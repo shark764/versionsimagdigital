@@ -1,0 +1,213 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            
+            /** Obtener establecimiento local */
+            $("input:checkbox[id='" + $token + "_referirPaciente']").on('ifChanged', function(event) {
+                var estabReferidoExterno = $("select[id='" + $token + "_idEstablecimientoReferido']");
+                var userSessionEstabLocalId = '{{ app.user.getIdEstablecimiento.getId }}';
+
+                if (!jQuery(this).is(':checked')) {
+                    //Asignar el establecimiento por defecto
+                    estabReferidoExterno.select2('val', userSessionEstabLocalId);
+                    estabReferidoExterno.find('option:gt(0):not(:selected)').prop('disabled', true);
+                    estabReferidoExterno.trigger("change");
+                }
+                else {
+                    estabReferidoExterno.find('option').prop('disabled', false);
+
+                    if (!estabReferidoExterno.val() || estabReferidoExterno.val() == userSessionEstabLocalId) {
+                        estabReferidoExterno.select2("search", "");
+                    }
+                }
+
+            });
+            $("input:checkbox[id='" + $token + "_referirPaciente']").trigger('ifChanged');
+            
+            /** Bloqueo de áreas de atención */
+            var existsBlockPilotoHistorial = 'V';
+	    {% if object.idSolicitudestudios is not null %}
+		existsBlockPilotoHistorial = "{{ object.idSolicitudestudios.idHistorialClinico.piloto|escape('js') }}";
+            {% endif %}
+                
+            var existsValHistorialClinico = ( $("input[id='" + $token + "_idHistorialClinico']").val() ||
+                                                existsBlockPilotoHistorial.toUpperCase() != 'V' ) ? true : false;
+            
+            var procedenciaSelectorOptionsBlock = $("select[id='" + $token + "_idAreaAtencion']");
+            
+//             if (existsValHistorialClinico) {
+//                 procedenciaSelectorOptionsBlock.find('option[value=2], option[value=3]').prop('disabled', true);
+//             }
+//             else {
+//                 procedenciaSelectorOptionsBlock.find('option[value=1]').prop('disabled', true);
+//             }
+            
+            {% if object.id is not null %}
+        
+                /** Obtener fecha de solicitud */
+                var creacionPrcDate = new Date('{{ object.fechaCreacion|date('m/d/Y')|raw }}');
+                var creacionPrcYear = creacionPrcDate.getFullYear();
+                var creacionPrcMonth = creacionPrcDate.getMonth();
+                var creacionPrcDay = creacionPrcDate.getDate();
+                $("input[id='" + $token + "_fechaProximaConsulta']").datetimepicker('option', {
+                                                                    //setDate : new Date(),
+                                                                    minDate: new Date(creacionPrcYear, creacionPrcMonth, creacionPrcDay),
+                                                                    //maxDate: new Date(creacionPrcYear, creacionPrcMonth, creacionPrcDay),
+                                                                    //yearRange: '-100:+0',
+                                                                });
+                console.log(creacionPrcDate );
+            {% endif %}
+
+
+            /*********************** Bloqueo de formulario ***********************/
+            var prcWithServicio = "div.prc-with-servicio-datos-generales, div.prc-with-servicio-paciente";
+            var prcWithDatosClinicos = "div.prc-with-datos-clinicos-reglamentarios, div.prc-with-datos-clinicos-detalles-adicionales";
+            var prcWithtTraslado = "div.prc-with-traslado-referir-paciente, div.prc-with-traslado-solicitar-diagnostico, div.prc-with-traslado-estudio-solicitado";
+            var prcWithClasses = prcWithServicio + ", " + prcWithDatosClinicos + ", " + prcWithtTraslado;
+
+            {% if admin.id(object) is not null and app.user.idEmpleado.idTipoEmpleado.codigo == 'CIT' and
+                    ( app.user.idEstablecimiento.id == object.idAtenAreaModEstab.idEstablecimiento.id ) and
+                    ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') and is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_EDIT') ) %}
+
+                $(prcWithClasses).find('select').select2()
+                        .on('select2-selecting', function(e) {
+                            e.preventDefault();
+                        });
+
+                $(prcWithClasses).find('input:checkbox').not("input:checkbox[id='" + $token + "_requiereCita']").iCheck('disable');
+                
+                $(prcWithClasses).find('input:checkbox').not("input:checkbox[id='" + $token + "_requiereCita']").each(function () {
+                    if ( jQuery(this).is(':checked') ) {
+                        jQuery(this).after($('<input type="hidden">')
+                                    .attr({ name : jQuery(this).attr('name'),
+                                            value : jQuery(this).val()
+                                        })
+                                );
+                    }
+                });
+
+                $(prcWithClasses).find('input[type=text], input[type=number], textarea').prop('readonly', true);
+                
+                $("input[id='" + $token + "_fechaProximaConsulta']").datetimepicker( "destroy" );
+    
+                $("button[id='showDateTimePicker']").prop('disabled', true);
+
+            {% endif %}
+                
+                
+            /** Bloqueo area, servicio y empleado */
+            {% if ( admin.id(object) is not null or app.request.get('__hcl') ) and not is_granted('ROLE_ADMIN') %}
+                
+                $("div.prc-with-servicio-datos-generales").find('select').select2()
+                        .on('select2-selecting', function(e) {
+                            e.preventDefault();
+                        });
+                        
+            {% endif %}
+                
+            /** Bloqueo requerimiento de Cita */
+            if ( $("input[id='" + $token + "_setLockDatosGenerales']").val() ) {
+                var $requiereCitField = $("input:checkbox[id='" + $token + "_requiereCita']");
+                $requiereCitField.iCheck('disable');
+                
+                if ( $requiereCitField.is(':checked') ) {
+                    $requiereCitField.after($('<input type="hidden">')
+                                .attr({ name : $requiereCitField.attr('name'),
+                                        value : $requiereCitField.val()
+                                    })
+                            );
+                }
+            }
+                
+            /** Bloqueo Datos Paciente */
+            if ( $("input[id='" + $token + "_setLockDatosPaciente']").val() ) {
+                $("div.prc-with-servicio-paciente").find('input:checkbox').iCheck('disable');
+                
+                $("div.prc-with-servicio-paciente").find('input:checkbox').each(function () {
+                    if ( jQuery(this).is(':checked') ) {
+                        jQuery(this).after($('<input type="hidden">')
+                                    .attr({ name : jQuery(this).attr('name'),
+                                            value : jQuery(this).val()
+                                        })
+                                );
+                    }
+                });
+
+                $("div.prc-with-servicio-paciente").find('input[type=text], input[type=number], textarea').prop('readonly', true);
+            }
+                
+            /** Bloqueo Referir Paciente */
+            if ( $("input[id='" + $token + "_setLockRefPaciente']").val() ) {
+                $("div.prc-with-traslado-referir-paciente").find('select').select2()
+                        .on('select2-selecting', function(e) {
+                            e.preventDefault();
+                        });
+
+                $("div.prc-with-traslado-referir-paciente").find('input:checkbox').iCheck('disable');
+                
+                $("div.prc-with-traslado-referir-paciente").find('input:checkbox').each(function () {
+                    if ( jQuery(this).is(':checked') ) {
+                        jQuery(this).after($('<input type="hidden">')
+                                    .attr({ name : jQuery(this).attr('name'),
+                                            value : jQuery(this).val()
+                                        })
+                                );
+                    }
+                });
+
+                $("div.prc-with-traslado-referir-paciente").find('input[type=text], input[type=number], textarea').prop('readonly', true);
+            }
+                
+            /** Bloqueo Solicitar Diagnostico */
+            if ( $("input[id='" + $token + "_setLockSolDiagnostico']").val() ) {
+                $("div.prc-with-traslado-solicitar-diagnostico").find('select').select2()
+                        .on('select2-selecting', function(e) {
+                            e.preventDefault();
+                        });
+
+                $("div.prc-with-traslado-solicitar-diagnostico").find('input:checkbox').iCheck('disable');
+                
+                $("div.prc-with-traslado-solicitar-diagnostico").find('input:checkbox').each(function () {
+                    if ( jQuery(this).is(':checked') ) {
+                        jQuery(this).after($('<input type="hidden">')
+                                    .attr({ name : jQuery(this).attr('name'),
+                                            value : jQuery(this).val()
+                                        })
+                                );
+                    }
+                });
+
+                $("div.prc-with-traslado-solicitar-diagnostico").find('input[type=text], input[type=number], textarea').prop('readonly', true);
+            }
+                
+            /** Bloqueo Proyecciones Solicitadas */
+            if ( $("input[id='" + $token + "_setLockExplSolicitadas']").val() ) {
+                $("div.prc-with-traslado-estudio-solicitado").find('select').select2()
+                        .on('select2-selecting', function(e) {
+                            e.preventDefault();
+                        });
+
+                $("div.prc-with-traslado-estudio-solicitado").find('input:checkbox').iCheck('disable');
+
+                $("div.prc-with-traslado-estudio-solicitado").find('input[type=text], input[type=number], textarea').prop('readonly', true);
+    
+                $("div.prc-with-traslado-estudio-solicitado").find("span[id='field_actions_{{ admin.uniqId }}_solicitudEstudioProyeccion']").find('a').remove();
+            }
+
+
+            /** Nombre del contacto */
+            {% if object.idExpediente is not null %}
+                    
+                /** Nombre de la persona responsable */
+                $("select[id='" + $token + "_idContactoPaciente']").change(function() {
+                    if (jQuery(this).val() == 13) {  //El paciente
+                        var nombreContacto = "{{ object.idExpediente.idPaciente|escape('js') }}";
+                        $("input[id='" + $token + "_nombreContacto']").val(nombreContacto);
+                    }
+                });
+
+            {% endif %}
+            
+        });
+    </script>

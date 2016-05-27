@@ -1,0 +1,82 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_edit.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCtlConfiguracionAgendaAdmin/prmCit_examenes.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCtlConfiguracionAgendaAdmin/prmCit_set_unmapped_values.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCtlConfiguracionAgendaAdmin/prmCit_maximo_citas.js') }}" ></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCtlConfiguracionAgendaAdmin/prmCit_form_config.js') }}" ></script>
+    
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_cargar_datos.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_valor_campo_compuesto.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_extract_campos_componentes.js') }}" ></script>
+    
+    {% include 'MinsalSimagdBundle:ImgCtlConfiguracionAgendaAdmin:prmCit_formValidation.js.twig' %}
+{% endblock %}
+    
+{% block form %}
+    {% set prmCit_vars = { 'simagd_title': 'FORMULARIO PARA AGREGAR PARÁMETROS DE CREACIÓN DE CITAS',
+                        'simagd_message': 'Llene este formulario para agregar parámetros para citas por Áreas y Exámenes de Imagenología'
+    }%}
+    {% include 'MinsalSimagdBundle:Menu:simagd_cabecera.html.twig' ignore missing with prmCit_vars %}
+    
+    {{ block('parentForm') }}
+{% endblock %}
+
+{# muestra de información de apoyo #}
+{% block custom_entity_support %}
+    <div id="custom-entity-content-body">
+        {% include 'MinsalSimagdBundle:ImgCtlConfiguracionAgendaAdmin:prmCit_modal_support.html.twig'
+                    ignore missing with { 'examenInfo': object.idAreaExamenEstab ? object.idAreaExamenEstab.idExamenServicioDiagnostico : null,
+                                            'modalidadInfo': object.idAreaExamenEstab ? object.idAreaExamenEstab.idAreaServicioDiagnostico : null,
+                                            'establecimientoInfo': object.idAreaExamenEstab ? object.idAreaExamenEstab.idEstablecimiento : null,
+                                         } %}
+    </div>
+{% endblock %}
+
+{% block formactions %}
+    <div class="well well-small form-actions">
+        {% if app.request.isxmlhttprequest %}
+            {% if admin.id(object) is not null %}
+                <button type="submit" class="btn btn-success-v2" name="btn_update"><i class="fa fa-save"></i> {{ 'btn_update'|trans({}, 'SonataAdminBundle') }}</button>
+            {% else %}
+                <button type="submit" class="btn btn-success-v2" name="btn_create"><i class="fa fa-plus-circle"></i> {{ 'btn_create'|trans({}, 'SonataAdminBundle') }}</button>
+            {% endif %}
+        {% else %}
+            {% if admin.supportsPreviewMode %}
+                <button class="btn btn-info persist-preview" name="btn_preview" type="submit">
+                    <i class="fa fa-eye"></i>
+                    {{ 'btn_preview'|trans({}, 'SonataAdminBundle') }}
+                </button>
+            {% endif %}
+            {% if admin.id(object) is not null %}
+                <button type="submit" class="btn btn-primary-v2" name="btn_update_and_edit"><i class="fa fa-save"></i> Guardar</button>
+
+                {% if admin.hasroute('list') and admin.isGranted('LIST') %}
+                    <button type="submit" class="btn btn-primary-v2" name="btn_update_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                {% endif %}
+
+                {% if admin.hasroute('delete') and admin.isGranted('DELETE', object) %}
+                    {{ 'delete_or'|trans({}, 'SonataAdminBundle') }}
+                    <a class="btn btn-danger" href="{{ admin.generateObjectUrl('delete', object) }}"><i class="fa fa-minus-circle"></i> {{ 'link_delete'|trans({}, 'SonataAdminBundle') }}</a>
+                {% endif %}
+
+                {% if admin.isAclEnabled() and admin.hasroute('acl') and admin.isGranted('MASTER', object) %}
+                    <a class="btn btn-info" href="{{ admin.generateObjectUrl('acl', object) }}"><i class="fa fa-users"></i> {{ 'link_edit_acl'|trans({}, 'SonataAdminBundle') }}</a>
+                {% endif %}
+            {% else %}
+                {% if admin.hasroute('edit') and admin.isGranted('EDIT') %}
+                    <button class="btn btn-primary-v2" type="submit" name="btn_create_and_edit"><i class="fa fa-save"></i> Guardar</button>
+                {% endif %}
+                {% if admin.hasroute('list') and admin.isGranted('LIST') %}
+                    <button type="submit" class="btn btn-primary-v2" name="btn_create_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                {% endif %}
+                <button class="btn btn-primary-v2" type="submit" name="btn_create_and_create"><i class="fa fa-plus-circle"></i> Guardar</button>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock formactions %}

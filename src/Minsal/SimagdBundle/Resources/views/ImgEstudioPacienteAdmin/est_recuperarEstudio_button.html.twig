@@ -1,0 +1,9 @@
+{# empty Twig template #}
+
+{% if ( estudioPaciente is not null ) %}
+
+    <a class="text-success sonata-action-element" href="{{ estudioPaciente.url|raw|trim|default('javascript:void(0)') }}" title="Recuperar estudio realizado" target="_blank">
+        <i class="fa fa-download"></i>&nbsp;<i class="fa fa-eye"></i>
+        Recuperar estudio</a>
+
+{% endif %}

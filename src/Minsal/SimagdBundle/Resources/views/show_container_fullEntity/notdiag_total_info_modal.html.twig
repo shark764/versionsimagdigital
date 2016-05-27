@@ -1,0 +1,76 @@
+{# empty Twig template #}
+
+    <div id="contenidoFullData-showModalContainer" class="modal container fade justify-bootstrap-div-container simagd-full-form-container simagd-full-data-view" role="dialog" tabindex="-1" style="display: none;" data-backdrop="true" data-keyboard="true">
+	<div class="modal-content panel-info-v2">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+                <h4 class="modal-title"><i class="fa fa-folder-open"></i> Nota al Diagnóstico radiológico</h4>
+            </div>
+
+            <div class="modal-body">
+                
+                <div class="panel panel-info-v2">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> <i class="fa fa-comment"></i> Detalles de la Nota </h3>
+                    </div>
+                    <div class="panel-body" >
+                        {% for notaDiag in notaDiagInfo %}
+                            <div data-id="{{ notaDiag.id }}" class="div-nota-completa-info">
+                
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <th class="col-md-2"><span class="simagd-text-primary">Contenido:</span></th>
+                                        <td colspan="3" class="col-md-10">
+                                            {{ notaDiag.contenido|raw }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-md-2"><span class="simagd-text-primary">Emitió:</span></th>
+                                        <td class="col-md-4">
+                                            {{ notaDiag.idEmpleado }}
+                                        </td>
+                                        <th class="col-md-2"><span class="simagd-text-primary">Usuario que registró:</span></th>
+                                        <td class="col-md-4">
+                                            {{ notaDiag.idUserReg.idEmpleado }} <strong> ( {{ notaDiag.idUserReg.username }} ) </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-md-2"><span class="simagd-text-primary">Tipo de empleado:</span></th>
+                                        <td class="col-md-4">
+                                            {{ notaDiag.idEmpleado.idTipoEmpleado }}
+                                        </td>
+                                        <th class="col-md-2"><span class="simagd-text-primary">Creada en:</span></th>
+                                        <td class="col-md-4">
+                                            {{ notaDiag.idEstablecimiento }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-md-2"><span class="simagd-text-primary">Tipo de nota:</span></th>
+                                        <td class="col-md-4">
+                                            {{ notaDiag.idTipoNotaDiagnostico }}
+                                        </td>
+                                        <th class="col-md-2"><span class="simagd-text-primary">Se creó:</span></th>
+                                        <td class="col-md-4">
+                                            {{ notaDiag.fechaEmision|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ notaDiag.fechaEmision|date('H:i:s A') }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-md-2"><span class="simagd-text-primary">Observaciones:</span></th>
+                                        <td colspan="3" class="col-md-10">
+                                            {{ notaDiag.observaciones }}
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+            </div>
+	</div><!-- /.modal-content -->
+    </div><!-- /.modal -->

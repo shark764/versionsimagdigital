@@ -1,0 +1,78 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed">
+        {% if solicitudEstInfo is not null %}
+            <tr>
+                <th class="col-md-2">Fecha de solicitud:</th>
+                <td class="col-md-4">
+                    {{ solicitudEstInfo.fechaSolicitud|format_date('EEEE, MMMM d, yyyy', 'es_ES') }}
+                </td>
+                <th class="col-md-2">Creado:</th>
+                <td class="col-md-4">
+                    {{ solicitudEstInfo.fechahorareg|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ solicitudEstInfo.fechahorareg|date('H:i:s A') }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Generada en:</th>
+                <td class="col-md-4">
+                    {{ solicitudEstInfo.idestablecimiento }}
+                </td>
+                <th class="col-md-2">Estado:</th>
+                <td class="col-md-4">
+                    {{ solicitudEstInfo.estado }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Impresiones:</th>
+                <td class="col-md-4">
+                    {{ solicitudEstInfo.impresiones }}
+                </td>
+                <th class="col-md-2">Posee detalles:</th>
+                <td class="col-md-4">
+                    {% if detalleSolEstInfo | length > 0 %}
+                        Si &nbsp;<span class="badge">{{ detalleSolEstInfo | length }}</span>
+                    {% else %}
+                        No
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2"><span class="simagd-text-primary">Detalles de la Solicitud:</span></th>
+                <td colspan="3" class="col-md-4">
+                    <ul>
+                        {% for detalleSolEst in detalleSolEstInfo %}
+                            <li>
+                                <a data-toggle="modal" href="#" data-id="{{ detalleSolEst.id }}" data-target="#detalleSolEstFullData-showModalContainer" class="open-detalleEstSolDialog btn-link" title="Abrir detalle de la Solicitud">
+                                    <i class="fa fa-external-link-square"></i>
+                                </a> &nbsp;
+                                <strong> {{ detalleSolEst.idexamen.idAreaServicioDiagnostico }} </strong> : {{ detalleSolEst.idexamen.idExamenServicioDiagnostico }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="col-md-4">
+                    <button class='btn btn-primary' data-toggle='modal' href='#solicitudEstFullData-showModalContainer' id='btn-ver-solest-total-info'>
+                        <i class="fa fa-plus-circle"></i> Ver más
+                    </button>
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td class="col-md-12">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only"> Cerrar </span>
+                        </button>
+                        <strong>Sin resultados!</strong> No se encontró registro.
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    </table>
+
+    {% include 'MinsalSimagdBundle:SecHistorialClinicoAdmin:sec_detalleSolEst_totalInfo.html.twig'
+                            ignore missing with { 'detallesSolEst': detalleSolEstInfo } %}     {# detalles de solicitud #}

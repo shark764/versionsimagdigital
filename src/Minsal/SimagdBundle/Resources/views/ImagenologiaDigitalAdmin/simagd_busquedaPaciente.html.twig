@@ -1,0 +1,368 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_list_v2.html.twig' %}
+
+{# Permisos solicitudes #}
+{% set _PRC_ALLOW_CREATE    = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_CREATE') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _PRC_ALLOW_EDIT      = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_EDIT') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _PRC_ALLOW_LIST      = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _PRC_ALLOW_VIEW      = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_VIEW') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script>
+        var $isGranted_studyRequest,
+            $isGranted_studyView;
+	
+        $isGranted_studyRequest = {% if _PRC_ALLOW_CREATE == true and _PRC_ALLOW_EDIT == true %} true {% else %} false {% endif %};
+        $isGranted_studyView    = {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_LIST') and is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN') %} true {% else %} false {% endif %};
+
+        (function ($) {
+            /*
+             * 
+             * @type type
+             * Global variables for plugin
+             */
+            window.GROUP_DEPENDENT_ENTITIES = null;   // --| build data collection
+            GROUP_DEPENDENT_ENTITIES        = JSON.parse('{{ GROUP_DEPENDENT_ENTITIES|json_encode|e('js')|raw }}');
+
+        }(jQuery));
+    </script>
+
+    {# Scripts validaciones #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImagenologiaDigitalAdmin/simagd_funciones_validacion.js') }}" ></script>
+
+    {# new record for patient typeahead #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgSolicitudEstudioAdmin/prc_assignToNewRecord_alert.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_newRecord_typeahead.js') }}" ></script>
+
+    {# Scripts pct #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImagenologiaDigitalAdmin/simagd_config_search.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImagenologiaDigitalAdmin/simagd_busqueda_paciente.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImagenologiaDigitalAdmin/simagd_lista_pacientes.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImagenologiaDigitalAdmin/simagd_fastRequest.js') }}" ></script>
+
+{% endblock %}
+
+{% block simagd_bs_alert %}
+    {{ parent() }}
+    
+    {% include 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_assignToNewRecord_alert.html.twig' %}
+{% endblock %}
+    
+{% block simagd_navbar_menu_label %}
+    <i class="fa fa-wheelchair"></i> <i class="fa fa-tasks"></i> <i class="fa fa-clock-o"></i> <i class="fa fa-eye-slash"></i> <i class="fa fa-clipboard"></i> Búsqueda de Pacientes
+{% endblock %}
+
+{% block simagd_navbar_left_nav %}
+{% endblock %}
+
+{% block simagd_navbar_middle_nav %}
+    <form class="navbar-form navbar-left navbar-input-group" role="search">
+	<div class="form-group has-feedback">
+	    <input type="text" class="typeahead explocal_navbar_typeahead form-control" autocomplete="off" placeholder="expediente" id="navbar_filter_expNumero" name="navbar_filter_expNumero" data-xparam-filter="false" data-template-source="getSearchExpedienteSourceTemplate" {%if expRequest is not null %} value="{{ expRequest.numero }}" {% endif %}>
+	    <i class="glyphicon glyphicon-remove-circle form-control-feedback typeahead-custom-clear" id="clear-typeahead-exp"></i>
+	</div>
+        <button type="submit" id="btn_search_pct" name="btn_search_pct" class="btn btn-primary-v2"><i class="fa fa-search"></i></button>
+	<button type="submit" id="btn_search_plus_pct" name="btn_search_plus_pct" class="btn btn-primary-v2" ><i class="fa fa-search-plus"></i> Más opciones</button>
+	<button type="submit" id="btn_search_minus_pct" name="btn_search_minus_pct" class="btn btn-primary-v2" style="display: none;" ><i class="fa fa-search-minus"></i> Menos opciones</button>
+    </form>
+{% endblock %}
+
+{% block simagd_navbar_right_nav %}
+{% endblock %}
+    
+{% block sonata_admin_content -%}
+    {{ parent() }}
+    
+    <div id="container_form_busquedaPaciente" style="display: none;">
+
+	{#{% set simagd_vars = { 'simagd_title': 'IMAGENOLOGÍA DIGITAL',
+			    'simagd_message': 'Llene este formulario para buscar un paciente registrado'
+	}%}
+	{% include 'MinsalSimagdBundle:Menu:simagd_cabecera.html.twig' ignore missing with simagd_vars %}#}
+
+	{#<h4><img class="icono" src={{ asset('bundles/minsalsimagd/images/medicina-ortomolecular.png') }} />Búsqueda de Pacientes</h4>#}
+	
+	<form id="formBusquedaPaciente" method="post" class="form-horizontal" >
+	
+	    <div class="form-group">
+		<label class="col-xs-2 control-label">Nombres</label>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+			<input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Primer Nombre" maxlength="25"
+				  {#data-fv-row=".col-xs-3"#}
+				  
+				  data-fv-stringlength="true"
+				  data-fv-stringlength-min="3"
+				  data-fv-stringlength-max="25"
+				  data-fv-stringlength-message="3 caracteres mínimo para iniciar búsqueda"
+
+				  data-fv-regexp="true"
+				  data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ]+$"
+				  data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+		    </div>
+		</div>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+			<input type="text" class="form-control" id="segundoNombre" name="segundoNombre" placeholder="Segundo Nombre" maxlength="25"
+				  {#data-fv-row=".col-xs-8"#}
+				  
+				  data-fv-stringlength="true"
+				  data-fv-stringlength-min="3"
+				  data-fv-stringlength-max="25"
+				  data-fv-stringlength-message="3 caracteres mínimo para iniciar búsqueda"
+
+				  data-fv-regexp="true"
+				  data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ]+$"
+				  data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+		    </div>
+		</div>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+			<input type="text" class="form-control" id="tercerNombre" name="tercerNombre" placeholder="Tercer Nombre" maxlength="25"
+				  {#data-fv-row=".col-xs-8"#}
+				  
+				  data-fv-stringlength="true"
+				  data-fv-stringlength-min="3"
+				  data-fv-stringlength-max="25"
+				  data-fv-stringlength-message="3 caracteres mínimo para iniciar búsqueda"
+
+				  data-fv-regexp="true"
+				  data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ]+$"
+				  data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+		    </div>
+		</div>
+	    </div>
+
+	    <div class="form-group">
+		<label class="col-xs-2 control-label">Apellidos</label>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+			<input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Primer Apellido" maxlength="25"
+				  {#data-fv-row=".col-xs-8"#}
+				  
+				  data-fv-stringlength="true"
+				  data-fv-stringlength-min="3"
+				  data-fv-stringlength-max="25"
+				  data-fv-stringlength-message="3 caracteres mínimo para iniciar búsqueda"
+
+				  data-fv-regexp="true"
+				  data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ]+$"
+				  data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+		    </div>
+		</div>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+			<input type="text" class="form-control" id="segundoApellido" name="segundoApellido" placeholder="Segundo Apellido" maxlength="25"
+				  {#data-fv-row=".col-xs-8"#}
+				  
+				  data-fv-stringlength="true"
+				  data-fv-stringlength-min="3"
+				  data-fv-stringlength-max="25"
+				  data-fv-stringlength-message="3 caracteres mínimo para iniciar búsqueda"
+
+				  data-fv-regexp="true"
+				  data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ]+$"
+				  data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+		    </div>
+		</div>
+	    </div>
+
+	    <div class="form-group">
+		<label class="col-xs-2 control-label">N° de Expediente</label>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class="input-group-addon"><i class='glyphicon glyphicon-barcode'></i></span>
+			<input type="text" class="form-control" id="numeroExp" name="numeroExp" maxlength="12"
+				  {#data-fv-row=".col-xs-8"#}
+				  
+				  data-fv-stringlength="true"
+				  data-fv-stringlength-min="1"
+				  data-fv-stringlength-max="12"
+				  data-fv-stringlength-message="1 caracter mínimo para iniciar búsqueda"
+
+				  data-fv-regexp="true"
+				  data-fv-regexp-regexp="^[0-9\-]+$"
+				  data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+		    </div>
+		</div>
+		<label class="col-xs-2 control-label">DUI</label>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class="input-group-addon"><i class='glyphicon glyphicon-barcode'></i></span>
+			<input type="text" class="form-control" id="dui" name="dui" maxlength="10"
+				  {#data-fv-row=".col-xs-8"#}
+				  
+				  data-fv-verbose="false"
+				  
+				  data-fv-stringlength="true"
+				  data-fv-stringlength-min="9"
+				  data-fv-stringlength-max="10"
+				  data-fv-stringlength-message="Debe contener 10 carácteres, inlcuyendo guión"
+
+				  data-fv-regexp="true"
+				  data-fv-regexp-regexp="(^\d{8})-{0,1}(\d$)"
+				  data-fv-regexp-message="No corresponde al patrón '99999999-9'"
+				  
+				  data-fv-callback="true"
+				  data-fv-callback-message="No es un número de DUI válido"
+				  data-fv-callback-callback="checkValidDUI" />
+		    </div>
+		</div>
+	    </div>
+
+	    <div class="form-group">
+		<label class="col-xs-2 control-label">Fecha Nacimiento</label>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class='input-group-btn'>
+			    <button class='demo btn btn-primary-v2 btn-large' id='showDateTimePicker'> <i class='glyphicon glyphicon-calendar'></i> </button>
+			</span>
+			<input type="text" class="form-control" id="fechaNacimiento" name="fechaNacimiento" readonly="readonly" />
+		    </div>
+		</div>
+		<label class="col-xs-2 control-label">Desplegar</label>
+		<div class="col-xs-2">
+		    <center>
+			<select class="form-control select2" id="limitarResultados" name="limitarResultados">
+			    <option value=""></option>
+			    {% for i in range(low=10, high=40, step=10) %}
+				<option value="{{ i }}">{{ i }}</option>
+			    {% endfor %}
+			    {% for i in range(low=50, high=2000, step=50) %}
+				<option value="{{ i }}">{{ i }}</option>
+			    {% endfor %}
+			    {% for i in range(low=2500, high=10000, step=500) %}
+				<option value="{{ i }}">{{ i }}</option>
+			    {% endfor %}
+			</select>
+		    </center>
+		</div>
+		<label class="col-xs-1 control-label">Resultados</label>
+	    </div>
+
+	    <div class="form-group">
+		<div class="col-xs-offset-2 col-xs-10">
+		    <button type="submit" id="iniciar-busqueda" name="btn_buscar_pacientes" class="btn btn-primary-v2" >
+			<i class="fa fa-search"></i> Buscar
+		    </button>
+		    <button type="button" id="limpiar-form" name="btn_reset_form" class="btn btn-element-v2" >
+			<i class="fa fa-repeat"></i> Restablecer
+		    </button>
+		    <button type="button" id="limpiar-resultados" name="btn_reset_resultados" class="btn btn-danger" >
+			<i class="fa fa-trash-o"></i> Limpiar
+		    </button>
+		</div>
+	    </div>
+	</form>
+	
+    </div>
+    
+    <br/><br/>
+    
+    <!-- toolbar for table-resultado-busqueda -->
+    {% set code_entity  = 'exp' %}
+        <div id="bs_{{ code_entity }}_toolbar" class="table_bsTable_toolbar"> <!-- toolbar for table-lista-entity -->
+
+            {#<div class="columns columns-left btn-group pull-left">#}
+                <!-- Single button -->
+                <div class="btn-group">
+                    <button type="button" id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
+                        <i class="glyphicon glyphicon-filter"></i>
+                        Filtrar <span class="caret"></span>
+                    </button>
+                    <!-- Menu -->
+                    <ul class="dropdown-menu table_bsTable_toolbar_menuFilter" id="bs_{{ code_entity }}_menuFilter" >
+                    </ul>
+                </div>
+                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
+                    <i class="glyphicon glyphicon-repeat"></i>
+                </button>
+                <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+
+                <!-- --| custom buttons for toolbar -->
+                <span class="btn-separator"></span>
+                
+                <button id="btn_unknown_patient_add_item" class="btn btn-danger btn_unknown_patient_add_item" title="Agregar paciente de emergencia" style="margin-left: 15px"
+                        {% if not (_PRC_ALLOW_CREATE == true or is_granted('ROLE_ADMIN')) %} disabled="disabled" {% endif %}>
+                    <i class="glyphicon glyphicon-plus-sign "></i>
+                </button>
+                
+                <span class="btn-separator"></span>
+                
+                <button id="btn_external_patient_add_item" class="btn btn-element-v2 btn_external_patient_add_item" title="Agregar paciente referido" style="margin-left: 15px"
+                        {% if not (_PRC_ALLOW_CREATE == true or is_granted('ROLE_ADMIN')) %} disabled="disabled" {% endif %}>
+                    <i class="glyphicon glyphicon-plus-sign "></i>
+                </button>
+                <!-- END --| custom buttons for toolbar -->
+            {#</div>#}
+
+        </div>
+    <!-- END --| toolbar for table-resultado-busqueda -->
+
+    <div id="container_resultado_busquedaPaciente" style="display: none;">
+        <table class="table table-condensed" id="table-resultado-busqueda"
+                data-toggle="table"
+                data-id-field="exp_id"
+                data-url="{#{{ path('simagd_imagenologia_digital_resultadosBusquedaPaciente') }}#}"
+                data-backup-url="simagd_imagenologia_digital_resultadosBusquedaPaciente"
+                data-toolbar="#bs_exp_toolbar"
+                data-cache="false"
+                data-show-refresh="true"
+                data-show-toggle="true"
+                data-show-columns="true"
+                data-search="true"
+                data-select-item-name="busquedaPctToolbar"
+                data-pagination="true"
+                data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+                {#data-sort-name="id"
+                data-sort-order="desc"#}
+                data-classes="table table-hover table-condensed table-no-bordered"
+                data-height="760">
+            <thead>
+                <tr style="background-color: #31708f; color: #fff;">
+                    <th data-field="exp_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-halign="center" data-align="center" data-sortable="true">ID</th>
+                    <th data-field="exp_numero" data-filter-bstable-apply="true" data-filter-bstable-type="text" data-switchable="false" class="col-md-1" data-halign="center" data-align="left" data-sortable="true">Número</th>
+                    <th data-field="pct_nombreCompleto" data-filter-bstable-apply="false" data-filter-bstable-by="pct_id" data-filter-bstable-type="select2" data-filter-bstable-remote-data-source="true" data-switchable="false" class="col-md-3" data-halign="center" data-align="left" data-sortable="true">Nombre completo</th>
+                    <th data-field="pct_fechaNacimiento" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="fechaHoraNacimientoFormatter" class="col-md-1" data-halign="center" data-align="right" data-sortable="true">Fecha nacimiento</th>
+                    <th data-field="pct_numeroDocIdePaciente" class="col-md-1" data-halign="center" data-align="left" data-sortable="true">Identificación</th>
+                    <th data-field="pct_ocupacion" data-visible="false" class="col-md-1" data-halign="center" data-align="left" data-sortable="true">Ocupación</th>
+                    <th data-field="pct_nacionalidad" data-visible="false" class="col-md-1" data-halign="center" data-align="left" data-sortable="true">Nacionalidad</th>
+                    <th data-field="pct_sexo" class="col-md-1" data-halign="center" data-align="left" data-sortable="true">Sexo</th>
+                    <th data-field="pct_estadoCivil" class="col-md-1" data-halign="center" data-align="left" data-sortable="true">Estado civil</th>
+                    <th data-field="action" data-switchable="false" data-formatter="actionFormatter" data-events="actionEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    
+    <br/><br/>
+    
+    {% include 'MinsalSimagdBundle:ImagenologiaDigitalAdmin:simagd_resultado_busquedaPaciente.html.twig' %}
+    
+    <!-- form for create study request -->
+    {% if _PRC_ALLOW_VIEW == true %}
+        {% include 'MinsalSimagdBundle:show_container_fullEntity:prc_total_info_modal_v2.html.twig' %}          {# solicitud de estudio #}
+    {% endif %}
+    {% if _PRC_ALLOW_CREATE == true or _PRC_ALLOW_EDIT == true %}
+        {% include 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_crearSolicitudEstudio_formatoRapido_modal.html.twig'
+            ignore missing with { 'medicos': medicos, 'default_empLogged': default_empLogged, 'modalidades': modalidades, 'default_mldRx': default_mldRx, 'proyecciones': proyecciones } %}     {# solicitud de estudio #}
+    {% endif %}
+    
+    <br/><br/>
+    
+{% endblock -%}

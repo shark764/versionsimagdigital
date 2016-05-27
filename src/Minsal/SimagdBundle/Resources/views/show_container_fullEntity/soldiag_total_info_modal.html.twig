@@ -1,0 +1,76 @@
+{# empty Twig template #}
+
+    <div id="solicitudDiagnosticoFullData-showModalContainer" class="modal container fade justify-bootstrap-div-container simagd-full-form-container simagd-full-data-view" role="dialog" tabindex="-1" style="display: none;" data-backdrop="true" data-keyboard="true">
+	<div class="modal-content panel-info-v2">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+                <h4 class="modal-title"><i class="fa fa-folder-open"></i> Solicitud de diagnóstico radiológico</h4>
+            </div>
+
+            <div class="modal-body">
+                
+                <div class="panel panel-info-v2">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> <i class="fa fa-clipboard"></i> Detalles de la solicitud </h3>
+                    </div>
+                    <div class="panel-body" >
+                
+                        <table class="table table-condensed">
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Solicitante:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudDiagnosticoInfo.idEmpleado }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Creada:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudDiagnosticoInfo.fechaCreacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ solicitudDiagnosticoInfo.fechaCreacion|date('H:i:s A') }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Tipo de empleado:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudDiagnosticoInfo.idEmpleado.idTipoEmpleado }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Justificación:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudDiagnosticoInfo.justificacion }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Usuario que registró:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudDiagnosticoInfo.idUserReg.idEmpleado }} <strong> ( {{ solicitudDiagnosticoInfo.idUserReg.username }} ) </strong>
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Próxima consulta médica:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudDiagnosticoInfo.fechaProximaConsulta|format_date('EEEE, MMMM d, yyyy', 'es_ES') }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Solicitado a externo:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudDiagnosticoInfo.solicitudRemota ? 'Si' : 'No' }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Observaciones:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudDiagnosticoInfo.observaciones }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Solicitado a:</span></th>
+                                <td class="col-md-4">
+                                    {{ solicitudDiagnosticoInfo.idEstablecimientoSolicitado }}
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+            </div>
+	</div><!-- /.modal-content -->
+    </div><!-- /.modal -->

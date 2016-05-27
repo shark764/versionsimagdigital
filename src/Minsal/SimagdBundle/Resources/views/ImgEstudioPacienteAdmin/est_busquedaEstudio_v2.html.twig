@@ -1,0 +1,438 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_list_v2.html.twig' %}
+
+{# Permisos patrones #}
+{% set _EST_ALLOW_CREATE 	= is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_CREATE') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _EST_ALLOW_EDIT 		= is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_EDIT') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _EST_ALLOW_LIST 		= is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _EST_ALLOW_VIEW 		= is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        /*
+         * 
+         * @type String
+         * navbar menu container for bstables
+         */
+        var $pattern_bstable_container  = 'menu-listas-estudios';
+
+        (function ($) {
+            /*
+             * 
+             * @type type
+             * Global variables for plugin
+             */
+            window.GROUP_DEPENDENT_ENTITIES = null;   // --| build data collection
+            GROUP_DEPENDENT_ENTITIES        = JSON.parse('{{ GROUP_DEPENDENT_ENTITIES|json_encode|e('js')|raw }}');
+
+        }(jQuery));
+        
+    </script>
+
+    {# Scripts validaciones #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImagenologiaDigitalAdmin/simagd_funciones_validacion.js') }}" ></script>
+
+    {# Scripts est #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgEstudioPacienteAdmin/est_config_search.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgEstudioPacienteAdmin/est_busqueda_estudio.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgEstudioPacienteAdmin/est_lista_estudios.js') }}" ></script>
+
+{% endblock %}
+    
+{% block simagd_navbar_menu_label %}
+    <i class="fa fa-wheelchair"></i> <i class="fa fa-eye-slash"></i> <i class="fa fa-floppy-o"></i> <i class="fa fa-microphone"></i> Búsqueda de estudios en Repositorio PACS
+{% endblock %}
+
+{% block simagd_navbar_left_nav %}
+{% endblock %}
+
+{% block simagd_navbar_middle_nav %}
+    <form class="navbar-form navbar-left navbar-input-group" role="search">
+	<div class="form-group has-feedback">
+	    <input type="text" class="typeahead explocal_navbar_typeahead form-control" autocomplete="off" placeholder="expediente" id="navbar_filter_expNumero" name="navbar_filter_expNumero" data-xparam-filter="false" {%if expRequest is not null %} value="{{ expRequest.numero }}" {% endif %}>
+	    <i class="glyphicon glyphicon-remove-circle form-control-feedback typeahead-custom-clear" id="clear-typeahead-filter-exp"></i>
+	</div>
+        <button type="submit" id="btn_search_filter_expNumero" name="btn_search_filter_expNumero" class="btn btn-primary-v2 {#btn-sm#}">
+            <i class="fa fa-search"></i>
+        </button>
+	<button type="submit" id="btn_search_plus_est" name="btn_search_plus_est" class="btn btn-primary-v2" ><i class="fa fa-search-plus"></i> Más opciones</button>
+	<button type="submit" id="btn_search_minus_est" name="btn_search_minus_est" class="btn btn-element-v2" style="display: none;" ><i class="fa fa-search-minus"></i> Menos opciones</button>
+    </form>
+{% endblock %}
+
+{% block simagd_navbar_right_nav %}
+{% endblock %}
+    
+{% block sonata_admin_content -%}
+    {{ parent() }}
+    
+    <div id="container_form_busquedaEstudio" style="display: none;">
+
+	{#{% set simagd_vars = { 'simagd_title': 'IMAGENOLOGÍA DIGITAL',
+			    'simagd_message': 'Llene este formulario para buscar un estudio registrado'
+	}%}
+	{% include 'MinsalSimagdBundle:Menu:simagd_cabecera.html.twig' ignore missing with simagd_vars %}#}
+
+	{#<h4><img class="icono" src={{ asset('bundles/minsalsimagd/images/medicina-ortomolecular.png') }} />Búsqueda de Estudios</h4>#}
+	
+	<form id="formBusquedaEstudio" method="post" class="form-horizontal" >
+
+	    <div class="form-group">
+		<label class="col-xs-2 control-label required">Buscar estudios en</label>
+		<div class="col-xs-6">
+		    <select id="establecimientoAlojado" name="establecimientoAlojado" class="form-control select2-select" data-default="{{ defaultEstab.id }}" data-apply-formatter="stdPacs"
+			      {#data-fv-row=".col-xs-8"#}
+                                  
+                              data-filter-bstable-apply="true"
+                              data-filter-bstable-type="server"
+                              data-filter-bstable-by="stdest_id"
+
+			      data-fv-notempty="true"
+			      data-fv-notempty-message="Seleccione un elemento" >
+			<option value=""></option>
+			{% for tipo in tiposEstab %}
+			    <optgroup label="{{ tipo }}">
+			    {% for establecimiento in establecimientos if establecimiento.idTipoEstablecimiento is not null and establecimiento.idTipoEstablecimiento.id == tipo.id %}
+				<option value="{{ establecimiento.id }}" {% if establecimiento.id == defaultEstab.id %} selected {% endif %}>
+				    {{ establecimiento.nombre }}
+				    {# {% if establecimiento.id == defaultEstab.id %} [Repositorio PACS Local] {% endif %} #}
+				</option>
+			    {% endfor %}
+			    </optgroup>
+			{% endfor %}
+			{% for establecimiento in establecimientos if establecimiento.idTipoEstablecimiento is null %}
+			    <option value="{{ establecimiento.id }}" {% if establecimiento.id == defaultEstab.id %} selected {% endif %}>
+				{{ establecimiento.nombre }}
+				{# {% if establecimiento.id == defaultEstab.id %} [Repositorio PACS Local] {% endif %} #}
+			    </option>
+			{% endfor %}
+		    </select>
+		</div>
+	    </div>
+	
+	    <div class="form-group">
+		<label class="col-xs-2 control-label">Nombres</label>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+			<input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Primer Nombre" maxlength="25"
+				  {#data-fv-row=".col-xs-3"#}
+                                  
+                                  data-filter-bstable-apply="true"
+                                  data-filter-bstable-type="text"
+                                  data-filter-bstable-by="pct_primerNombre"
+				  
+				  data-fv-stringlength="true"
+				  data-fv-stringlength-min="3"
+				  data-fv-stringlength-max="25"
+				  data-fv-stringlength-message="3 caracteres mínimo para iniciar búsqueda"
+
+				  data-fv-regexp="true"
+				  data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ\s]+$"
+				  data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+		    </div>
+		</div>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+			<input type="text" class="form-control" id="segundoNombre" name="segundoNombre" placeholder="Segundo Nombre" maxlength="25"
+				  {#data-fv-row=".col-xs-8"#}
+                                  
+                                  data-filter-bstable-apply="true"
+                                  data-filter-bstable-type="text"
+                                  data-filter-bstable-by="pct_segundoNombre"
+				  
+				  data-fv-stringlength="true"
+				  data-fv-stringlength-min="3"
+				  data-fv-stringlength-max="25"
+				  data-fv-stringlength-message="3 caracteres mínimo para iniciar búsqueda"
+
+				  data-fv-regexp="true"
+				  data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ\s]+$"
+				  data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+		    </div>
+		</div>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+			<input type="text" class="form-control" id="tercerNombre" name="tercerNombre" placeholder="Tercer Nombre" maxlength="25"
+				  {#data-fv-row=".col-xs-8"#}
+                                  
+                                  data-filter-bstable-apply="true"
+                                  data-filter-bstable-type="text"
+                                  data-filter-bstable-by="pct_tercerNombre"
+				  
+				  data-fv-stringlength="true"
+				  data-fv-stringlength-min="3"
+				  data-fv-stringlength-max="25"
+				  data-fv-stringlength-message="3 caracteres mínimo para iniciar búsqueda"
+
+				  data-fv-regexp="true"
+				  data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ\s]+$"
+				  data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+		    </div>
+		</div>
+	    </div>
+
+	    <div class="form-group">
+		<label class="col-xs-2 control-label">Apellidos</label>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+			<input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Primer Apellido" maxlength="25"
+				  {#data-fv-row=".col-xs-8"#}
+                                  
+                                  data-filter-bstable-apply="true"
+                                  data-filter-bstable-type="text"
+                                  data-filter-bstable-by="pct_primerApellido"
+				  
+				  data-fv-stringlength="true"
+				  data-fv-stringlength-min="3"
+				  data-fv-stringlength-max="25"
+				  data-fv-stringlength-message="3 caracteres mínimo para iniciar búsqueda"
+
+				  data-fv-regexp="true"
+				  data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ\s]+$"
+				  data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+		    </div>
+		</div>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+			<input type="text" class="form-control" id="segundoApellido" name="segundoApellido" placeholder="Segundo Apellido" maxlength="25"
+				  {#data-fv-row=".col-xs-8"#}
+                                  
+                                  data-filter-bstable-apply="true"
+                                  data-filter-bstable-type="text"
+                                  data-filter-bstable-by="pct_segundoApellido"
+				  
+				  data-fv-stringlength="true"
+				  data-fv-stringlength-min="3"
+				  data-fv-stringlength-max="25"
+				  data-fv-stringlength-message="3 caracteres mínimo para iniciar búsqueda"
+
+				  data-fv-regexp="true"
+				  data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ\s]+$"
+				  data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+		    </div>
+		</div>
+	    </div>
+
+	    <div class="form-group">
+		<label class="col-xs-2 control-label">N° de Expediente</label>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class="input-group-addon"><i class='glyphicon glyphicon-barcode'></i></span>
+			<input type="text" class="form-control" id="numeroExp" name="numeroExp" maxlength="12"
+				  {#data-fv-row=".col-xs-8"#}
+                                  
+                                  data-filter-bstable-apply="true"
+                                  data-filter-bstable-type="text"
+                                  data-filter-bstable-by="explocal_numero"
+				  
+				  data-fv-stringlength="true"
+				  data-fv-stringlength-min="1"
+				  data-fv-stringlength-max="12"
+				  data-fv-stringlength-message="1 caracter mínimo para iniciar búsqueda"
+
+				  data-fv-regexp="true"
+				  data-fv-regexp-regexp="^[0-9\-]+$"
+				  data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+		    </div>
+		</div>
+		<label class="col-xs-2 control-label">DUI</label>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class="input-group-addon"><i class='glyphicon glyphicon-barcode'></i></span>
+			<input type="text" class="form-control" id="dui" name="dui" maxlength="10"
+				  {#data-fv-row=".col-xs-8"#}
+                                  
+                                  data-filter-bstable-apply="true"
+                                  data-filter-bstable-type="text"
+                                  data-filter-bstable-by="pct_numeroDocIdePaciente"
+				  
+				  data-fv-verbose="false"
+				  
+				  data-fv-stringlength="true"
+				  data-fv-stringlength-min="9"
+				  data-fv-stringlength-max="10"
+				  data-fv-stringlength-message="Debe contener 10 carácteres, inlcuyendo guión"
+
+				  data-fv-regexp="true"
+				  data-fv-regexp-regexp="(^\d{8})-{0,1}(\d$)"
+				  data-fv-regexp-message="No corresponde al patrón '99999999-9'"
+				  
+				  data-fv-callback="true"
+				  data-fv-callback-message="No es un número de DUI válido"
+				  data-fv-callback-callback="checkValidDUI" />
+		    </div>
+		</div>
+	    </div>
+	
+	    <div class="form-group">
+		<label class="col-xs-2 control-label required">Rango</label>
+		<div class="col-xs-3">
+		    <div class="input-group info">
+			<span class='input-group-btn'>
+			    <button class='demo btn btn-element-v2 btn-large' id='showDateTimePickerFechaDesde'> <i class='glyphicon glyphicon-time'></i> </button>
+			</span>
+			<input type="text" class="form-control" id="fechaDesde" name="fechaDesde" placeholder="Desde" readonly="readonly"
+				{#data-fv-row=".col-xs-8"#}
+                                  
+                                data-filter-bstable-apply="true"
+                                data-filter-bstable-type="daterange"
+								  
+				data-fv-notempty="true"
+				data-fv-notempty-message="Este campo es requerido"
+
+				data-fv-date="true"
+				data-fv-date-format="YYYY-MM-DD h:m A"
+				data-fv-date-max="fechaHasta"
+				data-fv-date-message="Fecha no válida" />
+		    </div>
+		</div>
+		<div class="col-xs-3">
+		    <div class="input-group info">
+			<span class='input-group-btn'>
+			    <button class='demo btn btn-element-v2 btn-large' id='showDateTimePickerFechaHasta'> <i class='glyphicon glyphicon-time'></i> </button>
+			</span>
+			<input type="text" class="form-control" id="fechaHasta" name="fechaHasta" placeholder="Hasta" readonly="readonly"
+				{#data-fv-row=".col-xs-8"#}
+                                  
+                                data-filter-bstable-apply="true"
+                                data-filter-bstable-type="daterange"
+								  
+				data-fv-notempty="true"
+				data-fv-notempty-message="Este campo es requerido"
+
+				data-fv-date="true"
+				data-fv-date-format="YYYY-MM-DD h:m A"
+				data-fv-date-min="fechaDesde"
+				data-fv-date-message="Fecha no válida" />
+		    </div>
+		</div>
+	    </div>
+
+	    <div class="form-group">
+		<label class="col-xs-2 control-label">Fecha Nacimiento</label>
+		<div class="col-xs-3">
+		    <div class="input-group info-v2">
+			<span class='input-group-btn'>
+			    <button class='demo btn btn-primary-v2 btn-large' id='showDateTimePicker'> <i class='glyphicon glyphicon-calendar'></i> </button>
+			</span>
+			<input type="text" class="form-control" id="fechaNacimiento" name="fechaNacimiento" placeholder="YYYY-MM-DD" readonly="readonly"
+				{#data-fv-row=".col-xs-8"#}
+                                  
+                                data-filter-bstable-apply="true"
+                                data-filter-bstable-type="date"
+                                data-filter-bstable-by="pct_fechaNacimiento"
+
+				data-fv-date="true"
+				data-fv-date-format="YYYY-MM-DD"
+				{#data-fv-date-max="fechaDesde"#}
+				data-fv-date-message="Fecha no válida" />
+		    </div>
+		</div>
+		<label class="col-xs-2 control-label">Desplegar</label>
+		<div class="col-xs-2">
+		    <center>
+			<select class="form-control select2" id="limitarResultados" name="limitarResultados"
+                                  
+                                data-filter-bstable-apply="true"
+                                data-filter-bstable-type="limit">
+			    <option value=""></option>
+			    {% for i in range(low=10, high=40, step=10) %}
+				<option value="{{ i }}">{{ i }}</option>
+			    {% endfor %}
+			    {% for i in range(low=50, high=2000, step=50) %}
+				<option value="{{ i }}">{{ i }}</option>
+			    {% endfor %}
+			    {% for i in range(low=2500, high=10000, step=500) %}
+				<option value="{{ i }}">{{ i }}</option>
+			    {% endfor %}
+			</select>
+		    </center>
+		</div>
+		<label class="col-xs-1 control-label">Resultados</label>
+	    </div>
+
+	    <div class="form-group">
+		<div class="col-xs-offset-2 col-xs-10">
+		    <button type="submit" id="iniciar-busqueda" name="btn_buscar_estudios" class="btn btn-primary-v2" >
+			<i class="fa fa-search"></i> Buscar
+		    </button>
+		    <button type="button" id="limpiar-form" name="btn_reset_form" class="btn btn-element-v2" >
+			<i class="fa fa-repeat"></i> Restablecer
+		    </button>
+		    <button type="button" id="limpiar-resultados" name="btn_reset_resultados" class="btn btn-danger" >
+			<i class="fa fa-trash-o"></i> Limpiar
+		    </button>
+		</div>
+	    </div>
+	</form>
+	
+    </div>
+    
+    <br/><br/>
+        
+    <!-- toolbar for table-lista-proyecciones -->
+    {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'est' } %}
+    <!-- END --| toolbar for table-lista-proyecciones -->
+    
+    <div id="container_resultado_busquedaEstudio" style="display: none;">
+        <table class="table table-condensed" id="table-resultado-busqueda"
+		data-toggle="table"
+		data-id-field="est_id"
+		data-url="{#{{ path('simagd_estudio_resultadosBusquedaEstudio') }}#}"
+                data-backup-url="simagd_estudio_resultadosBusquedaEstudio"
+                data-toolbar="#bs_est_toolbar"
+		data-cache="false"
+		data-show-refresh="true"
+		data-show-toggle="true"
+		data-show-columns="true"
+		data-search="true"
+		data-select-item-name="busquedaEstToolbar"
+		data-pagination="true"
+		data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+		{#data-sort-name="id"
+		data-sort-order="desc"#}
+		data-classes="table table-hover table-condensed table-no-bordered"
+		data-height="760">
+            <thead>
+                <tr style="background-color: #31708f; color: #fff;">
+                    <th data-field="est_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-halign="center" data-align="center" data-sortable="true">ID</th>
+		    <th data-field="est_paciente" data-switchable="false" data-formatter="simagdPacienteFormatter" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Paciente</th>
+		    <th data-field="prc_origen" data-filter-bstable-apply="true" data-filter-bstable-by="stdroot_id" data-filter-bstable-type="select2" data-formatter="simagdOrigenFormatter" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>
+		    <th data-field="prc_solicitante" data-filter-bstable-apply="true" data-filter-bstable-by="[empprc_id, empcmpl_id]" data-filter-bstable-type="select2" data-formatter="simagdSolicitanteEstudioFormatter" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Solicitó</th>
+		    <th data-field="prc_areaAtencion" data-filter-bstable-apply="true" data-filter-bstable-by="ar_id" data-filter-bstable-type="select2" data-formatter="simagdAreaAtencionFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Procedencia</th>
+		    <th data-field="prc_atencion" data-filter-bstable-apply="true" data-filter-bstable-by="atn_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Servicio clínico</th>
+		    <th data-field="prc_modalidad" data-filter-bstable-apply="true" data-filter-bstable-by="[m_id, mcmpl_id]" data-filter-bstable-type="select2" data-formatter="simagdModalidadSolicitadaFormatter" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Modalidad</th>
+		    <th data-field="est_tipo" data-formatter="simagdTipoEstudioFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Tipo</th>
+		    <th data-field="prz_tecnologo" data-filter-bstable-apply="true" data-filter-bstable-by="tcnlprz_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizó</th>
+		    <th data-field="prz_estado" data-filter-bstable-apply="true" data-filter-bstable-by="statusprz_id" data-filter-bstable-type="select2" data-formatter="simagdEstadoEstudioFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Estado</th>
+		    <th data-field="est_fechaEstudio" data-filter-bstable-apply="true" data-filter-bstable-type="combodate"  data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Registrado en RIS</th>
+		    <th data-field="prz_fechaAlmacenado" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" class="col-md-1" data-formatter="simagdDateTimeFormatter" data-align="right" data-halign="center" data-sortable="true">Almacenado en PACS</th>
+		    <th data-field="est_almacenado" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizado en</th>
+		    <th data-field="est_eliminadoEnPacs" data-formatter="eliminadoEnPacsFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Eliminado</th>
+                    <th data-field="action" data-switchable="false" data-formatter="actionFormatter" data-events="actionEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+                    <th data-field="est_chk" data-checkbox="true" data-formatter="" class="col-md-1" data-align="center" data-halign="center" data-valign="middle"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    
+    <!-- form for create study request -->
+    {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_COMPLEMENTARIO_CREATE') or is_granted('ROLE_ADMIN') %}
+        {% include 'MinsalSimagdBundle:ImgSolicitudEstudioComplementarioAdmin:solcmpl_crearSolicitudEstudio_formatoRapido_modal.html.twig'
+		ignore missing with { 'collection_prioridades': collection_prioridades, 'collection_modalidades': collection_modalidades, 'collection_examenes': collection_examenes, 'collection_proyecciones': collection_proyecciones, 'collection_default_mldRx': collection_default_mldRx, 'collection_default_exmRx': collection_default_exmRx, 'collection_tiposEmpleado': collection_tiposEmpleado, 'collection_radiologos': collection_radiologos, 'collection_default_empLogged': collection_default_empLogged } %}
+    {% endif %}
+    
+{% endblock -%}

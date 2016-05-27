@@ -1,0 +1,75 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    
+    {# Bootstrap #}
+    {#<link href="{{ asset('bundles/minsalsimagd/bootstrap-3.3.4-dist/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/minsalsimagd/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css') }}" type="text/css" rel="stylesheet" />#}
+    
+    {# Twitter Typeahead #}
+    <link href="{{ asset('bundles/minsalsimagd/css/typeahead.css') }}" type="text/css" rel="stylesheet" />
+    
+    {# bootstrap-table #}
+    <link href="{{ asset('bundles/minsalsimagd/bootstrap-table-master/dist/bootstrap-table.min.css') }}" type="text/css" rel="stylesheet" media="screen" />
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    {# Bootstrap #}
+    {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap-3.3.4-dist/js/bootstrap.min.js') }}" ></script>#}
+
+    {# jquery-formparams #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/jquery.formparams.min.js') }}" ></script>
+    
+    {# Twitter Typeahead #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/typeahead.js-master/dist/typeahead.bundle.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/typeahead.js-master/dist/bloodhound.js') }}" ></script>
+    
+    {# bootstrap-table #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap-table-master/dist/bootstrap-table.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap-table-master/dist/locale/bootstrap-table-es-CR.min.js') }}" ></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgPendienteRealizacionAdmin/pndR_personal_list_v2.js') }}" ></script>
+
+{% endblock %}
+    
+{% block sonata_admin_content -%}
+            
+    <table class="table table-condensed" id="table-lista-pendientes-realizar"
+           data-toggle="table"
+           data-url="{{ path('simagd_mi_lista_sin_realizar_listarPendientesRealizar') }}"
+           data-cache="false"
+           data-show-refresh="true"
+           data-show-toggle="true"
+           data-show-columns="true"
+           data-search="true"
+           data-select-item-name="listaPendientesRealizarToolbar"
+           data-pagination="true"
+           data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+           {#data-sort-name="id"
+           data-sort-order="desc"#}
+           data-classes="table table-hover table-condensed table-no-bordered"
+           data-height="760">
+        <thead>
+            <tr style="background-color: #31708f; color: #fff;">
+                {#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
+                <th data-field="id" class="col-md-1" data-align="center" data-halign="center" data-sortable="true">ID</th>
+                <th data-field="origen" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>
+                <th data-field="paciente" data-switchable="false" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Paciente</th>
+                <th data-field="solicitante" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Solicitó</th>
+                <th data-field="areaAtencion" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Procedencia</th>
+                <th data-field="atencion" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Servicio clínico</th>
+                <th data-field="modalidad" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Modalidad</th>
+                <th data-field="referido" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizar en</th>
+                <th data-field="fechaIngreso" class="col-md-2" data-align="right" data-halign="center" data-sortable="true">Ingresó en lista</th>
+                <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents" class="col-md-1"></th>
+            </tr>
+        </thead>
+    </table>
+    
+{% endblock %}

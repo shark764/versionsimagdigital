@@ -1,0 +1,130 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            /** Validación de formulario de inserción/actualización */
+            jQuery('#simagd_entity_full_admin_form').formValidation({
+                excluded: [':disabled'],
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    '{{ admin.uniqId }}[nombreConexion]': {
+                        message: 'Nombre de conexión inválido',
+                        validators: {
+                            stringLength: {
+                                min: 5,
+                                max: 100,
+                                message: 'Nombre de conexión debe contener al menos 5 caracteres y máximo 100'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[ip]': {
+                        message: 'Dirección IP es inválida',
+                        validators: {
+                            notEmpty: {
+                                message: 'Dirección IP es requerida'
+                            },
+                            ip: {
+                                ipv4: true,
+                                message: 'El texto introducio no corresponde a una dirección ip (ipv4) correcta'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[usuario]': {
+                        message: 'Usuario inválido',
+                        validators: {
+                            stringLength: {
+                                min: 6,
+                                max: 15,
+                                message: 'Nombre de usuario debe contener al menos 6 caracteres y máximo 15'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, 0-9 )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[clave][first]': {
+                        message: 'Clave digitada inválida',
+                        validators: {
+                            stringLength: {
+                                min: 6,
+                                max: 15,
+                                message: 'Clave digitada debe contener al menos 6 caracteres y máximo 15'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, 0-9 )'
+                            },
+			    identical: {
+				field: '{{ admin.uniqId }}[clave][second]',
+				message: 'La contraseña y su confirmación no son la misma'
+			    }
+                        }
+                    },
+                    '{{ admin.uniqId }}[clave][second]': {
+                        message: 'Clave digitada inválida',
+                        validators: {
+                            stringLength: {
+                                min: 6,
+                                max: 15,
+                                message: 'Clave digitada debe contener al menos 6 caracteres y máximo 15'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, 0-9 )'
+                            },
+			    identical: {
+				field: '{{ admin.uniqId }}[clave][first]',
+				message: 'La contraseña y su confirmación no son la misma'
+			    }
+                        }
+                    },
+                    '{{ admin.uniqId }}[nombreBaseDatos]': {
+                        message: 'Nombre de la base de datos inválido',
+                        validators: {
+                            stringLength: {
+                                min: 4,
+                                max: 25,
+                                message: 'Nombre de la Base de Datos debe contener al menos 4 caracteres y máximo 25'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_-]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, 0-9, _- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[host]': {
+                        message: 'Nombre del host inválido',
+                        validators: {
+                            stringLength: {
+                                min: 4,
+                                max: 25,
+                                message: 'Nombre del host debe contener al menos 4 caracteres y máximo 35'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_-]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, 0-9, _- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[idMotor]': {
+                        message: 'Motor de base de datos inválido',
+                        validators: {
+                            notEmpty: {
+                                message: 'Motor de base de datos es requerido'
+                            }
+                        }
+                    },
+                }
+            });
+            
+        });
+    </script>

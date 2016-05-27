@@ -1,0 +1,434 @@
+{# http://stackoverflow.com/questions/18861957/html-bootstrap-popover-function #}
+
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_form_admin_fields.html.twig' %}
+
+{# Labels #}
+{% block form_label %}
+{% spaceless %}
+
+    {% set label_class = " control-label col-sm-3" %}
+    {#{% if sonata_admin.admin and sonata_admin.admin.getConfigurationPool().getOption('form_type') == 'horizontal' %}
+        {% set label_class = " control-label col-sm-3" %}
+    {% else %}
+        {% set label_class = " control-label" %}
+    {% endif%}#}
+
+    {#{{ sonata_admin.admin.getConfigurationPool().getOption('form_type') }}#}
+    {% if label is not sameas(false) %}
+        {% set label_attr = label_attr|merge({'class': label_attr.class|default('') ~ label_class }) %}
+
+        {% if not compound %}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {% endif %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+
+        {% if in_list_checkbox is defined and in_list_checkbox and widget is defined %}
+            <label{% for attrname,attrvalue in attr %} {{attrname}}="{{attrvalue}}"{% endfor %} data-prevent-label-for="toggle" class="col-xs-12">
+                {{ widget|raw }}
+                {% if object_child_patientStudies_collectionChoice is not null %}
+		    {% set _hasPrc = object_child_patientStudies_collectionChoice.idProcedimientoRealizado.idSolicitudEstudio %}
+		    {% set _hasSolCmpl = object_child_patientStudies_collectionChoice.idProcedimientoRealizado.idSolicitudEstudioComplementario %}
+		    
+		    {% set _origen = _hasPrc is not null and _hasSolCmpl is null ? 'med' : 'xrad' %}
+		    <div class="panel-group col-xs-11" id="studiesRx_listChk_study_containerGroup_{{ object_child_patientStudies_collectionChoice.id }}" style="float: right; {#margin-left: 0px;#}">
+			<div class="panel panel-primary-v2">
+			    <a class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#studiesRx_item_listChk_study_panelCollapse_id_{{ object_child_patientStudies_collectionChoice.id }}">
+				<span class="badge badge-primary-v2 badge-inverse" style="">
+				    {% if _hasPrc is not null and _hasSolCmpl is null %}
+					{{ _hasPrc.idAtenAreaModEstab.idAreaModEstab }}
+				    {% elseif _hasSolCmpl is not null %}
+					{{ _hasSolCmpl.idSolicitudEstudio.idAtenAreaModEstab.idAreaModEstab }}
+				    {% else %}
+					Origen desconocido
+				    {% endif %}
+				</span>
+				{% if _hasPrc is not null and _hasSolCmpl is null %}
+				    {{ _hasPrc.idAreaServicioDiagnostico }}<br/><div class="list-group-item-summary-block" style=""><strong>{{ object_child_patientStudies_collectionChoice.idProcedimientoRealizado.studyCustomDescription }}</strong><br/><strong>PACS UID:</strong> &nbsp;{{ object_child_patientStudies_collectionChoice.estudioUid }}<br/><strong>PACS Fecha:</strong> &nbsp;{{ object_child_patientStudies_collectionChoice.fechaEstudio|format_date('EEEE, MMMM d, yyyy', 'es_ES')
+							    ~ ' ' ~ object_child_patientStudies_collectionChoice.fechaEstudio|date('H:i:s A') }}</div>
+				    {# object_child_patientStudies_collectionChoice.descripcion #}
+				{% elseif _hasSolCmpl is not null %}
+				    <span class="text-success-v2">{{ _hasSolCmpl.idAreaServicioDiagnostico }}</span><br/><div class="list-group-item-summary-block" style=""><strong>{{ object_child_patientStudies_collectionChoice.idProcedimientoRealizado.studyCustomDescription }}</strong><br/><strong>PACS UID:</strong> &nbsp;{{ object_child_patientStudies_collectionChoice.estudioUid }}<br/><strong>PACS Fecha:</strong> &nbsp;{{ object_child_patientStudies_collectionChoice.fechaEstudio|format_date('EEEE, MMMM d, yyyy', 'es_ES')
+							    ~ ' ' ~ object_child_patientStudies_collectionChoice.fechaEstudio|date('H:i:s A') }}<br/><i>Solicitado por Médico Radiólogo para complementar estudio de: &nbsp;<strong>{{ _hasSolCmpl.idSolicitudEstudio.idAreaServicioDiagnostico.nombrearea }}</strong></i></u></div>
+				    {# object_child_patientStudies_collectionChoice.descripcion #}
+				{% else %}
+				    No puede determinarse la modalidad
+				{% endif %}
+			    </a>
+			    <div class="panel-collapse collapse" id="studiesRx_item_listChk_study_panelCollapse_id_{{ object_child_patientStudies_collectionChoice.id }}">
+				<div class="panel-body">
+				    <input type="hidden" value=""
+					    id="fieldOrigenSol_{{ object_child_patientStudies_collectionChoice.id }}"
+					    name="fieldOrigenSol_[{{ object_child_patientStudies_collectionChoice.id }}]"
+					    data-origen="{{ _origen }}" data-estudio-id="{{ object_child_patientStudies_collectionChoice.id }}" />
+				    
+				    <span style="margin-left: 25px;">
+					Estudio de:&nbsp;
+					<span class="
+					    {% if _hasPrc is not null and _hasSolCmpl is null %}
+						text-primary-v2">{{ _hasPrc.idAreaServicioDiagnostico }}
+					    {% elseif _hasSolCmpl is not null %}
+						text-success-v2">{{ _hasSolCmpl.idAreaServicioDiagnostico }}
+					    {% else %}
+						text-info"><i class="fa fa-exclamation-triangle"></i> <i class="text-danger"> No puede determinarse la modalidad</i>
+					    {% endif %}
+					</span>
+				    </span>
+				    <div class="col-xs-12 col-xs-12" style="{#margin-left: 45px;#}">
+					<table class="table table-condensed {#table-striped#} simagd-normal-td table-no-bordered table-hover non-top-bordered-table list-group-item-contain-table">
+					    <tr>
+						<th class="col-xs-2 simagd-th-text-primary"><span class="simagd-text-primary"></span></th>
+						<td class="col-xs-10 {#col-xs-offset-3#}" colspan="2">
+						    <div class="btn-toolbar" role="toolbar" aria-label="...">
+							{#<div class="btn-group" role="group">
+							    <a title="Recuperar estudio de Servidor PACS" target="_blank" class="btn btn-primary-v2 btn-sm"
+								href="{{ object_child_patientStudies_collectionChoice.url|raw|trim|default('javascript:void(0)') }}"
+								{% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN') ) %}
+								    disabled="disabled"
+								{% endif %}>
+								<i class="fa fa-eye"></i>
+								Descargar</a>
+							</div>#}
+
+							{#<span class="btn-separator"></span>#}
+
+							<div class="btn-group" role="group">
+							    <button type="button" class="btn btn-primary-v2 btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Visualizar estudio" {% if not (is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN')) %} disabled="disabled" {% endif %}>
+								<i class="glyphicon glyphicon-eye-open"></i>
+								&nbsp;Visualizar estudio <span class="caret"></span>
+							    </button>
+							    <ul class="dropdown-menu" style="right: 0; left: auto;" >
+								<li>
+								    <a href="javascript:void(0)" id="btn_solcmpl_study_url_weasis" target="_blank" title="Descargar estudio" {% if not (is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN')) %} disabled="disabled" {% endif %}>
+									<i class="glyphicon glyphicon-save"></i> Weasis
+								    </a>
+								</li>
+								<li>
+								    <a href="javascript:void(0)" id="btn_solcmpl_study_url_oviyam2" target="_blank" title="Visualizar estudio en web" {% if not (is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN')) %} disabled="disabled" {% endif %}>
+									<i class="glyphicon glyphicon-play-circle"></i> Oviyam2
+								    </a>
+								</li>
+							    </ul>
+							</div>
+							
+							{#<span class="btn-separator"></span>#}
+
+							{#<div class="btn-group" role="group">
+							    <a title="Solicitar estudio complementario" target="_blank" class="btn btn-primary-v2 btn-sm "
+								href="{{ path('simagd_solicitud_estudio_complementario_create',
+									    { '__prc' : _hasPrc is not null ? _hasPrc.id : null, '__est': object_child_patientStudies_collectionChoice.id }) }}"
+								{% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_COMPLEMENTARIO_CREATE') or is_granted('ROLE_ADMIN') ) or
+									_hasSolCmpl is not null %}
+								    disabled="disabled"
+								{% endif %}>
+								<i class="fa fa-external-link"></i>
+								Complementar</a>
+							</div>#}
+                                                        <div class="btn-group" role="group">
+                                                            <a id="create_solcmpl_for_study__{{ object_child_patientStudies_collectionChoice.id }}" title="Solicitar estudio complementario" target="_blank" class="btn btn-primary-v2 btn-sm" href="javascript:void(0)"
+                                                                {% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_COMPLEMENTARIO_CREATE') or is_granted('ROLE_ADMIN') ) or
+                                                                        _hasSolCmpl is not null %}
+                                                                    disabled="disabled"
+                                                                {% else %}
+                                                                    data-add-new-request-for-study="true" data-study-rq-id="{{ _hasPrc is not null ? _hasPrc.id : null }}" data-study-id="{{ object_child_patientStudies_collectionChoice.id }}" data-study-url="{{ object_child_patientStudies_collectionChoice.url|raw|trim|default('javascript:void(0)') }}"
+                                                                {% endif %}>
+                                                                <i class="fa fa-external-link"></i>
+                                                                Complementar</a>
+                                                        </div>
+                                                    </div>
+						</td>
+					    </tr>
+					    <tr>
+						<th class="col-xs-2 simagd-th-text-primary"><span class="simagd-text-primary">RIS ID</span></th>
+						<td class="col-xs-10" colspan="2">
+						    {#<span class="text-info">#}
+							<span class="badge">{{ object_child_patientStudies_collectionChoice.id }}</span>
+						    {#</span>#}
+						</td>
+					    </tr>
+					    <tr>
+						<th class="col-xs-2 simagd-th-text-primary"><span class="simagd-text-primary">Solicitó</span></th>
+						<td class="col-xs-10" colspan="2">
+						    {#<span class="text-info">#}
+							{% if _hasPrc is not null and _hasSolCmpl is null %}
+							    {{ _hasPrc.idEmpleado }}
+							{% elseif _hasSolCmpl is not null %}
+							    {{ _hasSolCmpl.idRadiologoSolicita }}
+							{% else %}
+							    <i class="fa fa-exclamation-triangle"></i> Indeterminado
+							{% endif %}
+						    {#</span>#}
+						</td>
+					    </tr>
+					    {% if _hasPrc is not null and _hasSolCmpl is null %}
+						<tr>
+						    <th class="col-xs-2 simagd-th-text-primary"><span class="simagd-text-primary"></span></th>
+						    <td class="col-xs-10" colspan="2">
+							<span class="text-info">
+							    <u><i>{{ _hasPrc.idAtenAreaModEstab.nombreConsulta }}</i></u>
+							</span>
+						    </td>
+						</tr>
+					    {% endif %}
+					    <tr>
+						<th class="col-xs-2 simagd-th-text-primary"><span class="simagd-text-primary">Realizado en</span></th>
+						<td class="col-xs-10" colspan="2">
+						    {#<span class="text-info">#}
+							{#{% if _hasPrc is not null and _hasSolCmpl is null %}
+							    {{ _hasPrc.idEstablecimientoReferido }}
+							{% elseif _hasSolCmpl is not null %}
+							    {{ _hasSolCmpl.idEstablecimientoSolicitado }}
+							{% else %}
+							    <i class="fa fa-exclamation-triangle"></i> Indeterminado
+							{% endif %}#}
+							{{ object_child_patientStudies_collectionChoice.idEstablecimiento }}
+						    {#</span>#}
+						</td>
+					    </tr>
+					    <tr>
+						<th class="col-xs-2 simagd-th-text-primary"><span class="simagd-text-primary">Examinó</span></th>
+						<td class="col-xs-10" colspan="2">
+						    {#<span class="text-info">#}
+							{{ object_child_patientStudies_collectionChoice.idProcedimientoRealizado.idTecnologoRealiza }}
+						    {#</span>#}
+						</td>
+					    </tr>
+					    <tr>
+						<th class="col-xs-2 simagd-th-text-primary"><span class="simagd-text-primary"></span></th>
+						<td class="col-xs-10" colspan="2">
+						    {#<span class="text-info">#}
+							{% if _hasPrc is not null and _hasSolCmpl is null %}
+							    <span class="text-info">
+								<u><i>{{ 'Estudio solicitado por médico referente' }}</i></u>
+							    </span>
+							{% elseif _hasSolCmpl is not null %}
+							    {% if object_child_patientStudies_collectionChoice.idEstudioPadre is not null %}
+								{% set _hasFather = object_child_patientStudies_collectionChoice.idEstudioPadre %}
+								{% set _hasFatherPrc = _hasFather.idProcedimientoRealizado.idSolicitudEstudio %}
+								<a  tabindex="0"
+								    class="btn-link btn-link-v2"
+								    role="button"
+								    data-toggle="popover"
+								    rel="popover"
+								    data-trigger="click"
+                                                                    title="<i class='fa fa-share-square-o'></i> {{ _hasFatherPrc.idAreaServicioDiagnostico }}"
+								    data-original-title="{{ _hasFatherPrc.idAreaServicioDiagnostico }}"
+								    data-contentwrapper=".lctEst_container_contentwrapper_father_id_{{ object_child_patientStudies_collectionChoice.id }}_{{ _hasFather.id }}"
+								    {# if not exists div with padre same -- ver como hacer esto #}
+								    data-placement="top"
+								    href="javascript:void(0)"
+								    data-id="{{ _hasFather.id }}" >
+								    <u><i>{{ 'Estudio adicional solicitado por Médico Radiólogo' }}</i></u>
+								</a>
+
+								{% include 'MinsalSimagdBundle:ImgLecturaAdmin:lct_lctEst_event_contentwrapper.html.twig'
+								    ignore missing with {
+									'_hasFather': _hasFather,
+									'_hasFatherPrc': _hasFatherPrc,
+									'object_child_patientStudies_collectionChoice': object_child_patientStudies_collectionChoice,
+								} %}
+							    {% endif %}
+							{% else %}
+							    <i class="fa fa-exclamation-triangle"></i> <i class="text-danger"> No puede determinarse el origen</i>
+							{% endif %}
+						    {#</span>#}
+						</td>
+					    </tr>
+					    <tr>
+						<th class="col-xs-2 simagd-th-text-primary"><span class="simagd-text-primary">Descripción</span></th>
+						<td class="col-xs-10" colspan="2">
+						    <span class="text-success-v2">
+							{#{{ object_child_patientStudies_collectionChoice.descripcion }}#}
+							{{ object_child_patientStudies_collectionChoice.idProcedimientoRealizado.studyCustomDescription }}
+						    </span>
+						</td>
+					    </tr>
+					    <tr>
+						<th class="col-xs-2 simagd-th-text-primary"><span class="simagd-text-primary">Proyecciones</span></th>
+						<td class="col-xs-10" colspan="2">
+						    {% if _hasPrc is not null and _hasSolCmpl is null %}
+							{% set examenesLoop = [] %}
+							{% for proyeccion in _hasPrc.solicitudEstudioProyeccion %}
+							    {% set i = '_' ~ proyeccion.idExamenServicioDiagnostico.id %}
+							    
+							    {% if i not in examenesLoop|keys %}
+								{% set examenesLoop = examenesLoop|merge({ (i): proyeccion.idExamenServicioDiagnostico }) %}
+							    {% endif %}
+							{% endfor %}
+							
+							<ul class="list-unstyled">
+							    {% for key, value in examenesLoop %}
+								<li>
+								    <strong> {{ value }} </strong>
+								    <ul class="list-unstyled" style="margin-left: 25px;">
+									{% for proyeccion in _hasPrc.solicitudEstudioProyeccion if proyeccion.idExamenServicioDiagnostico.id == key|trim('_') %}
+									    <li>
+										<a  tabindex="0"
+										    class="btn-link btn-link-v2"
+										    role="button"
+										    data-toggle="popover"
+										    rel="popover"
+										    data-trigger="hover"
+                                                                                    title="<i class='fa fa-list-alt'></i> {{ proyeccion }}"
+										    data-original-title="{{ proyeccion }}"
+										    data-contentwrapper=".prc_container_contentwrapper_id_{{ proyeccion.id }}"
+										    data-placement="top"
+										    href="javascript:void(0)"
+										    data-id="{{ proyeccion.id }}" >
+										    {{ proyeccion }}
+										</a>
+
+										<div class="prc_container_contentwrapper_id_{{ proyeccion.id }}" style="display: none;"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+										    <table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
+											<tr><th class="col-md-5">Código:</th><td class="col-md-7">{{ proyeccion.codigo }}</td></tr>
+											<tr><th class="col-md-5">Tiempo en sala:</th><td class="col-md-7">{{ proyeccion.tiempoOcupacionSala }}</td></tr>
+											<tr><th class="col-md-5">Tiempo por médico:</th><td class="col-md-7">{{ proyeccion.tiempoMedico }}</td></tr>
+											<tr><th class="col-md-5">Descripción:</th><td class="col-md-7"><pre class="pre-display-code-natural">{{ proyeccion.descripcion|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre></td></tr>
+										    </table>
+										</div>
+									    </li>
+									{% endfor %}
+								    </ul>
+								</li>
+							    {% endfor %}
+							</ul>
+						    {% elseif _hasSolCmpl is not null %}
+							{% set examenesLoop = [] %}
+							{% for proyeccion in _hasSolCmpl.solicitudEstudioComplementarioProyeccion %}
+							    {% set i = '_' ~ proyeccion.idExamenServicioDiagnostico.id %}
+							    
+							    {% if i not in examenesLoop|keys %}
+								{% set examenesLoop = examenesLoop|merge({ (i): proyeccion.idExamenServicioDiagnostico }) %}
+							    {% endif %}
+							{% endfor %}
+							
+							<ul class="list-unstyled">
+							    {% for key, value in examenesLoop %}
+								<li>
+								    <strong> {{ value }} </strong>
+								    <ul class="list-unstyled" style="margin-left: 25px;">
+									{% for proyeccion in _hasSolCmpl.solicitudEstudioComplementarioProyeccion if proyeccion.idExamenServicioDiagnostico.id == key|trim('_') %}
+									    <li>
+										<a  tabindex="0"
+										    class="btn-link btn-link-v2"
+										    role="button"
+										    data-toggle="popover"
+										    rel="popover"
+										    data-trigger="hover"
+                                                                                    title="<i class='fa fa-list-alt'></i> {{ proyeccion }}"
+										    data-original-title="{{ proyeccion }}"
+										    data-contentwrapper=".solcmpl_container_contentwrapper_id_{{ proyeccion.id }}"
+										    data-placement="top"
+										    href="javascript:void(0)"
+										    data-id="{{ proyeccion.id }}" >
+										    {{ proyeccion }}
+										</a>
+
+										<div class="solcmpl_container_contentwrapper_id_{{ proyeccion.id }}" style="display: none;"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+										    <table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
+											<tr><th class="col-md-5">Código:</th><td class="col-md-7">{{ proyeccion.codigo }}</td></tr>
+											<tr><th class="col-md-5">Tiempo en sala:</th><td class="col-md-7">{{ proyeccion.tiempoOcupacionSala }}</td></tr>
+											<tr><th class="col-md-5">Tiempo por médico:</th><td class="col-md-7">{{ proyeccion.tiempoMedico }}</td></tr>
+											<tr><th class="col-md-5">Descripción:</th><td class="col-md-7"><pre class="pre-display-code-natural">{{ proyeccion.descripcion|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre></td></tr>
+										    </table>
+										</div>
+									    </li>
+									{% endfor %}
+								    </ul>
+								</li>
+							    {% endfor %}
+							</ul>
+						    {% else %}
+							<i class="fa fa-exclamation-triangle"></i> <i class="text-danger"> No pueden determinarse las proyecciones</i>
+						    {% endif %}
+						</td>
+					    </tr>
+					    <tr>
+						<td class="col-xs-12" colspan="2" style="text-align:right">
+						    <span class="label label-primary-v2" style="text-align: right; vertical-align: bottom;">
+							PACS: {{ object_child_patientStudies_collectionChoice.fechaEstudio|format_date('EEEE, MMMM d, yyyy', 'es_ES')
+							    ~ ' ' ~ object_child_patientStudies_collectionChoice.fechaEstudio|date('H:i:s A') }}
+						    </span>
+						</td>
+					    </tr>
+					</table>
+				    </div>
+				</div>
+			    </div>
+			</div>
+		    </div>
+                {% else %}
+                    <span>
+                        {% if not sonata_admin.admin %}
+                            {{- label|trans({}, translation_domain) -}}
+                        {% else %}
+                            {{- label|trans({}, sonata_admin.field_description.translationDomain) -}}
+                        {% endif %}
+                    </span>
+                {% endif %}
+            </label>
+        {% else %}
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+                {% if not sonata_admin.admin%}
+                    {{- label|trans({}, translation_domain) -}}
+                {% else %}
+                    {{ sonata_admin.admin.trans(label, {}, sonata_admin.field_description.translationDomain) }}
+                {% endif %}
+            </label>
+        {% endif %}
+    {% endif %}
+{% endspaceless %}
+{% endblock form_label %}
+
+{% block choice_widget %}
+{% spaceless %}
+    {% if compound %}
+	<div style="overflow-y: auto; {#height: 760px;#} max-height: 1176px;" id="form_editTemplate_estudiosLectura_collection">
+	    <ul {{ block('widget_container_attributes_choice_widget') }}>
+		{#<li>Interpretados: <span class="badge">{{ choices | length }}</span></li>
+		<li>Sin lectura: <span class="badge">{{ choices | length }}</span></li>#}
+	    {% for child in form %}
+                <li>
+                    {% set form_widget_content %}
+                        {{ form_widget(child, {'horizontal': true, 'horizontal_input_wrapper_class': ''}) }} {# {'horizontal': true, 'horizontal_input_wrapper_class': ''} needed to avoid MopaBootstrapBundle messing with the DOM #}
+                    {% endset %}
+                    {{ form_label(child, child.vars.label|default(null),
+			    { 'in_list_checkbox' : true, 'widget' : form_widget_content, 'object_child_patientStudies_collectionChoice' : choices[child.vars.value].data } ) }}
+                </li>
+            {% endfor %}
+            </ul>
+	</div>
+    {% else %}
+    {% if sonata_admin.admin and not sonata_admin.admin.getConfigurationPool().getOption('use_select2') %}
+        {% set attr = attr|merge({'class': attr.class|default('') ~ ' form-control'}) %}
+    {% endif %}
+    <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+        {% if empty_value is not none %}
+            <option value="">
+                {% if not sonata_admin.admin %}
+                    {{- empty_value|trans({}, translation_domain) -}}
+                {% else %}
+                    {{- empty_value|trans({}, sonata_admin.field_description.translationDomain) -}}
+                {% endif %}
+            </option>
+        {% endif %}
+        {% if preferred_choices|length > 0 %}
+            {% set options = preferred_choices %}
+            {{ block('choice_widget_options') }}
+            {% if choices|length > 0 %}
+                <option disabled="disabled">{{ separator }}</option>
+            {% endif %}
+        {% endif %}
+        {% set options = choices %}
+        {{ block('choice_widget_options') }}
+    </select>
+    {% endif %}
+{% endspaceless %}
+{% endblock choice_widget %}

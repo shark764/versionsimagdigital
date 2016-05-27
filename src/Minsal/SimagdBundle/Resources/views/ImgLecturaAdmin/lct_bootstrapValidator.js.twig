@@ -1,0 +1,128 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            /** Validación de formulario de inserción/actualización */
+            jQuery('#simagd_entity_full_admin_form').formValidation({
+                excluded: [':disabled'],
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    '{{ admin.uniqId }}[idEmpleado]': {
+                        message: 'El médico intérprete del estudio es inválido',
+                        validators: {
+                            notEmpty: {
+                                message: 'El médico intérprete del estudio es requerido'
+                            }
+                        }
+                    },
+                    '{{ admin.uniqId }}[idTipoResultado]': {
+                        message: 'El tipo de resultado obtenido de la lectura es inválido',
+                        validators: {
+                            notEmpty: {
+                                message: 'El tipo de resultado obtenido de la lectura es requerido'
+                            }
+                        }
+                    },
+                    '{{ admin.uniqId }}[correlativo]': {
+                        message: 'Correlativo para etiqueta de estudio inválido',
+                        validators: {
+                            stringLength: {
+                                min: 6,
+                                max: 10,
+                                message: 'Correlativo para etiqueta de estudio debe contener al menos 6 caracteres y máximo 10'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_-]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, 0-9, _- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[idEstadoLectura]': {
+                        message: 'Estado en que se encuentra la lectura es inválido',
+                        validators: {
+                            notEmpty: {
+                                message: 'Estado en que se encuentra la lectura es requerido'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[indicaciones]': {
+                        message: 'Indicaciones para transcripción inválidas',
+                        validators: {
+                            stringLength: {
+                                min: 10,
+                                max: 255,
+                                message: 'Indicaciones para transcripción deben contener al menos 10 caracteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+//                             callback: {
+//                                 message: 'Lectura sin estudio seleccionado',
+//                                 callback: function(value, validator) {
+//                                     /** begin callback function */
+//                                     var estudioVal = $("input[id='" + $token + "_idEstudio']").val();
+//                                     var existsVal = false;
+//                                     
+//                                     existsVal = estudioVal ? true : false;
+//                                     
+//                                     return existsVal;
+//                                     /** end callback function */
+//                                 }
+//                             },
+                        }
+                    },
+                    '{{ admin.uniqId }}[observaciones]': {
+                        message: 'Observaciones a la lectura inválidas',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 255,
+                                message: 'Observaciones a la lectura deben contener al menos 15 caracteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                            callback: {
+                                message: 'El campo no es válido',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                    var textVal = validator.getFieldElements('{{ admin.uniqId }}[observaciones]').val();
+                                    var optionVal = $("input[name='{{ admin.uniqId }}[idEstadoLectura]']:checked").val();
+                                    
+                                    if ( optionVal == 5 || optionVal == 6 ) {
+                                        if (textVal != null && textVal.length >= 1) {
+                                            return true;
+                                        }
+                                        else {
+                                            return {
+                                                valid: false,
+                                                message: 'El estado seleccionado requiere descripción, por favor utilice este campo'
+                                            };
+                                        }
+                                    }
+                                    else {
+                                        return true;
+                                    }
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                }
+            });
+            
+            /** Validación para estado de lectura */
+            $(document).on('ifChanged ifClicked ifChecked', "input[name='{{ admin.uniqId }}[idEstadoLectura]']", function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', '{{ admin.uniqId }}[observaciones]');
+            });
+            $(document).on('keyup change blur', "textarea[id='" + $token + "_observaciones']", function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', '{{ admin.uniqId }}[idEstadoLectura]');
+            });
+        });
+    </script>

@@ -1,0 +1,232 @@
+{# empty Twig template #}
+
+{# modal-event-calendar #}
+<div id="diagFiltrarDatos-modal" class="modal container fade justify-bootstrap-div-container simagd-full-form-container" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false" data-focus-on="input:first">
+    <div class="modal-content panel-primary-v2">
+        <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+            <h4 class="modal-title"><i class="fa fa-clipboard"></i> Filtrar diagnósticos</h4>
+        </div>
+
+        <div class="modal-body">
+
+	    <div style="padding-left: 15px; padding-right: 15px;">
+		    
+		<h4 class="" style="">
+		    <span class="label label-primary-v2"> Formulario para filtrar listado de diagnósticos </span>
+		</h4>
+		<br/>
+		
+		<div class="row outer simagd-filter-content-layout" style="padding-left: 15px; padding-right: 15px; {#height: 500px; overflow-y: auto;#}">
+
+		    <form id="diagFiltrarDatosForm" action="{{ path('simagd_diagnostico_listarDiagnosticos') }}" method="post" class="form-horizontal simagd-form-custom-class">
+
+			<div class="form-group">
+			    <label class="col-xs-2 control-label">ID:</label>
+			    <div class="col-xs-4">
+				<input type="number" class="form-control" id="formFilterDiagId" name="formFilterDiagId" placeholder="ID" min="1" />
+			    </div>
+			    <label class="col-xs-2 control-label">Estado:</label>
+			    <div class="col-xs-4">
+				<select id="formFilterDiagEstado" name="formFilterDiagEstado" class="form-control select2-select" multiple >
+				    <option value=""></option>
+				    <optgroup label="Estados posibles">
+				    {% for estado in estados %}
+					<option value="{{ estado.id }}">{{ estado }}</option>
+				    {% endfor %}
+				    </optgroup>
+				</select>
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label class="col-xs-2 control-label">Origen:</label>
+			    <div class="col-xs-4">
+				<select id="formFilterDiagOrigen" name="formFilterDiagOrigen" class="form-control select2-select" multiple >
+				    <option value=""></option>
+				    {% for tipo in tiposEstab %}
+					<optgroup label="{{ tipo }}">
+					{% for establecimiento in establecimientos if establecimiento.idTipoEstablecimiento is not null and establecimiento.idTipoEstablecimiento.id == tipo.id %}
+					    <option value="{{ establecimiento.id }}">{{ establecimiento.nombre }}</option>
+					{% endfor %}
+					</optgroup>
+				    {% endfor %}
+				    {% for establecimiento in establecimientos if establecimiento.idTipoEstablecimiento is null %}
+					<option value="{{ establecimiento.id }}">{{ establecimiento.nombre }}</option>
+				    {% endfor %}
+				</select>
+			    </div>
+			    <label class="col-xs-2 control-label">Transcribió:</label>
+			    <div class="col-xs-4">
+				<select id="formFilterDiagTranscriptor" name="formFilterDiagTranscriptor" class="form-control select2-select" multiple >
+				    <option value=""></option>
+				    {% for tipo in tiposEmpleado if tipo.codigo == 'MED' or tipo.codigo == 'TRY' or tipo.codigo == 'ACL' %}
+					<optgroup label="{{ tipo }}">
+					{% for transcriptor in transcriptores if transcriptor.idTipoEmpleado is not null and transcriptor.idTipoEmpleado.id == tipo.id %}
+					    <option value="{{ transcriptor.id }}">{{ transcriptor }}</option>
+					{% endfor %}
+					</optgroup>
+				    {% endfor %}
+				    {% for transcriptor in transcriptores if transcriptor.idTipoEmpleado is null %}
+					<option value="{{ transcriptor.id }}">{{ transcriptor }}</option>
+				    {% endfor %}
+				</select>
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label class="col-xs-2 control-label">Paciente:</label>
+			    <div class="col-xs-4">
+				<select id="formFilterDiagPaciente" name="formFilterDiagPaciente" class="form-control select2-select" multiple >
+				    <option value=""></option>
+				    {#{% for apellido in apellidos %}
+					<optgroup label="{{ apellido|trim }}">
+					{% for paciente in pacientes if paciente.primerApellido|trim is not null and paciente.primerApellido|trim == apellido|trim %}
+					    <option value="{{ paciente.id }}">
+						{{ paciente.primerApellido ~ ' ' ~ paciente.segundoApellido ~ ', ' ~ paciente.primerNombre ~ ' ' ~ paciente.segundoNombre }}
+					    </option>
+					{% endfor %}
+					</optgroup>
+				    {% endfor %}#}
+				    {% for paciente in pacientes %}{#if paciente.primerApellido is null %}#}
+					<option value="{{ paciente.id }}">
+					    {{ paciente.primerApellido ~ ' ' ~ paciente.segundoApellido ~ ', ' ~ paciente.primerNombre ~ ' ' ~ paciente.segundoNombre }}
+					</option>
+				    {% endfor %}
+				</select>
+			    </div>
+			    <label class="col-xs-2 control-label">Interpretó:</label>
+			    <div class="col-xs-4">
+				<select id="formFilterDiagInterprete" name="formFilterDiagInterprete" class="form-control select2-select" multiple >
+				    <option value=""></option>
+				    {% for tipo in tiposEmpleado if tipo.codigo == 'MED' or tipo.codigo == 'TRY' %}
+					<optgroup label="{{ tipo }}">
+					{% for radiologo in radiologos if radiologo.idTipoEmpleado is not null and radiologo.idTipoEmpleado.id == tipo.id %}
+					    <option value="{{ radiologo.id }}">{{ radiologo }}</option>
+					{% endfor %}
+					</optgroup>
+				    {% endfor %}
+				    {% for radiologo in radiologos if radiologo.idTipoEmpleado is null %}
+					<option value="{{ radiologo.id }}">{{ radiologo }}</option>
+				    {% endfor %}
+				</select>
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label class="col-xs-2 control-label">Solicitó:</label>
+			    <div class="col-xs-4">
+				<select id="formFilterDiagSolicitante" name="formFilterDiagSolicitante" class="form-control select2-select" multiple >
+				    <option value=""></option>
+				    {% for tipo in tiposEmpleado if tipo.codigo == 'MED' %}
+					<optgroup label="{{ tipo }}">
+					{% for solicitante in solicitantes if solicitante.idTipoEmpleado is not null and solicitante.idTipoEmpleado.id == tipo.id %}
+					    <option value="{{ solicitante.id }}">{{ solicitante }}</option>
+					{% endfor %}
+					</optgroup>
+				    {% endfor %}
+				    {% for solicitante in solicitantes if solicitante.idTipoEmpleado is null %}
+					<option value="{{ solicitante.id }}">{{ solicitante }}</option>
+				    {% endfor %}
+				</select>
+			    </div>
+			    <label class="col-xs-2 control-label">Correlativo:</label>
+			    <div class="col-xs-4">
+				<input type="text" class="form-control" placeholder="Digite un correlativo" id="formFilterDiagCorrelativo" name="formFilterDiagCorrelativo" maxlength="35" />
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label class="col-xs-2 control-label">Área de atención:</label>
+			    <div class="col-xs-4">
+				<select id="formFilterDiagAreaAtencion" name="formFilterDiagAreaAtencion" class="form-control select2-select" multiple >
+				    <option value=""></option>
+				    {% for areaAtencion in areasAtencion %}
+					<option value="{{ areaAtencion.id }}">{{ areaAtencion }}</option>
+				    {% endfor %}
+				</select>
+			    </div>
+			    <label class="col-xs-2 control-label">Se interpretó:</label>
+			    <div class="col-xs-2">
+				<input type="text" class="form-control" placeholder="Rango inicial" id="formFilterDiagInterpretadoInicio" name="formFilterDiagInterpretadoInicio" readonly="readonly" aria-describedby="basic-addon1" placeholder="YYYY-MM-DD" />
+			    </div>
+			    <div class="col-xs-2">
+				<input type="text" class="form-control" placeholder="Rango final" id="formFilterDiagInterpretadoFin" name="formFilterDiagInterpretadoFin" readonly="readonly" aria-describedby="basic-addon1" placeholder="YYYY-MM-DD" />
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label class="col-xs-2 control-label">Servicio:</label>
+			    <div class="col-xs-4">
+				<select id="formFilterDiagAtencion" name="formFilterDiagAtencion" class="form-control select2-select" multiple >
+				    <option value=""></option>
+				    {% for atencion in atenciones %}
+					<option value="{{ atencion.id }}">{{ atencion }}</option>
+				    {% endfor %}
+				</select>
+			    </div>
+			    <label class="col-xs-2 control-label">Se transcribió</label>
+			    <div class="col-xs-2">
+				<input type="text" class="form-control" placeholder="Rango inicial" id="formFilterDiagTranscritoInicio" name="formFilterDiagTranscritoInicio" readonly="readonly" aria-describedby="basic-addon1" placeholder="YYYY-MM-DD" />
+			    </div>
+			    <div class="col-xs-2">
+				<input type="text" class="form-control" placeholder="Rango final" id="formFilterDiagTranscritoFin" name="formFilterDiagTranscritoFin" readonly="readonly" aria-describedby="basic-addon1" placeholder="YYYY-MM-DD" />
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label class="col-xs-2 control-label">Modalidad:</label>
+			    <div class="col-xs-4">
+				<select id="formFilterDiagModalidad" name="formFilterDiagModalidad" class="form-control select2-select" multiple >
+				    <option value=""></option>
+				    <optgroup label="Imagenología">
+				    {% for modalidad in modalidades %}
+					<option value="{{ modalidad.id }}">{{ modalidad }}</option>
+				    {% endfor %}
+				    </optgroup>
+				</select>
+			    </div>
+			    <label class="col-xs-2 control-label">Se aprobó:</label>
+			    <div class="col-xs-2">
+				<input type="text" class="form-control" placeholder="Rango inicial" id="formFilterDiagAprobadoInicio" name="formFilterDiagAprobadoInicio" readonly="readonly" aria-describedby="basic-addon1" placeholder="YYYY-MM-DD" />
+			    </div>
+			    <div class="col-xs-2">
+				<input type="text" class="form-control" placeholder="Rango final" id="formFilterDiagAprobadoFin" name="formFilterDiagAprobadoFin" readonly="readonly" aria-describedby="basic-addon1" placeholder="YYYY-MM-DD" />
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			    <label class="col-xs-2 control-label">Tecnólogo:</label>
+			    <div class="col-xs-4">
+				<select id="formFilterDiagTecnologo" name="formFilterDiagTecnologo" class="form-control select2-select" multiple >
+				    <option value=""></option>
+				    {% for tipo in tiposEmpleado if tipo.codigo == 'MED' or tipo.codigo == 'TRY' %}
+					<optgroup label="{{ tipo }}">
+					{% for tecnologo in tecnologos if tecnologo.idTipoEmpleado is not null and tecnologo.idTipoEmpleado.id == tipo.id %}
+					    <option value="{{ tecnologo.id }}">{{ tecnologo }}</option>
+					{% endfor %}
+					</optgroup>
+				    {% endfor %}
+				    {% for tecnologo in tecnologos if tecnologo.idTipoEmpleado is null %}
+					<option value="{{ tecnologo.id }}">{{ tecnologo }}</option>
+				    {% endfor %}
+				</select>
+			    </div>
+			</div>
+	    
+		    </form>
+		
+		</div>
+	    </div>
+            
+        </div>
+
+        <div class="modal-footer" style="margin-top: 0px;">
+            <span class="text-info"><span class="glyphicon glyphicon-question-sign"></span> ¿Estos filtros están bien? &nbsp;</span>
+            <button type="button" data-dismiss="modal" class="btn btn-primary-v2"><i class="fa fa-times"></i> Cerrar</button>
+            <button type="button" id="btn_vaciar_filtros_diag" name="btn_vaciar_filtros_diag" class="btn btn-danger" ><i class="fa fa-trash-o"></i> Vaciar</button>
+            <button type="button" id="btn_filtrar_datos_diag" name="btn_filtrar_datos_diag" class="btn btn-primary-v2" ><i class="fa fa-check-square"></i> Filtrar</button>
+        </div>
+        
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->

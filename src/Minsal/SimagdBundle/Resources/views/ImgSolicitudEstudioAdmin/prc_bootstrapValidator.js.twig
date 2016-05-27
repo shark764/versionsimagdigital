@@ -1,0 +1,380 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+/*        http://doc.javake.cn/bootstrap-validator/settings/
+        https://github.com/nghuuphuoc/bootstrapvalidator/blob/master/demo/selector.html
+        http://www.bootply.com/dzv0yijvI5
+        http://bootstrapvalidator.com/examples/icheck/
+        http://bootstrapvalidator.com/api/#revalidate-field*/
+    
+        jQuery(document).ready(function() {
+            /** Validación de formulario de inserción/actualización */
+            jQuery('#simagd_entity_full_admin_form').formValidation({
+                excluded: [':disabled'],
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    '{{ admin.uniqId }}[datosClinicos]': {
+                        message: 'Digite datos clínicos válidos para la preinscripción',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 150,
+                                message: 'Este campo debe contener al menos 15 caracteres y máximo 150'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[hipotesisDiagnostica]': {
+                        message: 'Hipótesis diagnóstica digitada de la preinscripción inválida',
+                        validators: {
+                            stringLength: {
+                                min: 10,
+                                max: 100,
+                                message: 'Este campo debe contener al menos 10 caracteres y máximo 100'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[investigando]': {
+                        message: 'Investigando buscada con la preinscripción inválida',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 150,
+                                message: 'Este campo debe contener al menos 15 caracteres y máximo 150'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[justificacionMedica]': {
+                        message: 'Justificación de la preinscripción inválida',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 150,
+                                message: 'Este campo debe contener al menos 15 caracteres y máximo 150'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[idAreaAtencion]': {
+                        message: 'Procedencia de la preinscripción inválida',
+                        validators: {
+                            notEmpty: {
+                                message: 'La procedencia es requerida'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[idAtencion]': {
+                        message: 'El servicio clínico de la preinscripción es inválido',
+                        validators: {
+                            notEmpty: {
+                                message: 'El servicio clínico es requerido'
+                            }
+                        }
+                    },
+                    '{{ admin.uniqId }}[idEmpleado]': {
+                        message: 'El empleado preinscriptor es inválido',
+                        validators: {
+                            notEmpty: {
+                                message: 'El empleado preinscriptor es requerido'
+                            }
+                        }
+                    },
+                    '{{ admin.uniqId }}[consultaPor]': {
+                        message: 'Motivo de consulta inválido',
+                        validators: {
+                            stringLength: {
+                                min: 10,
+                                max: 255,
+                                message: 'Este campo debe contener al menos 10 caracteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[estadoClinico]': {
+                        message: 'Estado clínico del paciente inválido',
+                        validators: {
+                            stringLength: {
+                                min: 5,
+                                max: 50,
+                                message: 'Este campo debe contener al menos 5 caracteres y máximo 50'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[antecedentesClinicosRelevantes]': {
+                        message: 'Antecedentes clínicos del paciente inválido',
+                        validators: {
+                            stringLength: {
+                                min: 10,
+                                message: 'Este campo debe contener al menos 10 caracteres y máximo 50'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[nombreContacto]': {
+                        message: 'Nombre del contacto del paciente es inválido',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 75,
+                                message: 'Este campo debe contener al menos 15 caracteres y máximo 75'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ,\.\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, ,. )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[contacto]': {
+                        message: 'Dato de contacto del paciente es inválido',
+                        validators: {
+                            stringLength: {
+                                min: 5,
+                                max: 75,
+                                message: 'Este campo debe contener al menos 5 caracteres y máximo 75'
+                            },
+                            callback: {
+                                message: 'Dato introducido no es válido',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                            
+                                    if (value === '') { return true; }
+
+                                    var formaContVal = $("select[name='{{ admin.uniqId }}[idFormaContacto]']").val();
+
+				    var regexEmailPattern = /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/;
+				    if ( formaContVal == 3 && !regexEmailPattern.test(value) ) {
+		                        return {
+		                            valid: false,
+		                            message: 'No es una dirección de correo electrónico válida'
+		                        };
+				    }
+
+				    var regexPhonePattern = /\d{1}-{0,1}\d{3}-{0,1}\d{4}-{0,1}/;
+				    if ( ( formaContVal == 1 || formaContVal == 2 ) && !regexPhonePattern.test(value) ) {
+		                        return {
+		                            valid: false,
+		                            message: 'Número de teléfono no es válido'
+		                        };
+				    }
+
+	                            return true;
+				    
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[idEstablecimientoReferido]': {
+                        message: 'Establecimiento al que se referirá al paciente inválido',
+                        validators: {
+                            notEmpty: {
+                                message: 'Establecimiento al que se referirá al paciente es requerido'
+                            },
+                            callback: {
+                                message: 'El elemento seleccionado no es válido, cambie a otro establecimiento',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                    var optionVal = validator.getFieldElements('{{ admin.uniqId }}[idEstablecimientoReferido]').val();
+                                    var checkboxExternoVal = $("input:checkbox[id='" + $token + "_referirPaciente']");
+                                    var textVal = validator.getFieldElements('{{ admin.uniqId }}[justificacionReferencia]').val();
+                                    var estabLocal = {{ app.user.getIdEstablecimiento.getId }};
+                                            
+                                    if (optionVal != null && optionVal.length >= 1 && ( estabLocal != value )) {
+                                        if (checkboxExternoVal.is(':checked') && (textVal != null && textVal.length >= 1)) {
+                                            return true;
+                                        }
+                                        else {
+                                            return false;
+                                        }
+                                    }
+                                    else {
+                                        if (checkboxExternoVal.is(':checked') || (textVal != null && textVal.length >= 1)) {
+                                            return false;
+                                        }
+                                        else {
+                                            return true;
+                                        }
+                                    }
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[justificacionReferencia]': {
+                        message: 'Justificación de referencia inválida',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 255,
+                                message: 'Este campo debe contener al menos 15 caracteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[idAreaServicioDiagnostico]': {
+                        message: 'Modalidad solicitada inválida',
+                        validators: {
+                            notEmpty: {
+                                message: 'Modalidad que preinscribe es requerida'
+                            },
+                            callback: {
+                                message: 'Sin proyecciones seleccionadas',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+				    
+				    if ( !$("select[id$='_solicitudEstudioProyeccion']").length )
+				    {
+// 		                        generarMensajeToast('error', 'No ha seleccionado ninguna proyección a realizar.', 'Error, sección vacía:' );
+
+		                        return {
+		                            valid: false,
+		                            message: 'Debe agregar al menos una proyección a la solicitud'
+		                        };
+				    }
+
+	                            return true;
+
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[idEstablecimientoDiagnosticante]': {
+                        message: 'Establecimiento al que se solicita diagnóstico inválido',
+                        validators: {
+                            callback: {
+                                message: 'El elemento seleccionado no es válido',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                    var optionVal = validator.getFieldElements('{{ admin.uniqId }}[idEstablecimientoDiagnosticante]').val();
+                                    var checkboxReqDiagVal = $("input:checkbox[id='" + $token + "_requiereDiagnostico']");
+                                    var textVal = validator.getFieldElements('{{ admin.uniqId }}[justificacionDiagnostico]').val();
+                                            
+                                    if (optionVal != null && optionVal.length >= 1) {
+                                        if (checkboxReqDiagVal.is(':checked') && (textVal != null && textVal.length >= 1)) {
+                                            return true;
+                                        }
+                                        else {
+                                            return false;
+                                        }
+                                    }
+                                    else {
+                                        if (checkboxReqDiagVal.is(':checked') || (textVal != null && textVal.length >= 1)) {
+                                            return false;
+                                        }
+                                        else {
+                                            return true;
+                                        }
+                                    }
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[justificacionDiagnostico]': {
+                        message: 'Justificación de diagnóstico requerido inválida',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 255,
+                                message: 'Este campo debe contener al menos 15 caracteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                }
+            })
+            .on('error.field.bv', function(e, data) {
+                // $(e.target)  --> The field element
+                // data.bv      --> The BootstrapValidator instance
+                // data.field   --> The field name
+                // data.element --> The field element
+
+                data.bv.disableSubmitButtons(false);
+            })
+            .on('success.field.bv', function(e, data) {
+                // e, data parameters are the same as in error.field.bv event handler
+                // Despite that the field is valid, by default, the submit button will be disabled if all the following conditions meet
+                // - The submit button is clicked
+                // - The form is invalid
+                data.bv.disableSubmitButtons(false);
+            });
+            
+            /** Validación para filtro de área, atención y empleado */
+//             $(document).on('change', "select[id='" + $token + "_idAreaAtencion'], select[id='" + $token + "_idAtencion']", function(event) {
+//                 jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', '{{ admin.uniqId }}[idEmpleado]');
+//             });
+    
+    /** Validación para información de contacto */
+    $(document).on('change', "select[id='" + $token + "_idContactoPaciente']", function() {
+	jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', $token + '[nombreContacto]');
+    });
+    $(document).on('change', "select[id='" + $token + "_idFormaContacto']", function() {
+	jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', $token + '[contacto]');
+    });
+            
+            /** Validación para referencia de paciente */
+            $(document).on('ifChanged', "input:checkbox[id='" + $token + "_referirPaciente']", function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', $token + '[idEstablecimientoReferido]');
+            });
+            $(document).on('keyup change blur', "textarea[id='" + $token + "_justificacionReferencia']", function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', $token + '[idEstablecimientoReferido]');
+            });
+            
+            /** Validación para solicitar modalidad */
+            $(document).on('change', "select[id='" + $token + "_idEstablecimientoDiagnosticante']", function() {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', $token + '[idAreaServicioDiagnostico]');
+            });
+            
+            /** Validación para requerir diagnóstico */
+            $(document).on('ifChanged', "input:checkbox[id='" + $token + "_requiereDiagnostico']", function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', $token + '[idEstablecimientoDiagnosticante]');
+            });
+            $(document).on('keyup change blur', "textarea[id='" + $token + "_justificacionDiagnostico']", function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', $token + '[idEstablecimientoDiagnosticante]');
+            });
+            $(document).on('change', "select[id$='_solicitudEstudioProyeccion'], select[id='" + $token + "_idAreaServicioDiagnostico']", function() {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', $token + '[idEstablecimientoDiagnosticante]');
+            });
+
+            /** Validación para fecha próxima consulta */
+            /*$(document).on('change', "input[id='" + $token + "_fechaProximaConsulta']", function( event ) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', jQuery(this).attr('name'));
+                console.log(jQuery(this).attr('name') );
+            })*/;
+        });
+    </script>

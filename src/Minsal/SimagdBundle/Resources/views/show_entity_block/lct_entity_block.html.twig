@@ -1,0 +1,142 @@
+{# empty Twig template #}
+    
+    <div class="tab-pane fade {% if tab_active != false %}in active{% endif %}" id="lct_lecturaTab" >
+        <div class="box box-{{ box_style|default('primary-v2') }} non-titled-sonata-box">
+            <div class="box-body">
+		<table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">id:</span></th>
+			<td colspan="3" class="col-md-9" ><span class="badge">{{ object_rxresult.id }}</span></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Radiólogo:</span></th>
+			<td class="col-md-3" >{{ object_rxresult.idEmpleado }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Usuario:</span></th>
+			<td class="col-md-3" >{{ object_rxresult.idUserReg }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Fecha de lectura:</span></th>
+			<td colspan="3" class="col-md-9" >{{ object_rxresult.fechaLectura|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ object_rxresult.fechaLectura|date('H:i:s A') }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Estado:</span></th>
+			<td class="col-md-3" >{{ object_rxresult.idEstadoLectura }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Tipo de resultado:</span></th>
+			<td class="col-md-3" >{{ object_rxresult.idTipoResultado }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Indicaciones:</span></th>
+			<td class="col-md-3" >
+                            <pre class="pre-display-code-natural">{{ object_rxresult.indicaciones }}</pre>
+                        </td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Correlativo:</span></th>
+			<td class="col-md-3" >{{ object_rxresult.correlativo }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Observaciones:</span></th>
+			<td colspan="3" class="col-md-9" >
+                            <pre class="pre-display-code-natural">{{ object_rxresult.observaciones }}</pre>
+                        </td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Aprobación por:</span></th>
+			<td colspan="3" class="col-md-9" >{{ object_rxresult.idRadiologoDesignadoAprobacion }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Patrón a utilizar:</span></th>
+			<td colspan="3" class="col-md-9" >{{ object_rxresult.idPatronAsociado }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Agregada por radiólogo:</span></th>
+			<td class="col-md-3" >{{ object_rxresult.solicitadaPorRadiologo }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Agregó a cola:</span></th>
+			<td class="col-md-3" >{{ object_rxresult.idRadiologoSolicita }}</td>
+		    </tr>
+                    
+                    <tr>
+                        <td colspan="4" class="col-md-12" ><span class="label label-primary-v2">Transcripción de diagnóstico</span></td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">id (Transcripción):</span></th>
+                        <td colspan="3" class="col-md-9" ><span class="badge">{% if object_diagnostic is not null %}{{ object_diagnostic.id }}{% endif %}</span></td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Transcribe:</span></th>
+                        <td class="col-md-3" >{% if object_diagnostic is not null %}{{ object_diagnostic.idEmpleado }}{% endif %}</td>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Usuario:</span></th>
+                        <td class="col-md-3" >{% if object_diagnostic is not null %}{{ object_diagnostic.idUserReg }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Fecha de registro:</span></th>
+                        <td colspan="3" class="col-md-9" >{% if object_diagnostic is not null %}{{ object_diagnostic.fechaRegistro|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ object_diagnostic.fechaRegistro|date('H:i:s A') }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Estado:</span></th>
+                        <td colspan="3" class="col-md-9" >{% if object_diagnostic is not null %}{{ object_diagnostic.idEstadoDiagnostico }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Patrón aplicado:</span></th>
+                        <td colspan="3" class="col-md-9" >{% if object_diagnostic is not null %}{{ object_diagnostic.idPatronAplicado }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Hallazgos:</span></th>
+                        <td colspan="3" class="col-md-9" >
+                            {% if object_diagnostic is not null %}{{ object_diagnostic.hallazgos|raw }}{% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Conclusión:</span></th>
+                        <td colspan="3" class="col-md-9" >
+                            {% if object_diagnostic is not null %}{{ object_diagnostic.conclusion|raw }}{% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Recomendaciones:</span></th>
+                        <td colspan="3" class="col-md-9" >
+                            {% if object_diagnostic is not null %}{{ object_diagnostic.recomendaciones|raw }}{% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Errores de transcripción:</span></th>
+                        <td colspan="3" class="col-md-9" >
+                            <pre class="pre-display-code-natural">{% if object_diagnostic is not null %}{{ object_diagnostic.errores }}{% endif %}</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Transcripción finalizó:</span></th>
+                        <td class="col-md-3" >
+                            {% if object_diagnostic is not null %}
+                                {% if object_diagnostic.fechaTranscrito is not null %}
+                                    {{ object_diagnostic.fechaTranscrito|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ object_diagnostic.fechaTranscrito|date('H:i:s A') }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Diagnóstico se aprobó:</span></th>
+                        <td class="col-md-3" >
+                            {% if object_diagnostic is not null %}
+                                {% if object_diagnostic.fechaAprobado is not null %}
+                                    {{ object_diagnostic.fechaAprobado|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ object_diagnostic.fechaAprobado|date('H:i:s A') }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Aprobó:</span></th>
+                        <td colspan="3" class="col-md-9" >{% if object_diagnostic is not null %}{{ object_diagnostic.idRadiologoAprueba }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Incidencias:</span></th>
+                        <td colspan="3" class="col-md-9" >
+                            <pre class="pre-display-code-natural">{% if object_diagnostic is not null %}{{ object_diagnostic.incidencias }}{% endif %}</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Observaciones:</span></th>
+                        <td colspan="3" class="col-md-9" >
+                            <pre class="pre-display-code-natural">{% if object_diagnostic is not null %}{{ object_diagnostic.observaciones }}{% endif %}</pre>
+                        </td>
+                    </tr>
+		</table>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,1 @@
+insert into img_ctl_exploracion (codigo, nombre, id_examen_servicio_diagnostico, id_user_reg) values ('', '', 75, 51);

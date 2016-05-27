@@ -1,0 +1,58 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed">
+        {% if citaInfo is not null %}
+            <tr>
+                <th class="col-md-2">Programó cita:</th>
+                <td class="col-md-4">
+                    {{ citaInfo.idEmpleado }}
+                </td>
+                <th class="col-md-2">Estado:</th>
+                <td class="col-md-4">
+                    {{ citaInfo.idEstadoCita }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2"><span class="simagd-text-primary">Creada:</span></th>
+                <td class="col-md-4">
+                    {{ citaInfo.fechaCreacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ citaInfo.fechaCreacion|date('H:i:s A') }}
+                </td>
+                <th class="col-md-2">Confirmada:</th>
+                <td class="col-md-4">
+                    {% if citaInfo.fechaConfirmacion is not null %}
+                    	{{ citaInfo.fechaConfirmacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ citaInfo.fechaConfirmacion|date('H:i:s A') }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Programada para:</th>
+                <td class="col-md-4">
+                    {{ citaInfo.fechaProgramada|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ citaInfo.fechaProgramada|date('H:i A') }}
+                </td>
+                <th class="col-md-2">Realizará estudio:</th>
+                <td class="col-md-4">
+                    {{ citaInfo.idTecnologoProgramado }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="col-md-4">
+                    <button class='btn btn-primary' data-toggle='modal' href='#citaFullData-showModalContainer' id='btn-ver-cit-total-info'>
+                        <i class="fa fa-plus-circle"></i> Ver más
+                    </button>
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td class="col-md-12">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only"> Cerrar </span>
+                        </button>
+                        <strong>Sin resultados!</strong> No se encontró registro.
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    </table>

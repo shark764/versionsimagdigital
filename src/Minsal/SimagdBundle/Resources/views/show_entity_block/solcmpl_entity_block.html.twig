@@ -1,0 +1,107 @@
+{# empty Twig template #}
+    
+    <div class="tab-pane fade {% if tab_active != false %}in active{% endif %}" id="lct_solcmplTab" >
+        <div class="box box-{{ box_style|default('primary-v2') }} non-titled-sonata-box">
+            <div class="box-body">
+		<table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">id:</span></th>
+                        <td colspan="3" class="col-md-9" ><span class="badge">{{ object_request_cmpl.id }}</span></td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Solicita:</span></th>
+                        <td colspan="3" class="col-md-9" >{{ object_request_cmpl.idRadiologoSolicita }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Fecha de registro:</span></th>
+                        <td colspan="3" class="col-md-9" >{{ object_request_cmpl.fechaSolicitud|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ object_request_cmpl.fechaSolicitud|date('H:i:s A') }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Estado:</span></th>
+                        <td colspan="3" class="col-md-9" >{{ object_request_cmpl.idEstadoSolicitud }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Prioridad requerida:</span></th>
+                        <td colspan="3" class="col-md-9" >{{ object_request_cmpl.idPrioridadAtencion }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Justificación:</span></th>
+                        <td colspan="3" class="col-md-9" >
+                            <pre class="pre-display-code-natural">{{ object_request_cmpl.justificacion }}</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Indicaciones para el estudio:</span></th>
+                        <td colspan="3" class="col-md-9" >
+                            {{ object_request_cmpl.indicacionesEstudio|raw }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Modalidad solicitada:</span></th>
+                        <td colspan="3" class="col-md-9" >{{ object_request_cmpl.idAreaServicioDiagnostico }}</td>
+                    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Proyecciones:</span></th>
+			<td colspan="3" class="col-md-9" >
+			    {% set solcmpl_examenesLoop = [] %}
+			    {% for proyeccion in object_request_cmpl.solicitudEstudioComplementarioProyeccion %}
+				{% set i = '_' ~ proyeccion.idExamenServicioDiagnostico.id %}
+				
+				{% if i not in solcmpl_examenesLoop|keys %}
+				    {% set solcmpl_examenesLoop = solcmpl_examenesLoop|merge({ (i): proyeccion.idExamenServicioDiagnostico }) %}
+				{% endif %}
+			    {% endfor %}
+			    
+			    <div class="panel-group" id="solcmpl_exm_containerGroup">
+				{% for key, value in solcmpl_examenesLoop %}
+				    
+				    {% set solcmpl_exm_proyeccionCount = 0 %}
+				    {% for proyeccion in object_request_cmpl.solicitudEstudioComplementarioProyeccion if proyeccion.idExamenServicioDiagnostico.id == key|trim('_') %}
+					{% set solcmpl_exm_proyeccionCount = solcmpl_exm_proyeccionCount + 1 %}
+				    {% endfor %}
+				    
+				    <div class="panel panel-primary-v2">
+					<a class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#solcmpl_proyecciones_panelCollapse_id_{{ key }}">
+					    <span class="badge">{{ solcmpl_exm_proyeccionCount }}</span>
+					    {{ value }}
+					</a>
+					<div class="panel-collapse collapse" id="solcmpl_proyecciones_panelCollapse_id_{{ key }}">
+					    <div class="panel-body">
+						{% for proyeccion in object_request_cmpl.solicitudEstudioComplementarioProyeccion if proyeccion.idExamenServicioDiagnostico.id == key|trim('_') %}
+						    <a  tabindex="0"
+							class="list-group-item btn-link btn-link-v2"
+							role="button"
+							data-toggle="popover"
+							rel="popover"
+							data-trigger="hover"
+							title="{{ proyeccion }}"
+							data-original-title="{{ proyeccion }}"
+							data-contentwrapper=".solcmpl_history_container_contentwrapper_id_{{ proyeccion.id }}"
+							data-placement="top"
+							href="javascript:void(0)"
+							data-id="{{ proyeccion.id }}" >
+							<span class="badge">{{ proyeccion.codigo }}</span>
+							
+							{{ proyeccion }}
+						    </a>
+
+						    <div class="solcmpl_history_container_contentwrapper_id_{{ proyeccion.id }}" style="display: none;"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                                                        <table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
+                                                            <tr><th class="col-md-5">Código:</th><td class="col-md-7">{{ proyeccion.codigo }}</td></tr>
+                                                            <tr><th class="col-md-5">Tiempo en sala:</th><td class="col-md-7">{{ proyeccion.tiempoOcupacionSala }}</td></tr>
+                                                            <tr><th class="col-md-5">Tiempo por médico:</th><td class="col-md-7">{{ proyeccion.tiempoMedico }}</td></tr>
+                                                            <tr><th class="col-md-5">Descripción:</th><td class="col-md-7"><pre class="pre-display-code-natural">{{ proyeccion.descripcion|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre></td></tr>
+                                                        </table>
+						    </div>
+						{% endfor %}
+					    </div>
+					</div>
+				    </div>
+				{% endfor %}
+			    </div>
+			</td>
+		    </tr>
+                </table>
+            </div>
+        </div>
+    </div>

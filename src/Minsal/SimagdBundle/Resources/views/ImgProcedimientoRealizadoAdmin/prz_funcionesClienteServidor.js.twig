@@ -1,0 +1,31 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+
+            /** Bloqueo de empleado */
+            {% if admin.id(object) is not null and not is_granted('ROLE_ADMIN') %}
+                
+                $("div.prz-with-registro-general").find('select').select2()
+                        .on('select2-selecting', function(e) {
+                            e.preventDefault();
+                        });
+                        
+            {% endif %}
+
+            /** Bloqueo Estado */
+            if ( $("input[id='" + $token + "_setLockEstado']").val() ) {
+                
+                $("input[name='{{ admin.uniqId }}[idEstadoProcedimientoRealizado]']").iCheck('disable');
+                
+                $("input[id='" + $token + "_setLockEstado']").after($('<input type="hidden">')
+                            .attr({ name : "{{ admin.uniqId }}[idEstadoProcedimientoRealizado]",
+                                    value : $("input[name='{{ admin.uniqId }}[idEstadoProcedimientoRealizado]']:checked").val()
+                                })
+                        );
+
+            }
+            
+        });
+        
+    </script>

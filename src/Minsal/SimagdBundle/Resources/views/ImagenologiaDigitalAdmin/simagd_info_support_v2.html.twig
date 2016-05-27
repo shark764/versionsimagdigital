@@ -1,0 +1,41 @@
+
+{% block simagd_info_support_v2 %}
+
+    <div id="simagd-modal-info-support-v2" class="modal container fade justify-bootstrap-div-container" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false">
+	<div class="modal-content panel-primary-v2">
+	    <div class="modal-header panel-heading">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+		<h4 class="modal-title"><i class="fa fa-desktop"></i> <strong>Imagenología</strong> - Cuadro informativo</h4>
+	    </div>
+	    
+	    <div class="modal-body" >
+
+		<div class="panel panel-primary">
+
+		    <div class="panel-heading">
+			<h3 class="panel-title"><i class="fa fa-random"></i> Información de registros </h3>
+		    </div>
+
+		    <div class="panel-body" >
+
+			{% block custom_entity_support_v2 %}
+
+			    <div id="custom-entity-content-body"> {# Bloque a reemplazar para información en boostrap-modal #} </div>
+
+			{% endblock %}
+
+		    </div>{# body #}
+
+		</div><!-- /.modal-content -->
+
+	    </div>{# body #}
+
+	    <div class="modal-footer">
+		<button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+	    </div>
+
+	</div><!-- /.modal-content -->
+
+    </div>{# modal #}
+
+{% endblock %}

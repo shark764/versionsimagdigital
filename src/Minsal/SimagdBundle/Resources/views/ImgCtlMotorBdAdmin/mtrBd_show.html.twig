@@ -1,0 +1,38 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_show.html.twig' %}
+
+{% block sonata_page_content_header %}
+    {% block sonata_page_content_nav %}
+        {% if _tab_menu is not empty or _actions is not empty %}
+            <nav class="navbar navbar-default" role="navigation">
+                {% block tab_menu_navbar_header %}
+                    {{ parent() }}
+                {% endblock %}
+                <div class="container-fluid">
+                    <div class="navbar-left">
+                        {% if _tab_menu is not empty %}
+                            {{ _tab_menu|raw }}
+                        {% endif %}
+                    </div>
+
+                    {% if _actions|replace({ '<li>': '', '</li>': '' })|trim is not empty %}
+                        <ul class="nav navbar-nav navbar-right ul-simagd-right">
+                            <li class="dropdown sonata-actions">
+                                <ul class="list-inline" role="menu">
+                                    {{ _actions|raw }}
+                                </ul>
+                            </li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </nav>
+        {% endif %}
+    {% endblock sonata_page_content_nav %}
+
+{% endblock sonata_page_content_header %}
+
+{# muestra de información de apoyo #}
+{% block simagd_info_support %}
+    {# vacío #}
+{% endblock %}

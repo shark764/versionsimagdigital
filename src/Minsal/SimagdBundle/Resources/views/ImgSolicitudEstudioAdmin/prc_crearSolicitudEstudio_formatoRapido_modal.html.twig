@@ -1,0 +1,290 @@
+{# empty Twig template #}
+
+{# modal-event-calendar #}
+<div id="crearSolicitudEstudioFormatoRapido-modal" class="modal container fade justify-bootstrap-div-container simagd-full-form-container" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false" data-focus-on="input:first">
+    <div class="modal-content panel-primary-v2">
+        <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+            <h4 class="modal-title"><i class="fa fa-ambulance"></i> <span id="formPrcEmergencyRequestTitle">Crear solicitud de estudio - <span class="badge badge-primary-v2" style="">Formato rápido</span></span></h4>
+        </div>
+
+        <div class="modal-body">
+
+	    <div class="row outer" style="padding-left: 15px; padding-right: 15px;">
+		{#<div class="box box-primary-v2" >
+		    <div class="box-header">
+			<h4 class="box-title">
+			    <span id="formPrcEmergencyRequestLabel" class="label label-primary-v2"> Formulario para registro </span>
+			</h4>
+		    </div>
+		    <div class="box-body">#}
+		    
+			<h4 class="" style="padding-left: 15px;">
+			    <span id="formPrcEmergencyRequestLabel" class="label label-primary-v2"> Formulario para registro </span>
+			</h4>
+			<br/>
+
+			<form id="crearSolicitudEstudioFormatoRapido-form" action="{{ path('simagd_solicitud_estudio_crearSolicitudEstudioFormatoRapido') }}" method="post" class="form-horizontal simagd-form-custom-class"
+			    data-fv-framework="bootstrap"
+			    data-fv-icon-valid="glyphicon glyphicon-ok"
+			    data-fv-icon-invalid="glyphicon glyphicon-remove"
+			    data-fv-icon-validating="glyphicon glyphicon-refresh"
+
+			    data-fv-message="El valor introducido no es válido">
+
+			    <ul class="nav nav-pills nav-stacked col-md-3 col-xs-3" style="padding-left: 15px;"> <!-- required for floating -->
+				<!-- Nav tabs -->
+                                <li class="active"><a href="#solicitudShortFormatTab" data-toggle="pill"> <span class="glyphicon glyphicon-send"></span> Solicitud de estudio <i class="fa"></i></a></li>
+                            </ul>
+                            
+                            <!-- Tab panes -->
+                            <div class="tab-content col-md-9 col-xs-9">
+                                <div class="tab-pane fade in active" id="solicitudShortFormatTab" >
+
+                                    <input type="hidden" id="formPrcEmergencyRequestId" name="formPrcEmergencyRequestId" value="" data-alias-from-server="prc_id" />
+                                    <input type="hidden" id="formPrcEmergencyRequestIdExpediente" name="formPrcEmergencyRequestIdExpediente" value="" data-alias-from-server="explocal_id" />
+                                    <input type="hidden" id="formPrcEmergencyRequestEsEmergencia" name="formPrcEmergencyRequestEsEmergencia" value="" data-alias-from-server="" />
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label required">Área</label>
+                                        <div class="col-xs-3">
+                                            <select id="formPrcEmergencyRequestIdAreaAtencion" name="formPrcEmergencyRequestIdAreaAtencion" class="form-control select2-select" data-alias-from-server="prc_id_areaAtencion" data-trigger-on-display="true" data-default="{{ default_areaAtn }}" data-apply-formatter="ar"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Seleccione un elemento" >
+                                                <option value=""></option>
+                                                {% for areaAtencion in areasAtencion %}
+                                                    <option value="{{ areaAtencion.id }}">{{ areaAtencion }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <label class="col-xs-2 control-label required">Servicio</label>
+                                        <div class="col-xs-3">
+                                            <select id="formPrcEmergencyRequestIdAtencion" name="formPrcEmergencyRequestIdAtencion" class="form-control select2-select" data-alias-from-server="prc_id_atencion" data-default="{{ default_atn }}" data-apply-formatter="ar"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Seleccione un elemento" >
+                                                <option value=""></option>
+                                                {% for tipoAtencion in tiposAtencion %}
+                                                    <optgroup label="{{ tipoAtencion }}">
+                                                    {% for atencion in atenciones if atencion.idTipoAtencion is not null and atencion.idTipoAtencion.id == tipoAtencion.id %}
+                                                        <option value="{{ atencion.id }}">{{ atencion }}</option>
+                                                    {% endfor %}
+                                                    </optgroup>
+                                                {% endfor %}
+                                                {% for atencion in atenciones if atencion.idTipoAtencion is null %}
+                                                    <option value="{{ atencion.id }}">{{ atencion }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label required">Solicitante</label>
+                                        <div class="col-xs-8">
+                                            <select id="formPrcEmergencyRequestIdEmpleado" name="formPrcEmergencyRequestIdEmpleado" class="form-control select2-select" data-alias-from-server="prc_id_empleado" data-default="{{ default_empLogged.id }}" data-apply-formatter="user"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Seleccione un elemento" >
+                                                <option value=""></option>
+                                                {% for tipo in tiposEmpleado if tipo.codigo == 'MED' %}
+                                                    <optgroup label="{{ tipo }}">
+                                                    {% for medico in medicos if medico.idTipoEmpleado is not null and medico.idTipoEmpleado.id == tipo.id %}
+                                                        <option value="{{ medico.id }}">{{ medico }}</option>
+                                                    {% endfor %}
+                                                    </optgroup>
+                                                {% endfor %}
+                                                {% for medico in medicos if medico.idTipoEmpleado is null %}
+                                                    <option value="{{ medico.id }}">{{ medico }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label required">Modalidad</label>
+                                        <div class="col-xs-8">
+                                            <select id="formPrcEmergencyRequestIdAreaServicioDiagnostico" name="formPrcEmergencyRequestIdAreaServicioDiagnostico" class="form-control select2-select" data-alias-from-server="prc_id_modalidad" data-trigger-on-display="true" data-default="{{ default_mldRx }}" data-apply-formatter="mld"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Seleccione un elemento"
+
+                                                      data-fv-callback="true"
+                                                      data-fv-callback-message="Debe seleccionar al menos una proyección"
+                                                      data-fv-callback-callback="checkProyeccionesModalidad" >
+                                                <option value=""></option>
+                                                <optgroup label="Imagenología">
+                                                    {% for modalidad in modalidades %}
+                                                        <option value="{{ modalidad.id }}">{{ modalidad }}</option>
+                                                    {% endfor %}
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label required">Proyecciones</label>
+                                        <div class="col-xs-8">
+                                            <select id="formPrcEmergencyRequestSolicitudEstudioProyeccion" name="formPrcEmergencyRequestSolicitudEstudioProyeccion[]" class="form-control select2-select" data-alias-from-server="prc_solicitudEstudioProyeccion" data-apply-formatter="pry" multiple
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Seleccione un elemento" >
+                                                {#<option value=""></option>#}
+                                                {% for examen in examenes %}
+                                                    <optgroup label="{{ examen }}">
+                                                    {% for proyeccion in proyecciones if proyeccion.idExamenServicioDiagnostico is not null and proyeccion.idExamenServicioDiagnostico.id == examen.id %}
+                                                        <option value="{{ proyeccion.id }}">{{ proyeccion }}</option>
+                                                    {% endfor %}
+                                                    </optgroup>
+                                                {% endfor %}
+                                                {% for proyeccion in proyecciones if proyeccion.idExamenServicioDiagnostico is null %}
+                                                    <option value="{{ proyeccion.id }}">{{ proyeccion }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label required">Próxima consulta</label>
+                                        <div class="col-xs-3">
+                                            <div class="input-group">
+                                                <span class='input-group-btn'>
+                                                    <button class='demo btn btn-primary-v2 btn-large' id='formPrcEmergencyRequestFechaProximaConsultaDp'> <i class='glyphicon glyphicon-calendar'></i> </button>
+                                                </span>
+                                                <input type="text" class="form-control" id="formPrcEmergencyRequestFechaProximaConsulta" name="formPrcEmergencyRequestFechaProximaConsulta" readonly="readonly" data-alias-from-server="prc_fechaProximaConsulta" aria-describedby="basic-addon1" placeholder="YYYY-MM-DD"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Este campo es requerido"
+
+                                                      data-fv-date="true"
+                                                      data-fv-date-format="YYYY-MM-DD"
+                                                      data-fv-date-message="Formato no válido" />
+                                            </div>
+                                        </div>
+                                        <label class="col-sm-2 control-label required">Prioridad</label>
+                                        <div class="col-sm-3">
+                                            <select id="formPrcEmergencyRequestIdPrioridadAtencion" name="formPrcEmergencyRequestIdPrioridadAtencion" class="form-control select2-select" data-alias-from-server="prc_id_prioridad" data-default="{{ default_prAtn }}" data-apply-formatter="prAtn"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Seleccione un elemento" >
+                                                <option value=""></option>
+                                                {% for prioridad in prioridades %}
+                                                    <option value="{{ prioridad.id }}">{{ prioridad }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">Datos clínicos</label>
+                                        <div class="col-xs-8">
+                                            <textarea rows="1" class="form-control" name="formPrcEmergencyRequestDatosClinicos" id="formPrcEmergencyRequestDatosClinicos" placeholder="Digite los datos clínicos" data-alias-from-server="prc_datosClinicos" maxlength="150" style="resize: none"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Este campo es requerido"
+
+                                                      data-fv-stringlength="true"
+                                                      data-fv-stringlength-min="15"
+                                                      data-fv-stringlength-max="150"
+                                                      data-fv-stringlength-message="15 caracteres mínimo"
+
+                                                      data-fv-regexp="true"
+                                                      data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$"
+                                                      data-fv-regexp-message="Texto contiene caracteres no permitidos" /></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">Hipótesis diagnóstica</label>
+                                        <div class="col-xs-8">
+                                            <textarea rows="1" class="form-control" name="formPrcEmergencyRequestHipotesisDiagnostica" id="formPrcEmergencyRequestHipotesisDiagnostica" placeholder="Digite la hipótesis diagóstica del paciente" data-alias-from-server="prc_hipotesisDiagnostica" maxlength="100" style="resize: none"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Este campo es requerido"
+
+                                                      data-fv-stringlength="true"
+                                                      data-fv-stringlength-min="15"
+                                                      data-fv-stringlength-max="100"
+                                                      data-fv-stringlength-message="15 caracteres mínimo"
+
+                                                      data-fv-regexp="true"
+                                                      data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$"
+                                                      data-fv-regexp-message="Texto contiene caracteres no permitidos" /></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">Investigando</label>
+                                        <div class="col-xs-8">
+                                            <textarea rows="1" class="form-control" name="formPrcEmergencyRequestInvestigando" id="formPrcEmergencyRequestInvestigando" placeholder="Digite que se investiga con el estudio solicitado" data-alias-from-server="prc_investigando" maxlength="100" style="resize: none"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Este campo es requerido"
+
+                                                      data-fv-stringlength="true"
+                                                      data-fv-stringlength-min="15"
+                                                      data-fv-stringlength-max="100"
+                                                      data-fv-stringlength-message="15 caracteres mínimo"
+
+                                                      data-fv-regexp="true"
+                                                      data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$"
+                                                      data-fv-regexp-message="Texto contiene caracteres no permitidos" /></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">Justificación médica de la solicitud</label>
+                                        <div class="col-xs-8">
+                                            <textarea rows="1" class="form-control" name="formPrcEmergencyRequestJustificacionMedica" id="formPrcEmergencyRequestJustificacionMedica" placeholder="Digite la justificación de la solicitud del estudio" data-alias-from-server="prc_justificacionMedica" maxlength="100" style="resize: none"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Este campo es requerido"
+
+                                                      data-fv-stringlength="true"
+                                                      data-fv-stringlength-min="15"
+                                                      data-fv-stringlength-max="100"
+                                                      data-fv-stringlength-message="15 caracteres mínimo"
+
+                                                      data-fv-regexp="true"
+                                                      data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$"
+                                                      data-fv-regexp-message="Texto contiene caracteres no permitidos" /></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="{#margin-top: 15px;#} visibility: hidden;">
+                                <div class="col-xs-8 col-xs-offset-4">
+                                    <button type="submit" class="btn btn-primary-v2 btn-xs"><i class="glyphicon glyphicon-ok"></i> Enviar</button>
+                                </div>
+                            </div>
+                
+			</form>
+				
+		    {#</div>
+		</div>#}
+	    </div>
+            
+        </div>
+
+        <div class="modal-footer" style="margin-top: 0px;">
+            <span class="text-info"><span class="glyphicon glyphicon-question-sign"></span> ¿Está seguro que desea continuar? &nbsp;</span>
+            <button type="button" data-dismiss="modal" class="btn btn-primary-v2"><i class="fa fa-times"></i> No, Cerrar</button>
+            <button type="submit" id="btn_agregar_prcEmergencyRequest" name="btn_agregar_prcEmergencyRequest" class="btn btn-primary-v2" ><i class="fa fa-check-circle"></i> Si, Continuar</button>
+            <button type="submit" id="btn_editar_prcEmergencyRequest" name="btn_editar_prcEmergencyRequest" class="btn btn-element-v2" style="display: none;" ><i class="fa fa-check-square-o"></i> Si, Editar</button>
+        </div>
+        
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->

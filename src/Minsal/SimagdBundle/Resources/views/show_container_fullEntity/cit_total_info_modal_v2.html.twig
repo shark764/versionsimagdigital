@@ -1,0 +1,114 @@
+{# empty Twig template #}
+
+    <div id="citaFullData-showModalContainer" class="modal container fade justify-bootstrap-div-container simagd-full-form-container simagd-full-data-view" role="dialog" tabindex="-1" style="display: none;" data-backdrop="true" data-keyboard="true">
+	<div class="modal-content panel-info-v2">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+                <h4 class="modal-title"><i class="fa fa-folder-open"></i> Cita programada</h4>
+            </div>
+
+            <div class="modal-body">
+
+		<div {#style="padding-left: 15px; padding-right: 15px;"#}>
+                
+                {#<div class="panel panel-info-v2">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> <i class='fa fa-calendar'></i> Detalles de la cita </h3>
+                    </div>
+                    <div class="panel-body" >#}
+		
+		    <div class="row outer simagd-filter-content-layout" style="padding-left: 15px; padding-right: 15px; {#height: 500px; overflow-y: auto;#}">
+                
+                        <table class="table table-condensed">
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-user"></i> Programó:</span></th>
+                                <td class="col-md-4" data-render-info="idEmpleado"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-user"></i> Usuario que programó:</span></th>
+                                <td class="col-md-4" data-render-info="idUserPrg"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Tipo de empleado:</span></th>
+                                <td class="col-md-4" data-render-info="idTipoEmpleado"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-user"></i> Usuario que reprogramó:</span></th>
+                                <td class="col-md-4" data-render-info="idUserReprg"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Creada en:</span></th>
+                                <td class="col-md-4" data-render-info="idEstablecimiento"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-user-md"></i> Realizará examen:</span></th>
+                                <td class="col-md-4" data-render-info="idTecnologoProgramado"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-clock-o"></i> Creada:</span></th>
+                                <td class="col-md-4" data-render-info="fechaCreacion"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Incidencias:</span></th>
+                                <td class="col-md-4" data-render-info="incidencias"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Programada para:</span></th>
+                                <td class="col-md-4" data-render-info="fechaProgramada"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Observaciones:</span></th>
+                                <td class="col-md-4" data-render-info="observaciones"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Estado:</span></th>
+                                <td class="col-md-4" data-render-info="idEstadoCita"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-trash"></i> Justificación de anulación/cancelación:</span></th>
+                                <td class="col-md-4" data-render-info="razonAnulada"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-clock-o"></i> Confirmada:</span></th>
+                                <td class="col-md-4" data-render-info="fechaConfirmacion"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Necesita autorización de responsable:</span></th>
+                                <td class="col-md-4" data-render-info="necesitaAutorizacion"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-refresh"></i> Reprogramada:</span></th>
+                                <td class="col-md-4" data-render-info="reprogramada"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Autorizada:</span></th>
+                                <td class="col-md-4" data-render-info="citaAutorizada"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Fecha programada anterior:</span></th>
+                                <td class="col-md-4" data-render-info="fechaProgramadaAnterior"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Responsable por paciente:</span></th>
+                                <td class="col-md-4" data-render-info="idResponsableAutoriza"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-clock-o"></i> Se reprogramó:</span></th>
+                                <td class="col-md-4" data-render-info="fechaReprogramacion"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Responsable que autorizó:</span></th>
+                                <td class="col-md-4" data-render-info="nombreResponsableAutoriza"></td>
+                            </tr>
+                            
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-clock-o"></i> Fecha programada:</span></th>
+                                <td class="col-md-4" data-render-info="fechaHoraInicio"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-clock-o"></i> Fecha programada anterior:</span></th>
+                                <td class="col-md-4" data-render-info="fechaHoraInicioAnterior"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-clock-o"></i> Finalización programada:</span></th>
+                                <td class="col-md-4" data-render-info="fechaHoraFin"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-clock-o"></i> Finalización programada anterior:</span></th>
+                                <td class="col-md-4" data-render-info="fechaHoraFinAnterior"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-arrows-v"></i> Para día completo:</span></th>
+                                <td class="col-md-4" data-render-info="diaCompleto"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-tint"></i> Color de evento en agenda:</span></th>
+                                <td class="col-md-4" data-render-info="color"></td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                <button class='btn btn-element-v2' data-toggle='modal' href='#citRecord-ShowModal' id='btn-cit-record'><i class="fa fa-search-plus"></i> Consulta </button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+            </div>
+	</div><!-- /.modal-content -->
+    </div><!-- /.modal -->

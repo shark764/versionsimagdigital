@@ -1,0 +1,270 @@
+{# empty Twig template #}
+
+{# modal-event-calendar #}
+<div id="crearProyeccion-modal" class="modal container fade justify-bootstrap-div-container simagd-full-form-container" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false" data-focus-on="input:first">
+    <div class="modal-content panel-primary-v2">
+        <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+            <h4 class="modal-title"><i class="fa fa-tasks"></i> <span id="formExplTitle">Registrar proyección imagenológica</span></h4>
+        </div>
+
+        <div class="modal-body">
+
+	    <div class="row outer" style="padding-left: 15px; padding-right: 15px;">
+		{#<div class="box box-primary-v2" >
+		    <div class="box-header">
+			<h4 class="box-title">
+			    <span id="formExplLabel" class="label label-primary-v2"> Formulario para registro </span>
+			</h4>
+		    </div>
+		    <div class="box-body">#}
+		    
+			<h4 class="" style="padding-left: 15px;">
+			    <span id="formExplLabel" class="label label-primary-v2"> Formulario para registro </span>
+			</h4>
+			<br/>
+
+			<form id="crearProyeccionForm" action="{{ path('simagd_proyeccion_crearProyeccion') }}" method="post" class="form-horizontal simagd-form-custom-class"
+			    data-fv-framework="bootstrap"
+			    data-fv-icon-valid="glyphicon glyphicon-ok"
+			    data-fv-icon-invalid="glyphicon glyphicon-remove"
+			    data-fv-icon-validating="glyphicon glyphicon-refresh"
+
+			    data-fv-message="El valor introducido no es válido">
+
+			    <ul class="nav nav-pills nav-stacked col-md-3 col-xs-3" style="padding-left: 15px;"> <!-- required for floating -->
+				<!-- Nav tabs -->
+                                <li class="active"><a href="#exploracionTab" data-toggle="pill"> <span class="glyphicon glyphicon-list-alt"></span> Proyección <i class="fa"></i></a></li>
+                                <li><a href="#detallesExplTab" data-toggle="pill"> <span class="glyphicon glyphicon-paperclip"></span> Detalles <i class="fa"></i></a></li>
+                            </ul>
+                            
+                            <!-- Tab panes -->
+                            <div class="tab-content col-md-9 col-xs-9">
+                                <div class="tab-pane fade in active" id="exploracionTab" >
+
+                                    <input type="hidden" id="formExplId" name="formExplId" value="" />
+                                    <input type="hidden" id="formExplIdExamen" name="formExplIdExamen" value="" />
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label required">Nombre</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="formExplNombre" name="formExplNombre" placeholder="Nombre de la proyección" maxlength="100"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Este campo es requerido"
+
+                                                      data-fv-stringlength="true"
+                                                      data-fv-stringlength-min="5"
+                                                      data-fv-stringlength-max="100"
+                                                      data-fv-stringlength-message="5 caracteres mínimo"
+
+                                                      data-fv-regexp="true"
+                                                      data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$"
+                                                      data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Código</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="formExplCodigo" name="formExplCodigo" placeholder="Código de la proyección" maxlength="10"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-stringlength="true"
+                                                      data-fv-stringlength-min="4"
+                                                      data-fv-stringlength-max="10"
+                                                      data-fv-stringlength-message="4 caracteres mínimo"
+
+                                                      data-fv-regexp="true"
+                                                      data-fv-regexp-regexp="^[a-zA-Z0-9]+$"
+                                                      data-fv-regexp-message="Texto contiene caracteres no permitidos" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label required">Examen</label>
+                                        <div class="col-sm-8">
+                                            <select id="formExplIdExamenServicioDiagnostico" name="formExplIdExamenServicioDiagnostico" class="form-control select2-select" data-default="{{ default_exmRx }}" data-apply-formatter="exm"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Seleccione un elemento" >
+                                                <option value=""></option>
+                                                {% for sexo in sexos %}
+                                                    <optgroup label="{{ sexo }}">
+                                                    {% for examen in examenes if examen.idsexo is not null and examen.idsexo.id == sexo.id %}
+                                                        <option value="{{ examen.id }}">{{ examen }}</option>
+                                                    {% endfor %}
+                                                    </optgroup>
+                                                {% endfor %}
+                                                <optgroup label="Todos los sexos">
+                                                {% for examen in examenes if examen.idsexo is null %}
+                                                    <option value="{{ examen.id }}">{{ examen }}</option>
+                                                {% endfor %}
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="display: none;">
+                                        <label class="col-xs-4 control-label">Examen</label>
+                                        <div class="col-xs-8">
+                                            <p class="form-control-static" id="formExplIdExamenServicioDiagnostico-static-label"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-8 col-sm-offset-4">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="1" name="formExplProyeccionRealizable" id="formExplProyeccionRealizable" /> Agregar en catálogo local
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Modalidad</label>
+                                        <div class="col-sm-8">
+                                            <select id="formExplIdAreaServicioDiagnostico" name="formExplIdAreaServicioDiagnostico" class="form-control select2-select" data-default="{{ default_mldRx }}" data-apply-formatter="mld" disabled="disabled"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Seleccione un elemento" >
+                                                <option value=""></option>
+                                                <optgroup label="Imagenología">
+                                                    {% for modalidad in modalidades %}
+                                                        <option value="{{ modalidad.id }}">{{ modalidad }}</option>
+                                                    {% endfor %}
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-xs-8 col-xs-offset-4">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="1" name="formExplHabilitadoLocal" id="formExplHabilitadoLocal" disabled="disabled" /> Habilitada en local
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">Observaciones (Local)</label>
+                                        <div class="col-xs-8">
+                                            <textarea rows="3" class="form-control" name="formExplObservacionesLocal" id="formExplObservacionesLocal" placeholder="Escriba observaciones sobre la proyección en local" maxlength="255" style="resize: none" readonly="readonly"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-stringlength="true"
+                                                      data-fv-stringlength-min="15"
+                                                      data-fv-stringlength-max="255"
+                                                      data-fv-stringlength-message="15 caracteres mínimo"
+
+                                                      data-fv-regexp="true"
+                                                      data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$"
+                                                      data-fv-regexp-message="Texto contiene caracteres no permitidos" /></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="detallesExplTab" >
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Tiempo ocupado en sala (min)</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" class="form-control" id="formExplTiempoOcupacionSala" name="formExplTiempoOcupacionSala" placeholder="Tiempo ocupado en sala ( en minutos )" value="5" data-default="5" min="1" max="32767"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-integer="true"
+                                                      data-fv-integer-message="El valor no es un entero"
+
+                                                      data-fv-greaterthan-inclusive="true"
+                                                      data-fv-greaterthan-value="1"
+                                                      data-fv-greaterthan-message="Debe ser mayor o igual a 1"
+
+                                                      data-fv-lessthan-inclusive="true"
+                                                      data-fv-lessthan-value="32767"
+                                                      data-fv-lessthan-message="Debe ser menor o igual a 32767" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Tiempo de médico (min)</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" class="form-control" id="formExplTiempoMedico" name="formExplTiempoMedico" placeholder="Tiempo de médico ( en minutos )" value="5" data-default="5" min="1" max="32767"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-integer="true"
+                                                      data-fv-integer-message="El valor no es un entero"
+
+                                                      data-fv-greaterthan-inclusive="true"
+                                                      data-fv-greaterthan-value="1"
+                                                      data-fv-greaterthan-message="Debe ser mayor o igual a 1"
+
+                                                      data-fv-lessthan-inclusive="true"
+                                                      data-fv-lessthan-value="32767"
+                                                      data-fv-lessthan-message="Debe ser menor o igual a 32767" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Descripción</label>
+                                        <div class="col-sm-8">
+                                            <textarea rows="4" class="form-control" name="formExplDescripcion" id="formExplDescripcion" placeholder="Describa en qué consiste la proyección imagenológica" style="resize: none"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-stringlength="true"
+                                                      data-fv-stringlength-min="15"
+                                                      data-fv-stringlength-message="15 caracteres mínimo"
+
+                                                      data-fv-regexp="true"
+                                                      data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$"
+                                                      data-fv-regexp-message="Texto contiene caracteres no permitidos" /></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Observaciones</label>
+                                        <div class="col-sm-8">
+                                            <textarea rows="3" class="form-control" name="formExplObservaciones" id="formExplObservaciones" placeholder="Digite sus observaciones adicionales" maxlength="255" style="resize: none"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-stringlength="true"
+                                                      data-fv-stringlength-min="15"
+                                                      data-fv-stringlength-max="255"
+                                                      data-fv-stringlength-message="15 caracteres mínimo"
+
+                                                      data-fv-regexp="true"
+                                                      data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$"
+                                                      data-fv-regexp-message="Texto contiene caracteres no permitidos" /></textarea>
+                                        </div>
+                                    </div>
+                                    
+				</div>
+			    </div><!-- tab content -->
+
+                            <div class="form-group" style="{#margin-top: 15px;#} visibility: hidden;">
+                                <div class="col-xs-8 col-xs-offset-4">
+                                    <button type="submit" class="btn btn-primary-v2 btn-xs"><i class="glyphicon glyphicon-ok"></i> Enviar</button>
+                                </div>
+                            </div>
+
+			</form>
+				
+		    {#</div>
+		</div>#}
+	    </div>
+
+        </div>
+
+        <div class="modal-footer" style="margin-top: 0px;">
+            <span class="text-info"><span class="glyphicon glyphicon-question-sign"></span> ¿Está seguro que desea continuar? &nbsp;</span>
+            <button type="button" data-dismiss="modal" class="btn btn-primary-v2"><i class="fa fa-times"></i> No, Cerrar</button>
+            <button type="submit" id="btn_agregar_expl" name="btn_agregar_expl" class="btn btn-primary-v2" ><i class="fa fa-check-circle"></i> Si, Continuar</button>
+            <button type="submit" id="btn_editar_expl" name="btn_editar_expl" class="btn btn-element-v2" style="display: none;" ><i class="fa fa-check-square-o"></i> Si, Continuar</button>
+        </div>
+
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->

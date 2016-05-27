@@ -1,0 +1,44 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed">
+        {% if citaInfo is not null %}
+            <tr>
+                <th class="col-md-2">Programó cita:</th>
+                <td class="col-md-4" data-render-info="idEmpleado"></td>
+                <th class="col-md-2">Estado:</th>
+                <td class="col-md-4" data-render-info="idEstadoCita"></td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Creada:</th>
+                <td class="col-md-4" data-render-info="fechaCreacion"></td>
+                <th class="col-md-2">Confirmada:</th>
+                <td class="col-md-4" data-render-info="fechaConfirmacion"></td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Programada para:</th>
+                <td class="col-md-4" data-render-info="fechaProgramada"></td>
+                <th class="col-md-2">Realizará estudio:</th>
+                <td class="col-md-4" data-render-info="idTecnologoProgramado"></td>
+            </tr>
+            <tr>
+                <td colspan="4" class="col-md-4">
+                    <button class='btn btn-primary' data-toggle='modal' href='#citaFullData-showModalContainer' id='btn-ver-cit-total-info'>
+                        <i class="fa fa-plus-circle"></i> Ver más
+                    </button>
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td class="col-md-12">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only"> Cerrar </span>
+                        </button>
+                        <strong>Sin resultados!</strong> No se encontró registro.
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    </table>

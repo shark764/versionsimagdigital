@@ -1,0 +1,81 @@
+{# empty Twig template #}
+
+    <div id="lecturaFullData-showModalContainer" class="modal container fade justify-bootstrap-div-container simagd-full-form-container simagd-full-data-view" role="dialog" tabindex="-1" style="display: none;" data-backdrop="true" data-keyboard="true">
+	<div class="modal-content panel-info-v2">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+                <h4 class="modal-title"><i class="fa fa-folder-open"></i> Lectura radiológica resultante</h4>
+            </div>
+
+            <div class="modal-body">
+
+		<div {#style="padding-left: 15px; padding-right: 15px;"#}>
+                
+                {#<div class="panel panel-info-v2">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> <i class="fa fa-microphone"></i> Detalles del registro de lectura </h3>
+                    </div>
+                    <div class="panel-body" >#}
+		
+		    <div class="row outer simagd-filter-content-layout" style="padding-left: 15px; padding-right: 15px; {#height: 500px; overflow-y: auto;#}">
+                
+                        <table class="table table-condensed">
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Interpretó:</span></th>
+                                <td class="col-md-4" data-render-info="idEmpleado"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Número correlativo:</span></th>
+                                <td class="col-md-4" data-render-info="correlativo"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Tipo de empleado:</span></th>
+                                <td class="col-md-4" data-render-info="idTipoEmpleado"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Se dió lectura:</span></th>
+                                <td class="col-md-4" data-render-info="fechaLectura"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Usuario que interpretó:</span></th>
+                                <td class="col-md-4" data-render-info="idUserReg"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Tipo de resultado:</span></th>
+                                <td class="col-md-4" data-render-info="idTipoResultado"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Estudio leido en:</span></th>
+                                <td class="col-md-4" data-render-info="idEstablecimiento"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Indicaciones para transcripción:</span></th>
+                                <td class="col-md-4" data-render-info="indicaciones"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Solicitud de externo:</span></th>
+                                <td class="col-md-4" data-render-info="lecturaRemota"></td>
+                                <th {#rowspan="2"#} class="col-md-2"><span class="simagd-text-primary">Observaciones:</span></th>
+                                <td {#rowspan="2"#} class="col-md-4" data-render-info="observaciones"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Estado:</span></th>
+                                <td class="col-md-4" data-render-info="idEstadoLectura"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Lectura solicitada por radiólogo:</span></th>
+                                <td class="col-md-4" data-render-info="solicitadaPorRadiologo"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Validará resultados:</span></th>
+                                <td class="col-md-4" data-render-info="idRadiologoDesignadoAprobacion"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Radiólogo solicitante:</span></th>
+                                <td class="col-md-4" data-render-info="idRadiologoSolicita"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-film"></i> Estudios que componen lectura:</span></th>
+                                <td colspan="3" class="col-md-10" data-render-info="estudiosLectura"></td> {# Mostrar en un label-info cual es el idEstudio fk main #}
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                <button class='btn btn-element-v2' data-toggle='modal' href='#lctRecord-ShowModal' id='btn-lct-record'><i class="fa fa-search-plus"></i> Consulta </button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+            </div>
+	</div><!-- /.modal-content -->
+    </div><!-- /.modal -->

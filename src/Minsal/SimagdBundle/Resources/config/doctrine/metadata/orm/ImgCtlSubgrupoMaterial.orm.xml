@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ImgCtlSubgrupoMaterial" table="img_ctl_subgrupo_material">
+    <indexes>
+      <index name="IDX_AA908327935F756" columns="id_grupo_material"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="idx_codigo_subgrupo_material" columns="codigo"/>
+    </unique-constraints>
+    <id name="id" type="smallint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="nombre" type="string" column="nombre" length="255" nullable="false"/>
+    <field name="codigo" type="string" column="codigo" nullable="true"/>
+    <field name="descripcion" type="text" column="descripcion" nullable="true"/>
+    <many-to-one field="idGrupoMaterial" target-entity="ImgCtlGrupoMaterial">
+      <join-columns>
+        <join-column name="id_grupo_material" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

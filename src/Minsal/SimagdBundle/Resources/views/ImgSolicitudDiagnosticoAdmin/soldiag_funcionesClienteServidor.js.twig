@@ -1,0 +1,78 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            /** Obtener establecimiento local */
+            $("input:checkbox[id='" + $token + "_solicitudRemota']").on('ifChanged', function(event) {
+                var estabSolicitadoRemoto = $("select[id='" + $token + "_idEstablecimientoSolicitado']");
+                var userSessionEstabLocalId = '{{ app.user.getIdEstablecimiento.getId }}';
+
+                if (!jQuery(this).is(':checked')) {
+                    //Asignar el establecimiento por defecto
+                    estabSolicitadoRemoto.select2('val', userSessionEstabLocalId);
+                    estabSolicitadoRemoto.find('option:gt(0):not(:selected)').prop('disabled', true);
+                    estabSolicitadoRemoto.trigger("change");
+                }
+                else {
+                    estabSolicitadoRemoto.find('option').prop('disabled', false);
+
+                    if (!estabSolicitadoRemoto.val() || estabSolicitadoRemoto.val() == userSessionEstabLocalId) {
+                        estabSolicitadoRemoto.select2("search", "");
+                    }
+                }
+
+            });
+            $("input:checkbox[id='" + $token + "_solicitudRemota']").trigger('ifChanged');
+            
+            
+            {% if object.id is not null %}
+        
+                /** Obtener fecha de solicitud */
+                var creacionSolDate = new Date('{{ object.fechaCreacion|date('m/d/Y')|raw }}');
+                var creacionSolYear = creacionSolDate.getFullYear();
+                var creacionSolMonth = creacionSolDate.getMonth();
+                var creacionSolDay = creacionSolDate.getDate();
+                $("input[id='" + $token + "_fechaProximaConsulta']").datetimepicker('option', {
+                                                                    //setDate : new Date(),
+                                                                    minDate: new Date(creacionSolYear, creacionSolMonth, creacionSolDay),
+                                                                    //maxDate: new Date(creacionSolYear, creacionSolMonth, creacionSolDay),
+                                                                    //yearRange: '-100:+0',
+                                                                });
+                console.log(creacionSolDate );
+            {% endif %}
+                
+                
+            /** Bloqueo de empleado */
+            {% if not is_granted('ROLE_ADMIN') %}
+                
+                $("div.soldiag-with-solicitud-solicitar-diagnostico").find('select').select2()
+                        .on('select2-selecting', function(e) {
+                            e.preventDefault();
+                        });
+                        
+            {% endif %}
+                
+            /** Bloqueo Solicitar establecimiento */
+            if ( $("input[id='" + $token + "_setLockSolicitarEn']").val() ) {
+                $("div.soldiag-with-solicitud-solicitar-en").find('select').select2()
+                        .on('select2-selecting', function(e) {
+                            e.preventDefault();
+                        });
+
+                $("div.soldiag-with-solicitud-solicitar-en").find('input:checkbox').iCheck('disable');
+                
+                $("div.soldiag-with-solicitud-solicitar-en").find('input:checkbox').each(function () {
+                    if ( jQuery(this).is(':checked') ) {
+                        jQuery(this).after($('<input type="hidden">')
+                                    .attr({ name : jQuery(this).attr('name'),
+                                            value : jQuery(this).val()
+                                        })
+                                );
+                    }
+                });
+
+                $("div.soldiag-with-solicitud-solicitar-en").find('input[type=text], input[type=number], textarea').prop('readonly', true);
+            }
+            
+        });
+    </script>

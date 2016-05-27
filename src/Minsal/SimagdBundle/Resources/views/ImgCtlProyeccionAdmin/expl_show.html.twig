@@ -1,0 +1,57 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_show.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    
+    {# iCheck #}
+    <link href="{{ asset('bundles/minsalsimagd/iCheck-master/skins/minimal/green.css') }}" type="text/css" rel="stylesheet" />
+    
+    {# bootstrapvalidator #}
+    <link href="{{ asset('bundles/minsalsimagd/bootstrapvalidator-dist-0.5.2/dist/css/bootstrapValidator.min.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+    
+{% block javascripts %}
+    {{ parent() }}
+    
+    {# iCheck #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/iCheck-master/icheck.js') }}" ></script>
+    
+    {# bootstrapvalidator #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrapvalidator-dist-0.5.2/dist/js/bootstrapValidator.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrapvalidator-dist-0.5.2/dist/js/language/es_ES.js') }}" ></script>
+    
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_valor_campo_compuesto.js') }}" ></script>
+{% endblock %}
+
+{% block actions %}
+    {{ parent() }}
+
+    <li>{% include 'MinsalSimagdBundle:ImgCtlProyeccionAdmin:expl_agregarEnMiCatalogo_button.html.twig' %}</li>
+{% endblock %}
+
+{% block simagd_form_navbar_brand_title %}
+    <span class="navbar-brand">
+        <span class="label label-primary-v2">
+            <i class="fa fa-tasks"></i> <i class="fa fa-eye"></i> Detalles de la Proyección: <i>{{ object|truncate(45) }}</i>
+        </span>
+    </span>
+{% endblock %}
+
+{# muestra de información de apoyo #}
+{% block custom_entity_support %}
+    <div id="custom-entity-content-body">
+        {% include 'MinsalSimagdBundle:ImgCtlProyeccionAdmin:expl_modal_support.html.twig'
+                                        ignore missing with { 'examenInfo': object.idExamenServicioDiagnostico } %}
+    </div>
+{% endblock %}
+
+{% block content%}
+    
+    {{ parent() }}
+
+    {# Modal Agregar en Local #}
+    {% include 'MinsalSimagdBundle:ImgCtlProyeccionAdmin:expl_agregarEnCatalogoLocal_modal.html.twig' %}
+    
+{% endblock %}

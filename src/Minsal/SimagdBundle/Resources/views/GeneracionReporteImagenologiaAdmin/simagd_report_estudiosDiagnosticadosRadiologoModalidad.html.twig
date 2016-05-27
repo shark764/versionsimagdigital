@@ -1,0 +1,50 @@
+{# empty Twig template #}
+
+
+    <form id="formEstudiosDiagnosticadosRadiologoModalidad" method="post" class="form-horizontal" >
+
+        <div class="form-group col-sm-12">
+            <label class="col-sm-2 control-label">Fecha Inicio</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="fechaIni_8" name="fechaIni_8" readonly="readonly" />
+            </div>
+            <label class="col-sm-2 control-label">Fecha final</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="fechaFin_8" name="fechaFin_8" readonly="readonly" />
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="col-sm-2 control-label">Modalidad</label>
+            <div class="col-sm-6">
+                <select id="modalidadDiagnosticada_8" name="modalidadDiagnosticada_8" class="form-control">
+                    <option value=""></option>
+                    <optgroup label="Imagenología">
+                    {% for modalidadDiag in modalidadesDiag %}
+                        <option value="{{ modalidadDiag.id }}">{{ modalidadDiag }}</option>
+                    {% endfor %}
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="col-sm-2 control-label">Radiólogo</label>
+            <div class="col-sm-6">
+                <select id="radiologoDiagnostico_8" name="radiologoDiagnostico_8" class="form-control">
+                    <option value=""></option>
+                    {% for tipo in tiposEmpleado if tipo.codigo == 'MED' or tipo.codigo == 'TRY' %}
+                        <optgroup label="{{ tipo }}">
+                        {% for radiologo in radiologos if radiologo.idTipoEmpleado is not null and radiologo.idTipoEmpleado.id == tipo.id %}
+                            <option value="{{ radiologo.id }}">{{ radiologo }}</option>
+                        {% endfor %}
+                        </optgroup>
+                    {% endfor %}
+                    {% for radiologo in radiologos if radiologo.idTipoEmpleado is null %}
+                        <option value="{{ radiologo.id }}">{{ radiologo }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        
+        <input type="hidden" class="form-control" name="report_selector" value="8" />
+
+    </form>

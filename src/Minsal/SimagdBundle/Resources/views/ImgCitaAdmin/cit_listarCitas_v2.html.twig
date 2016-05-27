@@ -1,0 +1,89 @@
+{# empty Twig template #}
+    <!-- toolbar table-lista-citas -->
+    {% set code_entity  = 'cit' %}
+    <div id="bs_{{ code_entity }}_toolbar" class="table_bsTable_toolbar"> <!-- toolbar for table-lista-entity -->
+
+        {#<div class="columns columns-left btn-group pull-left">#}
+            <!-- Single button -->
+            <div class="btn-group">
+                <button type="button" id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
+                    <i class="glyphicon glyphicon-filter"></i>
+                    Filtrar <span class="caret"></span>
+                </button>
+                <!-- Menu -->
+                <ul class="dropdown-menu table_bsTable_toolbar_menuFilter" id="bs_{{ code_entity }}_menuFilter" >
+                </ul>
+            </div>
+            <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
+                <i class="glyphicon glyphicon-repeat"></i>
+            </button>
+            <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
+                <i class="glyphicon glyphicon-trash"></i>
+            </button>
+
+            <!-- --| custom buttons for toolbar -->
+            <span class="btn-separator"></span>
+
+            <button id="btn_toolbar_send_patient_to_list" class="btn btn-element-v2 btn_toolbar_send_patient_to_list" title="Confirmar estas citas" style="margin-left: 15px" disabled="disabled">
+                <i class="glyphicon glyphicon-circle-arrow-right"></i>
+            </button>
+            <button id="btn_toolbar_cancel_patient_date" class="btn btn-danger btn_toolbar_cancel_patient_date" title="Cancelar estas citas" style="{#margin-left: 15px#}" disabled="disabled">
+                <i class="glyphicon glyphicon-trash"></i>
+            </button>
+
+            <span class="btn-separator"></span>
+
+            <button id="btn_toolbar_assign_patient_date" class="btn btn-element-v2 btn_toolbar_assign_patient_date" title="Asignar estas citas" style="margin-left: 15px" disabled="disabled">
+                <i class="glyphicon glyphicon-user"></i>
+            </button>
+            <!-- END --| custom buttons for toolbar -->
+        {#</div>#}
+
+    </div> <!-- END --| toolbar table-lista-citas -->
+
+    <div id="div-resultado-citas-programadas" style="display: none;" class="menu-vistas-agenda" data-refresh-url="{{ path('simagd_cita_listarCitasProgramadas') }}">
+    	<table class="table table-condensed" id="table-lista-citas"
+    		data-toggle="table"
+    		data-id-field="cit_id"
+    		data-url=""
+            data-backup-url="simagd_cita_listarCitasProgramadas"
+            data-toolbar="#bs_cit_toolbar"
+    		data-cache="false"
+    		data-show-refresh="true"
+    		data-show-toggle="true"
+    		data-show-columns="true"
+    		data-search="true"
+    		data-select-item-name="listaCitasToolbar"
+    		data-pagination="true"
+    		data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+    		{#data-sort-name="id"
+    		data-sort-order="desc"#}
+    		data-classes="table table-hover table-condensed table-no-bordered"
+    		data-height="760">
+                <thead>
+                    <tr style="background-color: #31708f; color: #fff;">
+                        {#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
+            		    <th data-field="cit_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
+            		    <th data-field="prc_origen" data-filter-bstable-apply="true" data-filter-bstable-by="stdroot_id" data-filter-bstable-type="select2" data-formatter="simagdOrigenFormatter"  data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>
+            		    <th data-field="prc_paciente" data-filter-bstable-apply="false" data-filter-bstable-by="pct_id" data-filter-bstable-type="select2" data-filter-bstable-remote-data-source="true" data-formatter="simagdPacienteFormatter"  data-switchable="false" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Paciente</th>
+            		    <th data-field="prc_solicitante" data-filter-bstable-apply="true" data-filter-bstable-by="empprc_id" data-filter-bstable-type="select2"  data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Remitió</th>
+            		    <th data-field="prc_areaAtencion" data-filter-bstable-apply="true" data-filter-bstable-by="ar_id" data-filter-bstable-type="select2" data-formatter="simagdAreaAtencionFormatter"  data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Procedencia</th>
+            		    <th data-field="prc_atencion" data-filter-bstable-apply="true" data-filter-bstable-by="atn_id" data-filter-bstable-type="select2"  data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Servicio clínico</th>
+            		    <th data-field="prc_modalidad" data-filter-bstable-apply="true" data-filter-bstable-by="m_id" data-filter-bstable-type="select2"  class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Modalidad</th>
+            		    <th data-field="prc_fechaCreacion" data-filter-bstable-apply="true" data-filter-bstable-type="combodate"  data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se solicitó</th>
+            		    <th data-field="cit_fechaHoraInicio" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Inicia</th>
+            		    <th data-field="cit_fechaHoraFin" data-formatter="simagdDateTimeFormatter" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Finaliza</th>
+            		    <th data-field="cit_diaCompleto" data-formatter="diaCompletoCitaFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Día completo</th>
+            		    <th data-field="cit_estado" data-filter-bstable-apply="true" data-filter-bstable-by="statuscit_id" data-filter-bstable-type="select2"  data-formatter="simagdEstadoCitaFormatter" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Estado</th>
+            		    <th data-field="cit_reprogramada" data-filter-bstable-apply="true" data-filter-bstable-type="boolean" data-filter-bstable-data-source="getReprogramadaSourceData" data-formatter="reprogramadaFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Reprogramada</th>
+            		    <th data-field="cit_fechaHoraInicioAnterior" data-visible="false" data-formatter="simagdDateTimeFormatter" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Inicia (Anterior)</th>
+            		    <th data-field="cit_fechaHoraFinAnterior" data-visible="false" data-formatter="simagdDateTimeFormatter" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Finaliza (Anterior)</th>
+            		    <th data-field="cit_color" data-formatter="colorCitaFormatter" class="col-md-1" data-align="center" data-halign="center" data-sortable="true">Color</th>
+            		    <th data-field="cit_tecnologo" data-filter-bstable-apply="true" data-filter-bstable-by="tcnlcit_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Será atendido por</th>
+            		    <th data-field="cit_empleado" data-filter-bstable-apply="true" data-filter-bstable-by="empcit_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Programó</th>
+            		    <th data-field="cit_fechaCreacion" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-visible="false" data-formatter="simagdDateTimeFormatter" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se creó</th>
+            		    <th data-field="action" data-formatter="actionCitaFormatter" data-events="actionCitaEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+    		        </tr>
+                </thead>
+        </table>
+    </div>

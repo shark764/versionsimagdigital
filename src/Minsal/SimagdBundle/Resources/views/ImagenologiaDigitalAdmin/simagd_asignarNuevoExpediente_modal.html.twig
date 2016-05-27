@@ -1,0 +1,53 @@
+{# empty Twig template #}
+    
+<div id="asignarNuevoExpediente-modal" class="modal fade justify-bootstrap-div-container" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false" data-focus-on="input:first" aria-labelledby="mySmallModalLabel" data-width="760">
+    <div class="modal-content panel-element-v2">
+        <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+            <h4 class="modal-title"><i class="fa fa-wheelchair"></i> Asignar registros a nuevo expediente</h4>
+        </div>
+
+        <div class="modal-body">
+            <div class="row outer" style="padding-left: 15px; padding-right: 15px;">
+
+                <form id="asignarNuevoExpedienteForm" action="{{ path('simagd_imagenologia_digital_asignarNuevoExpediente') }}" method="post" class="form-horizontal simagd-form-custom-class"
+                    data-fv-framework="bootstrap"
+                    data-fv-icon-valid="glyphicon glyphicon-ok"
+                    data-fv-icon-invalid="glyphicon glyphicon-remove"
+                    data-fv-icon-validating="glyphicon glyphicon-refresh"
+
+                    data-fv-message="El valor introducido no es válido">
+
+                    {#<div class="form-group">
+                        <label class="col-xs-4 control-label">Número actual</label>
+                        <div class="col-xs-8">
+                            <p class="form-control-static"><span class="label label-danger" id="explocal_formAssignNewRegister-static-label"> NI-####-## </span></p>
+                        </div>
+                    </div>#}
+
+                    <div class="form-group has-feedback">
+                        <label class="col-xs-4 control-label required">Nuevo expediente</label>
+                        <div class="col-xs-8">
+                        <input type="text" class="typeahead explocal_formAssignNewRegister_typeahead form-control" autocomplete="off" placeholder="expediente" id="explocal_formAssignNewRegister_typeahead" name="explocal_formAssignNewRegister_typeahead"
+                                      {#data-fv-row=".col-xs-8"#}
+
+                                      data-fv-notempty="true"
+                                      data-fv-notempty-message="Este campo es requerido" />
+                        <i class="glyphicon glyphicon-remove-circle form-control-feedback typeahead-custom-clear" id="clear-typeahead-formAssignNewRegister"></i>
+                        </div>
+                    </div>
+
+                </form>
+                
+            </div>
+            
+        </div>
+
+        <div class="modal-footer" style="margin-top: 0px;">
+            <span class="text-info"><span class="glyphicon glyphicon-question-sign"></span> ¿Está seguro que desea continuar? &nbsp;</span>
+            <button type="button" data-dismiss="modal" class="btn btn-primary-v2"><i class="fa fa-times"></i> No, Cerrar</button>
+            <button type="submit" id="btn_asignar_newPatientRecord" name="btn_asignar_newPatientRecord" class="btn btn-element-v2" ><i class="fa fa-check-circle"></i> Si, Continuar</button>
+        </div>
+        
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->

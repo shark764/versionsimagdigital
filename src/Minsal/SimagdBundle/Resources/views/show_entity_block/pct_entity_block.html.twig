@@ -1,0 +1,68 @@
+{# empty Twig template #}
+    
+    <div class="tab-pane fade {% if tab_active != false %}in active{% endif %}" id="lct_pacienteTab" >
+        <div class="box box-{{ box_style|default('primary-v2') }} non-titled-sonata-box">
+            <div class="box-body">
+		<table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">id:</span></th>
+			<td colspan="3" class="col-md-9" ><span class="badge">{% if object_localRecord is not null %} {{ object_localRecord.id }} {% endif %}</span></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Número:</span></th>
+			<td colspan="3" class="col-md-9" ><span class="badge">{% if object_localRecord is not null %} {{ object_localRecord.numero }} {% endif %}</span></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Nombre:</span></th>
+			<td colspan="3" class="col-md-9" >{{ object_patient.primerApellido ~ ' ' ~ object_patient.segundoApellido ~ ', ' ~ object_patient.primerNombre ~ ' ' ~ object_patient.segundoNombre }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Sexo:</span></th>
+			<td colspan="3" class="col-md-9" >{{ object_patient.idSexo }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Fecha de nacimiento:</span></th>
+			<td colspan="3" class="col-md-9" >
+                            {% if object_patient.fechaNacimiento is not null %}
+                                {{ object_patient.fechaNacimiento|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ object_patient.horaNacimiento|date('H:i:s A') }}
+                            {% endif %}
+                        </td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Ocupación:</span></th>
+			<td class="col-md-3" >{{ object_patient.idOcupacion }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Trabaja en:</span></th>
+			<td class="col-md-3" >{{ object_patient.lugarTrabajo }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Identificación:</span></th>
+			<td colspan="3" class="col-md-9" >{{ object_patient.numeroDocIdePaciente }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Direccion:</span></th>
+			<td colspan="3" class="col-md-9" >
+                            <pre class="pre-display-code-natural">{{ object_patient.direccion }}</pre>
+                        </td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Teléfono de casa:</span></th>
+			<td colspan="3" class="col-md-9" >{{ object_patient.telefonoCasa }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Estado civil:</span></th>
+			<td colspan="3" class="col-md-9" >{{ object_patient.idEstadoCivil }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Nombre de la madre:</span></th>
+			<td class="col-md-3" >{{ object_patient.nombreMadre }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Nombre del padre:</span></th>
+			<td class="col-md-3" >{{ object_patient.nombrePadre }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Nacionalidad:</span></th>
+			<td colspan="3" class="col-md-9" >{{ object_patient.idNacionalidad }}</td>
+		    </tr>
+		</table>
+            </div>
+        </div>
+    </div>

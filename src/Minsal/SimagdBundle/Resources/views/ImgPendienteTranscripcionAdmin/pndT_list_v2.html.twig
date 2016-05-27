@@ -1,0 +1,294 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_list_v2.html.twig' %}
+
+{# Permisos pendiente transcripciones #}
+{% set _PNDT_ALLOW_CREATE   = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PENDIENTE_TRANSCRIPCION_CREATE') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _PNDT_ALLOW_EDIT     = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PENDIENTE_TRANSCRIPCION_EDIT') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _PNDT_ALLOW_LIST     = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PENDIENTE_TRANSCRIPCION_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{# Permisos pendiente transcripciones personales #}
+{% set _PNDTPR_ALLOW_LIST   = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_MIS_TRANSCRIPCIONES_NO_CONCLUIDAS_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{# Permisos validar #}
+{% set _PNDV_ALLOW_LIST     = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PENDIENTE_VALIDACION_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {# bootstrap text-editor summernote #}
+    <link href="{{ asset('bundles/minsalsimagd/summernote-master/dist/summernote.css') }}" type="text/css" rel="stylesheet" />
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        /*
+         * 
+         * @type String
+         * navbar menu container for bstables
+         */
+        var $pattern_bstable_container  = 'menu-listas-transcripciones-pendientes';
+        
+        /** Lista de patrones para diagnósticos */
+	var $DIAGNOSTIC_PATTERN_LIST            = null,
+            $isGranted_assigWorklist;
+	
+        $isGranted_assigWorklist        = {% if _PNDT_ALLOW_EDIT == true or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') %} true {% else %} false {% endif %};
+	
+        jQuery(document).ready(function() {
+            /*
+             * get sources from remote
+             */
+            var $getJSON_url            = 'simagd_patron_diagnostico_listarPatronesDiagnostico';  // --| url to get the sources
+            $.getJSON(Routing.generate($getJSON_url), {
+                filters: JSON.stringify([]),
+            })
+            .done(function(data) {
+                /*
+                 * set the sources in $DIAGNOSTIC_PATTERN_LIST object
+                 */
+                $DIAGNOSTIC_PATTERN_LIST        = data;
+            })
+            .fail(function(jqxhr, textStatus, error) {
+                var err                 = textStatus + ", " + error;
+                console.log( "Request failed: " + err );
+                
+                $DIAGNOSTIC_PATTERN_LIST        = [];
+            });
+        });
+    </script>
+
+    {# bootstrap text-editor summernote #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/summernote-master/dist/summernote.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/summernote-master/lang/summernote-es-ES.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_summernote_config.js') }}" ></script>
+    
+    {# google chrome - SpeechRecognition #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_webkitSpeechRecognition.js') }}" ></script>
+
+    {# Script pndT #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgPendienteTranscripcionAdmin/pndT_assignTrcX_alert.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgPendienteTranscripcionAdmin/pndT_list_v2.js') }}" ></script>
+    {# Script pndTPr #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgPendienteTranscripcionAdmin/pndT_personal_list_v2.js') }}" ></script>
+    {# Scripts pndV #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgPendienteValidacionAdmin/pndV_valid_diag_alert.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgPendienteValidacionAdmin/pndV_list_v2.js') }}" ></script>
+
+{% endblock %}
+
+{% block simagd_bs_alert %}
+    {{ parent() }}
+    
+    {% include 'MinsalSimagdBundle:ImgPendienteTranscripcionAdmin:pndT_assignTrcX_alert.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgPendienteValidacionAdmin:pndV_valid_diag_alert.html.twig' %}
+{% endblock %}
+    
+{% block simagd_navbar_menu_label %}
+    <i class="fa fa-clipboard"></i> <i class="fa fa-list-ul"></i> Transcripción pendientes
+{% endblock %}
+
+{% block simagd_navbar_left_nav %}
+    <li class="list-table-link-navbar active {% if _PNDT_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
+	<a href="javascript:void(0)" id="show-table-general-list" data-divtabletarget="div-resultado-transcripciones-pendientes"
+	    {% if _PNDT_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+	    <span class="text-info"><i class="fa fa-clipboard"></i> <i class="fa fa-list-ul"></i> </span> Listado general <span class="sr-only">(current)</span>
+	</a>
+    </li>
+    <li class="list-table-link-navbar {% if _PNDTPR_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
+	<a href="javascript:void(0)" id="show-table-personal-list" data-divtabletarget="div-resultado-transcripciones-personal-pendientes"
+	    {% if _PNDTPR_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+	    <span class="text-info"><i class="fa fa-user"></i> <i class="fa fa-clipboard"></i> <i class="fa fa-list-ul"></i> </span> Listado personal {#<span class="badge">4</span>#}
+	</a>
+    </li>
+{% endblock %}
+
+{% block simagd_navbar_middle_nav %}
+    <form class="navbar-form navbar-left navbar-input-group" role="search">
+	<div class="form-group has-feedback">
+	    <input type="text" class="typeahead explocal_navbar_typeahead form-control" autocomplete="off" placeholder="expediente" id="navbar_filter_expNumero" name="navbar_filter_expNumero" data-xparam-filter="true">
+	    <i class="glyphicon glyphicon-remove-circle form-control-feedback typeahead-custom-clear" id="clear-typeahead-filter-exp"></i>
+	</div>
+        <button type="submit" id="btn_search_filter_expNumero" name="btn_search_filter_expNumero" class="btn btn-primary-v2 {#btn-sm#}">
+            <i class="fa fa-search"></i>
+        </button>
+    </form>
+{% endblock %}
+
+{% block simagd_navbar_right_nav %}
+    <li class="list-table-link-navbar {% if _PNDV_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
+	<a href="javascript:void(0)" id="show-table-sin-validar-list" data-divtabletarget="div-resultado-sin-validar"
+	    {% if _PNDV_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+	    <span class="text-info"><i class="fa fa-check-square-o"></i> <i class="fa fa-list-ul"></i> </span> Resultados sin validar
+	</a>
+    </li>
+    <li>
+        <div style="padding-top: 10px; padding-left: 10px;">
+            <button id="btn_start_recognition" class="btn btn-element-v2 btn-sm btn_start_recognition" title="Iniciar transcripción por voz" >
+                <i class="fa fa-microphone" id="icon_start_recognition"></i>
+            </button>
+        </div>
+    </li>
+{% endblock %}
+    
+{% block sonata_admin_content -%}
+    {{ parent() }}
+
+    {% if _PNDT_ALLOW_LIST == true %}
+        <!-- toolbar for table-lista-transcripciones-pendientes -->
+        {% set code_entity  = 'pndT' %}
+        <div id="bs_{{ code_entity }}_toolbar" class="table_bsTable_toolbar"> <!-- toolbar for table-lista-entity -->
+
+            {#<div class="columns columns-left btn-group pull-left">#}
+                <!-- Single button -->
+                <div class="btn-group">
+                    <button type="button" id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
+                        <i class="glyphicon glyphicon-filter"></i>
+                        Filtrar <span class="caret"></span>
+                    </button>
+                    <!-- Menu -->
+                    <ul class="dropdown-menu table_bsTable_toolbar_menuFilter" id="bs_{{ code_entity }}_menuFilter" >
+                    </ul>
+                </div>
+                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
+                    <i class="glyphicon glyphicon-repeat"></i>
+                </button>
+                <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+
+                <!-- --| custom buttons for toolbar -->
+                <span class="btn-separator"></span>
+                
+                <button id="btn_add_item_trcx_worklist" class="btn btn-element-v2 btn_add_item_trcx_worklist" title="Asignar lectura a lista de Transcriptor" style="margin-left: 15px" disabled="disabled">
+                    <i class="glyphicon glyphicon-user "></i>
+                </button>
+                <!-- END --| custom buttons for toolbar -->
+            {#</div>#}
+
+        </div> <!-- END --| toolbar for table-lista-transcripciones-pendientes -->
+        
+	<div id="div-resultado-transcripciones-pendientes" class="menu-listas-transcripciones-pendientes" data-refresh-url="{{ path('simagd_sin_transcribir_listarPendientesTranscripcion') }}">
+	    <table class="table table-condensed" id="table-lista-pendientes-transcripcion"
+		  data-toggle="table"
+		  data-id-field="pndT_id"
+		  data-url="{{ path('simagd_sin_transcribir_listarPendientesTranscripcion') }}"
+		  data-backup-url="simagd_sin_transcribir_listarPendientesTranscripcion"
+		  data-toolbar="#bs_pndT_toolbar"
+		  data-cache="false"
+		  data-show-refresh="true"
+		  data-show-toggle="true"
+		  data-show-columns="true"
+		  data-search="true"
+		  data-select-item-name="listaPendientesTranscripcionToolbar"
+		  data-pagination="true"
+		  data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+		  {#data-sort-name="id"
+		  data-sort-order="desc"#}
+		  data-classes="table table-hover table-condensed table-no-bordered"
+		  data-height="760">
+		<thead>
+		    <tr style="background-color: #31708f; color: #fff;">
+			{#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
+			<th data-field="pndT_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
+			<th data-field="prc_origen" data-filter-bstable-apply="true" data-filter-bstable-by="stdroot_id" data-filter-bstable-type="select2" data-formatter="simagdOrigenFormatter" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>
+			<th data-field="prc_paciente" data-filter-bstable-apply="false" data-filter-bstable-by="pct_id" data-filter-bstable-type="select2" data-filter-bstable-remote-data-source="true" data-formatter="simagdPacienteFormatter" data-switchable="false" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Paciente</th>
+			<th data-field="prc_solicitante" data-filter-bstable-apply="true" data-filter-bstable-by="empprc_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Solicitó</th>
+			<th data-field="prc_areaAtencion" data-filter-bstable-apply="true" data-filter-bstable-by="ar_id" data-filter-bstable-type="select2" data-formatter="simagdAreaAtencionFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Procedencia</th>
+			<th data-field="prc_atencion" data-filter-bstable-apply="true" data-filter-bstable-by="atn_id" data-filter-bstable-type="select2" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Servicio clínico</th>
+			<th data-field="prc_modalidad" data-filter-bstable-apply="true" data-filter-bstable-by="m_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Modalidad</th>
+			<th data-field="prc_referido" data-filter-bstable-apply="true" data-filter-bstable-by="stdref_id" data-filter-bstable-type="select2" data-formatter="simagdReferidoFormatter" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizado en</th>
+			<th data-field="prz_tecnologo" data-filter-bstable-apply="true" data-filter-bstable-by="tcnlprz_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizó</th>
+			<th data-field="lct_radiologo" data-filter-bstable-apply="true" data-filter-bstable-by="emplct_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Interpretó</th>
+			<th data-field="lct_estado" data-filter-bstable-apply="true" data-filter-bstable-by="statuslct_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Estado</th>
+			<th data-field="lct_fechaLectura" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se interpretó</th>
+			<th data-field="lct_correlativo" data-filter-bstable-apply="true" data-filter-bstable-type="text" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Correlativo</th>
+			<th data-field="pndT_fechaIngresoLista" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" class="col-md-2" data-align="right" data-halign="center" data-sortable="true">Ingresó en lista</th>
+			<th data-field="pndT_fueImpugnado" data-filter-bstable-apply="true" data-filter-bstable-type="boolean" data-formatter="impugnadoFormatter" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Para corrección</th>
+			<th data-field="action" data-formatter="actionFormatter" data-events="actionEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+                        <th data-field="pndT_chk" data-checkbox="true" data-formatter="selectableRowFormatter" class="col-md-1" data-align="center" data-halign="center" data-valign="middle"></th>
+		    </tr>
+		</thead>
+	    </table>
+	</div>
+    {% endif %}
+
+    {% if _PNDTPR_ALLOW_LIST == true %}
+        <!-- toolbar for table-lista-lecturas -->
+        {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'pndTPr' } %}
+        <!-- END --| toolbar for table-lista-lecturas -->
+        
+	<div id="div-resultado-transcripciones-personal-pendientes" style="display: none;" class="menu-listas-transcripciones-pendientes" data-refresh-url="{{ path('simagd_mi_lista_sin_transcribir_listarPendientesTranscripcion') }}">
+	    <table class="table table-condensed" id="table-lista-personal-pendientes-transcripcion"
+		  data-toggle="table"
+		  data-id-field="pndT_id"
+		  data-url=""
+                  data-backup-url="simagd_mi_lista_sin_transcribir_listarPendientesTranscripcion"
+		  data-toolbar="#bs_pndTPr_toolbar"
+		  data-cache="false"
+		  data-show-refresh="true"
+		  data-show-toggle="true"
+		  data-show-columns="true"
+		  data-search="true"
+		  data-select-item-name="listaPersonalPendientesTranscripcionToolbar"
+		  data-pagination="true"
+		  data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+		  {#data-sort-name="id"
+		  data-sort-order="desc"#}
+		  data-classes="table table-hover table-condensed table-no-bordered"
+		  data-height="760">
+		<thead>
+		    <tr style="background-color: #31708f; color: #fff;">
+			{#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
+			<th data-field="pndT_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
+			<th data-field="prc_origen" data-filter-bstable-apply="true" data-filter-bstable-by="stdroot_id" data-filter-bstable-type="select2" data-formatter="simagdOrigenFormatter" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>
+			<th data-field="prc_paciente" data-filter-bstable-apply="false" data-filter-bstable-by="pct_id" data-filter-bstable-type="select2" data-filter-bstable-remote-data-source="true" data-formatter="simagdPacienteFormatter" data-switchable="false" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Paciente</th>
+			<th data-field="prc_solicitante" data-filter-bstable-apply="true" data-filter-bstable-by="empprc_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Solicitó</th>
+			<th data-field="prc_areaAtencion" data-filter-bstable-apply="true" data-filter-bstable-by="ar_id" data-filter-bstable-type="select2" data-formatter="simagdAreaAtencionFormatter" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Procedencia</th>
+			<th data-field="prc_atencion" data-filter-bstable-apply="true" data-filter-bstable-by="atn_id" data-filter-bstable-type="select2" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Servicio clínico</th>
+			<th data-field="prc_modalidad" data-filter-bstable-apply="true" data-filter-bstable-by="m_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Modalidad</th>
+			<th data-field="prc_referido" data-filter-bstable-apply="true" data-filter-bstable-by="stdref_id" data-filter-bstable-type="select2" data-formatter="simagdReferidoFormatter" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizado en</th>
+			<th data-field="prz_tecnologo" data-filter-bstable-apply="true" data-filter-bstable-by="tcnlprz_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Realizó</th>
+			<th data-field="lct_radiologo" data-filter-bstable-apply="true" data-filter-bstable-by="emplct_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Interpretó</th>
+			<th data-field="lct_estado" data-filter-bstable-apply="true" data-filter-bstable-by="statuslct_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Estado</th>
+			<th data-field="lct_fechaLectura" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se interpretó</th>
+			<th data-field="lct_correlativo" data-filter-bstable-apply="true" data-filter-bstable-type="text" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Correlativo</th>
+			<th data-field="pndT_fechaIngresoLista" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" class="col-md-2" data-align="right" data-halign="center" data-sortable="true">Ingresó en lista</th>
+			<th data-field="pndT_fueImpugnado" data-filter-bstable-apply="true" data-filter-bstable-type="boolean" data-formatter="impugnadoFormatter" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Para corrección</th>
+			<th data-field="action" data-formatter="actionPersonalFormatter" data-events="actionPersonalEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+		    </tr>
+		</thead>
+	    </table>
+	</div>
+    {% endif %}
+
+    {% if _PNDV_ALLOW_LIST == true %}
+        <!-- toolbar for table-lista-lecturas -->
+        {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'pndV' } %}
+        <!-- END --| toolbar for table-lista-lecturas -->
+        
+	{% include 'MinsalSimagdBundle:ImgPendienteValidacionAdmin:pndV_list_v2.html.twig'
+            ignore missing with { 'view_menu_class': 'menu-listas-transcripciones-pendientes' } %}    {# Resultados sin validar #}
+    {% endif %}
+        
+    {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_EDIT') or is_granted('ROLE_ADMIN') %}
+        {% include 'MinsalSimagdBundle:ImgDiagnosticoAdmin:diag_transcribirDiagnostico_modal.html.twig'
+            ignore missing with { 'estados': estadosDiag, 'transcriptores': transcriptores, 'default_empLogged': default_empLogged, 'estadoDiagDefault': estadoDiagDefault, 'patronesDiag': patronesDiag } %}
+    {% endif %}
+        
+    {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_VIEW') or is_granted('ROLE_ADMIN') %}
+        {% include 'MinsalSimagdBundle:show_container_fullEntity:diag_total_info_modal_v2.html.twig' %}    {# diagnóstico #}
+    {% endif %}
+    
+    {% include 'MinsalSimagdBundle:ImgLecturaAdmin:lct_speechRecognition_modal.html.twig' %}    {# speech recognition #}
+    
+    <!-- form for assign trcX to rows -->
+    {% if _PNDT_ALLOW_EDIT == true or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') %}
+        {% include 'MinsalSimagdBundle:ImgPendienteTranscripcionAdmin:pndT_asignarTranscriptorListaTrabajo_modal.html.twig'
+		ignore missing with { 'transcriptores': transcriptores, 'default_empLogged': default_empLogged } %}
+    {% endif %}
+    
+{% endblock %}

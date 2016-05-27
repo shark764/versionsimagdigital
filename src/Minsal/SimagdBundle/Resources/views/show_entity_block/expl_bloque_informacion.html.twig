@@ -1,0 +1,81 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed">
+        {% if exploracionInfo is not null %}
+            <tr>
+                <th class="col-md-2">Nombre:</th>
+                <td class="col-md-4">
+                    {{ exploracionInfo }}
+                </td>
+                <th class="col-md-2">Código:</th>
+                <td class="col-md-4">
+                    {{ exploracionInfo.codigo }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Registrada:</th>
+                <td class="col-md-4">
+                    {% if exploracionInfo.fechaHoraReg is not null %}
+                    	{{ exploracionInfo.fechaHoraReg|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ exploracionInfo.fechaHoraReg|date('H:i:s A') }}
+                    {% endif %}
+                </td>
+                <th class="col-md-2">Editada:</th>
+                <td class="col-md-4">
+                    {% if exploracionInfo.fechaHoraMod is not null %}
+                    	{{ exploracionInfo.fechaHoraMod|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ exploracionInfo.fechaHoraMod|date('H:i:s A') }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Usuario que registró:</th>
+                <td class="col-md-4">
+                    {{ exploracionInfo.idUserReg.idEmpleado }} <strong> ( {{ exploracionInfo.idUserReg.username }} ) </strong>
+                </td>
+                <th class="col-md-2">Último usuario que editó:</th>
+                <td class="col-md-4">
+                    {% if exploracionInfo.idUserMod is not null %}
+                    	{{ exploracionInfo.idUserMod.idEmpleado }} <strong> ( {{ exploracionInfo.idUserMod.username }} ) </strong>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Tiempo en sala:</th>
+                <td class="col-md-4">
+                    {{ exploracionInfo.tiempoOcupacionSala }}
+                </td>
+                <th class="col-md-2">Tiempo empleado por médico:</th>
+                <td class="col-md-4">
+                    {{ exploracionInfo.tiempoMedico }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Descripción:</th>
+                <td class="col-md-4">
+                    {{ exploracionInfo.descripcion }}
+                </td>
+                <th class="col-md-2">Observaciones:</th>
+                <td class="col-md-4">
+                    {{ exploracionInfo.observaciones }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Agrupado en examen:</th>
+                <td class="col-md-4">
+                    {{ exploracionInfo.idExamenServicioDiagnostico }}
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td class="col-md-12">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only"> Cerrar </span>
+                        </button>
+                        <strong>Sin resultados!</strong> No se encontró registro.
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    </table>

@@ -1,0 +1,30 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            
+            /** Agregar enlace para Recuperar estudio */
+            {% if ( estudioPaciente is not null ) %}
+		var hrefEstudioPaciente = "{{ estudioPaciente.url|escape('js') }}" || 'javascript:void(0)';
+
+		$('div .form-actions').append(' o ')
+                                            .append($('<a>')
+                                                    .attr({ id : 'linkEstudioPaciente',
+                                                            title : 'Recuperar estudio realizado',
+                                                            target : '_blank',
+                                                            href : jQuery.trim( hrefEstudioPaciente )
+                                                        })
+                                                    .addClass('btn btn-primary-v2')
+                                                    .append($('<span>')
+                                                                .addClass('glyphicon glyphicon-film')
+                                                            )
+                                                    .append(' ')
+                                                    .append($('<span>')
+                                                                .addClass('glyphicon glyphicon-eye-open')
+                                                            )
+                                                    .append(' Recuperar estudio')
+                                                );
+            {% endif %}
+            
+        });
+    </script>

@@ -1,0 +1,185 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    
+    {# Bootstrap #}
+    {#<link href="{{ asset('bundles/minsalsimagd/bootstrap-3.3.4-dist/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/minsalsimagd/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css') }}" type="text/css" rel="stylesheet" />#}
+    
+    {# Twitter Typeahead #}
+    <link href="{{ asset('bundles/minsalsimagd/css/typeahead.css') }}" type="text/css" rel="stylesheet" />
+    
+    {# bootstrap-table #}
+    <link href="{{ asset('bundles/minsalsimagd/bootstrap-table-master/dist/bootstrap-table.min.css') }}" type="text/css" rel="stylesheet" media="screen" />
+    
+    {# bootstrapvalidator #}
+    <link href="{{ asset('bundles/minsalsimagd/formvalidation-master/dist/css/formValidation.min.css') }}" type="text/css" rel="stylesheet" />
+    
+    {# bootstrap-X-editable #}
+    <link href="{{ asset('bundles/minsalsimagd/bootstrap3-editable/css/bootstrap-editable.css') }}" type="text/css" rel="stylesheet" media="screen" />
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+	var $id_userLogged,
+	    $id_emp_userLogged,
+	    $cod_emp_userLogged,
+	    $id_userEstab;
+	
+	var $is_admin,
+	    $is_radX,
+	    $is_prcMed;
+	
+	$id_userLogged		= {{ app.user.getId()|escape('js') }};
+	$id_emp_userLogged	= {{ app.user.getIdEmpleado.getId()|escape('js') }};
+	$cod_emp_userLogged	= "{{ app.user.getIdEmpleado.getIdTipoEmpleado.getCodigo()|escape('js') }}";
+	$id_userEstab 		= {{ app.user.getIdEstablecimiento.getId()|escape('js') }};
+
+	console.log($id_userLogged, $id_emp_userLogged, $cod_emp_userLogged, $id_userEstab);
+	
+	$is_admin		= {% if is_granted('ROLE_ADMIN') %} true {% else %} false {% endif %};
+	$is_radX		= {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') %} true {% else %} false {% endif %};
+	$is_prcMed		= {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_CREATE') and app.user.idEmpleado.idTipoEmpleado.codigo == 'MED' %} true {% else %} false {% endif %};
+
+	console.log($is_admin, $is_radX, $is_prcMed);
+    </script>
+    
+    {# Bootstrap #}
+    {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap-3.3.4-dist/js/bootstrap.min.js') }}" ></script>#}
+
+    {# jquery-formparams #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/jquery.formparams.min.js') }}" ></script>
+
+    {# jquery-maskedinput #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/jquery.mask.min.js') }}" ></script>
+    
+    {# Simagd extend jQuery #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_jQueryCustomFunctions.js') }}" ></script>
+    
+    {# Twitter Typeahead #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/typeahead.js-master/dist/typeahead.bundle.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/typeahead.js-master/dist/bloodhound.js') }}" ></script>
+    
+    {# bootstrap-table #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap-table-master/dist/bootstrap-table.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap-table-master/dist/locale/bootstrap-table-es-CR.min.js') }}" ></script>
+    {# data format for bootstrap-table #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_data_bsTable_formatter.js') }}" ></script>
+    {# filters for bootstrap-table #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_filter_bstable_config.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_explocal_navbarFilter_config.js') }}" ></script>
+    
+    {# Simagd Custom Scripts #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_list_view_config_v2.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_form_config_v2.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_config_alert.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_setterObject_modalData.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_select2_custom_formatter.js') }}" ></script>
+    
+    {# bootstrapvalidator #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/formvalidation-master/dist/js/formValidation.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/formvalidation-master/dist/js/framework/bootstrap.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/formvalidation-master/dist/js/language/es_ES.js') }}" ></script>
+    
+    {# bootstrap-X-editable #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap3-editable/js/bootstrap-editable.min.js') }}" ></script>
+    
+    {# Bootstrap-datetimepicker #}
+{#    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap-datetimepicker-master/bootstrap-datepicker.es.js') }}" ></script>#}
+
+{% endblock %}
+    
+{% block sonata_admin_content -%}
+    
+    {% block simagd_navbar_menu_list %}
+	<nav class="navbar navbar-default">
+	    <div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+		    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		    </button>
+		    <span class="navbar-brand"><span class="label label-primary-v2">
+			{% block simagd_navbar_menu_label %}
+			    <i class="fa fa-th-list"></i> Listado de registros
+			{% endblock %}
+		    </span></span>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		    <ul class="nav navbar-nav">
+			{% block simagd_navbar_left_nav %}
+			    {# add custom items #}
+			{% endblock %}
+		    </ul>
+		    {% block simagd_navbar_middle_nav %}
+			{# add custom items, you can add a form #}
+		    {% endblock %}
+		    <ul class="nav navbar-nav navbar-right">
+			{% block simagd_navbar_right_nav %}
+			    {# add custom items #}
+			{% endblock %}
+		    </ul>
+		</div><!-- /.navbar-collapse -->
+	    </div><!-- /.container-fluid -->
+	</nav>
+    {% endblock %}
+    
+    {% block simagd_bs_alert %}
+	{% block simagd_inserted_alert %}
+	    <div class="simagd-response-bs-alert" aria-hidden="true">
+		<div class="alert alert-success alert-dismissable" id="simagd-added-response-bs-alert" style="display: none;">
+		    <button type="button" class="close" data-dismiss="alert">x</button>
+		    <span>
+			<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+			<strong>Finalizado! &nbsp; </strong> El registro ha sido insertado con éxito.
+		    </span>
+		</div>
+	    </div>
+	{% endblock %}
+	{% block simagd_edited_alert %}
+	    <div class="simagd-response-bs-alert" aria-hidden="true">
+		<div class="alert alert-info alert-dismissable" id="simagd-edited-response-bs-alert" style="display: none;">
+		    <button type="button" class="close" data-dismiss="alert">x</button>
+		    <span>
+			<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+			<strong>Finalizado! &nbsp; </strong> El registro ha sido modificado con éxito.
+		    </span>
+		</div>
+	    </div>
+	{% endblock %}
+	{% block simagd_error_alert %}
+	    <div class="simagd-response-bs-alert" aria-hidden="true">
+		<div class="alert alert-danger alert-dismissable" id="simagd-error-response-bs-alert" style="display: none;">
+		    <button type="button" class="close" data-dismiss="alert">x</button>
+		    <span>
+			<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+			<strong>Error! &nbsp; </strong> Fallo la operación realizada.
+		    </span>
+		</div>
+	    </div>
+	{% endblock %}
+	{% block simagd_warning_alert %}
+	    <div class="simagd-response-bs-alert" aria-hidden="true">
+		<div class="alert alert-warning alert-dismissable" id="simagd-warning-response-bs-alert" style="display: none;">
+		    <button type="button" class="close" data-dismiss="alert">x</button>
+		    <span>
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			<strong>Advertencia! &nbsp; </strong> La operación no finalizó correctamente.
+		    </span>
+		</div>
+	    </div>
+	{% endblock %}
+    {% endblock %}
+    
+{% endblock %}

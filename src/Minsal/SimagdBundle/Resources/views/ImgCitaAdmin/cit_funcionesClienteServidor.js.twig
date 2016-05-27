@@ -1,0 +1,214 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            
+            var idSolicitudEstudioPadre = '-1';
+            var citasModSolicitadaId = '-1';
+            var idParamCitacion = '-1';
+            
+            {% if object.idConfiguracionAgenda is not null %}
+        
+                /** Obtener parametrización de citas */
+                idParamCitacion = {{ object.idConfiguracionAgenda.getId()|escape('js') }};
+                console.log(idParamCitacion );
+
+            {% endif %}
+            
+            {% if object.id is not null %}
+        
+                /** Obtener fecha de creación de cita */
+                var creacionCitDate = new Date('{{ object.fechaCreacion|date('m/d/Y')|raw }}');
+                var creacionCitYear = creacionCitDate.getFullYear();
+                var creacionCitMonth = creacionCitDate.getMonth();
+                var creacionCitDay = creacionCitDate.getDate();
+                $("input[id='" + $token + "_fechaProgramada']").datetimepicker('option', {
+                                                                    //setDate : new Date(),
+                                                                    minDate: new Date(creacionCitYear, creacionCitMonth, creacionCitDay),
+                                                                    //maxDate: new Date(creacionCitYear, creacionCitMonth, creacionCitDay),
+                                                                    //yearRange: '-100:+0',
+                                                                });
+                console.log(creacionCitDate );
+        
+                /** Obtener fecha de creación en moment.js */
+                var momentMinDate = moment('{{ object.fechaCreacion|date('Y-m-d')|raw }}');
+                console.log(momentMinDate );
+            {% endif %}
+            
+            {% if object.idSolicitudEstudio is not null %}
+                    
+                /** Nombre de la persona responsable */
+                $("select[id='" + $token + "_idResponsableAutoriza']").change(function() {
+                    if (jQuery(this).val() == 13) {  //El paciente
+                        var nombrePaciente = "{{ object.idSolicitudEstudio.idExpediente.idPaciente|escape('js') }}";
+                        $("input[id='" + $token + "_nombreResponsableAutoriza']").val(nombrePaciente);
+                    }
+                });
+        
+                /** Obtener fecha de próxima consulta */
+                var prcDate = new Date('{{ object.idSolicitudEstudio.fechaProximaConsulta|date('m/d/Y')|raw }}');
+                var prcYear = prcDate.getFullYear();
+                var prcMonth = prcDate.getMonth();
+                var prcDay = prcDate.getDate();
+                $("input[id='" + $token + "_fechaProgramada']").datetimepicker('option', {
+                                                                    //setDate : new Date(),
+                                                                    //minDate: null,
+                                                                    maxDate: new Date(prcYear, prcMonth, prcDay),
+                                                                    //yearRange: '-100:+0',
+                                                                });
+                                                                
+                idSolicitudEstudioPadre = {{ object.idSolicitudEstudio.getId()|escape('js') }};
+                citasModSolicitadaId = {{ object.idSolicitudEstudio.idAreaServicioDiagnostico.getId()|escape('js') }};
+                console.log(idSolicitudEstudioPadre, citasModSolicitadaId );
+        
+                /** Obtener fecha de próxima consulta en moment.js */
+                var momentMaxDate = moment('{{ object.idSolicitudEstudio.fechaProximaConsulta|date('Y-m-d')|raw }}');
+                console.log(momentMaxDate );
+            {% endif %}
+                
+            /** despliegue de Calendario */
+            $('#citas-calendario').on('shown.bs.modal', function () {
+                $('#calendar:not([disabled])').fullCalendar('render');
+                $("div[id='tab-info-reservas-cita']")
+                            .load( Routing.generate('simagd_cita_espaciosReservados',
+                                        { idSolicitudEstudioPadre: idSolicitudEstudioPadre, idParamCitacion: idParamCitacion }
+                                ));
+            });
+            
+            var windowCalendarHeight = $( window ).height() * 0.53;
+            console.log('calendar height: ' + windowCalendarHeight );
+            
+            $('#calendar:not([disabled])').fullCalendar({
+                header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                },
+                height: windowCalendarHeight,
+                lang: 'es',
+                axisFormat: 'h:mm A',
+                timeFormat: 'H(:mm) A',
+                eventSources: [
+                    {
+                        url: Routing.generate('simagd_cita_obtenerEventosCalendario'),
+                        type: 'POST',
+                        data: {
+                            idAreaServicioDiagnostico: citasModSolicitadaId
+                        },
+                        error: function() {
+                            console.log('Ocurrió un error al desplegar el calendario' );
+                        },
+                        currentTimezone: 'America/El_Salvador'
+                    }
+                ],
+                editable: false,
+                eventLimit: {
+                    'agenda': 5, // adjust to 6 only for agendaWeek/agendaDay
+                    'default': true // give the default value to other views
+                },
+                dayClick: function(date, allDay, jsEvent, view) {
+		    var minDateCalendar = (typeof momentMinDate !== 'undefined') ? momentMinDate : moment();
+		
+		    if ( typeof momentMaxDate !== 'undefined'
+					&& date.format('YYYY-MM-DD') <= momentMaxDate.format('YYYY-MM-DD')
+					&& date.format('YYYY-MM-DD') >= minDateCalendar.format('YYYY-MM-DD') ) {
+                    	jQuery(this).addClass('ac_checked_date');
+                    	$('.fc-day').not(jQuery(this)).removeClass('ac_checked_date');
+
+                    	generarMensajeToast('notice', date.format('LLLL'), 'Seleccionó nueva fecha:' );
+
+                    	$("input[id='" + $token + "_fechaProgramada']").val( date.format('YYYY-MM-DD HH:mm') ).trigger('change');
+                    	console.log('Fecha seleccionada: ' + date.format('YYYY-MM-DD, HH:mm') );
+                    }
+		    else {
+			generarMensajeToast('error', 'No puede programar cita para la fecha y hora: <br/>' + date.format('LLLL'), 'Selección no permitida' );
+                    	console.log('Fecha erronea: ' + date.format('YYYY-MM-DD, HH:mm') );
+                    }
+                },
+                eventClick: function(event, jsEvent, view) {
+                    $('#eventModalTitle').html( event.title );
+                    $('#eventModalBody').html( event.description );
+                    $('#eventUrl').attr('href', event.url);
+                    
+                    $('#fullCalModal').modal();
+                    
+                    return false;
+                },
+                dayRender: function(date, cell) {
+		    if (typeof momentMaxDate !== 'undefined') {
+			//console.log ( 'momentMaxDate: ' + momentMaxDate.format('LLLL') );
+			//console.log ( 'date: ' + date.format('LLLL') );
+                	if ( date.format('YYYY-MM-DD') > momentMaxDate.format('YYYY-MM-DD') ) {
+                            $(cell).addClass('fc-state-disabled');
+			}
+                    }
+
+		    var minDateCalendar = (typeof momentMinDate !== 'undefined') ? momentMinDate : moment();
+		    if ( date.format('YYYY-MM-DD') < minDateCalendar.format('YYYY-MM-DD') ) {
+			$(cell).addClass('fc-state-disabled');
+		    }
+                }
+            });
+                
+                
+            /** Bloqueo de empleado */
+            {% if admin.id(object) is not null and not is_granted('ROLE_ADMIN') %}
+                
+                $("div.cit-with-programacion-formulario-citacion").find('select').select2()
+                        .on('select2-selecting', function(e) {
+                            e.preventDefault();
+                        });
+                        
+            {% endif %}
+                
+            /** Bloqueo Programación */
+            if ( $("input[id='" + $token + "_setLockProgramacion']").val() ) {
+                $("div.cit-with-programacion-programacion").find('select').select2()
+                        .on('select2-selecting', function(e) {
+                            e.preventDefault();
+                        });
+
+                $("div.cit-with-programacion-programacion").find('input[type=text], input[type=number], textarea').prop('readonly', true);
+                
+                $("input[id='" + $token + "_fechaProgramada']").datetimepicker( "destroy" );
+    
+                $("button[id='showDateTimePicker'], button[id='btn-ver-calendario']").prop('disabled', true);
+		
+		/** Bloqueo autorización */
+                $("div.cit-with-incidencias-autorizacion").find('select').select2()
+                        .on('select2-selecting', function(e) {
+                            e.preventDefault();
+                        });
+
+                $("div.cit-with-incidencias-autorizacion").find('input:checkbox').iCheck('disable');
+                
+                $("div.cit-with-incidencias-autorizacion").find('input:checkbox').each(function () {
+                    if ( jQuery(this).is(':checked') ) {
+                        jQuery(this).after($('<input type="hidden">')
+                                    .attr({ name : jQuery(this).attr('name'),
+                                            value : jQuery(this).val()
+                                        })
+                                );
+                    }
+                });
+
+                $("div.cit-with-incidencias-autorizacion").find('input[type=text], input[type=number], textarea').prop('readonly', true);
+            }
+
+            /** Bloqueo Estado */
+            if ( $("input[id='" + $token + "_setLockEstado']").val() ) {
+                
+                $("input[name='{{ admin.uniqId }}[idEstadoCita]']").iCheck('disable');
+                
+                $("input[id='" + $token + "_setLockEstado']").after($('<input type="hidden">')
+                            .attr({ name : "{{ admin.uniqId }}[idEstadoCita]",
+                                    value : $("input[name='{{ admin.uniqId }}[idEstadoCita]']:checked").val()
+                                })
+                        );
+                
+                $("textarea[id='" + $token + "_razonAnulada']").prop('readonly', true);
+            }
+            
+        });
+        
+    </script>

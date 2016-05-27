@@ -1,0 +1,69 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_list.html.twig' %}
+
+{% set _minWarning = 10 %}
+{% set _minDanger = 8 %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% include 'MinsalSimagdBundle:ImagenologiaDigitalAdmin:simagd_proximaConsulta.js.twig'
+                                    ignore missing with { '_msjTitle': 'Exámenes pendientes:',
+                                                            '_minWarning': _minWarning,
+                                                            '_minDanger': _minDanger,
+                                                         } %}
+{% endblock %}
+
+{% block simagd_form_navbar_brand_title %}
+    <span class="navbar-brand"><span class="label label-primary-v2"> <i class="fa fa-desktop"></i> Exámenes Imagenológicos registrados </span></span>
+{% endblock %}
+
+{% block actions %}
+    {% spaceless %}
+        {# sin actions #}
+    {% endspaceless %}
+{% endblock %}
+
+{% block table_body %}
+    <tbody>
+
+        {% set _showPendienteRow = false %}
+        
+	{% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') or
+                    is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_EDIT') or is_granted('ROLE_ADMIN') %}
+
+            {% set _showPendienteRow = true %}
+
+	{% endif %}
+
+        {% for object in admin.datagrid.results %}
+        
+            {% if _showPendienteRow %}
+        
+                {% if object.idEstadoProcedimientoRealizado.id not in [5, 6, 7, 8, 9] %}
+
+                    {% set _proximaConsulta = object.idSolicitudEstudio.fechaProximaConsulta %}
+                    {% set _proximaConsultaTitle = 'Próxima consulta médica:\n' ~ _proximaConsulta|format_date('EEEE, MMMM d, yyyy', 'es_ES') %}
+
+                    {% include 'MinsalSimagdBundle:ImagenologiaDigitalAdmin:simagd_rowFechaPendiente.html.twig'
+                                    ignore missing with { '_proximaConsulta': _proximaConsulta,
+                                                            '_proximaConsultaTitle': _proximaConsultaTitle,
+                                                            '_warningRow': _minWarning,
+                                                            '_dangerRow': _minDanger,
+                                                         } %}
+
+                {% else %}
+                    <tr>
+                {% endif %}
+        
+            {% else %}
+                <tr>
+            {% endif %}
+        
+                {% include admin.getTemplate('inner_list_row') %}
+            </tr>
+        {% endfor %}
+    
+    </tbody>
+{% endblock %}

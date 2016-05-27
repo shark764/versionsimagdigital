@@ -1,0 +1,75 @@
+{# empty Twig template #}
+
+{# modal-event-calendar #}
+<div id="exploracionSolFullData-showModalContainer" class="modal container fade justify-bootstrap-div-container" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false">
+    <div class="modal-content panel-info">
+        <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+            <h4 class="modal-title"><i class="fa fa-check-square-o"></i> Proyección Solicitada</h4>
+        </div>
+
+        <div class="modal-body">
+
+            {% for explSol in explSolicitadas %}
+                <div data-id="{{ explSol.id }}" class="div-expl-sol-completa-info">
+
+                    <table class="table table-condensed">
+                        <tr>
+                            <th class="col-md-2"><span class="simagd-text-primary">Nombre:</span></th>
+                            <td class="col-md-4">
+                                {{ explSol.idProyeccionSolicitada }}
+                            </td>
+                            <th class="col-md-2"><span class="simagd-text-primary">Agrupada en el examen:</span></th>
+                            <td class="col-md-4">
+                                {{ explSol.idProyeccionSolicitada.idExamenServicioDiagnostico }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-2"><span class="simagd-text-primary">Código:</span></th>
+                            <td class="col-md-4">
+                                {{ explSol.idProyeccionSolicitada.codigo }}
+                            </td>
+                            <th class="col-md-2"><span class="simagd-text-primary">Aplica al sexo:</span></th>
+                            <td class="col-md-4">
+                                {{ explSol.idProyeccionSolicitada.idExamenServicioDiagnostico.idsexo is not null ? explSol.idProyeccionSolicitada.idExamenServicioDiagnostico.idsexo : 'Todos los sexos' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-2"><span class="simagd-text-primary">Tiempo en sala (min):</span></th>
+                            <td class="col-md-4">
+                                {{ explSol.idProyeccionSolicitada.tiempoOcupacionSala }}
+                            </td>
+                            <th class="col-md-2"><span class="simagd-text-primary">Tiempo de Tecnólogo (min):</span></th>
+                            <td class="col-md-4">
+                                {{ explSol.idProyeccionSolicitada.tiempoMedico }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-2"><span class="simagd-text-primary">Vistas solicitadas:</span></th>
+                            <td class="col-md-4">
+                                {{ explSol.vistasRequeridas }}
+                            </td>
+                            <th class="col-md-2"><span class="simagd-text-primary">Posición solicitada:</span></th>
+                            <td class="col-md-4">
+                                {{ explSol.posicionExaminar }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-2"><span class="simagd-text-primary">Dimensiones:</span></th>
+                            <td class="col-md-4">
+                                {{ explSol.dimensiones }}
+                            </td>
+                            <th class="col-md-2"><span class="simagd-text-primary">Otras especificaciones:</span></th>
+                            <td class="col-md-4">
+                                {{ explSol.otrasEspecificaciones }}
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            {% endfor %}
+            
+        </div>
+        
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->

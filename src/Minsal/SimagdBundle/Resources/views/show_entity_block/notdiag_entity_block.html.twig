@@ -1,0 +1,101 @@
+{# empty Twig template #}
+
+    <div class="tab-pane fade {% if tab_active != false %}in active{% endif %}" id="lct_notdiagTab" >
+        <div class="box box-{{ box_style|default('primary-v2') }} non-titled-sonata-box">
+            <div class="box-body">
+		{% if object_notdiag is not null %}
+		    <table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
+			<tr>
+			    <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">id:</span></th>
+			    <td colspan="3" class="col-md-9" ><span class="badge">{{ object_notdiag.id }}</span></td>
+			</tr>
+			<tr>
+			    <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Registrada:</span></th>
+			    <td colspan="3" class="col-md-9" >{{ object_notdiag.fechaEmision|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ object_notdiag.fechaEmision|date('H:i:s A') }}</td>
+			</tr>
+			<tr>
+			    <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Emitió:</span></th>
+			    <td class="col-md-3" >{{ object_notdiag.idEmpleado }}</td>
+			    <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Usuario:</span></th>
+			    <td class="col-md-3" >{{ object_notdiag.idUserReg }}</td>
+			</tr>
+			<tr>
+			    <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Contenido:</span></th>
+			    <td colspan="3" class="col-md-9" >
+				<pre class="pre-display-code-no-natural">{{ object_notdiag.contenido|raw }}</pre>
+			    </td>
+			</tr>
+			<tr>
+			    <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Tipo de nota:</span></th>
+			    <td colspan="3" class="col-md-9" >{{ object_notdiag.idTipoNotaDiagnostico }}</td>
+			</tr>
+			<tr>
+			    <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Observaciones:</span></th>
+			    <td colspan="3" class="col-md-9" >
+				<pre class="pre-display-code-natural">{{ object_notdiag.observaciones }}</pre>
+			    </td>
+			</tr>
+			<tr>
+			    <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Creada en:</span></th>
+			    <td colspan="3" class="col-md-9" >{{ object_notdiag.idEstablecimiento }}</td>
+			</tr>
+		    </table>
+		{% endif %}
+		
+		{% if object_notasdiag is not null and object_notasdiag | length > 0 %}
+		    <div class="panel-group" id="notdiag_notas_containerGroup">
+			{% for nota in object_notasdiag %}
+
+			    <div class="panel panel-primary-v2">
+				<a class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#notdiag_nota_panelCollapse_id_{{ nota.id }}">
+				    <span class="badge">{{ nota.idTipoNotaDiagnostico }}</span>
+				    {{ nota.idEmpleado|trim|truncate(35) }}
+				</a>
+				<div class="panel-collapse collapse" id="notdiag_nota_panelCollapse_id_{{ nota.id }}">
+				    <div class="panel-body">
+					<table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
+					    <tr>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">id:</span></th>
+						<td colspan="3" class="col-md-9" ><span class="badge">{{ nota.id }}</span></td>
+					    </tr>
+					    <tr>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Registrada:</span></th>
+						<td colspan="3" class="col-md-9" >{{ nota.fechaEmision|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ nota.fechaEmision|date('H:i:s A') }}</td>
+					    </tr>
+					    <tr>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Emitió:</span></th>
+						<td class="col-md-3" >{{ nota.idEmpleado }}</td>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Usuario:</span></th>
+						<td class="col-md-3" >{{ nota.idUserReg }}</td>
+					    </tr>
+					    <tr>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Contenido:</span></th>
+						<td colspan="3" class="col-md-9" >
+						    {{ nota.contenido|raw }}
+						</td>
+					    </tr>
+					    <tr>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Tipo de nota:</span></th>
+						<td colspan="3" class="col-md-9" >{{ nota.idTipoNotaDiagnostico }}</td>
+					    </tr>
+					    <tr>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Observaciones:</span></th>
+						<td colspan="3" class="col-md-9" >
+						    <pre class="pre-display-code-natural">{{ nota.observaciones }}</pre>
+						</td>
+					    </tr>
+					    <tr>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Creada en:</span></th>
+						<td colspan="3" class="col-md-9" >{{ nota.idEstablecimiento }}</td>
+					    </tr>
+					</table>
+				    </div>
+				</div>
+			    </div>
+			    
+			{% endfor %}
+		    </div>
+		{% endif %}
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="examenesRealizadosPaciente" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bc80e382-59d2-44ef-a63a-68d0c494cb57">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.jasperserver.reportUnit" value="/simagd/examenesRealizadosPaciente"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+	<parameter name="paciente" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaIni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="establecimiento" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT  asap.nombrearea as modalidad,mex.numero as numeroexp,(coalesce(mp.primer_nombre ||' '||
+mp.segundo_nombre ||' '|| coalesce(mp.tercer_nombre, '') ||' '|| mp.primer_apellido ||' '|| mp.segundo_apellido
+||' '|| coalesce(mp.apellido_casada, ''))) as nombre,prz.fecha as fecha, prz.nombre_estado as estado , memp.nombreempleado as nombremedico, stdprc.nombre as origen, ar.nombre as procedencia, atn.nombre as servicio
+FROM img_solicitud_estudio pin INNER JOIN
+(select  imgpr.id,imgpr.id_tecnologo_realiza,imgpr.id_solicitud_estudio,epr.nombre_estado,(case when imgpr.fecha_realizado is not null
+then imgpr.fecha_realizado else imgpr.fecha_almacenado end) as fecha  from img_procedimiento_realizado imgpr inner join img_ctl_estado_procedimiento_realizado epr
+on imgpr.id_estado_procedimiento_realizado = epr.id where (imgpr.id_estado_procedimiento_realizado = 3 OR imgpr.id_estado_procedimiento_realizado = 5)
+and ((imgpr.fecha_realizado between to_date($P{fechaIni},'DD-MM-YYYY') and to_date($P{fechaFin},'DD-MM-YYYY')) OR (imgpr.fecha_almacenado between to_date($P{fechaIni},'DD-MM-YYYY') and to_date($P{fechaFin},'DD-MM-YYYY')) )) as prz
+on pin.id = prz.id_solicitud_estudio
+inner join ctl_area_servicio_diagnostico asap on pin.id_area_servicio_diagnostico = asap.id
+--aqui creo que seria algo parecido para obtener el exp donde se realizo
+--left join mnt_expediente mex on mp.id = mex.id_paciente and mex.id_establecimiento = pin.id_establecimiento_referido
+inner join mnt_aten_area_mod_estab aams on aams.id = pin.id_aten_area_mod_estab
+inner join ctl_establecimiento stdprc on stdprc.id = aams.id_establecimiento
+inner join ctl_atencion atn on atn.id = aams.id_atencion
+inner join mnt_area_mod_estab ams on ams.id = aams.id_area_mod_estab
+inner join ctl_area_atencion ar on ar.id = ams.id_area_atencion
+inner join mnt_empleado memp on memp.id = prz.id_tecnologo_realiza
+inner join img_estudio_paciente iepc on iepc.id_procedimiento_realizado = prz.id
+inner join mnt_expediente mex on mex.id = iepc.id_expediente
+inner join mnt_paciente mp on mp.id = mex.id_paciente
+where pin.id_establecimiento_referido = $P{establecimiento} and mex.id = $P{paciente} order by nombre,fecha]]>
+	</queryString>
+	<field name="modalidad" class="java.lang.String"/>
+	<field name="numeroexp" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre del área de atención]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[Fecha de la cita medica]]></fieldDescription>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre del estado de la cita]]></fieldDescription>
+	</field>
+	<field name="nombremedico" class="java.lang.String"/>
+	<field name="origen" class="java.lang.String"/>
+	<field name="procedencia" class="java.lang.String"/>
+	<field name="servicio" class="java.lang.String">
+		<fieldDescription><![CDATA[Servicio hopitalario al que sera referido si es de ingreso medico]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="129" splitType="Stretch">
+			<image>
+				<reportElement x="10" y="0" width="400" height="84" uuid="7165285b-7252-4a6c-91eb-57c36b599900"/>
+				<imageExpression><![CDATA["repo:escudo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="146" y="15" width="416" height="15" uuid="f079c8c6-815d-460a-98fd-1e1b5811f709"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[República de El Salvador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="146" y="30" width="416" height="15" uuid="1ccf5bca-b2ca-4245-9f51-918c77ddc9e2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sistema Nacional de Salud]]></text>
+			</staticText>
+			<image>
+				<reportElement x="562" y="0" width="190" height="84" uuid="d7713472-fe49-40c0-901f-72091c1eb875"/>
+				<imageExpression><![CDATA["repo:logo_minsal.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="146" y="45" width="416" height="20" uuid="5ef86f06-809e-4d89-841d-e9706e4e1e0f"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{origen}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="407" y="103" width="100" height="20" uuid="945a2f16-05b0-49f4-b7b3-db46f0cc6beb"/>
+				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="355" y="103" width="52" height="20" uuid="d2a567e1-6ad9-4a6a-8011-a19c8888b114"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="177" y="84" width="330" height="16" uuid="bf67c0cc-0ea9-47aa-a1dc-a1538304789f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="11" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Examenes Realizados por Paciente]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="268" y="103" width="74" height="20" uuid="4c944685-9400-48b7-8391-fa04d531d8c6"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaIni}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="216" y="103" width="52" height="20" uuid="399c92d4-e538-4fb9-b05a-7122eb8fe6ea"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde :]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="16" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="52" height="20" uuid="125e9979-3b08-42a6-b7d8-b30e9c6b352e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NEC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="52" y="10" width="100" height="20" uuid="ba2b6d08-6877-43f1-be1c-87b8dccea857"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="10" width="69" height="20" uuid="ac111967-af20-44d1-aac3-dfb0c443671b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modalidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="235" y="10" width="51" height="20" uuid="369af83b-14b2-43fc-96ff-7aa3fc95bcb3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="372" y="10" width="81" height="20" uuid="5ee90dd7-5182-44c4-bb5b-5d0d3c9e8661"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Técnologo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="294" y="10" width="68" height="20" uuid="9decb276-84c4-443f-bf5f-2e3b679fc5d5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="10" width="97" height="20" uuid="def940e8-7b56-4c73-b318-2717a4a35a30"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Establecimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="557" y="10" width="88" height="20" uuid="91f71b47-a573-4adc-96fe-55265be3e9f4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Procedencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="652" y="0" width="82" height="30" uuid="7b7932ec-0123-4b1b-8b81-619f7c50cee3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Servicio Hospitalario]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="30" width="752" height="1" uuid="65ece011-8a19-4b59-a48c-d9f68b427ebd"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="59" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="52" height="20" uuid="52743b8e-5061-454e-9dc8-61af743407fd"/>
+				<textFieldExpression><![CDATA[$F{numeroexp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="52" y="0" width="100" height="50" uuid="98d82688-a5fe-4d73-b000-b58c3b56ea3f"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="162" y="0" width="69" height="50" uuid="f3c54e86-9538-4853-8ecb-650f77890be1"/>
+				<textFieldExpression><![CDATA[$F{modalidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="235" y="0" width="51" height="20" uuid="9beae03a-41aa-4ae2-9d12-a1a8afbdd21e"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="372" y="0" width="81" height="50" uuid="6826b084-1668-43cf-a1fa-6135b81acb50"/>
+				<textFieldExpression><![CDATA[$F{nombremedico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="0" width="68" height="50" uuid="0116d6a7-6a0d-4e1f-a503-3ec4f5496102"/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="453" y="0" width="97" height="50" uuid="5c8f9c1b-1311-4aa2-af98-c2f76d15384d"/>
+				<textFieldExpression><![CDATA[$F{origen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="557" y="0" width="88" height="50" uuid="36d463e5-6edf-4a7e-90ec-2b21bc428e79"/>
+				<textFieldExpression><![CDATA[$F{procedencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="652" y="0" width="100" height="50" uuid="e7827860-fcf7-44b8-b44e-5c1eabf74f99"/>
+				<textFieldExpression><![CDATA[$F{servicio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="21" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="433" y="0" width="279" height="20" uuid="86774c02-9901-4cad-8d27-e7e793061bee"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="712" y="0" width="40" height="20" uuid="1f9f0389-a195-48fe-925b-724c91795022"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEE, d MMM yyyy K:mm:ss a">
+				<reportElement x="3" y="0" width="159" height="20" uuid="b8cd7496-bbd9-4b00-8831-66e98acf4dfe"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="24" splitType="Stretch"/>
+	</summary>
+</jasperReport>

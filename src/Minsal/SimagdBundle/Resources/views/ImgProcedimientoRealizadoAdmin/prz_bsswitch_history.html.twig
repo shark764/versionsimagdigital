@@ -1,0 +1,40 @@
+{# empty Twig template #}
+
+{% set object_request       = object.getIdSolicitudEstudio() %}
+{% set object_study_cit     = object.getIdCitaProgramada() %}
+{% set object_request_cmpl  = object.getIdSolicitudEstudioComplementario() %}
+{% set object_expediente    = object_request.getIdExpediente() %}
+{% set object_paciente      = object_expediente.getIdPaciente() %}
+
+<ul class="nav nav-pills nav-stacked col-md-3 col-xs-3" style="{#padding-left: 15px;#}"> <!-- required for floating -->
+    <!-- Nav tabs -->
+    <li class="active"><a href="#lct_pacienteTab" data-toggle="pill"> <span class="glyphicon glyphicon-user"></span> Paciente <i class="fa"></i></a></li>
+    <li><a href="#lct_solicitudTab" data-toggle="pill"> <span class="glyphicon glyphicon-book"></span> Solicitud <i class="fa"></i></a></li>
+    {% if object_study_cit is not null %}
+        <li><a href="#lct_citaTab" data-toggle="pill"> <span class="glyphicon glyphicon-tags"></span> Cita <i class="fa"></i></a></li>
+    {% endif %}
+    {% if object_request_cmpl is not null %}
+        <li><a href="#lct_solcmplTab" data-toggle="pill"> <span class="glyphicon glyphicon-export"></span> Solicitud de complementario <i class="fa"></i></a></li>
+    {% endif %}
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content col-md-9 col-xs-9" style="overflow-y: auto; min-height: 760px;">
+    
+    {% if object_expediente.getIdPaciente() is not null %}
+        {% include 'MinsalSimagdBundle:show_entity_block:pct_entity_block.html.twig' ignore missing with {'object_patient': object_expediente.getIdPaciente(), 'object_localRecord': localRecord, 'tab_active': true, 'box_style': 'primary-v2'} %}
+    {% endif %}
+    
+    {% if object_request is not null %}
+        {% include 'MinsalSimagdBundle:show_entity_block:prc_entity_block.html.twig' ignore missing with {'object_request': object_request, 'object_requests': null, 'tab_active': false, 'box_style': 'primary-v2'} %}
+    {% endif %}
+    
+    {% if object_study_cit is not null %}
+        {% include 'MinsalSimagdBundle:show_entity_block:cit_entity_block.html.twig' ignore missing with {'object_date': object_study_cit, 'object_dates': null, 'tab_active': false, 'box_style': 'primary-v2'} %}
+    {% endif %}
+    
+    {% if object.getIdSolicitudEstudioComplementario() is not null %}
+        {% include 'MinsalSimagdBundle:show_entity_block:solcmpl_entity_block.html.twig' ignore missing with {'object_request_cmpl': object.getIdSolicitudEstudioComplementario(), 'object_requests_cmpl': null, 'tab_active': false, 'box_style': 'primary-v2'} %}
+    {% endif %}
+    
+</div>

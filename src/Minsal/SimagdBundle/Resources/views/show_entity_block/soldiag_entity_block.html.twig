@@ -1,0 +1,44 @@
+{# empty Twig template #}
+
+    <div class="tab-pane fade {% if tab_active != false %}in active{% endif %}" id="lct_soldiagTab" >
+        <div class="box box-{{ box_style|default('primary-v2') }} non-titled-sonata-box">
+            <div class="box-body">
+                <table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">id:</span></th>
+                        <td colspan="3" class="col-md-9" ><span class="badge">{{ object_soldiag.id }}</span></td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Registrada:</span></th>
+                        <td colspan="3" class="col-md-9" >{{ object_soldiag.fechaCreacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ object_soldiag.fechaCreacion|date('H:i:s A') }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Solicitante:</span></th>
+                        <td colspan="3" class="col-md-9" >{{ object_soldiag.idEmpleado }}</td>
+                    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Justificación:</span></th>
+			<td colspan="3" class="col-md-9" >
+                            <pre class="pre-display-code-natural">{{ object_soldiag.justificacion }}</pre>
+                        </td>
+		    </tr>
+                    <tr>
+                        <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Próxima consulta médica:</span></th>
+                        <td colspan="3" class="col-md-9" >{{ object_soldiag.fechaProximaConsulta|format_date('EEEE, MMMM d, yyyy', 'es_ES') }}</td>
+                    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Observaciones:</span></th>
+			<td colspan="3" class="col-md-9" >
+                            <pre class="pre-display-code-natural">{{ object_soldiag.observaciones }}</pre>
+                        </td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Solicitud a externo:</span></th>
+			<td class="col-md-3" >{{ object_soldiag.solicitudRemota ? 'Si' : 'No' }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Solicitado a:</span></th>
+			<td class="col-md-3" >{{ object_soldiag.idEstablecimientoSolicitado }}</td>
+		    </tr>
+                </table>
+            </div>
+        </div>
+    </div>

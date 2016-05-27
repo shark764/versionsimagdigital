@@ -1,0 +1,138 @@
+{# empty Twig template #}
+
+    <div id="citaFullData-showModalContainer" class="modal container fade justify-bootstrap-div-container simagd-full-form-container simagd-full-data-view" role="dialog" tabindex="-1" style="display: none;" data-backdrop="true" data-keyboard="true">
+	<div class="modal-content panel-info-v2">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+                <h4 class="modal-title"><i class="fa fa-folder-open"></i> Cita programada</h4>
+            </div>
+
+            <div class="modal-body">
+                
+                <div class="panel panel-info-v2">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> <i class='fa fa-calendar'></i> Detalles de la cita </h3>
+                    </div>
+                    <div class="panel-body" >
+                
+                        <table class="table table-condensed">
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Programó cita:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.idEmpleado }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Usuario que programó:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.idUserPrg.idEmpleado }} <strong> ( {{ citaInfo.idUserPrg.username }} ) </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Tipo de empleado:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.idEmpleado.idTipoEmpleado }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Usuario que reprogramó:</span></th>
+                                <td class="col-md-4">
+                                    {% if citaInfo.idUserReprg is not null %}
+                                        {{ citaInfo.idUserReprg.idEmpleado }} <strong> ( {{ citaInfo.idUserReprg.username }} ) </strong>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Creada en:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.idEstablecimiento }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Realizará estudio:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.idTecnologoProgramado }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Creada:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.fechaCreacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ citaInfo.fechaCreacion|date('H:i:s A') }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Incidencias:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.incidencias }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Programada para:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.fechaProgramada|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ citaInfo.fechaProgramada|date('H:i A') }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Observaciones:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.observaciones }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Estado:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.idEstadoCita }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Justificación de anulación/cancelación:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.razonAnulada }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Confirmada:</span></th>
+                                <td class="col-md-4">
+                                    {% if citaInfo.fechaConfirmacion is not null %}
+                                        {{ citaInfo.fechaConfirmacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ citaInfo.fechaConfirmacion|date('H:i:s A') }}
+                                    {% endif %}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Necesita autorización de responsable:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.necesitaAutorizacion ? 'Si' : 'No' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Reprogramada:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.reprogramada ? 'Si' : 'No' }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Autorizada:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.citaAutorizada ? 'Si' : 'No' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Fecha programada anterior:</span></th>
+                                <td class="col-md-4">
+                                    {% if citaInfo.fechaProgramadaAnterior is not null %}
+                                        {{ citaInfo.fechaProgramadaAnterior|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ citaInfo.fechaProgramadaAnterior|date('H:i A') }}
+                                    {% endif %}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Responsable por paciente:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.idResponsableAutoriza }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Se reprogramó:</span></th>
+                                <td class="col-md-4">
+                                    {% if citaInfo.fechaReprogramacion is not null %}
+                                        {{ citaInfo.fechaReprogramacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ citaInfo.fechaReprogramacion|date('H:i:s A') }}
+                                    {% endif %}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Responsable que autorizó:</span></th>
+                                <td class="col-md-4">
+                                    {{ citaInfo.nombreResponsableAutoriza }}
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+            </div>
+	</div><!-- /.modal-content -->
+    </div><!-- /.modal -->

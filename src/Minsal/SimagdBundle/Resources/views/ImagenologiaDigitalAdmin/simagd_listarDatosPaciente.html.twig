@@ -1,0 +1,13 @@
+{# empty Twig template #}
+                    
+    <span class="text-success"> <span class="glyphicon glyphicon-user"></span> <strong>Información del paciente.</strong></span>
+    <br/>
+
+    <div id="resultado-informacion-paciente">
+        {% include 'MinsalSimagdBundle:show_entity_block:pct_bloque_informacion.html.twig' %}
+    </div>
+
+    {# muestra de información completa #}
+    {% if pacienteInfo is not null %}
+        {% include 'MinsalSimagdBundle:show_container_fullEntity:pct_total_info_modal.html.twig' %}     {# paciente #}
+    {% endif %}

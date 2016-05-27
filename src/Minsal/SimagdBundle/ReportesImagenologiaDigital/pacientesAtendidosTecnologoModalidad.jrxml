@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pacientesAtendidosTecnologoModalidad" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e247a6a7-126c-43aa-b54b-ebecf236a712">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.jasperserver.reportUnit" value="/simagd/pacientesAtendidosTecnologoModalidad"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/services/repository"/>
+	<parameter name="fechaIni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="establecimiento" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tecnologo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="modalidad" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select  sql1.procedencia as procedencia,prescribe,sql1.modalidad,sql1.nombreempleado,sql1.nombre_pac,sql1.nombre,sql1.numero, atenciones, ultima_atencion
+from (
+		select  ar.nombre as procedencia,pres.nombre as prescribe,asap.nombrearea as modalidad,memp.nombreempleado,(coalesce(pct1.primer_nombre ||' '||
+		pct1.segundo_nombre ||' '|| coalesce(pct1.tercer_nombre, '') ||' '|| pct1.primer_apellido ||' '|| pct1.segundo_apellido
+		||' '|| coalesce(pct1.apellido_casada, ''))) as nombre_pac,estab.nombre,exp1.numero,pct1.id, count(prz1.id) as atenciones
+		from img_procedimiento_realizado prz1
+		inner join img_solicitud_estudio prc1 on prc1.id = prz1.id_solicitud_estudio
+		inner join ctl_area_servicio_diagnostico asap on prc1.id_area_servicio_diagnostico = asap.id
+		inner join ctl_establecimiento estab on prc1.id_establecimiento_referido = estab.id
+		inner join mnt_aten_area_mod_estab aams on prc1.id_aten_area_mod_estab = aams.id
+		inner join mnt_area_mod_estab ams on aams.id_area_mod_estab = ams.id
+		inner join ctl_area_atencion ar on ar.id = ams.id_area_atencion
+		inner join ctl_establecimiento pres on aams.id_establecimiento = pres.id
+		inner join mnt_expediente exp1 on exp1.id = prc1.id_expediente
+		inner join mnt_paciente pct1 on pct1.id = exp1.id_paciente
+		inner join mnt_empleado memp on prz1.id_tecnologo_realiza = memp.id
+		where 	prc1.id_area_servicio_diagnostico = $P{modalidad} and prc1.id_establecimiento_referido = $P{establecimiento} and
+			prz1.fecha_realizado between to_date($P{fechaIni},'DD-MM-YYYY') and to_date($P{fechaFin},'DD-MM-YYYY') and prz1.id_tecnologo_realiza = $P{tecnologo}
+		group by pct1.id, pct1.primer_nombre, pct1.segundo_nombre, pct1.primer_apellido, pct1.segundo_apellido,exp1.numero,estab.nombre,memp.nombreempleado,asap.nombrearea,pres.nombre,ar.nombre
+
+) sql1
+inner join (
+		select pct2.id, max(prz2.fecha_realizado) as ultima_atencion
+		from img_procedimiento_realizado prz2
+		inner join img_solicitud_estudio prc2 on prc2.id = prz2.id_solicitud_estudio
+		inner join ctl_area_servicio_diagnostico asap on prc2.id_area_servicio_diagnostico = asap.id
+		inner join ctl_establecimiento estab on prc2.id_establecimiento_referido = estab.id
+		inner join mnt_aten_area_mod_estab aams on prc2.id_aten_area_mod_estab = aams.id
+		inner join mnt_area_mod_estab ams on aams.id_area_mod_estab = ams.id
+		inner join ctl_area_atencion ar on ar.id = ams.id_area_atencion
+		inner join ctl_establecimiento pres on aams.id_establecimiento = pres.id
+		inner join mnt_expediente exp2 on exp2.id = prc2.id_expediente
+		inner join mnt_paciente pct2 on pct2.id = exp2.id_paciente
+		where 	prc2.id_area_servicio_diagnostico = $P{modalidad} and prc2.id_establecimiento_referido = $P{establecimiento} and
+			prz2.fecha_realizado between to_date($P{fechaIni},'DD-MM-YYYY') and to_date($P{fechaFin},'DD-MM-YYYY') and prz2.id_tecnologo_realiza = $P{tecnologo}
+		group by pct2.id
+
+) sql2
+on ( sql1.id = sql2.id )
+
+where exists (
+		select prz.id
+		from img_procedimiento_realizado prz
+		inner join img_solicitud_estudio prc on prc.id = prz.id_solicitud_estudio
+		inner join mnt_expediente exp on exp.id = prc.id_expediente
+		where 	exp.id_paciente = sql1.id and
+			prc.id_area_servicio_diagnostico = $P{modalidad} and
+			prc.id_establecimiento_referido = $P{establecimiento} and
+			prz.fecha_realizado::date between to_date($P{fechaIni},'DD-MM-YYYY') and to_date($P{fechaFin},'DD-MM-YYYY')
+			and prz.id_tecnologo_realiza = $P{tecnologo}
+
+)]]>
+	</queryString>
+	<field name="procedencia" class="java.lang.String"/>
+	<field name="prescribe" class="java.lang.String"/>
+	<field name="modalidad" class="java.lang.String"/>
+	<field name="nombreempleado" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre Unido para los modulos de PHP Puro y POstgresql]]></fieldDescription>
+	</field>
+	<field name="nombre_pac" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre del área de atención]]></fieldDescription>
+	</field>
+	<field name="numero" class="java.lang.String"/>
+	<field name="atenciones" class="java.lang.Long"/>
+	<field name="ultima_atencion" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="131" splitType="Stretch">
+			<image>
+				<reportElement x="13" y="0" width="400" height="92" uuid="568f2bb2-a84c-438f-bf68-73319bfd6221"/>
+				<imageExpression><![CDATA["repo:escudo.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="563" y="3" width="189" height="89" uuid="d01b59bd-eb3e-4c80-b3f6-ededc7dd81c7"/>
+				<imageExpression><![CDATA["repo:logo_minsal.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="147" y="44" width="416" height="38" uuid="4d8cb645-094d-45f3-b1a5-405132380c54"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="147" y="29" width="416" height="15" uuid="2380e5cc-eceb-4ff6-8b9a-a957a0b31e5b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sistema Nacional de Salud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="14" width="416" height="15" uuid="cf91e408-9bd2-4798-9115-b21c2d0cb5d2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[República de El Salvador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="193" y="82" width="330" height="16" uuid="05a38a6f-e656-4830-92f7-6f8ae1b506df"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="11" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Pacientes Atendidos por Tecnologo y Modalidad]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="423" y="101" width="100" height="20" uuid="93e02175-38a0-4f2e-ae95-827ce41fcaf1"/>
+				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="371" y="101" width="52" height="20" uuid="ffb3c9c0-9441-4f58-a8b5-f3b7cd714d70"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="284" y="101" width="74" height="20" uuid="744b2b61-9116-45d7-a22a-9fc8372587ab"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaIni}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="232" y="101" width="52" height="20" uuid="74b90d00-c301-4111-8165-ced72be2382b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde :]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="71" height="20" uuid="c41c47da-b978-4179-9438-2b56bbcb8c96"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tecnologo : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="71" y="0" width="100" height="20" uuid="75159dbe-bb5a-4f76-85a9-b73d25008afc"/>
+				<textFieldExpression><![CDATA[$F{nombreempleado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="184" y="0" width="60" height="20" uuid="114a9dde-19d0-4ed9-80d8-ecdca6ae50f0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modalidad : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="244" y="0" width="100" height="20" uuid="e788c688-af97-405a-ac64-4f7999e21686"/>
+				<textFieldExpression><![CDATA[$F{modalidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="33" y="0" width="83" height="20" uuid="dc71c4c6-a885-4dab-808d-b843c9004c0d"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[NEC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="0" width="100" height="20" uuid="3b435032-f6a3-451b-9704-d1193d570af3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="244" y="0" width="82" height="20" uuid="6c9550b0-ed9d-463f-ae6e-0cfd687039a9"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Examenes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="326" y="0" width="100" height="20" uuid="72566980-f4dd-4e8f-959a-5c2b61439b68"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Ultima Atención]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="463" y="0" width="100" height="20" uuid="b40dfafd-cd16-4124-857d-d89a1f832d89"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Prescribe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="593" y="0" width="100" height="20" uuid="b8eca05a-59d1-4ac7-ac91-85078bf2fb9c"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Procedencia]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="752" height="1" uuid="b3a68e20-59d8-48d5-a89c-7a25501d8372"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="56" splitType="Stretch">
+			<textField>
+				<reportElement x="33" y="4" width="83" height="20" uuid="7f138053-5754-4a73-ba76-1461d9bdf0ef"/>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="4" width="100" height="52" uuid="57f9562a-c5d3-4cc5-ab56-19584371fb28"/>
+				<textFieldExpression><![CDATA[$F{nombre_pac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="264" y="4" width="62" height="20" uuid="d66dbb7d-1f9d-4564-a07d-dfcd31f16902"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{atenciones}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="326" y="4" width="100" height="20" uuid="3ccb043c-775c-4993-aee9-a538fb92fdbf"/>
+				<textFieldExpression><![CDATA[$F{ultima_atencion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="4" width="136" height="52" uuid="f1fc0447-8dd5-44d5-8b29-cbd87dde081a"/>
+				<textFieldExpression><![CDATA[$F{prescribe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="593" y="4" width="100" height="20" uuid="190099ee-b239-4999-85cf-b0a600cb9185"/>
+				<textFieldExpression><![CDATA[$F{procedencia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="24" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="705" y="0" width="47" height="20" uuid="af987a3c-deda-4011-be10-8ac6ca78b1eb"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="419" y="0" width="286" height="20" uuid="ef7bb224-b270-4ba0-824d-0ff5be62bd9a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="22" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,248 @@
+{# empty Twig template #}
+{#
+http://stackoverflow.com/questions/263962/best-way-to-pass-parameters-to-jquerys-load
+http://jqueryui.com/themeroller/#!zThemeParams=5d000001000406000000000000003d8888d844329a8dfe02723de3e5701fa198449035fc0613ff729a37dd818cf92b1f6938fefa90282d04ae436bb72367f5909357c629e832248af2c086db4ab730aa4cced933a88449eca623ed37f3b23d47f58a712d809b6088edfb34a7c4d348c7ddf1990756199e3bc5f6db987ad65f3d16bd2ac6020914ba104f1585825c029ce2880f5811a9ab79ed9cb2377d7d83abbe34a907992a9cc80dc3cc410e7fc21a56402007babf50ea1ba5e20ddcb03ec2ab3ab44ab27945dc812159756317f2f304b29f37abf28612a060de5eb4f1e7df864b9f4d0e3da8268a5bdb55bc5b45dcf2fe595419af80c101f4b3e17fc48e30d0478c1614e246151af03d848904e3e961d634b3a8ebdee2982b5774dd3511e4a935a6c7225ce1a99546c24bfed549ca3cfcda8174250cf4ce0ef5a03c4428182af81e54607d1b1a9770341817feb580d434ba84fb6081bd72c3d4519d025f4ae01f178b0455498c7e8105d8756e2b2f0186f0d1095679869acafa1f71bff158357fa7222d07d24eed9ec8881dc403d43aed127a0429ce0fed56b4ee0df496ddf99b14fee727363bd6c743b8cf87e2779f6b399195325212648bf35432d8370a42a87a9d8203f6cc21c4ca6ba87a9f730e33de5c7ef754e5692637cd19fd4876d2f0f1bc7dfd1533519d26ed365e780b2ebebec630fc4d9de6eecb60a4113518a01653ee552d7e8b89dc31def33f83add1600c64c122c7c487f179dc1f955d87ffe64f1c5a
+#}
+{% block stylesheets %}
+    
+    {# bootstrap-table #}
+    <link href="{{ asset('bundles/minsalsimagd/bootstrap-table-master/src/bootstrap-table.css') }}" type="text/css" rel="stylesheet" media="screen" />
+{% endblock %}
+
+{% block javascripts %}
+    
+    {# bootstrap-table #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap-table-master/src/bootstrap-table.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap-table-master/src/locale/bootstrap-table-es-CR.js') }}" ></script>
+{% endblock %}
+
+    <div class="form-group" style="height: 30px;">
+        <div class="col-sm-12">
+            <button type="button" id="volver-resultado-busqueda" name="btn_back_result_search" class="btn btn-primary-v2" >
+                <i class="fa fa-reply-all"></i> Volver
+            </button>
+        </div>
+    </div>
+    
+    <div id="contentHistorialImagenologico" style="height: 450px; min-height: 450px;">
+        
+        <input type="hidden" id="idExpediente" name="idExpediente" class=" form-control" value="{{ idExpediente }}" />
+        
+        <div class="col-xs-2"> <!-- required for floating -->
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs tabs-left">
+                <li class="active"><a href="#Paciente" data-toggle="pill">Información</a></li>
+                <li><a href="#Preinscripciones" data-toggle="pill">Preinscripciones</a></li>
+                <li><a href="#Citas" data-toggle="pill">Citas</a></li>
+                <li><a href="#Estudios" data-toggle="pill">Estudios</a></li>
+                <li><a href="#Diagnosticos" data-toggle="pill">Diagnósticos</a></li>
+            </ul>
+        </div>
+
+        <div class="col-xs-10">
+            <!-- Tab panes -->
+            <div class="tab-content">
+                
+                <div class="tab-pane fade in active" id="Paciente">
+                    
+                    <span class="text-success"> <span class="glyphicon glyphicon-user"></span> <strong>Información del paciente.</strong></span>
+                    <br/>
+                    
+                    <div id="resultado-informacion-paciente">
+                        {% include 'MinsalSimagdBundle:show_entity_block:pct_bloque_informacion.html.twig' %}
+                    </div>
+
+                    {# muestra de información completa #}
+                    {% if pacienteInfo is not null %}
+                        {% include 'MinsalSimagdBundle:show_container_fullEntity:pct_total_info_modal.html.twig' %}     {# paciente #}
+                    {% endif %}
+                    
+                </div>
+                
+                <div class="tab-pane fade" id="Preinscripciones">
+                    
+                    <span class="text-success"> <span class="glyphicon glyphicon-inbox"></span> <strong>Preinscripciones creadas para el paciente.</strong></span>
+                    <br/>
+                    
+                    <div id="resultado-preinscripciones-paciente" class="col-sm-12">
+            
+                        <table class="table table-condensed" data-toggle="table" data-cache="false" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="preinscripcionesToolbar" data-pagination="true" data-sort-name="fechaCreacion" data-sort-order="desc" data-height="299">
+                            <thead>
+                                <tr>
+                                    <th data-field="id" class="col-md-1" data-halign="center" data-align="center" data-sortable="true">ID</th>
+                                    <th data-field="idEmpleado" data-switchable="false" class="col-md-2" data-halign="center" data-align="left" data-sortable="true">Preinscriptor</th>
+                                    <th data-field="idAreaAtencion" data-visible="false" class="col-md-2" data-halign="center" data-align="left" data-sortable="true">Procedencia</th>
+                                    <th data-field="idAtencion" data-switchable="false" class="col-md-2" data-halign="center" data-align="left" data-sortable="true">Servicio</th>
+                                    <th data-field="idAreaServicioDiagnostico" data-switchable="false" class="col-md-2" data-halign="center" data-align="left" data-sortable="true">Modalidad</th>
+                                    <th data-field="fechaCreacion" class="col-md-1" data-halign="center" data-align="right" data-sortable="true">Creada</th>
+                                    <th data-field="idEstablecimientoReferido" data-switchable="false" class="col-md-2" data-halign="center" data-align="left" data-sortable="true">Referido a</th>
+                                    <th data-field="fechaProximaConsulta" class="col-md-1" data-halign="center" data-align="right" data-sortable="true">Próxima consulta</th>
+                                    <th data-field="idEstablecimientoDiagnosticante" data-visible="false" class="col-md-2" data-halign="center" data-align="left" data-sortable="true">Diagnosticar en</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for preinscripcionReg in preinscripcionesPctReg %}
+                                    <tr>
+                                        <td>{{ preinscripcionReg.id }}</td>
+                                        <td>{{ preinscripcionReg.idEmpleado }}</td>
+                                        <td>{{ preinscripcionReg.idAtenAreaModEstab.idAreaModEstab.idAreaAtencion }}</td>
+                                        <td>{{ preinscripcionReg.idAtenAreaModEstab.idAtencion }}</td>
+                                        <td>{{ preinscripcionReg.idAreaServicioDiagnostico }}</td>
+                                        <td>{{ preinscripcionReg.fechaCreacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ preinscripcionReg.fechaCreacion|date('H:i:s A') }}</td>
+                                        <td>{{ preinscripcionReg.idEstablecimientoReferido }}</td>
+                                        <td>{{ preinscripcionReg.fechaProximaConsulta|format_date('EEEE, MMMM d, yyyy', 'es_ES') }}</td>
+                                        <td>{{ preinscripcionReg.idEstablecimientoDiagnosticante }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+            
+                        <div id="pager-preinscripciones-paciente"></div>
+                            
+                    </div>
+                    
+                </div>
+            
+                <div class="tab-pane fade" id="Citas">
+                    
+                    <span class="text-success"> <span class="glyphicon glyphicon-calendar"></span> <strong>Citas programadas al paciente.</strong></span>
+                    <br/>
+                    
+                    <div id="resultado-citas-paciente" class="col-sm-12">
+            
+                        <table class="table table-condensed" data-toggle="table" data-cache="false" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="citasToolbar" data-pagination="true" data-sort-name="fechaCreacion" data-sort-order="desc" data-height="299">
+                            <thead>
+                                <tr>
+                                    <th data-field="id" class="col-md-1" data-halign="center" data-align="center" data-sortable="true">ID</th>
+                                    <th data-field="idEmpleado" data-switchable="false" class="col-md-2" data-halign="center" data-align="left" data-sortable="true">Programó</th>
+                                    <th data-field="idEstadoCita" data-switchable="false" class="col-md-2" data-halign="center" data-align="left" data-sortable="true">Estado</th>
+                                    <th data-field="fechaCreacion" class="col-md-2" data-halign="center" data-align="right" data-sortable="true">Creada</th>
+                                    <th data-field="fechaProgramada" data-switchable="false" class="col-md-2" data-halign="center" data-align="right" data-sortable="true">Programada para</th>
+                                    <th data-field="fechaConfirmacion" class="col-md-2" data-halign="center" data-align="right" data-sortable="true">Confirmada</th>
+                                    <th data-field="citaAutorizada" data-visible="false" class="col-md-2" data-halign="center" data-align="left" data-sortable="true">Autorizada</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for citaReg in citasPctReg %}
+                                    <tr>
+                                        <td>{{ citaReg.id }}</td>
+                                        <td>{{ citaReg.idEmpleado }}</td>
+                                        <td>{{ citaReg.idEstadoCita }}</td>
+                                        <td>{{ citaReg.fechaCreacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ citaReg.fechaCreacion|date('H:i:s A') }}</td>
+                                        <td>{{ citaReg.fechaProgramada|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ citaReg.fechaProgramada|date('H:i A') }}</td>
+                                        <td>
+                                            {% if citaReg.fechaConfirmacion is not null %}
+                                                {{ citaReg.fechaConfirmacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ citaReg.fechaConfirmacion|date('H:i:s A') }}
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ citaReg.citaAutorizada ? 'Si' : 'No' }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+            
+                        <div id="pager-citas-paciente"></div>
+                            
+                    </div>
+                    
+                </div>
+                
+                <div class="tab-pane fade" id="Estudios">
+                    
+                    <span class="text-success"> <span class="glyphicon glyphicon-film"></span> <strong>Estudios realizados al paciente.</strong></span>
+                    <br/>
+                    
+                    <div id="resultado-estudios-paciente" class="col-sm-12">
+            
+                        <table class="table table-condensed" data-toggle="table" data-cache="false" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="estudiosToolbar" data-pagination="true" data-sort-name="id" data-sort-order="desc" data-height="299">
+                            <thead>
+                                <tr>
+                                    <th data-field="id" class="col-md-1" data-halign="center" data-align="center" data-sortable="true">ID</th>
+                                    <th data-field="idTecnologoRealiza" data-switchable="false" class="col-md-2" data-halign="center" data-align="left" data-sortable="true">Tecnólogo</th>
+                                    <th data-field="idEstadoProcedimientoRealizado" data-switchable="false" class="col-md-2" data-halign="center" data-align="left" data-sortable="true">Estado</th>
+                                    <th data-field="fechaRealizado" class="col-md-2" data-halign="center" data-align="right" data-sortable="true">Fue realizado</th>
+                                    <th data-field="fechaProcesado" class="col-md-2" data-halign="center" data-align="right" data-sortable="true">Fue procesado</th>
+                                    <th data-field="fechaAlmacenado" data-switchable="false" class="col-md-2" data-halign="center" data-align="right" data-sortable="true">Fue almacenado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for procedimientoRealizadoReg in procedimientosRealizadosPctReg %}
+                                    <tr>
+                                        <td>{{ procedimientoRealizadoReg.id }}</td>
+                                        <td>{{ procedimientoRealizadoReg.idTecnologoRealiza }}</td>
+                                        <td>{{ procedimientoRealizadoReg.idEstadoProcedimientoRealizado }}</td>
+                                        <td>
+                                            {% if procedimientoRealizadoReg.fechaRealizado is not null %}
+                                                {{ procedimientoRealizadoReg.fechaRealizado|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ procedimientoRealizadoReg.fechaRealizado|date('H:i:s A') }}
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if procedimientoRealizadoReg.fechaProcesado is not null %}
+                                                {{ procedimientoRealizadoReg.fechaProcesado|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ procedimientoRealizadoReg.fechaProcesado|date('H:i:s A') }}
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if procedimientoRealizadoReg.fechaAlmacenado is not null %}
+                                                {{ procedimientoRealizadoReg.fechaAlmacenado|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ procedimientoRealizadoReg.fechaAlmacenado|date('H:i:s A') }}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+            
+                        <div id="pager-estudios-paciente"></div>
+                            
+                    </div>
+                    
+                </div>
+                
+                <div class="tab-pane fade" id="Diagnosticos">
+                    
+                    <span class="text-success"> <span class="glyphicon glyphicon-book"></span> <strong>Diagnósticos resultantes de estudios del paciente.</strong></span>
+                    <br/>
+                    
+                    <div id="resultado-diagnosticos-paciente" class="col-sm-12">
+            
+                        <table class="table table-condensed" data-toggle="table" data-cache="false" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="diagnosticosToolbar" data-pagination="true" data-sort-name="id" data-sort-order="desc" data-height="299">
+                            <thead>
+                                <tr>
+                                    <th data-field="id" class="col-md-1" data-halign="center" data-align="center" data-sortable="true">ID</th>
+                                    <th data-field="idEmpleado" data-switchable="false" class="col-md-2" data-halign="center" data-align="left" data-sortable="true">Radiólogo</th>
+                                    <th data-field="idEstadoDiagnostico" data-switchable="false" class="col-md-2" data-halign="center" data-align="left" data-sortable="true">Estado</th>
+                                    <th data-field="fechaTranscrito" class="col-md-2" data-halign="center" data-align="right" data-sortable="true">Fue transcrito</th>
+                                    <th data-field="fechaAprobado" data-switchable="false" class="col-md-2" data-halign="center" data-align="right" data-sortable="true">Fue aprobado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for diagnosticoReg in diagnosticosPctReg %}
+                                    <tr>
+                                        <td>{{ diagnosticoReg.id }}</td>
+                                        <td>{{ diagnosticoReg.idEmpleado }}</td>
+                                        <td>{{ diagnosticoReg.idEstadoDiagnostico }}</td>
+                                        <td>
+                                            {% if diagnosticoReg.fechaTranscrito is not null %}
+                                                {{ diagnosticoReg.fechaTranscrito|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ diagnosticoReg.fechaTranscrito|date('H:i:s A') }}
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if diagnosticoReg.fechaAprobado is not null %}
+                                                {{ diagnosticoReg.fechaAprobado|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ diagnosticoReg.fechaAprobado|date('H:i:s A') }}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+            
+                        <div id="pager-diagnosticos-paciente"></div>
+                            
+                    </div>
+                    
+                </div>
+                
+            </div><!-- end tab-content -->
+            
+        </div><!-- /tabbable -->
+        
+    </div>

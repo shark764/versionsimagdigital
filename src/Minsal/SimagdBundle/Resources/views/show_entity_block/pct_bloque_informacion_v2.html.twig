@@ -1,0 +1,60 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed">
+	<tr>
+	    <th class="col-md-2">Posee expediente:</th>
+	    <td class="col-md-4" data-render-info="idExpediente"></td>
+	    <th class="col-md-2">Creado:</th>
+	    <td class="col-md-4" data-render-info="fechaCreacion"></td>
+	</tr>
+	<tr>
+	    <th class="col-md-2">Expediente:</th>
+	    <td class="col-md-4" data-render-info="numero"></td>
+	    <th class="col-md-2">Habilitado:</th>
+	    <td class="col-md-4" data-render-info="habilitado"></td>
+	</tr>
+	<tr>
+	    <th class="col-md-2">Nombre:</th>
+	    <td class="col-md-4" data-render-info="nombreCompleto"></td>
+	    <th class="col-md-2">Registrado:</th>
+	    <td class="col-md-4" data-render-info="fechaRegistro"></td>
+	</tr>
+	<tr>
+	    <th class="col-md-2">Nació:</th>
+	    <td class="col-md-4" data-render-info="fechaNacimiento"></td>
+	    <th class="col-md-2">Ocupación:</th>
+	    <td class="col-md-4" data-render-info="idOcupacion"></td>
+	</tr>
+	<tr>
+	    <th class="col-md-2">Identificación:</th>
+	    <td class="col-md-4" data-render-info="numeroDocIdePaciente"></td>
+	    <th class="col-md-2">Nacionalidad:</th>
+	    <td class="col-md-4" data-render-info="idNacionalidad"></td>
+	</tr>
+	<tr>
+	    <th class="col-md-2">Sexo:</th>
+	    <td class="col-md-4" data-render-info="idSexo"></td>
+	    <th class="col-md-2">Estado civil:</th>
+	    <td class="col-md-4" data-render-info="idEstadoCivil"></td>
+	</tr>
+	
+	<tr>
+	    <td colspan="4" class="col-md-12">
+		<div class="alert alert-info alert-dismissible" role="alert">
+		    <button type="button" class="close" data-dismiss="alert">
+			<span aria-hidden="true">&times;</span>
+			<span class="sr-only"> Cerrar </span>
+		    </button>
+		    <strong>Detalle del paciente!</strong> Haga click para ver datos del paciente.
+		</div>
+	    </td>
+	</tr>
+	<tr>
+	    <td colspan="4" class="col-md-12">
+		<button class="btn btn-primary-v2 btn-block" {##}data-toggle="modal" href="#pacienteFullData-showModalContainer" id="btn_ver_pct_total_info">
+		    <i class="fa fa-plus-circle"></i> Abrir detalle
+		</button>
+	    </td>
+	</tr>
+	
+    </table>

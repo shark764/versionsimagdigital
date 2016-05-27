@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ImgCita" table="img_cita">
+    <indexes>
+      <index name="IDX_F0266B5A51F7CF06" columns="id_configuracion_agenda"/>
+      <index name="IDX_F0266B5A890253C7" columns="id_empleado"/>
+      <index name="IDX_F0266B5A7DFA12F6" columns="id_establecimiento"/>
+      <index name="IDX_F0266B5ADD0D821B" columns="id_estado_cita"/>
+      <index name="IDX_F0266B5ADEFEA3F" columns="id_responsable_autoriza"/>
+      <index name="IDX_F0266B5A6AAA01BF" columns="id_solicitud_estudio"/>
+      <index name="IDX_F0266B5A91124CBF" columns="id_tecnologo_programado"/>
+      <index name="IDX_F0266B5ADEA2D3D3" columns="id_user_prg"/>
+      <index name="IDX_F0266B5A94AEBFD3" columns="id_user_reprg"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="reprogramada" type="boolean" column="reprogramada" nullable="true"/>
+    <field name="incidencias" type="string" column="incidencias" length="255" nullable="true"/>
+    <field name="observaciones" type="string" column="observaciones" length="255" nullable="true"/>
+    <field name="razonAnulada" type="string" column="razon_anulada" length="150" nullable="true"/>
+    <field name="fechaCreacion" type="datetime" column="fecha_creacion" nullable="true"/>
+    <field name="fechaConfirmacion" type="datetime" column="fecha_confirmacion" nullable="true"/>
+    <field name="fechaReprogramacion" type="datetime" column="fecha_reprogramacion" nullable="true"/>
+    <field name="necesitaAutorizacion" type="boolean" column="necesita_autorizacion" nullable="true"/>
+    <field name="citaAutorizada" type="boolean" column="cita_autorizada" nullable="true"/>
+    <field name="nombreResponsableAutoriza" type="string" column="nombre_responsable_autoriza" nullable="true"/>
+    <field name="diaCompleto" type="boolean" column="dia_completo" nullable="true"/>
+    <field name="fechaHoraInicio" type="datetime" column="fecha_hora_inicio" nullable="false"/>
+    <field name="fechaHoraFin" type="datetime" column="fecha_hora_fin" nullable="false"/>
+    <field name="color" type="string" column="color" length="15" nullable="true"/>
+    <field name="fechaHoraInicioAnterior" type="datetime" column="fecha_hora_inicio_anterior" nullable="true"/>
+    <field name="fechaHoraFinAnterior" type="datetime" column="fecha_hora_fin_anterior" nullable="true"/>
+    <many-to-one field="idTecnologoProgramado" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_tecnologo_programado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUserPrg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_prg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUserReprg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_reprg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idSolicitudEstudio" target-entity="ImgSolicitudEstudio">
+      <join-columns>
+        <join-column name="id_solicitud_estudio" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idResponsableAutoriza" target-entity="CtlParentesco">
+      <join-columns>
+        <join-column name="id_responsable_autoriza" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEmpleado" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_empleado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimiento" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstadoCita" target-entity="ImgCtlEstadoCita">
+      <join-columns>
+        <join-column name="id_estado_cita" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idConfiguracionAgenda" target-entity="ImgCtlConfiguracionAgenda">
+      <join-columns>
+        <join-column name="id_configuracion_agenda" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

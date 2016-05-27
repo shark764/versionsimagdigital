@@ -1,0 +1,147 @@
+{# empty Twig template #}
+
+    <div id="historiaClinicaFullData-showModalContainer" class="modal container fade justify-bootstrap-div-container simagd-full-form-container simagd-full-data-view" role="dialog" tabindex="-1" style="display: none;" data-backdrop="true" data-keyboard="true">
+	<div class="modal-content panel-info-v2">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+                <h4 class="modal-title"><i class="fa fa-folder-open"></i> Historia clínica del paciente</h4>
+            </div>
+
+            <div class="modal-body">
+
+		<div {#style="padding-left: 15px; padding-right: 15px;"#}>
+                
+                {#<div class="panel panel-info-v2">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> <i class="fa fa-stethoscope"></i> Detalles de la historia clínica </h3>
+                    </div>
+                    <div class="panel-body" >#}
+		
+		    <div class="row outer simagd-filter-content-layout" style="padding-left: 15px; padding-right: 15px; {#height: 500px; overflow-y: auto;#}">
+                
+                        <table class="table table-condensed">
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Datos clínicos:</span></th>
+                                <td class="col-md-4">
+                                    {{ historiaClinicaInfo.datosclinicos }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Fecha de consulta médica:</span></th>
+                                <td class="col-md-4">
+                                    {{ historiaClinicaInfo.fechaconsulta|format_date('EEEE, MMMM d, yyyy', 'es_ES') }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Seguimiento de consulta externa:</span></th>
+                                <td class="col-md-4">
+                                    {{ historiaClinicaInfo.seguimientoconsultaext }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Creado:</span></th>
+                                <td class="col-md-4">
+                                    {{ historiaClinicaInfo.fechahorareg|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ historiaClinicaInfo.fechahorareg|date('H:i:s A') }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Creado en consulta externa:</span></th>
+                                <td class="col-md-4">
+                                    {{ historiaClinicaInfo.piloto == 'V' ? 'No' : 'Si' }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Dirección IP de creación:</span></th>
+                                <td class="col-md-4">
+                                    {{ historiaClinicaInfo.ipaddress }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Generada en:</span></th>
+                                <td class="col-md-4">
+                                    {{ historiaClinicaInfo.idestablecimiento }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Procedencia:</span></th>
+                                <td class="col-md-4">
+                                    {{ historiaClinicaInfo.idsubservicio.idAreaModEstab.idAreaAtencion }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Servicio que atendió:</span></th>
+                                <td class="col-md-4">
+                                    {{ historiaClinicaInfo.idsubservicio.idAtencion }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Generó:</span></th>
+                                <td class="col-md-4">
+                                    {{ historiaClinicaInfo.idEmpleado }}
+                                </td>
+                            </tr>
+
+        		{% if examenFisicoInfo is not null %}
+
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Pulso:</span></th>
+                                <td class="col-md-4">
+                                    {{ examenFisicoInfo.pulso }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Presion arterial:</span></th>
+                                <td class="col-md-4">
+                                    {{ examenFisicoInfo.presionarterial }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Respiración:</span></th>
+                                <td class="col-md-4">
+                                    {{ examenFisicoInfo.respiracion }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Peso ( lb ):</span></th>
+                                <td class="col-md-4">
+                                    {{ examenFisicoInfo.peso }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Talla ( m ):</span></th>
+                                <td class="col-md-4">
+                                    {{ examenFisicoInfo.talla }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Temperatura ( º ):</span></th>
+                                <td class="col-md-4">
+                                    {{ examenFisicoInfo.temperatura }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Observaciones:</span></th>
+                                <td colspan="3" class="col-md-4">
+                                    {{ examenFisicoInfo.observaciones }}
+                                </td>
+                            </tr>
+
+        		{% endif %}
+
+        		{% if hojaContinuacionInfo is not null %}
+
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Motivo de consulta:</span></th>
+                                <td class="col-md-4">
+                                    {{ hojaContinuacionInfo.motivoconsulta }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Evolución:</span></th>
+                                <td class="col-md-4">
+                                    {{ hojaContinuacionInfo.evolucionpaciente }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Exámenes:</span></th>
+                                <td colspan="3" class="col-md-4">
+                                    {{ hojaContinuacionInfo.hxexamenes }}
+                                </td>
+                            </tr>
+
+        		{% endif %}
+
+                        </table>
+
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+            </div>
+	</div><!-- /.modal-content -->
+    </div><!-- /.modal -->

@@ -1,0 +1,202 @@
+{# empty Twig template #}
+
+    <div id="preinscripcionFullData-showModalContainer" class="modal container fade justify-bootstrap-div-container simagd-full-form-container simagd-full-data-view" role="dialog" tabindex="-1" style="display: none;" data-backdrop="true" data-keyboard="true">
+	<div class="modal-content panel-info-v2">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+                <h4 class="modal-title"><i class="fa fa-folder-open"></i> Solicitud de estudio Imagenológico</h4>
+            </div>
+
+            <div class="modal-body">
+
+		<div {#style="padding-left: 15px; padding-right: 15px;"#}>
+                
+                {#<div class="panel panel-info-v2">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> <i class="fa fa-folder-open-o"></i> Detalles de la solicitud </h3>
+                    </div>
+                    <div class="panel-body" >#}
+		
+		    <div class="row outer simagd-filter-content-layout" style="padding-left: 15px; padding-right: 15px; {#height: 500px; overflow-y: auto;#}">
+                
+                        <table class="table table-condensed">
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Creada en:</span></th>
+                                <td class="col-md-4" data-render-info="idEstablecimiento" data-render-text="prc_origen" data-render-method="simagdOrigenFormatter"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Sala:</span></th>
+                                <td class="col-md-4" data-render-info="numeroSala" data-render-text="prc_numeroSala"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Proviene de:</span></th>
+                                <td class="col-md-4" data-render-info="idAreaAtencion" data-render-text="prc_areaAtencion" data-render-method="simagdAreaAtencionFormatter"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Cama:</span></th>
+                                <td class="col-md-4" data-render-info="numeroCama" data-render-text="prc_numeroCama"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Servicio que refiere:</span></th>
+                                <td class="col-md-4" data-render-info="idAtencion" data-render-text="prc_atencion"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Paciente desconocido:</span></th>
+                                <td class="col-md-4" data-render-info="pacienteDesconocido" data-render-text="prc_pacienteDesconocido" data-render-method="simagdPacienteDesconocidoFormatter"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Solicita:</span></th>
+                                <td class="col-md-4" data-render-info="idEmpleado" data-render-text="prc_empleado" data-render-method="simagdEmpleadoUserLoggedFormatter"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Peso actual ( lb ):</span></th>
+                                <td class="col-md-4" data-render-info="pesoActualLb" data-render-text="prc_pesoActualLb"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Tipo de empleado:</span></th>
+                                <td class="col-md-4" data-render-info="idTipoEmpleado" data-render-text="prc_tipoEmpleado"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Peso actual ( kg ):</span></th>
+                                <td class="col-md-4" data-render-info="pesoActualKg" data-render-text="prc_pesoActualKg"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Usuario que registró:</span></th>
+                                <td class="col-md-4" data-render-info="idUserReg" data-render-text="prc_nombreUserReg" data-render-method="simagdEmpleadoUserLoggedFormatter"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Talla ( m ):</span></th>
+                                <td class="col-md-4" data-render-info="tallaPaciente" data-render-text="prc_tallaPaciente"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Último usuario que editó:</span></th>
+                                <td class="col-md-4" data-render-info="idUserMod" data-render-text="prc_nombreUserMod" data-render-method="simagdEmpleadoUserLoggedFormatter"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Referido:</span></th>
+                                <td class="col-md-4" data-render-info="referirPaciente" data-render-text="prc_referirPaciente" data-render-method="simagdPacienteReferidoFormatter"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Motivo de consulta:</span></th>
+                                <td class="col-md-4" data-render-info="consultaPor" data-render-text="prc_consultaPor" data-render-method="simagdDescriptionFormatter"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Referido a:</span></th>
+                                <td class="col-md-4" data-render-info="idEstablecimientoReferido" data-render-text="prc_referido" data-render-method="simagdReferidoFormatter"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Estado clínico:</span></th>
+                                <td class="col-md-4" data-render-info="estadoClinico" data-render-text="prc_estadoClinico" data-render-method="simagdDescriptionFormatter"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Justificación:</span></th>
+                                <td class="col-md-4" data-render-info="justificacionReferencia" data-render-text="prc_justificacionReferencia" data-render-method="simagdDescriptionFormatter"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Datos clínicos:</span></th>
+                                <td class="col-md-4" data-render-info="datosClinicos" data-render-text="prc_datosClinicos" data-render-method="simagdDescriptionFormatter"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Hipótesis diagnóstica:</span></th>
+                                <td class="col-md-4" data-render-info="hipotesisDiagnostica" data-render-text="prc_hipotesisDiagnostica" data-render-method="simagdDescriptionFormatter"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Próxima consulta médica:</span></th>
+                                <td class="col-md-4" data-render-info="fechaProximaConsulta" data-render-text="prc_fechaProximaConsulta" data-render-method="simagdDateFormatter"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Prioridad requerida:</span></th>
+                                <td class="col-md-4" data-render-info="idPrioridadAtencion" data-render-text="prAtn_nombre" data-render-method="simagdPrioridadAtencionFormatter"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Investigando:</span></th>
+                                <td class="col-md-4" data-render-info="investigando" data-render-text="prc_investigar" data-render-method="simagdDescriptionFormatter"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Justificación médica:</span></th>
+                                <td class="col-md-4" data-render-info="justificacionMedica" data-render-text="prc_justificacionMedica" data-render-method="simagdDescriptionFormatter"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Antecedentes clínicos:</span></th>
+                                <td class="col-md-4" data-render-info="antecedentesClinicosRelevantes" data-render-text="prc_antecedentesClinicosRelevantes" data-render-method="simagdDescriptionAdvanceFormatter"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Requiere diagnóstico:</span></th>
+                                <td class="col-md-4" data-render-info="requiereDiagnostico" data-render-text="prc_requiereDiagnostico" data-render-method="simagdRequiereDiagnosticoFormatter"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Creado:</span></th>
+                                <td class="col-md-4" data-render-info="fechaCreacion" data-render-text="prc_fechaCreacion" data-render-method="simagdDateTimeFormatter"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Diagnosticar en:</span></th>
+                                <td class="col-md-4" data-render-info="idEstablecimientoDiagnosticante" data-render-text="prc_diagnosticante" data-render-method="simagdDiagnosticanteFormatter"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Paciente ambulatorio:</span></th>
+                                <td class="col-md-4" data-render-info="pacienteAmbulatorio" data-render-text="prc_pacienteAmbulatorio" data-render-method="simagdPacienteAmbulatorioFormatter"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Justificación:</span></th>
+                                <td class="col-md-4" data-render-info="justificacionDiagnostico" data-render-text="prc_justificacionDiagnostico" data-render-method="simagdDescriptionFormatter"></td>
+                            </tr>
+                            
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary"><i class="fa fa-users"></i> Contactar a:</span></th>
+                                <td class="col-md-4" data-render-info="idContactoPaciente" data-render-text="prc_contactoPaciente"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Forma de contacto:</span></th>
+                                <td class="col-md-4" data-render-info="idFormaContacto" data-render-text="prc_formaContacto"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Nombre del Contacto:</span></th>
+                                <td class="col-md-4" data-render-info="nombreContacto" data-render-text="prc_nombreContacto"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Contacto:</span></th>
+                                <td class="col-md-4" data-render-info="contacto" data-render-text="prc_contacto"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="col-md-12">
+                                    <div class="panel panel-success-v2" id='solicitud__estudio_proyecciones' >
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"> {#<i class="fa fa-desktop"></i> <i class="fa fa-eye"></i>#} Proyecciones solicitadas </h3>
+                                        </div>
+                                        <div class="panel-body" style="" >
+                                            <div class="form-group">
+                                                <label class="col-md-2 col-xs-2 control-label simagd-panel-container-label"><span class="simagd-text-primary">Modalidad que solicita:</span></label>
+                                                <div class="col-md-2 col-xs-2" data-render-info="idAreaServicioDiagnostico" data-render-text="prc_modalidad" data-render-method="simagdAreaServicioDiagnosticoFormatter"></div>
+                                                <label class="col-md-2 col-xs-2 control-label simagd-panel-container-label"><span class="simagd-text-primary"><i class="fa fa-eye"></i> Proyecciones solicitadas:</span></label>
+                                                <div class="col-md-6 col-xs-6" data-render-info="solicitudEstudioProyeccion" data-render-text="prc_solicitudEstudioProyeccion" data-render-method="simagdSolicitudEstudioProyeccionFormatter"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="col-md-12">
+				    <a class="btn-link btn-link-v2" id="prc_link_show_fullhistory" style="font-weight: bold !important; color: #0c586f !important;">ver desarrollo...</a>
+                                    <div class="panel panel-success-v2" id='__seguimiento_desarrollo_solicitud__resultados' style="display: none;" >
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"> <i class="fa fa-history"></i> Seguimiento de solicitud de estudio </h3>
+                                        </div>
+                                        <div class="panel-body" style="" >
+					    <div class="panel panel-element-v2" id='__seguimiento_desarrollo_solicitud__cita' >
+						<div class="panel-heading">
+						    <h3 class="panel-title"> <i class="fa fa-clock-o"></i> Cita otorgada </h3>
+						</div>
+						<div class="panel-body" style="" >
+						    <div class="col-md-2 col-xs-2"><span class="simagd-text-primary simagd-panel-container-label">Requiere cita:</span></div>
+						    <div class="col-md-4 col-xs-4" data-render-info="requiereCita" data-render-text="prc_requiereCita" data-render-method="simagdRequiereCitaFormatter"></div>
+						</div>
+					    </div>
+					    <div class="panel panel-element-v2" id='__seguimiento_desarrollo_solicitud__procedimientos_realizados' >
+						<div class="panel-heading">
+						    <h3 class="panel-title"> <i class="fa fa-eye"></i> Exámenes </h3>
+						</div>
+						<div class="panel-body" style="" >
+						    <div class="col-md-2 col-xs-2"><span class="simagd-text-primary simagd-panel-container-label">Requiere cita:</span></div>
+						    <div class="col-md-4 col-xs-4" data-render-info="requiereCita" data-render-text="prc_requiereCita" data-render-method="simagdRequiereCitaFormatter"></div>
+						</div>
+					    </div>
+					    <div class="panel panel-element-v2" id='__seguimiento_desarrollo_solicitud__diagnostico' >
+						<div class="panel-heading">
+						    <h3 class="panel-title"> <i class="fa fa-microphone"></i> Interpretación </h3>
+						</div>
+						<div class="panel-body" style="" >
+						    <div class="col-md-2 col-xs-2"><span class="simagd-text-primary simagd-panel-container-label">Requiere cita:</span></div>
+						    <div class="col-md-4 col-xs-4" data-render-info="requiereCita" data-render-text="prc_requiereCita" data-render-method="simagdRequiereCitaFormatter"></div>
+						</div>
+					    </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <script>
+				    var $link_history	= jQuery('#prc_link_show_fullhistory');
+				    $link_history.click(function () {
+					jQuery('#__seguimiento_desarrollo_solicitud__resultados').toggle('slow', function() {
+					    $link_history.text(jQuery(this).is(':visible') ? 'ocultar desarrollo...' : 'ver desarrollo...');
+				      });
+				    });
+                                </script>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                <button class='btn btn-element-v2' data-toggle='modal' href='#prcRecord-ShowModal' id='btn-prc-record'><i class="fa fa-search-plus"></i> Consulta </button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+            </div>
+	</div><!-- /.modal-content -->
+    </div><!-- /.modal -->

@@ -1,0 +1,192 @@
+{# empty Twig template #}
+
+    <div id="procedimientoRealizadoFullData-showModalContainer" class="modal container fade justify-bootstrap-div-container simagd-full-form-container simagd-full-data-view" role="dialog" tabindex="-1" style="display: none;" data-backdrop="true" data-keyboard="true">
+	<div class="modal-content panel-info-v2">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+                <h4 class="modal-title"><i class="fa fa-folder-open"></i> Examen realizado</h4>
+            </div>
+
+            <div class="modal-body">
+                
+                <div class="panel panel-info-v2">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> <i class="fa fa-desktop"></i> Detalles del registro de examen </h3>
+                    </div>
+                    <div class="panel-body" >
+                
+                        <table class="table table-condensed">
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Realizado por:</span></th>
+                                <td class="col-md-4">
+                                    {{ procedimientoRealizadoInfo.idTecnologoRealiza }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Equipo utilizado:</span></th>
+                                <td class="col-md-4">
+                                    {{ procedimientoRealizadoInfo.equipoUtilizado }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Tipo de empleado:</span></th>
+                                <td class="col-md-4">
+                                    {{ procedimientoRealizadoInfo.idTecnologoRealiza.idTipoEmpleado }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Técnica empleada:</span></th>
+                                <td class="col-md-4">
+                                    {{ procedimientoRealizadoInfo.tecnicaUtilizada }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Usuario que registró:</span></th>
+                                <td class="col-md-4">
+                                    {{ procedimientoRealizadoInfo.idUserReg.idEmpleado }} <strong> ( {{ procedimientoRealizadoInfo.idUserReg.username }} ) </strong>
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Hipótesis diagnóstica:</span></th>
+                                <td class="col-md-4">
+                                    {{ procedimientoRealizadoInfo.hipotesisDiagnostica }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Último usuario que editó:</span></th>
+                                <td class="col-md-4">
+                                    {% if procedimientoRealizadoInfo.idUserMod is not null %}
+                                        {{ procedimientoRealizadoInfo.idUserMod.idEmpleado }} <strong> ( {{ procedimientoRealizadoInfo.idUserMod.username }} ) </strong>
+                                    {% endif %}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Incidencias:</span></th>
+                                <td class="col-md-4">
+                                    {{ procedimientoRealizadoInfo.incidencias }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Estado:</span></th>
+                                <td class="col-md-4">
+                                    {{ procedimientoRealizadoInfo.idEstadoProcedimientoRealizado }}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Sin fecha de nacimiento:</span></th>
+                                <td class="col-md-4">
+                                    {{ procedimientoRealizadoInfo.fechaNacimientoIndeterminada ? 'Si' : 'No' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Atendido:</span></th>
+                                <td class="col-md-4">
+                                    {% if procedimientoRealizadoInfo.fechaAtendido is not null %}
+                                        {{ procedimientoRealizadoInfo.fechaAtendido|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ procedimientoRealizadoInfo.fechaAtendido|date('H:i:s A') }}
+                                    {% endif %}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Observaciones:</span></th>
+                                <td class="col-md-4">
+                                    {{ procedimientoRealizadoInfo.observaciones }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Realizado:</span></th>
+                                <td class="col-md-4">
+                                    {% if procedimientoRealizadoInfo.fechaRealizado is not null %}
+                                    	{{ procedimientoRealizadoInfo.fechaRealizado|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ procedimientoRealizadoInfo.fechaRealizado|date('H:i:s A') }}
+                                    {% endif %}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Materiales utilizados:</span></th>
+                                <td class="col-md-4">
+                                    {{ procedimientoRealizadoInfo.materialUtilizado }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Procesado:</span></th>
+                                <td class="col-md-4">
+                                    {% if procedimientoRealizadoInfo.fechaProcesado is not null %}
+                                    	{{ procedimientoRealizadoInfo.fechaProcesado|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ procedimientoRealizadoInfo.fechaProcesado|date('H:i:s A') }}
+                                    {% endif %}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Realizado en sala:</span></th>
+                                <td class="col-md-4">
+                                    {{ procedimientoRealizadoInfo.salaRealizado }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Almacenado:</span></th>
+                                <td class="col-md-4">
+                                    {% if procedimientoRealizadoInfo.fechaAlmacenado is not null %}
+                                    	{{ procedimientoRealizadoInfo.fechaAlmacenado|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ procedimientoRealizadoInfo.fechaAlmacenado|date('H:i:s A') }}
+                                    {% endif %}
+                                </td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Posee cita:</span></th>
+                                <td class="col-md-4">
+                                    {{ procedimientoRealizadoInfo.idCitaProgramada is not null ? 'Si' : 'No' }}
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td colspan="4" class="col-md-12">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <th colspan="4" class="col-md-12">
+                                    <span class="text-primary"><strong> <i class="fa fa-film"></i> Estudio registrado:</strong></span>
+                                </th>
+                            </tr>
+
+			{% if estudioPacienteInfo is not null %}
+			    <tr>
+				<th class="col-md-2"><span class="simagd-text-primary">Creado:</span></th>
+				<td class="col-md-4">
+				    {{ estudioPacienteInfo.fechaEstudio|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ estudioPacienteInfo.fechaEstudio|date('H:i:s A') }}
+				</td>
+				<th class="col-md-2"><span class="simagd-text-primary">Uid:</span></th>
+				<td class="col-md-4">
+				    {{ estudioPacienteInfo.estudioUid }}
+				</td>
+			    </tr>
+			    <tr>
+				<th class="col-md-2"><span class="simagd-text-primary">Servidor:</span></th>
+				<td class="col-md-4">
+				    {{ estudioPacienteInfo.servidor }}
+				</td>
+				<th class="col-md-2"><span class="simagd-text-primary">Series:</span></th>
+				<td class="col-md-4">
+				    {{ estudioPacienteInfo.seriesUid }}
+				</td>
+			    </tr>
+			    <tr>
+				<th class="col-md-2"><span class="simagd-text-primary">Creado en:</span></th>
+				<td colspan="3" class="col-md-4">
+				    {{ estudioPacienteInfo.idEstablecimiento }}
+				</td>
+			    </tr>
+			    <tr>
+				<th class="col-md-2"><span class="simagd-text-primary">Estudio:</span></th>
+				<td class="col-md-4">
+                                    {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN') %}
+                                        {% include 'MinsalSimagdBundle:ImgEstudioPacienteAdmin:est_recuperarEstudio_button.html.twig'
+                                                                ignore missing with { 'estudioPaciente': estudioPacienteInfo } %}
+                                    {% else %}
+                                        <i class="fa fa-exclamation-triangle"></i> <i class="text-warning">No puede ver este enlace</i>
+                                    {% endif %}
+				</td>
+			    </tr>
+
+			{% else %}
+			    <tr>
+				<td colspan="4" class="col-md-12">
+				    <div class="alert alert-info alert-dismissible" role="alert">
+				        <button type="button" class="close" data-dismiss="alert">
+				            <span aria-hidden="true">&times;</span>
+				            <span class="sr-only"> Cerrar </span>
+				        </button>
+				        <strong>Sin resultados!</strong> Estudio aun no ha sido registrado en el sistema.
+				    </div>
+				</td>
+			    </tr>
+			{% endif %}
+                        </table>
+
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+            </div>
+	</div><!-- /.modal-content -->
+    </div><!-- /.modal -->

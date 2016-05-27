@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SecHistorialClinico" table="sec_historial_clinico">
+    <indexes>
+      <index name="fki_mnt_aten_area_mod_estab_sec_historial_clinico" columns="idsubservicio"/>
+      <index name="fki_fos_user_user_sec_historial_clinico" columns="idusuarioreg"/>
+      <index name="IDX_B5886216890253C7" columns="id_empleado"/>
+      <index name="IDX_B5886216445651A7" columns="id_numero_expediente"/>
+      <index name="IDX_B588621675BB31F7" columns="idestablecimiento"/>
+      <index name="IDX_B588621643F314A6" columns="idnumeroexp"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="datosclinicos" type="string" column="datosclinicos" length="200" nullable="true"/>
+    <field name="fechaconsulta" type="date" column="fechaconsulta" nullable="true"/>
+    <field name="empleado" type="string" column="empleado" length="7" nullable="true"/>
+    <field name="seguimientoconsultaext" type="string" column="seguimientoconsultaext" nullable="true"/>
+    <field name="fechahorareg" type="datetime" column="fechahorareg" nullable="true"/>
+    <field name="piloto" type="string" column="piloto" nullable="true"/>
+    <field name="ipaddress" type="string" column="ipaddress" length="15" nullable="true"/>
+    <field name="idmodalidad" type="integer" column="idmodalidad" nullable="true"/>
+    <many-to-one field="idestablecimiento" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="idestablecimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idnumeroexp" target-entity="MntExpediente">
+      <join-columns>
+        <join-column name="idnumeroexp" referenced-column-name="numero"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idsubservicio" target-entity="MntAtenAreaModEstab">
+      <join-columns>
+        <join-column name="idsubservicio" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idusuarioreg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="idusuarioreg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idNumeroExpediente" target-entity="MntExpediente">
+      <join-columns>
+        <join-column name="id_numero_expediente" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEmpleado" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_empleado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,65 @@
+{# empty Twig template #}
+
+    <div id="solicitudDiagnosticoFullData-showModalContainer" class="modal container fade justify-bootstrap-div-container simagd-full-form-container simagd-full-data-view" role="dialog" tabindex="-1" style="display: none;" data-backdrop="true" data-keyboard="true">
+	<div class="modal-content panel-info-v2">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+                <h4 class="modal-title"><i class="fa fa-folder-open"></i> Solicitud de diagnóstico radiológico</h4>
+            </div>
+
+            <div class="modal-body">
+
+		<div {#style="padding-left: 15px; padding-right: 15px;"#}>
+                
+                {#<div class="panel panel-info-v2">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> <i class="fa fa-clipboard"></i> Detalles de la solicitud </h3>
+                    </div>
+                    <div class="panel-body" >#}
+		
+		    <div class="row outer simagd-filter-content-layout" style="padding-left: 15px; padding-right: 15px; {#height: 500px; overflow-y: auto;#}">
+                
+                        <table class="table table-condensed">
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Solicitante:</span></th>
+                                <td class="col-md-4" data-render-info="idEmpleado"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Creada:</span></th>
+                                <td class="col-md-4" data-render-info="fechaCreacion"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Tipo de empleado:</span></th>
+                                <td class="col-md-4" data-render-info="idTipoEmpleado"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Justificación:</span></th>
+                                <td class="col-md-4" data-render-info="justificacion"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Usuario que registró:</span></th>
+                                <td class="col-md-4" data-render-info="idUserReg"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Próxima consulta médica:</span></th>
+                                <td class="col-md-4" data-render-info="fechaProximaConsulta"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Solicitado a externo:</span></th>
+                                <td class="col-md-4" data-render-info="solicitudRemota"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Observaciones:</span></th>
+                                <td class="col-md-4" data-render-info="observaciones"></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-2"><span class="simagd-text-primary">Solicitado a:</span></th>
+                                <td class="col-md-4" data-render-info="idEstablecimientoSolicitado"></td>
+                                <th class="col-md-2"><span class="simagd-text-primary">Estudio a interpretar:</span></th>
+                                <td class="col-md-4" data-render-info="idEstudio"></td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                <button class='btn btn-element-v2' data-toggle='modal' href='#soldiagRecord-ShowModal' id='btn-soldiag-record'><i class="fa fa-search-plus"></i> Consulta </button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+            </div>
+	</div><!-- /.modal-content -->
+    </div><!-- /.modal -->

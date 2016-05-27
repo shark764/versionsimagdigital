@@ -1,0 +1,48 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            
+            /** Deshabilitar estados para transcriptor */
+            var setBlockEstadosDiag = true;
+            {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_ADMIN') %}
+                setBlockEstadosDiag = false;
+            {% endif %}
+
+            if ( setBlockEstadosDiag ) {
+                // change input's state to 'disabled'
+                $('#{{ admin.uniqId }}_idEstadoDiagnostico_4, #{{ admin.uniqId }}_idEstadoDiagnostico_6')
+                                        .iCheck('disable').closest("label").addClass("text-muted");
+            }
+
+            {% if admin.id(object) is null %}
+                // change input's state to 'disabled'
+                $('#{{ admin.uniqId }}_idEstadoDiagnostico_4, #{{ admin.uniqId }}_idEstadoDiagnostico_5')
+                                        .iCheck('disable').closest("label").addClass("text-muted");
+            {% endif %}
+
+            /** Bloqueo de empleado */
+            {% if admin.id(object) is not null and not is_granted('ROLE_ADMIN') %}
+                
+                $("div.diag-with-datos-generales-generales").find('select').select2()
+                        .on('select2-selecting', function(e) {
+                            e.preventDefault();
+                        });
+                        
+            {% endif %}
+
+            /** Bloqueo Estado */
+            {% if admin.id(object) is not null and object.idEstadoDiagnostico is not null and object.idEstadoDiagnostico.id in [6] and not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_ADMIN') ) %}
+                
+                $("input[name='{{ admin.uniqId }}[idEstadoDiagnostico]']").iCheck('disable');
+                
+                $("div.diag-with-datos-generales-generales").append($('<input type="hidden">')
+                            .attr({ name : "{{ admin.uniqId }}[idEstadoDiagnostico]",
+                                    value : $("input[name='{{ admin.uniqId }}[idEstadoDiagnostico]']:checked").val()
+                                })
+                        );
+
+            {% endif %}
+            
+        });
+    </script>

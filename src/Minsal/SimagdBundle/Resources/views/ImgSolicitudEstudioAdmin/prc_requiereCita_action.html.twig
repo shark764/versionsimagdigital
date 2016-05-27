@@ -1,0 +1,12 @@
+{# empty Twig template #}
+
+{% if object.requiereCita and admin.hasRoute('requiereCita') and
+		( app.user.getIdEmpleado.getIdTipoEmpleado.codigo == 'CIT' or is_granted('ROLE_ADMIN') ) and
+		( app.user.getIdEstablecimiento.getId == object.getIdEstablecimientoReferido.getId ) and
+		( ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') and is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_EDIT') and
+		is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_EDIT') ) or is_granted('ROLE_ADMIN') )
+%}
+
+    <a href="{{ admin.generateObjectUrl('requiereCita', object) }}" class="btn btn-sm btn-primary" title="Desmarcar para creación de cita"> <i class="glyphicon glyphicon-tag"></i> Desmarcar </a>
+
+{% endif %}

@@ -1,0 +1,48 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed">
+
+        <thead>
+            <tr>
+                <th class="col-md-6">Fecha Reservada</th>
+                <th class="col-md-4">Hora Reservada</th>
+                <th class="col-md-2">Reservaciones</th>
+                <th class="col-md-1"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% if paramCitacion is not null %}
+                {% set _maxCitDia = paramCitacion.maximoCitasDia %}
+                {% set _maxCitHora = paramCitacion.maximoCitasHora %}
+            {% endif %}
+
+            {% for reservaCita in reservasCita %}
+                {% if paramCitacion is not null %}
+                    {% set _numRsv = reservaCita.reservados %}
+            
+                    {% if (_numRsv >= (_maxCitDia -3)) or (_numRsv >= (_maxCitHora -1)) %}
+                        <tr class="danger">
+                    {% elseif (_numRsv >= (_maxCitDia -5)) or (_numRsv >= (_maxCitHora -3)) %}
+                        <tr class="warning">
+                    {% else %}
+                        <tr>
+                    {% endif %}
+
+                {% else %}
+                    <tr>
+                {% endif %}
+
+                    <td class="col-md-6">{{ reservaCita.fechaProgramada|format_date('EEEE, MMMM d, yyyy', 'es_ES') }}</td>
+                    <td class="col-md-4">{{ reservaCita.fechaProgramada|date('H:i A') }}</td>
+                    <td class="col-md-2">{{ reservaCita.reservados }} {% if reservaCita.reservados > 1 %} pacientes {% else %} paciente {% endif %}</td>
+                    <td class="col-md-1">
+                        <a class="set-fechaHoraProgramada btn-link" href="javascript:void(0)" title="Seleccionar fecha y hora" data-date="{{ reservaCita.fechaProgramada|date('Y-m-d H:i')|raw }}" >
+                            <i class="fa fa-check-square"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>

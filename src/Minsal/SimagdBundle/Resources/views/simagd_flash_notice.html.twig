@@ -1,0 +1,46 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            
+            var toastMsg = [];
+
+            {% for type in sonata_flashmessages_types() %}
+
+                var typeAlert = '{{ type|sonata_status_class }}';
+                var typeMessage = 'Información';
+
+                switch( typeAlert ) {
+                    case 'success':
+                        typeMessage = 'Éxito';
+                        break;
+                    case 'danger':
+                        typeMessage = 'Error';
+                        typeAlert = 'error';
+                        break;
+                    case 'warning':
+                        typeMessage = 'Advertencia';
+                        break;
+                    default:
+                        typeAlert = 'notice';
+                        break;
+                }
+
+                {% set domain = domain is defined ? domain : null %}
+                {% for message in sonata_flashmessages_get(type, domain) %}
+                    
+                    toastMsg.push({ type: typeAlert, message: jQuery.trim('{{ message|raw }}'), title: typeMessage } );
+
+                {% endfor %}
+            {% endfor %}
+        
+            $.each(toastMsg, function (index, valMsgToast) {
+                setTimeout(function() {
+                  // Do something after 2 seconds
+                    generarMensajeToast(valMsgToast.type, valMsgToast.message, valMsgToast.title );
+                }, index * 1500);
+            });
+
+        });
+
+    </script>

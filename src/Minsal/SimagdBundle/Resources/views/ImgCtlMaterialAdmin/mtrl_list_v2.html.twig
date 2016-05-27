@@ -1,0 +1,197 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_list_v2.html.twig' %}
+
+{# Permisos materiales #}
+{% set _MTRL_ALLOW_CREATE 	= is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_MATERIAL_CREATE') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _MTRL_ALLOW_EDIT 	= is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_MATERIAL_EDIT') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _MTRL_ALLOW_LIST 	= is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_MATERIAL_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _MTRL_ALLOW_VIEW 	= is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_MATERIAL_VIEW') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{# Permisos locales #}
+{% set _MTRLC_ALLOW_CREATE 	= is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_MATERIAL_ESTABLECIMIENTO_CREATE') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _MTRLC_ALLOW_EDIT 	= is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_MATERIAL_ESTABLECIMIENTO_EDIT') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _MTRLC_ALLOW_LIST 	= is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_MATERIAL_ESTABLECIMIENTO_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _MTRLC_ALLOW_VIEW 	= is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_MATERIAL_ESTABLECIMIENTO_VIEW') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {# bootstrap-editable #}
+{#    <link href="{{ asset('bundles/minsalsimagd/bootstrap3-editable/css/bootstrap-editable.css') }}" type="text/css" rel="stylesheet" media="screen" />#}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        /*
+         * 
+         * @type String
+         * navbar menu container for bstables
+         */
+        var $pattern_bstable_container  = 'menu-listas-materiales';
+        
+	var $mtrLc_is_granted_changeStatus;
+	
+	$mtrLc_is_granted_changeStatus		= {% if _MTRLC_ALLOW_CREATE == true or _MTRLC_ALLOW_EDIT == true %} true {% else %} false {% endif %};
+        
+//         alert('http://www.findeen.es/y148_anya_forum.html \n http://charming-models.net/vladmodels/511-vladmodels-anya-oxi-y148.html \n http://charming-models.net/vladmodels/page/5/');
+//         alert('http://jsfiddle.net/9ce3P/ \n http://bootstrap-table.wenzhixin.net.cn/documentation/ \n https://www.npmjs.com/package/bootstrap-advanced-dropdown \n https://behigh.github.io/bootstrap_dropdowns_enhancement/ \n http://mifsud.me/adding-dropdown-login-form-bootstraps-navbar/ ');
+    </script>
+
+    {# bootstrap-editable #}
+    {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap-table-master/dist/extensions/editable/bootstrap-table-editable.min.js') }}" ></script>#}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd-label-bootstrap-table-editable.js') }}" ></script>
+{#    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrap3-editable/js/bootstrap-editable.min.js') }}" ></script>#}
+
+    {# Scripts mtrl #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCtlMaterialAdmin/mtrl_form_config.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCtlMaterialAdmin/mtrl_list_v2.js') }}" ></script>
+    {# Scripts mtrLc #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCtlMaterialEstablecimientoAdmin/mtrLc_form_config.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCtlMaterialEstablecimientoAdmin/mtrLc_list_v2.js') }}" ></script>
+
+{% endblock %}
+
+{% block simagd_navbar_menu_label %}
+    <i class="fa fa-table"></i> <i class="fa fa-tasks"></i> Catálogo de materiales de Imagenología
+{% endblock %}
+
+{% block simagd_navbar_left_nav %}
+    <li class="list-table-link-navbar active {% if _MTRL_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
+	<a href="javascript:void(0)" id="show-table-general-list" data-divtabletarget="div-resultado-materiales"
+	    {% if _MTRL_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+	    <span class="text-info"><i class="fa fa-tasks"></i> </span> Listado general <span class="sr-only">(current)</span>
+	</a>
+    </li>
+    <li class="list-table-link-navbar {% if _MTRLC_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
+	<a href="javascript:void(0)" id="show-table-local-list" data-divtabletarget="div-resultado-materiales-locales"
+	    {% if _MTRLC_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+	    <span class="text-info"><i class="fa fa-h-square"></i> <i class="fa fa-tasks"></i> </span> Listado local
+	</a>
+    </li>
+{% endblock %}
+
+{% block simagd_navbar_right_nav %}
+    <li class="dropdown">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="text-info"><i class="fa fa-plus-circle"></i> </span> Registrar <span class="caret"></span></a>
+	<ul class="dropdown-menu" role="menu">
+	    <li {% if _MTRL_ALLOW_CREATE == false %} class="disabled link-full-disabled" {% endif %}>
+		<a href="javascript:void(0)" id="btn_nuevoMaterial" {#data-toggle="modal" data-target="#crearMaterial-modal"#}
+		    {% if _MTRL_ALLOW_CREATE == false %} disabled="disabled" {% endif %}> <span class="glyphicon glyphicon-cog "></span> Insertar material
+		</a>
+	    </li>
+	    <li class="divider"></li>
+	    <li {% if _MTRLC_ALLOW_CREATE == false %} class="disabled link-full-disabled" {% endif %}>
+		<a href="javascript:void(0)" id="btn_nuevoMaterialLocal" {#data-toggle="modal" data-target="#crearMaterialLocal-modal"#}
+		    {% if _MTRLC_ALLOW_CREATE == false %} disabled="disabled" {% endif %}> <span class="glyphicon glyphicon-home "></span> Agregar a catálogo
+		</a>
+	    </li>
+	</ul>
+    </li>
+{% endblock %}
+
+{% block sonata_admin_content -%}
+    {#<span class="label label-primary-v2">NO VALIDATED SIGUE DANDO PROBLEMA</span>#}
+    {{ parent() }}
+
+    {% if _MTRL_ALLOW_LIST == true %}
+        <!-- toolbar for table-lista-materiales -->
+        {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'mtrl' } %}
+        <!-- END --| toolbar for table-lista-materiales -->
+        
+	<div id="div-resultado-materiales" class="menu-listas-materiales" data-refresh-url="{{ path('simagd_material_listarMateriales') }}">
+	    <table class="table table-condensed" id="table-lista-materiales"
+		  data-toggle="table"
+		  data-id-field="mtrl_id"
+		  data-url="{{ path('simagd_material_listarMateriales') }}"
+                  data-backup-url="simagd_material_listarMateriales"
+                  data-toolbar="#bs_mtrl_toolbar"
+		  data-cache="false"
+		  data-show-refresh="true"
+		  data-show-toggle="true"
+		  data-show-columns="true"
+		  data-search="true"
+		  data-select-item-name="listaMaterialesToolbar"
+		  data-pagination="true"
+		  data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+		  {#data-sort-name="id"
+		  data-sort-order="desc"#}
+		  data-classes="table table-hover table-condensed table-no-bordered"
+		  data-height="760">
+		<thead>
+		    <tr style="background-color: #31708f; color: #fff;">
+			{#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
+			<th data-field="mtrl_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
+			<th data-field="mtrl_nombre" data-filter-bstable-apply="true" data-filter-bstable-by="mtrl_id" data-filter-bstable-type="select2" data-switchable="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Nombre</th>
+			<th data-field="mtrl_codigo" data-filter-bstable-apply="true" data-filter-bstable-type="text" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Código</th>
+			<th data-field="mtrl_descripcion" data-formatter="simagdDescriptionFormatter" class="col-md-3 justify-table-large-row" data-align="left" data-halign="center" data-sortable="true">Descripción</th>
+			<th data-field="mtrl_fechaHoraReg" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Registrado</th>
+			<th data-field="mtrl_fechaHoraMod" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Editado</th>
+			<th data-field="action" data-formatter="actionFormatter" data-events="actionEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+		    </tr>
+		</thead>
+	    </table>
+	</div>
+    {% endif %}
+
+    {% if _MTRLC_ALLOW_LIST == true %}
+        <!-- toolbar for table-lista-materiales-locales -->
+        {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'mtrLc' } %}
+        <!-- END --| toolbar for table-lista-materiales-locales -->
+        
+	<div id="div-resultado-materiales-locales" style="display: none;" class="menu-listas-materiales" data-refresh-url="{{ path('simagd_material_local_listarMaterialesLocales') }}">
+	    <table class="table table-condensed" id="table-lista-materiales-locales"
+		  data-toggle="table"
+		  data-id-field="mtrLc_id"
+		  data-url=""
+                  data-backup-url="simagd_material_local_listarMaterialesLocales"
+                  data-toolbar="#bs_mtrLc_toolbar"
+		  data-cache="false"
+		  data-show-refresh="true"
+		  data-show-toggle="true"
+		  data-show-columns="true"
+		  data-search="true"
+		  data-select-item-name="listaMaterialesLocalesToolbar"
+		  data-pagination="true"
+		  data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+		  {#data-sort-name="id"
+		  data-sort-order="desc"#}
+		  data-classes="table table-hover table-condensed table-no-bordered"
+		  data-height="760">
+		<thead>
+		    <tr style="background-color: #31708f; color: #fff;">
+			{#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
+			<th data-field="mtrLc_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
+			<th data-field="mtrl_nombre" data-filter-bstable-apply="true" data-filter-bstable-by="mtrl_id" data-filter-bstable-type="select2" data-switchable="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Nombre</th>
+			<th data-field="mtrl_codigo" data-filter-bstable-apply="true" data-filter-bstable-type="text" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Código</th>
+			<th data-field="mtrl_descripcion" data-formatter="simagdDescriptionFormatter" data-visible="false" class="col-md-3 justify-table-large-row" data-align="left" data-halign="center" data-sortable="true">Descripción</th>
+			<th data-field="mtrLc_habilitado" data-filter-bstable-apply="true" data-filter-bstable-type="boolean" {% if _MTRLC_ALLOW_CREATE == false and _MTRLC_ALLOW_EDIT == false %} data-formatter="habilitadoFormatter" {% endif %} data-filter-bstable-data-source="getMaterialHabilitadoSourceData" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Habilitado</th>
+			<th data-field="mtrLc_cantidadDisponible" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Disponible</th>
+			<th data-field="mtrLc_descripcion" data-formatter="simagdDescriptionFormatter" class="col-md-3 justify-table-large-row" data-align="left" data-halign="center" data-sortable="true">Descripción (Local)</th>
+			<th data-field="mtrl_fechaHoraReg" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-visible="false" data-formatter="simagdDateTimeFormatter" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Registrado</th>
+			<th data-field="mtrLc_fechaHoraReg" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Agregado</th>
+			<th data-field="mtrLc_fechaHoraMod" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Editado</th>
+			<th data-field="action" data-formatter="actionLocalFormatter" data-events="actionLocalEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+		    </tr>
+		</thead>
+	    </table>
+	</div>
+    {% endif %}
+
+    {# Modal Crear nueva #}
+	{% if _MTRL_ALLOW_CREATE == true or _MTRL_ALLOW_EDIT == true %}
+	    {% include 'MinsalSimagdBundle:ImgCtlMaterialAdmin:mtrl_crearMaterial_modal.html.twig' %}
+	{% endif %}
+    {# Modal Agregar en Local #}
+	{% if _MTRLC_ALLOW_CREATE == true %}
+	    {% include 'MinsalSimagdBundle:ImgCtlMaterialAdmin:mtrl_agregarEnCatalogoLocal_modal.html.twig' %}
+	{% endif %}
+    {# Modal Crear nueva en local #}
+	{% if _MTRLC_ALLOW_CREATE == true or _MTRLC_ALLOW_EDIT == true %}
+	    {% include 'MinsalSimagdBundle:ImgCtlMaterialEstablecimiento:mtrLc_crearMaterialLocal_modal.html.twig' %}
+	{% endif %}
+    
+{% endblock %}

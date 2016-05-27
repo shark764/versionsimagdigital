@@ -1,0 +1,34 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed" id="table-lista-solicitudes-estudio-summary"
+	  data-toggle="table"
+	  data-id-field="prc_id"
+	  data-url=""data-backup-url="simagd_lectura_listarLecturas"
+	  data-cache="false"
+	  data-show-refresh="true"
+	  data-show-toggle="true"
+	  data-show-columns="true"
+	  data-search="true"
+	  data-select-item-name="listaSolicitudesSummaryToolbar"
+	  {#data-side-pagination="server"#}
+	  data-pagination="true"
+	  data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+	  {#data-sort-name="id"
+	  data-sort-order="desc"#}
+	  data-classes="table table-hover table-condensed table-no-bordered"
+	  data-height="350">
+	<thead>
+	    <tr style="background-color: #31708f !important; color: #fff !important;">
+		<th data-field="prc_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
+		<th data-field="prc_empleado" data-filter-bstable-apply="true" data-filter-bstable-by="empprc_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Solicitó</th>
+		<th data-field="prc_areaAtencion" data-filter-bstable-apply="true" data-filter-bstable-by="ar_id" data-filter-bstable-type="select2" data-formatter="simagdAreaAtencionFormatter" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Procedencia</th>
+		<th data-field="prc_atencion" data-filter-bstable-apply="true" data-filter-bstable-by="atn_id" data-filter-bstable-type="select2" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Servicio clínico</th>
+		<th data-field="prc_modalidad" data-filter-bstable-apply="true" data-filter-bstable-by="m_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Modalidad</th>
+		<th data-field="prAtn_nombre" data-filter-bstable-apply="true" data-filter-bstable-by="prAtn_id" data-filter-bstable-type="select2" {#data-formatter="simagdPrioridadAtencionFormatter" data-editable="true"#} class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Prioridad</th>
+		<th data-field="action" data-formatter="actionSolEstudioFormatter" data-events="actionSolEstudioEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+	    </tr>
+	</thead>
+    </table>
+
+    {#{% include 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_exploracionSol_totalInfo.html.twig'
+                            ignore missing with { 'explSolicitadas': preinscripcionInfo.solicitudEstudioProyeccion } %}      proyección solicitada #}

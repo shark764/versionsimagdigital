@@ -1,0 +1,17 @@
+{# empty Twig template #}
+
+<th class="info">{% block name %}{{ admin.trans(field_description.label) }}{% endblock %}</th>
+<td class="info">
+    {% block field %}
+        <ul>
+            {% for exploracion in object.solicitudEstudioProyeccion %}
+                <li>
+                    <a data-toggle="modal" href="#" data-id="{{ exploracion.id }}" data-target="#exploracionSolFullData-showModalContainer" class="open-explSolDialog btn-link" title="Abrir detalles de la Proyección">
+                        <i class="fa fa-external-link-square"></i>
+                    </a> &nbsp;
+                    <strong> {{ exploracion.idProyeccionSolicitada.idExamenServicioDiagnostico }} </strong> : {{ exploracion.idProyeccionSolicitada }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endblock %}
+</td>

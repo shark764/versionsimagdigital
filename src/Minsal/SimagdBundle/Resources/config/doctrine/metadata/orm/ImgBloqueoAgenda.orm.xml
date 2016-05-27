@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ImgBloqueoAgenda" table="img_bloqueo_agenda">
+    <indexes>
+      <index name="IDX_DC5C2770992127D5" columns="id_area_servicio_diagnostico"/>
+      <index name="IDX_DC5C2770592B0EA1" columns="id_empleado_registra"/>
+      <index name="IDX_DC5C27707DFA12F6" columns="id_establecimiento"/>
+      <index name="IDX_DC5C277032E38BF3" columns="id_radiologo_bloqueo"/>
+      <index name="IDX_DC5C2770AC39DE56" columns="id_user_mod"/>
+      <index name="IDX_DC5C2770D8A5832B" columns="id_user_reg"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="fechaCreacion" type="datetime" column="fecha_creacion" nullable="false"/>
+    <field name="titulo" type="string" column="titulo" length="75" nullable="true"/>
+    <field name="descripcion" type="string" column="descripcion" length="255" nullable="true"/>
+    <field name="diaCompleto" type="boolean" column="dia_completo" nullable="true"/>
+    <field name="fechaInicio" type="date" column="fecha_inicio" nullable="false"/>
+    <field name="fechaFin" type="date" column="fecha_fin" nullable="false"/>
+    <field name="horaInicio" type="time" column="hora_inicio" nullable="false"/>
+    <field name="horaFin" type="time" column="hora_fin" nullable="false"/>
+    <field name="color" type="string" column="color" length="15" nullable="true"/>
+    <field name="fechaUltimaEdicion" type="datetime" column="fecha_ultima_edicion" nullable="true"/>
+    <many-to-one field="idUserMod" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_mod" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUserReg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_reg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idRadiologoBloqueo" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_radiologo_bloqueo" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimiento" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEmpleadoRegistra" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_empleado_registra" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idAreaServicioDiagnostico" target-entity="CtlAreaServicioDiagnostico">
+      <join-columns>
+        <join-column name="id_area_servicio_diagnostico" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

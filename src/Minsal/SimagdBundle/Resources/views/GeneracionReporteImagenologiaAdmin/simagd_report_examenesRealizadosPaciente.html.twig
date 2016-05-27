@@ -1,0 +1,32 @@
+{# empty Twig template #}
+
+
+    <form id="formExamenesRealizadosPaciente" method="post" class="form-horizontal" >
+
+        <div class="form-group col-sm-12">
+            <label class="col-sm-2 control-label">Fecha Inicio</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="fechaIni_5" name="fechaIni_5" readonly="readonly" />
+            </div>
+            <label class="col-sm-2 control-label">Fecha final</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="fechaFin_5" name="fechaFin_5" readonly="readonly" />
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="col-sm-2 control-label">Paciente</label>
+            <div class="col-sm-6">
+                <select id="pacienteAtendido_5" name="pacienteAtendido_5" class="form-control">
+                    <option value=""></option>
+                    <optgroup label="Pacientes atendidos">
+                    {% for expediente in expedientes %}
+                        <option value="{{ expediente.id }}">{{ expediente.idPaciente }} <strong>( {{ expediente.numero }} )</strong> </option>
+                    {% endfor %}
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+        
+        <input type="hidden" class="form-control" name="report_selector" value="5" />
+
+    </form>

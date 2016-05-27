@@ -1,0 +1,163 @@
+{# empty Twig template #}
+    
+    <div class="tab-pane fade {% if tab_active != false %}in active{% endif %}" id="lct_solicitudTab" >
+        <div class="box box-{{ box_style|default('primary-v2') }} non-titled-sonata-box">
+            <div class="box-body">
+		<table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">id:</span></th>
+			<td colspan="3" class="col-md-9" ><span class="badge">{{ object_request.id }}</span></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Nombre:</span></th>
+			<td class="col-md-3" >{{ object_request.idExpediente.getIdPaciente() }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">N° de Registro:</span></th>
+			<td class="col-md-3" ><span class="badge">{% if localRecord is not null %} {{ localRecord.numero }} {% endif %}</span></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Peso:</span></th>
+			<td class="col-md-3" >{{ object_request.pesoActualLb ~ ' lb' }} <i>{{ '(' ~ object_request.pesoActualKg ~ ' kg)' }}</i></td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Talla:</span></th>
+			<td class="col-md-3" >{{ object_request.tallaPaciente ~ ' m' }} <i>{{ '(' ~ object_request.tallaPaciente*100.0 ~ ' cm)' }}</i></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Área:</span></th>
+			<td class="col-md-3" >{{ object_request.idAtenAreaModEstab.idAreaModEstab.idAreaAtencion }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Servicio:</span></th>
+			<td class="col-md-3" >{{ object_request.idAtenAreaModEstab.idAtencion }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Solicitante:</span></th>
+			<td class="col-md-3" >{{ object_request.idEmpleado }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Fecha:</span></th>
+			<td class="col-md-3" >{{ object_request.fechaCreacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ object_request.fechaCreacion|date('H:i:s A') }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Datos clínicos:</span></th>
+			<td colspan="3" class="col-md-9" >
+                            <pre class="pre-display-code-natural">{{ object_request.datosClinicos|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre>
+                        </td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Hipótesis diagnóstica:</span></th>
+			<td colspan="3" class="col-md-9" >
+                            <pre class="pre-display-code-natural">{{ object_request.hipotesisDiagnostica|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre>
+                        </td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Investigando:</span></th>
+			<td colspan="3" class="col-md-9" >
+                            <pre class="pre-display-code-natural">{{ object_request.investigando|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre>
+                        </td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Justificación de estudio:</span></th>
+			<td class="col-md-3" >
+                            <pre class="pre-display-code-natural">{{ object_request.justificacionMedica|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre>
+                        </td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Prioridad requerida:</span></th>
+			<td class="col-md-3" ><span class="label label-{{ object_request.idPrioridadAtencion.estiloPresentacion|default('primary-v2') }}">{{ object_request.idPrioridadAtencion.nombre }}</span></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Consulta por:</span></th>
+			<td class="col-md-3" >
+                            <pre class="pre-display-code-natural">{{ object_request.consultaPor|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre>
+                        </td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Estado clínico:</span></th>
+			<td class="col-md-3" >{{ object_request.estadoClinico }}</span></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Antecedentes clínicos:</span></th>
+			<td colspan="3" class="col-md-9" >
+                            {{ object_request.antecedentesClinicosRelevantes|raw }}
+                        </td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Referido a:</span></th>
+			<td class="col-md-3" >{{ object_request.idEstablecimientoReferido }} {% if app.user.getIdEstablecimiento.getId() == object_request.idEstablecimientoReferido.getId() %} <span class="label label-element-v2" style="">[Servicio local]</span> {% endif %}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Justificación:</span></th>
+			<td class="col-md-3" ><pre class="pre-display-code-natural">{{ object_request.justificacionReferencia|trim|default('<span style="color: #bbb;">Referido a servicio local...</span>')|raw }}</pre></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Modalidad:</span></th>
+			<td colspan="3" class="col-md-9" >{{ object_request.idAreaServicioDiagnostico }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Proyecciones:</span></th>
+			<td colspan="3" class="col-md-9" >
+			
+			    {% set examenesLoop = [] %}
+			    {% for proyeccion in object_request.solicitudEstudioProyeccion %}
+				{% set i = '_' ~ proyeccion.idExamenServicioDiagnostico.id %}
+				
+				{% if i not in examenesLoop|keys %}
+				    {% set examenesLoop = examenesLoop|merge({ (i): proyeccion.idExamenServicioDiagnostico }) %}
+				{% endif %}
+			    {% endfor %}
+			    
+			    <div class="panel-group" id="exm_containerGroup">
+				{% for key, value in examenesLoop %}
+				    
+				    {% set exm_proyeccionCount = 0 %}
+				    {% for proyeccion in object_request.solicitudEstudioProyeccion if proyeccion.idExamenServicioDiagnostico.id == key|trim('_') %}
+					{% set exm_proyeccionCount = exm_proyeccionCount + 1 %}
+				    {% endfor %}
+				    
+				    <div class="panel panel-primary-v2">
+					<a class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#proyecciones_panelCollapse_id_{{ key }}">
+					    <span class="badge">{{ exm_proyeccionCount }}</span>
+                                            <span class="caret" style="margin-right: 5px;"></span> <span class="dropup" style="margin-right: 5px; {#display: none;#}"><span class="caret"></span></span>
+                                            {{ value }}
+					</a>
+					<div class="panel-collapse collapse" id="proyecciones_panelCollapse_id_{{ key }}">
+					    <div class="panel-body">
+						{% for proyeccion in object_request.solicitudEstudioProyeccion if proyeccion.idExamenServicioDiagnostico.id == key|trim('_') %}
+						    <a  tabindex="0"
+							class="list-group-item btn-link btn-link-v2"
+							role="button"
+							data-toggle="popover"
+							rel="popover"
+							data-trigger="hover"
+							title="{{ proyeccion }}"
+							data-original-title="{{ proyeccion }}"
+							data-contentwrapper=".prc_pry_container_contentwrapper_id_{{ proyeccion.id }}"
+							data-placement="top"
+							href="javascript:void(0)"
+							data-id="{{ proyeccion.id }}" >
+							<span class="badge">{{ proyeccion.codigo }}</span>
+							
+							{{ proyeccion }}
+						    </a>
+
+						    <div class="prc_pry_container_contentwrapper_id_{{ proyeccion.id }}" style="display: none;"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                                                        <table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
+                                                            <tr><th class="col-md-5">Código:</th><td class="col-md-7">{{ proyeccion.codigo }}</td></tr>
+                                                            <tr><th class="col-md-5">Tiempo en sala:</th><td class="col-md-7">{{ proyeccion.tiempoOcupacionSala }}</td></tr>
+                                                            <tr><th class="col-md-5">Tiempo por médico:</th><td class="col-md-7">{{ proyeccion.tiempoMedico }}</td></tr>
+                                                            <tr><th class="col-md-5">Descripción:</th><td class="col-md-7"><pre class="pre-display-code-natural">{{ proyeccion.descripcion|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre></td></tr>
+                                                        </table>
+						    </div>
+						{% endfor %}
+					    </div>
+					</div>
+				    </div>
+				{% endfor %}
+			    </div>
+			</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Diagnosticar en:</span></th>
+			<td class="col-md-3" >{{ object_request.idEstablecimientoDiagnosticante }} {% if object_request.idEstablecimientoDiagnosticante is not null and app.user.getIdEstablecimiento.getId() == object_request.idEstablecimientoDiagnosticante.getId() %} <span class="label label-element-v2" style="">[Servicio local]</span> {% endif %}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Justificación:</span></th>
+			<td class="col-md-3" ><pre class="pre-display-code-natural">{{ object_request.justificacionDiagnostico|trim|default('<span style="color: #bbb;">No solicitó diagnóstico...</span>')|raw }}</pre></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Próxima consulta médica:</span></th>
+			<td class="col-md-3" >{{ object_request.fechaProximaConsulta|format_date('EEEE, MMMM d, yyyy', 'es_ES') }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Estado:</span></th>
+			<td class="col-md-3" ><span class="{% if object_request.idEstadoSolicitud.estiloPresentacion is not null %}label label-{{ object_request.idEstadoSolicitud.estiloPresentacion|default('primary-v2') }}{% endif %}">{{ object_request.idEstadoSolicitud.nombreEstado }}</span></td>
+		    </tr>
+		</table>
+            </div>
+        </div>
+    </div>

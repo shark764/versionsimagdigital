@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ImgSolicitudDiagnostico" table="img_solicitud_diagnostico">
+    <indexes>
+      <index name="IDX_85023803890253C7" columns="id_empleado"/>
+      <index name="IDX_850238039A3949E3" columns="id_establecimiento_solicitado"/>
+      <index name="IDX_85023803AB124167" columns="id_estado_solicitud"/>
+      <index name="IDX_850238036196B359" columns="id_estudio"/>
+      <index name="IDX_850238036AAA01BF" columns="id_solicitud_estudio"/>
+      <index name="IDX_85023803D8A5832B" columns="id_user_reg"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="solicitudRemota" type="boolean" column="solicitud_remota" nullable="true"/>
+    <field name="fechaCreacion" type="datetime" column="fecha_creacion" nullable="true"/>
+    <field name="justificacion" type="string" column="justificacion" length="255" nullable="false"/>
+    <field name="fechaProximaConsulta" type="date" column="fecha_proxima_consulta" nullable="true"/>
+    <field name="observaciones" type="string" column="observaciones" length="255" nullable="true"/>
+    <many-to-one field="idSolicitudEstudio" target-entity="ImgSolicitudEstudio">
+      <join-columns>
+        <join-column name="id_solicitud_estudio" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUserReg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_reg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstudio" target-entity="ImgEstudioPaciente">
+      <join-columns>
+        <join-column name="id_estudio" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstadoSolicitud" target-entity="ImgCtlEstadoSolicitud">
+      <join-columns>
+        <join-column name="id_estado_solicitud" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimientoSolicitado" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento_solicitado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEmpleado" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_empleado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

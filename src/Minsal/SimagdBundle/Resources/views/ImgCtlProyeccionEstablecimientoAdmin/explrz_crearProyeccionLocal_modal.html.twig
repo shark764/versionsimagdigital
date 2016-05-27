@@ -1,0 +1,163 @@
+{# empty Twig template #}
+
+{# modal-event-calendar #}
+<div id="crearProyeccionLocal-modal" class="modal container fade justify-bootstrap-div-container simagd-full-form-container" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false" data-focus-on="input:first">
+    <div class="modal-content panel-primary-v2">
+        <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+            <h4 class="modal-title"><i class="fa fa-h-square"></i> <i class="fa fa-tasks"></i> <span id="formExplrzTitle">Nueva proyección en catálogo local</span></h4>
+        </div>
+
+        <div class="modal-body">
+
+	    <div class="row outer" style="padding-left: 15px; padding-right: 15px;">
+		{#<div class="box box-primary-v2" >
+		    <div class="box-header">
+			<h4 class="box-title">
+			    <span id="formExplrzLabel" class="label label-primary-v2"> Formulario para registro </span>
+			</h4>
+		    </div>
+		    <div class="box-body">#}
+		    
+			<h4 class="" style="padding-left: 15px;">
+			    <span id="formExplrzLabel" class="label label-primary-v2"> Formulario para registro </span>
+			</h4>
+			<br/>
+
+			<form id="crearProyeccionLocalForm" action="{{ path('simagd_proyeccion_establecimiento_crearProyeccionLocal') }}" method="post" class="form-horizontal simagd-form-custom-class"
+			    data-fv-framework="bootstrap"
+			    data-fv-icon-valid="glyphicon glyphicon-ok"
+			    data-fv-icon-invalid="glyphicon glyphicon-remove"
+			    data-fv-icon-validating="glyphicon glyphicon-refresh"
+
+			    data-fv-message="El valor introducido no es válido">
+
+			    <ul class="nav nav-pills nav-stacked col-md-3 col-xs-3" style="padding-left: 15px;"> <!-- required for floating -->
+				<!-- Nav tabs -->
+                                <li class="active"><a href="#exploracionLcTab" data-toggle="pill"> <span class="glyphicon glyphicon-list-alt"></span> Proyección <i class="fa"></i></a></li>
+                            </ul>
+                            
+                            <!-- Tab panes -->
+                            <div class="tab-content col-md-9 col-xs-9">
+                                <div class="tab-pane fade in active" id="exploracionLcTab" >
+
+                                    <input type="hidden" id="formExplrzId" name="formExplrzId" value="" />
+                                    <input type="hidden" id="formExplrzIdProyeccionInsertada" name="formExplrzIdProyeccionInsertada" value="" />
+                                    <input type="hidden" id="formExplrzNombreInsertada" name="formExplrzNombreInsertada" value="" />
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label required">Modalidad</label>
+                                        <div class="col-sm-8">
+                                            <select id="formExplrzIdAreaServicioDiagnostico" name="formExplrzIdAreaServicioDiagnostico" class="form-control select2-select" data-default="{{ default_mldRx }}" data-apply-formatter="mld"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Seleccione un elemento" >
+                                                <option value=""></option>
+                                                <optgroup label="Imagenología">
+                                                    {% for modalidad in modalidades %}
+                                                        <option value="{{ modalidad.id }}">{{ modalidad }}</option>
+                                                    {% endfor %}
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label required">Examen</label>
+                                        <div class="col-sm-8">
+                                            <select id="formExplrzIdExamenServicioDiagnostico" name="formExplrzIdExamenServicioDiagnostico" class="form-control select2-select" data-default="{{ default_exmRx }}" data-apply-formatter="exm"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Seleccione un elemento" >
+                                                <option value=""></option>
+                                                {% for sexo in sexos %}
+                                                    <optgroup label="{{ sexo }}">
+                                                    {% for examen in examenes if examen.idsexo is not null and examen.idsexo.id == sexo.id %}
+                                                        <option value="{{ examen.id }}">{{ examen }}</option>
+                                                    {% endfor %}
+                                                    </optgroup>
+                                                {% endfor %}
+                                                <optgroup label="Todos los sexos">
+                                                {% for examen in examenes if examen.idsexo is null %}
+                                                    <option value="{{ examen.id }}">{{ examen }}</option>
+                                                {% endfor %}
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label required">Proyección</label>
+                                        <div class="col-sm-8">
+                                            <select id="formExplrzIdProyeccion" name="formExplrzIdProyeccion" class="form-control select2-select" data-apply-formatter="pry"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-notempty="true"
+                                                      data-fv-notempty-message="Seleccione un elemento" >
+                                                <option value=""></option>
+                                                <optgroup label="Proyección insertada">
+                                                </optgroup>
+                                                <optgroup label="Proyecciones">
+                                                    {% for exploracion in proyecciones %}
+                                                        <option value="{{ exploracion.id }}">{{ exploracion }}</option>
+                                                    {% endfor %}
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-8 col-sm-offset-4">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="1" name="formExplrzHabilitado" id="formExplrzHabilitado" /> Habilitada
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Observaciones</label>
+                                        <div class="col-sm-8">
+                                            <textarea rows="4" class="form-control" name="formExplrzObservaciones" id="formExplrzObservaciones" placeholder="Digite sus observaciones adicionales" maxlength="255" style="resize: none"
+                                                      {#data-fv-row=".col-xs-8"#}
+
+                                                      data-fv-stringlength="true"
+                                                      data-fv-stringlength-min="15"
+                                                      data-fv-stringlength-max="255"
+                                                      data-fv-stringlength-message="15 caracteres mínimo"
+
+                                                      data-fv-regexp="true"
+                                                      data-fv-regexp-regexp="^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$"
+                                                      data-fv-regexp-message="Texto contiene caracteres no permitidos" /></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="{#margin-top: 15px;#} visibility: hidden;">
+                                <div class="col-xs-8 col-xs-offset-4">
+                                    <button type="submit" class="btn btn-primary-v2 btn-xs"><i class="glyphicon glyphicon-ok"></i> Enviar</button>
+                                </div>
+                            </div>
+
+			</form>
+				
+		    {#</div>
+		</div>#}
+	    </div>
+
+        </div>
+
+        <div class="modal-footer" style="margin-top: 0px;">
+            <span class="text-info"><span class="glyphicon glyphicon-question-sign"></span> ¿Está seguro que desea continuar? &nbsp;</span>
+            <button type="button" data-dismiss="modal" class="btn btn-primary-v2"><i class="fa fa-times"></i> No, Cerrar</button>
+            <button type="submit" id="btn_crear_explrz" name="btn_crear_explrz" class="btn btn-primary-v2" ><i class="fa fa-check-circle"></i> Si, Continuar</button>
+            <button type="submit" id="btn_editar_explrz" name="btn_editar_explrz" class="btn btn-element-v2" style="display: none;" ><i class="fa fa-check-square-o"></i> Si, Continuar</button>
+        </div>
+
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->

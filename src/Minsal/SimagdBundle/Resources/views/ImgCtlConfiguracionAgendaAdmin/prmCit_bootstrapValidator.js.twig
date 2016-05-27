@@ -1,0 +1,33 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            /** Validación de formulario de inserción/actualización */
+            jQuery('#simagd_entity_full_admin_form').formValidation({
+                excluded: [':disabled'],
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    '{{ admin.uniqId }}[idAreaServicioDiagnostico]': {
+                        message: 'Modalidad es inválida',
+                        validators: {
+                            notEmpty: {
+                                message: 'Modalidad es requerida'
+                            }
+                        }
+                    },
+                    '{{ admin.uniqId }}[idExamenServicioDiagnostico]': {
+                        message: 'Examen es inválido',
+                        validators: {
+                            notEmpty: {
+                                message: 'Examen es requerido'
+                            }
+                        }
+                    },
+                }
+            });
+        });
+    </script>

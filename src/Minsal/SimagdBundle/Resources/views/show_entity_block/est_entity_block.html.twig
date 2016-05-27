@@ -1,0 +1,202 @@
+{# empty Twig template #}
+    
+    <div class="tab-pane fade {% if tab_active != false %}in active{% endif %}" id="lct_estudiosTab" >
+        <div class="box box-{{ box_style|default('primary-v2') }} non-titled-sonata-box">
+            <div class="box-body">
+		{% if object_studies is not null and object_studies | length > 0 %}
+		    <div class="panel-group" id="studiesRx_studies_containerGroup">
+			{% for study in object_studies %}
+			    {% set study_proc    	= study.getIdProcedimientoRealizado() %}
+			    {% set study_request       	= study_proc.getIdSolicitudEstudio() %}
+			    {% set study_request_cmpl  	= study_proc.getIdSolicitudEstudioComplementario() %}
+			    
+			    {% set study_modality    	= null %}
+			    {% if study_request is not null and study_request_cmpl is null %}
+				{% set study_modality 	= study_request.getIdAreaServicioDiagnostico()|trim|truncate(35) %}
+			    {% elseif study_request_cmpl is not null %}
+				{% set study_modality 	= study_request_cmpl.getIdAreaServicioDiagnostico()|trim|truncate(35) %}
+			    {% else %}
+				{% set study_modality  	= 'Modalidad no determinada' %}
+			    {% endif %}
+
+			    <div class="panel panel-primary-v2">
+				<a class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#studiesRx_study_panelCollapse_id_{{ study.id }}">
+				    <span class="badge">{{ study_proc.idEstadoProcedimientoRealizado }}</span>
+				    {{ study_modality|default('Modalidad no determinada') }}
+				</a>
+				<div class="panel-collapse collapse {% if object_study is not null and object_study.getId() == study.getId() %}in{% endif %}" id="studiesRx_study_panelCollapse_id_{{ study.id }}">
+				    <div class="panel-body">
+					<table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
+					    <tr>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">id:</span></th>
+						<td colspan="3" class="col-md-9" ><span class="badge">{{ study.id }}</span></td>
+					    </tr>
+					    <tr>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Estudio de:</span></th>
+						<td colspan="3" class="col-md-9" >{{ study_modality|default('Modalidad no determinada') }}</td>
+					    </tr>
+					    <tr>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Tecnólogo:</span></th>
+						<td colspan="3" class="col-md-9" >{{ study_proc.idTecnologoRealiza }}</td>
+					    </tr>
+					    <tr>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Fecha de registro:</span></th>
+						<td colspan="3" class="col-md-9" >{{ study_proc.fechaRegistro|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ study_proc.fechaRegistro|date('H:i:s A') }}</td>
+					    </tr>
+					    <tr>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Fecha de almacenamiento en PACS:</span></th>
+						<td colspan="3" class="col-md-9" >{{ study.fechaEstudio|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ study.fechaEstudio|date('H:i:s A') }}</td>
+					    </tr>
+					    <tr>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Estado:</span></th>
+						<td colspan="3" class="col-md-9" >{{ study_proc.idEstadoProcedimientoRealizado }}</td>
+					    </tr>
+					    <tr>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Incidencias:</span></th>
+						<td colspan="3" class="col-md-9" >
+						    <pre class="pre-display-code-natural">{{ study_proc.incidencias }}</pre>
+						</td>
+					    </tr>
+					    <tr>
+						<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Materiales utilizados:</span></th>
+						<td colspan="3" class="col-md-9" >
+						
+						    <ul class="list-group">
+							{% for material in study_proc.materialUtilizadoV2 %}
+							    <li class="list-group-item">
+								<span class="badge">{{ material.cantidadUtilizada }}</span>
+								
+								<a  tabindex="0"
+								    class="btn-link btn-link-v2"
+								    role="button"
+								    data-toggle="popover"
+								    rel="popover"
+								    data-trigger="hover"
+								    title="{{ material.getIdMaterial()|trim|default('Material sin especificar...')|raw }}"
+								    data-original-title="{{ material.getIdMaterial()|trim|default('Material sin especificar...')|raw }}"
+								    data-contentwrapper=".mtrl_history_container_contentwrapper_id_{{ material.id }}"
+								    data-placement="top"
+								    href="javascript:void(0)"
+								    data-id="{{ material.id }}" >
+								    {{ material.getIdMaterial()|trim|default('Material sin especificar...')|raw }}
+								</a>
+
+								<div class="mtrl_history_container_contentwrapper_id_{{ material.id }}" style="display: none;"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+								    <strong>Código:</strong> <span class="badge"> {{ material.getIdMaterial().codigo }} </span> <br/>
+								    <strong>Cantidad utilizada:</strong> {{ material.cantidadUtilizada }} <br/>
+								    {#<strong>Cantidad disponible:</strong> {{ material.getIdMaterial().cantidadDisponible }} <br/>#}
+								    <strong>Otras especificaciones:</strong> {{ material.otrasEspecificaciones }}
+								</div>
+							    </li>
+							{% endfor %}
+						    </ul>
+						    
+						</td>
+					    </tr>
+					</table>
+				    </div>
+				</div>
+			    </div>
+			    
+			{% endfor %}
+		    </div>
+		{% endif %}
+		{% if object_study is not null and object_studies is null and object_studies | length <= 0 %}
+                    {% set study    = object_study %}
+		    <div class="panel-group" id="studiesRx_single_study_containerGroup">
+                        {% set study_proc               = study.getIdProcedimientoRealizado() %}
+                        {% set study_request       	= study_proc.getIdSolicitudEstudio() %}
+                        {% set study_request_cmpl  	= study_proc.getIdSolicitudEstudioComplementario() %}
+
+                        {% set study_modality    	= null %}
+                        {% if study_request is not null and study_request_cmpl is null %}
+                            {% set study_modality 	= study_request.getIdAreaServicioDiagnostico()|trim|truncate(35) %}
+                        {% elseif study_request_cmpl is not null %}
+                            {% set study_modality 	= study_request_cmpl.getIdAreaServicioDiagnostico()|trim|truncate(35) %}
+                        {% else %}
+                            {% set study_modality  	= 'Modalidad no determinada' %}
+                        {% endif %}
+
+                        <div class="panel panel-primary-v2">
+                            <a class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#studiesRx_single_study_panelCollapse_id_{{ study.id }}">
+                                <span class="badge">{{ study_proc.idEstadoProcedimientoRealizado }}</span>
+                                {{ study_modality|default('Modalidad no determinada') }}
+                            </a>
+                            <div class="panel-collapse collapse in" id="studiesRx_single_study_panelCollapse_id_{{ study.id }}">
+                                <div class="panel-body">
+                                    <table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
+                                        <tr>
+                                            <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">id:</span></th>
+                                            <td colspan="3" class="col-md-9" ><span class="badge">{{ study.id }}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Estudio de:</span></th>
+                                            <td colspan="3" class="col-md-9" >{{ study_modality|default('Modalidad no determinada') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Tecnólogo:</span></th>
+                                            <td colspan="3" class="col-md-9" >{{ study_proc.idTecnologoRealiza }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Fecha de registro:</span></th>
+                                            <td colspan="3" class="col-md-9" >{{ study_proc.fechaRegistro|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ study_proc.fechaRegistro|date('H:i:s A') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Fecha de almacenamiento en PACS:</span></th>
+                                            <td colspan="3" class="col-md-9" >{{ study.fechaEstudio|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ study.fechaEstudio|date('H:i:s A') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Estado:</span></th>
+                                            <td colspan="3" class="col-md-9" >{{ study_proc.idEstadoProcedimientoRealizado }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Incidencias:</span></th>
+                                            <td colspan="3" class="col-md-9" >
+                                                <pre class="pre-display-code-natural">{{ study_proc.incidencias }}</pre>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Materiales utilizados:</span></th>
+                                            <td colspan="3" class="col-md-9" >
+
+                                                <ul class="list-group">
+                                                    {% for material in study_proc.materialUtilizadoV2 %}
+                                                        <li class="list-group-item">
+                                                            <span class="badge">{{ material.cantidadUtilizada }}</span>
+
+                                                            <a  tabindex="0"
+                                                                class="btn-link btn-link-v2"
+                                                                role="button"
+                                                                data-toggle="popover"
+                                                                rel="popover"
+                                                                data-trigger="hover"
+                                                                title="{{ material.getIdMaterial()|trim|default('Material sin especificar...')|raw }}"
+                                                                data-original-title="{{ material.getIdMaterial()|trim|default('Material sin especificar...')|raw }}"
+                                                                data-contentwrapper=".mtrl_history_container_contentwrapper_id_{{ material.id }}"
+                                                                data-placement="top"
+                                                                href="javascript:void(0)"
+                                                                data-id="{{ material.id }}" >
+                                                                {{ material.getIdMaterial()|trim|default('Material sin especificar...')|raw }}
+                                                            </a>
+
+                                                            <div class="mtrl_history_container_contentwrapper_id_{{ material.id }}" style="display: none;"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+                                                                <strong>Código:</strong> <span class="badge"> {{ material.getIdMaterial().codigo }} </span> <br/>
+                                                                <strong>Cantidad utilizada:</strong> {{ material.cantidadUtilizada }} <br/>
+                                                                {#<strong>Cantidad disponible:</strong> {{ material.getIdMaterial().cantidadDisponible }} <br/>#}
+                                                                <strong>Otras especificaciones:</strong> {{ material.otrasEspecificaciones }}
+                                                            </div>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+		    </div>
+		{% endif %}
+            </div>
+        </div>
+    </div>

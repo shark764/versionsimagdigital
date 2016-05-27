@@ -1,0 +1,11 @@
+{# empty Twig template #}
+       
+    {% set _proximaConsulta = soldiagProximaConsulta %}
+    {% set _proximaConsultaTitle = '( Solicitud post-estudio ) \n Próxima consulta médica: \n ' ~ _proximaConsulta|format_date('EEEE, MMMM d, yyyy', 'es_ES') %}
+
+    {% include 'MinsalSimagdBundle:ImagenologiaDigitalAdmin:simagd_rowFechaPendiente.html.twig'
+                                ignore missing with { '_proximaConsulta': _proximaConsulta,
+                                                        '_proximaConsultaTitle': _proximaConsultaTitle,
+                                                        '_warningRow': warningRow,
+                                                        '_dangerRow': dangerRow,
+                                                     } %}

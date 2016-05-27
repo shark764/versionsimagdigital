@@ -1,0 +1,341 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_edit.html.twig' %}
+
+{% set _pacienteTitle = object.idEstudio is not null ? object.idEstudio.idExpediente.idPaciente|truncate(50) : 'No hay estudio' %}
+{% set _lctMessageTemplate = action is defined and action == 'edit' ?
+        '<i class="fa fa-microphone"></i> <i class="fa fa-pencil-square-o"></i> ' ~ _pacienteTitle :
+        '<i class="fa fa-microphone"></i> <i class="fa fa-plus-circle"></i> ' ~ _pacienteTitle %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {# bootstrap text-editor summernote #}
+    <link href="{{ asset('bundles/minsalsimagd/summernote-master/dist/summernote.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {# bootstrap text-editor summernote #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/summernote-master/dist/summernote.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/summernote-master/lang/summernote-es-ES.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_summernote_config.js') }}" ></script>
+    
+    {# google chrome - SpeechRecognition #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_webkitSpeechRecognition.js') }}" ></script>
+
+    {# Script solcmpl #}
+{#    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgSolicitudEstudioComplementarioAdmin/solcmpl_fastRequest.js') }}" ></script>#}
+
+    <script>
+	var $id_estab;
+
+	{#var $DIAGNOSTIC_PATTERN_LIST 	= [];#}
+	var $diagExists;
+	
+	$id_estab 		= {{ object.getIdEstablecimiento.getId()|escape('js') }};
+	$diagExists		= {{ object.lecturaDiagnostico | length }};
+        
+        /*
+         * from simagd base edit template
+         * @returns {undefined}
+         */
+	$is_objectAllowToSwitch = {% if object.getIdEstudio() is not null %} true {% else %} false {% endif %};
+
+	console.log($id_estab, $diagExists, $is_objectAllowToSwitch);
+        
+        console.log('%c http://codepen.io/mikethedj4/pen/oXMLOy', 'background: #222; color: #bada55');
+        console.log('%c Estudios en tabs history solo el principal, los demas en div como el de filters, \n partiendo de la izquierda', 'background: #70A; color: #fff');
+	
+        {#jQuery(document).ready(function() {
+	    /** Lista de patrones para diagnósticos */
+	    {% for group_label, patronDiag in form.idPatronAsociado.vars.choices %}
+                {%- if patronDiag is iterable -%}
+                    {% for patron in patronDiag %}
+                        $DIAGNOSTIC_PATTERN_LIST.push({
+                                        id: 			{{ patron.data.id|trim|json_encode()|raw }},
+                                        nombre: 		{{ patron.data.nombre|trim|json_encode()|raw }},
+                                        codigo: 		{{ patron.data.codigo|trim|json_encode()|raw }},
+                                        hallazgos: 		{{ patron.data.hallazgos|trim|json_encode()|raw }},
+                                        conclusion: 		{{ patron.data.conclusion|trim|json_encode()|raw }},
+                                        recomendaciones: 	{{ patron.data.recomendaciones|trim|json_encode()|raw }},
+                                        indicacionesGenerales: 	{{ patron.data.indicacionesGenerales|trim|json_encode()|raw }},
+                                        observaciones: 		{{ patron.data.observaciones|trim|json_encode()|raw }},
+                                        idAreaServicioDiagnostico: 	{{ patron.data.idAreaServicioDiagnostico.id|trim|json_encode()|raw }},
+                                        idTipoResultado: 	{{ patron.data.idTipoResultado.id|trim|json_encode()|raw }}
+                        });
+                    {% endfor %}
+                {%- else -%}
+                    $DIAGNOSTIC_PATTERN_LIST.push({ 
+                                    id:                     {{ patronDiag.data.id|trim|json_encode()|raw }},
+                                    nombre:           {{ patronDiag.data.nombre|trim|json_encode()|raw }},
+                                    codigo:           {{ patronDiag.data.codigo|trim|json_encode()|raw }},
+                                    hallazgos:              {{ patronDiag.data.hallazgos|trim|json_encode()|raw }},
+                                    conclusion:             {{ patronDiag.data.conclusion|trim|json_encode()|raw }},
+                                    recomendaciones:        {{ patronDiag.data.recomendaciones|trim|json_encode()|raw }},
+                                    indicacionesGenerales:  {{ patronDiag.data.indicacionesGenerales|trim|json_encode()|raw }},
+                                    observaciones:          {{ patronDiag.data.observaciones|trim|json_encode()|raw }},
+                                    idAreaServicioDiagnostico:     {{ patronDiag.data.idAreaServicioDiagnostico.id|trim|json_encode()|raw }},
+                                    idTipoResultado:        {{ patronDiag.data.idTipoResultado.id|trim|json_encode()|raw }}
+                    });
+                {%- endif -%}
+            {% endfor %}
+        });#}
+
+        (function ($) {
+            /*
+             * 
+             * @type type
+             * Global variables for plugin
+             */
+            window.GROUP_DEPENDENT_ENTITIES = null;   // --| build data collection
+            GROUP_DEPENDENT_ENTITIES    = JSON.parse('{{ GROUP_DEPENDENT_ENTITIES|json_encode|e('js')|raw }}');
+
+            /*
+             * 
+             * @type type
+             * Global variables for plugin
+             */
+            window.$DIAGNOSTIC_PATTERN_LIST = null;   // --| build data collection
+            $DIAGNOSTIC_PATTERN_LIST    = JSON.parse('{{ DIAGNOSTIC_PATTERN_LIST|json_encode|e('js')|raw }}');
+            console.log('$DIAGNOSTIC_PATTERN_LIST', $DIAGNOSTIC_PATTERN_LIST);
+
+            /*
+             * 
+             * @type type
+             * Global variables for plugin
+             */
+            window.$FORM_MAIN_STUDY_MODALITY    = null;   // --| build data collection
+            window.$FORM_MAIN_STUDY_DESCRIPTION = null;   // --| build data collection
+            window.$FORM_MAIN_DIAGNOSIS_RESULT_TYPE = {{ object.getIdTipoResultado().getId()|escape('js') }};   // --| build data collection
+            {% if object.getIdEstudio() is not null %}
+                $FORM_MAIN_STUDY_MODALITY   = {{ object.getIdEstudio().getIdProcedimientoRealizado().getIdSolicitudEstudio().getIdAreaServicioDiagnostico().getId()|escape('js') }};
+                $FORM_MAIN_STUDY_DESCRIPTION    = '{{ object.getIdEstudio().getServidor()|trim|default('Sin especificar...')|raw }}';{#.getDescripcion()#}
+            {% endif %}
+        }(jQuery));
+    </script>
+
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgEstudioPacienteAdmin/est_crear_ventana_estudio.js') }}" ></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgLecturaAdmin/lct_form_config.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgLecturaAdmin/lct_diag_editor.js') }}" ></script>
+    
+    {#{% include 'MinsalSimagdBundle:ImgLecturaAdmin:lct_funcionesClienteServidor.js.twig' %}#}
+    
+    {#{% include 'MinsalSimagdBundle:ImgLecturaAdmin:lct_formValidation.js.twig' %}#}
+{% endblock %}
+
+{% block actions %}
+    {#<li>{% include 'SonataAdminBundle:Button:show_button.html.twig' %}</li>#}
+    <li>{% include 'SonataAdminBundle:Button:history_button.html.twig' %}</li>
+    <li>{% include 'SonataAdminBundle:Button:acl_button.html.twig' %}</li>
+    <li>{% include 'SonataAdminBundle:Button:list_button.html.twig' %}</li>
+    {#<li>{% include 'SonataAdminBundle:Button:create_button.html.twig' %}</li>#}
+{% endblock %}
+
+{% block simagd_form_navbar_brand_title %}
+    <span class="navbar-brand">
+        <span class="label label-{{ action is defined and action == 'edit' ? 'primary-v2' : 'element-v2' }}"> {{ _lctMessageTemplate|raw }} </span>
+    </span>
+{% endblock %}
+
+{% block simagd_navbar_middle_nav %}
+    <form class="navbar-form navbar-left navbar-input-group" role="search">
+	<div class="fixed-navbar-display-worklist">
+	    <div class="btn-group" style="{#padding-top: 8px;#}">
+		<button type="button" id="btn_{#{{ code_entity }}#}_display_fast_worklist" class="btn btn-primary-v2 dropdown-toggle btn_display_fast_worklist" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Lista de trabajo">
+		    <i class="glyphicon glyphicon-user"></i>
+		    Lista de trabajo <span class="caret"></span>
+		</button>
+		<!-- Menu -->
+		<ul class="dropdown-menu table_bsTable_display_worklist" id="bs_{#{{ code_entity }}#}_display_fast_worklist" >
+		</ul>
+	    </div>
+	</div>
+    </form>
+{% endblock %}
+
+{% block simagd_navbar_right_nav %}
+    <li>
+        <div style="padding-top: 10px; padding-left: 10px;">
+            <button id="btn_start_recognition" class="btn btn-element-v2 btn-sm btn_start_recognition" title="Iniciar transcripción por voz" >
+                <i class="fa fa-microphone" id="icon_start_recognition"></i>
+            </button>
+        </div>
+    </li>
+{% endblock %}
+    
+{% block form %}
+    {#<span class="label label-primary-v2"> INTENTAR LO DEL ESTUDIO idEstudio QUE SE ACTUALICE POR JQUERY, ASI CUANDO CHECK/UNCHECK, SE COMPRUEBA SI HAY idEstudio,<br/> SI NO HAY Y ES UN PRC, ENTONCES ASIGNARLO COMO NUEVO idEstudio, SI NO HAY BUSCAR ENTRE LOS CHECKED QUE SON PRC, ASIGNAR EL PRIMERO,<br/> SI NO HAY CHECKED PRC, ENTONCES ERROR, 'DEBE CHECK UN PRC AL MENOS'  </span><br/>
+    <span class="label label-danger"> COMPLEMENTARIOS DEBEN ANEXARSE QUIZA A LISTA PERSONAL, Y SU URL DEBERIA SER LA EDIT DONDE ESTA EL ESTUDIO PADRE, Y EN LUGAR DEL MISMO REQUEST '__est', <br/> QUE USE UNO COMO '__estCmpl' QUE SE AGARRARIA EN LA EDIT, Y AHI SE ANEXARA A LCT_EST CON ->addEstLectura </span><br/>
+    <span class="label label-warning"> Luego de meter un CMPL, o quiza hasta un normal, y registrarlo como leido iCheck.... sigue en PNDL, no se elimina, revisar caso de borrado en triggers </span><br/>
+    <span class="label label-primary-v2"> SE DEBE DEJAR LOS SUMMERNOTE PARA LA TRANSCRIPCION SIEMPRE, PERO SE DEBE USAR EL ICHECK PARA DECIDIR SI SE GUARDA O NO  </span><br/>#}
+    {#<span class="label label-primary-v2">http://www.models-forum.org/search.php</span><br/>
+    <span class="label label-primary-v2">se necesita tambien poder mandar a imprimir de un ave sin q aparezca el pdf en pantalla, muy lento</span>
+    
+    {% set lct_vars = { 'simagd_title': 'FORMULARIO PARA REGISTRO DE INTERPRETACIÓN RADIOLÓGICA',
+                        'simagd_message': 'Llene este formulario para registrar la interpretación del(los) estudio(s) realizado(s)'
+    }%}
+    {% include 'MinsalSimagdBundle:Menu:simagd_cabecera.html.twig' ignore missing with lct_vars %}#}
+    
+{#    <span class="label label-primary-v2">¿Desea agregar este diagnostico como patron personal?</span><br/>#}
+    
+    <div id="switch_item_container_history" class="bsswitch-container" style="display: none;" >
+        {% block bsswitch_container %}
+        <div id="bs_container_history">
+            {% if object.getIdEstudio() is not null %}
+                {% include 'MinsalSimagdBundle:ImgLecturaAdmin:lct_bsswitch_history.html.twig' ignore missing with {'object': object} %}
+            {% endif %}
+        </div>
+        {% endblock %}
+    </div>
+
+    <div id="switch_item_container_form" class="bsswitch-container" >
+{#        {{ block('parentForm') }}#}
+        {{ parent() }}
+    </div>
+    
+    {#{% for group_label, choice in form.idEmpleado.vars.choices %}
+        {%- if choice is iterable -%}
+            <span class="label label-primary-v2">{{ group_label }}</span><br/>
+            
+            {% for item in choice %}
+                <span class="label label-element-v2">
+                    {{ item.value }}
+                    {{ item.label }}
+                    {% if item is selectedchoice(form.idEmpleado.vars) %}
+                        <i>SELECTED</i>
+                    {% endif %}
+                </span><br/>
+            {% endfor %}
+        {%- else -%}
+            <span class="label label-element-v2">
+                {{ choice.value }}
+                {% if choice is selectedchoice(form.idEmpleado.vars) %}
+                    <i>SELECTED</i>
+                {% endif %}
+                {{ choice.label }}
+            </span><br/>
+        {%- endif -%}
+    {% endfor %}
+    <br/><br/><br/>
+    <span class="label label-primary-v2">form.vars.value.idEmpleado:_______  {{ form.vars.value.idEmpleado }}</span><br/>
+    <span class="label label-primary-v2">form.idEmpleado.vars.full_name:_______  {{ form.idEmpleado.vars.full_name }}</span><br/>
+    <span class="label label-primary-v2">form.idEmpleado.vars.id:_______  {{ form.idEmpleado.vars.id }}</span><br/>
+    <span class="label label-primary-v2">form.idEmpleado.vars.data:_______  {{ form.idEmpleado.vars.data }}</span><br/>
+    <span class="label label-primary-v2">form.idEmpleado.vars.data.id:_______  {{ form.idEmpleado.vars.data.id }}</span><br/>
+    <span class="label label-primary-v2">form.idEmpleado.vars.data.nombre:_______  {{ form.idEmpleado.vars.data.nombre }}</span><br/>
+    <span class="label label-primary-v2">form.idEmpleado.vars.choices|length:_______  {{ form.idEmpleado.vars.choices|length }}</span><br/><br/>
+    <span class="label label-primary-v2">form_row(form.idEmpleado):_______  {{ form_row(form.idEmpleado) }}</span><br/>#}
+    
+{% endblock %}
+
+{# muestra de información de apoyo #}
+{% block custom_entity_support %}
+    <div id="custom-entity-content-body">
+        {#{% if object.idEstudio is not null %}
+            {{ render(controller( 'MinsalSimagdBundle:ImgLecturaAdmin:mostrarInformacionModal',
+                                                    { 'idEstudioPadre' : object.idEstudio.id,
+                                                        'id' : object.id ? object.id : -1,
+                                                        '_sonata_admin' : 'minsal_simagd.admin.img_lectura' } )) }}
+        {% endif %}#}
+    </div>
+{% endblock %}
+    
+{% block content %}
+    
+    {{ parent() }}
+    
+    {% include 'MinsalSimagdBundle:ImgLecturaAdmin:lct_speechRecognition_modal.html.twig' %}    {# speech recognition #}
+    
+    <!-- form for assign radX to rows -->
+    {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_COMPLEMENTARIO_CREATE') or is_granted('ROLE_ADMIN') %}
+        {% include 'MinsalSimagdBundle:ImgSolicitudEstudioComplementarioAdmin:solcmpl_crearSolicitudEstudio_formatoRapido_modal.html.twig'
+		ignore missing with { 'collection_prioridades': collection_prioridades, 'collection_modalidades': collection_modalidades, 'collection_examenes': collection_examenes, 'collection_proyecciones': collection_proyecciones, 'collection_default_mldRx': collection_default_mldRx, 'collection_default_exmRx': collection_default_exmRx, 'collection_tiposEmpleado': collection_tiposEmpleado, 'collection_radiologos': collection_radiologos, 'collection_default_empLogged': collection_default_empLogged } %}
+    {% endif %}
+    
+    <!-- form for assign radX to rows -->
+    {% if object.getIdEstudio() is not null and (is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_PATRON_DIAGNOSTICO_CREATE') or is_granted('ROLE_ADMIN')) %}
+        {% include 'MinsalSimagdBundle:ImgLecturaAdmin:lct_addDiagnosisAsPattern_modal.html.twig'
+		ignore missing with { 'collection_modalidades': collection_modalidades, 'collection_tiposResultado': collection_tiposResultado, 'form_currentstudy_mldRx': object.getIdEstudio().getIdProcedimientoRealizado().getIdSolicitudEstudio().getIdAreaServicioDiagnostico(), 'form_currentdiagnosis_tipoResult': object.getIdTipoResultado() } %}
+    {% endif %}
+    
+{% endblock %}
+
+{% block formactions %}
+    <div class="well well-small form-actions">
+        {% if app.request.isxmlhttprequest %}
+            {% if admin.id(object) is not null %}
+                <button type="submit" class="btn btn-success-v2" name="btn_update"><i class="fa fa-save"></i> {{ 'btn_update'|trans({}, 'SonataAdminBundle') }}</button>
+            {% else %}
+                <button type="submit" class="btn btn-success-v2" name="btn_create"><i class="fa fa-plus-circle"></i> {{ 'btn_create'|trans({}, 'SonataAdminBundle') }}</button>
+            {% endif %}
+        {% else %}
+            {% if admin.supportsPreviewMode %}
+                <button class="btn btn-info persist-preview" name="btn_preview" type="submit">
+                    <i class="fa fa-eye"></i>
+                    {{ 'btn_preview'|trans({}, 'SonataAdminBundle') }}
+                </button>
+            {% endif %}
+            {% if admin.id(object) is not null %}
+                <button type="submit" class="btn btn-primary-v2" name="btn_update_and_edit"><i class="fa fa-save"></i> Guardar</button>
+
+                {#{% if admin.hasroute('list') and admin.isGranted('LIST') %}
+                    <button type="submit" class="btn btn-primary-v2" name="btn_update_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                {% endif %}#}
+
+                {% if admin.hasroute('delete') and admin.isGranted('DELETE', object) %}
+                    {{ 'delete_or'|trans({}, 'SonataAdminBundle') }}
+                    <a class="btn btn-danger" href="{{ admin.generateObjectUrl('delete', object) }}"><i class="fa fa-minus-circle"></i> {{ 'link_delete'|trans({}, 'SonataAdminBundle') }}</a>
+                {% endif %}
+
+                {% if admin.isAclEnabled() and admin.hasroute('acl') and admin.isGranted('MASTER', object) %}
+                    <a class="btn btn-info" href="{{ admin.generateObjectUrl('acl', object) }}"><i class="fa fa-users"></i> {{ 'link_edit_acl'|trans({}, 'SonataAdminBundle') }}</a>
+                {% endif %}
+
+		{% if ( object.idEstudio is not null ) and ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_ADMIN') ) %}
+		    <a class="btn btn-primary-v2" href="{{ object.idEstudio.url|raw|trim|default('javascript:void(0)') }}" target="_blank" title="Recuperar estudio realizado"
+			{% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN') ) %}
+			    disabled="disabled"
+			{% endif %}>
+			<i class="fa fa-eye"></i> Recuperar estudio
+		    </a>
+		{% endif %}
+
+		{% if object.idEstudio is not null %}
+		    {% for estudioPndL in object.idEstudio.estudioPendienteLectura %}
+			<span class="label label-danger">
+			    Pendiente desde: {{ estudioPndL.fechaIngresoLista|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ estudioPndL.fechaIngresoLista|date('H:i:s A') }}
+			</span>
+		    {% endfor %}
+		{% endif %}
+            {% else %}
+                {% if admin.hasroute('edit') and admin.isGranted('EDIT') %}
+                    <button class="btn btn-primary-v2" type="submit" name="btn_create_and_edit"><i class="fa fa-save"></i> Guardar</button>
+                {% endif %}
+                {#{% if admin.hasroute('list') and admin.isGranted('LIST') %}
+                    <button type="submit" class="btn btn-primary-v2" name="btn_create_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                {% endif %}#}
+                {#<button class="btn btn-primary-v2" type="submit" name="btn_create_and_create"><i class="fa fa-plus-circle"></i> Guardar</button>#}
+
+		{% if ( object.idEstudio is not null ) and ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_ADMIN') ) %}
+		    <a class="btn btn-primary-v2" href="{{ object.idEstudio.url|raw|trim|default('javascript:void(0)') }}" target="_blank" title="Recuperar estudio realizado"
+			{% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN') ) %}
+			    disabled="disabled"
+			{% endif %}>
+			<i class="fa fa-eye"></i> Recuperar estudio
+		    </a>
+		{% endif %}
+
+		{% if object.idEstudio is not null %}
+		    {% for estudioPndL in object.idEstudio.estudioPendienteLectura %}
+			<span class="label label-primary-v2">
+			    Pendiente desde: {{ estudioPndL.fechaIngresoLista|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ estudioPndL.fechaIngresoLista|date('H:i:s A') }}
+			</span>
+		    {% endfor %}
+		{% endif %}
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock formactions %}

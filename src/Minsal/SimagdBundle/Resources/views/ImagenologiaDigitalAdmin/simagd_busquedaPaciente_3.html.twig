@@ -1,0 +1,108 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_list_v2.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {# bootstrap text-editor summernote #}
+    <link href="{{ asset('bundles/minsalsimagd/summernote-master/dist/summernote.css') }}" type="text/css" rel="stylesheet" />
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {# bootstrap text-editor summernote #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/summernote-master/dist/summernote.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/summernote-master/lang/summernote-es-ES.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_summernote_config.js') }}" ></script>
+    
+    {# google chrome - SpeechRecognition #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_webkitSpeechRecognition.js') }}" ></script>
+    <script>
+        jQuery(document).ready(function() {
+
+            /*
+             * summernote
+             * @type @call;jQuery
+             */
+            var final_textarea              = jQuery('#final_textarea');
+            final_textarea.buildSummerNote({ newOptions: jQuery.extend({
+                height      : 125,      // set editor height
+                maxHeight   : 175,    	// set maximum height of editor
+                focus       : false,    // set focus to editable area after initializing summernote
+                ___toolbar  : 'expand', // toolbar
+                ___speech   : true,     // active speech recognition
+            }, {})});
+            var final_textarea2              = jQuery('#final_textarea2');
+            final_textarea2.buildSummerNote({ newOptions: jQuery.extend({
+                height      : 125,      // set editor height
+                maxHeight   : 175,    	// set maximum height of editor
+                focus       : false,    // set focus to editable area after initializing summernote
+                ___toolbar  : 'expand', // toolbar
+                ___speech   : true,     // active speech recognition
+            }, {})});
+            var final_textarea3              = jQuery('#final_textarea3');
+            final_textarea3.buildSummerNote({ newOptions: jQuery.extend({
+                height      : 125,      // set editor height
+                maxHeight   : 175,    	// set maximum height of editor
+                focus       : false,    // set focus to editable area after initializing summernote
+                ___toolbar  : 'expand', // toolbar
+                ___speech   : true,     // active speech recognition
+            }, {})});
+            final_textarea.destroySummerNote();
+            final_textarea.buildSummerNote({ newOptions: jQuery.extend({
+                height      : 125,      // set editor height
+                maxHeight   : 175,    	// set maximum height of editor
+                focus       : false,    // set focus to editable area after initializing summernote
+                ___toolbar  : 'expand', // toolbar
+                ___speech   : true,     // active speech recognition
+            }, {})});
+
+        });
+    </script>
+
+{% endblock %}
+
+{% block simagd_navbar_right_nav %}
+    <div style="padding-top: 10px; padding-left: 10px;">
+        <button id="btn_start_recognition" class="btn btn-element-v2 btn-sm btn_start_recognition" title="Iniciar transcripción por voz" >
+            <i class="fa fa-microphone" id="icon_start_recognition"></i>
+        </button>
+    </div>
+{% endblock %}
+    
+{% block sonata_admin_content -%}
+    {{ parent() }}
+    
+    <!-- --| set transcript in FINAL TEXTAREA -->
+    <br/>
+    <textarea rows="8" class="form-control summernote" name="final_textarea" id="final_textarea" /></textarea>
+    <br/>
+    <textarea rows="8" class="form-control summernote" name="final_textarea2" id="final_textarea2" /></textarea>
+    <br/>
+    <textarea rows="8" class="form-control summernote" name="final_textarea3" id="final_textarea3" /></textarea>
+    <br/>
+    <!-- END --| set transcript in FINAL TEXTAREA -->
+    
+    <div id="bs-start-recognition-modal" class="modal container fade justify-bootstrap-div-container bs-start-recognition-modal" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false" data-focus-on="input:first" aria-labelledby="mySmallModalLabel">
+        <div class="modal-content panel-element-v2">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-microphone-slash"></i> </button>
+                <h4 class="modal-title"><i class="fa fa-microphone"></i> Dictado por voz</h4>
+            </div>
+
+            <div class="modal-body">
+                <div id="webkitspeechrecognition_results" class="webkitspeechrecognition_results">
+                    <span id="final_span" class="final"></span>
+                    <span id="interim_span" class="interim"></span>
+                    <p></p>
+                </div>
+                <span style="color: #bbb;">El texto que aparezca en este cuadro, se copiará en el item seleccionado</span>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bs-start-recognition-modal">Small modal</button>
+    
+{% endblock -%}

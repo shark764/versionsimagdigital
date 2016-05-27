@@ -1,0 +1,24 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_pgsql
+    database_host: localhost
+    database_port: '5432'
+    database_name: versionsimagdigital
+    database_user: simagd
+    database_password: simagd
+    mailer_transport: smtp
+    mailer_host: localhost
+    mailer_user: null
+    mailer_password: null
+    jasper_username: jasperuser
+    jasper_password: jasperpassword
+    jasper_url: 'http://localhost:8080/jasperserver/services/repository?wsdl'
+    module1_url: 'http://siap.hsanrafael.versionsimagdigital/app_dev.php/admin/login?_moduleSelection=1'
+    module2_url: 'http://siap.ESTABLECIMIENTO/admin/login?_moduleSelection=2'
+    module3_url: 'http://siap.ESTABLECIMIENTO/admin/login?_moduleSelection=3'
+    module4_url: 'http://siap.ESTABLECIMIENTO/admin/login?_moduleSelection=4'
+    module5_url: 'http://siap.ESTABLECIMIENTO/admin/login?_moduleSelection=5'
+    module6_url: 'http://siap.ESTABLECIMIENTO/admin/login?_moduleSelection=6'
+    module8_url: 'http://siap.hsanrafael.versionsimagdigital/app_dev.php/admin/login?_moduleSelection=8'
+    locale: es
+    secret: df1ca40cfc425c4f34e654696720435a044b9ca9

@@ -1,0 +1,77 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed">
+        {% if examenInfo is not null %}
+            <tr>
+                <th class="col-md-2">Estandar:</th>
+                <td class="col-md-4">
+                    {{ examenInfo.idestandar }}
+                </td>
+                <th class="col-md-2">Descripción:</th>
+                <td class="col-md-4">
+                    {{ examenInfo }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Creado:</th>
+                <td class="col-md-4">
+                    {% if examenInfo.fechahorareg is not null %}
+                    	{{ examenInfo.fechahorareg|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ examenInfo.fechahorareg|date('H:i:s A') }}
+                    {% endif %}
+                </td>
+                <th class="col-md-2">Editado:</th>
+                <td class="col-md-4">
+                    {% if examenInfo.fechahoramod is not null %}
+                    	{{ examenInfo.fechahoramod|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ examenInfo.fechahoramod|date('H:i:s A') }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Usuario que registró:</th>
+                <td class="col-md-4">
+                    {% if examenInfo.idusuarioreg is not null %}
+                    	{{ examenInfo.idusuarioreg.idEmpleado }} <strong> ( {{ examenInfo.idusuarioreg.username }} ) </strong>
+                    {% endif %}
+                </td>
+                <th class="col-md-2">Último usuario que editó:</th>
+                <td class="col-md-4">
+                    {% if examenInfo.idusuariomod is not null %}
+                    	{{ examenInfo.idusuariomod.idEmpleado }} <strong> ( {{ examenInfo.idusuariomod.username }} ) </strong>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Código:</th>
+                <td class="col-md-4">
+                    {{ examenInfo.imgCodigo }}
+                </td>
+                <th class="col-md-2">Observaciones:</th>
+                <td class="col-md-4">
+                    {{ examenInfo.imgObservaciones }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Aplica al sexo:</th>
+                <td class="col-md-4">
+                    {{ examenInfo.idsexo is not null ? examenInfo.idsexo : 'Todos los sexos' }}
+                </td>
+                <th class="col-md-2">Servicio de atención:</th>
+                <td class="col-md-4">
+                    {{ examenInfo.idAtencion }}
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td class="col-md-12">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only"> Cerrar </span>
+                        </button>
+                        <strong>Sin resultados!</strong> No se encontró registro.
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    </table>

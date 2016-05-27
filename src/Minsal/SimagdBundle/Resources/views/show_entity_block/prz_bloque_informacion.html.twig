@@ -1,0 +1,72 @@
+{# empty Twig template #}
+
+    <table class="table table-condensed">
+        {% if procedimientoRealizadoInfo is not null %}
+            <tr>
+                <th class="col-md-2">Realizado por:</th>
+                <td class="col-md-4">
+                    {{ procedimientoRealizadoInfo.idTecnologoRealiza }}
+                </td>
+                <th class="col-md-2">Realizado:</th>
+                <td class="col-md-4">
+                    {% if procedimientoRealizadoInfo.fechaRealizado is not null %}
+                    	{{ procedimientoRealizadoInfo.fechaRealizado|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ procedimientoRealizadoInfo.fechaRealizado|date('H:i:s A') }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Estado:</th>
+                <td class="col-md-4">
+                    {{ procedimientoRealizadoInfo.idEstadoProcedimientoRealizado }}
+                </td>
+                <th class="col-md-2">Almacenado:</th>
+                <td class="col-md-4">
+                    {% if procedimientoRealizadoInfo.fechaAlmacenado is not null %}
+                    	{{ procedimientoRealizadoInfo.fechaAlmacenado|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ procedimientoRealizadoInfo.fechaAlmacenado|date('H:i:s A') }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Sin fecha de nacimiento:</th>
+                <td class="col-md-4">
+                    {{ procedimientoRealizadoInfo.fechaNacimientoIndeterminada ? 'Si' : 'No' }}
+                </td>
+                <th class="col-md-2">Posee cita:</th>
+                <td class="col-md-4">
+                    {{ procedimientoRealizadoInfo.idCitaProgramada is not null ? 'Si' : 'No' }}
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-2">Estudio registrado:</th>
+                <td class="col-md-4">
+                    {{ estudioPacienteInfo is not null ? 'Si' : 'No' }}
+                </td>
+                <th class="col-md-2">Se registró:</th>
+                <td class="col-md-4">
+                    {% if estudioPacienteInfo is not null and estudioPacienteInfo.fechaEstudio is not null %}
+                    	{{ estudioPacienteInfo.fechaEstudio|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ estudioPacienteInfo.fechaEstudio|date('H:i:s A') }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="col-md-4">
+                    <button class='btn btn-primary' data-toggle='modal' href='#procedimientoRealizadoFullData-showModalContainer' id='btn-ver-prz-total-info'>
+                        <i class="fa fa-plus-circle"></i> Ver más
+                    </button>
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td class="col-md-12">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only"> Cerrar </span>
+                        </button>
+                        <strong>Sin resultados!</strong> No se encontró registro.
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    </table>

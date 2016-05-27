@@ -1,0 +1,26 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_list.html.twig' %}
+
+{% block simagd_form_navbar_brand_title %}
+    <span class="navbar-brand"><span class="label label-primary-v2"> <i class="fa fa-inbox"></i> Estudios Imagenológicos solicitados </span></span>
+{% endblock %}
+
+{% block table_body %}
+    <tbody>
+
+        {% for object in admin.datagrid.results %}
+	    <tr data-objectid="{{ object.id }}">
+        
+                {% include admin.getTemplate('inner_list_row') %}
+            </tr>
+        {% endfor %}
+    
+    </tbody>
+{% endblock %}
+
+{% block actions %}
+    {% spaceless %}
+        {# sin actions #}
+    {% endspaceless %}
+{% endblock %}

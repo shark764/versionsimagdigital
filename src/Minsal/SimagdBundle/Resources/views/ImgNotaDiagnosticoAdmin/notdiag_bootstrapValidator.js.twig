@@ -1,0 +1,74 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            /** Validación de formulario de inserción/actualización */
+            jQuery('#simagd_entity_full_admin_form').formValidation({
+                excluded: [':disabled'],
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    '{{ admin.uniqId }}[idEmpleado]': {
+                        message: 'Médico autor de la nota es inválido',
+                        validators: {
+                            notEmpty: {
+                                message: 'Médico autor de la nota es requerido'
+                            }
+                        }
+                    },{#
+                    '{{ admin.uniqId }}[contenido]': {
+                        message: 'Nota al diagnóstico inválida',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                message: 'Nota al diagnóstico debe contener al menos 15 caracteres'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },#}
+                    '{{ admin.uniqId }}[idTipoNotaDiagnostico]': {
+                        message: 'Tipo de la nota agregada es inválido',
+                        validators: {
+                            notEmpty: {
+                                message: 'Tipo de la nota agregada es requerido'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[observaciones]': {
+                        message: 'Observaciones a la transcripción inválidas',
+                        validators: {
+                            stringLength: {
+                                min: 15,
+                                max: 255,
+                                message: 'Observaciones a la transcripción deben contener al menos 15 caracteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                            callback: {
+                                message: 'Nota sin diagnóstico seleccionado',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                    var diagnosticoVal = $("input[id='" + $token + "_idDiagnostico']").val();
+                                    var existsVal = false;
+                                    
+                                    existsVal = diagnosticoVal ? true : false;
+                                    
+                                    return existsVal;
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                }
+            });
+            
+        });
+    </script>

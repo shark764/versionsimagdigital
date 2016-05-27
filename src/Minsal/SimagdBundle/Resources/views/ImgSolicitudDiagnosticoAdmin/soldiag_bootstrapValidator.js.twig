@@ -1,0 +1,114 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            /** Validación de formulario de inserción/actualización */
+            jQuery('#simagd_entity_full_admin_form').formValidation({
+                excluded: [':disabled'],
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    '{{ admin.uniqId }}[fechaProximaConsulta]': {
+                        message: 'El elemento del formulario no es válido',
+                        validators: {
+                            notEmpty: {
+                                message: 'Fecha de próxima consulta con paciente requerida'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[justificacion]': {
+                        message: 'Justificación de la solicitud inválida',
+                        validators: {
+                            notEmpty: {
+                                message: 'Por favor ingrese la justificación de esta solicitud'
+                            },
+                            stringLength: {
+                                min: 15,
+                                max: 255,
+                                message: 'La justificación de la solicitud debe contener al menos 15 caracteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[observaciones]': {
+                        message: 'Observaciones a la solicitud inválidas',
+                        validators: {
+                            stringLength: {
+                                min: 5,
+                                max: 255,
+                                message: 'Las observaciones a la solicitud deben contener al menos 5 caracteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                            callback: {
+                                message: 'Solicitud sin preinscripción o estudio seleccionado',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                    var estudioVal = $("input[id='" + $token + "_idEstudio']").val();
+                                    var preinscripcionVal = $("input[id='" + $token + "_idSolicitudEstudio']").val();
+                                    var existsVal = false;
+                                    
+                                    if ( estudioVal ) { existsVal = true; }
+                                    existsVal = preinscripcionVal ? true : false;
+                                    
+                                    return existsVal;
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[idEstablecimientoSolicitado]': {
+                        message: 'Establecimiento solicitado inválido',
+                        validators: {
+                            callback: {
+                                message: 'El elemento seleccionado no es válido, cambie a otro establecimiento',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                    var optionVal = validator.getFieldElements('{{ admin.uniqId }}[idEstablecimientoSolicitado]').val();
+                                    var checkboxExternoVal = $("input:checkbox[id='" + $token + "_solicitudRemota']");
+                                    var estabLocal = {{ app.user.getIdEstablecimiento.getId }};
+                                            
+                                    if (optionVal != null && optionVal.length >= 1 && ( estabLocal != value )) {
+                                        if (checkboxExternoVal.is(':checked')) {
+                                            return true;
+                                        }
+                                        else {
+                                            return false;
+                                        }
+                                    }
+                                    else {
+                                        if (checkboxExternoVal.is(':checked')) {
+                                            return false;
+                                        }
+                                        else {
+                                            return true;
+                                        }
+                                    }
+                                    /** end callback function */
+                                }
+                            },
+                        }
+                    },
+                }
+            });
+            
+            /** Validación para establecimiento solicitado */
+            $("input:checkbox[id='" + $token + "_solicitudRemota']").on('ifChanged', function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', '{{ admin.uniqId }}[idEstablecimientoSolicitado]');
+            });
+
+            /** Validación para fecha próxima consulta */
+            $(document).on('change', "input[id='" + $token + "_fechaProximaConsulta']", function( event ) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', jQuery(this).attr('name'));
+                console.log(jQuery(this).attr('name') );
+            });
+        });
+    </script>

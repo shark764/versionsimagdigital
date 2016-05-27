@@ -1,0 +1,52 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            /** Validación de formulario de inserción/actualización */
+            jQuery('#simagd_entity_full_admin_form').formValidation({
+                excluded: [':disabled'],
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    '{{ admin.uniqId }}[idAreaServicioDiagnostico]': {
+                        message: 'Modalidad es inválida',
+                        validators: {
+                            notEmpty: {
+                                message: 'Modalidad es requerida'
+                            }
+                        }
+                    },
+                    '{{ admin.uniqId }}[idExamenServicioDiagnostico]': {
+                        message: 'Examen es inválido',
+                        validators: {
+                            notEmpty: {
+                                message: 'Examen es requerido'
+                            }
+                        }
+                    },
+                    '{{ admin.uniqId }}[observaciones]': {
+                        message: 'Las observaciones digitadas de la proyección no son válidas',
+                        validators: {
+                            stringLength: {
+                                min: 5,
+                                max: 255,
+                                message: 'Las observaciones de la proyección deben contener al menos 5 carácteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                }
+            });
+            
+            /** Validación para catálogo local */
+            $("input:checkbox[id='" + $token + "_exploracionRealizable']").on('ifChanged', function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', '{{ admin.uniqId }}[idAreaServicioDiagnostico]');
+            });
+        });
+    </script>

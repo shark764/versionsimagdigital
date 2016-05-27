@@ -1,0 +1,104 @@
+{# empty Twig template #}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            /** Validación de formulario de inserción/actualización */
+            jQuery('#simagd_entity_full_admin_form').formValidation({
+                excluded: [':disabled'],
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    '{{ admin.uniqId }}[nombre]': {
+                        message: 'El nombre de la proyección no es válido',
+                        validators: {
+                            stringLength: {
+                                min: 5,
+                                max: 100,
+                                message: 'El nombre de la proyección debe contener al menos 5 carácteres y máximo 100'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9,/\.()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ,.()_-/ )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[codigo]': {
+                        message: 'El código de la proyección no es válido',
+                        validators: {
+                            stringLength: {
+                                min: 4,
+                                max: 10,
+                                message: 'El código de la proyección debe contener al menos 4 carácteres y máximo 10'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, 0-9 )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[descripcion]': {
+                        message: 'La descripción digitada de la proyección no es válida',
+                        validators: {
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[observaciones]': {
+                        message: 'Las observaciones digitadas de la proyección no son válidas',
+                        validators: {
+                            stringLength: {
+                                min: 5,
+                                max: 255,
+                                message: 'Las observaciones de la proyección deben contener al menos 5 carácteres y máximo 255'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$/,
+                                message: 'El texto ingresado viola la restricción de caracteres permitidos ( a-z, A-Z, üÜ, ñÑ, áéíóú, ÁÉÍÓÚ, 0-9, ¿!¡;,:.?#@()_- )'
+                            },
+                        }
+                    },
+                    '{{ admin.uniqId }}[idAreaServicioDiagnostico]': {
+                        message: 'El elemento del formulario no es válido',
+                        validators: {
+                            callback: {
+                                message: 'La modalidad no es válida',
+                                callback: function(value, validator) {
+                                    /** begin callback function */
+                                    var optionVal = validator.getFieldElements('{{ admin.uniqId }}[idAreaServicioDiagnostico]').val();
+                                    var checkboxVal = $("input:checkbox[id='" + $token + "_exploracionRealizable']");
+                                            
+                                    if (optionVal != null && optionVal.length >= 1) {
+                                        if (checkboxVal.is(':checked')) {
+                                            return true;
+                                        }
+                                        else {
+                                            return false;
+                                        }
+                                    }
+                                    else {
+                                        if (checkboxVal.is(':checked')) {
+                                            return false;
+                                        }
+                                        else {
+                                            return true;
+                                        }
+                                    }
+                                    /** end callback function */
+                                }
+                            }
+                        }
+                    },
+                }
+            });
+            
+            /** Validación para catálogo local */
+            $("input:checkbox[id='" + $token + "_exploracionRealizable']").on('ifChanged', function(event) {
+                jQuery('#simagd_entity_full_admin_form').formValidation('revalidateField', '{{ admin.uniqId }}[idAreaServicioDiagnostico]');
+            });
+        });
+    </script>

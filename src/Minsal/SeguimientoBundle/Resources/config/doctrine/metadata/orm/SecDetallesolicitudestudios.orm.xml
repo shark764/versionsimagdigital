@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="SecDetallesolicitudestudios" table="sec_detallesolicitudestudios">
+    <indexes>
+      <index name="IDX_B983B70C730CF75F" columns="idempleado"/>
+      <index name="IDX_B983B70C75BB31F7" columns="idestablecimiento"/>
+      <index name="IDX_B983B70C87364D84" columns="idestablecimientoexterno"/>
+      <index name="IDX_B983B70C2AB3F305" columns="estadodetalle"/>
+      <index name="IDX_B983B70C35F12240" columns="idexamen"/>
+      <index name="IDX_B983B70C13B895A1" columns="idusuarioreg"/>
+      <index name="IDX_B983B70CB1B94CA1" columns="idorigenmuestra"/>
+      <index name="IDX_B983B70CF06DFE3D" columns="idsolicitudestudio"/>
+      <index name="IDX_B983B70CDAB57264" columns="idtipomuestra"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="indicacion" type="string" column="indicacion" length="250" nullable="true"/>
+    <field name="observacion" type="string" column="observacion" length="250" nullable="true"/>
+    <field name="fechahorareg" type="date" column="fechahorareg" nullable="true"/>
+    <many-to-one field="idorigenmuestra" target-entity="MntOrigenmuestra">
+      <join-columns>
+        <join-column name="idorigenmuestra" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idsolicitudestudio" target-entity="SecSolicitudestudios">
+      <join-columns>
+        <join-column name="idsolicitudestudio" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idtipomuestra" target-entity="LabTipomuestra">
+      <join-columns>
+        <join-column name="idtipomuestra" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idusuarioreg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="idusuarioreg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idexamen" target-entity="MntAreaExamenEstablecimiento">
+      <join-columns>
+        <join-column name="idexamen" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idestablecimiento" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="idestablecimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idestablecimientoexterno" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="idestablecimientoexterno" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="estadodetalle" target-entity="CtlEstadoServicioDiagnostico">
+      <join-columns>
+        <join-column name="estadodetalle" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idempleado" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="idempleado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
