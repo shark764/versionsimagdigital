@@ -26,13 +26,21 @@
 /web/bundles/
 /web/uploads/
 
+# Assets managed by Bower
+/web/assets/vendor/
+
 # PHPUnit
 /app/phpunit.xml
 /phpunit.xml
 
+# Build data
+/build/
+
 # Composer PHAR
 /composer.phar
 
+#java specific
+*.class
 
 # netbeans
 nbproject/project.xml
@@ -44,8 +52,18 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
-#!/src/Minsal/SimagdBundle/Resources/public/bootstrap3-dialog-master/dist/
-#!/src/Minsal/SimagdBundle/Resources/public/bootstrapvalidator-dist-0.5.2/dist/
 
-#prueba
-#src/Minsal/SimagdBundle/Funciones/*
+#netbeans ignore personal stuff
+nbproject/
+
+## generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+
+# Package Files #
+*.jar
+*.war
+*.ear
