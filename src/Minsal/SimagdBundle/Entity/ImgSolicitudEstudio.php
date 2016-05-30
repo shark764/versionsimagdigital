@@ -1510,4 +1510,13 @@ class ImgSolicitudEstudio
     {
         return $this->solicitudEstudioExamenPendienteRealizar;
     }
+    
+    public function getStudyCustomDescription()
+    {
+        $description    = '';
+        foreach ($this->getSolicitudEstudioProyeccion() as $projection_examined)  {
+            $description    .= mb_strtoupper(trim($projection_examined->getNombre()), 'utf-8') . ', ';
+        }
+        return trim($description, '\t\n , \t\n');
+    }
 }
