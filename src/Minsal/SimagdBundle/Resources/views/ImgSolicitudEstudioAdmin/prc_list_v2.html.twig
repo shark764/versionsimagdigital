@@ -23,6 +23,9 @@
 {% block stylesheets %}
     {{ parent() }}
 
+    {# new select2 #}
+    <link href="{{ asset('bundles/minsalsimagd/css/select2-woocommerce.css') }}" type="text/css" rel="stylesheet" />
+
     {# bootstrap text-editor summernote #}
     <link href="{{ asset('bundles/minsalsimagd/summernote-master/dist/summernote.css') }}" type="text/css" rel="stylesheet" />
 
@@ -454,5 +457,7 @@
         {% include 'MinsalSimagdBundle:ImgSolicitudEstudioComplementarioAdmin:solcmpl_crearSolicitudEstudio_formatoRapido_modal.html.twig'
 		ignore missing with { 'collection_prioridades': collection_prioridades, 'collection_modalidades': collection_modalidades, 'collection_examenes': collection_examenes, 'collection_proyecciones': collection_proyecciones, 'collection_default_mldRx': collection_default_mldRx, 'collection_default_exmRx': collection_default_exmRx, 'collection_tiposEmpleado': collection_tiposEmpleado, 'collection_radiologos': collection_radiologos, 'collection_default_empLogged': collection_default_empLogged } %}
     {% endif %}
+
+	<img src="http://localhost:8080/wado?requestType=WADO&studyUID=2.16.840.1.113669.632.20.1211.10001373596&seriesUID=1.3.12.2.1107.5.1.4.1003.30000011040706253106200004245&objectUID=1.3.12.2.1107.5.1.4.1003.30000011040706253106200004246&frameNumber=1&contentType=image/png" />
 
 {% endblock %}

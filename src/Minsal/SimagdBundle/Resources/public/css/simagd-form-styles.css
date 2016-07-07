@@ -840,3 +840,7 @@ form .form-control-feedback,
   white-space: -o-pre-wrap !important;   /* Opera 7 */    
   word-wrap: break-word !important;      /* IE */
 }
+
+.media, .media-body.media-description-justify {
+    text-align: justify;
+}
