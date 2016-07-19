@@ -28,7 +28,7 @@ jQuery(document).ready(function() {
     });
     
     /** set icheck label right */
-    $('input:checkbox').each(function(i) {
+/*    $('input:checkbox').each(function(i) {
         var labelForCheck = $("label[for='" + jQuery(this).attr('id') + "']");
         var labelForCheckText = jQuery.trim(labelForCheck.text());
 
@@ -41,10 +41,10 @@ jQuery(document).ready(function() {
             
         }
     });
-    
+*/    
     
     /** BOX BOX PRIMARY-V2 head title custom style */
-    $("div.box").not('.non-titled-sonata-box').each(function(i) {
+/*    $("div.box").not('.non-titled-sonata-box').each(function(i) {
 	var $___boxTitle = jQuery(this)
 				.find('.box-header')
 				.find('.box-title')
@@ -54,5 +54,5 @@ jQuery(document).ready(function() {
 	    .find('.box-title')
 		    .html("<span class='label label-primary-v2'>" + $___boxTitle + "</span>");
     });
-    
+*/    
 });
