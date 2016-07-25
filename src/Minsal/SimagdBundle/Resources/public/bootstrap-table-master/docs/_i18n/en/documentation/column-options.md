@@ -5,7 +5,7 @@
 The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
 <table class="table"
-       data-toggle="table"
+       id="c"
        data-search="true"
        data-show-toggle="true"
        data-show-columns="true"
@@ -53,7 +53,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>data-title-tooltip</td>
         <td>String</td>
         <td>undefined</td>
-        <td>The column title tooltip text. This option also support the title HTML attribute</td>
+        <td>The column title tooltip text. This option also support the title HTML attribute.</td>
     </tr>
     <tr>
         <td>class</td>
@@ -109,8 +109,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>data-width</td>
         <td>Number {Pixels or Percentage}</td>
         <td>undefined</td>
-        <td>The width of column. If not defined, the width will auto expand to fit its contents. Also you can add '%' to your number and
-		the bootstrapTable will use the percentage unit, otherwise, you can add or no the 'px' to your number and then the bootstrapTable will use the pixels</td>
+        <td>The width of column. If not defined, the width will auto expand to fit its contents. Though if the table is left responsive and sized too small this 'width' might be ignored (use min/max-width via class or such then). Also you can add '%' to your number and the bootstrapTable will use the percentage unit, otherwise, leave as number (or add 'px') to make it use pixels.</td>
     </tr>
     <tr>
         <td>sortable</td>
@@ -153,7 +152,7 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>data-click-to-select</td>
         <td>Boolean</td>
         <td>true</td>
-        <td>True to select checkbox or radiobox when the column is clicked.</td>
+        <td>True to select checkbox or radio when the column is clicked.</td>
     </tr>
     <tr>
         <td>formatter</td>
@@ -184,11 +183,14 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         <td>Object</td>
         <td>undefined</td>
         <td>
-        The cell events listener when you use formatter function, take three parameters: <br>
+        The cell events listener when you use formatter function, take four parameters: <br>
         event: the jQuery event. <br>
         value: the field value. <br>
         row: the row record data.<br>
-        index: the row index.
+        index: the row index. <br>
+        Example code:
+        <code>&lt;th .. data-events="operateEvent"&gt;</code>
+        <code>var operateEvents = {'click .like': function (e, value, row, index) {}};</code>
         </td>
     </tr>
     <tr>
@@ -222,7 +224,16 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
         value: the field value.<br>
         row: the row record data.<br>
         index: the row index.<br>
-        Support classes or css.
+        field: the row field.<br>
+        Support classes or css. Example usage:<br>
+<pre>
+function cellStyle(value, row, index, field) {
+  return {
+    classes: 'text-nowrap another-class',
+    css: {"color": "blue", "font-size": "50px"}
+  };
+}
+</pre>
         </td>
     </tr>
     <tr>

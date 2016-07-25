@@ -5,7 +5,7 @@
 The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 <table class="table"
-       data-toggle="table"
+       id="t"
        data-search="true"
        data-show-toggle="true"
        data-show-columns="true"
@@ -60,7 +60,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-sort-name</td>
         <td>String</td>
         <td>undefined</td>
-        <td>Defines which column can be sorted.</td>
+        <td>Defines which column will be sorted.</td>
     </tr>
     <tr>
         <td>sortOrder</td>
@@ -70,11 +70,33 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Defines the column sort order, can only be 'asc' or 'desc'.</td>
     </tr>
     <tr>
+        <td>sortStable</td>
+        <td>data-sort-stable</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to get a stable sorting. We will add <code>_position</code> property to the row.</td>
+    </tr>
+    <tr>
         <td>iconsPrefix</td>
         <td>data-icons-prefix</td>
         <td>String</td>
         <td>'glyphicon'</td>
         <td>Defines icon set name ('glyphicon' or 'fa' for FontAwesome). By default 'glyphicon' is used. </td>
+    </tr>
+     <tr>
+        <td>iconSize</td>
+        <td>data-icon-size</td>
+        <td>String</td>
+        <td>undefined</td>
+        <td>Defines icon size: <ul><li>undefined => btn</li><li>xs => btn-xs</li><li>sm => btn-sm</li><li>lg => btn-lg</li></ul>
+        <td>
+    </tr>
+    <tr>
+        <td>buttonsClass</td>
+        <td>data-buttons-class</td>
+        <td>String</td>
+        <td>'default'</td>
+        <td>Defines the Bootstrap class (added after 'btn-') of table buttons: EX: 'primary', 'danger', 'warning'...</td>
     </tr>
     <tr>
         <td>icons</td>
@@ -108,11 +130,18 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>The data to be loaded.</td>
     </tr>
     <tr>
+        <td>dataField</td>
+        <td>data-data-field</td>
+        <td>String</td>
+        <td>'rows'</td>
+        <td>Key in incoming json containing rows data list.</td>
+    </tr>
+    <tr>
         <td>ajax</td>
         <td>data-ajax</td>
         <td>Function</td>
         <td>undefined</td>
-        <td>A method to replace ajax call. Should implement the same API as jQuery ajax method</td>
+        <td>A method to replace ajax call. Should implement the same API as jQuery ajax method.</td>
     </tr>
     <tr>
         <td>method</td>
@@ -170,7 +199,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Function</td>
         <td>function(params) {<br>return params;<br>}</td>
         <td>
-        When requesting remote data, you can send additional parameters by modifying queryParams. 
+        When requesting remote data, you can send additional parameters by modifying queryParams.
         If queryParamsType = 'limit', the params object contains: <br>
         limit, offset, search, sort, order
         Else, it contains: <br>
@@ -201,6 +230,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Boolean</td>
         <td>false</td>
         <td>True to show a pagination toolbar on table bottom.</td>
+    </tr>
+    <tr>
+        <td>onlyInfoPagination</td>
+        <td>data-only-info-pagination</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>True to show only the quantity of the data that is showing in the table. It needs the pagination table options is set to true.</td>
     </tr>
     <tr>
         <td>sidePagination</td>
@@ -236,8 +272,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>pageList</td>
         <td>data-page-list</td>
         <td>Array</td>
-        <td>[10, 25, 50, 100, All]</td>
-        <td>When set pagination property, initialize the page size selecting list. If you include the 'All' option, all the records will be shown in your table</td>
+        <td>[10, 25, 50, 100]</td>
+        <td>When set pagination property, initialize the page size selecting list. If you include the 'All' option, all the records will be shown in your table.</td>
     </tr>
     <tr>
         <td>selectItemName</td>
@@ -254,11 +290,27 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>True to display pagination or card view smartly.</td>
     </tr>
     <tr>
+        <td>escape</td>
+        <td>data-escape</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>Escapes a string for insertion into HTML,
+        replacing <code>&</code>, <code><</code>, <code>></code>,
+        <code>"</code>, <code>`</code>, and <code>'</code> characters.</td>
+    </tr>
+    <tr>
         <td>search</td>
         <td>data-search</td>
         <td>Boolean</td>
         <td>false</td>
         <td>Enable the search input.</td>
+    </tr>
+    <tr>
+        <td>searchOnEnterKey</td>
+        <td>data-search-on-enter-key</td>
+        <td>Boolean</td>
+        <td>false</td>
+        <td>The search method will be executed until the Enter key is pressed.</td>
     </tr>
     <tr>
         <td>strictSearch</td>
@@ -300,7 +352,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>data-show-footer</td>
         <td>Boolean</td>
         <td>false</td>
-        <td>If true shows summary footer row</td>
+        <td>True to show the summary footer row.</td>
     </tr>
     <tr>
         <td>showColumns</td>
@@ -371,8 +423,8 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>detailFormatter</td>
         <td>data-detail-formatter</td>
         <td>Function</td>
-        <td>function(index, row) {<br>return '';<br>}</td>
-        <td>Format your detail view when <code>detailView</code> is set to <code>true</code>.</td>
+        <td>function(index, row, element) {<br>return '';<br>}</td>
+        <td>Format your detail view when <code>detailView</code> is set to <code>true</code>. Return a String and it will be appended into the detail view cell, optionally render the element directly using the third parameter which is a jQuery element of the target cell.</td>
     </tr>
     <tr>
         <td>searchAlign</td>
@@ -417,32 +469,18 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         <td>Indicate how to align the pagination detail. 'left', 'right' can be used.</td>
     </tr>
     <tr>
-        <td>paginationFirstText</td>
-        <td>data-pagination-first-text</td>
-        <td>String</td>
-        <td>'&lt;&lt;'</td>
-        <td>Indicate the icon or text to be shown in the pagination detail, the first button of the pagination detail.</td>
-    </tr>
-    <tr>
         <td>paginationPreText</td>
         <td>data-pagination-pre-text</td>
         <td>String</td>
-        <td>'&lt;'</td>
+        <td>'&lsaquo;'</td>
         <td>Indicate the icon or text to be shown in the pagination detail, the previous button.</td>
     </tr>
     <tr>
         <td>paginationNextText</td>
         <td>data-pagination-next-text</td>
         <td>String</td>
-        <td>'&gt;'</td>
+        <td>'&rsaquo;'</td>
         <td>Indicate the icon or text to be shown in the pagination detail, the next button.</td>
-    </tr>
-    <tr>
-        <td>paginationLastText</td>
-        <td>data-pagination-last-text</td>
-        <td>String</td>
-        <td>'&gt;&gt;'</td>
-        <td>Indicate the icon or text to be shown in the pagination detail, the last button.</td>
     </tr>
     <tr>
         <td>clickToSelect</td>
@@ -505,7 +543,15 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         The row style formatter function, takes two parameters: <br>
         row: the row record data.<br>
         index: the row index.<br>
-        Support classes or css.
+        Support classes or css. Example usage:<br>
+<pre>
+function rowStyle(value, row, index) {
+  return {
+    classes: 'text-nowrap another-class',
+    css: {"color": "blue", "font-size": "50px"}
+  };
+}
+</pre>
         </td>
     </tr>
     <tr>
@@ -520,17 +566,52 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         Support all custom attributes.
         </td>
     </tr>
+    <tr>
+        <td>customSearch</td>
+        <td>data-custom-search</td>
+        <td>Function</td>
+        <td>$.noop</td>
+        <td>
+        The custom search function is executed instead of built-in search function, takes one parameters: <br>
+        text: the search text.<br>
+        Example usage:<br>
+        <pre>
+        function customSearch(text) {
+            //Search logic here.
+            //You must use `this.data` array in order to filter the data. NO use `this.options.data`.
+        }
+        </pre>
+        </td>
+    </tr>
+    <tr>
+        <td>customSort</td>
+        <td>data-custom-sort</td>
+        <td>Function</td>
+        <td>$.noop</td>
+        <td>
+        The custom sort function is executed instead of built-in sort function, takes two parameters: <br>
+        sortName: the sort name.<br>
+        sortOrder: the sort order.<br>
+        Example usage:<br>
+        <pre>
+        function customSort(sortName, sortOrder) {
+            //Sort logic here.
+            //You must use `this.data` array in order to sort the data. NO use `this.options.data`.
+        }
+        </pre>
+        </td>
+    </tr>
      <tr>
         <td>locale</td>
         <td>data-locale</td>
-        <td>string</td>
+        <td>String</td>
         <td>undefined</td>
         <td>
         Sets the locale to use (i.e. <code>'fr-CA'</code>). Locale files must be pre-loaded.
         Allows for fallback locales, if loaded, in the following order:<br>
         <ol>
         <li>First tries for the locale as specified,</li>
-        <li>Then tries the locale with <code>'_'</code> translated to 
+        <li>Then tries the locale with <code>'_'</code> translated to
         <code>'-'</code> and the region code upper cased,</li>
         <li>Then tries the the short locale code (i.e. <code>'fr'</code> instead of <code>'fr-CA'</code>),</li>
         <li>And finally will use the last locale file loaded (or the default locale if no locales loaded).</li>
@@ -538,6 +619,25 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
         If left undfined or an empty string, uses the last locale loaded (or <code>'en-US'</code>
         if no locale files loaded).
         </td>
+    </tr>
+    <tr>
+	<td>footerStyle</td>
+	<td>data-footer-style</td>
+	<td>Function</td>
+	<td>{}</td>
+	<td>
+	        The footer style formatter function, takes two parameters: <br>
+	        row: the row record data.<br>
+	        index: the row index.<br>
+	        Support classes or css. Example usage:<br>
+		<pre>
+		function footerStyle(value, row, index) {
+		  return {
+		    css: { "font-weight": "bold" }
+		  };
+		}
+		</pre>
+	</td>
     </tr>
    </tbody>
 </table>

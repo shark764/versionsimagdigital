@@ -2,8 +2,22 @@
 
 ---
 
+To use event syntax:
+
+```js
+$('#table').bootstrapTable({
+    onEventName: function (arg1, arg2, ...) {
+        // ...
+    }
+});
+
+$('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
+    // ...
+});
+```
+
 <table class="table"
-       data-toggle="table"
+       id="e"
        data-search="true"
        data-show-toggle="true"
        data-show-columns="true"
@@ -34,7 +48,8 @@
         <td>
         Fires when user click a row, the parameters contain: <br>
         row: the record corresponding to the clicked row, <br>
-        $element: the tr element.
+        $element: the tr element, <br>
+        field: the field name corresponding to the clicked cell.
         </td>
     </tr>
     <tr>
@@ -44,7 +59,8 @@
         <td>
         Fires when user double click a row, the parameters contain: <br>
         row: the record corresponding to the clicked row, <br>
-        $element: the tr element.
+        $element: the tr element, <br>
+        field: the field name corresponding to the clicked cell.
         </td>
     </tr>
     <tr>
@@ -84,19 +100,21 @@
     <tr>
         <td>onCheck</td>
         <td>check.bs.table</td>
-        <td>row</td>
+        <td>row, $element</td>
         <td>
         Fires when user check a row, the parameters contain: <br>
         row: the record corresponding to the clicked row.
+        $element: the DOM element checked.
         </td>
     </tr>
     <tr>
         <td>onUncheck</td>
         <td>uncheck.bs.table</td>
-        <td>row</td>
+        <td>row, $element</td>
         <td>
         Fires when user uncheck a row, the parameters contain: <br>
         row: the record corresponding to the clicked row.
+        $element: the DOM element unchecked.
         </td>
     </tr>
     <tr>
@@ -146,7 +164,7 @@
     <tr>
         <td>onLoadError</td>
         <td>load-error.bs.table</td>
-        <td>status</td>
+        <td>status, res</td>
         <td>Fires when some errors occur to load remote data.</td>
     </tr>
     <tr>
@@ -188,7 +206,7 @@
     <tr>
         <td>onPostBody</td>
         <td>post-body.bs.table</td>
-        <td>none</td>
+        <td>data</td>
         <td>Fires after the table body is rendered and available in the DOM</td>
     </tr>
     <tr>
@@ -220,6 +238,12 @@
         <td>reset-view.bs.table</td>
         <td></td>
         <td>Fires when reset view of the table.</td>
+    </tr>
+    <tr>
+       <td>onRefresh</td>
+       <td>refresh.bs.table</td>
+       <td>params</td>
+       <td>Fires after the click the refresh button.</td>
     </tr>
     </tbody>
 </table>

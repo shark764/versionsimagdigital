@@ -109,3 +109,90 @@ table.simagd-search-table tr.sonata-ba-list-field-header {
 .popover .table.full-collapse-bordered-table>tfoot>tr>td {
     padding: 0px 2px 0px 2px !important;
 }
+
+/*
+ * *****************************************************************************
+ * --| JUST HORIZONTAL BORDERED BSTABLE
+ * *****************************************************************************
+ */
+.content .bootstrap-table .table.table-bstable-report
+{
+    /* Create border between rows.*/
+    /*border-collapse: collapse !important;
+    border-spacing: 0px !important;*/
+    font-size: 12px !important;
+}
+.content-header .bootstrap-table .table.table-bstable-report>thead>tr>th,
+.content-header .bootstrap-table .table.table-bstable-report>tbody>tr>th,
+.content-header .bootstrap-table .table.table-bstable-report>tfoot>tr>th,
+.content-header .bootstrap-table .table.table-bstable-report>thead>tr>th,
+.content-header .bootstrap-table .table.table-bstable-report>tbody>tr>th,
+.content-header .bootstrap-table .table.table-bstable-report>tfoot>tr>th,
+.content .bootstrap-table .table.table-bstable-report>thead>tr>th,
+.content .bootstrap-table .table.table-bstable-report>tbody>tr>th,
+.content .bootstrap-table .table.table-bstable-report>tfoot>tr>th,
+.content .bootstrap-table .table.table-bstable-report>thead>tr>th,
+.content .bootstrap-table .table.table-bstable-report>tbody>tr>th,
+.content .bootstrap-table .table.table-bstable-report>tfoot>tr>th
+{
+    /*background-color: #ffffff !important;*/
+    /*padding: 0.25em !important;*/
+    border-top: 1px solid red;
+    border-bottom: 1px solid red;
+}
+/*.content-header .bootstrap-table .table.table-bstable-report>thead>tr>td,
+.content-header .bootstrap-table .table.table-bstable-report>tbody>tr>td,
+.content-header .bootstrap-table .table.table-bstable-report>tfoot>tr>td,
+.content-header .bootstrap-table .table.table-bstable-report>thead>tr>td,
+.content-header .bootstrap-table .table.table-bstable-report>tbody>tr>td,
+.content-header .bootstrap-table .table.table-bstable-report>tfoot>tr>td,
+.content .bootstrap-table .table.table-bstable-report>thead>tr>td,
+.content .bootstrap-table .table.table-bstable-report>tbody>tr>td,
+.content .bootstrap-table .table.table-bstable-report>tfoot>tr>td,
+.content .bootstrap-table .table.table-bstable-report>thead>tr>td,
+.content .bootstrap-table .table.table-bstable-report>tbody>tr>td,
+.content .bootstrap-table .table.table-bstable-report>tfoot>tr>td
+{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}*/
+.content-header .bootstrap-table .table.table-bstable-report>thead>tr .btn-toolbar .btn-group:not(:last-child),
+.content-header .bootstrap-table .table.table-bstable-report>tbody>tr .btn-toolbar .btn-group:not(:last-child),
+.content-header .bootstrap-table .table.table-bstable-report>tfoot>tr .btn-toolbar .btn-group:not(:last-child),
+.content-header .bootstrap-table .table.table-bstable-report>thead>tr .btn-toolbar .btn-group:not(:last-child),
+.content-header .bootstrap-table .table.table-bstable-report>tbody>tr .btn-toolbar .btn-group:not(:last-child),
+.content-header .bootstrap-table .table.table-bstable-report>tfoot>tr .btn-toolbar .btn-group:not(:last-child),
+.content .bootstrap-table .table.table-bstable-report>thead>tr .btn-toolbar .btn-group:not(:last-child),
+.content .bootstrap-table .table.table-bstable-report>tbody>tr .btn-toolbar .btn-group:not(:last-child),
+.content .bootstrap-table .table.table-bstable-report>tfoot>tr .btn-toolbar .btn-group:not(:last-child),
+.content .bootstrap-table .table.table-bstable-report>thead>tr .btn-toolbar .btn-group:not(:last-child),
+.content .bootstrap-table .table.table-bstable-report>tbody>tr .btn-toolbar .btn-group:not(:last-child),
+.content .bootstrap-table .table.table-bstable-report>tfoot>tr .btn-toolbar .btn-group:not(:last-child)
+{
+    margin-bottom: 5px;
+}
+.content-header .bootstrap-table .table.table-bstable-report>thead>tr .btn-toolbar .btn-group .btn.btn-default,
+.content-header .bootstrap-table .table.table-bstable-report>tbody>tr .btn-toolbar .btn-group .btn.btn-default,
+.content-header .bootstrap-table .table.table-bstable-report>tfoot>tr .btn-toolbar .btn-group .btn.btn-default,
+.content-header .bootstrap-table .table.table-bstable-report>thead>tr .btn-toolbar .btn-group .btn.btn-default,
+.content-header .bootstrap-table .table.table-bstable-report>tbody>tr .btn-toolbar .btn-group .btn.btn-default,
+.content-header .bootstrap-table .table.table-bstable-report>tfoot>tr .btn-toolbar .btn-group .btn.btn-default,
+.content .bootstrap-table .table.table-bstable-report>thead>tr .btn-toolbar .btn-group .btn.btn-default,
+.content .bootstrap-table .table.table-bstable-report>tbody>tr .btn-toolbar .btn-group .btn.btn-default,
+.content .bootstrap-table .table.table-bstable-report>tfoot>tr .btn-toolbar .btn-group .btn.btn-default,
+.content .bootstrap-table .table.table-bstable-report>thead>tr .btn-toolbar .btn-group .btn.btn-default,
+.content .bootstrap-table .table.table-bstable-report>tbody>tr .btn-toolbar .btn-group .btn.btn-default,
+.content .bootstrap-table .table.table-bstable-report>tfoot>tr .btn-toolbar .btn-group .btn.btn-default
+{
+    /*color: #16677d !important;*/
+}
+.content .bootstrap-table .table.table-bstable-report>tbody>tr:first-child>th,
+.content .bootstrap-table .table.table-bstable-report>tbody>tr:first-child>td
+{
+    border-top: none !important;
+}
+/*
+ * *****************************************************************************
+ * END |-- JUST HORIZONTAL BORDERED BSTABLE
+ * *****************************************************************************
+ */

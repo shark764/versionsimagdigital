@@ -3,7 +3,7 @@
 ---
 
 <table class="table"
-       data-toggle="table"
+       id="l"
        data-search="true"
        data-show-toggle="true"
        data-show-columns="true"
@@ -30,6 +30,11 @@
         <td>formatShowingRows</td>
         <td>pageFrom, pageTo, totalRows</td>
         <td>'Showing %s to %s of %s rows'</td>
+    </tr>
+    <tr>
+        <td>formatDetailPagination</td>
+        <td>totalRows</td>
+        <td>'Showing %s rows'</td>
     </tr>
     <tr>
         <td>formatSearch</td>

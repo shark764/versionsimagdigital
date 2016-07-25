@@ -179,7 +179,7 @@ pre.pre-display-code-natural, pre.pre-display-code-no-natural {
 }
 pre.pre-display-code-natural {
     font-family: 'Source Sans Pro', sans-serif !important;
-    font-size: 14px !important;
+    font-size: 12px !important;
 }
 pre.pre-display-code-no-natural.pre-unlimited-height {
     height: auto !important;

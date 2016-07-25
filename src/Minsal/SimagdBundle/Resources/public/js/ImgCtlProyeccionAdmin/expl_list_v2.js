@@ -4,22 +4,21 @@
  * and open the template in the editor.
  */
 
-function actionFormatter(value, row, index) {
+function actionFormatter (value, row, index) {
+    /* btn-xs */
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a class="show-exploracion-action btn btn-primary-v2 btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
-		    '<i class="glyphicon glyphicon-info-sign"></i>',
+		'<a class="show-exploracion-action btn btn-default btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+		    '<i class="glyphicon glyphicon-info-sign"></i>  Consultar',
+		'</a>',
+		'<a class="edit-exploracion-action btn btn-default btn-xs" href="javascript:void(0)" title="Editar registro de proyección"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+		    '<i class="glyphicon glyphicon-repeat"></i>  Editar',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a class="edit-exploracion-action btn btn-primary-v2 btn-xs " href="javascript:void(0)" title="Editar registro de proyección"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
-		    '<i class="glyphicon glyphicon-repeat"></i>',
-		'</a>',
-	    '</div>',
-	    '<div class="btn-group" role="group">',
-		'<a class="catalogo-exploracion-action btn btn-success-v2 btn-xs " href="javascript:void(0)" title="Agregar proyección en Catálogo local"' + (row.allowAgregarLc === false ? ' disabled="disabled"' : '') + '>',
-		    '<i class="glyphicon glyphicon-plus-sign"></i>',
+		'<a class="catalogo-exploracion-action btn btn-default btn-xs" href="javascript:void(0)" title="Agregar proyección en Catálogo local"' + (row.allowAgregarLc === false ? ' disabled="disabled"' : '') + '>',
+		    '<i class="glyphicon glyphicon-plus-sign"></i>  Catálogo',
 		'</a>',
 	    '</div>',
 	'</div>'
@@ -96,6 +95,27 @@ window.actionEvents = {
 		.removeClass('disabled');
     }
 };
+
+/*
+ * VALUE IN MINUTES
+ */
+function simagdValueInMinutesFormatter (value, row, index)
+{
+    return isValueInteger (value) !== false ? value.toString() + ' Min' : value;
+}
+function isValueInteger (value)
+{
+  var x;
+  return isNaN(value) ? !1 : (x = parseFloat(value), (0 | x) === x);
+}
+function simagdTiempoMedicoFormatter (value, row, index)
+{
+    return jQuery.isEmptyObject(value) === false ? value.toString() + ' Min' : value;
+}
+function simagdTiempoSalaFormatter (value, row, index)
+{
+    return jQuery.isEmptyObject(value) === false ? value.toString() + ' Min' : value;
+}
 
 function getProyeccionHabilitadaSourceData (field) {
     return [
