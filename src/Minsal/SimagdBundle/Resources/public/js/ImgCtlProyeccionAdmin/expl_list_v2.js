@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 
-function actionFormatter (value, row, index) {
+function actionFormatter (value, row, index)
+{
     /* btn-xs */
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
@@ -23,6 +24,57 @@ function actionFormatter (value, row, index) {
 	    '</div>',
 	'</div>'
     ].join('');
+    
+//     var $arr_result = [];
+//     
+//     $arr_result.push('<div class="btn-toolbar" role="toolbar" aria-label="...">');
+//     
+//     if (row.allowShow !== false || row.allowEdit !== false)
+//     {
+// 	$arr_result.push(
+// 	    '<div class="btn-group" role="group">'
+// 	);
+//     }
+//     
+//     if (row.allowShow !== false)
+//     {
+// 	$arr_result.push(
+// 	    '<a class="show-exploracion-action btn btn-default btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+// 		'<i class="glyphicon glyphicon-info-sign"></i>  Consultar',
+// 	    '</a>'
+// 	);
+//     }
+//     
+//     if (row.allowEdit !== false)
+//     {
+// 	$arr_result.push(
+// 	    '<a class="edit-exploracion-action btn btn-default btn-xs" href="javascript:void(0)" title="Editar registro de proyección"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+// 		'<i class="glyphicon glyphicon-repeat"></i>  Editar',
+// 	    '</a>'
+// 	);
+//     }
+//     
+//     if (row.allowShow !== false || row.allowEdit !== false)
+//     {
+// 	$arr_result.push(
+// 	    '</div>'
+// 	);
+//     }
+//     
+//     if (row.allowAgregarLc !== false)
+//     {
+// 	$arr_result.push(
+// 	    '<div class="btn-group" role="group">',
+// 		'<a class="catalogo-exploracion-action btn btn-default btn-xs" href="javascript:void(0)" title="Agregar proyección en Catálogo local"' + (row.allowAgregarLc === false ? ' disabled="disabled"' : '') + '>',
+// 		    '<i class="glyphicon glyphicon-plus-sign"></i>  Catálogo',
+// 		'</a>',
+// 	    '</div>'
+// 	);
+//     }
+//     
+//     $arr_result.push('</div>');
+//     
+//     return $arr_result.join('');
 }
 
 window.actionEvents = {

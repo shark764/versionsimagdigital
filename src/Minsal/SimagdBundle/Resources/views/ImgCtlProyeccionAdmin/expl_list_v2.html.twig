@@ -165,14 +165,14 @@
 		<thead>
 		    <tr>
 			<th data-field="expl_id" rowspan="2" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" {#data-visible="false"#} data-align="center" data-halign="center" data-sortable="true">ID</th>
-			<th colspan="3">Examen / Grupo</th>
+			<th colspan="2">Examen / Grupo</th>
 			<th colspan="5{#6#}">Proyección / Exploración</th>
 			<th colspan="2"><span class="glyphicon glyphicon-cog"></span> Acciones</th>
 		    </tr>
 		    <tr>
 			<th data-field="exm_imgCodigo" data-filter-bstable-apply="true" data-filter-bstable-type="text" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Código</th>
 			<th data-field="exm_descripcion" data-filter-bstable-apply="true" data-filter-bstable-by="exm_id" data-filter-bstable-type="select2" class="col-md-3" data-formatter="simagdDescriptionFormatter" data-align="left" data-halign="center" data-sortable="true">Nombre</th>
-			<th data-field="exm_sexo" {#data-visible="false"#} data-filter-bstable-apply="true" data-filter-bstable-by="sex_id" data-filter-bstable-type="select2" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Aplica al sexo</th>
+			<th data-field="exm_sexo" data-visible="false"{##} data-filter-bstable-apply="true" data-filter-bstable-by="sex_id" data-filter-bstable-type="select2" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Aplica al sexo</th>
 			<th data-field="expl_codigo" data-filter-bstable-apply="true" data-filter-bstable-type="text" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Código</th>
 			<th data-field="expl_nombre" data-filter-bstable-apply="true" data-filter-bstable-by="expl_id" data-filter-bstable-type="select2" data-switchable="false" class="col-md-4" data-align="left" data-halign="center" data-sortable="true">Nombre</th>
 			<th data-field="expl_tiempoMedico" {#data-visible="false"#} data-formatter="simagdValueInMinutesFormatter" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Médico</th>
@@ -195,7 +195,7 @@
 	    
 	    {#<table id="table"
 		  data-toggle="table"
-		  data-url="{#../json/data1.json#}">
+		  data-url="../json/data1.json">
 		<thead>
 		    <tr>
 			<th colspan="2">Item Detail</th>
