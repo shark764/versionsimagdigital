@@ -155,7 +155,7 @@ jQuery(document).ready(function() {
     $("input[id^='fecha_']").each(function() {
 
         jQuery(this).wrap("<div class='input-group'></div>");
-        jQuery(this).before(" <span class='input-group-btn'> <button class='bsqEstDatepickerShow demo btn btn-primary btn-large'> <i class='glyphicon glyphicon-calendar'></i> </button> </span>");
+        jQuery(this).before(" <span class='input-group-btn'> <button class='bsqEstDatepickerShow demo btn btn-primary-v2 btn-outline btn-large'> <i class='glyphicon glyphicon-calendar'></i> </button> </span>");
 	
     });
 
@@ -170,9 +170,9 @@ jQuery(document).ready(function() {
     $("input[id='nec'], input[id='dui']")
             .wrap("<div class='input-group'></div>");
     $("input[id='nec']")
-            .before(" <span class='input-group-btn'> <button class='demo btn btn-primary btn-large' id='_simagdBtnAddonNec'> <i class='glyphicon glyphicon-barcode'></i> </button> </span>");
+            .before(" <span class='input-group-btn'> <button class='demo btn btn-primary-v2 btn-outline btn-large' id='_simagdBtnAddonNec'> <i class='glyphicon glyphicon-barcode'></i> </button> </span>");
     $("input[id='dui']")
-            .before(" <span class='input-group-btn'> <button class='demo btn btn-primary btn-large' id='_simagdBtnAddonDui'> <i class='glyphicon glyphicon-barcode'></i> </button> </span>");
+            .before(" <span class='input-group-btn'> <button class='demo btn btn-primary-v2 btn-outline btn-large' id='_simagdBtnAddonDui'> <i class='glyphicon glyphicon-barcode'></i> </button> </span>");
 
     $(document).on('click', "button[id^='_simagdBtnAddon']", function(e) {
         e.preventDefault();

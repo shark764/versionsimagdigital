@@ -44,7 +44,7 @@ file that was distributed with this source code.
 
 {% block simagd_navbar_left_nav %}
     <li class="list-table-link-navbar {% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_LIST') or is_granted('ROLE_ADMIN') ) %} disabled link-full-disabled {% endif %}">
-	<a title="Regresar a listado de solicitudes" target="_self" class=""
+	<a   title="Regresar a listado de solicitudes" target="_self" class=""
 	    href="{{ admin.generateUrl('list') }}" autofocus>
 	    <span class="text-info"> <i class="fa fa-user-md"></i> <i class="fa fa-undo"></i> </span> Solicitudes <span class="sr-only">(current)</span>
 	</a>
@@ -73,8 +73,8 @@ file that was distributed with this source code.
 
                 <ul class="nav nav-pills nav-stacked col-md-3 col-xs-3" style="{#padding-left: 15px;#}"> <!-- required for floating -->
                     <!-- Nav tabs -->
-                    <li><a href="#lct_pacienteTab" data-toggle="pill"> <span class="glyphicon glyphicon-user"></span> Paciente <i class="fa"></i></a></li>
-                    <li class="active"><a href="#lct_solicitudTab" data-toggle="pill"> <span class="glyphicon glyphicon-book"></span> Solicitud de estudio <i class="fa"></i></a></li>
+                    <li><a   href="#lct_pacienteTab" data-toggle="pill"> <span class="glyphicon glyphicon-user"></span> Paciente <i class="fa"></i></a></li>
+                    <li class="active"><a   href="#lct_solicitudTab" data-toggle="pill"> <span class="glyphicon glyphicon-book"></span> Solicitud de estudio <i class="fa"></i></a></li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -99,13 +99,13 @@ file that was distributed with this source code.
             <div class="box-footer clearfix" style="{#padding-top: 2px !important;#}">
 		<div class="btn-toolbar" role="toolbar" aria-label="...">
 		    <div class="btn-group" role="group">
-			<a title="Regresar a edición de formulario" target="_self" class="btn btn-primary-v2 btn-sm "
+			<a   title="Regresar a edición de formulario" target="_self" class="btn btn-primary-v2 btn-outline btn-sm "
 			    href="{{ admin.generateObjectUrl('edit', solicitud) }}" autofocus>
 			    <i class="fa fa-undo"></i>
 			    No, Regresar</a>
 		    </div>
 		    <div class="btn-group" role="group">
-			<a title="Solicitar otra modalidad" target="_self" class="btn btn-element-v2 btn-sm "
+			<a   title="Solicitar otra modalidad" target="_self" class="btn btn-element-v2 btn-outline btn-sm "
 			    href="{{ path('simagd_solicitud_estudio_create', { '__exp': expediente ? expediente.getId() : null,
 									    '__hcl': sec_solicitud and sec_solicitud.idHistorialClinico.piloto|upper != 'V' ? sec_solicitud.idHistorialClinico.getId() : null,
 									    '__prc': solicitud.id

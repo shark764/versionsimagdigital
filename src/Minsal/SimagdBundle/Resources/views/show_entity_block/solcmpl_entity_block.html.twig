@@ -61,14 +61,14 @@
 				    {% endfor %}
 				    
 				    <div class="panel panel-primary-v2">
-					<a class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#solcmpl_proyecciones_panelCollapse_id_{{ key }}">
+					<a   class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#solcmpl_proyecciones_panelCollapse_id_{{ key }}">
 					    <span class="badge">{{ solcmpl_exm_proyeccionCount }}</span>
 					    {{ value }}
 					</a>
 					<div class="panel-collapse collapse" id="solcmpl_proyecciones_panelCollapse_id_{{ key }}">
 					    <div class="panel-body">
 						{% for proyeccion in object_request_cmpl.solicitudEstudioComplementarioProyeccion if proyeccion.idExamenServicioDiagnostico.id == key|trim('_') %}
-						    <a  tabindex="0"
+						    <a    tabindex="0"
 							class="list-group-item btn-link btn-link-v2"
 							role="button"
 							data-toggle="popover"

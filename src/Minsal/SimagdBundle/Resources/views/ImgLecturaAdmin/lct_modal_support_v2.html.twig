@@ -49,27 +49,27 @@
         <div class="col-xs-3"> <!-- required for floating -->
             <!-- Nav tabs -->
             <ul class="nav nav-tabs tabs-right">
-                <li class="active"><a href="#pacienteInfo" data-toggle="pill"><span class="glyphicon glyphicon-user"></span> Paciente</a></li>
+                <li class="active"><a   href="#pacienteInfo" data-toggle="pill"><span class="glyphicon glyphicon-user"></span> Paciente</a></li>
                 {% if historiaClinicaInfo is not null %}
-                    <li><a href="#historiaClinicaInfo" data-toggle="pill"><span class="glyphicon glyphicon-list-alt"></span> Historia clínica</a></li>
+                    <li><a   href="#historiaClinicaInfo" data-toggle="pill"><span class="glyphicon glyphicon-list-alt"></span> Historia clínica</a></li>
                 {% endif %}
                 {% if preinscripcionInfo is not null %}
-                    <li><a href="#preinscripcionInfo" data-toggle="pill"><span class="glyphicon glyphicon-list-alt"></span> Solicitud de estudio</a></li>
+                    <li><a   href="#preinscripcionInfo" data-toggle="pill"><span class="glyphicon glyphicon-list-alt"></span> Solicitud de estudio</a></li>
                 {% endif %}
                 {% if citaInfo is not null %}
-                    <li><a href="#citaInfo" data-toggle="pill"><span class="glyphicon glyphicon-floppy-saved"></span> Cita</a></li>
+                    <li><a   href="#citaInfo" data-toggle="pill"><span class="glyphicon glyphicon-floppy-saved"></span> Cita</a></li>
                 {% endif %}
                 {% if procedimientoRealizadoInfo is not null %}
-                    <li><a href="#procedimientoRealizadoInfo" data-toggle="pill"><span class="glyphicon glyphicon-floppy-saved"></span> Examen realizado</a></li>
+                    <li><a   href="#procedimientoRealizadoInfo" data-toggle="pill"><span class="glyphicon glyphicon-floppy-saved"></span> Examen realizado</a></li>
                 {% endif %}
                 {% if solicitudDiagnosticoInfo is not null %}
-                    <li><a href="#solicitudDiagnosticoInfo" data-toggle="pill"><span class="glyphicon glyphicon-list"></span> Solicitud de diagnóstico</a></li>
+                    <li><a   href="#solicitudDiagnosticoInfo" data-toggle="pill"><span class="glyphicon glyphicon-list"></span> Solicitud de diagnóstico</a></li>
                 {% endif %}
                 {% if diagnosticoInfo is not null %}
-                    <li><a href="#diagnosticoInfo" data-toggle="pill"><span class="glyphicon glyphicon-paperclip"></span> Diagnóstico</a></li>
+                    <li><a   href="#diagnosticoInfo" data-toggle="pill"><span class="glyphicon glyphicon-paperclip"></span> Diagnóstico</a></li>
                 {% endif %}
                 {% if notaDiagInfo | length > 0 %}
-                    <li><a href="#notaDiagInfo" data-toggle="pill"><span class="glyphicon glyphicon-comment"></span> Notas agregadas <span class="badge">{{ notaDiagInfo | length }}</span></a></li>
+                    <li><a   href="#notaDiagInfo" data-toggle="pill"><span class="glyphicon glyphicon-comment"></span> Notas agregadas <span class="badge">{{ notaDiagInfo | length }}</span></a></li>
                 {% endif %}
             </ul>
         </div>

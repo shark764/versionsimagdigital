@@ -53,6 +53,11 @@ jQuery(document).ready(function() {
 	    editable: true,
 	    editExternalEvent: true,
 	    defaultView: 'agendaWeek',
+	    /*
+	     * HIDE SATURDAYS (6) AND SUNDAYS (0)
+	     */
+	    //hiddenDays: [6, 0],	// hide Saturdays (6) and Sundays (0)
+	    nowIndicator: true,
 	    events: {
 		url: Routing.generate('simagd_cita_obtenerEventosCalendario'),
 		type: 'POST',
@@ -138,7 +143,7 @@ jQuery(document).ready(function() {
 						    '<div class="popover popover-container-max-width popover-max-limit-width" role="tooltip">',
 							'<div class="arrow">',
 							'</div>',
-							'<button type="button" class="close" data-dismiss="popover" aria-hidden="true">&times;',
+							'<button type="button"    class="close" data-dismiss="popover" aria-hidden="true">&times;',
 							'</button>',
 							'<h3 class="popover-title">',
 							'</h3>',
@@ -427,7 +432,14 @@ jQuery(document).ready(function() {
 			    
 			    jQuery('input[id="formConfirmCitId"]').val( calEvent._id);
 			    
-    // 			jQuery('#opcionesCita-modal').modal();
+			    window.console.log('%c' + 'YYYY-MM-DD h:mm:ss A => ' + calEvent.start.format('YYYY-MM-DD h:mm:ss A') + '\n'
+				+ 'll => ' + calEvent.start.format('ll') + '\n'
+				+ 'LL => ' + calEvent.start.format('LL') + '\n'
+				+ 'lll => ' + calEvent.start.format('lll') + '\n'
+				+ 'LLL => ' + calEvent.start.format('LLL') + '\n'
+				+ 'llll => ' + calEvent.start.format('llll') + '\n'
+				+ 'LLLL => ' + calEvent.start.format('LLLL') + '\n'
+				+ 'dddd, MMMM Do YYYY, h:mm:ss a => ' + calEvent.start.format('dddd, MMMM Do YYYY, h:mm:ss a'), 'background: #16677d; color: #fc9');
 			    
 			    $el_fc_calendar.filter(':not([disabled]):visible')
 				.find('.fc-event, .fc-bgevent, [data-toggle="popover"]')
@@ -504,7 +516,7 @@ jQuery(document).ready(function() {
      * --| call method to define fullCalendar
      * **************************************************************************
      */
-    fn_init_fullCalendar_configurarion({slot: '00:05:00'});	// --| init plugin fullcalendar with slot in default = 5 minutes
+    fn_init_fullCalendar_configurarion({slot: '00:15:00'});	// --| init plugin fullcalendar with slot in default = 5 minutes
     /*
      * --| END call method
      */
@@ -519,16 +531,38 @@ jQuery(document).ready(function() {
         jQuery(this).parents('li').hide();
         
         jQuery('#external-events').hide('slide', {direction: 'left'}, 100, function() {
-            jQuery('#container_fc_agenda_view').removeClass('col-lg-9 col-md-9 col-sm-9').addClass('col-lg-12 col-md-12 col-sm-12');
+            jQuery('#container_fc_agenda_view').removeClass (function (index, css) {
+		    return (css.match (/(^|\s)col-lg-\S+/g) || css.match (/(^|\s)col-md-\S+/g) || css.match (/(^|\s)col-sm-\S+/g) || []).join(' ');
+		})/*.removeClass('col-lg-9 col-md-9 col-sm-9')*/.addClass('col-lg-12 col-md-12 col-sm-12');
             jQuery(window).resize();
         });
     });
     /*
+     * *********************************************************************************************************************
+     * *********************************************************************************************************************
+     * *********************************************************************************************************************
+     * *********************************************************************************************************************
+     * *********************************************************************************************************************
+     * *********************************************************************************************************************
+     * *********************************************************************************************************************
+     * *********************************************************************************************************************
+     * http://stackoverflow.com/questions/2644299/jquery-removeclass-wildcard
+     * *********************************************************************************************************************
+     * *********************************************************************************************************************
+     * *********************************************************************************************************************
+     * *********************************************************************************************************************
+     * *********************************************************************************************************************
+     * *********************************************************************************************************************
+     * *********************************************************************************************************************
+     * *********************************************************************************************************************
+     * *********************************************************************************************************************
      * return to default agenda view
      */
     jQuery('#panel_agenda_btn_default_view').filter(':not([disabled])').click(function(e) {
         jQuery('#external-events').show('slide', {direction: 'right'}, 100, function() {
-            jQuery('#container_fc_agenda_view').removeClass('col-lg-12 col-md-12 col-sm-12').addClass('col-lg-9 col-md-9 col-sm-9');
+            jQuery('#container_fc_agenda_view').removeClass (function (index, css) {
+		    return (css.match (/(^|\s)col-lg-\S+/g) || css.match (/(^|\s)col-md-\S+/g) || css.match (/(^|\s)col-sm-\S+/g) || []).join(' ');
+		})/*.removeClass('col-lg-12 col-md-12 col-sm-12')*/.addClass('col-lg-9 col-md-9 col-sm-9');
             jQuery(window).resize();
         });
         

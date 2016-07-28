@@ -47,7 +47,7 @@
 			{% for nota in object_notasdiag %}
 
 			    <div class="panel panel-primary-v2">
-				<a class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#notdiag_nota_panelCollapse_id_{{ nota.id }}">
+				<a   class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#notdiag_nota_panelCollapse_id_{{ nota.id }}">
 				    <span class="badge">{{ nota.idTipoNotaDiagnostico }}</span>
 				    {{ nota.idEmpleado|trim|truncate(35) }}
 				</a>

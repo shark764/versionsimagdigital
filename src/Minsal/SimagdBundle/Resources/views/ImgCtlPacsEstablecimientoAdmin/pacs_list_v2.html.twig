@@ -48,7 +48,7 @@
 
 {% block simagd_navbar_left_nav %}
     <li class="list-table-link-navbar active {% if _PACS_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-	<a href="javascript:void(0)" id="show-table-pacs-establecimiento-list" data-divtabletarget="div-resultado-pacs-establecimiento"
+	<a   href="javascript:void(0)" id="show-table-pacs-establecimiento-list" data-divtabletarget="div-resultado-pacs-establecimiento"
 	    {% if _PACS_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
 	    <span class="text-info"><i class="fa fa-refresh"></i> <i class="fa fa-tasks"></i> </span> Conexiones <span class="sr-only">(current)</span>
 	</a>
@@ -57,10 +57,10 @@
 
 {% block simagd_navbar_right_nav %}
     <li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="text-info"><i class="fa fa-plus-circle"></i> <i class="fa fa-tasks"></i> </span> Registrar <span class="caret"></span></a>
+	<a   href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="text-info"><i class="fa fa-plus-circle"></i> <i class="fa fa-tasks"></i> </span> Registrar <span class="caret"></span></a>
 	<ul class="dropdown-menu" role="menu">
 	    <li {% if _PACS_ALLOW_CREATE == false %} class="disabled link-full-disabled" {% endif %}>
-		<a href="{% if _PACS_ALLOW_CREATE == true %} {{ path('simagd_pacs_create') }} {% else %} javascript:void(0) {% endif %}" id="nuevoServidorPacsBtn" target="_blank"
+		<a   href="{% if _PACS_ALLOW_CREATE == true %} {{ path('simagd_pacs_create') }} {% else %} javascript:void(0) {% endif %}" id="nuevoServidorPacsBtn" target="_blank"
 		    {% if _PACS_ALLOW_CREATE == false %} disabled="disabled" {% endif %}> <span class="glyphicon glyphicon-cog "></span> Nueva conexión
 		</a>
 	    </li>

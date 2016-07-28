@@ -6,7 +6,7 @@
         {#<div class="columns columns-left btn-group pull-left">#}
             <!-- Single button -->
             <div class="btn-group">
-                <button type="button" id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
+                <button type="button"    id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 btn-outline dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
                     <i class="glyphicon glyphicon-filter"></i>
                     Filtrar <span class="caret"></span>
                 </button>
@@ -14,26 +14,26 @@
                 <ul class="dropdown-menu table_bsTable_toolbar_menuFilter" id="bs_{{ code_entity }}_menuFilter" >
                 </ul>
             </div>
-            <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
+            <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn-outline btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
                 <i class="glyphicon glyphicon-repeat"></i>
             </button>
-            <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
+            <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn-outline btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
                 <i class="glyphicon glyphicon-trash"></i>
             </button>
 
             <!-- --| custom buttons for toolbar -->
             <span class="btn-separator"></span>
 
-            <button id="btn_toolbar_send_patient_to_list" class="btn btn-element-v2 btn_toolbar_send_patient_to_list" title="Confirmar estas citas" style="margin-left: 15px" disabled="disabled">
+            <button id="btn_toolbar_send_patient_to_list" class="btn btn-element-v2 btn-outline btn_toolbar_send_patient_to_list" title="Confirmar estas citas" style="margin-left: 15px" disabled="disabled">
                 <i class="glyphicon glyphicon-circle-arrow-right"></i>
             </button>
-            <button id="btn_toolbar_cancel_patient_date" class="btn btn-danger btn_toolbar_cancel_patient_date" title="Cancelar estas citas" style="{#margin-left: 15px#}" disabled="disabled">
+            <button id="btn_toolbar_cancel_patient_date" class="btn btn-danger btn-outline btn_toolbar_cancel_patient_date" title="Cancelar estas citas" style="{#margin-left: 15px#}" disabled="disabled">
                 <i class="glyphicon glyphicon-trash"></i>
             </button>
 
             <span class="btn-separator"></span>
 
-            <button id="btn_toolbar_assign_patient_date" class="btn btn-element-v2 btn_toolbar_assign_patient_date" title="Asignar estas citas" style="margin-left: 15px" disabled="disabled">
+            <button id="btn_toolbar_assign_patient_date" class="btn btn-element-v2 btn-outline btn_toolbar_assign_patient_date" title="Asignar estas citas" style="margin-left: 15px" disabled="disabled">
                 <i class="glyphicon glyphicon-user"></i>
             </button>
             <!-- END --| custom buttons for toolbar -->

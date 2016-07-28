@@ -9,7 +9,7 @@ function pendienteTranscripcion_personal_actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a class="transcribir-personal-pendiente-transcribir-action btn btn-primary-v2 btn-xs" href="javascript:void(0)" title="Transcribir lectura radiológica"' + (row.allowTranscribir === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="transcribir-personal-pendiente-transcribir-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Transcribir lectura radiológica"' + (row.allowTranscribir === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-edit"></i>',
 		'</a>',
 	    '</div>',

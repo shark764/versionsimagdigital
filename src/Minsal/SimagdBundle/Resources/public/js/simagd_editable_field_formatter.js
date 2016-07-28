@@ -26,14 +26,14 @@
             var _formatter = column.formatter;
             column.formatter = function (value, row, index) {
                 var result = _formatter ? _formatter(value, row, index) : value;
-		console.log(['<a href="javascript:void(0)"',
+		console.log(['<a   href="javascript:void(0)"',
                     ' data-name="' + column.field + '"',
                     ' data-pk="' + row[that.options.idField] + '"',
                     ' data-value="' + jQuery.trim(value) + '"',
                     '>' + result + '</a>'
                 ].join(''));
 
-                return ['<a href="javascript:void(0)"',
+                return ['<a   href="javascript:void(0)"',
                     ' data-name="' + column.field + '"',
                     ' data-pk="' + row[that.options.idField] + '"',
                     ' data-value="' + jQuery.trim(value) + '"',

@@ -137,8 +137,15 @@ table.simagd-search-table tr.sonata-ba-list-field-header {
 {
     /*background-color: #ffffff !important;*/
     /*padding: 0.25em !important;*/
-    border-top: 1px solid red;
-    border-bottom: 1px solid red;
+    
+    /*
+     border-top: 1px solid red;
+     border-bottom: 1px solid red;
+     *
+     */
+    
+    border-top: 1px solid #16677d;
+    border-bottom: 1px solid #16677d;
 }
 /*.content-header .bootstrap-table .table.table-bstable-report>thead>tr>td,
 .content-header .bootstrap-table .table.table-bstable-report>tbody>tr>td,
@@ -184,7 +191,7 @@ table.simagd-search-table tr.sonata-ba-list-field-header {
 .content .bootstrap-table .table.table-bstable-report>tbody>tr .btn-toolbar .btn-group .btn.btn-default,
 .content .bootstrap-table .table.table-bstable-report>tfoot>tr .btn-toolbar .btn-group .btn.btn-default
 {
-    /*color: #16677d !important;*/
+    color: #16677d !important;
 }
 .content .bootstrap-table .table.table-bstable-report>tbody>tr:first-child>th,
 .content .bootstrap-table .table.table-bstable-report>tbody>tr:first-child>td

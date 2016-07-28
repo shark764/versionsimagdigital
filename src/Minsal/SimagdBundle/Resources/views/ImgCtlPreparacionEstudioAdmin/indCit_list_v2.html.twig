@@ -36,7 +36,7 @@
 
 {% block simagd_navbar_left_nav %}
     <li class="list-table-link-navbar active {% if _INDCIT_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-	<a href="javascript:void(0)" id="show-table-general-list" data-divtabletarget="div-resultado-indicaciones-cita"
+	<a   href="javascript:void(0)" id="show-table-general-list" data-divtabletarget="div-resultado-indicaciones-cita"
 	    {% if _INDCIT_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
 	    <span class="text-info"><i class="fa fa-tasks"></i> <i class="fa fa-file-text"></i> </span> Listado general <span class="sr-only">(current)</span>
 	</a>
@@ -45,10 +45,10 @@
 
 {% block simagd_navbar_right_nav %}
     <li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="text-info"><i class="fa fa-plus-circle"></i> </span> Registrar <span class="caret"></span></a>
+	<a   href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="text-info"><i class="fa fa-plus-circle"></i> </span> Registrar <span class="caret"></span></a>
 	<ul class="dropdown-menu" role="menu">
 	    <li {% if _INDCIT_ALLOW_CREATE == false %} class="disabled link-full-disabled" {% endif %}>
-		<a href="javascript:void(0)" id="navbar_btn_nuevaIndicacionCita" {#data-toggle="modal" data-target="#crearIndicacionCita-modal"#}
+		<a   href="javascript:void(0)" id="navbar_btn_nuevaIndicacionCita" {#data-toggle="modal" data-target="#crearIndicacionCita-modal"#}
 		    {% if _INDCIT_ALLOW_CREATE == false %} disabled="disabled" {% endif %}> <span class="glyphicon glyphicon-cog "></span> Nuevas indicaciones
 		</a>
 	    </li>

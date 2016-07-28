@@ -125,7 +125,7 @@ function ___actionSolicitudEstudioComplementarioSetterObjectModalData(solcmplId,
                 var estudioUrl = jQuery.trim($solcmplObject.est_url) || 'javascript:void(0)';/* Validar que exista idEstudio isEmptyObject */
                 var allowDownload = allow_userOverData.allowDownloadEstudio === false ? ' disabled="disabled"' : '';
                 console.log($solcmplObject.est_id, estudioUrl, allowDownload);
-                return '<a title="Recuperar estudio de servidor PACS" target="_blank" class="btn btn-primary btn-sm" href="'
+                return '<a   title="Recuperar estudio de servidor PACS" target="_blank" class="btn btn-primary-v2 btn-outline btn-sm" href="'
                             + estudioUrl + '"' + allowDownload + '> <i class="fa fa-eye"></i> Recuperar</a>';
             });
 }
@@ -439,7 +439,7 @@ function ___actionSolicitudDiagnosticoSetterObjectModalData(soldiagId, $soldiagO
                 var estudioUrl = jQuery.trim($soldiagObject.est_url) || 'javascript:void(0)';/* Validar que exista idEstudio isEmptyObject */
                 var allowDownload = allow_userOverData.allowDownloadEstudio === false ? ' disabled="disabled"' : '';
                 console.log($soldiagObject.est_id, estudioUrl, allowDownload);
-                return '<a title="Recuperar estudio de servidor PACS" target="_blank" class="btn btn-primary btn-sm" href="'
+                return '<a   title="Recuperar estudio de servidor PACS" target="_blank" class="btn btn-primary-v2 btn-outline btn-sm" href="'
                             + estudioUrl + '"' + allowDownload + '> <i class="fa fa-eye"></i> Recuperar</a>';
             });
 }

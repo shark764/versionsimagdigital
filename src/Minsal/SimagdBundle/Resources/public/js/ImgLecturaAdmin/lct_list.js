@@ -11,10 +11,10 @@ var lecturaCacheShowViewObject = [];
 
 function actionLecturaFormatter(value, row, index) {
     return [
-        '<a class="show-lectura-action btn btn-primary-v2 btn-xs" href="javascript:void(0)" title="Mostrar lectura detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+        '<a   class="show-lectura-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar lectura detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
         '<i class="glyphicon glyphicon-info-sign"></i>',
         '</a>',
-        '<a class="edit-lectura-action btn btn-primary-v2 btn-xs ml10" href="' + row.editLctUrl + '" target="_blank" title="Editar registro de lectura"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+        '<a   class="edit-lectura-action btn btn-primary-v2 btn-outline btn-xs ml10" href="' + row.editLctUrl + '" target="_blank" title="Editar registro de lectura"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
         '<i class="glyphicon glyphicon-repeat"></i>',
         '</a>'
     ].join('');
@@ -78,7 +78,7 @@ window.actionLecturaEvents = {
                                     .html('<span class="text-success">\n\
                                                 <span class="glyphicon glyphicon-question-sign"></span>\n\
                                                     ¿Está seguro que desea continuar?</span>\n\
-                                                    <button type="button" class="btn btn-success" ><i class="fa fa-plus-circle"></i>\n\
+                                                    <button type="button"    class="btn btn-success" ><i class="fa fa-plus-circle"></i>\n\
                                                     ' + moment(jQuery.trim(response.object.fechaLectura.date), "YYYY-MM-DD HH:mm:ss")
                                                           .format("dddd, MMMM D YYYY, h:mm:ss A") + '</button>');
 				    
@@ -106,7 +106,7 @@ window.actionLecturaEvents = {
                             .html('<span class="text-info">\n\
                                         <span class="glyphicon glyphicon-question-sign"></span>\n\
                                             ¿Está seguro que desea continuar?</span>\n\
-                                            <button type="button" class="btn btn-info" ><i class="fa fa-plus-circle"></i>\n\
+                                            <button type="button"    class="btn btn-info" ><i class="fa fa-plus-circle"></i>\n\
                                             ' + moment(jQuery.trim(valueCache.lectura.fechaLectura.date), "YYYY-MM-DD HH:mm:ss")
                                                   .format("dddd, MMMM D YYYY, h:mm:ss A") + '</button>');
 				    

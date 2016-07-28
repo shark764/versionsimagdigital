@@ -9,7 +9,7 @@ function pendienteLectura_personal_actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a class="leer-personal-pendiente-lectura-action btn btn-primary-v2 btn-xs" href="' + row.lct_editUrl + '" target="_blank" title="Interpretar estudio"' + (row.allowInterpretar === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="leer-personal-pendiente-lectura-action btn btn-primary-v2 btn-outline btn-xs" href="' + row.lct_editUrl + '" target="_blank" title="Interpretar estudio"' + (row.allowInterpretar === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-eye-open"></i> Editar',
 		'</a>',
 	    '</div>',

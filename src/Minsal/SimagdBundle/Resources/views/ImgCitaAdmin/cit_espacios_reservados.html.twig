@@ -37,7 +37,7 @@
                     <td class="col-md-4">{{ reservaCita.fechaProgramada|date('H:i A') }}</td>
                     <td class="col-md-2">{{ reservaCita.reservados }} {% if reservaCita.reservados > 1 %} pacientes {% else %} paciente {% endif %}</td>
                     <td class="col-md-1">
-                        <a class="set-fechaHoraProgramada btn-link" href="javascript:void(0)" title="Seleccionar fecha y hora" data-date="{{ reservaCita.fechaProgramada|date('Y-m-d H:i')|raw }}" >
+                        <a   class="set-fechaHoraProgramada btn-link" href="javascript:void(0)" title="Seleccionar fecha y hora" data-date="{{ reservaCita.fechaProgramada|date('Y-m-d H:i')|raw }}" >
                             <i class="fa fa-check-square"></i>
                         </a>
                     </td>

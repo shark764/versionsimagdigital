@@ -61,13 +61,13 @@
 
 {% block simagd_navbar_left_nav %}
     <li class="list-table-link-navbar active {% if _MTRL_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-	<a href="javascript:void(0)" id="show-table-general-list" data-divtabletarget="div-resultado-materiales"
+	<a   href="javascript:void(0)" id="show-table-general-list" data-divtabletarget="div-resultado-materiales"
 	    {% if _MTRL_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
 	    <span class="text-info"><i class="fa fa-tasks"></i> </span> Listado general <span class="sr-only">(current)</span>
 	</a>
     </li>
     <li class="list-table-link-navbar {% if _MTRLC_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-	<a href="javascript:void(0)" id="show-table-local-list" data-divtabletarget="div-resultado-materiales-locales"
+	<a   href="javascript:void(0)" id="show-table-local-list" data-divtabletarget="div-resultado-materiales-locales"
 	    {% if _MTRLC_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
 	    <span class="text-info"><i class="fa fa-h-square"></i> <i class="fa fa-tasks"></i> </span> Listado local
 	</a>
@@ -76,16 +76,16 @@
 
 {% block simagd_navbar_right_nav %}
     <li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="text-info"><i class="fa fa-plus-circle"></i> </span> Registrar <span class="caret"></span></a>
+	<a   href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="text-info"><i class="fa fa-plus-circle"></i> </span> Registrar <span class="caret"></span></a>
 	<ul class="dropdown-menu" role="menu">
 	    <li {% if _MTRL_ALLOW_CREATE == false %} class="disabled link-full-disabled" {% endif %}>
-		<a href="javascript:void(0)" id="btn_nuevoMaterial" {#data-toggle="modal" data-target="#crearMaterial-modal"#}
+		<a   href="javascript:void(0)" id="btn_nuevoMaterial" {#data-toggle="modal" data-target="#crearMaterial-modal"#}
 		    {% if _MTRL_ALLOW_CREATE == false %} disabled="disabled" {% endif %}> <span class="glyphicon glyphicon-cog "></span> Insertar material
 		</a>
 	    </li>
 	    <li class="divider"></li>
 	    <li {% if _MTRLC_ALLOW_CREATE == false %} class="disabled link-full-disabled" {% endif %}>
-		<a href="javascript:void(0)" id="btn_nuevoMaterialLocal" {#data-toggle="modal" data-target="#crearMaterialLocal-modal"#}
+		<a   href="javascript:void(0)" id="btn_nuevoMaterialLocal" {#data-toggle="modal" data-target="#crearMaterialLocal-modal"#}
 		    {% if _MTRLC_ALLOW_CREATE == false %} disabled="disabled" {% endif %}> <span class="glyphicon glyphicon-home "></span> Agregar a catálogo
 		</a>
 	    </li>

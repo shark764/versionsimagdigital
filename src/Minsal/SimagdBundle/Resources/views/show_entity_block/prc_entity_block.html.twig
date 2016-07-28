@@ -104,7 +104,7 @@
 				    {% endfor %}
 				    
 				    <div class="panel panel-primary-v2">
-					<a class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#proyecciones_panelCollapse_id_{{ key }}">
+					<a   class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#proyecciones_panelCollapse_id_{{ key }}">
 					    <span class="badge">{{ exm_proyeccionCount }}</span>
                                             <span class="caret" style="margin-right: 5px;"></span> <span class="dropup" style="margin-right: 5px; {#display: none;#}"><span class="caret"></span></span>
                                             {{ value }}
@@ -112,7 +112,7 @@
 					<div class="panel-collapse collapse" id="proyecciones_panelCollapse_id_{{ key }}">
 					    <div class="panel-body">
 						{% for proyeccion in object_request.solicitudEstudioProyeccion if proyeccion.idExamenServicioDiagnostico.id == key|trim('_') %}
-						    <a  tabindex="0"
+						    <a    tabindex="0"
 							class="list-group-item btn-link btn-link-v2"
 							role="button"
 							data-toggle="popover"

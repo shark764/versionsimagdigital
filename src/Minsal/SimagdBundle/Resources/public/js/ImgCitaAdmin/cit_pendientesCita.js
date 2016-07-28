@@ -119,7 +119,7 @@ jQuery.fn.loadPacientesSinCita = function() {
 							'<div class="popover popover-container-max-width" role="tooltip">',
 							    '<div class="arrow">',
 							    '</div>',
-                                                            '<button type="button" class="close" data-dismiss="popover" aria-hidden="true">&times;',
+                                                            '<button type="button"    class="close" data-dismiss="popover" aria-hidden="true">&times;',
 							    '</button>',
 							    '<h3 class="popover-title">',
 							    '</h3>',
@@ -328,7 +328,7 @@ jQuery.fn.setDataSolicitudSinCitaContent = function(options) {
 	    .html(function() {
                 var $result = simagdPrioridadAtencionFormatter($prcObject.prAtn_nombre, $prcObject, $prcObject.prc_id);
 
-                return ['<a href="javascript:void(0)"',
+                return ['<a   href="javascript:void(0)"',
                     ' data-type="select2"',
                     ' data-name="prAtn_nombre"',
                     ' data-title="Nueva prioridad"',

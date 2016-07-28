@@ -174,7 +174,7 @@
                     <!-- Brand and toggle get grouped for better mobile display -->
                     {% block tab_menu_navbar_header %}
                         <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <button type="button"    class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                                 <span class="sr-only">Toggle navigation</span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
@@ -232,7 +232,7 @@
         <div id="simagd-modal-info-support" class="modal container fade justify-bootstrap-div-container" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false">
             <div class="modal-content panel-primary-v2">
                 <div class="modal-header panel-heading">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+                    <button type="button"    class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
                     <h4 class="modal-title"><i class="fa fa-desktop"></i> <strong>Imagenología</strong> - Cuadro informativo</h4>
                 </div>
                 
@@ -259,7 +259,7 @@
                 </div>{# body #}
 
                 <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-primary-v2"> <i class="fa fa-times"></i> Cerrar </button>
+                    <button type="button"    data-dismiss="modal" class="btn btn-primary-v2 btn-outline"> <i class="fa fa-times"></i> Cerrar </button>
                 </div>
 
             </div><!-- /.modal-content -->
@@ -313,7 +313,7 @@
                         <div class="nav-tabs-custom">
                             <ul class="nav nav-pills nav-stacked col-md-3 col-xs-3" role="tablist">
                                 {% for name, form_tab in admin.formtabs %}
-                                    <li{% if loop.index == 1 %} class="active"{% endif %}><a href="#tab_{{ loop.index }}" data-toggle="pill"><span class="{{ form_tab.tab_icon|raw }}"></span> {{ admin.trans(name, {}, form_tab.translation_domain) }} <i class="fa"></i></a></li>
+                                    <li{% if loop.index == 1 %} class="active"{% endif %}><a   href="#tab_{{ loop.index }}" data-toggle="pill"><span class="{{ form_tab.tab_icon|raw }}"></span> {{ admin.trans(name, {}, form_tab.translation_domain) }} <i class="fa"></i></a></li>
                                 {% endfor %}
                             </ul>
                             <div class="tab-content col-md-9 col-xs-9">
@@ -348,9 +348,9 @@
                 <div class="well well-small form-actions">
                     {% if app.request.isxmlhttprequest %}
                         {% if admin.id(object) is not null %}
-                            <button type="submit" class="btn btn-success-v2" name="btn_update"><i class="fa fa-save"></i> {{ 'btn_update'|trans({}, 'SonataAdminBundle') }}</button>
+                            <button type="submit"    class="btn btn-success-v2 btn-outline" name="btn_update"><i class="fa fa-save"></i> {{ 'btn_update'|trans({}, 'SonataAdminBundle') }}</button>
                         {% else %}
-                            <button type="submit" class="btn btn-success-v2" name="btn_create"><i class="fa fa-plus-circle"></i> {{ 'btn_create'|trans({}, 'SonataAdminBundle') }}</button>
+                            <button type="submit"    class="btn btn-success-v2 btn-outline" name="btn_create"><i class="fa fa-plus-circle"></i> {{ 'btn_create'|trans({}, 'SonataAdminBundle') }}</button>
                         {% endif %}
                     {% else %}
                         {% if admin.supportsPreviewMode %}
@@ -360,28 +360,28 @@
                             </button>
                         {% endif %}
                         {% if admin.id(object) is not null %}
-                            <button type="submit" class="btn btn-primary-v2" name="btn_update_and_edit"><i class="fa fa-save"></i> Guardar</button>
+                            <button type="submit"    class="btn btn-primary-v2 btn-outline" name="btn_update_and_edit"><i class="fa fa-save"></i> Guardar</button>
 
                             {#{% if admin.hasroute('list') and admin.isGranted('LIST') %}
-                                <button type="submit" class="btn btn-primary-v2" name="btn_update_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                                <button type="submit"    class="btn btn-primary-v2 btn-outline" name="btn_update_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
                             {% endif %}#}
 
                             {% if admin.hasroute('delete') and admin.isGranted('DELETE', object) %}
                                 {{ 'delete_or'|trans({}, 'SonataAdminBundle') }}
-                                <a class="btn btn-danger" href="{{ admin.generateObjectUrl('delete', object) }}"><i class="fa fa-minus-circle"></i> {{ 'link_delete'|trans({}, 'SonataAdminBundle') }}</a>
+                                <a   class="btn btn-danger btn-outline" href="{{ admin.generateObjectUrl('delete', object) }}"><i class="fa fa-minus-circle"></i> {{ 'link_delete'|trans({}, 'SonataAdminBundle') }}</a>
                             {% endif %}
 
                             {% if admin.isAclEnabled() and admin.hasroute('acl') and admin.isGranted('MASTER', object) %}
-                                <a class="btn btn-info" href="{{ admin.generateObjectUrl('acl', object) }}"><i class="fa fa-users"></i> {{ 'link_edit_acl'|trans({}, 'SonataAdminBundle') }}</a>
+                                <a   class="btn btn-info" href="{{ admin.generateObjectUrl('acl', object) }}"><i class="fa fa-users"></i> {{ 'link_edit_acl'|trans({}, 'SonataAdminBundle') }}</a>
                             {% endif %}
                         {% else %}
                             {% if admin.hasroute('edit') and admin.isGranted('EDIT') %}
-                                <button class="btn btn-primary-v2" type="submit" name="btn_create_and_edit"><i class="fa fa-save"></i> Guardar</button>
+                                <button class="btn btn-primary-v2 btn-outline" type="submit" name="btn_create_and_edit"><i class="fa fa-save"></i> Guardar</button>
                             {% endif %}
                             {#{% if admin.hasroute('list') and admin.isGranted('LIST') %}
-                                <button type="submit" class="btn btn-primary-v2" name="btn_create_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                                <button type="submit"    class="btn btn-primary-v2 btn-outline" name="btn_create_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
                             {% endif %}#}
-                            {#<button class="btn btn-primary-v2" type="submit" name="btn_create_and_create"><i class="fa fa-plus-circle"></i> Guardar</button>#}
+                            {#<button class="btn btn-primary-v2 btn-outline" type="submit" name="btn_create_and_create"><i class="fa fa-plus-circle"></i> Guardar</button>#}
                         {% endif %}
                     {% endif %}
                 </div>

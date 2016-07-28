@@ -84,3 +84,8 @@ and open the template in the editor.
   padding: 5px;
   color: #606060;
 }
+
+/*.fc-event {
+  font-size: .85em;	/* --| 0.85em = 13px, 0.75em = 12px */
+  /*font-weight: 400;*/
+}*/

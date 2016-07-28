@@ -24,25 +24,25 @@
 <ul class="nav nav-pills nav-stacked col-md-3 col-xs-3" style="{#padding-left: 15px;#}"> <!-- required for floating -->
     <!-- Nav tabs -->
     {% if object_expediente.getIdPaciente() is not null %}
-	<li class="active"><a href="#lct_pacienteTab" data-toggle="pill"> <span class="glyphicon glyphicon-user"></span> Paciente <i class="fa"></i></a></li>
+	<li class="active"><a   href="#lct_pacienteTab" data-toggle="pill"> <span class="glyphicon glyphicon-user"></span> Paciente <i class="fa"></i></a></li>
     {% endif %}
     {% if object_study_proc.getIdSolicitudEstudio() is not null %}
-	<li><a href="#lct_solicitudTab" data-toggle="pill"> <span class="glyphicon glyphicon-book"></span> Solicitud de estudio <i class="fa"></i></a></li>
+	<li><a   href="#lct_solicitudTab" data-toggle="pill"> <span class="glyphicon glyphicon-book"></span> Solicitud de estudio <i class="fa"></i></a></li>
     {% endif %}
     {% if object_study_proc.getIdCitaProgramada() is not null %}
-        <li><a href="#lct_citaTab" data-toggle="pill"> <span class="glyphicon glyphicon-tags"></span> Cita otorgada <i class="fa"></i></a></li>
+        <li><a   href="#lct_citaTab" data-toggle="pill"> <span class="glyphicon glyphicon-tags"></span> Cita otorgada <i class="fa"></i></a></li>
     {% endif %}
     {% if object.getIdEstudio() is not null %}
-	<li><a href="#lct_estudiosTab" data-toggle="pill"> <span class="glyphicon glyphicon-eye-open"></span> Estudios realizados <i class="fa"></i></a></li>
+	<li><a   href="#lct_estudiosTab" data-toggle="pill"> <span class="glyphicon glyphicon-eye-open"></span> Estudios realizados <i class="fa"></i></a></li>
     {% endif %}
     {% if object_request_diagnostic is not null %}
-	<li><a href="#lct_soldiagTab" data-toggle="pill"> <span class="glyphicon glyphicon-inbox"></span> Solicitud de Diagnóstico <i class="fa"></i></a></li>
+	<li><a   href="#lct_soldiagTab" data-toggle="pill"> <span class="glyphicon glyphicon-inbox"></span> Solicitud de Diagnóstico <i class="fa"></i></a></li>
     {% endif %}
     {% if object_diagnostic is not null %}
-	<li><a href="#lct_lecturaTab" data-toggle="pill"> <span class="glyphicon glyphicon-adjust"></span> Diagnóstico radiológico <i class="fa"></i></a></li>
+	<li><a   href="#lct_lecturaTab" data-toggle="pill"> <span class="glyphicon glyphicon-adjust"></span> Diagnóstico radiológico <i class="fa"></i></a></li>
     {% endif %}
     {% if object_notasdiag | length > 0 %}
-	<li><a href="#lct_notdiagTab" data-toggle="pill"> <span class="glyphicon glyphicon-comment"></span> Notas al diagnóstico <i class="fa"></i></a></li>
+	<li><a   href="#lct_notdiagTab" data-toggle="pill"> <span class="glyphicon glyphicon-comment"></span> Notas al diagnóstico <i class="fa"></i></a></li>
     {% endif %}
 </ul>
 

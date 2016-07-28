@@ -103,7 +103,7 @@
                 .end()
                 .append(function(i, html) {
                     return ['<li class="toolbar_menu_footer_block_button">',
-                                '<button type="button" class="btn btn-primary-v2 btn-block btn_block_toolbar_filter_send">',
+                                '<button type="button"    class="btn btn-primary-v2 btn-outline btn-block btn_block_toolbar_filter_send">',
                                     '<span class="glyphicon glyphicon-repeat">',
                                     '</span>',
                                 '</button>',

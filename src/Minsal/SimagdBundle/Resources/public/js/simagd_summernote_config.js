@@ -27,7 +27,7 @@
         onInit      : function() {
                         // Add "speech" button
                         var $this               = jQuery(this);
-                        var btn_toolbar_speech  = '<button id="sn_start_speechrecognition' + $this.attr('id') + '" type="button" class="btn btn-element-v2 btn-sm btn-small sn_start_speechrecognition" title="Iniciar transcripción por voz" data-event="speech" tabindex="-1"><i class="fa fa-microphone"></i></button>';            
+                        var btn_toolbar_speech  = '<button id="sn_start_speechrecognition' + $this.attr('id') + '" type="button" class="btn btn-element-v2 btn-outline btn-sm btn-small sn_start_speechrecognition" title="Iniciar transcripción por voz" data-event="speech" tabindex="-1"><i class="fa fa-microphone"></i></button>';            
                         var filegroup_speech    = '<div class="note-file btn-group">' + btn_toolbar_speech + '</div>';
                         jQuery(filegroup_speech).appendTo($this.next('.note-editor').find('.note-toolbar'));
                         // Button tooltips

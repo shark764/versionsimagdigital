@@ -29,7 +29,7 @@ jQuery(document).ready(function() {
                     '<div class="popover popover-container-bigger-width" role="tooltip">',
                         '<div class="arrow">',
                         '</div>',
-                        '<button type="button" class="close" data-dismiss="popover" aria-hidden="true">&times;',
+                        '<button type="button"    class="close" data-dismiss="popover" aria-hidden="true">&times;',
                         '</button>',
                         '<h3 class="popover-title">',
                         '</h3>',

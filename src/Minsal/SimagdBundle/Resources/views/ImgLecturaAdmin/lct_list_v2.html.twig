@@ -158,24 +158,24 @@
 
 {% block simagd_navbar_left_nav %}
     <li class="list-table-link-navbar-parent dropdown active">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="text-info"><i class="fa fa-microphone"></i> <i class="fa fa-list-ul"></i> </span> Resultados <span class="text-info"><span class="caret"></span></span></a>
+	<a   href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="text-info"><i class="fa fa-microphone"></i> <i class="fa fa-list-ul"></i> </span> Resultados <span class="text-info"><span class="caret"></span></span></a>
 	<ul class="dropdown-menu" role="menu">
 	    <li class="list-table-link-navbar active {% if _LCT_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-		<a href="javascript:void(0)" id="show-table-lecturas-list" data-divtabletarget="div-resultado-lecturas-realizadas"
+		<a   href="javascript:void(0)" id="show-table-lecturas-list" data-divtabletarget="div-resultado-lecturas-realizadas"
 			{% if _LCT_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
                     <span class="glyphicon glyphicon-adjust "></span> Interpretaciones
 		</a>
 	    </li>
 	    <li class="divider"></li>
 	    <li class="list-table-link-navbar {% if _DIAG_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-		<a href="javascript:void(0)" id="show-table-diagnosticos-list" data-divtabletarget="div-resultado-diagnosticos-transcritos"
+		<a   href="javascript:void(0)" id="show-table-diagnosticos-list" data-divtabletarget="div-resultado-diagnosticos-transcritos"
 			{% if _DIAG_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
 		    <span class="glyphicon glyphicon-headphones "></span> Transcripciones
 		</a>
 	    </li>
 	    <li class="divider"></li>
 	    <li class="list-table-link-navbar {% if _NOTDIAG_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-		<a href="javascript:void(0)" id="show-table-notas-diagnostico-list" data-divtabletarget="div-resultado-notas-diagnostico"
+		<a   href="javascript:void(0)" id="show-table-notas-diagnostico-list" data-divtabletarget="div-resultado-notas-diagnostico"
 			{% if _NOTDIAG_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
 		    <span class="glyphicon glyphicon-comment "></span> Notas a diagnósticos
 		</a>
@@ -190,7 +190,7 @@
 	    <input type="text" class="typeahead explocal_navbar_typeahead form-control" autocomplete="off" placeholder="expediente" id="navbar_filter_expNumero" name="navbar_filter_expNumero" data-xparam-filter="true">
 	    <i class="glyphicon glyphicon-remove-circle form-control-feedback typeahead-custom-clear" id="clear-typeahead-filter-exp"></i>
 	</div>
-        <button type="submit" id="btn_search_filter_expNumero" name="btn_search_filter_expNumero" class="btn btn-primary-v2 {#btn-sm#}">
+        <button type="submit"    id="btn_search_filter_expNumero" name="btn_search_filter_expNumero" class="btn btn-primary-v2 btn-outline {#btn-sm#}">
             <i class="fa fa-search"></i>
         </button>
     </form>
@@ -198,36 +198,36 @@
 
 {% block simagd_navbar_right_nav %}
     <li class="list-table-link-navbar-parent dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="text-info"><i class="fa fa-microphone"></i> <i class="fa fa-list-ul"></i> </span> Resultados pendientes <span class="text-info"><span class="caret"></span></span></a>
+	<a   href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="text-info"><i class="fa fa-microphone"></i> <i class="fa fa-list-ul"></i> </span> Resultados pendientes <span class="text-info"><span class="caret"></span></span></a>
 	<ul class="dropdown-menu" role="menu">
 	    <li class="list-table-link-navbar {% if _PNDL_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-		<a href="javascript:void(0)" id="show-table-general-list" data-divtabletarget="div-resultado-lecturas-pendientes"
+		<a   href="javascript:void(0)" id="show-table-general-list" data-divtabletarget="div-resultado-lecturas-pendientes"
 			{% if _PNDL_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
                     <span class="glyphicon glyphicon-tasks "></span> Interpretaciones pendientes
 		</a>
 	    </li>
 	    <li class="list-table-link-navbar {% if _PNDLPR_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-		<a href="javascript:void(0)" id="show-table-personal-list" data-divtabletarget="div-resultado-lecturas-personal-pendientes"
+		<a   href="javascript:void(0)" id="show-table-personal-list" data-divtabletarget="div-resultado-lecturas-personal-pendientes"
 			{% if _PNDLPR_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
 		    <span class="glyphicon glyphicon-user "></span> Listado personal
 		</a>
 	    </li>
 	    <li class="divider"></li>
 	    <li class="list-table-link-navbar {% if _PNDT_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-		<a href="javascript:void(0)" id="show-trc_table-general-list" data-divtabletarget="div-resultado-transcripciones-pendientes"
+		<a   href="javascript:void(0)" id="show-trc_table-general-list" data-divtabletarget="div-resultado-transcripciones-pendientes"
 		    {% if _PNDT_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
                     <span class="glyphicon glyphicon-tasks "></span> Transcripciones pendientes
 		</a>
 	    </li>
 	    <li class="list-table-link-navbar {% if _PNDTPR_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-		<a href="javascript:void(0)" id="show-trc-table-personal-list" data-divtabletarget="div-resultado-transcripciones-personal-pendientes"
+		<a   href="javascript:void(0)" id="show-trc-table-personal-list" data-divtabletarget="div-resultado-transcripciones-personal-pendientes"
 		    {% if _PNDTPR_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
 		    <span class="glyphicon glyphicon-user "></span> Listado personal
 		</a>
 	    </li>
 	    <li class="divider"></li>
 	    <li class="list-table-link-navbar {% if _PNDV_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-		<a href="javascript:void(0)" id="show-table-sin-validar-list" data-divtabletarget="div-resultado-sin-validar"
+		<a   href="javascript:void(0)" id="show-table-sin-validar-list" data-divtabletarget="div-resultado-sin-validar"
 			{% if _PNDV_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
 		    <span class="glyphicon glyphicon-check "></span> Resultados sin validar
 		</a>
@@ -236,7 +236,7 @@
     </li>
     <li>
         <div style="padding-top: 10px; padding-left: 10px;">
-            <button id="btn_start_recognition" class="btn btn-element-v2 btn-sm btn_start_recognition" title="Iniciar transcripción por voz" >
+            <button id="btn_start_recognition" class="btn btn-element-v2 btn-outline btn-sm btn_start_recognition" title="Iniciar transcripción por voz" >
                 <i class="fa fa-microphone" id="icon_start_recognition"></i>
             </button>
         </div>
@@ -419,7 +419,7 @@
             {#<div class="columns columns-left btn-group pull-left">#}
                 <!-- Single button -->
                 <div class="btn-group">
-                    <button type="button" id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
+                    <button type="button"    id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 btn-outline dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
                         <i class="glyphicon glyphicon-filter"></i>
                         Filtrar <span class="caret"></span>
                     </button>
@@ -427,17 +427,17 @@
                     <ul class="dropdown-menu table_bsTable_toolbar_menuFilter" id="bs_{{ code_entity }}_menuFilter" >
                     </ul>
                 </div>
-                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
+                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn-outline btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
                     <i class="glyphicon glyphicon-repeat"></i>
                 </button>
-                <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
+                <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn-outline btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
                     <i class="glyphicon glyphicon-trash"></i>
                 </button>
 
                 <!-- --| custom buttons for toolbar -->
                 <span class="btn-separator"></span>
 
-                <button id="btn_add_item_radx_worklist" class="btn btn-element-v2 btn_add_item_radx_worklist" title="Asignar lectura a lista de Radiológo" style="margin-left: 15px" disabled="disabled">
+                <button id="btn_add_item_radx_worklist" class="btn btn-element-v2 btn-outline btn_add_item_radx_worklist" title="Asignar lectura a lista de Radiológo" style="margin-left: 15px" disabled="disabled">
                     <i class="glyphicon glyphicon-user "></i>
                 </button>
                 <!-- END --| custom buttons for toolbar -->
@@ -543,7 +543,7 @@
             {#<div class="columns columns-left btn-group pull-left">#}
                 <!-- Single button -->
                 <div class="btn-group">
-                    <button type="button" id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
+                    <button type="button"    id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 btn-outline dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
                         <i class="glyphicon glyphicon-filter"></i>
                         Filtrar <span class="caret"></span>
                     </button>
@@ -551,17 +551,17 @@
                     <ul class="dropdown-menu table_bsTable_toolbar_menuFilter" id="bs_{{ code_entity }}_menuFilter" >
                     </ul>
                 </div>
-                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
+                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn-outline btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
                     <i class="glyphicon glyphicon-repeat"></i>
                 </button>
-                <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
+                <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn-outline btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
                     <i class="glyphicon glyphicon-trash"></i>
                 </button>
 
                 <!-- --| custom buttons for toolbar -->
                 <span class="btn-separator"></span>
 
-                <button id="btn_add_item_trcx_worklist" class="btn btn-element-v2 btn_add_item_trcx_worklist" title="Asignar lectura a lista de Transcriptor" style="margin-left: 15px" disabled="disabled">
+                <button id="btn_add_item_trcx_worklist" class="btn btn-element-v2 btn-outline btn_add_item_trcx_worklist" title="Asignar lectura a lista de Transcriptor" style="margin-left: 15px" disabled="disabled">
                     <i class="glyphicon glyphicon-user "></i>
                 </button>
                 <!-- END --| custom buttons for toolbar -->
@@ -671,7 +671,7 @@
             {#<div class="columns columns-left btn-group pull-left">#}
                 <!-- Single button -->
                 <div class="btn-group">
-                    <button type="button" id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
+                    <button type="button"    id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 btn-outline dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
                         <i class="glyphicon glyphicon-filter"></i>
                         Filtrar <span class="caret"></span>
                     </button>
@@ -679,17 +679,17 @@
                     <ul class="dropdown-menu table_bsTable_toolbar_menuFilter" id="bs_{{ code_entity }}_menuFilter" >
                     </ul>
                 </div>
-                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
+                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn-outline btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
                     <i class="glyphicon glyphicon-repeat"></i>
                 </button>
-                <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
+                <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn-outline btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
                     <i class="glyphicon glyphicon-trash"></i>
                 </button>
 
                 <!-- --| custom buttons for toolbar -->
                 <span class="btn-separator"></span>
 
-                <button id="btn_add_item_radx_validation_worklist" class="btn btn-element-v2 btn_add_item_radx_validation_worklist" title="Asignar diagnóstico a lista de Radiológo" style="margin-left: 15px" disabled="disabled">
+                <button id="btn_add_item_radx_validation_worklist" class="btn btn-element-v2 btn-outline btn_add_item_radx_validation_worklist" title="Asignar diagnóstico a lista de Radiológo" style="margin-left: 15px" disabled="disabled">
                     <i class="glyphicon glyphicon-user "></i>
                 </button>
                 <!-- END --| custom buttons for toolbar -->
@@ -740,10 +740,10 @@
     
     {#<div class="container">
      <h3>Animated button</h3>
-	<button id="__yeah" class="btn btn-primary active btn-xs"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
-	<button id="__yeah2" class="btn btn-primary active btn-xs"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
-	<button id="__yeah3" class="btn btn-primary active btn-xs"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
-	<button id="__yeah4" class="btn btn-primary active btn-xs"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+	<button id="__yeah" class="btn btn-primary-v2 btn-outline active btn-xs"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+	<button id="__yeah2" class="btn btn-primary-v2 btn-outline active btn-xs"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+	<button id="__yeah3" class="btn btn-primary-v2 btn-outline active btn-xs"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+	<button id="__yeah4" class="btn btn-primary-v2 btn-outline active btn-xs"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
     </div>#}
     
     {# dump(arrayObj3) #}

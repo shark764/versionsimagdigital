@@ -137,13 +137,13 @@
 
 {% block simagd_navbar_left_nav %}
     <li class="list-table-link-navbar active {% if _CIT_ALLOW_CREATE == false %} disabled link-full-disabled {% endif %}">
-	<a href="javascript:void(0)" id="show-calendar-citas-rx" data-divtabletarget="div-resultado-agenda-rx"
+	<a   href="javascript:void(0)" id="show-calendar-citas-rx" data-divtabletarget="div-resultado-agenda-rx"
 	    {% if _CIT_ALLOW_CREATE == false %} disabled="disabled" {% endif %}>
 	    <span class="text-info"><i class="fa fa-calendar"></i> </span> Agenda <span class="sr-only">(current)</span>
 	</a>
     </li>
     <li class="list-table-link-navbar {% if _CIT_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-	<a href="javascript:void(0)" id="show-table-citas-programadas" data-divtabletarget="div-resultado-citas-programadas"
+	<a   href="javascript:void(0)" id="show-table-citas-programadas" data-divtabletarget="div-resultado-citas-programadas"
 	    {% if _CIT_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
 	    <span class="text-info"><i class="fa fa-clock-o"></i> <i class="fa fa-list"></i> </span> Citas
 	</a>
@@ -169,7 +169,7 @@
 		<option value=""></option>
 		<optgroup label="Imagenología">
 		    {% for modalidad in modalidades %}
-		    <option value="{{ modalidad.id }}">{{ modalidad }}</option>
+		    <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
 		    {% endfor %}
 		</optgroup>
 	    </select>
@@ -193,18 +193,18 @@
 {% endblock %}
 
 {% block simagd_navbar_right_nav %}
-    {#<li class="list-table-link-navbar"><a href="javascript:void(0)" id="show-table-bloqueos-agenda" data-divtabletarget="div-resultado-bloqueos-agenda"> <span class="text-info"><i class="fa fa-lock"></i> <i class="fa fa-list"></i> </span> Bloqueos</a></li>#}
+    {#<li class="list-table-link-navbar"><a   href="javascript:void(0)" id="show-table-bloqueos-agenda" data-divtabletarget="div-resultado-bloqueos-agenda"> <span class="text-info"><i class="fa fa-lock"></i> <i class="fa fa-list"></i> </span> Bloqueos</a></li>#}
     <li class="list-table-link-navbar-parent dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="text-info"><i class="fa fa-unlock-alt"></i> <i class="fa fa-list"></i> </span> Bloqueos <span class="text-info"><span class="caret"></span></span></a>
+	<a   href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="text-info"><i class="fa fa-unlock-alt"></i> <i class="fa fa-list"></i> </span> Bloqueos <span class="text-info"><span class="caret"></span></span></a>
 	<ul class="dropdown-menu" role="menu">
 	    <li {% if _BLOQUEO_ALLOW_CREATE == false %} class="disabled link-full-disabled" {% endif %}>
-		<a href="javascript:void(0)" id="navbar_btn_crearBloqueo" {% if _BLOQUEO_ALLOW_CREATE == false %} disabled="disabled" {% endif %}>
+		<a   href="javascript:void(0)" id="navbar_btn_crearBloqueo" {% if _BLOQUEO_ALLOW_CREATE == false %} disabled="disabled" {% endif %}>
                     <span class="glyphicon glyphicon-cog "></span> Insertar bloqueo
 		</a>
 	    </li>
 	    <li class="divider"></li>
 	    <li class="list-table-link-navbar{#-child#}" {% if _BLOQUEO_ALLOW_LIST == false %} class="disabled link-full-disabled" {% endif %}>
-		<a href="javascript:void(0)" id="listarBloqueosBtn" id="show-table-bloqueos-agenda" data-divtabletarget="div-resultado-bloqueos-agenda"
+		<a   href="javascript:void(0)" id="listarBloqueosBtn" id="show-table-bloqueos-agenda" data-divtabletarget="div-resultado-bloqueos-agenda"
 		    {% if _BLOQUEO_ALLOW_LIST == false %} disabled="disabled" {% endif %}> <span class="glyphicon glyphicon-lock "></span> Lista de bloqueos
 		</a>
 	    </li>
@@ -230,38 +230,38 @@
 		<div class="panel panel-primary-v2" id='fc-patient-panel' {% if _CIT_ALLOW_CREATE == false or _CIT_ALLOW_EDIT == false %} disabled="disabled" {% endif %}>
 		    <div class="panel-heading">
 			<div class="dropdown pull-right">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-cog"></i> <b class="caret"></b></a>
+                            <a   href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-cog"></i> <b class="caret"></b></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li {% if _PRC_ALLOW_VIEW == false %} class="disabled" {% endif %}>
-                                    <a href="javascript:void(0)" id="panel_patient_btn_expand_view" {% if _PRC_ALLOW_VIEW == false %} disabled="disabled" {% endif %}>
+                                    <a   href="javascript:void(0)" id="panel_patient_btn_expand_view" {% if _PRC_ALLOW_VIEW == false %} disabled="disabled" {% endif %}>
                                         <span class="glyphicon glyphicon-resize-full "></span> Vista completa
                                     </a>
                                 </li>
                                 <li class="divider"></li>
                                 <li {% if _PRC_ALLOW_VIEW == false %} class="disabled" {% endif %}>
-                                    <a href="javascript:void(0)" id="panel_patient_btn_expand_height_view" {% if _PRC_ALLOW_VIEW == false %} disabled="disabled" {% endif %}>
+                                    <a   href="javascript:void(0)" id="panel_patient_btn_expand_height_view" {% if _PRC_ALLOW_VIEW == false %} disabled="disabled" {% endif %}>
                                         <span class="glyphicon glyphicon-collapse-down "></span> Expandir hacia abajo
                                     </a>
                                 </li>
                                 <li {% if _PRC_ALLOW_VIEW == false %} class="disabled" {% endif %} style="display: none;">
-                                    <a href="javascript:void(0)" id="panel_patient_btn_default_height_view" {% if _PRC_ALLOW_VIEW == false %} disabled="disabled" {% endif %}>
+                                    <a   href="javascript:void(0)" id="panel_patient_btn_default_height_view" {% if _PRC_ALLOW_VIEW == false %} disabled="disabled" {% endif %}>
                                         <span class="glyphicon glyphicon-collapse-up "></span> Contraer hacia arriba
                                     </a>
                                 </li>
                                 <li class="divider"></li>
                                 <li {% if _CIT_ALLOW_VIEW == false %} class="disabled" {% endif %}>
-                                    <a href="javascript:void(0)" id="panel_patient_btn_show_request_detail" {% if _CIT_ALLOW_VIEW == false %} disabled="disabled" {% endif %}>
+                                    <a   href="javascript:void(0)" id="panel_patient_btn_show_request_detail" {% if _CIT_ALLOW_VIEW == false %} disabled="disabled" {% endif %}>
                                         <span class="glyphicon glyphicon-chevron-down "></span> Ver detalle
                                     </a>
                                 </li>
                                 <li {% if _CIT_ALLOW_VIEW == false %} class="disabled" {% endif %} style="display: none;">
-                                    <a href="javascript:void(0)" id="panel_patient_btn_hide_request_detail" {% if _CIT_ALLOW_VIEW == false %} disabled="disabled" {% endif %}>
+                                    <a   href="javascript:void(0)" id="panel_patient_btn_hide_request_detail" {% if _CIT_ALLOW_VIEW == false %} disabled="disabled" {% endif %}>
                                         <span class="glyphicon glyphicon-chevron-up "></span> Ocultar detalle
                                     </a>
                                 </li>
                                 <li class="divider"></li>
                                 <li {% if _PRC_EXTERNAL_ALLOW_CREATE == false %} class="disabled" {% endif %}>
-                                    <a href="javascript:void(0)" id="panel_patient_btn_add_external" {% if _PRC_EXTERNAL_ALLOW_CREATE == false %} disabled="disabled" {% endif %}>
+                                    <a   href="javascript:void(0)" id="panel_patient_btn_add_external" {% if _PRC_EXTERNAL_ALLOW_CREATE == false %} disabled="disabled" {% endif %}>
                                         <span class="glyphicon glyphicon-import "></span> Agregar externo
                                     </a>
                                 </li>
@@ -282,7 +282,7 @@
 			</div>
 		    </div>
 		    <div class="panel-footer">
-			<button type="button" class="btn btn-primary-v2 btn-block" id="reload-pct-sin-cita"><span class="glyphicon glyphicon-repeat"></span></button>
+			<button type="button"    class="btn btn-primary-v2 btn-outline btn-block" id="reload-pct-sin-cita"><span class="glyphicon glyphicon-repeat"></span></button>
 		    </div>
 		</div>
 
@@ -311,20 +311,20 @@
 
 	    </div>{# col #}
 
-	    <div id="container_fc_agenda_view" class="col-lg-9 col-md-9 col-sm-9">
+	    <div id="container_fc_agenda_view" class="col-lg-7 col-md-7 col-sm-7">
 
 		<div class="panel panel-primary-v2" id="fc-calendar-panel">
 		    <div class="panel-heading">
                         <div class="dropdown pull-right">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-cog"></i> <b class="caret"></b></a>
+                            <a   href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-cog"></i> <b class="caret"></b></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li {% if _CIT_ALLOW_VIEW == false %} class="disabled" {% endif %}>
-                                    <a href="javascript:void(0)" id="panel_agenda_btn_expand_view" {% if _CIT_ALLOW_VIEW == false %} disabled="disabled" {% endif %}>
+                                    <a   href="javascript:void(0)" id="panel_agenda_btn_expand_view" {% if _CIT_ALLOW_VIEW == false %} disabled="disabled" {% endif %}>
                                         <span class="glyphicon glyphicon-resize-full "></span> Vista completa
                                     </a>
                                 </li>
                                 <li {% if _CIT_ALLOW_VIEW == false %} class="disabled" {% endif %} style="display: none;">
-                                    <a href="javascript:void(0)" id="panel_agenda_btn_default_view" {% if _CIT_ALLOW_VIEW == false %} disabled="disabled" {% endif %}>
+                                    <a   href="javascript:void(0)" id="panel_agenda_btn_default_view" {% if _CIT_ALLOW_VIEW == false %} disabled="disabled" {% endif %}>
                                         <span class="glyphicon glyphicon-resize-small "></span> Vista predeterminada
                                     </a>
                                 </li>
@@ -333,7 +333,7 @@
                         </div>
 
 			<!-- refresh calendar view -->
-			<a class="btn btn-primary-v2 btn-sm pull-left" id="panel_agenda_btn_refresh_calendar" href="javascript:void(0)" style="margin-top: -5px;" {% if _CIT_ALLOW_VIEW == false %} disabled="disabled" {% endif %} target="_blank" title="Refrescar agenda">
+			<a   class="btn btn-primary-v2 btn-outline btn-sm pull-left" id="panel_agenda_btn_refresh_calendar" href="javascript:void(0)" style="margin-top: -5px;" {% if _CIT_ALLOW_VIEW == false %} disabled="disabled" {% endif %} target="_blank" title="Refrescar agenda">
 			    <i class="glyphicon glyphicon-repeat"></i> Refrescar
 			</a>
 
@@ -372,17 +372,17 @@
 
     <div id="opcionesCita-modal" class="modal fade" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false" data-width="760">
         <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
+            <button type="button"    class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
             <p>¿Que acción desea ejecutar con la cita programada?</p>
 
             <input type="hidden" id="formConfirmCitId" name="formConfirmCitId" value="" />
         </div>
         <div class="modal-footer" style="margin-top: 0px;">
-            <button type="button" data-dismiss="modal" class="btn"><i class="fa fa-times"></i> Cerrar</button>
-            <button type="button" id="btn_detalle_cit_modal" name="btn_detalle_cit_modal" class="btn btn-primary-v2" {#data-toggle="modal" data-target="#citaFullData-showModalContainer"#} ><i class="fa fa-check-circle"></i> Detalles</button>
-            <button type="button" id="btn_editar_cit_modal" name="btn_editar_cit_modal" class="btn btn-primary-v2" {#data-toggle="modal" data-target="#editarCita-modal"#} ><i class="fa fa-edit"></i> Editar</button>
-            <button type="button" id="btn_confirmar_cit_modal" name="btn_confirmar_cit_modal" class="btn btn-success-v2" ><i class="fa fa-play"></i> Confirmar</button>
-            <button type="button" id="btn_cancelar_cit_modal" name="btn_cancelar_cit_modal" class="btn btn-danger" {#data-toggle="modal" data-target="#cancelarCita-modal"#} ><i class="fa fa-times-circle"></i> Cancelar</button>
+            <button type="button"    data-dismiss="modal" class="btn"><i class="fa fa-times"></i> Cerrar</button>
+            <button type="button"    id="btn_detalle_cit_modal" name="btn_detalle_cit_modal" class="btn btn-primary-v2 btn-outline" {#data-toggle="modal" data-target="#citaFullData-showModalContainer"#} ><i class="fa fa-check-circle"></i> Detalles</button>
+            <button type="button"    id="btn_editar_cit_modal" name="btn_editar_cit_modal" class="btn btn-primary-v2 btn-outline" {#data-toggle="modal" data-target="#editarCita-modal"#} ><i class="fa fa-edit"></i> Editar</button>
+            <button type="button"    id="btn_confirmar_cit_modal" name="btn_confirmar_cit_modal" class="btn btn-success-v2 btn-outline" ><i class="fa fa-play"></i> Confirmar</button>
+            <button type="button"    id="btn_cancelar_cit_modal" name="btn_cancelar_cit_modal" class="btn btn-danger btn-outline" {#data-toggle="modal" data-target="#cancelarCita-modal"#} ><i class="fa fa-times-circle"></i> Cancelar</button>
         </div>
     </div>
 

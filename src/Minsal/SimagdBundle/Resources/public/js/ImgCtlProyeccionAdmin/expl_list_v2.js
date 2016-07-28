@@ -4,77 +4,85 @@
  * and open the template in the editor.
  */
 
+console.log('%cSOLO PUEDEN SUPRIMIRSE COLUMNAS O HACER TOOGLE EN MODO DESAGRUPADO\nASI DEBE QUEDAR PARA TODAS LAS TABLAS, SE DEBE HACER BTN-PRIMARY-V3 BTN-OUTLINE\nREPORTES SERAN EN ROJO', 'background: black; color: white;');
+
+// $("html, body").animate({ scrollTop: 5000 }, 2000);
+// jQuery(window).load(function () {
+// //    window.scrollTo(0, 5000);
+//     jQuery("html, body").animate({ scrollTop: 2000 }, 100);
+// });
+
 function actionFormatter (value, row, index)
 {
     /* btn-xs */
-    return [
-	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
-	    '<div class="btn-group" role="group">',
-		'<a class="show-exploracion-action btn btn-default btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
-		    '<i class="glyphicon glyphicon-info-sign"></i>  Consultar',
-		'</a>',
-		'<a class="edit-exploracion-action btn btn-default btn-xs" href="javascript:void(0)" title="Editar registro de proyección"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
-		    '<i class="glyphicon glyphicon-repeat"></i>  Editar',
-		'</a>',
-	    '</div>',
-	    '<div class="btn-group" role="group">',
-		'<a class="catalogo-exploracion-action btn btn-default btn-xs" href="javascript:void(0)" title="Agregar proyección en Catálogo local"' + (row.allowAgregarLc === false ? ' disabled="disabled"' : '') + '>',
-		    '<i class="glyphicon glyphicon-plus-sign"></i>  Catálogo',
-		'</a>',
-	    '</div>',
-	'</div>'
-    ].join('');
-    
-//     var $arr_result = [];
-//     
-//     $arr_result.push('<div class="btn-toolbar" role="toolbar" aria-label="...">');
-//     
-//     if (row.allowShow !== false || row.allowEdit !== false)
-//     {
-// 	$arr_result.push(
-// 	    '<div class="btn-group" role="group">'
-// 	);
-//     }
-//     
-//     if (row.allowShow !== false)
-//     {
-// 	$arr_result.push(
-// 	    '<a class="show-exploracion-action btn btn-default btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
-// 		'<i class="glyphicon glyphicon-info-sign"></i>  Consultar',
-// 	    '</a>'
-// 	);
-//     }
-//     
-//     if (row.allowEdit !== false)
-//     {
-// 	$arr_result.push(
-// 	    '<a class="edit-exploracion-action btn btn-default btn-xs" href="javascript:void(0)" title="Editar registro de proyección"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
-// 		'<i class="glyphicon glyphicon-repeat"></i>  Editar',
-// 	    '</a>'
-// 	);
-//     }
-//     
-//     if (row.allowShow !== false || row.allowEdit !== false)
-//     {
-// 	$arr_result.push(
-// 	    '</div>'
-// 	);
-//     }
-//     
-//     if (row.allowAgregarLc !== false)
-//     {
-// 	$arr_result.push(
+//     return [
+// 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 // 	    '<div class="btn-group" role="group">',
-// 		'<a class="catalogo-exploracion-action btn btn-default btn-xs" href="javascript:void(0)" title="Agregar proyección en Catálogo local"' + (row.allowAgregarLc === false ? ' disabled="disabled"' : '') + '>',
-// 		    '<i class="glyphicon glyphicon-plus-sign"></i>  Catálogo',
+// 		'<a   class="show-exploracion-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+// 		    '<i class="glyphicon glyphicon-info-sign"></i> &nbsp;Ver',
 // 		'</a>',
-// 	    '</div>'
-// 	);
-//     }
-//     
-//     $arr_result.push('</div>');
-//     
-//     return $arr_result.join('');
+// 		'<a   class="edit-exploracion-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Editar registro de proyección"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+// 		    '<i class="glyphicon glyphicon-repeat"></i> &nbsp;Editar',
+// 		'</a>',
+// 	    '</div>',
+// 	    '<div class="btn-group" role="group">',
+// 		'<a   class="catalogo-exploracion-action btn btn-success-v2 btn-outline btn-xs" href="javascript:void(0)" title="Agregar proyección en Catálogo local"' + (row.allowAgregarLc === false ? ' disabled="disabled"' : '') + '>',
+// 		    '<i class="glyphicon glyphicon-list-alt"></i> &nbsp;Catálogo',
+// 		'</a>',
+// 	    '</div>',
+// 	'</div>'
+//     ].join('');
+    
+    var $arr_result = [];
+    
+    $arr_result.push('<div class="btn-toolbar" role="toolbar" aria-label="...">');
+    
+    if (row.allowShow !== false || row.allowEdit !== false)
+    {
+	$arr_result.push(
+	    '<div class="btn-group" role="group">'
+	);
+    }
+    
+    if (row.allowShow !== false)
+    {
+	$arr_result.push(
+	    '<a   class="show-exploracion-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada">',
+		'<i class="glyphicon glyphicon-info-sign"></i> &nbsp;Ver',
+	    '</a>'
+	);
+    }
+    
+    if (row.allowEdit !== false)
+    {
+	$arr_result.push(
+	    '<a   class="edit-exploracion-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Editar registro de proyección">',
+		'<i class="glyphicon glyphicon-repeat"></i> &nbsp;Editar',
+	    '</a>'
+	);
+    }
+    
+    if (row.allowShow !== false || row.allowEdit !== false)
+    {
+	$arr_result.push(
+	    '</div>'
+	);
+    }
+    
+    if (row.allowAgregarLc !== false)
+    {
+	$arr_result.push(
+	    '<div class="btn-group" role="group">',
+		'<a   class="catalogo-exploracion-action btn btn-success-v2 btn-outline btn-xs" href="javascript:void(0)" title="Agregar proyección en Catálogo local">',
+		    '<i class="glyphicon glyphicon-list-alt"></i> &nbsp;Catálogo',
+		'</a>',
+	    '</div>'
+	);
+    }
+    
+    $arr_result.push('</div>');
+    
+    return $arr_result.join('');
 }
 
 window.actionEvents = {

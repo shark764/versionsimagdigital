@@ -114,24 +114,24 @@
 
 {% block simagd_navbar_left_nav %}
     <li class="list-table-link-navbar-parent dropdown active">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="text-info"> <i class="fa fa-list-ul"></i> <i class="fa fa-inbox"></i> </span> Solicitudes <span class="text-info"><span class="caret"></span></span></a>
+	<a   href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="text-info"> <i class="fa fa-list-ul"></i> <i class="fa fa-inbox"></i> </span> Solicitudes <span class="text-info"><span class="caret"></span></span></a>
 	<ul class="dropdown-menu" role="menu">
 	    <li class="list-table-link-navbar active {% if _PRC_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-		<a href="javascript:void(0)" id="show-table-solicitudes-estudio-list" data-divtabletarget="div-resultado-solicitudes-estudio"
+		<a   href="javascript:void(0)" id="show-table-solicitudes-estudio-list" data-divtabletarget="div-resultado-solicitudes-estudio"
 		    {% if _PRC_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
 		    <span class="glyphicon glyphicon-tasks "></span> Solicitudes de estudio
 		</a>
 	    </li>
 	    <li class="divider"></li>
 	    <li class="list-table-link-navbar {% if _SOLDIAG_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-		<a href="javascript:void(0)" id="show-table-solicitudes-diagnostico-list" data-divtabletarget="div-resultado-solicitudes-diagnostico"
+		<a   href="javascript:void(0)" id="show-table-solicitudes-diagnostico-list" data-divtabletarget="div-resultado-solicitudes-diagnostico"
 		    {% if _SOLDIAG_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
 		    <span class="glyphicon glyphicon-paperclip "></span> Solicitudes de diagnóstico
 		</a>
 	    </li>
 	    <li class="divider"></li>
 	    <li class="list-table-link-navbar {% if _SOLCMPL_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-		<a href="javascript:void(0)" id="show-table-solicitudes-estudio-compl-list" data-divtabletarget="div-resultado-solicitudes-estudio-compl"
+		<a   href="javascript:void(0)" id="show-table-solicitudes-estudio-compl-list" data-divtabletarget="div-resultado-solicitudes-estudio-compl"
 		    {% if _SOLCMPL_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
 		    <span class="glyphicon glyphicon-export "></span> Solicitudes de estudio complementario
 		</a>
@@ -147,16 +147,16 @@
 	    <i class="glyphicon glyphicon-remove-circle form-control-feedback typeahead-custom-clear" id="clear-typeahead-filter-exp"></i>
 	</div>
         <div class="btn-group">
-            <button type="submit" id="btn_search_filter_expNumero" name="btn_search_filter_expNumero" class="btn btn-primary-v2 {#btn-sm#}">
+            <button type="submit"    id="btn_search_filter_expNumero" name="btn_search_filter_expNumero" class="btn btn-primary-v2 btn-outline {#btn-sm#}">
                 <i class="fa fa-search"></i>
             </button>
-            <button type="button" id="btn_add_action_prc" class="btn btn-primary-v2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Aplicar a expediente">
+            <button type="button"    id="btn_add_action_prc" class="btn btn-primary-v2 btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Aplicar a expediente">
                 <b class="caret"></b>
             </button>
             <!-- Menu -->
             <ul class="dropdown-menu" id="menu_prc_moreActions" >
                 <li {% if _PRC_ALLOW_CREATE == false %} class="disabled" {% endif %}>
-                    <a href="javascript:void(0)" id="btn_navbar_add_prc" {% if _PRC_ALLOW_CREATE == false %} disabled="disabled" {% endif %} target="_blank">
+                    <a   href="javascript:void(0)" id="btn_navbar_add_prc" {% if _PRC_ALLOW_CREATE == false %} disabled="disabled" {% endif %} target="_blank">
                         <span class="glyphicon glyphicon-edit"></span> Nueva solicitud
                     </a>
                 </li>
@@ -184,7 +184,7 @@
             {#<div class="columns columns-left btn-group pull-left">#}
                 <!-- Single button -->
                 <div class="btn-group">
-                    <button type="button" id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
+                    <button type="button"    id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 btn-outline dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
                         <i class="glyphicon glyphicon-filter"></i>
                         Filtrar <span class="caret"></span>
                     </button>
@@ -192,24 +192,24 @@
                     <ul class="dropdown-menu table_bsTable_toolbar_menuFilter" id="bs_{{ code_entity }}_menuFilter" >
                     </ul>
                 </div>
-                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
+                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn-outline btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
                     <i class="glyphicon glyphicon-repeat"></i>
                 </button>
-                <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
+                <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn-outline btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
                     <i class="glyphicon glyphicon-trash"></i>
                 </button>
 
                 <!-- --| custom buttons for toolbar -->
                 <span class="btn-separator"></span>
                 
-                <button id="btn_unknown_patient_add_item" class="btn btn-danger btn_unknown_patient_add_item" title="Agregar paciente de emergencia" style="margin-left: 15px"
+                <button id="btn_unknown_patient_add_item" class="btn btn-danger btn-outline btn_unknown_patient_add_item" title="Agregar paciente de emergencia" style="margin-left: 15px"
                         {% if not (_PRC_ALLOW_CREATE == true or is_granted('ROLE_ADMIN')) %} disabled="disabled" {% endif %}>
                     <i class="glyphicon glyphicon-plus-sign "></i>
                 </button>
                 
                 <span class="btn-separator"></span>
                 
-                <button id="btn_external_patient_add_item" class="btn btn-element-v2 btn_external_patient_add_item" title="Agregar paciente referido" style="margin-left: 15px"
+                <button id="btn_external_patient_add_item" class="btn btn-element-v2 btn-outline btn_external_patient_add_item" title="Agregar paciente referido" style="margin-left: 15px"
                         {% if not (_PRC_ALLOW_CREATE == true or is_granted('ROLE_ADMIN')) %} disabled="disabled" {% endif %}>
                     <i class="glyphicon glyphicon-plus-sign "></i>
                 </button>
@@ -217,7 +217,7 @@
                 <!-- --| custom buttons for toolbar -->
                 <span class="btn-separator"></span>
                 
-                <button id="btn_unknown_patient_assign_newRecord" class="btn btn-danger btn_unknown_patient_assign_newRecord" title="Asignar registros a nuevo Expediente" style="margin-left: 15px" disabled="disabled">
+                <button id="btn_unknown_patient_assign_newRecord" class="btn btn-danger btn-outline btn_unknown_patient_assign_newRecord" title="Asignar registros a nuevo Expediente" style="margin-left: 15px" disabled="disabled">
                     <i class="glyphicon glyphicon-share "></i>
                 </button>
 
@@ -225,18 +225,18 @@
                 <span class="btn-separator"></span>
 
                 <div class="btn-group" role="group" style="margin-left: 15px">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Alternar vista" {% if _PRC_ALLOW_CREATE == false %} disabled="disabled" {% endif %}>
+                    <button type="button"    class="btn btn-default btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Alternar vista" {% if _PRC_ALLOW_CREATE == false %} disabled="disabled" {% endif %}>
                         <i class="glyphicon glyphicon-resize-horizontal"></i>
                         {#Alternar vista#} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" style="right: 0; left: auto;" >
                         <li {% if _PRC_ALLOW_LIST == false %} class="disabled" {% endif %}>
-                            <a href="javascript:void(0)" id="panel_studyrequest_btn_expand_view" {% if _PRC_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+                            <a   href="javascript:void(0)" id="panel_studyrequest_btn_expand_view" {% if _PRC_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
                                 <span class="glyphicon glyphicon-resize-horizontal "></span> Vista completa
                             </a>
                         </li>
                         <li {% if _PRC_ALLOW_CREATE == false %} class="disabled" {% endif %} style="display: none;">
-                            <a href="javascript:void(0)" id="panel_studyrequest_btn_default_view" {% if _PRC_ALLOW_CREATE == false %} disabled="disabled" {% endif %}>
+                            <a   href="javascript:void(0)" id="panel_studyrequest_btn_default_view" {% if _PRC_ALLOW_CREATE == false %} disabled="disabled" {% endif %}>
                                 <span class="glyphicon glyphicon-resize-horizontal "></span> Vista predeterminada
                             </a>
                         </li>
@@ -262,8 +262,8 @@
 
                             <div class="form-group" style="{#margin-top: 15px; visibility: hidden;#}">
                                 <div class="col-xs-8 col-xs-offset-4">
-                                    <button type="submit" class="btn btn-primary-v2 {#btn-xs#}"><i class="glyphicon glyphicon-ok"></i> Enviar</button>
-                                    <button type="button" class="btn btn-default {#btn-xs#}"><i class="glyphicon glyphicon-remove"></i> Limpiar</button>
+                                    <button type="submit"    class="btn btn-primary-v2 btn-outline {#btn-xs#}"><i class="glyphicon glyphicon-ok"></i> Enviar</button>
+                                    <button type="button"    class="btn btn-default btn-outline {#btn-xs#}"><i class="glyphicon glyphicon-remove"></i> Limpiar</button>
                                 </div>
                             </div>
                             <div class="form-group">

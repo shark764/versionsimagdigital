@@ -2,6 +2,6 @@
 
 {% if admin.hasRoute('agregarEnMiCatalogo') and ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_MATERIAL_CREATE') or is_granted('ROLE_ADMIN') ) %}
 
-    <a data-toggle="modal" href="#" data-id="{{ object.id }}" data-target="#agregar-en-catalogo-modal" class="open-agregarEnLocalDialog btn btn-sm btn-success" title="Agregar proyección en Catálogo local"> <i class="glyphicon glyphicon-plus-sign"></i> Agregar </a>
+    <a   data-toggle="modal" href="#" data-id="{{ object.id }}" data-target="#agregar-en-catalogo-modal" class="open-agregarEnLocalDialog btn btn-sm btn-success" title="Agregar proyección en Catálogo local"> <i class="glyphicon glyphicon-plus-sign"></i> Agregar </a>
 
 {% endif %}

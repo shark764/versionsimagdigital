@@ -433,3 +433,11 @@ jQuery(document).ready(function() {
     };
 
 }(jQuery));
+
+jQuery(function () {
+    /*
+     * PLUG-IN --| bootstrap tooltip
+     * @returns {undefined}
+     */
+  jQuery('[data-toggle="tooltip"]').tooltip()
+});

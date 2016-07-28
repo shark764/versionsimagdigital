@@ -4,6 +4,6 @@
 		( ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') and is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_EDIT') ) or is_granted('ROLE_ADMIN') )
 %}
 
-    <a href="{{ admin.generateObjectUrl('confirmarCita', object) }}" class="btn btn-sm btn-primary" title="Confirmar cita de paciente"> <i class="glyphicon glyphicon-ok-sign"></i> Confirmar </a>
+    <a   href="{{ admin.generateObjectUrl('confirmarCita', object) }}" class="btn btn-sm btn-primary" title="Confirmar cita de paciente"> <i class="glyphicon glyphicon-ok-sign"></i> Confirmar </a>
 
 {% endif %}

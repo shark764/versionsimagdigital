@@ -1,11 +1,11 @@
 
 
                 {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_ADMIN') %}
-                    <button type="submit" class="btn btn-element-v2" name="btn_edit_and_diagnosticate"><i class="fa fa-save"></i> <i class="fa fa-microphone"></i> Guardar e Interpretar</button>
+                    <button type="submit"    class="btn btn-element-v2 btn-outline" name="btn_edit_and_diagnosticate"><i class="fa fa-save"></i> <i class="fa fa-microphone"></i> Guardar e Interpretar</button>
                 {% endif %}
 
                 {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_ADMIN') %}
-                    <button type="submit" class="btn btn-element-v2" name="btn_create_and_diagnosticate"><i class="fa fa-save"></i> <i class="fa fa-microphone"></i> Guardar e Interpretar</button>
+                    <button type="submit"    class="btn btn-element-v2 btn-outline" name="btn_create_and_diagnosticate"><i class="fa fa-save"></i> <i class="fa fa-microphone"></i> Guardar e Interpretar</button>
                 {% endif %}
                 
                 

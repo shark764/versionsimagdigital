@@ -49,7 +49,7 @@
 
 {% block simagd_navbar_left_nav %}
     <li class="list-table-link-navbar active {% if _PTRDIAG_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
-	<a href="javascript:void(0)" id="show-table-general-list" data-divtabletarget="div-resultado-patrones-diagnostico"
+	<a   href="javascript:void(0)" id="show-table-general-list" data-divtabletarget="div-resultado-patrones-diagnostico"
 	    {% if _PTRDIAG_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
 	    <span class="text-info"><i class="fa fa-tasks"></i> </span> Listado general <span class="sr-only">(current)</span>
 	</a>
@@ -58,10 +58,10 @@
 
 {% block simagd_navbar_right_nav %}
     <li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="text-info"><i class="fa fa-plus-circle"></i> </span> Registrar <span class="caret"></span></a>
+	<a   href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="text-info"><i class="fa fa-plus-circle"></i> </span> Registrar <span class="caret"></span></a>
 	<ul class="dropdown-menu" role="menu">
 	    <li {% if _PTRDIAG_ALLOW_CREATE == false %} class="disabled link-full-disabled" {% endif %}>
-		<a href="javascript:void(0)" id="navbar_btn_nuevoPatron" {#data-toggle="modal" data-target="#crearPatronDiagnostico-modal"#}
+		<a   href="javascript:void(0)" id="navbar_btn_nuevoPatron" {#data-toggle="modal" data-target="#crearPatronDiagnostico-modal"#}
 		    {% if _PTRDIAG_ALLOW_CREATE == false %} disabled="disabled" {% endif %}> <span class="glyphicon glyphicon-cog "></span> Insertar patrón
 		</a>
 	    </li>
@@ -70,7 +70,7 @@
     </li>
     <li>
         <div style="padding-top: 10px; padding-left: 10px;">
-            <button id="btn_start_recognition" class="btn btn-element-v2 btn-sm btn_start_recognition" title="Iniciar transcripción por voz" >
+            <button id="btn_start_recognition" class="btn btn-element-v2 btn-outline btn-sm btn_start_recognition" title="Iniciar transcripción por voz" >
                 <i class="fa fa-microphone" id="icon_start_recognition"></i>
             </button>
         </div>
