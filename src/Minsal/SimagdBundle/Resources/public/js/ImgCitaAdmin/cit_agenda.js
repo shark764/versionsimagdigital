@@ -650,6 +650,10 @@ jQuery(document).ready(function() {
 				.filter(':not([disabled]):visible')
 				.fullCalendar('refetchEvents');	// --| refresh the view
 		    });
+
+    $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 2650);
+    $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 4650);
+    /* http://fullcalendar.io/docs/event_data/events_function/ */
     
 });
 
