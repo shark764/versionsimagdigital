@@ -652,7 +652,7 @@ jQuery(document).ready(function() {
 		    });
 
     $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 2650);
-    $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 4650);
+    $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 3650);
     /* http://fullcalendar.io/docs/event_data/events_function/ */
     
 });
