@@ -203,3 +203,9 @@ table.simagd-search-table tr.sonata-ba-list-field-header {
  * END |-- JUST HORIZONTAL BORDERED BSTABLE
  * *****************************************************************************
  */
+
+
+.pull-leftt.search,
+.pull-right.search {
+    width: 39.50%;
+}
