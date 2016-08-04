@@ -6,11 +6,19 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    
-    {# simagd-styles #}
-    <link href="{{ asset('bundles/minsalsimagd/css/simagd-styles.css') }}" type="text/css" rel="stylesheet" />
-    <link href="{{ asset('bundles/minsalsimagd/css/simagd-form-styles.css') }}" type="text/css" rel="stylesheet" />
-    <link href="{{ asset('bundles/minsalsimagd/css/simagd-table.css') }}" type="text/css" rel="stylesheet" />
+
+    {# stylesheets minimized with Assetic #}
+    {% stylesheets
+	'bundles/minsalsimagd/css/simagd-styles.css'
+	'bundles/minsalsimagd/css/simagd-form-styles.css'
+	'bundles/minsalsimagd/css/simagd-table.css'
+	
+	'bundles/minsalsimagd/css/typeahead.css'
+	'bundles/minsalsimagd/css/select2-bootstrap.css'
+	
+	output="bundles/minsalsimagd/compiled/css/bundle_stylesheets___layout.css" %}
+	<link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
     
     {# Bootstrap 
     <link href="{{ asset('bundles/minsalsimagd/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
@@ -23,13 +31,7 @@
     <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-datetimepicker-development/build/css/bootstrap-datetimepicker.min.css') }}" type="text/css" rel="stylesheet" />
     
     {# iCheck #}
-    <link href="{{ asset('bundles/minsalsimagd/plugin/icheck-1.x/skins/minimal/aero.css') }}" type="text/css" rel="stylesheet" />
-    
-    {# ckeditor #}
-    <link href="{{ asset('bundles/minsalsimagd/css/simagd-ckeditor.css') }}" type="text/css" rel="stylesheet" />
-    
-    {# bootstrapvalidator #}
-{#    <link href="{{ asset('bundles/minsalsimagd/bootstrapvalidator-dist-0.5.2/dist/css/bootstrapValidator.min.css') }}" type="text/css" rel="stylesheet" />#}
+    <link href="{{ asset('bundles/minsalsimagd/plugin/icheck-1.x/skins/minimal/blue.css') }}" type="text/css" rel="stylesheet" />
     
     {# toastmessage #}
     <link href="{{ asset('bundles/minsalsimagd/plugin/akquinet-jquery-toastmessage-plugin-6f5d7bf/src/main/resources/css/jquery.toastmessage.css') }}" type="text/css" rel="stylesheet" />
@@ -40,9 +42,6 @@
     
     {# bootstrap-vertical-tabs #}
     <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-vertical-tabs-1.2.1/bootstrap.vertical-tabs.css') }}" type="text/css" rel="stylesheet" />
-    
-    {# select2-bootstrap #}
-    <link href="{{ asset('bundles/minsalsimagd/css/select2-bootstrap.css') }}" type="text/css" rel="stylesheet" />
 {% endblock %}
     
 {% block javascripts %}
@@ -53,28 +52,29 @@
     
     {# iCheck #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/icheck-1.x/icheck.js') }}" ></script>
-    {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_form_config.js') }}" ></script>#}
     
     {# jquery-ui #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/jquery-ui-1.12.0.custom/jquery-ui.min.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_highlight_error_ui.js') }}" ></script>
     
     {# Bootstrap-datetimepicker #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/moment-develop/min/moment-with-locales.min.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-datetimepicker-development/build/js/bootstrap-datetimepicker.min.js') }}" ></script>
-    
-    {# simagd-functions #}
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_trim_datos.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_html5_novalidate.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_validate_number.js') }}" ></script>
-    
-    {# bootstrapvalidator #}
-    {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrapvalidator-dist-0.5.2/dist/js/bootstrapValidator.min.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/bootstrapvalidator-dist-0.5.2/dist/js/language/es_ES.js') }}" ></script>#}
+
+    {# scripts minimized with Assetic #}
+    {% javascripts
+	'bundles/minsalsimagd/js/simagd_trim_datos.js'
+	'bundles/minsalsimagd/js/simagd_html5_novalidate.js'
+	'bundles/minsalsimagd/js/simagd_validate_number.js'
+	
+	'bundles/minsalsimagd/js/simagd_generar_mensaje_toast.js'
+	'bundles/minsalsimagd/js/simagd_highlight_error_ui.js'
+	
+	output="bundles/minsalsimagd/compiled/js/bundle_javascripts___layout.js" %}
+	<script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
     
     {# toastmessage #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/akquinet-jquery-toastmessage-plugin-6f5d7bf/src/main/javascript/jquery.toastmessage.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_generar_mensaje_toast.js') }}" ></script>
     
     {# bootstrap-modal #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-modal-master/js/bootstrap-modalmanager.js') }}" ></script>
