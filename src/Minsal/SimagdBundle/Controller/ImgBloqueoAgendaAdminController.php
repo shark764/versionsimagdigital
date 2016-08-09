@@ -65,7 +65,7 @@ class ImgBloqueoAgendaAdminController extends Controller
         
         //Crear registro
         try {
-            $nuevoBloqueo = $this->admin->create($nuevoBloqueo);
+            /*$nuevoBloqueo = */$this->admin->create($nuevoBloqueo);
         } catch (Exception $e) {
             $status = 'failed';
         }

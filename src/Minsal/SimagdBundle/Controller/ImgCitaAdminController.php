@@ -43,7 +43,7 @@ class ImgCitaAdminController extends Controller
         foreach ($resultados as $key => $resultado) {
 //            $resultado = new \Minsal\SimagdBundle\Entity\ImgCita();
             
-            $resultados[$key]['tooltip_title']  = $resultado['title'] . ($resultado['explocal_numero'] ? ' <span class="label label-primary-v2" style="margin-left: 5px; padding: .4em .6em .3em;"><span class="badge badge-primary-v2">' . $resultado['explocal_numero'] . '</span></span>' : '');
+            $resultados[$key]['tooltip_title']  = ($resultado['explocal_numero'] ? '<span class="label label-primary-v2" style="margin-left: 5px; padding: .4em .6em;"><span class="badge badge-primary-v2">' . $resultado['explocal_numero'] . '</span></span> &nbsp;' : '') . $resultado['title'];
 
             $resultados[$key]['start']  = $resultado['cit_fechaHoraInicio']->format('Y-m-d\TH:i:s');
             $resultados[$key]['end']    = $resultado['cit_fechaHoraFin']->format('Y-m-d\TH:i:s');
@@ -625,7 +625,7 @@ class ImgCitaAdminController extends Controller
         foreach ($resultados as $key => $resultado) {
 //            $resultado = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudio();
             
-            $resultados[$key]['tooltip_title']  = $resultado['prc_paciente'] . ($resultado['explocal_numero'] ? ' <span class="label label-primary-v2" style="margin-left: 5px; padding: .4em .6em .3em;"><span class="badge badge-primary-v2">' . $resultado['explocal_numero'] . '</span></span>' : '');
+            $resultados[$key]['tooltip_title']  = ($resultado['explocal_numero'] ? '<span class="label label-primary-v2" style="margin-left: 5px; padding: .4em .6em .3em;"><span class="badge badge-primary-v2">' . $resultado['explocal_numero'] . '</span></span> &nbsp;' : '') . $resultado['prc_paciente'];
 
             $resultados[$key]['prc_editUrl']                        = $this->generateUrl('simagd_solicitud_estudio_edit', array('id' => $resultado['prc_id']));
             $resultados[$key]['prc_fechaCreacion']    = $resultado['prc_fechaCreacion']->format('Y-m-d H:i:s A');

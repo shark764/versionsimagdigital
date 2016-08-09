@@ -137,7 +137,7 @@ jQuery(document).ready(function() {
 				      html: true,
 				      placement: 'top',
 				      trigger: 'click',
-				      title : event._id.indexOf('bl_') === -1 ? '<i class="fa fa-clock-o"></i> ' + jQuery.trim(event.tooltip_title) : '<i class="fa fa-lock"></i> ' + jQuery.trim(event.title),
+				      title : event._id.indexOf('bl_') === -1 ? '<span class="text-info"><i class="fa fa-clock-o"></i></span> ' + jQuery.trim(event.tooltip_title) : '<span class="text-info"><i class="fa fa-lock"></i></span> ' + jQuery.trim(event.title),
 				      container: '#calendar',
 				      template: [
 						    '<div class="popover popover-container-max-width popover-max-limit-width" role="tooltip">',
@@ -651,8 +651,8 @@ jQuery(document).ready(function() {
 				.fullCalendar('refetchEvents');	// --| refresh the view
 		    });
 
-    $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 2650);
-    $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 3650);
+    $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 1650);
+    $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 2650);
     /* http://fullcalendar.io/docs/event_data/events_function/ */
     
 });
