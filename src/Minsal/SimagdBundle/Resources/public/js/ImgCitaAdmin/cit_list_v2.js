@@ -159,6 +159,34 @@ jQuery(document).ready(function() {
                 .parents("li.list-table-link-navbar-parent").removeClass('active');
         jQuery(this).parents("li").addClass("active");
     });
+
+    var $table_patientdates_list	= jQuery('#table-lista-citas'),
+        $btn_toolbar_insert_date	= jQuery('#btn_toolbar_insert_date');
+
+    $(function () {
+        $btn_toolbar_insert_date.click(function () {
+        	/*
+        	 * insert row with filters
+        	 */
+            $table_patientdates_list.bootstrapTable('insertRow', {
+                index: 0,
+                row: {
+                    cit_tecnologo: '<input type="text" class="form-control input-sm">',
+                    prc_modalidad: '<select class="form-control input-sm"><option value=""></option><option value="TOMOGRAFÍA AXIAL COMPUTARIZADA">TOMOGRAFÍA AXIAL COMPUTARIZADA</option></select>',
+                    cit_fechaHoraInicio: null,
+                    cit_fechaHoraFin: null,
+                    cit_estado: null,
+                    cit_color: null,
+                    prc_paciente: null,
+                }
+            });
+            Admin.setup_select2($table_patientdates_list);
+        });
+
+	    $table_patientdates_list.on('column-switch.bs.table', function (e, field, checked) {
+	        Admin.setup_select2(jQuery(this));
+	    });
+    });
     
 });
 
