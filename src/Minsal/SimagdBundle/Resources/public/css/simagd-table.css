@@ -144,8 +144,8 @@ table.simagd-search-table tr.sonata-ba-list-field-header {
      *
      */
     
-    border-top: 1px solid #16677d;
-    border-bottom: 1px solid #16677d;
+    border-top: 1px solid red/*#16677d*/;
+    border-bottom: 1px solid red/*#16677d*/;
 }
 /*.content-header .bootstrap-table .table.table-bstable-report>thead>tr>td,
 .content-header .bootstrap-table .table.table-bstable-report>tbody>tr>td,

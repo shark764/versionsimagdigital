@@ -708,4 +708,6 @@ jQuery(document).ready(function() {
      * instances are builded with filters
      */
     
+    window.alert('DEBERÍA ACTIVARSE FILTER_BSTABLE AL MOMENTO DE DAR CLICK A FILTRAR TABLA BTN,\nASI NO SE EJECUTA EL PROCESO AL LOAD PAGE');
+    
 });
