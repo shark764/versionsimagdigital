@@ -36,6 +36,12 @@
             <button id="btn_toolbar_assign_patient_date" class="btn btn-element-v2 btn-outline btn_toolbar_assign_patient_date" title="Asignar estas citas" style="margin-left: 15px" disabled="disabled">
                 <i class="glyphicon glyphicon-user"></i>
             </button>
+
+            <span class="btn-separator"></span>
+
+            <button id="btn_toolbar_insert_date" class="btn btn-default btn-outline btn_toolbar_insert_date" title="Registrar nueva cita" style="margin-left: 15px" {#disabled="disabled"#}>
+                <i class="glyphicon glyphicon-plus-sign"></i> <i class="glyphicon glyphicon-inbox"></i>
+            </button>
             <!-- END --| custom buttons for toolbar -->
         {#</div>#}
 
@@ -79,7 +85,7 @@
             		    <th data-field="cit_fechaHoraInicioAnterior" data-visible="false" data-formatter="simagdDateTimeFormatter" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Inicia (Anterior)</th>
             		    <th data-field="cit_fechaHoraFinAnterior" data-visible="false" data-formatter="simagdDateTimeFormatter" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Finaliza (Anterior)</th>
             		    <th data-field="cit_color" data-formatter="colorCitaFormatter" class="col-md-1" data-align="center" data-halign="center" data-sortable="true">Color</th>
-            		    <th data-field="cit_tecnologo" data-filter-bstable-apply="true" data-filter-bstable-by="tcnlcit_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Será atendido por</th>
+            		    <th data-field="cit_tecnologo" data-filter-bstable-apply="true" data-filter-bstable-by="tcnlcit_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Asignado a</th>
             		    <th data-field="cit_empleado" data-filter-bstable-apply="true" data-filter-bstable-by="empcit_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Programó</th>
             		    <th data-field="cit_fechaCreacion" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-visible="false" data-formatter="simagdDateTimeFormatter" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Se creó</th>
             		    <th data-field="action" data-formatter="actionCitaFormatter" data-events="actionCitaEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>

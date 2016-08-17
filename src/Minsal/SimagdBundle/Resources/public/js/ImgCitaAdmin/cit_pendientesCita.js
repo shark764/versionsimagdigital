@@ -113,7 +113,7 @@ jQuery.fn.loadPacientesSinCita = function() {
 					  html: true,
 					  placement: 'right',
 					  trigger: 'click',
-					  title : '<i class="fa fa-wheelchair"></i> ' + jQuery.trim(this.tooltip_title),
+					  title : '<span class="text-info"><i class="fa fa-wheelchair"></i></span> ' + jQuery.trim(this.tooltip_title),
 // 					  container: 'body',
 					  template: [
 							'<div class="popover popover-container-max-width" role="tooltip">',
