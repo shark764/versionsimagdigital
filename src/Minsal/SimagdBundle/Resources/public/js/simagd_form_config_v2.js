@@ -342,7 +342,7 @@ jQuery(document).ready(function() {
                if ($field.is('input:text') || $field.attr('type') === 'hidden' || $field.is('textarea')) {
                    if (typeof $svdata !== "undefined" && $svdata !== null && $svdata !== "") {
                        if ($field.hasClass('summernote')) {
-                           $field.code(jQuery.trim($svdata));
+                           $field.summernote('code', jQuery.trim($svdata));
                        } else {
                            $field.val(jQuery.trim($svdata));
                        }

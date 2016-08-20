@@ -85,7 +85,7 @@ jQuery(document).ready(function() {
 	// Do whatever you want here ...
 	/** before serializing form data */
 	$form.find('.summernote:enabled:not([readonly])').each(function() {
-	    jQuery(this).val(jQuery(this).code());
+	    jQuery(this).val(jQuery(this).summernote('code'));
 	    console.log(jQuery(this).attr('name'), ':enabled:not([readonly])');
 	});
 
@@ -107,7 +107,7 @@ jQuery(document).ready(function() {
         ___speech   : true,     // active speech recognition
     }});
     if (jQuery.isEmptyObject(jQuery.trim($_indicaciones)) === false) {
-	$tx_indicaciones_field.code($_indicaciones);
+	$tx_indicaciones_field.summernote('code', $_indicaciones);
     }
     
     /** popover para muestra de datos de proyecciones */

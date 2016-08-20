@@ -131,7 +131,7 @@ jQuery(document).ready(function() {
 	
 	    /** before serializing form data */
 	    $form.find('.summernote').each(function() {
-		jQuery(this).val(jQuery(this).code());
+		jQuery(this).val(jQuery(this).summernote('code'));
 	    });
 
             // Use Ajax to submit form data
@@ -200,7 +200,7 @@ jQuery(document).ready(function() {
             ___toolbar  : 'expand', // toolbar
             ___speech   : true,     // active speech recognition
         }});
-        $("[id='formDiagHallazgos']").code($current_diagRowForm.diag_hallazgos);
+        $("[id='formDiagHallazgos']").summernote('code', $current_diagRowForm.diag_hallazgos);
 	/** text-editor Conclusion */
 	$("[id='formDiagConclusion']").buildSummerNote({ newOptions: {
 	    height: 75,                 // set editor height
@@ -209,7 +209,7 @@ jQuery(document).ready(function() {
             ___toolbar  : 'expand', // toolbar
             ___speech   : true,     // active speech recognition
 	}});
-        $("[id='formDiagConclusion']").code($current_diagRowForm.diag_conclusion);
+        $("[id='formDiagConclusion']").summernote('code', $current_diagRowForm.diag_conclusion);
 	/** text-editor Recomendaciones */
 	$("[id='formDiagRecomendaciones']").buildSummerNote({ newOptions: {
 	    height: 90,                 // set editor height
@@ -218,7 +218,7 @@ jQuery(document).ready(function() {
             ___toolbar  : 'expand', // toolbar
             ___speech   : true,     // active speech recognition
 	}});
-        $("[id='formDiagRecomendaciones']").code($current_diagRowForm.diag_recomendaciones);
+        $("[id='formDiagRecomendaciones']").summernote('code', $current_diagRowForm.diag_recomendaciones);
 	/** -- summernote */
 	
         $("textarea[id='formDiagIncidencias']").val(jQuery.trim($current_diagRowForm.diag_incidencias));
@@ -297,15 +297,15 @@ jQuery(document).ready(function() {
 //	$.each($DIAGNOSTIC_PATTERN_LIST, function(i, v) {
 //	    console.log(v.ptrDiag_id, $patterVal, v.ptrDiag_id === $patterVal);
 //	    if (v.ptrDiag_id == $patterVal) {
-//		$fieldHallazgos.code(v.ptrDiag_hallazgos);
-//		$fieldConclusion.code(v.ptrDiag_conclusion);
-//		$fieldRecomendaciones.code(v.ptrDiag_recomendaciones);
+//		$fieldHallazgos.summernote('code', v.ptrDiag_hallazgos);
+//		$fieldConclusion.summernote('code', v.ptrDiag_conclusion);
+//		$fieldRecomendaciones.summernote('code', v.ptrDiag_recomendaciones);
 //	    }
 //        });
 //	if (!$patterVal) {
-//	    $fieldHallazgos.code('');
-//	    $fieldConclusion.code('');
-//	    $fieldRecomendaciones.code('');
+//	    $fieldHallazgos.summernote('reset');
+//	    $fieldConclusion.summernote('reset');
+//	    $fieldRecomendaciones.summernote('reset');
 //	}
 //    });
     /*

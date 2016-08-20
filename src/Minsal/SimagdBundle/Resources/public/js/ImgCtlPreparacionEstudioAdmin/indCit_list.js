@@ -47,13 +47,13 @@ window.actionEvents = {
 	
 	/** text-editor Indicaciones */
 	$("[id='formIndCitPreparacionEstudio']").buildSummerNote({ newOptions: {}});
-        $("[id='formIndCitPreparacionEstudio']").code(row.indCit_preparacionEstudio);
+        $("[id='formIndCitPreparacionEstudio']").summernote('code', row.indCit_preparacionEstudio);
 	/** text-editor Recomendaciones */
 	$("[id='formIndCitRecomendaciones']").buildSummerNote({ newOptions: {
 	    height: 90,                 // set editor height
 	    maxHeight: 125,             // set maximum height of editor
 	}});
-        $("[id='formIndCitRecomendaciones']").code(row.indCit_recomendaciones);
+        $("[id='formIndCitRecomendaciones']").summernote('code', row.indCit_recomendaciones);
 	/** -- summernote */
 	
         $("textarea[id='formIndCitObservaciones']").val(jQuery.trim(row.indCit_observaciones));

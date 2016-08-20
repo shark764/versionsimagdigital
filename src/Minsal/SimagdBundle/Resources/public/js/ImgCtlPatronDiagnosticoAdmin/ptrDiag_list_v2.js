@@ -52,7 +52,7 @@ window.actionEvents = {
             ___toolbar  : 'expand',     // toolbar
             ___speech   : true,         // active speech recognition
         }});
-        $("[id='formPtrDiagHallazgos']").code(row.ptrDiag_hallazgos);
+        $("[id='formPtrDiagHallazgos']").summernote('code', row.ptrDiag_hallazgos);
 	/** text-editor Conclusion */
 	$("[id='formPtrDiagConclusion']").buildSummerNote({ newOptions: {
 	    height: 75,                 // set editor height
@@ -61,7 +61,7 @@ window.actionEvents = {
             ___toolbar  : 'expand',     // toolbar
             ___speech   : true,         // active speech recognition
 	}});
-        $("[id='formPtrDiagConclusion']").code(row.ptrDiag_conclusion);
+        $("[id='formPtrDiagConclusion']").summernote('code', row.ptrDiag_conclusion);
 	/** text-editor Recomendaciones */
 	$("[id='formPtrDiagRecomendaciones']").buildSummerNote({ newOptions: {
 	    height: 90,                 // set editor height
@@ -70,7 +70,7 @@ window.actionEvents = {
             ___toolbar  : 'expand',     // toolbar
             ___speech   : true,         // active speech recognition
 	}});
-        $("[id='formPtrDiagRecomendaciones']").code(row.ptrDiag_recomendaciones);
+        $("[id='formPtrDiagRecomendaciones']").summernote('code', row.ptrDiag_recomendaciones);
 	/** -- summernote */
 	
         $("textarea[id='formPtrDiagIndicacionesGenerales']").val(jQuery.trim(row.ptrDiag_indicacionesGenerales));

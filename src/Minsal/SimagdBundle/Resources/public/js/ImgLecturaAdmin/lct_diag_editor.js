@@ -84,15 +84,15 @@ jQuery(document).ready(function() {
 	    
 	    $.each($DIAGNOSTIC_PATTERN_LIST, function(i, v) {
 		if (v.ptrDiag_id === parseInt($patterVal)) {
-		    $tx_hallazgos_field.code(v.ptrDiag_hallazgos);
-		    $tx_conclusion_field.code(v.ptrDiag_conclusion);
-		    $tx_recomendaciones_field.code(v.ptrDiag_recomendaciones);
+		    $tx_hallazgos_field.summernote('code', v.ptrDiag_hallazgos);
+		    $tx_conclusion_field.summernote('code', v.ptrDiag_conclusion);
+		    $tx_recomendaciones_field.summernote('code', v.ptrDiag_recomendaciones);
 		}
 	    });
 	    if (!$patterVal) {
-		$tx_hallazgos_field.code('');
-		$tx_conclusion_field.code('');
-		$tx_recomendaciones_field.code('');
+		$tx_hallazgos_field.summernote('reset');
+		$tx_conclusion_field.summernote('reset');
+		$tx_recomendaciones_field.summernote('reset');
 	    } else {
 		if (!$patternAsc_field.val() || $patternAsc_field.val() !== $patterVal) {
 		    $patternAsc_field.select2('val', $patterVal);
@@ -205,7 +205,7 @@ jQuery(document).ready(function() {
         ___speech   : true,     // active speech recognition
     }, {})});
     if (jQuery.isEmptyObject(jQuery.trim($_hallazgos)) === false) {
-	$tx_hallazgos_field.code($_hallazgos);
+	$tx_hallazgos_field.summernote('code', $_hallazgos);
     }
     /** text-editor Conclusion */
     $tx_conclusion_field.buildSummerNote({ newOptions: jQuery.extend({
@@ -216,7 +216,7 @@ jQuery(document).ready(function() {
         ___speech   : true,     // active speech recognition
     }, {})});
     if (jQuery.isEmptyObject(jQuery.trim($_conclusion)) === false) {
-	$tx_conclusion_field.code($_conclusion);
+	$tx_conclusion_field.summernote('code', $_conclusion);
     }
     /** text-editor Recomendaciones */
     $tx_recomendaciones_field.buildSummerNote({ newOptions: jQuery.extend({
@@ -227,7 +227,7 @@ jQuery(document).ready(function() {
         ___speech   : true,     // active speech recognition
     }, {})});
     if (jQuery.isEmptyObject(jQuery.trim($_recomendaciones)) === false) {
-	$tx_recomendaciones_field.code($_recomendaciones);
+	$tx_recomendaciones_field.summernote('code', $_recomendaciones);
     }
     /** -- summernote */
     
@@ -313,9 +313,9 @@ jQuery(document).ready(function() {
             var $tpResult_diagnosis = jQuery('select[id="' + $token /*$ADMIN_UNIQID_TOKEN*/ + '_idTipoResultado"]').val();
             jQuery('select[id="form_diagAsPattern_idTipoResultado"]').select2('val', !$tpResult_diagnosis ? $FORM_MAIN_DIAGNOSIS_RESULT_TYPE : $tpResult_diagnosis);
 
-            jQuery('#form_diagAsPattern_hallazgos-static-label').html(simagdDescriptionAdvanceNoScrollFormatter($tx_hallazgos_field.code(), {}, null));
-            jQuery('#form_diagAsPattern_conclusion-static-label').html(simagdDescriptionAdvanceNoScrollFormatter($tx_conclusion_field.code(), {}, null));
-            jQuery('#form_diagAsPattern_recomendaciones-static-label').html(simagdDescriptionAdvanceNoScrollFormatter($tx_recomendaciones_field.code(), {}, null));
+            jQuery('#form_diagAsPattern_hallazgos-static-label').html(simagdDescriptionAdvanceNoScrollFormatter($tx_hallazgos_field.summernote('code'), {}, null));
+            jQuery('#form_diagAsPattern_conclusion-static-label').html(simagdDescriptionAdvanceNoScrollFormatter($tx_conclusion_field.summernote('code'), {}, null));
+            jQuery('#form_diagAsPattern_recomendaciones-static-label').html(simagdDescriptionAdvanceNoScrollFormatter($tx_recomendaciones_field.summernote('code'), {}, null));
 
             $this_modal.modal();
 
@@ -340,9 +340,9 @@ jQuery(document).ready(function() {
              * set form to remote
              */
             $.post(Routing.generate($ajaxPOST_url), jQuery.extend(true, $form.formParams(), {
-                form_diagAsPattern_hallazgos : $tx_hallazgos_field.code(),
-                form_diagAsPattern_conclusion : $tx_conclusion_field.code(),
-                form_diagAsPattern_recomendaciones : $tx_recomendaciones_field.code()
+                form_diagAsPattern_hallazgos : $tx_hallazgos_field.summernote('code'),
+                form_diagAsPattern_conclusion : $tx_conclusion_field.summernote('code'),
+                form_diagAsPattern_recomendaciones : $tx_recomendaciones_field.summernote('code')
             }))
             .done(function(data, textStatus, jqXHR) {
                 if (data.status === 'OK')

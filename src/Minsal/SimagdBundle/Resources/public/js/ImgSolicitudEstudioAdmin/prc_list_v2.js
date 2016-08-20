@@ -102,7 +102,7 @@ window.actionSolEstudioEvents = {
             focus: false,       // set focus to editable area after initializing summernote
 	}});
 	if (jQuery.isEmptyObject(jQuery.trim(row.prc_id_radXInd)) === false) {
-	    $("[id='formIndRadxPrcIndicaciones']").code(row.prc_indicacionesMedicoRadiologo);
+	    $("[id='formIndRadxPrcIndicaciones']").summernote('code', row.prc_indicacionesMedicoRadiologo);
 	}
 	/** -- summernote */
 
@@ -192,7 +192,7 @@ window.actionSolEstudioEvents = {
                 if ($field.is('input:text') || $field.attr('type') === 'hidden' || $field.is('textarea')) {
                     if (typeof $svdata !== "undefined" && $svdata !== null && $svdata !== "") {
                         if ($field.hasClass('summernote')) {
-                            $field.code(jQuery.trim($svdata));
+                            $field.summernote('code', jQuery.trim($svdata));
                         } else {
                             $field.val(jQuery.trim($svdata));
                         }

@@ -111,7 +111,7 @@
 	    }
 	    console.log($data_name, 'data-summernote-notempty', $data_notempty);
         });
-	jQuery(this).code('Sin editar...');
+	jQuery(this).summernote('code', 'Sin editar...');
 	
 	/** enable FORMVALIDATION */
 	var $data_validators    = jQuery(this).data('summernote-validators');
@@ -137,7 +137,7 @@
 	}
 	
 	/** text-editor DESTROY */
-	jQuery(this).code('').destroy();
+	jQuery(this).summernote('reset').summernote('destroy');
 	
 	/** redefine RESIZE event for WINDOW */
 	var $window 	= jQuery(window);

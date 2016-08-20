@@ -40,7 +40,7 @@ window.pendienteTranscripcion_personal_actionEvents = {
             ___toolbar  : 'expand', // toolbar
             ___speech   : true,     // active speech recognition
         }});
-        $("[id='formDiagHallazgos']").code(row.diag_hallazgos);
+        $("[id='formDiagHallazgos']").summernote('code', row.diag_hallazgos);
 	/** text-editor Conclusion */
 	$("[id='formDiagConclusion']").buildSummerNote({ newOptions: {
 	    height: 75,                 // set editor height
@@ -49,7 +49,7 @@ window.pendienteTranscripcion_personal_actionEvents = {
             ___toolbar  : 'expand', // toolbar
             ___speech   : true,     // active speech recognition
 	}});
-        $("[id='formDiagConclusion']").code(row.diag_conclusion);
+        $("[id='formDiagConclusion']").summernote('code', row.diag_conclusion);
 	/** text-editor Recomendaciones */
 	$("[id='formDiagRecomendaciones']").buildSummerNote({ newOptions: {
 	    height: 90,                 // set editor height
@@ -58,7 +58,7 @@ window.pendienteTranscripcion_personal_actionEvents = {
             ___toolbar  : 'expand', // toolbar
             ___speech   : true,     // active speech recognition
 	}});
-        $("[id='formDiagRecomendaciones']").code(row.diag_recomendaciones);
+        $("[id='formDiagRecomendaciones']").summernote('code', row.diag_recomendaciones);
 	/** -- summernote */
 	
         $("textarea[id='formDiagIncidencias']").val(jQuery.trim(row.diag_incidencias));

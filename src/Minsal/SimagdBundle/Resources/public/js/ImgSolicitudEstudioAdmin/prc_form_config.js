@@ -71,7 +71,7 @@ jQuery(document).ready(function() {
 	// Do whatever you want here ...
 	/** before serializing form data */
 	$form.find('.summernote:enabled:not([readonly])').each(function() {
-	    jQuery(this).val(jQuery(this).code());
+	    jQuery(this).val(jQuery(this).summernote('code'));
 	});
 
 	// Then submit the form as usual
@@ -128,7 +128,7 @@ jQuery(document).ready(function() {
         ___speech   : true,     // active speech recognition
     }});
     if (jQuery.isEmptyObject(jQuery.trim($_antecedentes)) === false) {
-	$tx_antecedentes_field.code($_antecedentes);
+	$tx_antecedentes_field.summernote('code', $_antecedentes);
     }
 
     
@@ -145,7 +145,7 @@ jQuery(document).ready(function() {
         ___speech   : true,     // active speech recognition
     }});
     if (jQuery.isEmptyObject(jQuery.trim($_indicaciones)) === false) {
-	$tx_indicaciones_field.code($_indicaciones);
+	$tx_indicaciones_field.summernote('code', $_indicaciones);
     }
 
 

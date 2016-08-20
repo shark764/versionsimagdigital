@@ -206,7 +206,7 @@ jQuery.fn.loadPacientesSinCita = function() {
 						  maxHeight: 250,	// set maximum height of editor
 					      }});
 					      if (jQuery.isEmptyObject(jQuery.trim($prc_object_data.prc_id_radXInd)) === false) {
-						  jQuery('[id="formIndRadxPrcIndicaciones"]').code($prc_object_data.prc_indicacionesMedicoRadiologo);
+						  jQuery('[id="formIndRadxPrcIndicaciones"]').summernote('code', $prc_object_data.prc_indicacionesMedicoRadiologo);
 					      }
 					      /** -- summernote */
 					      
@@ -588,7 +588,7 @@ jQuery(document).ready(function() {
 	
 	    /** before serializing form data */
 	    $form.find('.summernote').each(function() {
-		jQuery(this).val(jQuery(this).code());
+		jQuery(this).val(jQuery(this).summernote('code'));
 	    });
 
             // Use Ajax to submit form data

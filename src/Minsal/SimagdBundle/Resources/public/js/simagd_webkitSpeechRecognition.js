@@ -245,7 +245,7 @@
         var $this                   = jQuery(this),
             final_span              = jQuery('#final_span');
 
-        $this.code($this.code() + ' ' + jQuery.trim(final_span.html()));
+        $this.summernote('code', $this.summernote('code') + ' ' + jQuery.trim(final_span.html()));
         field_speechRecognition     = jQuery.extend(true, {}, {});
     };
 

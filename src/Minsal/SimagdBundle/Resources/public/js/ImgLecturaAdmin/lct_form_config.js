@@ -148,7 +148,7 @@ jQuery(document).ready(function() {
 	if ($("[id='" + $token + "_activarTranscripcion']").is(':checked'))
 	{
 	    $form.find('.summernote:enabled:not([readonly])').each(function() {
-		jQuery(this).val(jQuery(this).code());
+		jQuery(this).val(jQuery(this).summernote('code'));
 		console.log(jQuery(this).attr('name'), ':enabled:not([readonly])');
 // 		Submit no es permitido por summernote en LCT_EDIT
 // 		Summernote con varios textarea genera error en submit en todos
