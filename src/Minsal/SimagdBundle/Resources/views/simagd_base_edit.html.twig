@@ -304,10 +304,10 @@
                 <div class="row">
             {% endblock %}
 
-            {% block sonata_tab_content %}
+            {#{% block sonata_tab_content %}
                 {% set has_tab = ((admin.formtabs|length == 1 and admin.formtabs|keys[0] != 'default') or admin.formtabs|length > 1 ) %}
 
-                {#<span class="label label-element-v2">{ dump(form_tab) }</span>#}
+                <span class="label label-element-v2">{ dump(form_tab) }</span>
                 <div class="col-md-12">
                     {% if has_tab %}
                         <div class="nav-tabs-custom">
@@ -336,6 +336,35 @@
                         {{ form_helper.render_groups(admin, form, admin.formtabs['default'].groups, has_tab) }}
                     {% endif %}
                 </div>
+            {% endblock %}#}
+            
+            {% block sonata_tab_content %}
+                {% for name, form_group in admin.formgroups %}
+                    <div class="{{ form_group.class|default('col-md-12') }}">
+                        <div class="box box-primary-v3">
+                            <div class="box-header">
+                                <h4 class="box-title">
+                                    <span class="label label-primary-v3">{{ admin.trans(name, {}, form_group.translation_domain) }}</span>
+                                </h4>
+                            </div>
+                            {#<div class="box{% if loop.first %} in{% endif %}" id="{{ admin.uniqid }}_{{ loop.index }}">#}
+                                <div class="box-body">
+                                    <div class="sonata-ba-collapsed-fields">
+                                        {% if form_group.description != false %}
+                                            <p>{{ form_group.description|raw }}</p>
+                                        {% endif %}
+
+                                        {% for field_name in form_group.fields %}
+                                            {% if admin.formfielddescriptions[field_name] is defined %}
+                                                {{ form_row(form[field_name])}}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {#</div>#}
+                        </div>
+                    </div>
+                {% endfor %}
             {% endblock %}
 
             {% block sonata_post_fieldsets %}

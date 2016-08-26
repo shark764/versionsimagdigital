@@ -58,15 +58,15 @@ class ImgLecturaAdmin extends Admin
         $sessionUser = $securityContext->getToken()->getUser();
         
         $formMapper
-            ->tab('Interpretación', array('class' => 'tab-lectura-rx', 'tab_icon' => 'glyphicon glyphicon-adjust'))
+//             ->tab('Interpretación', array('class' => 'tab-lectura-rx', 'tab_icon' => 'glyphicon glyphicon-adjust'))
                 ->with('Datos generales', array('class' => 'lct-with-lectura-generales col-md-12', 'description' => ''))->end()
-            ->end()
-            ->tab('Estudios', array('class' => 'tab-estudios-rx', 'tab_icon' => 'glyphicon glyphicon-eye-close'))
+//             ->end()
+//             ->tab('Estudios', array('class' => 'tab-estudios-rx', 'tab_icon' => 'glyphicon glyphicon-eye-close'))
                 ->with('Estudios que componen lectura', array('class' => 'col-md-12', 'description' => ''))->end()
-            ->end()
-            ->tab('Transcripción', array('class' => 'tab-transcripcion-rx', 'tab_icon' => 'glyphicon glyphicon-headphones'))
+//             ->end()
+//             ->tab('Transcripción', array('class' => 'tab-transcripcion-rx', 'tab_icon' => 'glyphicon glyphicon-headphones'))
                 ->with('Diagnóstico radiológico', array('class' => 'col-md-12 add-dropdown-menu-diagnosis', 'description' => ''))->end()
-            ->end()
+//             ->end()
         ;
         
         $estabLocal = $sessionUser->getIdEstablecimiento()->getId();
@@ -90,7 +90,7 @@ class ImgLecturaAdmin extends Admin
         }
         
         $formMapper
-            ->tab('Interpretación')
+//             ->tab('Interpretación')
                 ->with('Datos generales')
 //                  ->add('idEstablecimiento')
                     ->add('idEstudio', 'sonata_type_model_hidden')
@@ -247,8 +247,8 @@ class ImgLecturaAdmin extends Admin
 							)
                     ))
                 ->end()
-            ->end()
-            ->tab('Estudios')
+//             ->end()
+//             ->tab('Estudios')
                 ->with('Estudios que componen lectura')
                     ->add('estudiosLectura', 'entity', array(
                                                         'label' => 'Estudios realizados',
@@ -264,8 +264,8 @@ class ImgLecturaAdmin extends Admin
 //                                                        'attr' => array('style' => 'min-width: 100%; max-width: 100%;')
                     ))
                 ->end()
-            ->end()
-            ->tab('Transcripción')
+//             ->end()
+//             ->tab('Transcripción')
                 ->with('Diagnóstico radiológico')
                     ->add('activarTranscripcion', 'checkbox', array(
 							'label' => 'Guardar transcripción adjunta',
@@ -407,7 +407,7 @@ class ImgLecturaAdmin extends Admin
 							)
                     ))
                 ->end()
-            ->end()
+//             ->end()
         ;
     }
 
