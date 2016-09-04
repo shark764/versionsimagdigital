@@ -378,33 +378,27 @@ class ImgSolicitudEstudio
      * @ORM\OneToMany(targetEntity="ImgPendienteRealizacion", mappedBy="idSolicitudEstudio", cascade={"all"}, orphanRemoval=true)
      */
     private $solicitudEstudioExamenPendienteRealizar;
+    
+
+    /**
+     * @ORM\OneToMany(targetEntity="ImgSolicitudEstudioMamografia", mappedBy="idSolicitudEstudio", cascade={"all"}, orphanRemoval=true)
+     */
+    private $solicitudEstudioMamografia;
 
 
-    public function __toString() {
-        if ($this->idExpediente) {
+    public function __toString()
+    {
+        if ($this->idExpediente)
+        {
             return 'Solicitud de: ' . $this->idExpediente->getNumero() . ' / ' . $this->idExpediente->getIdPaciente() . ' / ' . $this->datosClinicos;
-        }
-        elseif ($this->idExpedienteFicticio) {
+        } elseif ($this->idExpedienteFicticio)
+        {
             return 'Solicitud de: ' . $this->idExpedienteFicticio->getNumero() . ' / ' . $this->idExpedienteFicticio->getNombreFicticio() . ' / ' . $this->datosClinicos;
-        }
-        else {
+        } else {
             return $this->datosClinicos ? $this->datosClinicos : '';
         }
     }
-
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->solicitudEstudioProyeccion = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->solicitudEstudioCitas = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->solicitudEstudioProcedimientosRealizados = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->solicitudEstudioSolicitudesEstudioComplementario = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->solicitudEstudioSolicitudesDiagnostico = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->solicitudEstudioExamenPendienteRealizar = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    
 
     /**
      * Get id
@@ -1518,5 +1512,51 @@ class ImgSolicitudEstudio
             $description    .= mb_strtoupper(trim($projection_examined->getNombre()), 'utf-8') . ', ';
         }
         return trim($description, '\t\n , \t\n');
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->solicitudEstudioProyeccion = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->solicitudEstudioCitas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->solicitudEstudioProcedimientosRealizados = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->solicitudEstudioSolicitudesEstudioComplementario = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->solicitudEstudioSolicitudesDiagnostico = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->solicitudEstudioExamenPendienteRealizar = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->solicitudEstudioMamografia = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add solicitudEstudioMamografia
+     *
+     * @param \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioMamografia $solicitudEstudioMamografia
+     * @return ImgSolicitudEstudio
+     */
+    public function addSolicitudEstudioMamografium(\Minsal\SimagdBundle\Entity\ImgSolicitudEstudioMamografia $solicitudEstudioMamografia)
+    {
+        $this->solicitudEstudioMamografia[] = $solicitudEstudioMamografia;
+
+        return $this;
+    }
+
+    /**
+     * Remove solicitudEstudioMamografia
+     *
+     * @param \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioMamografia $solicitudEstudioMamografia
+     */
+    public function removeSolicitudEstudioMamografium(\Minsal\SimagdBundle\Entity\ImgSolicitudEstudioMamografia $solicitudEstudioMamografia)
+    {
+        $this->solicitudEstudioMamografia->removeElement($solicitudEstudioMamografia);
+    }
+
+    /**
+     * Get solicitudEstudioMamografia
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSolicitudEstudioMamografia()
+    {
+        return $this->solicitudEstudioMamografia;
     }
 }

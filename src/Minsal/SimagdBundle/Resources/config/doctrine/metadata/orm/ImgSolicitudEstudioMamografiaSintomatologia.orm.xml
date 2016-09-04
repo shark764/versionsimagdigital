@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ImgSolicitudEstudioMamografiaSintomatologia" table="img_solicitud_estudio_mamografia_sintomatologia">
+    <indexes>
+      <index name="IDX_D5B2758B1D6974AC" columns="id_solicitud_estudio_mamografia"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="dolorOMalestar" type="string" column="dolor_o_malestar" nullable="false"/>
+    <field name="masaOAbultamiento" type="string" column="masa_o_abultamiento" nullable="false"/>
+    <field name="retraccionDelPezon" type="string" column="retraccion_del_pezon" nullable="false"/>
+    <field name="lesionEnPielOEngrosamiento" type="string" column="lesion_en_piel_o_engrosamiento" nullable="false"/>
+    <field name="manchasOCambioColoracion" type="string" column="manchas_o_cambio_coloracion" nullable="false"/>
+    <field name="comezon" type="string" column="comezon" nullable="false"/>
+    <field name="secrecion" type="string" column="secrecion" nullable="false"/>
+    <many-to-one field="idSolicitudEstudioMamografia" target-entity="ImgSolicitudEstudioMamografia">
+      <join-columns>
+        <join-column name="id_solicitud_estudio_mamografia" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

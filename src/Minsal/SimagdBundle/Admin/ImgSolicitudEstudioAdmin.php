@@ -735,6 +735,7 @@ class ImgSolicitudEstudioAdmin extends Admin
                                                         'mapped' => false,
                                                         'data' => $setLockSolDiagnostico
                         ))
+                        ->add('solicitudEstudioMamografia')
                     ->end()
                 ->end()
             ;
