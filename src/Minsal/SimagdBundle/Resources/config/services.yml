@@ -300,10 +300,12 @@ services:
         class: Minsal\SimagdBundle\Admin\ImgSolicitudEstudioMamografiaAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\ImgSolicitudEstudioMamografia, MinsalSimagdBundle:ImgSolicitudEstudioMamografiaAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: ImgSolicitudEstudioMamografia}
+            # - {name: sonata.admin, manager_type: orm, group: admin, label: ImgSolicitudEstudioMamografia}
+            - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
     minsal_simagd.admin.img_solicitud_estudio_mamografia_sintomatologia:
         class: Minsal\SimagdBundle\Admin\ImgSolicitudEstudioMamografiaSintomatologiaAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\ImgSolicitudEstudioMamografiaSintomatologia, MinsalSimagdBundle:ImgSolicitudEstudioMamografiaSintomatologiaAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: ImgSolicitudEstudioMamografiaSintomatologia}
+            # - {name: sonata.admin, manager_type: orm, group: admin, label: ImgSolicitudEstudioMamografiaSintomatologia}
+            - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}

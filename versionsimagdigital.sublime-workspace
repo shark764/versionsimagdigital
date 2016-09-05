@@ -104,26 +104,26 @@
 	"buffers":
 	[
 		{
-			"file": "src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioMamografiaAdmin.php",
-			"settings":
-			{
-				"buffer_size": 4524,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioMamografiaSintomatologiaAdmin.php",
-			"settings":
-			{
-				"buffer_size": 2410,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioAdmin.php",
 			"settings":
 			{
-				"buffer_size": 95812,
+				"buffer_size": 96493,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioMamografiaAdmin.php",
+			"settings":
+			{
+				"buffer_size": 5571,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Minsal/SimagdBundle/Admin/ImgProcedimientoRealizadoAdmin.php",
+			"settings":
+			{
+				"buffer_size": 52025,
 				"line_ending": "Unix"
 			}
 		}
@@ -169,7 +169,11 @@
 	],
 	"file_history":
 	[
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioAdmin.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/config/services.yml",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioMamografiaAdmin.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Entity/ImgSolicitudEstudioMamografia.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioMamografiaSintomatologiaAdmin.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Entity/ImgSolicitudEstudioMamografiaSintomatologia.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Repository/SolicitudEstudioMamografiaSintomatologiaRepository.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Repository/SolicitudEstudioMamografiaRepository.php",
@@ -292,11 +296,7 @@
 		"/home/farid/NetBeansProjects/sigereq/BACKUP_ADMIN_FIELDS/Entity14/ReqCtlAreaTrabajo.php",
 		"/home/farid/NetBeansProjects/sigereq/BACKUP_ADMIN_FIELDS/Entity7/ReqCtlAreaTrabajo.php",
 		"/home/farid/NetBeansProjects/sigereq/src/SanRafael/RequerimientosBundle/Entity/ReqCtlAreaAtencion.php",
-		"/home/farid/NetBeansProjects/sigereq/BACKUP_ADMIN_FIELDS/Entity7/ReqCtlAreaAtencion.php",
-		"/home/farid/NetBeansProjects/sigereq/BACKUP_ADMIN_FIELDS/Entity9/ReqCtlAreaAtencion.php",
-		"/home/farid/NetBeansProjects/sigereq/BACKUP_ADMIN_FIELDS/Entity14/ReqCtlAreaAtencion.php",
-		"/home/farid/NetBeansProjects/sigereq/BACKUP_ADMIN_FIELDS/Entity7/ReqAreaServicioAtencion.php",
-		"/home/farid/NetBeansProjects/sigereq/BACKUP_ADMIN_FIELDS/Entity9/ReqAreaServicioAtencion.php"
+		"/home/farid/NetBeansProjects/sigereq/BACKUP_ADMIN_FIELDS/Entity7/ReqCtlAreaAtencion.php"
 	],
 	"find":
 	{
@@ -307,6 +307,7 @@
 		"height": 90.0,
 		"where_history":
 		[
+			"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/",
 			"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Entity",
 			"/home/farid/NetBeansProjects/sigereq/src/SanRafael/RequerimientosBundle/Entity",
 			"/home/farid/NetBeansProjects/sigereq"
@@ -317,6 +318,10 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			") array('edit' => 'inline'/*, 'inline' => 'table')*/))",
+			") array('edit' => 'inline'/*, 'inline' => 'table'*/))",
+			"-sintomatologia",
+			"_sintomatologia",
 			"Minsal\\LaboratorioBundle\\Entity\\CtlAreaServicioDiagnostico",
 			"CtlAreaServicioDiagnostico",
 			"shark",
@@ -442,6 +447,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"), array('edit' => 'inline'/*, 'inline' => 'table')*/))",
+			"), array('edit' => 'inline'/*, 'inline' => 'table'*/))",
+			"",
 			"Minsal\\SiapsBundle\\Entity\\CtlAreaServicioDiagnostico",
 			"Minsal\\LaboratorioBundle\\Entity\\CtlAreaServicioDiagnostico",
 			"farid",
@@ -546,24 +554,24 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioMamografiaAdmin.php",
+					"file": "src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioAdmin.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4524,
+						"buffer_size": 96493,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								49991,
+								49991
 							]
 						],
 						"settings":
@@ -573,57 +581,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioMamografiaSintomatologiaAdmin.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2410,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 730.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioAdmin.php",
+					"buffer": 1,
+					"file": "src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioMamografiaAdmin.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 95812,
+						"buffer_size": 5571,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								5375,
+								5375
 							]
 						],
 						"settings":
@@ -633,10 +611,40 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1905.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/Minsal/SimagdBundle/Admin/ImgProcedimientoRealizadoAdmin.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 52025,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14575,
+								14575
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3584.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]

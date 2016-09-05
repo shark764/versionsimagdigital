@@ -113,7 +113,12 @@ class ImgSolicitudEstudioMamografiaAdmin extends Admin
             ->add('cuadrantectomia')
             ->add('patologias')
             ->add('observaciones')
-            ->add('solicitudEstudioMamografiaSintomatologia')
+            ->add('solicitudEstudioMamografiaSintomatologia', 'sonata_type_collection', array(
+                                        'label' =>'Sintomatología de la mama',
+                                        'label_attr' => array('class' => 'label_form_sm'),
+                                        'help' => 'Especifique si la anomalía se presenta en mama izquierda, derecha, ninguna o ambas'
+                                        // 'cascade_validation' => true,),
+                ), array('edit' => 'inline'/*, 'inline' => 'table')*/))
         ;
     }
 
@@ -147,5 +152,26 @@ class ImgSolicitudEstudioMamografiaAdmin extends Admin
             ->add('patologias')
             ->add('observaciones')
         ;
+    }
+    
+    public function getNewInstance()
+    {
+        $instance   = parent::getNewInstance();
+        
+        /*
+         * default values
+         */
+        
+        /*
+         * ADD FORM FOR SINTOMATOLOGY OF MAMOGRAFY STUDY
+         */
+//        $instance = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioMamografia();
+        $form_sintomatologia = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioMamografiaSintomatologia();
+        $instance->addSolicitudEstudioMamografiaSintomatologium($form_sintomatologia);
+        /*
+         * END
+         */
+        
+        return $instance;
     }
 }

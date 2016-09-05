@@ -79,9 +79,9 @@ class ImgSolicitudEstudioAdmin extends Admin
         $aamsEstabCreate= $subject->getIdAtenAreaModEstab();
 
         $formMapper
-            ->tab('Servicio', array('class' => 'tab-servicio-rx', 'tab_icon' => 'glyphicon glyphicon-user'))
+            // ->tab('Servicio', array('class' => 'tab-servicio-rx', 'tab_icon' => 'glyphicon glyphicon-user'))
                 ->with('Servicio clínico que atiende al paciente', array('class' => 'prc-with-servicio-datos-generales col-md-12', 'description' => ''))->end()
-            ->end()
+            // ->end()
         ;
 
         $showFullForm = ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_CREATE') || $securityContext->isGranted('ROLE_ADMIN') ||
@@ -90,18 +90,18 @@ class ImgSolicitudEstudioAdmin extends Admin
 
         if ($showFullForm ) {
             $formMapper
-            	->tab('Servicio')
+            	// ->tab('Servicio')
                     ->with('Datos actuales tomados al paciente', array('class' => 'prc-with-servicio-paciente col-md-12', 'description' => ''))->end()
-            	->end()
-            	->tab('Detalles clínicos', array('class' => 'tab-datos-clinicos-rx', 'tab_icon' => 'glyphicon glyphicon-inbox'))
+            	// ->end()
+            	// ->tab('Detalles clínicos', array('class' => 'tab-datos-clinicos-rx', 'tab_icon' => 'glyphicon glyphicon-inbox'))
                     ->with('Datos reglamentarios de la solicitud', array('class' => 'prc-with-datos-clinicos-reglamentarios col-md-12', 'description' => ''))->end()
                     ->with('Detalles complementarios e información de contacto', array('class' => 'prc-with-datos-clinicos-detalles-adicionales col-md-12', 'description' => ''))->end()
-            	->end()
-            	->tab('Traslado de paciente', array('class' => 'tab-traslado-rx', 'tab_icon' => 'glyphicon glyphicon-home'))
+            	// ->end()
+            	// ->tab('Traslado de paciente', array('class' => 'tab-traslado-rx', 'tab_icon' => 'glyphicon glyphicon-home'))
                     ->with('Transferencia del paciente', array('class' => 'prc-with-traslado-referir-paciente col-md-12', 'description' => ''))->end()
                     ->with('Proyecciones del estudio solicitado', array('class' => 'prc-with-traslado-estudio-solicitado col-md-12', 'description' => ''))->end()
                     ->with('Anexar solicitud de diagnóstico radiológico', array('class' => 'prc-with-traslado-solicitar-diagnostico col-md-12', 'description' => ''))->end()
-            	->end()
+            	// ->end()
             ;
         }
 
@@ -135,7 +135,7 @@ class ImgSolicitudEstudioAdmin extends Admin
 
         if ($showFullForm ) {
             $formMapper
-                ->tab('Servicio')
+                // ->tab('Servicio')
                     ->with('Servicio clínico que atiende al paciente')
                         ->add('idAtenAreaModEstab', 'sonata_type_model_hidden')/**/
                         ->add('idHistorialClinico', 'hidden', array(
@@ -278,8 +278,8 @@ class ImgSolicitudEstudioAdmin extends Admin
 									'data-apply-formatter' => 'prAtn',
 							)
                         ))
-                    ->end()
-                    ->with('Datos actuales tomados al paciente')
+                    // ->end()
+                    // ->with('Datos actuales tomados al paciente')
                         ->add('idExpediente', 'sonata_type_model_hidden')
     //                    ->add('idExpediente', null, array( // *********************** CONSULTAR PACIENTES CON EXPEDIENTE EN ESTE ESTABLECIMIENTO, SINO PUEDEN APARECER REPETIDOS
     //                                                    'label' => 'Paciente',     //  ************** EXPEDIENTE -> ESTABLECIMIENTO, SOLO PACIENTES Q ESTEN REGISTRADOS AQUI
@@ -395,8 +395,8 @@ class ImgSolicitudEstudioAdmin extends Admin
                                                         'data' => $setLockDatosPaciente
                         ))
                     ->end()
-                ->end()
-                ->tab('Detalles clínicos')
+                // ->end()
+                // ->tab('Detalles clínicos')
                     ->with('Datos reglamentarios de la solicitud')
                         ->add('datosClinicos', 'textarea', array(
                                                         'label' => 'Datos clínicos',
@@ -593,8 +593,8 @@ class ImgSolicitudEstudioAdmin extends Admin
 							)
                         ))
                     ->end()
-                ->end()
-                ->tab('Traslado de paciente')
+                // ->end()
+                // ->tab('Traslado de paciente')
                     ->with('Transferencia del paciente') //SI SE MARCA, HABILITAR EL SELECT, SI DESMARCA, DESHABILITAR Y COLOCAR EL ESTABLECIMIENTO DE NUEVO AL PREDEFINIDO = SERVICIO LOCAL
                         ->add('referirPaciente', null, array('label' => 'Referir a externo'))
                         ->add('idEstablecimientoReferido', null, array(//FILTRADOS QUE EXISTA AL MENOS UN 'MR' HABILITADO=TRUE
@@ -735,9 +735,15 @@ class ImgSolicitudEstudioAdmin extends Admin
                                                         'mapped' => false,
                                                         'data' => $setLockSolDiagnostico
                         ))
-                        ->add('solicitudEstudioMamografia')
+                        // ->add('solicitudEstudioMamografia')
+			->add('solicitudEstudioMamografia', 'sonata_type_collection', array(
+                                        'label' =>'Detalle de Solicitud de Estudio de Mamografía',
+                                        'label_attr' => array('class' => 'label_form_sm'),
+                                        'help' => 'Favor sírvase de completar este formulario para que el estudio que solicita se realice con éxito'
+                                        // 'cascade_validation' => true,),
+                ), array('edit' => 'inline'/*, 'inline' => 'table'*/))
                     ->end()
-                ->end()
+                // ->end()
             ;
         }
 
@@ -747,7 +753,7 @@ class ImgSolicitudEstudioAdmin extends Admin
                 && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_EDIT') && $codigoTipo == 'CIT' &&
                     ($estabRef && $estabLocal == $estabRef->getId())) || $securityContext->isGranted('ROLE_ADMIN') ) {
             $formMapper
-                ->tab('Servicio')
+                // ->tab('Servicio')
                     ->with('Servicio clínico que atiende al paciente')
                         ->add('requiereCita', null, array('label' => 'Requiere cita en Servicio de Imagenología'))
                         ->add('setLockDatosGenerales', 'hidden', array(
@@ -755,7 +761,7 @@ class ImgSolicitudEstudioAdmin extends Admin
                                                         'data' => $setLockDatosGenerales
                         ))
                     ->end()
-                ->end()
+                // ->end()
             ;
         }
 
@@ -765,7 +771,7 @@ class ImgSolicitudEstudioAdmin extends Admin
         if ( ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') ||
 	      $securityContext->isGranted('ROLE_ADMIN')) && ($estabRef && $estabLocal == $estabRef->getId()) ) {
             $formMapper
-                ->tab('Servicio')
+                // ->tab('Servicio')
                     ->with('Datos actuales tomados al paciente')
                         ->add('idRadiologoAgregaIndicaciones', null, array(
                                                         'label' => 'Médico radiólogo',
@@ -800,7 +806,7 @@ class ImgSolicitudEstudioAdmin extends Admin
 							)
 			))
                     ->end()
-                ->end()
+                // ->end()
             ;
         }
     }
@@ -1278,6 +1284,16 @@ class ImgSolicitudEstudioAdmin extends Admin
     public function getNewInstance()
     {
         $instance = parent::getNewInstance();
+        
+        /*
+         * ADD FORM FOR MAMOGRAFY STUDY
+         */
+//        $instance = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudio();
+        $form_mamografia = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioMamografia();
+        $instance->addSolicitudEstudioMamografium($form_mamografia);
+        /*
+         * END
+         */
 
         //Estado clínico
         $instance->setEstadoClinico('Paciente con signos vitales estables');
