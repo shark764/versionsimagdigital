@@ -143,7 +143,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
 
         //Crear registro
         try {
-            $patronDiagnostico  = $this->admin->create($patronDiagnostico);
+            /*$patronDiagnostico  = */$this->admin->create($patronDiagnostico);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -206,7 +206,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
         
         //Actualizar registro
         try {
-            $patronDiagnostico  = $this->admin->update($patronDiagnostico);
+            /*$patronDiagnostico  = */$this->admin->update($patronDiagnostico);
         } catch (Exception $e) {
             $status = 'failed';
         }

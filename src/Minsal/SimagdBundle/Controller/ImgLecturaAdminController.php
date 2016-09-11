@@ -103,7 +103,7 @@ class ImgLecturaAdminController extends Controller
 
 		    //Actualizar registro
 		    try {
-			$lectura        = $this->admin->update($lectura);
+			/*$lectura        = */$this->admin->update($lectura);
 		    } catch (Exception $e) {
 			$status = 'failed';
 		    }
@@ -124,7 +124,7 @@ class ImgLecturaAdminController extends Controller
 
         //Crear registro
         try {
-            $lectura        = $this->admin->create($lectura);
+            /*$lectura        = */$this->admin->create($lectura);
         } catch (Exception $e) {
             $status         = 'failed';
         }
@@ -192,13 +192,13 @@ class ImgLecturaAdminController extends Controller
 //         return parent::createAction();
 
         // the key used to lookup the template
-        $templateKey    = 'edit';
+        $templateKey = 'edit';
 
         if (false === $this->admin->isGranted('CREATE')) {
             throw new AccessDeniedException();
         }
 
-        $object         = $this->admin->getNewInstance();
+        $object = $this->admin->getNewInstance();
         
         /*
          * CUSTOM CODE --|
@@ -244,46 +244,25 @@ class ImgLecturaAdminController extends Controller
                     throw new AccessDeniedException();
                 }
 
-                try {
-                    $object = $this->admin->create($object);
+                $this->admin->create($object);
 
-                    if ($this->isXmlHttpRequest()) {
-                        return $this->renderJson(array(
-                            'result' => 'ok',
-                            'objectId' => $this->admin->getNormalizedIdentifier($object)
-                        ));
-                    }
-
-                    $this->addFlash(
-                        'sonata_flash_success',
-                        $this->admin->trans(
-                            'flash_create_success',
-                            array('%name%' => $this->admin->toString($object)),
-                            'SonataAdminBundle'
-                        )
-                    );
-
-                    // redirect to edit mode
-                    return $this->redirectTo($object);
-
-                } catch (ModelManagerException $e) {
-                    $this->getLogger()->error($e->getMessage());
-
-                    $isFormValid = false;
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array(
+                        'result' => 'ok',
+                        'objectId' => $this->admin->getNormalizedIdentifier($object)
+                    ));
                 }
+
+                $this->addFlash('sonata_flash_success', $this->admin->trans('flash_create_success', array('%name%' => $this->admin->toString($object)), 'SonataAdminBundle'));
+
+                // redirect to edit mode
+                return $this->redirectTo($object);
             }
 
             // show an error message if the form failed validation
             if (!$isFormValid) {
                 if (!$this->isXmlHttpRequest()) {
-                    $this->addFlash(
-                        'sonata_flash_error',
-                        $this->admin->trans(
-                            'flash_create_error',
-                            array('%name%' => $this->admin->toString($object)),
-                            'SonataAdminBundle'
-                        )
-                    );
+                    $this->addFlash('sonata_flash_error', $this->admin->trans('flash_create_error', array('%name%' => $this->admin->toString($object)), 'SonataAdminBundle'));
                 }
             } elseif ($this->isPreviewRequested()) {
                 // pick the preview template if the form was valid and preview was requested
@@ -473,10 +452,10 @@ class ImgLecturaAdminController extends Controller
         
 //         return parent::editAction($id);
         // the key used to lookup the template
-        $templateKey        = 'edit';
+        $templateKey = 'edit';
 
-        $id                 = $this->get('request')->get($this->admin->getIdParameter());
-        $object             = $this->admin->getObject($id);
+        $id = $this->get('request')->get($this->admin->getIdParameter());
+        $object = $this->admin->getObject($id);
 
         if (!$object) {
             throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
@@ -525,47 +504,25 @@ class ImgLecturaAdminController extends Controller
 
             // persist if the form was valid and if in preview mode the preview was approved
             if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
+                $this->admin->update($object);
 
-                try {
-                    $object = $this->admin->update($object);
-
-                    if ($this->isXmlHttpRequest()) {
-                        return $this->renderJson(array(
-                            'result'    => 'ok',
-                            'objectId'  => $this->admin->getNormalizedIdentifier($object)
-                        ));
-                    }
-
-                    $this->addFlash(
-                        'sonata_flash_success',
-                        $this->admin->trans(
-                            'flash_edit_success',
-                            array('%name%' => $this->admin->toString($object)),
-                            'SonataAdminBundle'
-                        )
-                    );
-
-                    // redirect to edit mode
-                    return $this->redirectTo($object);
-
-                } catch (ModelManagerException $e) {
-                    $this->getLogger()->error($e->getMessage());
-
-                    $isFormValid = false;
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array(
+                        'result'    => 'ok',
+                        'objectId'  => $this->admin->getNormalizedIdentifier($object)
+                    ));
                 }
+
+                $this->addFlash('sonata_flash_success', $this->admin->trans('flash_edit_success', array('%name%' => $this->admin->toString($object)), 'SonataAdminBundle'));
+
+                // redirect to edit mode
+                return $this->redirectTo($object);
             }
 
             // show an error message if the form failed validation
             if (!$isFormValid) {
                 if (!$this->isXmlHttpRequest()) {
-                    $this->addFlash(
-                        'sonata_flash_error',
-                        $this->admin->trans(
-                            'flash_edit_error',
-                            array('%name%' => $this->admin->toString($object)),
-                            'SonataAdminBundle'
-                        )
-                    );
+                    $this->addFlash('sonata_flash_error', $this->admin->trans('flash_edit_error', array('%name%' => $this->admin->toString($object)), 'SonataAdminBundle'));
                 }
             } elseif ($this->isPreviewRequested()) {
                 // enable the preview template if the form was valid and preview was requested

@@ -736,12 +736,12 @@ class ImgSolicitudEstudioAdmin extends Admin
                                                         'data' => $setLockSolDiagnostico
                         ))
                         // ->add('solicitudEstudioMamografia')
-			->add('solicitudEstudioMamografia', 'sonata_type_collection', array(
-                                        'label' =>'Detalle de Solicitud de Estudio de Mamografía',
-                                        'label_attr' => array('class' => 'label_form_sm'),
-                                        'help' => 'Favor sírvase de completar este formulario para que el estudio que solicita se realice con éxito'
-                                        // 'cascade_validation' => true,),
-                ), array('edit' => 'inline'/*, 'inline' => 'table'*/))
+			// ->add('solicitudEstudioMamografia', 'sonata_type_collection', array(
+   //                                      'label' =>'Detalle de Solicitud de Estudio de Mamografía',
+   //                                      'label_attr' => array('class' => 'label_form_sm'),
+   //                                      'help' => 'Favor sírvase de completar este formulario para que el estudio que solicita se realice con éxito'
+   //                                      // 'cascade_validation' => true,),
+   //              ), array('edit' => 'inline'/*, 'inline' => 'table'*/))
                     ->end()
                 // ->end()
             ;
@@ -1289,8 +1289,8 @@ class ImgSolicitudEstudioAdmin extends Admin
          * ADD FORM FOR MAMOGRAFY STUDY
          */
 //        $instance = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudio();
-        $form_mamografia = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioMamografia();
-        $instance->addSolicitudEstudioMamografium($form_mamografia);
+        /*$form_mamografia = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioMamografia();
+        $instance->addSolicitudEstudioMamografium($form_mamografia);*/
         /*
          * END
          */

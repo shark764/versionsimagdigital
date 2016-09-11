@@ -130,7 +130,7 @@ class ImgBloqueoAgendaAdminController extends Controller
         
         //Actualizar registro
         try {
-            $editBloqueo = $this->admin->update($editBloqueo);
+            /*$editBloqueo = */$this->admin->update($editBloqueo);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -245,7 +245,7 @@ class ImgBloqueoAgendaAdminController extends Controller
         
         //Actualizar registro
         try {
-            $object_blAgd = $this->admin->update($object_blAgd);
+            /*$object_blAgd = */$this->admin->update($object_blAgd);
         } catch (Exception $e) {
             $status = 'failed';
         }

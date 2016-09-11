@@ -87,7 +87,7 @@ class ImgDiagnosticoAdminController extends Controller
 
         //Crear registro
         try {
-            $diagnostico    = $this->admin->create($diagnostico);
+            /*$diagnostico    = */$this->admin->create($diagnostico);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -338,7 +338,7 @@ class ImgDiagnosticoAdminController extends Controller
 
         //Crear registro
         try {
-            $diagnostico    = $this->admin->create($diagnostico);
+            /*$diagnostico    = */$this->admin->create($diagnostico);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -392,7 +392,7 @@ class ImgDiagnosticoAdminController extends Controller
         
         //Actualizar registro
         try {
-            $diagnostico    = $this->admin->update($diagnostico);
+            /*$diagnostico    = */$this->admin->update($diagnostico);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -441,7 +441,7 @@ class ImgDiagnosticoAdminController extends Controller
         
         //Actualizar registro
         try {
-            $diagnostico    = $this->admin->update($diagnostico);
+            /*$diagnostico    = */$this->admin->update($diagnostico);
         } catch (Exception $e) {
             $status = 'failed';
         }

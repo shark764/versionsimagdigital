@@ -284,7 +284,7 @@ class ImgSolicitudDiagnosticoAdminController extends Controller
 
         //Crear registro
         try {
-            $solicitudDiag      = $this->admin->create($solicitudDiag);
+            /*$solicitudDiag      = */$this->admin->create($solicitudDiag);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -335,7 +335,7 @@ class ImgSolicitudDiagnosticoAdminController extends Controller
         
         //Actualizar registro
         try {
-            $solicitudDiag      = $this->admin->update($solicitudDiag);
+            /*$solicitudDiag      = */$this->admin->update($solicitudDiag);
         } catch (Exception $e) {
             $status             = 'failed';
         }

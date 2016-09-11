@@ -222,7 +222,7 @@ class ImgCtlProyeccionAdminController extends Controller
 
         //Crear registro
         try {
-            $proyeccion    = $this->admin->create($proyeccion);
+            /*$proyeccion    = */$this->admin->create($proyeccion);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -313,7 +313,7 @@ class ImgCtlProyeccionAdminController extends Controller
         
         //Actualizar registro
         try {
-            $proyeccion    = $this->admin->update($proyeccion);
+            /*$proyeccion    = */$this->admin->update($proyeccion);
         } catch (Exception $e) {
             $status = 'failed';
         }

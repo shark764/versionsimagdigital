@@ -65,13 +65,13 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
         $sessionUser = $securityContext->getToken()->getUser();
 
         $formMapper
-            ->tab('Registro post-examen', array('class' => 'tab-registro-rx', 'tab_icon' => 'glyphicon glyphicon-adjust'))
+            // ->tab('Registro post-examen', array('class' => 'tab-registro-rx', 'tab_icon' => 'glyphicon glyphicon-adjust'))
                 ->with('Registro general', array('class' => 'prz-with-registro-general col-md-12', 'description' => ''))->end()
                 ->with('Procedimiento realizado e incidencias', array('class' => 'col-md-12', 'description' => ''))->end()
-            ->end()
-            ->tab('Materiales e insumos', array('class' => 'tab-materiales-rx', 'tab_icon' => 'glyphicon glyphicon-shopping-cart'))
+            // ->end()
+            // ->tab('Materiales e insumos', array('class' => 'tab-materiales-rx', 'tab_icon' => 'glyphicon glyphicon-shopping-cart'))
                 ->with('Listado de Materiales utilizados', array('class' => 'col-md-12', 'description' => ''))->end()
-            ->end()
+            // ->end()
         ;
 
         $estabLocal = $sessionUser->getIdEstablecimiento()->getId();
@@ -89,7 +89,7 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
         $pndR = $this->getRequest()->get('__pndR', null);
 
         $formMapper
-            ->tab('Registro post-examen')
+            // ->tab('Registro post-examen')
                 ->with('Registro general')
                     ->add('idSolicitudEstudio', 'sonata_type_model_hidden', array(), array('admin_code' => 'minsal_simagd.admin.img_solicitud_estudio'))
                     ->add('idCitaProgramada', 'sonata_type_model_hidden')
@@ -259,15 +259,15 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
 							)
                     ))
                 ->end()
-            ->end()
-            ->tab('Materiales e insumos')
+            // ->end()
+            // ->tab('Materiales e insumos')
                 ->with('Listado de Materiales utilizados')
                     ->add('materialUtilizadoV2', 'sonata_type_collection', array(
                                                     'label' =>'Materiales que se utilizaron'),
 //                                                    'help' => 'Seleccione los materiales utilizados'),// 'cascade_validation' => true,),
                                                     array('edit' => 'inline', 'inline' => 'table'))
                 ->end()
-            ->end()
+            // ->end()
         ;
     }
 

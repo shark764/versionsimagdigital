@@ -80,7 +80,7 @@ class ImgCtlMaterialEstablecimientoAdminController extends Controller
 
         //Crear registro
         try {
-            $materialLc     = $this->admin->create($materialLc);
+            /*$materialLc     = */$this->admin->create($materialLc);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -123,7 +123,7 @@ class ImgCtlMaterialEstablecimientoAdminController extends Controller
 
         //Crear registro
         try {
-            $materialLc     = $this->admin->create($materialLc);
+            /*$materialLc     = */$this->admin->create($materialLc);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -169,7 +169,7 @@ class ImgCtlMaterialEstablecimientoAdminController extends Controller
         
         //Actualizar registro
         try {
-            $materialLc     = $this->admin->update($materialLc);
+            /*$materialLc     = */$this->admin->update($materialLc);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -211,7 +211,7 @@ class ImgCtlMaterialEstablecimientoAdminController extends Controller
 
         //Actualizar Material
         try {
-            $materialLc = $this->admin->update($materialLc);
+            /*$materialLc = */$this->admin->update($materialLc);
         } catch (Exception $e) {
             $status = 'failed';
         }

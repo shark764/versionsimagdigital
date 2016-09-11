@@ -47,16 +47,16 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->tab('Datos de conexión', array('class' => 'tab-conexion-rx', 'tab_icon' => 'glyphicon glyphicon-cog'))
+            // ->tab('Datos de conexión', array('class' => 'tab-conexion-rx', 'tab_icon' => 'glyphicon glyphicon-cog'))
                 ->with('Parámetros de conexión', array('class' => 'col-md-12', 'description' => ''))->end()
-            ->end()
-            ->tab('Configuraciones', array('class' => 'tab-configuracion-rx', 'tab_icon' => 'glyphicon glyphicon-wrench'))
+            // ->end()
+            // ->tab('Configuraciones', array('class' => 'tab-configuracion-rx', 'tab_icon' => 'glyphicon glyphicon-wrench'))
                 ->with('Configuraciones', array('class' => 'col-md-12', 'description' => ''))->end()
-            ->end()
+            // ->end()
         ;
         
         $formMapper
-            ->tab('Datos de conexión')
+            // ->tab('Datos de conexión')
                 ->with('Parámetros de conexión')
                     ->add('nombreConexion', null, array(
 								  'label' => 'Nombre de la Conexión',
@@ -184,8 +184,8 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
 								  )
                     ))
                 ->end()
-            ->end()
-            ->tab('Configuraciones')
+            // ->end()
+            // ->tab('Configuraciones')
                 ->with('Configuraciones')
                     ->add('idEstablecimiento', null, array(
                                                                 'label' => 'Establecimiento',
@@ -237,7 +237,7 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
                     ))
                     ->add('habilitado', null, array('label' => 'Habilitado'))
                 ->end()
-            ->end()
+            // ->end()
         ;
     }
 

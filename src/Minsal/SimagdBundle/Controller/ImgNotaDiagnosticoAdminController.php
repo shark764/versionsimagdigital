@@ -274,7 +274,7 @@ class ImgNotaDiagnosticoAdminController extends Controller
 
         //Crear registro
         try {
-            $nota           = $this->admin->create($nota);
+            /*$nota           = */$this->admin->create($nota);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -313,7 +313,7 @@ class ImgNotaDiagnosticoAdminController extends Controller
         
         //Actualizar registro
         try {
-            $nota           = $this->admin->update($nota);
+            /*$nota           = */$this->admin->update($nota);
         } catch (Exception $e) {
             $status         = 'failed';
         }

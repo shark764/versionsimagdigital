@@ -178,7 +178,7 @@ class ImgPendienteLecturaAdminController extends Controller
 
         //Crear registro
         try {
-            $pndLectura = $this->admin->create($pndLectura);
+            /*$pndLectura = */$this->admin->create($pndLectura);
         } catch (Exception $e) {
             $status     = 'failed';
         }

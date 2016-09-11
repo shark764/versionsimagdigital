@@ -169,7 +169,7 @@ class ImgCtlMaterialAdminController extends Controller
 
         //Crear registro
         try {
-            $material       = $this->admin->create($material);
+            /*$material       = */$this->admin->create($material);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -229,7 +229,7 @@ class ImgCtlMaterialAdminController extends Controller
         
         //Actualizar registro
         try {
-            $material   = $this->admin->update($material);
+            /*$material       = */$this->admin->update($material);
         } catch (Exception $e) {
             $status = 'failed';
         }

@@ -210,7 +210,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
 
         //Crear registro
         try {
-            $proyeccionRz      = $this->admin->create($proyeccionRz);
+            /*$proyeccionRz      = */$this->admin->create($proyeccionRz);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -257,7 +257,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
 
         //Crear registro
         try {
-            $proyeccionRz      = $this->admin->create($proyeccionRz);
+            /*$proyeccionRz      = */$this->admin->create($proyeccionRz);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -306,7 +306,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
         
         //Actualizar registro
         try {
-            $proyeccionRz      = $this->admin->update($proyeccionRz);
+            /*$proyeccionRz      = */$this->admin->update($proyeccionRz);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -351,7 +351,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
 
         //Actualizar Proyección
         try {
-            $proyeccionRz = $this->admin->update($proyeccionRz);
+            /*$proyeccionRz = */$this->admin->update($proyeccionRz);
         } catch (Exception $e) {
             $status = 'failed';
         }

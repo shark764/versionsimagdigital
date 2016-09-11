@@ -179,7 +179,7 @@ class ImgCtlPacsEstablecimientoAdminController extends Controller
 
         //Actualizar Proyección
         try {
-            $pacs = $this->admin->update($pacs);
+            /*$pacs = */$this->admin->update($pacs);
         } catch (Exception $e) {
             $status = 'failed';
         }

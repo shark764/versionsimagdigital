@@ -74,20 +74,20 @@ class ImgSolicitudEstudioComplementarioAdmin extends Admin
         $sessionUser = $securityContext->getToken()->getUser();
 
         $formMapper
-	    ->tab('Solicitud', array('class' => 'tab-complementario-rx', 'tab_icon' => 'glyphicon glyphicon-inbox'))
+	    // ->tab('Solicitud', array('class' => 'tab-complementario-rx', 'tab_icon' => 'glyphicon glyphicon-inbox'))
                 ->with('Datos generales', array('class' => 'col-md-12', 'description' => ''))->end()
 // 	    ->end()
 //            ->tab('Datos Generales')
 //                ->with('Generales', array('class' => 'diag-with-datos-generales-generales col-md-12', 'description' => 'Información general de la transcripción'))->end()
                 ->with('Estudio requerido', array('class' => 'col-md-12', 'description' => ''))->end()
                 ->with('Indicaciones del Médico radiólogo', array('class' => 'col-md-12', 'description' => ''))->end()
-	    ->end()
+	    // ->end()
         ;
 
         $estabLocal = $sessionUser->getIdEstablecimiento()->getId();
 
         $formMapper
-	    ->tab('Solicitud')
+	    // ->tab('Solicitud')
 		->with('Datos generales')
 		    ->add('idSolicitudEstudio', 'sonata_type_model_hidden', array('attr' => array('style' => 'min-width: 100%; max-width: 100%;')), array('admin_code' => 'minsal_simagd.admin.img_solicitud_estudio'))
 		    ->add('idEstablecimientoSolicitado', 'sonata_type_model_hidden', array('attr' => array('style' => 'min-width: 100%; max-width: 100%;')))
@@ -211,7 +211,7 @@ class ImgSolicitudEstudioComplementarioAdmin extends Admin
 						    )
 		    ))
 		->end()
-            ->end()
+            // ->end()
         ;
     }
 

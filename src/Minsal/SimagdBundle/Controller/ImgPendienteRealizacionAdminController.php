@@ -232,7 +232,7 @@ class ImgPendienteRealizacionAdminController extends Controller
 
         //Crear registro
         try {
-            $pndRealizar    = $this->admin->create($pndRealizar);
+            /*$pndRealizar    = */$this->admin->create($pndRealizar);
         } catch (Exception $e) {
             $status         = 'failed';
         }

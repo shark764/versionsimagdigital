@@ -223,7 +223,7 @@ class ImgCitaAdminController extends Controller
 	
 //        $title = $request->request->get('title');
         $id     = $request->request->get('id');
-        $cita   = $this->admin->getObject($id);
+        $cita = $this->admin->getObject($id);
         
         //Cambio de estado de cita
         $em                 = $this->getDoctrine()->getManager();
@@ -237,7 +237,7 @@ class ImgCitaAdminController extends Controller
         
         //Actualizar registro
         try {
-            $cita = $this->admin->update($cita);
+            /*$cita = */$this->admin->update($cita);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -255,7 +255,7 @@ class ImgCitaAdminController extends Controller
 	
 //        $title = $request->request->get('title');
         $id     = $request->request->get('formCancelCitId');
-        $cita   = $this->admin->getObject($id);
+        $cita = $this->admin->getObject($id);
         
         $em     = $this->getDoctrine()->getManager();
 //        if ($em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
@@ -280,7 +280,7 @@ class ImgCitaAdminController extends Controller
         
         //Actualizar registro
         try {
-            $cita = $this->admin->update($cita);
+            /*$cita = */$this->admin->update($cita);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -475,7 +475,7 @@ class ImgCitaAdminController extends Controller
         
         //Crear registro
         try {
-            $cita   = $this->admin->create($cita);
+            /*$cita = */$this->admin->create($cita);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -526,7 +526,7 @@ class ImgCitaAdminController extends Controller
         
         //Actualizar registro
         try {
-            $cita   = $this->admin->update($cita);
+            /*$cita = */$this->admin->update($cita);
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -556,7 +556,7 @@ class ImgCitaAdminController extends Controller
 	$id     = $request->request->get('formCitId');
         
         //Objeto
-        $cita   = $this->admin->getObject($id);
+        $cita = $this->admin->getObject($id);
         
         $idTecnologoProgramado  = $request->request->get('formCitIdTecnologoProgramado') ? $request->request->get('formCitIdTecnologoProgramado') : null;
         $diaCompleto            = $request->request->get('formCitDiaCompleto') ? TRUE : FALSE;
@@ -593,7 +593,7 @@ class ImgCitaAdminController extends Controller
         
         //Actualizar registro
         try {
-            $cita   = $this->admin->update($cita);
+            /*$cita = */$this->admin->update($cita);
         } catch (Exception $e) {
             $status = 'failed';
         }
