@@ -126,6 +126,14 @@
 				"buffer_size": 39479,
 				"line_ending": "Unix"
 			}
+		},
+		{
+			"file": "src/Minsal/SimagdBundle/Resources/public/css/simagd-extend-bootstrap3.css",
+			"settings":
+			{
+				"buffer_size": 42226,
+				"line_ending": "Unix"
+			}
 		}
 	],
 	"build_system": "",
@@ -165,9 +173,9 @@
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/css",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgEstudioPacienteAdmin",
-		"/home/farid/NetBeansProjects/versionsimagdigital/vendor",
 		"/home/farid/NetBeansProjects/versionsimagdigital/vendor/sonata-project",
 		"/home/farid/NetBeansProjects/versionsimagdigital/vendor/sonata-project/admin-bundle",
 		"/home/farid/NetBeansProjects/versionsimagdigital/vendor/sonata-project/admin-bundle/Controller"
@@ -574,7 +582,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -604,7 +612,7 @@
 						"translation.y": 21607.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -634,7 +642,7 @@
 						"translation.y": 5283.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -660,7 +668,37 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 877.0,
+						"translation.y": 562.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/Minsal/SimagdBundle/Resources/public/css/simagd-extend-bootstrap3.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 42226,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
