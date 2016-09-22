@@ -160,10 +160,10 @@ function simagdEstadoDiagnosticoFormatter(value, row, index) {
     if (jQuery.trim(row.diag_codEstado) === 'APR') {
         $return     = [
             '<span class="text-primary-v4">',
-                $return,
-                '  ',
                 '<i class="glyphicon glyphicon-ok-sign">',
                 '</i>',
+                '  ',
+                $return,
             '</span>'
         ].join('');
     } else if (jQuery.trim(row.diag_codEstado) === 'IMP') {
@@ -195,10 +195,10 @@ function simagdEstadoLecturaFormatter(value, row, index) {
     if (jQuery.trim(row.lct_codEstado) === 'LDO') {
         $return     = [
             '<span class="text-primary-v4">',
-                $return,
-                '  ',
                 '<i class="glyphicon glyphicon-ok-sign">',
                 '</i>',
+                '  ',
+                $return,
             '</span>'
         ].join('');
     }
@@ -223,10 +223,10 @@ function simagdEstadoEstudioFormatter(value, row, index) {
     if (jQuery.trim(row.prz_codEstado) === 'ALM') {
         $return     = [
             '<span class="text-' + (___isCmpl === false ? 'primary-v4' : 'success-v3') + '">',
-                $return,
-                '  ',
                 '<i class="glyphicon glyphicon-ok-sign">',
                 '</i>',
+                '  ',
+                $return,
             '</span>'
         ].join('');
     }
@@ -290,10 +290,10 @@ function simagdEstadoCitaFormatter(value, row, index) {
     if (jQuery.trim(row.cit_codEstado) === 'CNF') {
         $return     = [
             '<span class="text-primary-v4">',
-                $return,
-                '  ',
                 '<i class="glyphicon glyphicon-ok-sign">',
                 '</i>',
+                '  ',
+                $return,
             '</span>'
         ].join('');
     } else if (jQuery.trim(row.cit_codEstado) === 'ANL') {
