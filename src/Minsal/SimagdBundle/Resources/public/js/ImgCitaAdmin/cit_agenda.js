@@ -651,8 +651,11 @@ jQuery(document).ready(function() {
 				.fullCalendar('refetchEvents');	// --| refresh the view
 		    });
 
-    $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 1650);
-    $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 2650);
+    /*
+     * Refresh fullCalendar options without rebuilt
+     */
+    // $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 1650);
+    // $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 2650);
     /* http://fullcalendar.io/docs/event_data/events_function/ */
     
 });
