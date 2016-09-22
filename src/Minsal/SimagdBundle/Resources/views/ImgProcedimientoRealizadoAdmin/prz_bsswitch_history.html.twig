@@ -22,19 +22,19 @@
 <div class="tab-content col-md-9 col-xs-9" style="overflow-y: auto; min-height: 760px;">
     
     {% if object_expediente.getIdPaciente() is not null %}
-        {% include 'MinsalSimagdBundle:show_entity_block:pct_entity_block.html.twig' ignore missing with {'object_patient': object_expediente.getIdPaciente(), 'object_localRecord': localRecord, 'tab_active': true, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:pct_entity_block.html.twig' ignore missing with {'object_patient': object_expediente.getIdPaciente(), 'object_localRecord': localRecord, 'tab_active': true, 'box_style': 'primary-v4'} %}
     {% endif %}
     
     {% if object_request is not null %}
-        {% include 'MinsalSimagdBundle:show_entity_block:prc_entity_block.html.twig' ignore missing with {'object_request': object_request, 'object_requests': null, 'tab_active': false, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:prc_entity_block.html.twig' ignore missing with {'object_request': object_request, 'object_requests': null, 'tab_active': false, 'box_style': 'primary-v4'} %}
     {% endif %}
     
     {% if object_study_cit is not null %}
-        {% include 'MinsalSimagdBundle:show_entity_block:cit_entity_block.html.twig' ignore missing with {'object_date': object_study_cit, 'object_dates': null, 'tab_active': false, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:cit_entity_block.html.twig' ignore missing with {'object_date': object_study_cit, 'object_dates': null, 'tab_active': false, 'box_style': 'primary-v4'} %}
     {% endif %}
     
     {% if object.getIdSolicitudEstudioComplementario() is not null %}
-        {% include 'MinsalSimagdBundle:show_entity_block:solcmpl_entity_block.html.twig' ignore missing with {'object_request_cmpl': object.getIdSolicitudEstudioComplementario(), 'object_requests_cmpl': null, 'tab_active': false, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:solcmpl_entity_block.html.twig' ignore missing with {'object_request_cmpl': object.getIdSolicitudEstudioComplementario(), 'object_requests_cmpl': null, 'tab_active': false, 'box_style': 'primary-v4'} %}
     {% endif %}
     
 </div>

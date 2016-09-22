@@ -84,7 +84,7 @@ jQuery(document).ready(function() {
     
     $datePrxCsltField.wrap("<div class='input-group'></div>");
     $datePrxCsltField
-	    .before(" <span class='input-group-btn'> <button class='demo btn btn-primary-v2 btn-outline btn-large' id='showDateTimePicker'> <i class='glyphicon glyphicon-calendar'></i> </button> </span>");
+	    .before(" <span class='input-group-btn'> <button class='demo btn btn-primary-v4 btn-outline btn-large' id='showDateTimePicker'> <i class='glyphicon glyphicon-calendar'></i> </button> </span>");
 	    
     $datePrxCsltField.datetimepicker({
 	locale: 'es',

@@ -15,7 +15,7 @@ jQuery(document).ready(function() {
          */
         $(document).find('.modal.in').modal('layout');
         
-	console.log('%cresetView', 'background: #31708f; color: #fff');
+	console.log('%cresetView', 'background: #183f52; color: #fff');
     });
     
     jQuery('li.list-table-link-navbar').find("a:not([disabled])").click(function(e) {

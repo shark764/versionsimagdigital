@@ -9,7 +9,7 @@ function pendienteTranscripcion_personal_actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="transcribir-personal-pendiente-transcribir-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Transcribir lectura radiológica"' + (row.allowTranscribir === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="transcribir-personal-pendiente-transcribir-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Transcribir lectura radiológica"' + (row.allowTranscribir === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-edit"></i>',
 		'</a>',
 	    '</div>',
@@ -23,7 +23,7 @@ window.pendienteTranscripcion_personal_actionEvents = {
         jQuery('#btn_editar_diag').show();
         
         jQuery('#formDiagTitle').text('Concluir transcripción de diagnóstico');
-        jQuery('#formDiagLabel').removeClass('label-primary-v2 label-warning')
+        jQuery('#formDiagLabel').removeClass('label-primary-v4 label-warning')
 		.addClass('label-element-v2').text('Formulario para edición');
         
         $("input[id='formDiagId']").val(row.diag_id);

@@ -62,10 +62,10 @@ file that was distributed with this source code.
     
     <div class="show-full-entity-v2 col-lg-12 col-md-12 col-xs-12">
 
-        <div class="box box-primary-v2 container">
+        <div class="box box-primary-v4 container">
 	    {#{% set solicitud = solicitud.idSolicitudEstudio %}#}
             <div class="box-header">
-                <h3 class="box-title"><span class="label label-primary-v2">Consulta: Solicitud de estudio</span></h3>
+                <h3 class="box-title"><span class="label label-primary-v4">Consulta: Solicitud de estudio</span></h3>
             </div>
             <div class="box-body">
 
@@ -80,10 +80,10 @@ file that was distributed with this source code.
                 <!-- Tab panes -->
                 <div class="tab-content col-md-9 col-xs-9" style="overflow-y: auto; min-height: 675px;">
                     {% if object_expediente.getIdPaciente() is not null %}
-                        {% include 'MinsalSimagdBundle:show_entity_block:pct_entity_block.html.twig' ignore missing with {'object_patient': object_expediente.getIdPaciente(), 'object_localRecord': localRecord, 'tab_active': false, 'box_style': 'primary-v2'} %}
+                        {% include 'MinsalSimagdBundle:show_entity_block:pct_entity_block.html.twig' ignore missing with {'object_patient': object_expediente.getIdPaciente(), 'object_localRecord': localRecord, 'tab_active': false, 'box_style': 'primary-v4'} %}
                     {% endif %}
                     {% if solicitud is not null %}
-                        {% include 'MinsalSimagdBundle:show_entity_block:prc_entity_block.html.twig' ignore missing with {'object_request': solicitud, 'object_requests': null, 'tab_active': true, 'box_style': 'primary-v2'} %}
+                        {% include 'MinsalSimagdBundle:show_entity_block:prc_entity_block.html.twig' ignore missing with {'object_request': solicitud, 'object_requests': null, 'tab_active': true, 'box_style': 'primary-v4'} %}
                     {% endif %}
                 </div>
             </div>
@@ -99,7 +99,7 @@ file that was distributed with this source code.
             <div class="box-footer clearfix" style="{#padding-top: 2px !important;#}">
 		<div class="btn-toolbar" role="toolbar" aria-label="...">
 		    <div class="btn-group" role="group">
-			<a   title="Regresar a edición de formulario" target="_self" class="btn btn-primary-v2 btn-outline btn-sm "
+			<a   title="Regresar a edición de formulario" target="_self" class="btn btn-primary-v4 btn-outline btn-sm "
 			    href="{{ admin.generateObjectUrl('edit', solicitud) }}" autofocus>
 			    <i class="fa fa-undo"></i>
 			    No, Regresar</a>

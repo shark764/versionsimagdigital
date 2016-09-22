@@ -8,12 +8,12 @@ function actionBloqueoFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="show-bloqueo-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar bloqueo detallado"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="show-bloqueo-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar bloqueo detallado"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-info-sign"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="edit-bloqueo-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" title="Editar bloqueo de agenda"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="edit-bloqueo-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" title="Editar bloqueo de agenda"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-repeat"></i>',
 		'</a>',
 	    '</div>',
@@ -93,7 +93,7 @@ function colorBloqueoFormatter(value, row, index) {
 
 function diaCompletoBloqueoFormatter(value, row, index) {
     return [
-        '<span class="label label-' + (row.blAgd_diaCompleto === false ? 'success-v2' : 'warning') + '">',
+        '<span class="label label-' + (row.blAgd_diaCompleto === false ? 'success-v3' : 'warning') + '">',
         (row.blAgd_diaCompleto === false ? 'no' : 'sí'),
         '</span>'
     ].join('');

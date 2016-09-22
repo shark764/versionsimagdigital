@@ -14,7 +14,7 @@
 <div class="tab-content col-md-9 col-xs-9" style="overflow-y: auto; min-height: 760px;">
     
     {% if object_expediente.getIdPaciente() is not null %}
-        {% include 'MinsalSimagdBundle:show_entity_block:pct_entity_block.html.twig' ignore missing with {'object_patient': object_expediente.getIdPaciente(), 'object_localRecord': localRecord, 'tab_active': true, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:pct_entity_block.html.twig' ignore missing with {'object_patient': object_expediente.getIdPaciente(), 'object_localRecord': localRecord, 'tab_active': true, 'box_style': 'primary-v4'} %}
     {% endif %}
     
 </div>

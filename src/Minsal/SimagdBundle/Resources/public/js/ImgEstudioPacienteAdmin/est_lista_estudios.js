@@ -26,12 +26,12 @@ function actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="show-estudio-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar información de  detallada"' + $BTN_ALLOW_SHOWSTUDY + '>',
+		'<a   class="show-estudio-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar información de  detallada"' + $BTN_ALLOW_SHOWSTUDY + '>',
 		    '<i class="glyphicon glyphicon-info-sign"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<button type="button"    class="btn btn-primary-v2 btn-outline btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Visualizar estudio"' + $BTN_ALLOW_DOWNLOADSTUDY + '>',
+		'<button type="button"    class="btn btn-primary-v4 btn-outline btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Visualizar estudio"' + $BTN_ALLOW_DOWNLOADSTUDY + '>',
 		    '<i class="glyphicon glyphicon-eye-open"></i>', ' ',
 		    '<span class="caret"></span>',
 		'</button>',
@@ -54,7 +54,7 @@ function actionFormatter(value, row, index) {
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<button type="button"    class="btn btn-primary-v2 btn-outline btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Anexar en listado de lecturas pendientes"' + $BTN_ALLOW_ADDWORKLIST + '>',
+		'<button type="button"    class="btn btn-primary-v4 btn-outline btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Anexar en listado de lecturas pendientes"' + $BTN_ALLOW_ADDWORKLIST + '>',
 		    '<i class="glyphicon glyphicon-share-alt"></i>', ' ',
 		    '<span class="caret"></span>',
 		'</button>',
@@ -72,7 +72,7 @@ function actionFormatter(value, row, index) {
 		'</ul>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="anexar-lista-lectura-estudio-v2-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" title="Anexar en listado de lecturas pendientes"' + $BTN_ALLOW_ADDWORKLIST + '>',
+		'<a   class="anexar-lista-lectura-estudio-v2-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" title="Anexar en listado de lecturas pendientes"' + $BTN_ALLOW_ADDWORKLIST + '>',
 		    '<i class="glyphicon glyphicon-share-alt"></i>',
 		'</a>',
 	    '</div>',
@@ -129,8 +129,8 @@ window.actionEvents = {
         jQuery('#btn_editar_solcmplFastRequest').hide();
 
         jQuery('#formSolcmplFastRequestTitle').text('Registrar solicitud de estudio complementario');
-        jQuery('#formSolcmplFastRequestLabel').removeClass('label-success-v2 label-warning')
-		.addClass('label-primary-v2').text('Formulario para registro');
+        jQuery('#formSolcmplFastRequestLabel').removeClass('label-success-v3 label-warning')
+		.addClass('label-primary-v4').text('Formulario para registro');
         
         $('input[id="formSolcmplFastRequestIdSolicitudEstudio"]').val(row.prc_id);
         $('input[id="formSolcmplFastRequestIdEstudioPadre"]').val(row.est_id);
@@ -353,7 +353,7 @@ jQuery(document).ready(function() {
 
 function eliminadoEnPacsFormatter(value, row, index) {
     return [
-        '<span class="label label-' + (row.est_eliminadoEnPacs === false ? 'success-v2' : 'warning') + '">',
+        '<span class="label label-' + (row.est_eliminadoEnPacs === false ? 'success-v3' : 'warning') + '">',
         (row.est_eliminadoEnPacs === false ? 'no' : 'sí'),
         '</span>'
     ].join('');

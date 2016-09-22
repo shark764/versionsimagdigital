@@ -50,31 +50,31 @@
 <div class="tab-content col-md-9 col-xs-9" style="overflow-y: auto; min-height: 760px;">
     
     {% if object_expediente.getIdPaciente() is not null %}
-        {% include 'MinsalSimagdBundle:show_entity_block:pct_entity_block.html.twig' ignore missing with {'object_patient': object_expediente.getIdPaciente(), 'object_localRecord': localRecord, 'tab_active': true, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:pct_entity_block.html.twig' ignore missing with {'object_patient': object_expediente.getIdPaciente(), 'object_localRecord': localRecord, 'tab_active': true, 'box_style': 'primary-v4'} %}
     {% endif %}
     
     {% if object.getIdEstudio() is not null %}
-        {% include 'MinsalSimagdBundle:show_entity_block:est_entity_block.html.twig' ignore missing with {'object_study': object.getIdEstudio(), 'object_studies': object.getEstudiosLectura(), 'tab_active': false, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:est_entity_block.html.twig' ignore missing with {'object_study': object.getIdEstudio(), 'object_studies': object.getEstudiosLectura(), 'tab_active': false, 'box_style': 'primary-v4'} %}
     {% endif %}
     
     {% if object_study_proc.getIdSolicitudEstudio() is not null %}
-        {% include 'MinsalSimagdBundle:show_entity_block:prc_entity_block.html.twig' ignore missing with {'object_request': object_study_proc.getIdSolicitudEstudio(), 'object_requests': null, 'tab_active': false, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:prc_entity_block.html.twig' ignore missing with {'object_request': object_study_proc.getIdSolicitudEstudio(), 'object_requests': null, 'tab_active': false, 'box_style': 'primary-v4'} %}
     {% endif %}
     
     {% if object_study_proc.getIdCitaProgramada() is not null %}
-        {% include 'MinsalSimagdBundle:show_entity_block:cit_entity_block.html.twig' ignore missing with {'object_date': object_study_proc.getIdCitaProgramada(), 'object_dates': null, 'tab_active': false, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:cit_entity_block.html.twig' ignore missing with {'object_date': object_study_proc.getIdCitaProgramada(), 'object_dates': null, 'tab_active': false, 'box_style': 'primary-v4'} %}
     {% endif %}
     
     {% if object_request_diagnostic is not null %}
-        {% include 'MinsalSimagdBundle:show_entity_block:soldiag_entity_block.html.twig' ignore missing with {'object_request_diagnostic': object_request_diagnostic, 'object_requests_diagnostic': null, 'tab_active': false, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:soldiag_entity_block.html.twig' ignore missing with {'object_request_diagnostic': object_request_diagnostic, 'object_requests_diagnostic': null, 'tab_active': false, 'box_style': 'primary-v4'} %}
     {% endif %}
     
     {% if object_diagnostic is not null %}
-        {% include 'MinsalSimagdBundle:show_entity_block:lct_entity_block.html.twig' ignore missing with {'object_rxresult': object, 'object_diagnostic': object_diagnostic, 'tab_active': false, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:lct_entity_block.html.twig' ignore missing with {'object_rxresult': object, 'object_diagnostic': object_diagnostic, 'tab_active': false, 'box_style': 'primary-v4'} %}
     {% endif %}
     
     {% if object_notasdiag | length > 0 %}
-        {% include 'MinsalSimagdBundle:show_entity_block:notdiag_entity_block.html.twig' ignore missing with {'object_notdiag': null, 'object_notasdiag': object_notasdiag, 'tab_active': false, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:notdiag_entity_block.html.twig' ignore missing with {'object_notdiag': null, 'object_notasdiag': object_notasdiag, 'tab_active': false, 'box_style': 'primary-v4'} %}
     {% endif %}
     
 </div>

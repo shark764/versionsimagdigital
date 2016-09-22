@@ -13,7 +13,7 @@ function pendienteValidacion_actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="validar-pendiente-validar-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Verificar transcripción de resultados"' + (row.allowValidate === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="validar-pendiente-validar-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Verificar transcripción de resultados"' + (row.allowValidate === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-ok"></i>',
 		'</a>',
 	    '</div>',
@@ -41,7 +41,7 @@ window.pendienteValidacion_actionEvents = {
 
 function corregidoFormatter(value, row, index) {
     return [
-        '<span class="label label-' + (row.pndV_fueCorregido === false ? 'primary-v2' : 'success-v2') + '">',
+        '<span class="label label-' + (row.pndV_fueCorregido === false ? 'primary-v4' : 'success-v3') + '">',
         (row.pndV_fueCorregido === false ? 'no' : 'sí'),
         '</span>'
     ].join('');
@@ -183,7 +183,7 @@ jQuery(document).ready(function() {
         jQuery('#btn_editar_diag').show();
         
         jQuery('#formDiagTitle').text('Verificar transcripción de diagnóstico');
-        jQuery('#formDiagLabel').removeClass('label-primary-v2 label-success-v2')
+        jQuery('#formDiagLabel').removeClass('label-primary-v4 label-success-v3')
 		.addClass('label-warning').text('Formulario para edición');
 	
         $("input[id='formDiagId']").val($current_diagRowForm.diag_id);
@@ -326,7 +326,7 @@ jQuery(document).ready(function() {
 	return typeof $arrText[1] === "undefined" ?
 	    state.text :
 		$arrText[0] +
-		'<span class="label label-primary-v2" style="text-align: right; vertical-align: inherit; font-weight: normal;"> [' +
+		'<span class="label label-primary-v4" style="text-align: right; vertical-align: inherit; font-weight: normal;"> [' +
 		$arrText[1] +
 		' </span>';
     }

@@ -153,7 +153,7 @@
 {% block simagd_navbar_middle_nav %}
     <form class="navbar-form navbar-left navbar-input-group" role="search">
 	<div class="form-group">
-	    <div class='input-group date info-v2' id='irHaciaFecha' style="width: 130px;">
+	    <div class='input-group date primary-v4' id='irHaciaFecha' style="width: 130px;">
 		<input type="text" class="form-control" placeholder="Ir a..."{# id="irHaciaFecha" name="irHaciaFecha"#} readonly="readonly">
 		<span class="input-group-addon">
 		    <span class="glyphicon glyphicon-calendar"></span>
@@ -227,7 +227,7 @@
 
 	    <div id='external-events' class="col-lg-3 col-md-3 col-sm-3">
 
-		<div class="panel panel-primary-v2" id='fc-patient-panel' {% if _CIT_ALLOW_CREATE == false or _CIT_ALLOW_EDIT == false %} disabled="disabled" {% endif %}>
+		<div class="panel panel-primary-v4" id='fc-patient-panel' {% if _CIT_ALLOW_CREATE == false or _CIT_ALLOW_EDIT == false %} disabled="disabled" {% endif %}>
 		    <div class="panel-heading">
 			<div class="dropdown pull-right">
                             <a   href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-cog"></i> <b class="caret"></b></a>
@@ -282,21 +282,21 @@
 			</div>
 		    </div>
 		    <div class="panel-footer">
-			<button type="button"    class="btn btn-primary-v2 btn-outline btn-block" id="reload-pct-sin-cita"><span class="glyphicon glyphicon-repeat"></span></button>
+			<button type="button"    class="btn btn-primary-v4 btn-outline btn-block" id="reload-pct-sin-cita"><span class="glyphicon glyphicon-repeat"></span></button>
 		    </div>
 		</div>
 
-		<div class="panel panel-{#element#}primary-v2" id='external-events-symbol' >
+		<div class="panel panel-{#element#}primary-v4" id='external-events-symbol' >
 		    <div class="panel-heading">
 			<h3 class="panel-title"> <i class="fa fa-barcode"></i> {#<i class="fa fa-pencil-square"></i>#} Código de colores </h3>
 		    </div>
 		    <div class="panel-body" style="{#height: 400px;#} overflow-y: auto; overflow-x: no-display;" >
                         <ul class="list-unstyled">
                             <li style="margin-bottom: 5px;">
-                                <span class="label label-primary-v2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp; Consulta externa
+                                <span class="label label-primary-v4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp; Consulta externa
                             </li>
                             <li style="margin-bottom: 5px;">
-                                <span class="label" style="background-color: #4d8e9d;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp; Hospitalización
+                                <span class="label" style="background-color: #16677d;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp; Hospitalización
                             </li>
                             <li style="margin-bottom: 5px;">
                                 <span class="label" style="background-color: #e0533d;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp; Emergencia
@@ -313,7 +313,7 @@
 
 	    <div id="container_fc_agenda_view" class="col-lg-9 col-md-9 col-sm-9">
 
-		<div class="panel panel-primary-v2" id="fc-calendar-panel">
+		<div class="panel panel-primary-v4" id="fc-calendar-panel">
 		    <div class="panel-heading">
                         <div class="dropdown pull-right">
                             <a   href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-cog"></i> <b class="caret"></b></a>
@@ -333,14 +333,14 @@
                         </div>
 
 			<!-- refresh calendar view -->
-			<a   class="btn btn-primary-v2 btn-outline btn-sm pull-left" id="panel_agenda_btn_refresh_calendar" href="javascript:void(0)" style="margin-top: -0.4em;" {% if _CIT_ALLOW_VIEW == false %} disabled="disabled" {% endif %} target="_blank" title="Refrescar agenda">
+			<a   class="btn btn-primary-v4 btn-outline btn-sm pull-left" id="panel_agenda_btn_refresh_calendar" href="javascript:void(0)" style="margin-top: -0.4em;" {% if _CIT_ALLOW_VIEW == false %} disabled="disabled" {% endif %} target="_blank" title="Refrescar agenda">
 			    <i class="glyphicon glyphicon-repeat"></i> Refrescar
 			</a>
             <form class="{#navbar-form navbar-left navbar-input-group#} pull-left" role="search">
                 <div class="form-group" style="margin-bottom: 0; margin-top: -0.4em; margin-left: 15px;">
-                    <div class="input-group date info-v2" id="fc_heading_formitem_group_buscarFecha" name="fc_heading_formitem_group_buscarFecha" style="width: 230px;">
+                    <div class="input-group date primary-v4" id="fc_heading_formitem_group_buscarFecha" name="fc_heading_formitem_group_buscarFecha" style="width: 230px;">
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary-v2 btn-outline btn-sm" id="fc_heading_formitem_btn_buscarFecha">
+                            <button type="button" class="btn btn-primary-v4 btn-outline btn-sm" id="fc_heading_formitem_btn_buscarFecha">
                                 &nbsp;&nbsp;<i class="glyphicon glyphicon-dashboard"></i>&nbsp;&nbsp;
                             </button>
                         </span>
@@ -350,9 +350,9 @@
             </form>
             <form class="{#navbar-form navbar-left navbar-input-group#} pull-left" role="search">
                 <div class="form-group" style="margin-bottom: 0; margin-top: -0.4em; margin-left: 15px;">
-                    <div class="input-group date info-v2" id="fc_heading_formitem_group_buscarFecha_2" name="fc_heading_formitem_group_buscarFecha_2" style="width: 230px;">
+                    <div class="input-group date primary-v4" id="fc_heading_formitem_group_buscarFecha_2" name="fc_heading_formitem_group_buscarFecha_2" style="width: 230px;">
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-sm mainnav-form-btn btn-primary-v2 btn-outline" id="fc_heading_formitem_btn_buscarFecha_2">
+                            <button type="button" class="btn btn-sm mainnav-form-btn btn-primary-v4 btn-outline" id="fc_heading_formitem_btn_buscarFecha_2">
                                 &nbsp;&nbsp;<i class="glyphicon glyphicon-search"></i>&nbsp;&nbsp;
                             </button>
                         </span>
@@ -403,9 +403,9 @@
         </div>
         <div class="modal-footer" style="margin-top: 0px;">
             <button type="button"    data-dismiss="modal" class="btn"><i class="fa fa-times"></i> Cerrar</button>
-            <button type="button"    id="btn_detalle_cit_modal" name="btn_detalle_cit_modal" class="btn btn-primary-v2 btn-outline" {#data-toggle="modal" data-target="#citaFullData-showModalContainer"#} ><i class="fa fa-check-circle"></i> Detalles</button>
-            <button type="button"    id="btn_editar_cit_modal" name="btn_editar_cit_modal" class="btn btn-primary-v2 btn-outline" {#data-toggle="modal" data-target="#editarCita-modal"#} ><i class="fa fa-edit"></i> Editar</button>
-            <button type="button"    id="btn_confirmar_cit_modal" name="btn_confirmar_cit_modal" class="btn btn-success-v2 btn-outline" ><i class="fa fa-play"></i> Confirmar</button>
+            <button type="button"    id="btn_detalle_cit_modal" name="btn_detalle_cit_modal" class="btn btn-primary-v4 btn-outline" {#data-toggle="modal" data-target="#citaFullData-showModalContainer"#} ><i class="fa fa-check-circle"></i> Detalles</button>
+            <button type="button"    id="btn_editar_cit_modal" name="btn_editar_cit_modal" class="btn btn-primary-v4 btn-outline" {#data-toggle="modal" data-target="#editarCita-modal"#} ><i class="fa fa-edit"></i> Editar</button>
+            <button type="button"    id="btn_confirmar_cit_modal" name="btn_confirmar_cit_modal" class="btn btn-success-v3 btn-outline" ><i class="fa fa-play"></i> Confirmar</button>
             <button type="button"    id="btn_cancelar_cit_modal" name="btn_cancelar_cit_modal" class="btn btn-danger btn-outline" {#data-toggle="modal" data-target="#cancelarCita-modal"#} ><i class="fa fa-times-circle"></i> Cancelar</button>
         </div>
     </div>

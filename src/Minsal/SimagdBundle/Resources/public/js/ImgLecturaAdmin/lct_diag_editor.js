@@ -173,7 +173,7 @@ jQuery(document).ready(function() {
 	return typeof $arrText[1] === "undefined" ?
 	    state.text :
 		$arrText[0] +
-		'<span class="label label-primary-v2" style="text-align: right; vertical-align: inherit; font-weight: normal;"> [' +
+		'<span class="label label-primary-v4" style="text-align: right; vertical-align: inherit; font-weight: normal;"> [' +
                     $arrText[1] +
 		' </span>';
     }
@@ -236,7 +236,7 @@ jQuery(document).ready(function() {
      * tab --> box expand on Transcription
      */
     jQuery('.add-dropdown-menu-diagnosis')
-            .find('.box.box-primary-v2')
+            .find('.box.box-primary-v4')
             .find('.box-header')
                 .append(function(i, html) {
                     return ['<div class="dropdown pull-right" style="margin-right: 10px; margin-top: 5px;">',

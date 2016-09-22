@@ -188,8 +188,8 @@ jQuery.fn.loadPacientesSinCita = function() {
 
 					  jQuery(this).parent().find('div.popover .radx-ind-solicitud-action').on('click', function(e) {
 					      jQuery('#formIndRadxPrcTitle').text('Agregar indicaciones de Médico Radiólogo');
-					      jQuery('#formIndRadxPrcLabel').removeClass('label-success-v2 label-warning')
-						      .addClass('label-primary-v2').text('Formulario para registro');
+					      jQuery('#formIndRadxPrcLabel').removeClass('label-success-v3 label-warning')
+						      .addClass('label-primary-v4').text('Formulario para registro');
 					      
 					      jQuery('input[id="formIndRadxPrcId"]').val($prc_object_data.prc_id);
 					      
@@ -482,7 +482,7 @@ jQuery(document).ready(function() {
     jQuery('select[id="navbar_field_cita_modalidad"]').change(function() {
         $fc_patient_panel.filter(':not([disabled]):visible')
 	    .loadPacientesSinCita();
-	    console.log('%c.tt-highlight en search no puede verse ahora que se cambió el label-default-v2', 'background: #31708f; color: #fff');
+	    console.log('%c.tt-highlight en search no puede verse ahora que se cambió el label-default-v2', 'background: #183f52; color: #fff');
     });
     
     /* Filtrar en cliente solicitudes */
@@ -702,7 +702,7 @@ jQuery(document).ready(function() {
         jQuery('#btn_editar_prcEmergencyRequest').hide();
 
         jQuery('#formPrcEmergencyRequestLabel').removeClass('label-element-v2')
-                .addClass('label-primary-v2').html('Paciente desconocido' + ' <span class="badge badge-primary-v2" style="margin-left: 5px;"> NI-####-## </span>');
+                .addClass('label-primary-v4').html('Paciente desconocido' + ' <span class="badge badge-primary-v4" style="margin-left: 5px;"> NI-####-## </span>');
 
         jQuery('input[id="formPrcEmergencyRequestId"]').val('');
 

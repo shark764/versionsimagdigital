@@ -1,7 +1,7 @@
 {# empty Twig template #}
     
     <div class="tab-pane fade {% if tab_active != false %}in active{% endif %}" id="lct_solicitudTab" >
-        <div class="box box-{{ box_style|default('primary-v2') }} non-titled-sonata-box">
+        <div class="box box-{{ box_style|default('primary-v4') }} non-titled-sonata-box">
             <div class="box-body">
 		<table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
 		    <tr>
@@ -56,7 +56,7 @@
                             <pre class="pre-display-code-natural">{{ object_request.justificacionMedica|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre>
                         </td>
 			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Prioridad requerida:</span></th>
-			<td class="col-md-3" ><span class="label label-{{ object_request.idPrioridadAtencion.estiloPresentacion|default('primary-v2') }}">{{ object_request.idPrioridadAtencion.nombre }}</span></td>
+			<td class="col-md-3" ><span class="label label-{{ object_request.idPrioridadAtencion.estiloPresentacion|default('primary-v4') }}">{{ object_request.idPrioridadAtencion.nombre }}</span></td>
 		    </tr>
 		    <tr>
 			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Consulta por:</span></th>
@@ -103,7 +103,7 @@
 					{% set exm_proyeccionCount = exm_proyeccionCount + 1 %}
 				    {% endfor %}
 				    
-				    <div class="panel panel-primary-v2">
+				    <div class="panel panel-primary-v4">
 					<a   class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#proyecciones_panelCollapse_id_{{ key }}">
 					    <span class="badge">{{ exm_proyeccionCount }}</span>
                                             <span class="caret" style="margin-right: 5px;"></span> <span class="dropup" style="margin-right: 5px; {#display: none;#}"><span class="caret"></span></span>
@@ -155,7 +155,7 @@
 			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Próxima consulta médica:</span></th>
 			<td class="col-md-3" >{{ object_request.fechaProximaConsulta|format_date('EEEE, MMMM d, yyyy', 'es_ES') }}</td>
 			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Estado:</span></th>
-			<td class="col-md-3" ><span class="{% if object_request.idEstadoSolicitud.estiloPresentacion is not null %}label label-{{ object_request.idEstadoSolicitud.estiloPresentacion|default('primary-v2') }}{% endif %}">{{ object_request.idEstadoSolicitud.nombreEstado }}</span></td>
+			<td class="col-md-3" ><span class="{% if object_request.idEstadoSolicitud.estiloPresentacion is not null %}label label-{{ object_request.idEstadoSolicitud.estiloPresentacion|default('primary-v4') }}{% endif %}">{{ object_request.idEstadoSolicitud.nombreEstado }}</span></td>
 		    </tr>
 		</table>
             </div>

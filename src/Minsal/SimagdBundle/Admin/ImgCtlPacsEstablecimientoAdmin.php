@@ -64,7 +64,7 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
 										  'placeholder' => 'Puede escribir un nombre para la conexión',
 
 										  'data-add-input-addon' => 'true',
-										  'data-add-input-addon-class' => 'info-v2',
+										  'data-add-input-addon-class' => 'primary-v4',
 										  'data-add-input-addon-addon' => 'glyphicon glyphicon-edit',
 
 										  'data-fv-stringlength' => 'true',
@@ -85,7 +85,7 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
 										  'placeholder' => 'N° de puerto de conexión',
 
 										  'data-add-input-addon' => 'true',
-										  'data-add-input-addon-class' => 'info-v2',
+										  'data-add-input-addon-class' => 'primary-v4',
 										  'data-add-input-addon-addon' => 'glyphicon glyphicon-question-sign',
 
 										  'data-fv-integer' => 'true',
@@ -105,7 +105,7 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
 								  'attr' => array('placeholder' => 'Dirección IP (Formato IPV4 o IPV6)',
 
 										  'data-add-input-addon' => 'true',
-										  'data-add-input-addon-class' => 'info-v2',
+										  'data-add-input-addon-class' => 'primary-v4',
 										  'data-add-input-addon-addon' => 'glyphicon glyphicon-question-sign',
 
 										  'data-fv-notempty' => 'true',
@@ -121,7 +121,7 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
 										  'placeholder' => 'Usuario',
 
 										  'data-add-input-addon' => 'true',
-										  'data-add-input-addon-class' => 'info-v2',
+										  'data-add-input-addon-class' => 'primary-v4',
 										  'data-add-input-addon-addon' => 'glyphicon glyphicon-user',
 
 										  'data-fv-stringlength' => 'true',
@@ -151,7 +151,7 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
 										  'placeholder' => 'BD',
 
 										  'data-add-input-addon' => 'true',
-										  'data-add-input-addon-class' => 'info-v2',
+										  'data-add-input-addon-class' => 'primary-v4',
 										  'data-add-input-addon-addon' => 'glyphicon glyphicon-edit',
 
 										  'data-fv-stringlength' => 'true',
@@ -170,7 +170,7 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
 										  'placeholder' => 'Host',
 
 										  'data-add-input-addon' => 'true',
-										  'data-add-input-addon-class' => 'info-v2',
+										  'data-add-input-addon-class' => 'primary-v4',
 										  'data-add-input-addon-addon' => 'glyphicon glyphicon-question-sign',
 
 										  'data-fv-stringlength' => 'true',
@@ -220,7 +220,7 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
 										  'placeholder' => 'Tiempo de vida útil',
 
 										  'data-add-input-addon' => 'true',
-										  'data-add-input-addon-class' => 'info-v2',
+										  'data-add-input-addon-class' => 'primary-v4',
 										  'data-add-input-addon-addon' => 'glyphicon glyphicon-question-sign',
 
 										  'data-fv-integer' => 'true',

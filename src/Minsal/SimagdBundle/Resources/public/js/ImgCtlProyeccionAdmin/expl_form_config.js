@@ -245,7 +245,7 @@ jQuery(document).ready(function() {
 
         jQuery('#formExplTitle').text('Registrar Proyección');
         jQuery('#formExplLabel').removeClass('label-element-v2')
-		.addClass('label-primary-v2').text('Formulario para registro');
+		.addClass('label-primary-v4').text('Formulario para registro');
         
         $("input[id='formExplNombre']").val('');
         $("input[id='formExplCodigo']").val('');

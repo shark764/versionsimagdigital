@@ -231,7 +231,7 @@ jQuery(document).ready(function() {
 
         jQuery('#formBlAgdTitle').text('Registrar bloqueo en agenda');
         jQuery('#formBlAgdLabel').removeClass('label-element-v2')
-		.addClass('label-primary-v2').text('Formulario para registro');
+		.addClass('label-primary-v4').text('Formulario para registro');
 
         $("input[id='formBlAgdId']").val('');
         $("input[id='formBlAgdTitulo']").val('');

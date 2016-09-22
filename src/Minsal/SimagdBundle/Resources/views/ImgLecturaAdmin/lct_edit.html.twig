@@ -136,7 +136,7 @@
 
 {% block simagd_form_navbar_brand_title %}
     <span class="navbar-brand">
-        <span class="label label-{{ action is defined and action == 'edit' ? 'primary-v2' : 'element-v2' }}"> {{ _lctMessageTemplate|raw }} </span>
+        <span class="label label-{{ action is defined and action == 'edit' ? 'primary-v4' : 'element-v2' }}"> {{ _lctMessageTemplate|raw }} </span>
     </span>
 {% endblock %}
 
@@ -144,7 +144,7 @@
     <form class="navbar-form navbar-left navbar-input-group" role="search">
 	<div class="fixed-navbar-display-worklist">
 	    <div class="btn-group" style="{#padding-top: 8px;#}">
-		<button type="button"    id="btn_{#{{ code_entity }}#}_display_fast_worklist" class="btn btn-primary-v2 btn-outline dropdown-toggle btn_display_fast_worklist" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Lista de trabajo">
+		<button type="button"    id="btn_{#{{ code_entity }}#}_display_fast_worklist" class="btn btn-primary-v4 btn-outline dropdown-toggle btn_display_fast_worklist" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Lista de trabajo">
 		    <i class="glyphicon glyphicon-user"></i>
 		    Lista de trabajo <span class="caret"></span>
 		</button>
@@ -167,19 +167,19 @@
 {% endblock %}
     
 {% block form %}
-    {#<span class="label label-primary-v2"> INTENTAR LO DEL ESTUDIO idEstudio QUE SE ACTUALICE POR JQUERY, ASI CUANDO CHECK/UNCHECK, SE COMPRUEBA SI HAY idEstudio,<br/> SI NO HAY Y ES UN PRC, ENTONCES ASIGNARLO COMO NUEVO idEstudio, SI NO HAY BUSCAR ENTRE LOS CHECKED QUE SON PRC, ASIGNAR EL PRIMERO,<br/> SI NO HAY CHECKED PRC, ENTONCES ERROR, 'DEBE CHECK UN PRC AL MENOS'  </span><br/>
+    {#<span class="label label-primary-v4"> INTENTAR LO DEL ESTUDIO idEstudio QUE SE ACTUALICE POR JQUERY, ASI CUANDO CHECK/UNCHECK, SE COMPRUEBA SI HAY idEstudio,<br/> SI NO HAY Y ES UN PRC, ENTONCES ASIGNARLO COMO NUEVO idEstudio, SI NO HAY BUSCAR ENTRE LOS CHECKED QUE SON PRC, ASIGNAR EL PRIMERO,<br/> SI NO HAY CHECKED PRC, ENTONCES ERROR, 'DEBE CHECK UN PRC AL MENOS'  </span><br/>
     <span class="label label-danger"> COMPLEMENTARIOS DEBEN ANEXARSE QUIZA A LISTA PERSONAL, Y SU URL DEBERIA SER LA EDIT DONDE ESTA EL ESTUDIO PADRE, Y EN LUGAR DEL MISMO REQUEST '__est', <br/> QUE USE UNO COMO '__estCmpl' QUE SE AGARRARIA EN LA EDIT, Y AHI SE ANEXARA A LCT_EST CON ->addEstLectura </span><br/>
     <span class="label label-warning"> Luego de meter un CMPL, o quiza hasta un normal, y registrarlo como leido iCheck.... sigue en PNDL, no se elimina, revisar caso de borrado en triggers </span><br/>
-    <span class="label label-primary-v2"> SE DEBE DEJAR LOS SUMMERNOTE PARA LA TRANSCRIPCION SIEMPRE, PERO SE DEBE USAR EL ICHECK PARA DECIDIR SI SE GUARDA O NO  </span><br/>#}
-    {#<span class="label label-primary-v2">http://www.models-forum.org/search.php</span><br/>
-    <span class="label label-primary-v2">se necesita tambien poder mandar a imprimir de un ave sin q aparezca el pdf en pantalla, muy lento</span>
+    <span class="label label-primary-v4"> SE DEBE DEJAR LOS SUMMERNOTE PARA LA TRANSCRIPCION SIEMPRE, PERO SE DEBE USAR EL ICHECK PARA DECIDIR SI SE GUARDA O NO  </span><br/>#}
+    {#<span class="label label-primary-v4">http://www.models-forum.org/search.php</span><br/>
+    <span class="label label-primary-v4">se necesita tambien poder mandar a imprimir de un ave sin q aparezca el pdf en pantalla, muy lento</span>
     
     {% set lct_vars = { 'simagd_title': 'FORMULARIO PARA REGISTRO DE INTERPRETACIÓN RADIOLÓGICA',
                         'simagd_message': 'Llene este formulario para registrar la interpretación del(los) estudio(s) realizado(s)'
     }%}
     {% include 'MinsalSimagdBundle:Menu:simagd_cabecera.html.twig' ignore missing with lct_vars %}#}
     
-{#    <span class="label label-primary-v2">¿Desea agregar este diagnostico como patron personal?</span><br/>#}
+{#    <span class="label label-primary-v4">¿Desea agregar este diagnostico como patron personal?</span><br/>#}
     
     <div id="switch_item_container_history" class="bsswitch-container" style="display: none;" >
         {% block bsswitch_container %}
@@ -198,7 +198,7 @@
     
     {#{% for group_label, choice in form.idEmpleado.vars.choices %}
         {%- if choice is iterable -%}
-            <span class="label label-primary-v2">{{ group_label }}</span><br/>
+            <span class="label label-primary-v4">{{ group_label }}</span><br/>
             
             {% for item in choice %}
                 <span class="label label-element-v2">
@@ -220,14 +220,14 @@
         {%- endif -%}
     {% endfor %}
     <br/><br/><br/>
-    <span class="label label-primary-v2">form.vars.value.idEmpleado:_______  {{ form.vars.value.idEmpleado }}</span><br/>
-    <span class="label label-primary-v2">form.idEmpleado.vars.full_name:_______  {{ form.idEmpleado.vars.full_name }}</span><br/>
-    <span class="label label-primary-v2">form.idEmpleado.vars.id:_______  {{ form.idEmpleado.vars.id }}</span><br/>
-    <span class="label label-primary-v2">form.idEmpleado.vars.data:_______  {{ form.idEmpleado.vars.data }}</span><br/>
-    <span class="label label-primary-v2">form.idEmpleado.vars.data.id:_______  {{ form.idEmpleado.vars.data.id }}</span><br/>
-    <span class="label label-primary-v2">form.idEmpleado.vars.data.nombre:_______  {{ form.idEmpleado.vars.data.nombre }}</span><br/>
-    <span class="label label-primary-v2">form.idEmpleado.vars.choices|length:_______  {{ form.idEmpleado.vars.choices|length }}</span><br/><br/>
-    <span class="label label-primary-v2">form_row(form.idEmpleado):_______  {{ form_row(form.idEmpleado) }}</span><br/>#}
+    <span class="label label-primary-v4">form.vars.value.idEmpleado:_______  {{ form.vars.value.idEmpleado }}</span><br/>
+    <span class="label label-primary-v4">form.idEmpleado.vars.full_name:_______  {{ form.idEmpleado.vars.full_name }}</span><br/>
+    <span class="label label-primary-v4">form.idEmpleado.vars.id:_______  {{ form.idEmpleado.vars.id }}</span><br/>
+    <span class="label label-primary-v4">form.idEmpleado.vars.data:_______  {{ form.idEmpleado.vars.data }}</span><br/>
+    <span class="label label-primary-v4">form.idEmpleado.vars.data.id:_______  {{ form.idEmpleado.vars.data.id }}</span><br/>
+    <span class="label label-primary-v4">form.idEmpleado.vars.data.nombre:_______  {{ form.idEmpleado.vars.data.nombre }}</span><br/>
+    <span class="label label-primary-v4">form.idEmpleado.vars.choices|length:_______  {{ form.idEmpleado.vars.choices|length }}</span><br/><br/>
+    <span class="label label-primary-v4">form_row(form.idEmpleado):_______  {{ form_row(form.idEmpleado) }}</span><br/>#}
     
 {% endblock %}
 
@@ -267,9 +267,9 @@
     <div class="well well-small form-actions">
         {% if app.request.isxmlhttprequest %}
             {% if admin.id(object) is not null %}
-                <button type="submit"    class="btn btn-success-v2 btn-outline" name="btn_update"><i class="fa fa-save"></i> {{ 'btn_update'|trans({}, 'SonataAdminBundle') }}</button>
+                <button type="submit"    class="btn btn-success-v3 btn-outline" name="btn_update"><i class="fa fa-save"></i> {{ 'btn_update'|trans({}, 'SonataAdminBundle') }}</button>
             {% else %}
-                <button type="submit"    class="btn btn-success-v2 btn-outline" name="btn_create"><i class="fa fa-plus-circle"></i> {{ 'btn_create'|trans({}, 'SonataAdminBundle') }}</button>
+                <button type="submit"    class="btn btn-success-v3 btn-outline" name="btn_create"><i class="fa fa-plus-circle"></i> {{ 'btn_create'|trans({}, 'SonataAdminBundle') }}</button>
             {% endif %}
         {% else %}
             {% if admin.supportsPreviewMode %}
@@ -279,10 +279,10 @@
                 </button>
             {% endif %}
             {% if admin.id(object) is not null %}
-                <button type="submit"    class="btn btn-primary-v2 btn-outline" name="btn_update_and_edit"><i class="fa fa-save"></i> Guardar</button>
+                <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_update_and_edit"><i class="fa fa-save"></i> Guardar</button>
 
                 {#{% if admin.hasroute('list') and admin.isGranted('LIST') %}
-                    <button type="submit"    class="btn btn-primary-v2 btn-outline" name="btn_update_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                    <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_update_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
                 {% endif %}#}
 
                 {% if admin.hasroute('delete') and admin.isGranted('DELETE', object) %}
@@ -295,7 +295,7 @@
                 {% endif %}
 
 		{% if ( object.idEstudio is not null ) and ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_ADMIN') ) %}
-		    <a   class="btn btn-primary-v2 btn-outline" href="{{ object.idEstudio.url|raw|trim|default('javascript:void(0)') }}" target="_blank" title="Recuperar estudio realizado"
+		    <a   class="btn btn-primary-v4 btn-outline" href="{{ object.idEstudio.url|raw|trim|default('javascript:void(0)') }}" target="_blank" title="Recuperar estudio realizado"
 			{% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN') ) %}
 			    disabled="disabled"
 			{% endif %}>
@@ -312,15 +312,15 @@
 		{% endif %}
             {% else %}
                 {% if admin.hasroute('edit') and admin.isGranted('EDIT') %}
-                    <button class="btn btn-primary-v2 btn-outline" type="submit" name="btn_create_and_edit"><i class="fa fa-save"></i> Guardar</button>
+                    <button class="btn btn-primary-v4 btn-outline" type="submit" name="btn_create_and_edit"><i class="fa fa-save"></i> Guardar</button>
                 {% endif %}
                 {#{% if admin.hasroute('list') and admin.isGranted('LIST') %}
-                    <button type="submit"    class="btn btn-primary-v2 btn-outline" name="btn_create_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                    <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_create_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
                 {% endif %}#}
-                {#<button class="btn btn-primary-v2 btn-outline" type="submit" name="btn_create_and_create"><i class="fa fa-plus-circle"></i> Guardar</button>#}
+                {#<button class="btn btn-primary-v4 btn-outline" type="submit" name="btn_create_and_create"><i class="fa fa-plus-circle"></i> Guardar</button>#}
 
 		{% if ( object.idEstudio is not null ) and ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_ADMIN') ) %}
-		    <a   class="btn btn-primary-v2 btn-outline" href="{{ object.idEstudio.url|raw|trim|default('javascript:void(0)') }}" target="_blank" title="Recuperar estudio realizado"
+		    <a   class="btn btn-primary-v4 btn-outline" href="{{ object.idEstudio.url|raw|trim|default('javascript:void(0)') }}" target="_blank" title="Recuperar estudio realizado"
 			{% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN') ) %}
 			    disabled="disabled"
 			{% endif %}>
@@ -330,7 +330,7 @@
 
 		{% if object.idEstudio is not null %}
 		    {% for estudioPndL in object.idEstudio.estudioPendienteLectura %}
-			<span class="label label-primary-v2">
+			<span class="label label-primary-v4">
 			    Pendiente desde: {{ estudioPndL.fechaIngresoLista|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ estudioPndL.fechaIngresoLista|date('H:i:s A') }}
 			</span>
 		    {% endfor %}

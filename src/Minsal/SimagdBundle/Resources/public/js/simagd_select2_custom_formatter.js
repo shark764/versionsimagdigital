@@ -164,7 +164,7 @@ jQuery(document).ready(function() {
                 '<span style="float: left; min-width: 295px;">',
                     $arrText[0],
                 '</span>',
-                '<span class="label label-primary-v2" style="float: left; margin-left: 5px; margin-top: 2px; font-weight: normal;">',
+                '<span class="label label-primary-v4" style="float: left; margin-left: 5px; margin-top: 2px; font-weight: normal;">',
                     $arrText[1],
                 '</span>',
             '</div>'
@@ -201,7 +201,7 @@ jQuery(document).ready(function() {
             $dateStatus_icon      = 'glyphicon-tags';           // custom define class
         if (state.id === '2' || state.id === 2)
         {
-            $dateStatus_class     = 'primary-v2',               // custom define class
+            $dateStatus_class     = 'primary-v4',               // custom define class
             $dateStatus_icon      = 'glyphicon-ok-sign';        // custom define class
         }
         if (state.id === '5' || state.id === 5)
@@ -251,7 +251,7 @@ jQuery(document).ready(function() {
             return state.text; // is not the final status
         }
 
-        var $studyStatus_class     = 'primary-v2'; // custom define class
+        var $studyStatus_class     = 'primary-v4'; // custom define class
 
         return [
             '<span class=\'text-' + $studyStatus_class + '\'>',
@@ -289,7 +289,7 @@ jQuery(document).ready(function() {
             return state.text; // is not the final status
         }
 
-        var $interpretationStatus_class     = 'primary-v2'; // custom define class
+        var $interpretationStatus_class     = 'primary-v4'; // custom define class
 
         return [
             '<span class=\'text-' + $interpretationStatus_class + '\'>',
@@ -327,7 +327,7 @@ jQuery(document).ready(function() {
             return state.text; // is not the final status
         }
 
-        var $diagnosticStatus_class     = 'primary-v2',                 // custom define class
+        var $diagnosticStatus_class     = 'primary-v4',                 // custom define class
             $diagnosticStatus_icon      = 'glyphicon-ok-sign';          // custom define class
         if (state.id === '4' || state.id === 4)
         {
@@ -336,7 +336,7 @@ jQuery(document).ready(function() {
         }
         if (state.id === '5' || state.id === 5)
         {
-            $diagnosticStatus_class     = 'success-v2',                 // custom define class
+            $diagnosticStatus_class     = 'success-v3',                 // custom define class
             $diagnosticStatus_icon      = 'glyphicon-exclamation-sign'; // custom define class
         }
 

@@ -64,7 +64,7 @@ file that was distributed with this source code.
         <div class="box box-danger">
 	    {#{% set solicitud = solicitud.idSolicitudEstudio %}#}
             <div class="box-header">
-                <h3 class="box-title"><span class="label label-primary-v2">Comprobante de cita de Imagenología</span></h3>
+                <h3 class="box-title"><span class="label label-primary-v4">Comprobante de cita de Imagenología</span></h3>
             </div>
             <div class="box-body">
 		<table class="table table-hover table-condensed table-responsive table-borderless">
@@ -124,7 +124,7 @@ file that was distributed with this source code.
 			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Próxima consulta médica:</span></th>
 			<td class="col-md-3" >{{ solicitud.fechaProximaConsulta|format_date('EEEE, MMMM d, yyyy', 'es_ES') }}</td>
 			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Prioridad requerida:</span></th>
-			<td class="col-md-3" ><span class="label label-{{ solicitud.idPrioridadAtencion.estiloPresentacion|default('primary-v2') }}">{{ solicitud.idPrioridadAtencion }}</span></td>
+			<td class="col-md-3" ><span class="label label-{{ solicitud.idPrioridadAtencion.estiloPresentacion|default('primary-v4') }}">{{ solicitud.idPrioridadAtencion }}</span></td>
 		    </tr>
 		    <tr>
 			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Modalidad:</span></th>
@@ -190,7 +190,7 @@ file that was distributed with this source code.
 			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Atenderá:</span></th>
 			<td class="col-md-3" >{{ object.idTecnologoProgramado }}</td>
 			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Se reprogramó:</span></th>
-			<td class="col-md-3" ><span class="label label-{{ object.reprogramada ? 'danger' : 'primary-v2' }}">{{ object.reprogramada ? 'Si' : 'No' }}</span></td>
+			<td class="col-md-3" ><span class="label label-{{ object.reprogramada ? 'danger' : 'primary-v4' }}">{{ object.reprogramada ? 'Si' : 'No' }}</span></td>
 		    </tr>
 		    <tr>
 			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Indicaciones:</span></th>

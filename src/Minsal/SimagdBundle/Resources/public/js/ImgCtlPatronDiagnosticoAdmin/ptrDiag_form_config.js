@@ -138,7 +138,7 @@ jQuery(document).ready(function() {
 
         jQuery('#formPtrDiagTitle').text('Crear patrón para diagnóstico');
         jQuery('#formPtrDiagLabel').removeClass('label-element-v2')
-		.addClass('label-primary-v2').text('Formulario para registro');
+		.addClass('label-primary-v4').text('Formulario para registro');
         
         $("input[id='formPtrDiagNombre']").val('');
         $("input[id='formPtrDiagCodigo']").val('');

@@ -77,10 +77,10 @@
 	    <input type="text" class="typeahead explocal_navbar_typeahead form-control" autocomplete="off" placeholder="expediente" id="navbar_filter_expNumero" name="navbar_filter_expNumero" data-xparam-filter="false" {%if expRequest is not null %} value="{{ expRequest.numero }}" {% endif %}>
 	    <i class="glyphicon glyphicon-remove-circle form-control-feedback typeahead-custom-clear" id="clear-typeahead-filter-exp"></i>
 	</div>
-        <button type="submit"    id="btn_search_filter_expNumero" name="btn_search_filter_expNumero" class="btn btn-primary-v2 btn-outline {#btn-sm#}">
+        <button type="submit"    id="btn_search_filter_expNumero" name="btn_search_filter_expNumero" class="btn btn-primary-v4 btn-outline {#btn-sm#}">
             <i class="fa fa-search"></i>
         </button>
-	<button type="submit"    id="btn_search_plus_est" name="btn_search_plus_est" class="btn btn-primary-v2 btn-outline" ><i class="fa fa-search-plus"></i> Más opciones</button>
+	<button type="submit"    id="btn_search_plus_est" name="btn_search_plus_est" class="btn btn-primary-v4 btn-outline" ><i class="fa fa-search-plus"></i> Más opciones</button>
 	<button type="submit"    id="btn_search_minus_est" name="btn_search_minus_est" class="btn btn-element-v2 btn-outline" style="display: none;" ><i class="fa fa-search-minus"></i> Menos opciones</button>
     </form>
 {% endblock %}
@@ -483,7 +483,7 @@
 	    <div class="form-group">
 		<label class="col-xs-2 control-label">Nombres</label>
 		<div class="col-xs-3">
-		    <div class="input-group info-v2">
+		    <div class="input-group primary-v4">
 			<span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
 			<input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Primer Nombre" maxlength="25"
 				  {#data-fv-row=".col-xs-3"#}
@@ -503,7 +503,7 @@
 		    </div>
 		</div>
 		<div class="col-xs-3">
-		    <div class="input-group info-v2">
+		    <div class="input-group primary-v4">
 			<span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
 			<input type="text" class="form-control" id="segundoNombre" name="segundoNombre" placeholder="Segundo Nombre" maxlength="25"
 				  {#data-fv-row=".col-xs-8"#}
@@ -523,7 +523,7 @@
 		    </div>
 		</div>
 		<div class="col-xs-3">
-		    <div class="input-group info-v2">
+		    <div class="input-group primary-v4">
 			<span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
 			<input type="text" class="form-control" id="tercerNombre" name="tercerNombre" placeholder="Tercer Nombre" maxlength="25"
 				  {#data-fv-row=".col-xs-8"#}
@@ -547,7 +547,7 @@
 	    <div class="form-group">
 		<label class="col-xs-2 control-label">Apellidos</label>
 		<div class="col-xs-3">
-		    <div class="input-group info-v2">
+		    <div class="input-group primary-v4">
 			<span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
 			<input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Primer Apellido" maxlength="25"
 				  {#data-fv-row=".col-xs-8"#}
@@ -567,7 +567,7 @@
 		    </div>
 		</div>
 		<div class="col-xs-3">
-		    <div class="input-group info-v2">
+		    <div class="input-group primary-v4">
 			<span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
 			<input type="text" class="form-control" id="segundoApellido" name="segundoApellido" placeholder="Segundo Apellido" maxlength="25"
 				  {#data-fv-row=".col-xs-8"#}
@@ -591,7 +591,7 @@
 	    <div class="form-group">
 		<label class="col-xs-2 control-label">N° de Expediente</label>
 		<div class="col-xs-3">
-		    <div class="input-group info-v2">
+		    <div class="input-group primary-v4">
 			<span class="input-group-addon"><i class='glyphicon glyphicon-barcode'></i></span>
 			<input type="text" class="form-control" id="numeroExp" name="numeroExp" maxlength="12"
 				  {#data-fv-row=".col-xs-8"#}
@@ -612,7 +612,7 @@
 		</div>
 		<label class="col-xs-2 control-label">DUI</label>
 		<div class="col-xs-3">
-		    <div class="input-group info-v2">
+		    <div class="input-group primary-v4">
 			<span class="input-group-addon"><i class='glyphicon glyphicon-barcode'></i></span>
 			<input type="text" class="form-control" id="dui" name="dui" maxlength="10"
 				  {#data-fv-row=".col-xs-8"#}
@@ -686,9 +686,9 @@
 	    <div class="form-group">
 		<label class="col-xs-2 control-label">Fecha Nacimiento</label>
 		<div class="col-xs-3">
-		    <div class="input-group info-v2">
+		    <div class="input-group primary-v4">
 			<span class='input-group-btn'>
-			    <button class='demo btn btn-primary-v2 btn-outline btn-large' id='showDateTimePicker'> <i class='glyphicon glyphicon-calendar'></i> </button>
+			    <button class='demo btn btn-primary-v4 btn-outline btn-large' id='showDateTimePicker'> <i class='glyphicon glyphicon-calendar'></i> </button>
 			</span>
 			<input type="text" class="form-control" id="fechaNacimiento" name="fechaNacimiento" placeholder="YYYY-MM-DD" readonly="readonly"
 				{#data-fv-row=".col-xs-8"#}
@@ -728,7 +728,7 @@
 
 	    <div class="form-group">
 		<div class="col-xs-offset-2 col-xs-10">
-		    <button type="submit"    id="iniciar-busqueda" name="btn_buscar_estudios" class="btn btn-primary-v2 btn-outline" >
+		    <button type="submit"    id="iniciar-busqueda" name="btn_buscar_estudios" class="btn btn-primary-v4 btn-outline" >
 			<i class="fa fa-search"></i> Buscar
 		    </button>
 		    <button type="button"    id="limpiar-form" name="btn_reset_form" class="btn btn-element-v2 btn-outline" >
@@ -769,7 +769,7 @@
 		data-classes="table table-hover table-condensed table-no-bordered"
 		data-height="760">
             <thead>
-                <tr style="background-color: #31708f; color: #fff;">
+                <tr style="background-color: #183f52; color: #fff;">
                     <th data-field="est_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-halign="center" data-align="center" data-sortable="true">ID</th>
 		    <th data-field="est_paciente" data-switchable="false" data-formatter="simagdPacienteFormatter" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Paciente</th>
 		    <th data-field="prc_origen" data-filter-bstable-apply="true" data-filter-bstable-by="stdroot_id" data-filter-bstable-type="select2" data-formatter="simagdOrigenFormatter" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>

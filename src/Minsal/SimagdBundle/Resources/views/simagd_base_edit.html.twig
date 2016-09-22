@@ -10,15 +10,24 @@
 
 {% block stylesheets %}
     {{ parent() }}
+
+    {# stylesheets minimized with Assetic #}
+    {% stylesheets
+    'bundles/minsalsimagd/css/simagd-styles.css'
+    'bundles/minsalsimagd/css/simagd-form-styles.css'
+    'bundles/minsalsimagd/css/simagd-extend-bootstrap3.css'
+    'bundles/minsalsimagd/css/simagd-table.css'
+    
+    'bundles/minsalsimagd/css/typeahead.css'
+    'bundles/minsalsimagd/css/select2-bootstrap.css'
+    
+    output="bundles/minsalsimagd/compiled/css/bundle_stylesheets___layout.css" %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
     
     {# Bootstrap #}
     {#<link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css') }}" type="text/css" rel="stylesheet" />#}
-    
-    {# simagd-styles #}
-    <link href="{{ asset('bundles/minsalsimagd/css/simagd-styles.css') }}" type="text/css" rel="stylesheet" />
-    <link href="{{ asset('bundles/minsalsimagd/css/simagd-form-styles.css') }}" type="text/css" rel="stylesheet" />
-    <link href="{{ asset('bundles/minsalsimagd/css/simagd-table.css') }}" type="text/css" rel="stylesheet" />
     
     {# jquery-ui #}
     <link href="{{ asset('bundles/minsalsimagd/plugin/jquery-ui-1.12.0.custom/jquery-ui.theme.min.css') }}" type="text/css" rel="stylesheet" />
@@ -31,9 +40,6 @@
     
     {# ckeditor #}
     <link href="{{ asset('bundles/minsalsimagd/css/simagd-ckeditor.css') }}" type="text/css" rel="stylesheet" />
-    
-    {# Twitter Typeahead #}
-    <link href="{{ asset('bundles/minsalsimagd/css/typeahead.css') }}" type="text/css" rel="stylesheet" />
     
     {# bootstrap-table #}
     <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-table-master/dist/bootstrap-table.min.css') }}" type="text/css" rel="stylesheet" media="screen" />
@@ -53,9 +59,6 @@
     
     {# bootstrap-switch #}
     <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.min.css') }}" type="text/css" rel="stylesheet" />
-    
-    {# select2-bootstrap #}
-    <link href="{{ asset('bundles/minsalsimagd/css/select2-bootstrap.css') }}" type="text/css" rel="stylesheet" />
 {% endblock %}
     
 {% block javascripts %}
@@ -182,7 +185,7 @@
                             </button>
                             {% block simagd_form_navbar_brand_title %}
                                 <span class="navbar-brand">
-                                    <span class="label label-{{ action is defined and action == 'edit' ? 'primary-v2' : 'element-v2' }}"> {{ _messageCurrentTemplate|truncate(150)|raw }} </span>
+                                    <span class="label label-{{ action is defined and action == 'edit' ? 'primary-v4' : 'element-v2' }}"> {{ _messageCurrentTemplate|truncate(150)|raw }} </span>
                                 </span>
                             {% endblock %}
                         </div>
@@ -230,7 +233,7 @@
     {% block simagd_info_support %}
 
         <div id="simagd-modal-info-support" class="modal container fade justify-bootstrap-div-container" role="dialog" tabindex="-1" style="display: none;" data-backdrop="static" data-keyboard="false">
-            <div class="modal-content panel-primary-v2">
+            <div class="modal-content panel-primary-v4">
                 <div class="modal-header panel-heading">
                     <button type="button"    class="close" data-dismiss="modal" aria-hidden="true"> <i class="fa fa-times"></i> </button>
                     <h4 class="modal-title"><i class="fa fa-desktop"></i> <strong>Imagenología</strong> - Cuadro informativo</h4>
@@ -259,7 +262,7 @@
                 </div>{# body #}
 
                 <div class="modal-footer">
-                    <button type="button"    data-dismiss="modal" class="btn btn-primary-v2 btn-outline"> <i class="fa fa-times"></i> Cerrar </button>
+                    <button type="button"    data-dismiss="modal" class="btn btn-primary-v4 btn-outline"> <i class="fa fa-times"></i> Cerrar </button>
                 </div>
 
             </div><!-- /.modal-content -->
@@ -298,7 +301,7 @@
             {% endif %}
 {#{{ __my_form_type }}
 {{ admin_pool.getOption('form_type') }}
-{% if __my_form_type == 'horizontal' %}{{ '<span class="label label-primary-v2">class="form-horizontal"</span><br/>' }}{% endif %}
+{% if __my_form_type == 'horizontal' %}{{ '<span class="label label-primary-v4">class="form-horizontal"</span><br/>' }}{% endif %}
 {% if admin_pool.getOption('form_type') == 'horizontal' %}{{ '<span class="label label-element-v2">class="form-horizontal"</span><br/>' }}{% endif %}#}
             {% block sonata_pre_fieldsets %}
                 <div class="row">
@@ -341,10 +344,10 @@
             {% block sonata_tab_content %}
                 {% for name, form_group in admin.formgroups %}
                     <div class="{{ form_group.class|default('col-md-12') }}">
-                        <div class="box box-primary-v3">
+                        <div class="box box-primary-v4">
                             <div class="box-header">
                                 <h4 class="box-title">
-                                    <span class="label label-primary-v3">{{ admin.trans(name, {}, form_group.translation_domain) }}</span>
+                                    <span class="label label-primary-v4">{{ admin.trans(name, {}, form_group.translation_domain) }}</span>
                                 </h4>
                             </div>
                             {#<div class="box{% if loop.first %} in{% endif %}" id="{{ admin.uniqid }}_{{ loop.index }}">#}
@@ -377,9 +380,9 @@
                 <div class="well well-small form-actions">
                     {% if app.request.isxmlhttprequest %}
                         {% if admin.id(object) is not null %}
-                            <button type="submit"    class="btn btn-success-v2 btn-outline" name="btn_update"><i class="fa fa-save"></i> {{ 'btn_update'|trans({}, 'SonataAdminBundle') }}</button>
+                            <button type="submit"    class="btn btn-success-v3 btn-outline" name="btn_update"><i class="fa fa-save"></i> {{ 'btn_update'|trans({}, 'SonataAdminBundle') }}</button>
                         {% else %}
-                            <button type="submit"    class="btn btn-success-v2 btn-outline" name="btn_create"><i class="fa fa-plus-circle"></i> {{ 'btn_create'|trans({}, 'SonataAdminBundle') }}</button>
+                            <button type="submit"    class="btn btn-success-v3 btn-outline" name="btn_create"><i class="fa fa-plus-circle"></i> {{ 'btn_create'|trans({}, 'SonataAdminBundle') }}</button>
                         {% endif %}
                     {% else %}
                         {% if admin.supportsPreviewMode %}
@@ -389,10 +392,10 @@
                             </button>
                         {% endif %}
                         {% if admin.id(object) is not null %}
-                            <button type="submit"    class="btn btn-primary-v2 btn-outline" name="btn_update_and_edit"><i class="fa fa-save"></i> Guardar</button>
+                            <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_update_and_edit"><i class="fa fa-save"></i> Guardar</button>
 
                             {#{% if admin.hasroute('list') and admin.isGranted('LIST') %}
-                                <button type="submit"    class="btn btn-primary-v2 btn-outline" name="btn_update_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                                <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_update_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
                             {% endif %}#}
 
                             {% if admin.hasroute('delete') and admin.isGranted('DELETE', object) %}
@@ -405,12 +408,12 @@
                             {% endif %}
                         {% else %}
                             {% if admin.hasroute('edit') and admin.isGranted('EDIT') %}
-                                <button class="btn btn-primary-v2 btn-outline" type="submit" name="btn_create_and_edit"><i class="fa fa-save"></i> Guardar</button>
+                                <button class="btn btn-primary-v4 btn-outline" type="submit" name="btn_create_and_edit"><i class="fa fa-save"></i> Guardar</button>
                             {% endif %}
                             {#{% if admin.hasroute('list') and admin.isGranted('LIST') %}
-                                <button type="submit"    class="btn btn-primary-v2 btn-outline" name="btn_create_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                                <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_create_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
                             {% endif %}#}
-                            {#<button class="btn btn-primary-v2 btn-outline" type="submit" name="btn_create_and_create"><i class="fa fa-plus-circle"></i> Guardar</button>#}
+                            {#<button class="btn btn-primary-v4 btn-outline" type="submit" name="btn_create_and_create"><i class="fa fa-plus-circle"></i> Guardar</button>#}
                         {% endif %}
                     {% endif %}
                 </div>

@@ -298,7 +298,7 @@ class ImgSolicitudEstudioAdmin extends Admin
                                                                         'placeholder' => 'N° de sala',
 
                                                                         'data-add-input-addon' => 'true',
-                                                                        'data-add-input-addon-class' => 'info-v2',
+                                                                        'data-add-input-addon-class' => 'primary-v4',
                                                                         'data-add-input-addon-addon' => 'glyphicon glyphicon-question-sign',
 
 									'data-fv-integer' => 'true',
@@ -320,7 +320,7 @@ class ImgSolicitudEstudioAdmin extends Admin
                                                                         'placeholder' => 'N° de cama',
 
                                                                         'data-add-input-addon' => 'true',
-                                                                        'data-add-input-addon-class' => 'info-v2',
+                                                                        'data-add-input-addon-class' => 'primary-v4',
                                                                         'data-add-input-addon-addon' => 'glyphicon glyphicon-question-sign',
 
 									'data-fv-integer' => 'true',
@@ -341,7 +341,7 @@ class ImgSolicitudEstudioAdmin extends Admin
                                                         'attr' => array('placeholder' => 'Peso en kg.',
 
                                                                         'data-add-input-addon' => 'true',
-                                                                        'data-add-input-addon-class' => 'info-v2',
+                                                                        'data-add-input-addon-class' => 'primary-v4',
                                                                         'data-add-input-addon-addon' => 'glyphicon glyphicon-user',
 
 									'data-fv-numeric' => 'true',
@@ -359,7 +359,7 @@ class ImgSolicitudEstudioAdmin extends Admin
                                                         'attr' => array('placeholder' => 'Peso en lb.',
 
                                                                         'data-add-input-addon' => 'true',
-                                                                        'data-add-input-addon-class' => 'info-v2',
+                                                                        'data-add-input-addon-class' => 'primary-v4',
                                                                         'data-add-input-addon-addon' => 'glyphicon glyphicon-user',
 
 									'data-fv-numeric' => 'true',
@@ -377,7 +377,7 @@ class ImgSolicitudEstudioAdmin extends Admin
                                                         'attr' => array('placeholder' => 'Talla en m.',
 
                                                                         'data-add-input-addon' => 'true',
-                                                                        'data-add-input-addon-class' => 'info-v2',
+                                                                        'data-add-input-addon-class' => 'primary-v4',
                                                                         'data-add-input-addon-addon' => 'glyphicon glyphicon-user',
 
 									'data-fv-numeric' => 'true',
@@ -514,7 +514,7 @@ class ImgSolicitudEstudioAdmin extends Admin
                                                                         'placeholder' => 'Estado de salud en que se encuentra el paciente',
 
                                                                         'data-add-input-addon' => 'true',
-                                                                        'data-add-input-addon-class' => 'info-v2',
+                                                                        'data-add-input-addon-class' => 'primary-v4',
                                                                         'data-add-input-addon-addon' => 'glyphicon glyphicon-heart-empty',
 
 									'data-fv-stringlength' => 'true',
@@ -555,7 +555,7 @@ class ImgSolicitudEstudioAdmin extends Admin
                                                                         'placeholder' => 'Contactar a esta persona',
 
                                                                         'data-add-input-addon' => 'true',
-                                                                        'data-add-input-addon-class' => 'info-v2',
+                                                                        'data-add-input-addon-class' => 'primary-v4',
                                                                         'data-add-input-addon-addon' => 'glyphicon glyphicon-user',
 
 									'data-fv-stringlength' => 'true',
@@ -579,7 +579,7 @@ class ImgSolicitudEstudioAdmin extends Admin
                                                                         'placeholder' => 'Contactar paciente usando este dato',
 
                                                                         'data-add-input-addon' => 'true',
-                                                                        'data-add-input-addon-class' => 'info-v2',
+                                                                        'data-add-input-addon-class' => 'primary-v4',
                                                                         'data-add-input-addon-addon' => 'glyphicon glyphicon-phone-alt',
 
 									'data-fv-stringlength' => 'true',

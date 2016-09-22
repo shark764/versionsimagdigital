@@ -78,7 +78,7 @@
 {% endblock %}
     
 {% block sonata_admin_content -%}
-    {#<span class="label label-primary-v2">ERROR EN EL SUBMIT, FURULA PERO DA ESE ERROR</span>#}
+    {#<span class="label label-primary-v4">ERROR EN EL SUBMIT, FURULA PERO DA ESE ERROR</span>#}
     {{ parent() }}
 
     {% if _PTRDIAG_ALLOW_LIST == true %}
@@ -106,7 +106,7 @@
 		  data-classes="table table-hover table-condensed table-no-bordered"
 		  data-height="760">
 		<thead>
-		    <tr style="background-color: #31708f; color: #fff;">
+		    <tr style="background-color: #183f52; color: #fff;">
 			{#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
 			<th data-field="ptrDiag_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
 			<th data-field="ptrDiag_nombre" data-filter-bstable-apply="true" data-filter-bstable-type="text" data-switchable="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Nombre</th>

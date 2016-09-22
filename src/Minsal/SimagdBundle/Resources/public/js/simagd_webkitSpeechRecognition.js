@@ -134,7 +134,7 @@
                                                 interim_span.html(linebreak(interim_transcript));
                                             };
 
-            console.log('%c webkitSpeechRecognition is full configured', 'background: #31708f; color: #fff');
+            console.log('%c webkitSpeechRecognition is full configured', 'background: #183f52; color: #fff');
         }
 
         btn_start_recognition.click(function(e) {

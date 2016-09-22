@@ -10,12 +10,12 @@ function actionLocalFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="show-material-local-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar material detallado"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="show-material-local-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar material detallado"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-info-sign"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="edit-material-local-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" title="Editar registro de material"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="edit-material-local-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" title="Editar registro de material"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-repeat"></i>',
 		'</a>',
 	    '</div>',
@@ -34,7 +34,7 @@ window.actionLocalEvents = {
         jQuery('#btn_editar_mtrLc').show();
         
         jQuery('#formMtrLcTitle').text('Editar Material local');
-        jQuery('#formMtrLcLabel').removeClass('label-primary-v2')
+        jQuery('#formMtrLcLabel').removeClass('label-primary-v4')
 		.addClass('label-element-v2').text('Formulario para edición');
         
         $("input[id='formMtrLcIdMaterialEstablecimiento']").val(row.mtrLc_id);
@@ -190,7 +190,7 @@ jQuery(document).ready(function() {
 
 function habilitadoFormatter(value, row, index) {
     return [
-        '<span class=\'label label-' + (row.mtrLc_habilitado === false ? 'warning' : 'success-v2') + '\'>',
+        '<span class=\'label label-' + (row.mtrLc_habilitado === false ? 'warning' : 'success-v3') + '\'>',
         (row.mtrLc_habilitado === false ? 'no' : 'sí'),
         '</span>'
     ].join('');

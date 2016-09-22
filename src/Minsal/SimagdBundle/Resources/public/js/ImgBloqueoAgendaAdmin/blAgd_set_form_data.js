@@ -13,7 +13,7 @@ function ___setDataEditBloqueoForm(e, value, $object, index)
     jQuery('#btn_editar_blAgd').show();
     
     jQuery('#formBlAgdTitle').text('Editar bloqueo de agenda');
-    jQuery('#formBlAgdLabel').removeClass('label-primary-v2')
+    jQuery('#formBlAgdLabel').removeClass('label-primary-v4')
 	    .addClass('label-element-v2').text('Formulario para edición');
     
     $("input[id='formBlAgdId']").val($object.blAgd_id);

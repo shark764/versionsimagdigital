@@ -1,7 +1,7 @@
 {# empty Twig template #}
     
     <div class="tab-pane fade {% if tab_active != false %}in active{% endif %}" id="lct_estudiosTab" >
-        <div class="box box-{{ box_style|default('primary-v2') }} non-titled-sonata-box">
+        <div class="box box-{{ box_style|default('primary-v4') }} non-titled-sonata-box">
             <div class="box-body">
 		{% if object_studies is not null and object_studies | length > 0 %}
 		    <div class="panel-group" id="studiesRx_studies_containerGroup">
@@ -19,7 +19,7 @@
 				{% set study_modality  	= 'Modalidad no determinada' %}
 			    {% endif %}
 
-			    <div class="panel panel-primary-v2">
+			    <div class="panel panel-primary-v4">
 				<a   class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#studiesRx_study_panelCollapse_id_{{ study.id }}">
 				    <span class="badge">{{ study_proc.idEstadoProcedimientoRealizado }}</span>
 				    {{ study_modality|default('Modalidad no determinada') }}
@@ -117,7 +117,7 @@
                             {% set study_modality  	= 'Modalidad no determinada' %}
                         {% endif %}
 
-                        <div class="panel panel-primary-v2">
+                        <div class="panel panel-primary-v4">
                             <a   class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#studiesRx_single_study_panelCollapse_id_{{ study.id }}">
                                 <span class="badge">{{ study_proc.idEstadoProcedimientoRealizado }}</span>
                                 {{ study_modality|default('Modalidad no determinada') }}

@@ -11,12 +11,12 @@ function actionSolDiagFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="show-solicitud-diagnostico-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar solicitud de diagnóstico detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="show-solicitud-diagnostico-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar solicitud de diagnóstico detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-info-sign"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="edit-solicitud-diagnostico-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" title="Editar registro de solicitud de diagnóstico"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="edit-solicitud-diagnostico-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" title="Editar registro de solicitud de diagnóstico"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-repeat"></i>',
 		'</a>',
 	    '</div>',
@@ -26,7 +26,7 @@ function actionSolDiagFormatter(value, row, index) {
 
 function remotaFormatter(value, row, index) {
     return [
-        '<span class="label label-' + (row.soldiag_solicitudRemota === false ? 'primary-v2' : 'info') + '">',
+        '<span class="label label-' + (row.soldiag_solicitudRemota === false ? 'primary-v4' : 'info') + '">',
         (row.soldiag_solicitudRemota === false ? 'no' : 'sí'),
         '</span>'
     ].join('');
@@ -45,7 +45,7 @@ window.actionSolDiagEvents = {
         jQuery('#btn_editar_soldiag').show();
         
         jQuery('#formSolicitudDiagTitle').text('Editar Solicitud de Diagnóstico');
-        jQuery('#formSolicitudDiagLabel').removeClass('label-primary-v2')
+        jQuery('#formSolicitudDiagLabel').removeClass('label-primary-v4')
 		.addClass('label-element-v2').text('Formulario para edición');
         
         $("input[id='formSolicitudDiagId']").val(row.soldiag_id);

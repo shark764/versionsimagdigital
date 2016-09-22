@@ -10,7 +10,7 @@ function actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="mostrar-lista-pacientes-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Ver información"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="mostrar-lista-pacientes-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Ver información"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-zoom-in"></i>',
 		'</a>',
 	    '</div>',

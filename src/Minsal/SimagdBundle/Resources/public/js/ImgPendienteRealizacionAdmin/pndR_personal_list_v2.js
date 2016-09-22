@@ -9,7 +9,7 @@ function pendienteRealizar_personal_actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="realizar-personal-pendiente-realizar-action btn btn-primary-v2 btn-outline btn-xs" href="' + row.prz_editUrl + '" target="_blank" title="Realizar examen"' + (row.allowRealizar === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="realizar-personal-pendiente-realizar-action btn btn-primary-v4 btn-outline btn-xs" href="' + row.prz_editUrl + '" target="_blank" title="Realizar examen"' + (row.allowRealizar === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-edit"></i>',
 		'</a>',
 	    '</div>',

@@ -33,7 +33,7 @@ jQuery(document).ready(function() {
     $("input[id^='fechaIni'], input[id^='fechaFin']").each(function() {
 
         jQuery(this).wrap("<div class='input-group'></div>");
-        jQuery(this).before(" <span class='input-group-btn'> <button class='reportDatepickerShow demo btn btn-primary-v2 btn-outline btn-large'> <i class='glyphicon glyphicon-calendar'></i> </button> </span>");
+        jQuery(this).before(" <span class='input-group-btn'> <button class='reportDatepickerShow demo btn btn-primary-v4 btn-outline btn-large'> <i class='glyphicon glyphicon-calendar'></i> </button> </span>");
 	
     });
 

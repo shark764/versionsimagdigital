@@ -21,19 +21,19 @@
 <div class="tab-content col-md-9 col-xs-9" style="overflow-y: auto; min-height: 760px;">
     
     {% if object_expediente.getIdPaciente() is not null %}
-        {% include 'MinsalSimagdBundle:show_entity_block:pct_entity_block.html.twig' ignore missing with {'object_patient': object_expediente.getIdPaciente(), 'object_localRecord': localRecord, 'tab_active': true, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:pct_entity_block.html.twig' ignore missing with {'object_patient': object_expediente.getIdPaciente(), 'object_localRecord': localRecord, 'tab_active': true, 'box_style': 'primary-v4'} %}
     {% endif %}
     
     {% if object.getIdEstudioPadre() is not null %}
-        {% include 'MinsalSimagdBundle:show_entity_block:est_entity_block.html.twig' ignore missing with {'object_study': object.getIdEstudioPadre(), 'object_studies': null, 'tab_active': false, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:est_entity_block.html.twig' ignore missing with {'object_study': object.getIdEstudioPadre(), 'object_studies': null, 'tab_active': false, 'box_style': 'primary-v4'} %}
     {% endif %}
     
     {% if object_study_proc.getIdSolicitudEstudio() is not null %}
-        {% include 'MinsalSimagdBundle:show_entity_block:prc_entity_block.html.twig' ignore missing with {'object_request': object_study_proc.getIdSolicitudEstudio(), 'object_requests': null, 'tab_active': false, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:prc_entity_block.html.twig' ignore missing with {'object_request': object_study_proc.getIdSolicitudEstudio(), 'object_requests': null, 'tab_active': false, 'box_style': 'primary-v4'} %}
     {% endif %}
     
     {% if object_study_proc.getIdCitaProgramada() is not null %}
-        {% include 'MinsalSimagdBundle:show_entity_block:cit_entity_block.html.twig' ignore missing with {'object_date': object_study_proc.getIdCitaProgramada(), 'object_dates': null, 'tab_active': false, 'box_style': 'primary-v2'} %}
+        {% include 'MinsalSimagdBundle:show_entity_block:cit_entity_block.html.twig' ignore missing with {'object_date': object_study_proc.getIdCitaProgramada(), 'object_dates': null, 'tab_active': false, 'box_style': 'primary-v4'} %}
     {% endif %}
     
 </div>
