@@ -85,7 +85,7 @@
 
 {% block simagd_form_navbar_brand_title %}
     <span class="navbar-brand">
-        <span class="label label-{{ action is defined and action == 'edit' ? 'primary-v2' : 'element-v2' }}"> {{ _prcMessageTemplate|raw }} </span>
+        <span class="label label-{{ action is defined and action == 'edit' ? 'primary-v4' : 'element-v2' }}"> {{ _prcMessageTemplate|raw }} </span>
     </span>
 {% endblock %}
 
@@ -95,7 +95,7 @@
             <input type="text" class="typeahead explocal_navbar_typeahead form-control" autocomplete="off" placeholder="expediente" id="navbar_filter_expNumero" name="navbar_filter_expNumero" data-xparam-filter="true">
             <i class="glyphicon glyphicon-remove-circle form-control-feedback typeahead-custom-clear" id="clear-typeahead-filter-exp"></i>
         </div>
-        <button type="submit"    id="btn_search_filter_expNumero" name="btn_search_filter_expNumero" class="btn btn-primary-v2 btn-outline {#btn-sm#}">
+        <button type="submit"    id="btn_search_filter_expNumero" name="btn_search_filter_expNumero" class="btn btn-primary-v4 btn-outline {#btn-sm#}">
             <i class="fa fa-search"></i>
         </button>
     </form>
@@ -112,7 +112,7 @@
 {% endblock %}
     
 {% block form %}
-    {#<span class="label label-primary-v2"> SE DEBE ARREGLAR EL TRIGGER CHANGE DE REFERIR_PACIENTE, PARA Q ACEPTE AMBOS CASOS, iCheck </span><br/>
+    {#<span class="label label-primary-v4"> SE DEBE ARREGLAR EL TRIGGER CHANGE DE REFERIR_PACIENTE, PARA Q ACEPTE AMBOS CASOS, iCheck </span><br/>
     <span class="label label-danger"> BUSCAR DONDE ESTA EL EDITACTION MODIFICADO PARA QUE AGARRE EL AAMS </span><br/>
     <span class="label label-danger"> PERSONA DE CITAS X EL MOMENTO DEBE PODER REGISTRAR PRC, AJUSTAR EL SESSION_EMP_ESPECIALIDAD </span><br/>
     <span class="label label-warning"> EL EXPEDIENTE NO SIEMPRE SERA EL DEL MISMO ESTAB, SE DEBE TENER OTRO TIPO DE CONDICION EN JOINS </span><br/>
@@ -130,7 +130,7 @@
     <span class="label label-element-v2">Se necesita un titulo para saber de q es el form</span><br/>
     <span class="label label-element-v2">También solcmpl necesita reformar los select, ademas de material y proyeccion</span><br/>
     <span class="label label-element-v2">< div class="form-group" style="display: none;" > --| en proyeccion form se probo que puede enviarse a form aunq este hide() -- style: display:none</span><br/>
-    <span class="label label-primary-v2">en los navbar expediente, se debe poder agregar botones al template, con un metodo asi como en filterPlugin</span><br/>
+    <span class="label label-primary-v4">en los navbar expediente, se debe poder agregar botones al template, con un metodo asi como en filterPlugin</span><br/>
     <span class="label label-danger">boton de preinscripcion debe tener stopPropagation o algo asi</span><br/>
     <span class="label label-element-v2">boton consulta del modal full debe redirigir hacia la consulta completa</span><br/>
     <span class="label label-danger">boton crear solicitud en typeahead de busqueda de paciente para mas rapidez</span><br/>
@@ -179,9 +179,9 @@
     <div class="well well-small form-actions">
         {% if app.request.isxmlhttprequest %}
             {% if admin.id(object) is not null %}
-                <button type="submit"    class="btn btn-primary-v2 btn-outline" name="btn_update"><i class="fa fa-save"></i> {{ 'btn_update'|trans({}, 'SonataAdminBundle') }}</button>
+                <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_update"><i class="fa fa-save"></i> {{ 'btn_update'|trans({}, 'SonataAdminBundle') }}</button>
             {% else %}
-                <button type="submit"    class="btn btn-primary-v2 btn-outline" name="btn_create"><i class="fa fa-plus-circle"></i> {{ 'btn_create'|trans({}, 'SonataAdminBundle') }}</button>
+                <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_create"><i class="fa fa-plus-circle"></i> {{ 'btn_create'|trans({}, 'SonataAdminBundle') }}</button>
             {% endif %}
         {% else %}
             {% if admin.supportsPreviewMode %}
@@ -191,10 +191,10 @@
                 </button>
             {% endif %}
             {% if admin.id(object) is not null %}
-		<button type="submit"    class="btn btn-primary-v2 btn-outline" name="btn_edit_and_request"><i class="fa fa-save"></i> <i class="fa fa-inbox"></i> Guardar</button>
+		<button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_edit_and_request"><i class="fa fa-save"></i> <i class="fa fa-inbox"></i> Guardar</button>
 
                 {#{% if admin.hasroute('list') and admin.isGranted('LIST') %}
-                    <button type="submit"    class="btn btn-primary-v2 btn-outline" name="btn_update_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                    <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_update_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
                 {% endif %}#}
 
                 {% if admin.hasroute('delete') and admin.isGranted('DELETE', object) %}
@@ -207,12 +207,12 @@
                 {% endif %}
             {% else %}
                 {% if admin.hasroute('edit') and admin.isGranted('EDIT') %}
-		    <button type="submit"    class="btn btn-primary-v2 btn-outline" name="btn_create_and_request"><i class="fa fa-save"></i> <i class="fa fa-inbox"></i> Guardar</button>
+		    <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_create_and_request"><i class="fa fa-save"></i> <i class="fa fa-inbox"></i> Guardar</button>
                 {% endif %}
                 {#{% if admin.hasroute('list') and admin.isGranted('LIST') %}
-                    <button type="submit"    class="btn btn-primary-v2 btn-outline" name="btn_create_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                    <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_create_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
                 {% endif %}#}
-                {#<button class="btn btn-primary-v2 btn-outline" type="submit" name="btn_create_and_create"><i class="fa fa-plus-circle"></i> Guardar</button>#}
+                {#<button class="btn btn-primary-v4 btn-outline" type="submit" name="btn_create_and_create"><i class="fa fa-plus-circle"></i> Guardar</button>#}
             {% endif %}
         {% endif %}
     </div>

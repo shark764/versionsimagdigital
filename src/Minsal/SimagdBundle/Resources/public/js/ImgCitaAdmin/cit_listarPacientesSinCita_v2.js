@@ -8,12 +8,12 @@ function actionSolEstudioFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="show-solicitud-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar solicitud detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="show-solicitud-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar solicitud detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-info-sign"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="edit-solicitud-action btn btn-primary-v2 btn-outline btn-xs " href="' + row.prc_editUrl + '" target="_blank" title="Editar solicitud de estudio"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="edit-solicitud-action btn btn-primary-v4 btn-outline btn-xs " href="' + row.prc_editUrl + '" target="_blank" title="Editar solicitud de estudio"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-repeat"></i>',
 		'</a>',
 	    '</div>',
@@ -23,12 +23,12 @@ function actionSolEstudioFormatter(value, row, index) {
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="radx-ind-solicitud-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" title="Agregar indicaciones del Médico radiólogo"' + (row.allowIndRadx === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="radx-ind-solicitud-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" title="Agregar indicaciones del Médico radiólogo"' + (row.allowIndRadx === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-log-in"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="sol-diag-solicitud-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" title="Solicitar diagnóstico"' + (row.allowSolDiag === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="sol-diag-solicitud-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" title="Solicitar diagnóstico"' + (row.allowSolDiag === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-book"></i>',
 		'</a>',
 	    '</div>',
@@ -104,7 +104,7 @@ window.actionSolEstudioEvents = {
         
         jQuery('#formSolicitudDiagTitle').text('Registrar Solicitud de Diagnóstico');
         jQuery('#formSolicitudDiagLabel').removeClass('label-element-v2')
-		.addClass('label-primary-v2').text('Formulario para edición');
+		.addClass('label-primary-v4').text('Formulario para edición');
         
         $("input[id='formSolicitudDiagIdSolicitudEstudio']").val(row.prc_id);
         $("input[id='formSolicitudDiagIdEstudio']").val(row.est[0].est_id);

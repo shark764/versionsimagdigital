@@ -9,7 +9,7 @@ jQuery(document).ready(function() {
 //    alert('Ejemplo de collapse con carret: \n http://siap.hsanrafael.simagdigital/app_dev.php/admin/rayos-x-solicitud-estudio/consultar?id=293848');
 
     $("input[id='" + $token + "_correlativo']")
-	    .wrap("<div class='input-group info-v2'></div>");
+	    .wrap("<div class='input-group primary-v4'></div>");
     $("input[id='" + $token + "_correlativo']")
 	    .before(" <span class='input-group-addon'><i class='glyphicon glyphicon-bookmark'></i></span>");
 	    

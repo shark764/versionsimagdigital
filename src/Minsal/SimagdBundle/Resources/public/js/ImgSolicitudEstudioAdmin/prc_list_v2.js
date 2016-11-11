@@ -22,12 +22,12 @@ function actionSolEstudioFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="show-solicitud-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar solicitud detallada"' + $BTN_ALLOW_SHOWPRC + '>',
+		'<a   class="show-solicitud-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar solicitud detallada"' + $BTN_ALLOW_SHOWPRC + '>',
 		    '<i class="glyphicon glyphicon-info-sign"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="edit-solicitud-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" target="_blank" title="Editar solicitud de estudio"' + $BTN_ALLOW_EDITPRC + '>',
+		'<a   class="edit-solicitud-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" target="_blank" title="Editar solicitud de estudio"' + $BTN_ALLOW_EDITPRC + '>',
 		    '<i class="glyphicon glyphicon-repeat"></i>',
 		'</a>',
 	    '</div>',
@@ -37,12 +37,12 @@ function actionSolEstudioFormatter(value, row, index) {
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="radx-ind-solicitud-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" title="Agregar indicaciones del Médico radiólogo"' + $BTN_ALLOW_ADDINDRX + '>',
+		'<a   class="radx-ind-solicitud-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" title="Agregar indicaciones del Médico radiólogo"' + $BTN_ALLOW_ADDINDRX + '>',
 		    '<i class="glyphicon glyphicon-log-in"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="sol-diag-solicitud-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" title="Solicitar diagnóstico"' + $BTN_ALLOW_DIAGREQUEST + '>',
+		'<a   class="sol-diag-solicitud-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" title="Solicitar diagnóstico"' + $BTN_ALLOW_DIAGREQUEST + '>',
 		    '<i class="glyphicon glyphicon-book"></i>',
 		'</a>',
 	    '</div>',
@@ -128,7 +128,7 @@ window.actionSolEstudioEvents = {
 
         jQuery('#formSolicitudDiagTitle').text('Registrar Solicitud de Diagnóstico');
         jQuery('#formSolicitudDiagLabel').removeClass('label-element-v2')
-		.addClass('label-primary-v2').text('Formulario para edición');
+		.addClass('label-primary-v4').text('Formulario para edición');
 
         $("input[id='formSolicitudDiagIdSolicitudEstudio']").val(row.prc_id);
         $("input[id='formSolicitudDiagIdEstudio']").val(row.est[0].est_id);
@@ -169,7 +169,7 @@ window.actionSolEstudioEvents = {
         jQuery('#formPrcEmergencyRequestTitle').html('Editar Solicitud de estudio - <span class="badge badge-element-v2" style="">Formato rápido</span>');
 	var $is_unknown_exp = typeof row.explocal_numero !== "undefined" && row.explocal_numero !== null && row.explocal_numero !== "" ? false : true;
 
-        jQuery('#formPrcEmergencyRequestLabel').removeClass('label-primary-v2')
+        jQuery('#formPrcEmergencyRequestLabel').removeClass('label-primary-v4')
 		.addClass('label-element-v2').html(function() {
 		    var $nombre	= $is_unknown_exp === false ? row.prc_paciente : row.unknExp_nombreFicticio;
 		    var $numero	= $is_unknown_exp === false ? row.explocal_numero : row.unknExp_numero;
@@ -180,7 +180,7 @@ window.actionSolEstudioEvents = {
         var $modal      = jQuery('#crearSolicitudEstudioFormatoRapido-modal'),
             $form       = jQuery('#crearSolicitudEstudioFormatoRapido-form');
         
-        $modal.find('.modal-content').removeClass('panel-primary-v2').addClass('panel-element-v2');
+        $modal.find('.modal-content').removeClass('panel-primary-v4').addClass('panel-element-v2');
         
 	$form.find(':input').each(function () {
             if (typeof jQuery(this).attr('name') !== "undefined") {
@@ -462,7 +462,7 @@ jQuery(document).ready(function() {
 
 //                jQuery('#formPrcEmergencyRequestTitle').text('Registrar bloqueo en agenda');
                 jQuery('#formPrcEmergencyRequestLabel').removeClass('label-element-v2')
-                        .addClass('label-primary-v2').html($btn_this.closest('.tt-item-btn-group').data('pct-nombre') + ' <span class="badge badge-primary-v2" style="margin-left: 5px;">' + $btn_this.closest('.tt-item-btn-group').data('exp-numero') + '</span>');
+                        .addClass('label-primary-v4').html($btn_this.closest('.tt-item-btn-group').data('pct-nombre') + ' <span class="badge badge-primary-v4" style="margin-left: 5px;">' + $btn_this.closest('.tt-item-btn-group').data('exp-numero') + '</span>');
 
                 /*
                  * Emergencia
@@ -700,7 +700,7 @@ jQuery(document).ready(function() {
         jQuery('#btn_editar_prcEmergencyRequest').hide();
 
         jQuery('#formPrcEmergencyRequestLabel').removeClass('label-element-v2')
-                .addClass('label-primary-v2').html('Paciente desconocido' + ' <span class="badge badge-primary-v2" style="margin-left: 5px;"> NI-####-## </span>');
+                .addClass('label-primary-v4').html('Paciente desconocido' + ' <span class="badge badge-primary-v4" style="margin-left: 5px;"> NI-####-## </span>');
 
         $("input[id='formPrcEmergencyRequestId']").val('');
 
@@ -803,12 +803,12 @@ function getSearchExpedienteSourceTemplate(item) {
             '</span>',
             '<div class="btn-toolbar" role="toolbar" aria-label="..." style="float: right; margin-top: 1.2px;">',
                 '<div class="btn-group" role="group">',
-                    '<a   class="tt-new-request-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Solicitar estudio (Formato rápido)"' + ($isGranted_studyRequest === false ? ' disabled="disabled"' : '') + '>',
+                    '<a   class="tt-new-request-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Solicitar estudio (Formato rápido)"' + ($isGranted_studyRequest === false ? ' disabled="disabled"' : '') + '>',
                         '<i class="glyphicon glyphicon-send"></i>',
                     '</a>',
                 '</div>',
                 '<div class="btn-group" role="group">',
-                    '<a   class="tt-new-full-request-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Solicitar estudio (Formato detallado)"' + ($isGranted_studyRequest === false ? ' disabled="disabled"' : '') + '>',
+                    '<a   class="tt-new-full-request-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Solicitar estudio (Formato detallado)"' + ($isGranted_studyRequest === false ? ' disabled="disabled"' : '') + '>',
                         '<i class="glyphicon glyphicon-edit"></i>',
                     '</a>',
                 '</div>',
@@ -829,5 +829,5 @@ function getSearchExpedienteSourceTemplate(item) {
 }
 
 function createNewCompleteRequest($el, item) {
-    console.log($el, item, 'background: #f00; color: #bada55', 'background: #31708f; color: #fff');
+    console.log($el, item, 'background: #f00; color: #bada55', 'background: #183f52; color: #fff');
 }

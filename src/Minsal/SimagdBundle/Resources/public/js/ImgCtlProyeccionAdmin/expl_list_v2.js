@@ -18,15 +18,15 @@ function actionFormatter (value, row, index)
 //     return [
 // 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 // 	    '<div class="btn-group" role="group">',
-// 		'<a   class="show-exploracion-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+// 		'<a   class="show-exploracion-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
 // 		    '<i class="glyphicon glyphicon-info-sign"></i> &nbsp;Ver',
 // 		'</a>',
-// 		'<a   class="edit-exploracion-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Editar registro de proyección"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+// 		'<a   class="edit-exploracion-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Editar registro de proyección"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
 // 		    '<i class="glyphicon glyphicon-repeat"></i> &nbsp;Editar',
 // 		'</a>',
 // 	    '</div>',
 // 	    '<div class="btn-group" role="group">',
-// 		'<a   class="catalogo-exploracion-action btn btn-success-v2 btn-outline btn-xs" href="javascript:void(0)" title="Agregar proyección en Catálogo local"' + (row.allowAgregarLc === false ? ' disabled="disabled"' : '') + '>',
+// 		'<a   class="catalogo-exploracion-action btn btn-success-v3 btn-outline btn-xs" href="javascript:void(0)" title="Agregar proyección en Catálogo local"' + (row.allowAgregarLc === false ? ' disabled="disabled"' : '') + '>',
 // 		    '<i class="glyphicon glyphicon-list-alt"></i> &nbsp;Catálogo',
 // 		'</a>',
 // 	    '</div>',
@@ -47,7 +47,7 @@ function actionFormatter (value, row, index)
     if (row.allowShow !== false)
     {
 	$arr_result.push(
-	    '<a   class="show-exploracion-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada">',
+	    '<a   class="show-exploracion-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada">',
 		'<i class="glyphicon glyphicon-info-sign"></i> &nbsp;Ver',
 	    '</a>'
 	);
@@ -56,7 +56,7 @@ function actionFormatter (value, row, index)
     if (row.allowEdit !== false)
     {
 	$arr_result.push(
-	    '<a   class="edit-exploracion-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Editar registro de proyección">',
+	    '<a   class="edit-exploracion-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Editar registro de proyección">',
 		'<i class="glyphicon glyphicon-repeat"></i> &nbsp;Editar',
 	    '</a>'
 	);
@@ -73,7 +73,7 @@ function actionFormatter (value, row, index)
     {
 	$arr_result.push(
 	    '<div class="btn-group" role="group">',
-		'<a   class="catalogo-exploracion-action btn btn-success-v2 btn-outline btn-xs" href="javascript:void(0)" title="Agregar proyección en Catálogo local">',
+		'<a   class="catalogo-exploracion-action btn btn-success-v3 btn-outline btn-xs" href="javascript:void(0)" title="Agregar proyección en Catálogo local">',
 		    '<i class="glyphicon glyphicon-list-alt"></i> &nbsp;Catálogo',
 		'</a>',
 	    '</div>'
@@ -123,7 +123,7 @@ window.actionEvents = {
         jQuery('#btn_editar_expl').show();
         
         jQuery('#formExplTitle').text('Editar Proyección');
-        jQuery('#formExplLabel').removeClass('label-primary-v2')
+        jQuery('#formExplLabel').removeClass('label-primary-v4')
 		.addClass('label-element-v2').text('Formulario para edición');
         
         $("input[id='formExplId']").val(row.expl_id);

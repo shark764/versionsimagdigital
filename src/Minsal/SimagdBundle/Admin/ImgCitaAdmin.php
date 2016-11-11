@@ -209,14 +209,14 @@ class ImgCitaAdmin extends Admin
                 $cita->setColor('#e0533d');
             }
             elseif ($areaAtn_id == 3 ) {
-                $cita->setColor('#4d8e9d');
+                $cita->setColor('#16677d');
             }
             else {
-                $cita->setColor('#31708f');
+                $cita->setColor('#183f52');
             }
         }
         if (!$cita->getColor()) {
-	    $cita->setColor('#31708f');
+	    $cita->setColor('#183f52');
         }
     }
     
@@ -251,14 +251,14 @@ class ImgCitaAdmin extends Admin
                 $cita->setColor('#e0533d');
             }
             elseif ($areaAtn_id == 3 ) {
-                $cita->setColor('#4d8e9d');
+                $cita->setColor('#16677d');
             }
             else {
-                $cita->setColor('#31708f');
+                $cita->setColor('#183f52');
             }
         }
         if (!$cita->getColor()) {
-	    $cita->setColor('#31708f');
+	    $cita->setColor('#183f52');
         }
     }
 

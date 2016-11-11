@@ -147,10 +147,10 @@
 	    <i class="glyphicon glyphicon-remove-circle form-control-feedback typeahead-custom-clear" id="clear-typeahead-filter-exp"></i>
 	</div>
         <div class="btn-group">
-            <button type="submit"    id="btn_search_filter_expNumero" name="btn_search_filter_expNumero" class="btn btn-primary-v2 btn-outline {#btn-sm#}">
+            <button type="submit"    id="btn_search_filter_expNumero" name="btn_search_filter_expNumero" class="btn btn-primary-v4 btn-outline {#btn-sm#}">
                 <i class="fa fa-search"></i>
             </button>
-            <button type="button"    id="btn_add_action_prc" class="btn btn-primary-v2 btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Aplicar a expediente">
+            <button type="button"    id="btn_add_action_prc" class="btn btn-primary-v4 btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Aplicar a expediente">
                 <b class="caret"></b>
             </button>
             <!-- Menu -->
@@ -184,7 +184,7 @@
             {#<div class="columns columns-left btn-group pull-left">#}
                 <!-- Single button -->
                 <div class="btn-group">
-                    <button type="button"    id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v2 btn-outline dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
+                    <button type="button"    id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v4 btn-outline dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
                         <i class="glyphicon glyphicon-filter"></i>
                         Filtrar <span class="caret"></span>
                     </button>
@@ -192,7 +192,7 @@
                     <ul class="dropdown-menu table_bsTable_toolbar_menuFilter" id="bs_{{ code_entity }}_menuFilter" >
                     </ul>
                 </div>
-                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v2 btn-outline btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
+                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v4 btn-outline btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
                     <i class="glyphicon glyphicon-repeat"></i>
                 </button>
                 <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-default btn-outline btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
@@ -262,7 +262,7 @@
 
                             <div class="form-group" style="{#margin-top: 15px; visibility: hidden;#}">
                                 <div class="col-xs-8 col-xs-offset-4">
-                                    <button type="submit"    class="btn btn-primary-v2 btn-outline {#btn-xs#}"><i class="glyphicon glyphicon-ok"></i> Enviar</button>
+                                    <button type="submit"    class="btn btn-primary-v4 btn-outline {#btn-xs#}"><i class="glyphicon glyphicon-ok"></i> Enviar</button>
                                     <button type="button"    class="btn btn-default btn-outline {#btn-xs#}"><i class="glyphicon glyphicon-remove"></i> Limpiar</button>
                                 </div>
                             </div>
@@ -298,7 +298,7 @@
                             data-classes="table table-hover table-condensed table-no-bordered"
                             data-height="760">
                         <thead>
-                            <tr style="background-color: #31708f !important; color: #fff !important;">
+                            <tr style="background-color: #183f52 !important; color: #fff !important;">
                                 {#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
                                 <th data-field="prc_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
                                 <th data-field="prc_paciente" data-filter-bstable-apply="false" data-filter-bstable-by="pct_id" data-filter-bstable-type="select2" data-filter-bstable-remote-data-source="true" data-formatter="simagdPacienteFormatter" data-switchable="false" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Paciente</th>
@@ -350,7 +350,7 @@
 		  data-classes="table table-hover table-condensed table-no-bordered"
 		  data-height="760">
 		<thead>
-		    <tr style="background-color: #31708f !important; color: #fff !important;">
+		    <tr style="background-color: #183f52 !important; color: #fff !important;">
 			{#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
 			<th data-field="soldiag_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
 			<th data-field="prc_origen" data-filter-bstable-apply="true" data-filter-bstable-by="stdroot_id" data-filter-bstable-type="select2" data-formatter="simagdOrigenFormatter"  data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>
@@ -399,7 +399,7 @@
 		  data-classes="table table-hover table-condensed table-no-bordered"
 		  data-height="760">
 		<thead>
-		    <tr style="background-color: #31708f !important; color: #fff !important;">
+		    <tr style="background-color: #183f52 !important; color: #fff !important;">
 			{#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
 			<th data-field="solcmpl_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
 			<th data-field="prc_origen" data-filter-bstable-apply="true" data-filter-bstable-by="stdroot_id" data-filter-bstable-type="select2" data-formatter="simagdOrigenFormatter"  data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Referido desde</th>

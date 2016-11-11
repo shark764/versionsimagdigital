@@ -125,7 +125,7 @@ function ___actionSolicitudEstudioComplementarioSetterObjectModalData(solcmplId,
                 var estudioUrl = jQuery.trim($solcmplObject.est_url) || 'javascript:void(0)';/* Validar que exista idEstudio isEmptyObject */
                 var allowDownload = allow_userOverData.allowDownloadEstudio === false ? ' disabled="disabled"' : '';
                 console.log($solcmplObject.est_id, estudioUrl, allowDownload);
-                return '<a   title="Recuperar estudio de servidor PACS" target="_blank" class="btn btn-primary-v2 btn-outline btn-sm" href="'
+                return '<a   title="Recuperar estudio de servidor PACS" target="_blank" class="btn btn-primary-v4 btn-outline btn-sm" href="'
                             + estudioUrl + '"' + allowDownload + '> <i class="fa fa-eye"></i> Recuperar</a>';
             });
 }
@@ -284,21 +284,21 @@ function ___actionCitaSetterObjectModalData(citId, $citObject, allow_userOverDat
            );
     $citContent.find("[data-render-info='necesitaAutorizacion']")
 	    .html(function() {
-                var labelColor = $citObject.cit_necesitaAutorizacion === false ? 'primary-v2' : 'warning';
+                var labelColor = $citObject.cit_necesitaAutorizacion === false ? 'primary-v4' : 'warning';
                 var labelText = $citObject.cit_necesitaAutorizacion === false ? 'no' : 'sí';
                 console.log($citObject.cit_necesitaAutorizacion, labelColor, labelText);
                 return '<span class="label label-' + labelColor + '">' + labelText + '</span>';
             });
     $citContent.find("[data-render-info='reprogramada']")
 	    .html(function() {
-                var labelColor = $citObject.cit_reprogramada === false ? 'primary-v2' : 'warning';
+                var labelColor = $citObject.cit_reprogramada === false ? 'primary-v4' : 'warning';
                 var labelText = $citObject.cit_reprogramada === false ? 'no' : 'sí';
                 console.log($citObject.cit_reprogramada, labelColor, labelText);
                 return '<span class="label label-' + labelColor + '">' + labelText + '</span>';
             });
     $citContent.find("[data-render-info='citaAutorizada']")
 	    .html(function() {
-                var labelColor = $citObject.cit_citaAutorizada === false ? 'warning' : 'success-v2';
+                var labelColor = $citObject.cit_citaAutorizada === false ? 'warning' : 'success-v3';
                 var labelText = $citObject.cit_citaAutorizada === false ? 'no' : 'sí';
                 console.log($citObject.cit_citaAutorizada, labelColor, labelText);
                 return '<span class="label label-' + labelColor + '">' + labelText + '</span>';
@@ -329,7 +329,7 @@ function ___actionCitaSetterObjectModalData(citId, $citObject, allow_userOverDat
            );
     $citContent.find("[data-render-info='diaCompleto']")
 	    .html(function() {
-                var labelColor = $citObject.cit_diaCompleto === false ? 'success-v2' : 'warning';
+                var labelColor = $citObject.cit_diaCompleto === false ? 'success-v3' : 'warning';
                 var labelText = $citObject.cit_diaCompleto === false ? 'no' : 'sí';
                 console.log($citObject.cit_diaCompleto, labelColor, labelText);
                 return '<span class="label label-' + labelColor + '">' + labelText + '</span>';
@@ -439,7 +439,7 @@ function ___actionSolicitudDiagnosticoSetterObjectModalData(soldiagId, $soldiagO
                 var estudioUrl = jQuery.trim($soldiagObject.est_url) || 'javascript:void(0)';/* Validar que exista idEstudio isEmptyObject */
                 var allowDownload = allow_userOverData.allowDownloadEstudio === false ? ' disabled="disabled"' : '';
                 console.log($soldiagObject.est_id, estudioUrl, allowDownload);
-                return '<a   title="Recuperar estudio de servidor PACS" target="_blank" class="btn btn-primary-v2 btn-outline btn-sm" href="'
+                return '<a   title="Recuperar estudio de servidor PACS" target="_blank" class="btn btn-primary-v4 btn-outline btn-sm" href="'
                             + estudioUrl + '"' + allowDownload + '> <i class="fa fa-eye"></i> Recuperar</a>';
             });
 }
@@ -505,7 +505,7 @@ function ___actionBloqueoAgendaSetterObjectModalData(blAgdId, $blAgdObject, allo
 	    .html(simagdTimeFormatter($blAgdObject.blAgd_horaFin, $blAgdObject, $blAgdObject.blAgd_id));
     $blAgdContent.find("[data-render-info='diaCompleto']")
 	    .html(function() {
-                var labelColor = $blAgdObject.blAgd_diaCompleto === false ? 'success-v2' : 'warning';
+                var labelColor = $blAgdObject.blAgd_diaCompleto === false ? 'success-v3' : 'warning';
                 var labelText = $blAgdObject.blAgd_diaCompleto === false ? 'no' : 'sí';
                 console.log($blAgdObject.blAgd_diaCompleto, labelColor, labelText);
                 return '<span class="label label-' + labelColor + '">' + labelText + '</span>';

@@ -8,12 +8,12 @@ function procedimientoRealizado_actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="show-procedimiento-realizado-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar examen detallado"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="show-procedimiento-realizado-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar examen detallado"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-info-sign"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="edit-procedimiento-realizado-action btn btn-primary-v2 btn-outline btn-xs " href="' + row.prz_editUrl + '" target="_blank" title="Editar registro de examen"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="edit-procedimiento-realizado-action btn btn-primary-v4 btn-outline btn-xs " href="' + row.prz_editUrl + '" target="_blank" title="Editar registro de examen"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-repeat"></i>',
 		'</a>',
 	    '</div>',
@@ -71,7 +71,7 @@ jQuery(document).ready(function() {
 
 function tecnologoAsignadoFormatter(value, row, index) {
     return jQuery.isEmptyObject(row.cit_id_tecnologo) !== false ? jQuery.trim(value) : [
-        '<span class="text-primary-v2">',
+        '<span class="text-primary-v4">',
 	    jQuery.trim(value),
         '</span>'
     ].join('');

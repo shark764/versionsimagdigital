@@ -1,7 +1,7 @@
 {# empty Twig template #}
     
     <div class="tab-pane fade {% if tab_active != false %}in active{% endif %}" id="lct_solcmplTab" >
-        <div class="box box-{{ box_style|default('primary-v2') }} non-titled-sonata-box">
+        <div class="box box-{{ box_style|default('primary-v4') }} non-titled-sonata-box">
             <div class="box-body">
 		<table class="table table-condensed table-responsive table-borderless non-top-bordered-table full-collapse-bordered-table">
                     <tr>
@@ -60,7 +60,7 @@
 					{% set solcmpl_exm_proyeccionCount = solcmpl_exm_proyeccionCount + 1 %}
 				    {% endfor %}
 				    
-				    <div class="panel panel-primary-v2">
+				    <div class="panel panel-primary-v4">
 					<a   class="list-group-item btn-link btn-link-v2" data-toggle="collapse" href="#solcmpl_proyecciones_panelCollapse_id_{{ key }}">
 					    <span class="badge">{{ solcmpl_exm_proyeccionCount }}</span>
 					    {{ value }}

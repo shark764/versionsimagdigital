@@ -30,10 +30,10 @@
 		    -- base_edit_form.html.twig y form_admin_fields.html.twig de vendors/sonata-project/resources
 		    
 		---- Focus, active, etc de inputs, textarea, etc
-		    -- Ejemplo: add primary-v2 en select2 css
+		    -- Ejemplo: add primary-v4 en select2 css
 		    
 		---- colors error, success, validating en formValidation
-		    -- Ejemplo: success en validated por success-v2
+		    -- Ejemplo: success en validated por success-v3
 		    
 		-- add form incrustado está recargando la página
 		    -- Puede ser el form.defaultSubmmit del formValidation a causa de summernote
@@ -81,7 +81,7 @@
 
 		***************************************************************
 		quitar de los panel q no sean los de citas
-		.panel-primary-v2 {
+		.panel-primary-v4 {
 			  /* border-color: #e5e5e5 !important; */
 		}
 		***************************************************************

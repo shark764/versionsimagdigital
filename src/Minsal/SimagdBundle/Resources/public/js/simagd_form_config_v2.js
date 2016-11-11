@@ -88,7 +88,7 @@ jQuery(document).ready(function() {
     $(".simagd-show-view-row").find('td').addClass("col-md-9");
     
     /** div remove success style, add primary */
-    $("div.box.box-success").removeClass('box-success').addClass("box-primary-v2");
+    $("div.box.box-success").removeClass('box-success').addClass("box-primary-v4");
 
     /** modal body height */
     $(document).on('show', ".simagd-full-form-container", function() {
@@ -159,7 +159,7 @@ jQuery(document).ready(function() {
      */
     jQuery('#simagd_entity_full_admin_form').find(':input[data-add-input-addon="true"]').each(function () {
         var $this           = jQuery(this);
-        var $addonClass     = 'info-v2';
+        var $addonClass     = 'primary-v4';
         var $dataAttr_Class = $this.data('add-input-addon-class');
         if (typeof $dataAttr_Class !== "undefined" && $dataAttr_Class !== null && $dataAttr_Class !== "")
         {

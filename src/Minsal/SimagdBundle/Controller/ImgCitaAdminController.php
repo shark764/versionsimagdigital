@@ -43,7 +43,7 @@ class ImgCitaAdminController extends Controller
         foreach ($resultados as $key => $resultado) {
 //            $resultado = new \Minsal\SimagdBundle\Entity\ImgCita();
             
-            $resultados[$key]['tooltip_title']  = ($resultado['explocal_numero'] ? '<span class="label label-primary-v2" style="margin-left: 5px; padding: .4em .6em;"><span class="badge badge-primary-v2">' . $resultado['explocal_numero'] . '</span></span> &nbsp;' : '') . $resultado['title'];
+            $resultados[$key]['tooltip_title']  = ($resultado['explocal_numero'] ? '<span class="label label-primary-v4" style="margin-left: 5px; padding: .4em .6em;"><span class="badge badge-primary-v4">' . $resultado['explocal_numero'] . '</span></span> &nbsp;' : '') . $resultado['title'];
 
             $resultados[$key]['start']  = $resultado['cit_fechaHoraInicio']->format('Y-m-d\TH:i:s');
             $resultados[$key]['end']    = $resultado['cit_fechaHoraFin']->format('Y-m-d\TH:i:s');
@@ -71,7 +71,7 @@ class ImgCitaAdminController extends Controller
         $falseEvent['end']                      = (new \DateTime('now'))->format('Y-m-d\TH:i:s');
         $falseEvent['url']                      = $this->admin->generateUrl('show', array('id' => 0));
         $falseEvent['allDay']                   = false;
-        $falseEvent['color']                    = '#31708f';
+        $falseEvent['color']                    = '#183f52';
         $falseEvent['idTecnologoProgramado']    = NULL;
         $falseEvent['idEstadoCita']             = 1;
         $falseEvent['razonAnulada']             = NULL;
@@ -625,13 +625,13 @@ class ImgCitaAdminController extends Controller
         foreach ($resultados as $key => $resultado) {
 //            $resultado = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudio();
             
-            $resultados[$key]['tooltip_title']  = ($resultado['explocal_numero'] ? '<span class="label label-primary-v2" style="margin-left: 5px; padding: .4em .6em .3em;"><span class="badge badge-primary-v2">' . $resultado['explocal_numero'] . '</span></span> &nbsp;' : '') . $resultado['prc_paciente'];
+            $resultados[$key]['tooltip_title']  = ($resultado['explocal_numero'] ? '<span class="label label-primary-v4" style="margin-left: 5px; padding: .4em .6em .3em;"><span class="badge badge-primary-v4">' . $resultado['explocal_numero'] . '</span></span> &nbsp;' : '') . $resultado['prc_paciente'];
 
             $resultados[$key]['prc_editUrl']                        = $this->generateUrl('simagd_solicitud_estudio_edit', array('id' => $resultado['prc_id']));
             $resultados[$key]['prc_fechaCreacion']    = $resultado['prc_fechaCreacion']->format('Y-m-d H:i:s A');
             $resultados[$key]['prc_fechaProximaConsulta']           = $resultado['prc_fechaProximaConsulta']->format('Y-m-d');
 
-            $resultados[$key]['color']                              = $resultado['prc_id_areaAtencion'] == 2 ? '#e0533d' : ($resultado['prc_id_areaAtencion'] == 3 ? '#4d8e9d' : '#31708f');
+            $resultados[$key]['color']                              = $resultado['prc_id_areaAtencion'] == 2 ? '#e0533d' : ($resultado['prc_id_areaAtencion'] == 3 ? '#16677d' : '#183f52');
             
             $resultados[$key]['prc_solicitudEstudioProyeccion']      = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($resultado['prc_id']);
         }

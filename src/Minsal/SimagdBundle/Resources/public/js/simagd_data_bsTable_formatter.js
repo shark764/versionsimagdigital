@@ -95,7 +95,7 @@ function simagdPacienteFormatter(value, row, index) {
 function simagdAreaAtencionFormatter(value, row, index) {
     var $style = row.prc_id_areaAtencion === 2 || row.prc_id_areaAtencion === '2' ?
                         'danger' : ( row.prc_id_areaAtencion === 3 || row.prc_id_areaAtencion === '3' ?
-                                        'success-v2' : 'primary-v2' );
+                                        'success-v3' : 'primary-v4' );
     
     var $return     = [
         '<span class=\'label label-' + $style + '\'>',
@@ -159,11 +159,11 @@ function simagdEstadoDiagnosticoFormatter(value, row, index) {
     
     if (jQuery.trim(row.diag_codEstado) === 'APR') {
         $return     = [
-            '<span class="text-primary-v2">',
-                $return,
-                '  ',
+            '<span class="text-primary-v4">',
                 '<i class="glyphicon glyphicon-ok-sign">',
                 '</i>',
+                '  ',
+                $return,
             '</span>'
         ].join('');
     } else if (jQuery.trim(row.diag_codEstado) === 'IMP') {
@@ -177,7 +177,7 @@ function simagdEstadoDiagnosticoFormatter(value, row, index) {
         ].join('');
     } else if (jQuery.trim(row.diag_codEstado) === 'CRG') {
         $return     = [
-            '<span class="text-success-v2">',
+            '<span class="text-success-v3">',
                 $return,
                 '  ',
                 '<i class="glyphicon glyphicon-exclamation-sign">',
@@ -194,11 +194,11 @@ function simagdEstadoLecturaFormatter(value, row, index) {
     
     if (jQuery.trim(row.lct_codEstado) === 'LDO') {
         $return     = [
-            '<span class="text-primary-v2">',
-                $return,
-                '  ',
+            '<span class="text-primary-v4">',
                 '<i class="glyphicon glyphicon-ok-sign">',
                 '</i>',
+                '  ',
+                $return,
             '</span>'
         ].join('');
     }
@@ -210,7 +210,7 @@ function simagdTipoEstudioFormatter(value, row, index) {
     var ___isCmpl = !jQuery.isEmptyObject(row.solcmpl_id);
     
     return [
-        '<span class="label label-' + (___isCmpl === false ? 'primary-v2' : 'success-v2') + '">',
+        '<span class="label label-' + (___isCmpl === false ? 'primary-v4' : 'success-v3') + '">',
         (___isCmpl === false ? 'Solicitado' : 'Adicional'),
         '</span>'
     ].join('');
@@ -222,11 +222,11 @@ function simagdEstadoEstudioFormatter(value, row, index) {
     
     if (jQuery.trim(row.prz_codEstado) === 'ALM') {
         $return     = [
-            '<span class="text-' + (___isCmpl === false ? 'primary-v2' : 'success-v2') + '">',
-                $return,
-                '  ',
+            '<span class="text-' + (___isCmpl === false ? 'primary-v4' : 'success-v3') + '">',
                 '<i class="glyphicon glyphicon-ok-sign">',
                 '</i>',
+                '  ',
+                $return,
             '</span>'
         ].join('');
     }
@@ -289,11 +289,11 @@ function simagdEstadoCitaFormatter(value, row, index) {
     
     if (jQuery.trim(row.cit_codEstado) === 'CNF') {
         $return     = [
-            '<span class="text-primary-v2">',
-                $return,
-                '  ',
+            '<span class="text-primary-v4">',
                 '<i class="glyphicon glyphicon-ok-sign">',
                 '</i>',
+                '  ',
+                $return,
             '</span>'
         ].join('');
     } else if (jQuery.trim(row.cit_codEstado) === 'ANL') {
@@ -329,7 +329,7 @@ function simagdEstadoCitaFormatter(value, row, index) {
 }
 
 function simagdPrioridadAtencionFormatter(value, row, index) {
-    var $pr_defaultClass    = jQuery.isEmptyObject(row.prAtn_estiloPresentacion) === false ? row.prAtn_estiloPresentacion : 'primary-v2';
+    var $pr_defaultClass    = jQuery.isEmptyObject(row.prAtn_estiloPresentacion) === false ? row.prAtn_estiloPresentacion : 'primary-v4';
     
     return [
         '<span class=\'label label-' + $pr_defaultClass + '\'>',
@@ -339,13 +339,13 @@ function simagdPrioridadAtencionFormatter(value, row, index) {
 }
 
 function simagdTipoNotaFormatter(value, row, index) {
-    var $tipoN_class = 'primary-v2';
+    var $tipoN_class = 'primary-v4';
     
     switch (row.notdiag_codTipo) {
         case 'ACR':
         case 'FVR':
         default:
-            $tipoN_class = 'primary-v2';
+            $tipoN_class = 'primary-v4';
             break;
         case 'ICM':
         case 'AGR':
@@ -369,18 +369,18 @@ function simagdTipoNotaFormatter(value, row, index) {
 }
 
 function estadoSolicitudFormatter(value, row, index) {
-    var $statusSc_class = 'primary-v2';
+    var $statusSc_class = 'primary-v4';
     
     switch (row.statusSc_codigo) {
         case 'SCR':
         case 'CIT':
         case 'CCN':
         default:
-            $statusSc_class = 'primary-v2';
+            $statusSc_class = 'primary-v4';
             break;
         case 'PRZ':
         case 'EAP':
-            $statusSc_class = 'success-v2';
+            $statusSc_class = 'success-v3';
             break;
         case 'EIR':
         case 'LTR':
@@ -413,7 +413,7 @@ function estadoSolicitudFormatter(value, row, index) {
 
 function simagdPacienteDesconocidoFormatter(value, row, index) {
     var $text   = row.prc_pacienteDesconocido === false ? 'no' : 'sí';
-    var $style  = row.prc_pacienteDesconocido === false ? 'primary-v2' : 'warning';
+    var $style  = row.prc_pacienteDesconocido === false ? 'primary-v4' : 'warning';
     
     var $return = [
         '<span class=\'label label-' + $style + '\'>',
@@ -426,7 +426,7 @@ function simagdPacienteDesconocidoFormatter(value, row, index) {
 
 function simagdPacienteReferidoFormatter(value, row, index) {
     var $text   = row.prc_referirPaciente === false ? 'no' : 'sí';
-    var $style  = row.prc_referirPaciente === false ? 'primary-v2' : 'info';
+    var $style  = row.prc_referirPaciente === false ? 'primary-v4' : 'info';
     
     var $return = [
         '<span class=\'label label-' + $style + '\'>',
@@ -439,7 +439,7 @@ function simagdPacienteReferidoFormatter(value, row, index) {
 
 function simagdRequiereDiagnosticoFormatter(value, row, index) {
     var $text   = row.prc_requiereDiagnostico === false ? 'no' : 'sí';
-    var $style  = row.prc_requiereDiagnostico === false ? 'warning' : 'success-v2';
+    var $style  = row.prc_requiereDiagnostico === false ? 'warning' : 'success-v3';
     
     var $return = [
         '<span class=\'label label-' + $style + '\'>',
@@ -452,7 +452,7 @@ function simagdRequiereDiagnosticoFormatter(value, row, index) {
 
 function simagdPacienteAmbulatorioFormatter(value, row, index) {
     var $text   = row.prc_pacienteAmbulatorio === false ? 'no' : 'sí';
-    var $style  = row.prc_pacienteAmbulatorio === false ? 'primary-v2' : 'info';
+    var $style  = row.prc_pacienteAmbulatorio === false ? 'primary-v4' : 'info';
     
     var $return = [
         '<span class=\'label label-' + $style + '\'>',
@@ -465,7 +465,7 @@ function simagdPacienteAmbulatorioFormatter(value, row, index) {
 
 function simagdRequiereCitaFormatter(value, row, index) {
     var $text   = row.prc_requiereCita === false ? 'no' : 'sí';
-    var $style  = row.prc_requiereCita === false ? 'success-v2' : 'primary-v2';
+    var $style  = row.prc_requiereCita === false ? 'success-v3' : 'primary-v4';
     
     var $return = [
         '<span class=\'label label-' + $style + '\'>',

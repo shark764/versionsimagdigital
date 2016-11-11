@@ -9,7 +9,7 @@ function pendienteLectura_actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="leer-pendiente-lectura-action btn btn-primary-v2 btn-outline btn-xs" href="' + row.lct_createUrl + '" target="_blank" title="Interpretar estudio"' + (row.allowInterpretar === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="leer-pendiente-lectura-action btn btn-primary-v4 btn-outline btn-xs" href="' + row.lct_createUrl + '" target="_blank" title="Interpretar estudio"' + (row.allowInterpretar === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-eye-open"></i> Leer',
 		'</a>',
 	    '</div>',
@@ -215,7 +215,7 @@ jQuery(document).ready(function() {
 
 function postEstudioFormatter(value, row, index) {
     return [
-        '<span class="label label-' + (row.pndL_solicitudPostEstudio === false ? 'primary-v2' : 'info') + '">',
+        '<span class="label label-' + (row.pndL_solicitudPostEstudio === false ? 'primary-v4' : 'info') + '">',
         (row.pndL_solicitudPostEstudio === false ? 'no' : 'sí'),
         '</span>'
     ].join('');
@@ -223,7 +223,7 @@ function postEstudioFormatter(value, row, index) {
 
 function anexadoPorRadXFormatter(value, row, index) {
     return [
-        '<span class="label label-' + (row.pndL_anexadoPorRadiologo === false ? 'primary' : 'primary-v2') + '">',
+        '<span class="label label-' + (row.pndL_anexadoPorRadiologo === false ? 'primary' : 'primary-v4') + '">',
         (row.pndL_anexadoPorRadiologo === false ? 'no' : 'sí'),
         '</span>'
     ].join('');

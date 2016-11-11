@@ -11,7 +11,7 @@ function pendienteRealizar_actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="realizar-pendiente-realizar-action btn btn-primary-v2 btn-outline btn-xs" href="' + row.prz_createUrl + '" target="_blank" title="Realizar examen"' + (row.allowRealizar === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="realizar-pendiente-realizar-action btn btn-primary-v4 btn-outline btn-xs" href="' + row.prz_createUrl + '" target="_blank" title="Realizar examen"' + (row.allowRealizar === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-edit"></i>',
 		'</a>',
 	    '</div>',
@@ -170,7 +170,7 @@ jQuery(document).ready(function() {
 
 //                jQuery('#formPrcEmergencyRequestTitle').text('Registrar bloqueo en agenda');
                 jQuery('#formPrcEmergencyRequestLabel').removeClass('label-element-v2')
-                        .addClass('label-primary-v2').html($btn_this.closest('.tt-item-btn-group').data('pct-nombre') + ' <span class="badge badge-primary-v2" style="margin-left: 5px;">' + $btn_this.closest('.tt-item-btn-group').data('exp-numero') + '</span>');
+                        .addClass('label-primary-v4').html($btn_this.closest('.tt-item-btn-group').data('pct-nombre') + ' <span class="badge badge-primary-v4" style="margin-left: 5px;">' + $btn_this.closest('.tt-item-btn-group').data('exp-numero') + '</span>');
 
                 /*
                  * Emergencia
@@ -389,7 +389,7 @@ jQuery(document).ready(function() {
         jQuery('#btn_editar_prcEmergencyRequest').hide();
 
         jQuery('#formPrcEmergencyRequestLabel').removeClass('label-element-v2')
-                .addClass('label-primary-v2').html('Paciente desconocido' + ' <span class="badge badge-primary-v2" style="margin-left: 5px;"> NI-####-## </span>');
+                .addClass('label-primary-v4').html('Paciente desconocido' + ' <span class="badge badge-primary-v4" style="margin-left: 5px;"> NI-####-## </span>');
 
         $("input[id='formPrcEmergencyRequestId']").val('');
 
@@ -447,7 +447,7 @@ jQuery(document).ready(function() {
 
 function tecnologoAsignadoFormatter(value, row, index) {
     return jQuery.isEmptyObject(row.cit_id_tecnologo) !== false ? jQuery.trim(value) : [
-        '<span class="text-primary-v2">',
+        '<span class="text-primary-v4">',
 	    jQuery.trim(value),
         '</span>'
     ].join('');
@@ -463,12 +463,12 @@ function getSearchExpedienteSourceTemplate(item) {
             '</span>',
             '<div class="btn-toolbar" role="toolbar" aria-label="..." style="float: right; margin-top: 1.2px;">',
                 '<div class="btn-group" role="group">',
-                    '<a   class="tt-new-request-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Solicitar estudio (Formato rápido)"' + ($isGranted_studyRequest === false ? ' disabled="disabled"' : '') + '>',
+                    '<a   class="tt-new-request-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Solicitar estudio (Formato rápido)"' + ($isGranted_studyRequest === false ? ' disabled="disabled"' : '') + '>',
                         '<i class="glyphicon glyphicon-send"></i>',
                     '</a>',
                 '</div>',
                 '<div class="btn-group" role="group">',
-                    '<a   class="tt-new-full-request-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Solicitar estudio (Formato detallado)"' + ($isGranted_studyRequest === false ? ' disabled="disabled"' : '') + '>',
+                    '<a   class="tt-new-full-request-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Solicitar estudio (Formato detallado)"' + ($isGranted_studyRequest === false ? ' disabled="disabled"' : '') + '>',
                         '<i class="glyphicon glyphicon-edit"></i>',
                     '</a>',
                 '</div>',

@@ -8,17 +8,17 @@ function actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="show-material-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar material detallado"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="show-material-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar material detallado"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-info-sign"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="edit-material-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" title="Editar registro de material"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="edit-material-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" title="Editar registro de material"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-repeat"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="catalogo-material-action btn btn-success-v2 btn-outline btn-xs " href="javascript:void(0)" title="Agregar material en Catálogo local"' + (row.allowAgregarLc === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="catalogo-material-action btn btn-success-v3 btn-outline btn-xs " href="javascript:void(0)" title="Agregar material en Catálogo local"' + (row.allowAgregarLc === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-plus-sign"></i>',
 		'</a>',
 	    '</div>',
@@ -37,7 +37,7 @@ window.actionEvents = {
         jQuery('#btn_editar_mtrl').show();
         
         jQuery('#formMtrlTitle').text('Editar Material');
-        jQuery('#formMtrlLabel').removeClass('label-primary-v2')
+        jQuery('#formMtrlLabel').removeClass('label-primary-v4')
 		.addClass('label-element-v2').text('Formulario para edición');
         
         $("input[id='formMtrlId']").val(row.mtrl_id);

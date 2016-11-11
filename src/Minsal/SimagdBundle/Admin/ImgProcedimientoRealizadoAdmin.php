@@ -154,7 +154,7 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
                                                                         'placeholder' => 'Equipo en que se realizó el examen',
 
                                                                         'data-add-input-addon' => 'true',
-                                                                        'data-add-input-addon-class' => 'info-v2',
+                                                                        'data-add-input-addon-class' => 'primary-v4',
                                                                         'data-add-input-addon-addon' => 'glyphicon glyphicon-eye-close',
 
 									'data-fv-stringlength' => 'true',
@@ -198,7 +198,7 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
                                                                         'placeholder' => 'Sala en que se llevó a cabo la toma del examen',
 
                                                                         'data-add-input-addon' => 'true',
-                                                                        'data-add-input-addon-class' => 'info-v2',
+                                                                        'data-add-input-addon-class' => 'primary-v4',
                                                                         'data-add-input-addon-addon' => 'glyphicon glyphicon-home',
 
 									'data-fv-stringlength' => 'true',

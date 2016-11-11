@@ -8,12 +8,12 @@ function actionCitaFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="show-cita-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar cita detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="show-cita-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar cita detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-info-sign"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="edit-cita-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" target="_blank" title="Editar registro de cita"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="edit-cita-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" target="_blank" title="Editar registro de cita"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-repeat"></i>',
 		'</a>',
 	    '</div>',
@@ -23,7 +23,7 @@ function actionCitaFormatter(value, row, index) {
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="radx-ind-solicitud-cita-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" title="Agregar indicaciones del Médico radiólogo"' + (row.allowIndRadx === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="radx-ind-solicitud-cita-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" title="Agregar indicaciones del Médico radiólogo"' + (row.allowIndRadx === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-log-in"></i>',
 		'</a>',
 	    '</div>',
@@ -93,7 +93,7 @@ window.actionCitaEvents = {
 
 function reprogramadaFormatter(value, row, index) {
     return [
-        '<span class="label label-' + (row.cit_reprogramada === false ? 'primary-v2' : 'warning') + '">',
+        '<span class="label label-' + (row.cit_reprogramada === false ? 'primary-v4' : 'warning') + '">',
         (row.cit_reprogramada === false ? 'no' : 'sí'),
         '</span>'
     ].join('');
@@ -101,7 +101,7 @@ function reprogramadaFormatter(value, row, index) {
 
 function diaCompletoCitaFormatter(value, row, index) {
     return [
-        '<span class="label label-' + (row.cit_diaCompleto === false ? 'success-v2' : 'info') + '">',
+        '<span class="label label-' + (row.cit_diaCompleto === false ? 'success-v3' : 'info') + '">',
         (row.cit_diaCompleto === false ? 'no' : 'sí'),
         '</span>'
     ].join('');

@@ -14,11 +14,11 @@ var $false_blockObject 		= null;
     
 jQuery(document).ready(function() {
     
-    console.log('%cAl presionar un event pendiente patient, entonces transformar el calendar, para q aparezca bloqueado donde no puede ponerlo\nIgual para cuando es eventResize y eventDrop\nY que no sea en refetch, sino que en cliente', 'background: #31708f; color: #fff');
+    console.log('%cAl presionar un event pendiente patient, entonces transformar el calendar, para q aparezca bloqueado donde no puede ponerlo\nIgual para cuando es eventResize y eventDrop\nY que no sea en refetch, sino que en cliente', 'background: #183f52; color: #fff');
     
-    console.log('%cCambiar color de la franja azul en los dropdown list y en tt-menu list', 'background: #31708f; color: #fff');
+    console.log('%cCambiar color de la franja azul en los dropdown list y en tt-menu list', 'background: #183f52; color: #fff');
     
-    console.log('%c http://fullcalendar.io/ \n http://fullcalendar.io/docs/display/customButtons/ \n http://fullcalendar.io/docs/display/header/ \n http://fullcalendar.io/docs/dropping/eventReceive/ --> para evitar en proxima consulta \n http://fullcalendar.io/docs/dropping/drop/ <-- para lo mismo \n http://fullcalendar.io/docs/event_ui/dragRevertDuration/ \n draggable tiene tambien revertDuration \n http://fullcalendar.io/docs/event_ui/dragOpacity/ \n http://fullcalendar.io/docs/event_ui/eventOverlap/ \n http://fullcalendar.io/docs/display/weekends/ \n http://fullcalendar.io/docs/display/hiddenDays/', 'background: #31708f; color: #fff');
+    console.log('%c http://fullcalendar.io/ \n http://fullcalendar.io/docs/display/customButtons/ \n http://fullcalendar.io/docs/display/header/ \n http://fullcalendar.io/docs/dropping/eventReceive/ --> para evitar en proxima consulta \n http://fullcalendar.io/docs/dropping/drop/ <-- para lo mismo \n http://fullcalendar.io/docs/event_ui/dragRevertDuration/ \n draggable tiene tambien revertDuration \n http://fullcalendar.io/docs/event_ui/dragOpacity/ \n http://fullcalendar.io/docs/event_ui/eventOverlap/ \n http://fullcalendar.io/docs/display/weekends/ \n http://fullcalendar.io/docs/display/hiddenDays/', 'background: #183f52; color: #fff');
     
     /*
      * fc-calendar-panel, show refresh calendar message
@@ -484,7 +484,7 @@ jQuery(document).ready(function() {
 				    });
 	    },
 	});
-	console.log('%cfullCalendar is successfully initiated', 'background: #31708f; color: #fff');
+	console.log('%cfullCalendar is successfully initiated', 'background: #183f52; color: #fff');
     }
     /*
      * **************************************************************************
@@ -651,8 +651,11 @@ jQuery(document).ready(function() {
 				.fullCalendar('refetchEvents');	// --| refresh the view
 		    });
 
-    $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 1650);
-    $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 2650);
+    /*
+     * Refresh fullCalendar options without rebuilt
+     */
+    // $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 1650);
+    // $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 2650);
     /* http://fullcalendar.io/docs/event_data/events_function/ */
     
 });

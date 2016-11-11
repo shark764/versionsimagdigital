@@ -108,7 +108,7 @@ p + p {
 }
 
 /*.typeahead:focus {
-  border: 2px solid #0097cf;
+  border: 2px solid #16677d;
 }*/
 
 .tt-query {
@@ -146,19 +146,19 @@ p + p {
 
 .tt-suggestion {
   padding: 3px 20px;
-  /*font-size: 18px;*/
+  font-size: 12px;/**/
   line-height: 24px;
 }
 
 .tt-suggestion:hover {
   cursor: pointer;
   color: #fff;
-  background-color: #0097cf;
+  background-color: #16677d;
 }
 
 .tt-suggestion.tt-cursor {
   color: #fff;
-  background-color: #0097cf;
+  background-color: #16677d;
 
 }
 
@@ -167,7 +167,7 @@ p + p {
 }
 
 .gist {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 /* example specific styles */
@@ -206,7 +206,8 @@ p + p {
 .has-feedback .typeahead-custom-clear,
 .has-feedback .typeahead-custom-clear-v2 {
     position: absolute;
-    top: 3px;
+    /*top: 3px;*/
+    top: -2px !important;
     right: 3px;
     display: block;
     width: 34px;
@@ -218,7 +219,7 @@ p + p {
 }
 
 .has-feedback .typeahead-custom-clear-v2 {
-    top: 1px;
+    /*top: 1px;*/
 }
 
 .expand-box {

@@ -8,12 +8,12 @@ function pendienteTranscripcion_actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="transcribir-pendiente-transcribir-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Transcribir lectura radiológica"' + (row.allowTranscribir === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="transcribir-pendiente-transcribir-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Transcribir lectura radiológica"' + (row.allowTranscribir === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-edit"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="agregar-pendiente-transcribir-action btn btn-success-v2 btn-outline btn-xs " href="javascript:void(0)" title="Agregar en lista personal"' + (row.allowRegInicial === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="agregar-pendiente-transcribir-action btn btn-success-v3 btn-outline btn-xs " href="javascript:void(0)" title="Agregar en lista personal"' + (row.allowRegInicial === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-check"></i>',
 		'</a>',
 	    '</div>',
@@ -46,8 +46,8 @@ window.pendienteTranscripcion_actionEvents = {
         jQuery('#btn_editar_diag').hide();
 
         jQuery('#formDiagTitle').text('Registrar diagnóstico');
-        jQuery('#formDiagLabel').removeClass('label-success-v2 label-warning')
-		.addClass('label-primary-v2').text('Formulario para registro');
+        jQuery('#formDiagLabel').removeClass('label-success-v3 label-warning')
+		.addClass('label-primary-v4').text('Formulario para registro');
         
         $("input[id='formDiagIdLectura']").val(row.lct_id);
         
@@ -285,7 +285,7 @@ jQuery(document).ready(function() {
 
 function impugnadoFormatter(value, row, index) {
     return [
-        '<span class="label label-' + (row.pndT_fueImpugnado === false ? 'primary-v2' : 'danger') + '">',
+        '<span class="label label-' + (row.pndT_fueImpugnado === false ? 'primary-v4' : 'danger') + '">',
         (row.pndT_fueImpugnado === false ? 'no' : 'sí'),
         '</span>'
     ].join('');

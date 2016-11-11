@@ -13,12 +13,12 @@ function actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="show-indicaciones-cita-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar indicaciones para citar pacientes detalladas"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="show-indicaciones-cita-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar indicaciones para citar pacientes detalladas"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-info-sign"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="edit-indicaciones-cita-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" title="Editar registro de indicaciones para citar pacientes"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="edit-indicaciones-cita-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" title="Editar registro de indicaciones para citar pacientes"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-repeat"></i>',
 		'</a>',
 	    '</div>',
@@ -37,7 +37,7 @@ window.actionEvents = {
         jQuery('#btn_editar_indCit').show();
 
         jQuery('#formIndCitTitle').text('Editar indicaciones para citar pacientes');
-        jQuery('#formIndCitLabel').removeClass('label-primary-v2')
+        jQuery('#formIndCitLabel').removeClass('label-primary-v4')
 		.addClass('label-element-v2').text('Formulario para edición');
 
         $("input[id='formIndCitId']").val(row.indCit_id);

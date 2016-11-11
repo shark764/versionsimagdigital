@@ -11,17 +11,17 @@ function diagnostico_actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="show-diagnostico-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar diagnóstico detallado"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="show-diagnostico-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar diagnóstico detallado"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-info-sign"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="edit-diagnostico-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" title="Editar registro de diagnóstico"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="edit-diagnostico-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" title="Editar registro de diagnóstico"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-repeat"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="nota-diagnostico-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" title="Emitir nota al diagnóstico"' + (row.allowNota === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="nota-diagnostico-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" title="Emitir nota al diagnóstico"' + (row.allowNota === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-comment"></i>',
 		'</a>',
 	    '</div>',
@@ -41,7 +41,7 @@ window.diagnostico_actionEvents = {
 
         jQuery('#formNotaTitle').text('Registrar Nota al diagnóstico');
         jQuery('#formNotaLabel').removeClass('label-element-v2')
-		.addClass('label-primary-v2').text('Formulario para registro');
+		.addClass('label-primary-v4').text('Formulario para registro');
         
         $("input[id='formNotaIdDiagnostico']").val(row.diag_id);
         
@@ -81,7 +81,7 @@ window.diagnostico_actionEvents = {
         jQuery('#btn_editar_diag').show();
         
         jQuery('#formDiagTitle').text('Editar diagnóstico');
-        jQuery('#formDiagLabel').removeClass('label-primary-v2')
+        jQuery('#formDiagLabel').removeClass('label-primary-v4')
 		.addClass('label-element-v2').text('Formulario para edición');
         
         $("input[id='formDiagId']").val(row.diag_id);

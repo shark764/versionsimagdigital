@@ -52,7 +52,7 @@ jQuery(document).ready(function() {
 	jQuery(this)
 	    .find('.box-header')
 	    .find('.box-title')
-		    .html("<span class='label label-primary-v2'>" + $___boxTitle + "</span>");
+		    .html("<span class='label label-primary-v4'>" + $___boxTitle + "</span>");
     });
 */    
 });

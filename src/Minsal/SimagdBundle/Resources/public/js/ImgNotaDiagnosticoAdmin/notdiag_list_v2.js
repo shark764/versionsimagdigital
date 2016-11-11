@@ -11,12 +11,12 @@ function notadiagnostico_actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="show-nota-diagnostico-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar nota al diagnóstico detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="show-nota-diagnostico-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar nota al diagnóstico detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-info-sign"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="edit-nota-diagnostico-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" title="Editar registro de nota al diagnóstico"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="edit-nota-diagnostico-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" title="Editar registro de nota al diagnóstico"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-repeat"></i>',
 		'</a>',
 	    '</div>',
@@ -35,7 +35,7 @@ window.notadiagnostico_actionEvents = {
         jQuery('#btn_editar_notdiag').show();
         
         jQuery('#formNotaTitle').text('Editar Nota al diagnóstico');
-        jQuery('#formNotaLabel').removeClass('label-primary-v2')
+        jQuery('#formNotaLabel').removeClass('label-primary-v4')
 		.addClass('label-element-v2').text('Formulario para edición');
         
         $("input[id='formNotaId']").val(row.notdiag_id);

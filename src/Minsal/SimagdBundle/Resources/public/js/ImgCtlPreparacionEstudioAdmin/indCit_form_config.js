@@ -144,7 +144,7 @@ jQuery(document).ready(function() {
 
         jQuery('#formIndCitTitle').text('Registrar Indicaciones para citar pacientes');
         jQuery('#formIndCitLabel').removeClass('label-element-v2')
-		.addClass('label-primary-v2').text('Formulario para registro');
+		.addClass('label-primary-v4').text('Formulario para registro');
 	
 	/** text-editor Hallazgos */
 	$fieldIndcg.buildSummerNote({ newOptions: {}});

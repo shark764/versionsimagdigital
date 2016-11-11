@@ -383,7 +383,7 @@ and open the template in the editor.
  */
 .select2-results .select2-highlighted {
   color: white;
-  background-color: #428bca;
+  background-color: #16677d;
 }
 
 /**
@@ -539,4 +539,8 @@ and open the template in the editor.
     background: #f4f4f4;
     display: none !important;
     cursor: default;
+}
+
+.select2-results .select2-result-label {
+    font-size: 12px;
 }

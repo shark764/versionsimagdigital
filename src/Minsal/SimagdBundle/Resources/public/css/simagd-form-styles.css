@@ -8,7 +8,9 @@ and open the template in the editor.
     author     : farid
 */
 
-/** input border-radius */
+/*
+ * input border-radius
+ */
 input[type="text"],
 input[type="password"],
 input[type="number"] {
@@ -247,7 +249,7 @@ div.form-actions {
 .simagd-normal-td td {
   font-family: 'Source Sans Pro', sans-serif !important;
   -webkit-font-smoothing: antialiased !important;
-  font-size: 14px !important;
+  font-size: 12px !important;
   line-height: 1.42857143 !important;
   color: #333 !important;
   font-weight: normal !important;
@@ -256,13 +258,14 @@ div.form-actions {
 .panel-primary-v2 > .panel-heading {
   color: rgb(255, 255, 255) !important;
   background-color: #31708f !important;
-  border-color: #31708f !important;
+  border-color: #1e5672 !important;
 }
-/*
+/**/
 .panel-primary-v2 {
-  border-color: #e5e5e5 !important;
+  border-color: #1e5672 !important;
+/*   border-color: #e5e5e5 !important; */
 }
-*/
+
 .box.box-primary-v2 {
   border-top-color: #31708f !important;
 }
@@ -283,7 +286,7 @@ div.form-actions {
 }
 
 .form-group.has-success .form-control {
-  border-color: #1d8a8a !important;
+  border-color: #16677d !important;
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075) !important;
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075) !important;
 }
@@ -294,11 +297,11 @@ div.form-actions {
 .has-success .checkbox,
 .has-success .radio-inline,
 .has-success .checkbox-inline {
-  color: #1d8a8a !important;
+  color: #16677d !important;
 }
 
 .has-success .form-control {
-  border-color: #1d8a8a !important;
+  border-color: #16677d !important;
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075) !important;
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075) !important;
 }
@@ -323,21 +326,21 @@ div.form-actions {
 }
 
 .btn .btn-success-v2 {
-  background-color: #1d8a8a /*!important*/;
-  border-color: #077a7a /*!important*/;
-  transition: all .5s /*!important*/;
+  background-color: #1d8a8a !important;
+  border-color: #077a7a !important;
+  transition: all .5s !important;
 }
 
 .btn-success-v2 {
-  color: rgb(255, 255, 255) /*!important*/;
-  background-color: #1d8a8a /*!important*/;
-  border-color: #077a7a /*!important*/;
+  color: rgb(255, 255, 255) !important;
+  background-color: #1d8a8a !important;
+  border-color: #077a7a !important;
 }
 
 .btn.btn-success-v2:hover,
 .btn.btn-success-v2:active,
 .btn.btn-success-v2.hover {
-  background-color: #097575 /*!important*/;
+  background-color: #097575 !important;
 }
 
 .btn-success-v2:hover,
@@ -345,27 +348,27 @@ div.form-actions {
 .btn-success-v2:active,
 .btn-success-v2.active,
 .open .dropdown-toggle.btn-success-v2 {
-  color: #fff /*!important*/;
-  background-color: #097575 /*!important*/;
-  border-color: #0c9191 /*!important*/;
+  color: #fff !important;
+  background-color: #097575 !important;
+  border-color: #0c9191 !important;
 }
 
 .btn .btn-primary-v2 {
-  background-color: #31708f /*!important*/;
-  border-color: #367fa9 /*!important*/;
-  transition: all .5s /*!important*/;
+  background-color: #31708f !important;
+  border-color: #367fa9 !important;
+  transition: all .5s !important;
 }
 
 .btn-primary-v2 {
-  color: rgb(255, 255, 255) /*!important*/;
-  background-color: #31708f /*!important*/;
-  border-color: #367fa9 /*!important*/;
+  color: rgb(255, 255, 255) !important;
+  background-color: #31708f !important;
+  border-color: #367fa9 !important;
 }
 
 .btn.btn-primary-v2:hover,
 .btn.btn-primary-v2:active,
 .btn.btn-primary-v2.hover {
-  background-color: #23556e /*!important*/;
+  background-color: #23556e !important;
 }
 
 .btn-primary-v2:hover,
@@ -373,9 +376,9 @@ div.form-actions {
 .btn-primary-v2:active,
 .btn-primary-v2.active,
 .open .dropdown-toggle.btn-primary-v2 {
-  color: #fff /*!important*/;
-  background-color: #23556e /*!important*/;
-  border-color: #527d92 /*!important*/;
+  color: #fff !important;
+  background-color: #23556e !important;
+  border-color: #527d92 !important;
 }
 
 /** bootstrap table row justify text */
@@ -391,8 +394,8 @@ div.form-actions {
 .pagination>.active>span:focus {
   z-index: 2;
   color: rgb(255, 255, 255) !important;
-  background-color: #31708f !important;
-  border-color: #367fa9 !important;
+  background-color: #2a5469 !important;
+  border-color: #1b4154 !important;
   cursor: auto !important;
 }
 
@@ -477,21 +480,21 @@ div.form-actions {
 }
 
 .btn .btn-element-v2 {
-  background-color: #2b91af /*!important*/;
-  border-color: #267f9a /*!important*/;
-  transition: all .5s /*!important*/;
+  background-color: #2b91af !important;
+  border-color: #267f9a !important;
+  transition: all .5s !important;
 }
 
 .btn-element-v2 {
-  color: rgb(255, 255, 255) /*!important*/;
-  background-color: #2b91af /*!important*/;
-  border-color: #267f9a /*!important*/;
+  color: rgb(255, 255, 255) !important;
+  background-color: #2b91af !important;
+  border-color: #267f9a !important;
 }
 
 .btn.btn-element-v2:hover,
 .btn.btn-element-v2:active,
 .btn.btn-element-v2.hover {
-  background-color: #186c86 /*!important*/;
+  background-color: #186c86 !important;
 }
 
 .btn-element-v2:hover,
@@ -499,9 +502,9 @@ div.form-actions {
 .btn-element-v2:active,
 .btn-element-v2.active,
 .open .dropdown-toggle.btn-element-v2 {
-  color: #fff /*!important*/;
-  background-color: #186c86 /*!important*/;
-  border-color: #0c586f /*!important*/;
+  color: #fff !important;
+  background-color: #186c86 !important;
+  border-color: #0c586f !important;
 }
 
 .panel-element-v2 {
@@ -538,21 +541,21 @@ div.form-actions {
 }
 
 .btn .btn-danger {
-  background-color: #cc181e /*!important*/;
-  border-color: #bf0309 /*!important*/;
-  transition: all .5s /*!important*/;
+  background-color: #cc181e !important;
+  border-color: #bf0309 !important;
+  transition: all .5s !important;
 }
 
 .btn-danger {
-  color: rgb(255, 255, 255) /*!important*/;
-  background-color: #cc181e /*!important*/;
-  border-color: #bf0309 /*!important*/;
+  color: rgb(255, 255, 255) !important;
+  background-color: #cc181e !important;
+  border-color: #bf0309 !important;
 }
 
 .btn.btn-danger:hover,
 .btn.btn-danger:active,
 .btn.btn-danger.hover {
-  background-color: #d70007 /*!important*/;
+  background-color: #d70007 !important;
 }
 
 .btn-danger:hover,
@@ -560,9 +563,9 @@ div.form-actions {
 .btn-danger:active,
 .btn-danger.active,
 .open .dropdown-toggle.btn-danger {
-  color: #fff /*!important*/;
-  background-color: #d70007 /*!important*/;
-  border-color: #9e0005 /*!important*/;
+  color: #fff !important;
+  background-color: #d70007 !important;
+  border-color: #9e0005 !important;
 }
 
 .panel-danger {
@@ -699,12 +702,12 @@ a.anchor-primary-v2 {
 }
 
 /*
- * bootstrap-switch-primary --> primary-v2
+ * bootstrap-switch-primary --> success-v3
  */
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary,
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary {
     color: #fff;
-    background: #31708f !important;
+    background: #16677d !important;
 }
 
 .btn-separator:after {
@@ -716,7 +719,8 @@ a.anchor-primary-v2 {
     /* margin-left: -100px; */
     height: 30px;
     width: 1px;
-    margin-left: 5px;
+/*     margin-left: 5px; */
+    margin-left: 15px;
     margin-top: -15px;
     margin-bottom: -12px;
     margin-right: -10px;
@@ -732,7 +736,7 @@ a.anchor-primary-v2 {
  * webkitSpeechRecognition
  */
 .webkitspeechrecognition_results {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     border: 1px solid #ddd;
     padding: 15px;
@@ -810,7 +814,102 @@ form .form-control-feedback,
 }
 
 .simagd-full-data-view .simagd-panel-container-label {
-  text-align: right !important;
+    text-align: right !important;
+}
+
+.form-actions.left-side-actions {
+    text-align: left !important;
+}
+
+/*
+ * ******************************************************************************
+ * box in midle window
+ * ******************************************************************************
+ */
+.box-middle-area-screen {
+  margin-left: auto !important;
+  float: none !important;
+  margin-right: auto !important;
+}
+
+
+/*
+ * ******************************************************************************
+ * Definition label styles
+ * ******************************************************************************
+ */
+label.label_form_sm {
+    font-size: 12px !important;
+}
+
+.help-block {
+    font-size: 11px !important;
+    font-style: italic !important;
+}
+
+/*
+ * navbar, navbar-form
+ */
+.form-group.form-group-collapsed-fields {
+    margin-bottom: 7px !important;
+}
+
+.panel.non-full-bordered-panel {
+  border: none !important;
+}
+
+.navbar {
+    margin-bottom: 15px !important;
+}
+.navbar-brand {
+    font-size: 16px !important;
+}
+
+.panel-title {
+    font-size: 14px !important;
+}
+
+.content-header .dropdown-menu > .active > a,
+.content .dropdown-menu > .active > a,
+.content-header .dropdown-menu > .active > a:hover,
+.content .dropdown-menu > .active > a:hover,
+.content-header .dropdown-menu > .active > a:focus,
+.content .dropdown-menu > .active > a:focus {
+    color: #fff !important;
+    text-decoration: none !important;
+    outline: 0 !important;
+    background-color: #124057 !important;
+}
+.content-header .dropdown-menu > .disabled > a:hover,
+.content .dropdown-menu > .disabled > a:hover,
+.content-header .dropdown-menu > .disabled > a:focus,
+.content .dropdown-menu > .disabled > a:focus {
+  text-decoration: none !important;
+  cursor: not-allowed !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false) !important;
+}
+.content-header .dropdown-menu > li > a:hover,
+.content .dropdown-menu > li > a:hover {
+    background-color: #16677d !important;
+    color: #f9f9f9 !important;
+}
+
+.input-group-btn:first-child>.btn,
+.input-group-btn:first-child>.btn-group {
+    margin-right: 0px !important;
+}
+.btn-sm,
+.btn-group-sm>.btn {
+    padding: 5px 13px !important;
+}
+
+.box .box-header {
+    padding-bottom: 0px !important;
+}
+.box .box-body {
+    padding: 10px 35px !important;
 }
 
 /*

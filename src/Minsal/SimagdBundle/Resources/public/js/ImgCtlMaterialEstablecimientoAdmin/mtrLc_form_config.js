@@ -152,7 +152,7 @@ jQuery(document).ready(function() {
 
         jQuery('#formMtrLcTitle').text('Registrar Material en local');
         jQuery('#formMtrLcLabel').removeClass('label-element-v2')
-		.addClass('label-primary-v2').text('Formulario para registro');
+		.addClass('label-primary-v4').text('Formulario para registro');
 	
 	var $cantidadDisponible = $("input[id='formMtrLcCantidadDisponible']");
         $cantidadDisponible.val($cantidadDisponible.data('default'));

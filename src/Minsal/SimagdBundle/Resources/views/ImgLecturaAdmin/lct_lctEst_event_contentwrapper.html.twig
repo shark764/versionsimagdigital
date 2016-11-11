@@ -28,7 +28,7 @@
 		<td colspan="4" class="col-md-12">
 		    <div class="btn-toolbar" role="toolbar" aria-label="...">
 			<div class="btn-group" role="group">
-			    <a   class="btn btn-primary-v2 btn-outline btn-sm editable-submit download-estudio-padre-popover-action" href="{{ _hasFather.url|raw|trim|default('javascript:void(0)') }}" target="_blank" title="Descargar este estudio"
+			    <a   class="btn btn-primary-v4 btn-outline btn-sm editable-submit download-estudio-padre-popover-action" href="{{ _hasFather.url|raw|trim|default('javascript:void(0)') }}" target="_blank" title="Descargar este estudio"
 				{% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN') ) %}
 				    disabled="disabled"
 				{% endif %}>
@@ -36,7 +36,7 @@
 			    </a>
 			</div>
 			<div class="btn-group" role="group">
-			    <a   class="btn btn-success-v2 btn-outline btn-sm editable-submit add-estudio-padre-popover-action" target="_blank" title="Complementar este estudio"
+			    <a   class="btn btn-success-v3 btn-outline btn-sm editable-submit add-estudio-padre-popover-action" target="_blank" title="Complementar este estudio"
 				href="{{ path('simagd_solicitud_estudio_complementario_create',
 					    { '__prc' : _hasFatherPrc is not null ? _hasFatherPrc.id : null, '__est': _hasFather.id }) }}"
 				{% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_COMPLEMENTARIO_CREATE') or is_granted('ROLE_ADMIN') ) or

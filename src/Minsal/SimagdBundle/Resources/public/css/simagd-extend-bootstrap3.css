@@ -8,6 +8,19 @@ and open the template in the editor.
     Author     : farid
 */
 
+/*
+ * expand content width
+ */
+.right-side {
+  margin-left: 2%;
+  margin-right: 2%;
+  /*background-color: #f9f9f9;*/
+  /*margin-left: 220px;*/
+}
+.content,
+.right-side {
+  background: #fdfdfd;
+}
 
 /*
  * *************************************************************************************************************************************************

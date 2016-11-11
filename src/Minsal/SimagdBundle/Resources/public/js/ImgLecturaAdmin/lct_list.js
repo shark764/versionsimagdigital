@@ -11,10 +11,10 @@ var lecturaCacheShowViewObject = [];
 
 function actionLecturaFormatter(value, row, index) {
     return [
-        '<a   class="show-lectura-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar lectura detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+        '<a   class="show-lectura-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar lectura detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
         '<i class="glyphicon glyphicon-info-sign"></i>',
         '</a>',
-        '<a   class="edit-lectura-action btn btn-primary-v2 btn-outline btn-xs ml10" href="' + row.editLctUrl + '" target="_blank" title="Editar registro de lectura"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+        '<a   class="edit-lectura-action btn btn-primary-v4 btn-outline btn-xs ml10" href="' + row.editLctUrl + '" target="_blank" title="Editar registro de lectura"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
         '<i class="glyphicon glyphicon-repeat"></i>',
         '</a>'
     ].join('');

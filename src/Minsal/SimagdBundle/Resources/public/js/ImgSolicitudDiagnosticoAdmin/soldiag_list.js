@@ -11,10 +11,10 @@ var solicitudDiagCacheShowViewObject = [];
 
 function actionSolDiagFormatter(value, row, index) {
     return [
-        '<a   class="show-solicitud-diagnostico-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar solicitud de diagnóstico detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+        '<a   class="show-solicitud-diagnostico-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar solicitud de diagnóstico detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
         '<i class="glyphicon glyphicon-info-sign"></i>',
         '</a>',
-        '<a   class="edit-solicitud-diagnostico-action btn btn-primary-v2 btn-outline btn-xs ml10" href="javascript:void(0)" title="Editar registro de solicitud de diagnóstico"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+        '<a   class="edit-solicitud-diagnostico-action btn btn-primary-v4 btn-outline btn-xs ml10" href="javascript:void(0)" title="Editar registro de solicitud de diagnóstico"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
         '<i class="glyphicon glyphicon-repeat"></i>',
         '</a>'
     ].join('');
