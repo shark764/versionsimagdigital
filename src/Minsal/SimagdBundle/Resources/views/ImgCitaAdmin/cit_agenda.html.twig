@@ -225,6 +225,41 @@
 
 	<div class="row outer">
 
+        <div class="col-lg-12 col-md-12 col-sm-12 {#col-xs-offset-2 #}">
+            {#<div class="row">#} <!-- row block -->
+                <div class="box box-drop-outside-shadow-emergency {#box-dark-theme#} box-emergency" style="padding: 28px 48px;">
+                    <div class="box-body" >
+
+                        <!-- FORM --| SEARCH PATIENT -->
+                        <form id="_fc_filter_box_form" name="_fc_filter_box_form" method="post" class="form-horizontal" role="search">
+
+                            <div class="form-group">
+                                <div class="col-xs-5">
+                                    <ul class="list-unstyled list-inline formstyle-radio-list-inline input-sm col-lg-12 col-md-12 col-sm-12" id="_fc_filter_search_type">
+                                        <li>
+                                            <label class="">
+                                                <input type="radio" {#checked="checked"#} value="agenda" name="_fc_filter_search_type" id="_fc_filter_search_type_0">
+                                                <span style="margin-left: 5px;"> Lista de pacientes</span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="">
+                                                <input type="radio" checked="checked" value="summary" name="_fc_filter_search_type" id="_fc_filter_search_type_1">
+                                                <span style="margin-left: 5px;"> Resumen</span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </form>
+                        <!-- END --| FORM -->
+
+                    </div>
+                </div>
+            {#</div>#}
+        </div>
+
 	    <div id='external-events' class="col-lg-3 col-md-3 col-sm-3">
 
 		<div class="panel panel-primary-v4" id='fc-patient-panel' {% if _CIT_ALLOW_CREATE == false or _CIT_ALLOW_EDIT == false %} disabled="disabled" {% endif %}>

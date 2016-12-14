@@ -23,12 +23,33 @@ use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
 class ImgCitaAdminController extends Controller
 {
+    public function createDateRangeArray($from, $to)
+    {
+        // takes two dates formatted as YYYY-MM-DD and creates an
+        // inclusive array of the dates between the from and to dates.
+
+        $range = array();
+
+        $i_from = mktime(1, 0, 0, substr($from, 5, 2), substr($from, 8, 2), substr($from, 0, 4));
+        $i_to   = mktime(1, 0, 0, substr($to, 5, 2), substr($to, 8, 2), substr($to, 0, 4));
+
+        if ($i_to >= $i_from) {
+            array_push($range, date('Y-m-d', $i_from)); // first entry
+
+            while ($i_from < $i_to) {
+                $i_from += 86400; // add 24 hours
+                array_push($range, date('Y-m-d', $i_from));
+            }
+        }
+        return $range;
+    }
+
     public function obtenerEventosCalendarioAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+    	$securityContext    = $this->container->get('security.context');
+    	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
         $idAreaServicioDiagnostico  = $request->request->get('idAreaServicioDiagnostico') ? $request->request->get('idAreaServicioDiagnostico') : 0;
@@ -36,12 +57,44 @@ class ImgCitaAdminController extends Controller
         $numeroExp      = $request->request->get('numeroExp');
         $start          = $request->request->get('start');
         $end            = $request->request->get('end');
+        $view           = $request->request->get('view');
+        $type           = $request->request->get('type');
+        
+        //////////////////////////////////////////////////////////////////////
+        if ($type === 'summary' && $view === 'month')
+        {
+
+            //////////////////////////////////////////////////////////////////////
+            //////// range
+            //////////////////////////////////////////////////////////////////////
+            // $range = array();
+            // $range = $this->createDateRangeArray($start, $end);
+        
+            $p = array(
+                'type'          => $type,
+                'view'          => $view,
+                'start'         => $start,
+                'end'           => $end,
+                'locale'        => $estabLocal->getId(),
+                'record'        => $numeroExp,
+                'modality'      => intval($idAreaServicioDiagnostico),
+                'technologist'  => $idTecnologo,
+            );
+            $results = $em->getRepository('MinsalSimagdBundle:ImgCita')->events($p);
+
+            // foreach ($results as $k => $r)
+            // {
+
+            // }
+
+            return $this->renderJson($results);
+        }
         
         $resultados     = $em->getRepository('MinsalSimagdBundle:ImgCita')
                                         ->obtenerEventosReservadosCalendario($estabLocal, $start, $end, $idAreaServicioDiagnostico, $idTecnologo, $numeroExp);
         
         foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgCita();
+            // $resultado = new \Minsal\SimagdBundle\Entity\ImgCita();
             
             $resultados[$key]['tooltip_title']  = ($resultado['explocal_numero'] ? '<span class="label label-primary-v4" style="margin-left: 5px; padding: .4em .6em;"><span class="badge badge-primary-v4">' . $resultado['explocal_numero'] . '</span></span> &nbsp;' : '') . $resultado['title'];
 
@@ -79,6 +132,7 @@ class ImgCitaAdminController extends Controller
         $falseEvent['observaciones']        = NULL;
         $falseEvent['description']              = NULL;
         $falseEvent['prxConsulta']              = (new \DateTime('now'))->format('Y-m-d');
+        $falseEvent['range']  = $this->createDateRangeArray($start, $end);
         $resultados[]                           = $falseEvent;
         
         /* Agregar bloqueos */

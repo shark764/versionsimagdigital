@@ -12,6 +12,47 @@ use Doctrine\ORM\EntityRepository;
  */
 class CitaRepository extends EntityRepository
 {
+
+    public function events($p = array())
+    {
+        $conn   = $this->getEntityManager()->getConnection();
+
+        $sql    = "select  date_trunc('day', c.fecha_hora_inicio) as fecha,
+                        sum(case when s.codigo = 'ESP' then 1 else 0 end) as ESP,
+                        sum(case when s.codigo = 'CNF' then 1 else 0 end) as CNF,
+                        sum(case when s.codigo = 'ATN' then 1 else 0 end) as ATN,
+                        sum(case when s.codigo = 'RPG' then 1 else 0 end) as RPG,
+                        sum(case when s.codigo = 'CNL' or s.codigo = 'ANL' then 1 else 0 end) as CNL,
+                        count(c.id) as total
+                    from img_cita c
+                        inner join img_ctl_estado_cita s
+                            on s.id = c.id_estado_cita
+                        left join img_solicitud_estudio r
+                            on r.id = c.id_solicitud_estudio
+                        left join ctl_area_servicio_diagnostico a
+                            on a.id = r.id_area_servicio_diagnostico
+                        left join mnt_expediente e
+                            on e.id = r.id_expediente
+                        left join mnt_empleado m
+                            on m.id = c.id_tecnologo_programado
+                    where c.id_establecimiento = :id_locale
+                        and a.id = :id_mdld
+                        and c.fecha_hora_inicio >= :cal_start_date and c.fecha_hora_fin <= :cal_end_date
+                    group by 1
+                    order by 1, 7 desc";
+
+        $stmt   = $conn->prepare($sql);
+        $stmt->bindValue(':id_locale', $p['locale'], \PDO::PARAM_INT);
+        $stmt->bindValue(':id_mdld', $p['modality'], \PDO::PARAM_INT);
+        $stmt->bindValue(':cal_start_date', \DateTime::createFromFormat('Y-m-d', $p['start'])->setTime(0, 0), "datetime");
+        $stmt->bindValue(':cal_end_date', \DateTime::createFromFormat('Y-m-d', $p['end'])->setTime(0, 0), "datetime");
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        return $result;
+    }
+
     public function obtenerReservados($id_estab, $idAreaServicioDiagnostico, $fechaPrxConsulta)
     {
         $query = $this->getEntityManager()

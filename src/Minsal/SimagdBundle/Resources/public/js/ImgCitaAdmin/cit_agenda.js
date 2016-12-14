@@ -56,19 +56,25 @@ jQuery(document).ready(function() {
 	    /*
 	     * HIDE SATURDAYS (6) AND SUNDAYS (0)
 	     */
-	    //hiddenDays: [6, 0],	// hide Saturdays (6) and Sundays (0)
+	    hiddenDays: [6, 0],	// hide Saturdays (6) and Sundays (0)
 	    nowIndicator: true,
 	    events: {
 		url: Routing.generate('simagd_cita_obtenerEventosCalendario'),
 		type: 'POST',
 		data: function() {
 			    moment.locale('es');
+			    var $last_view = $el_fc_calendar.fullCalendar('getView');
+                var $type = jQuery('input[name=_fc_filter_search_type]:checked');
+                var $type_val = $type.val();
+			    // window.console.log(JSON.stringify($el_fc_calendar.fullCalendar('getView').intervalStart), JSON.stringify($el_fc_calendar.fullCalendar('getView').intervalEnd));
 			    return {
-				idAreaServicioDiagnostico: jQuery('select[id="navbar_field_cita_modalidad"]').val(),
-				idTecnologo: jQuery('select[id="navbar_field_cita_tecnologo"]').val(),
-				numeroExp: jQuery.trim(jQuery('input[id="navbar_filter_expNumero"]').val()),
-				start : $el_fc_calendar.fullCalendar('getView').intervalStart.format('YYYY-MM-DD HH:mm'),
-				end: $el_fc_calendar.fullCalendar('getView').intervalEnd.format('YYYY-MM-DD HH:mm'),
+			    	view: $last_view.name,
+			    	type: $type_val,
+					idAreaServicioDiagnostico: jQuery('select[id="navbar_field_cita_modalidad"]').val(),
+					idTecnologo: jQuery('select[id="navbar_field_cita_tecnologo"]').val(),
+					numeroExp: jQuery.trim(jQuery('input[id="navbar_filter_expNumero"]').val()),
+					start : $last_view.intervalStart.format('YYYY-MM-DD HH:mm'),
+					end: $last_view.intervalEnd.format('YYYY-MM-DD HH:mm'),
 			    };
 		},
 		error: function() {
@@ -281,7 +287,8 @@ jQuery(document).ready(function() {
 			      if (event._id === 'bl_false_event_id') {
 				  $false_blockObject = jQuery.extend(true, {}, event);
 			      }
-    // 			  console.log(element);
+    			  // console.log(element);
+    			  // window.console.log(event, element);
 	    },
 	    eventReceive: function(event) {
 			      /** Hide popovers */
