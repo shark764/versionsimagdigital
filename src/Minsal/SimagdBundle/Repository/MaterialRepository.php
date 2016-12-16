@@ -175,6 +175,7 @@ class MaterialRepository extends EntityRepository
         /*
          * |-- END filters from BSTABLE_FILTER to query
          */
+        $query->setMaxResults(10);
 
         return $query->getQuery()->getScalarResult();
     }
