@@ -106,7 +106,7 @@ class ImgCitaAdminController extends Controller
             return $this->renderJson($results);
         }
         
-        $resultados     = $em->getRepository('MinsalSimagdBundle:ImgCita')
+        $resultados = $em->getRepository('MinsalSimagdBundle:ImgCita')
                                         ->obtenerEventosReservadosCalendario($estabLocal, $start, $end, $idAreaServicioDiagnostico, $idTecnologo, $numeroExp);
         
         foreach ($resultados as $key => $resultado) {
