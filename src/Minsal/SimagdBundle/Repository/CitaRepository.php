@@ -17,13 +17,15 @@ class CitaRepository extends EntityRepository
     {
         $conn   = $this->getEntityManager()->getConnection();
 
-        $sql    = "select  date_trunc('day', c.fecha_hora_inicio) as fecha,
+        $sql    = "select date_trunc('day', c.fecha_hora_inicio) as fecha,
                         sum(case when s.codigo = 'ESP' then 1 else 0 end) as ESP,
                         sum(case when s.codigo = 'CNF' then 1 else 0 end) as CNF,
                         sum(case when s.codigo = 'ATN' then 1 else 0 end) as ATN,
                         sum(case when s.codigo = 'RPG' then 1 else 0 end) as RPG,
                         sum(case when s.codigo = 'CNL' or s.codigo = 'ANL' then 1 else 0 end) as CNL,
-                        count(c.id) as total
+                        count(c.id) as total,
+                        true as allDay, '#183f52' as color, 'summary' as type
+                        /*to_char(c.fecha_hora_inicio, 'FMMonth FMDDth, YYYY') AS title*/
                     from img_cita c
                         inner join img_ctl_estado_cita s
                             on s.id = c.id_estado_cita

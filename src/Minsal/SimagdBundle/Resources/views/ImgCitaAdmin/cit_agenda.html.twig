@@ -150,47 +150,7 @@
     </li>
 {% endblock %}
 
-{% block simagd_navbar_middle_nav %}
-    <form class="navbar-form navbar-left navbar-input-group" role="search">
-	<div class="form-group">
-	    <div class='input-group date primary-v4' id='irHaciaFecha' style="width: 130px;">
-		<input type="text" class="form-control" placeholder="Ir a..."{# id="irHaciaFecha" name="irHaciaFecha"#} readonly="readonly">
-		<span class="input-group-addon">
-		    <span class="glyphicon glyphicon-calendar"></span>
-		</span>
-	    </div>
-	</div>
-	<div class="form-group has-feedback">
-	    <input type="text" class="typeahead explocal_navbar_typeahead form-control" autocomplete="off" placeholder="expediente" id="navbar_filter_expNumero" name="navbar_filter_expNumero" data-xparam-filter="false">
-	    <i class="glyphicon glyphicon-remove-circle form-control-feedback typeahead-custom-clear" id="clear-typeahead-filter-exp"></i>
-	</div>
-	<div class="form-group">
-	    <select class="form-control" id="navbar_field_cita_modalidad" name="navbar_field_cita_modalidad" data-apply-formatter="mld" data-apply-placeholder="Modalidad" data-apply-width="125px">
-		<option value=""></option>
-		<optgroup label="Imagenología">
-		    {% for modalidad in modalidades %}
-		    <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
-		    {% endfor %}
-		</optgroup>
-	    </select>
-	</div>
-	<div class="form-group">
-	    <select class="form-control" id="navbar_field_cita_tecnologo" name="navbar_field_cita_tecnologo" data-apply-formatter="user" data-apply-formatter-mode="enabled" data-apply-placeholder="Tecnólogo" data-apply-width="125px">
-		<option value=""></option>
-		{% for tipo in tiposEmpleado if tipo.codigo == 'MED' or tipo.codigo == 'TRY' %}
-		    <optgroup label="{{ tipo }}">
-			{% for radiologo in radiologos if radiologo.idTipoEmpleado is not null and radiologo.idTipoEmpleado.id == tipo.id %}
-		    <option value="{{ radiologo.id }}">{{ radiologo }}</option>
-			{% endfor %}
-		    </optgroup>
-		{% endfor %}
-		{% for radiologo in radiologos if radiologo.idTipoEmpleado is null %}
-		    <option value="{{ radiologo.id }}">{{ radiologo }}</option>
-		{% endfor %}
-	    </select>
-	</div>
-    </form>
-{% endblock %}
+{% block simagd_navbar_middle_nav %} {% endblock %}
 
 {% block simagd_navbar_right_nav %}
     {#<li class="list-table-link-navbar"><a   href="javascript:void(0)" id="show-table-bloqueos-agenda" data-divtabletarget="div-resultado-bloqueos-agenda"> <span class="text-info"><i class="fa fa-lock"></i> <i class="fa fa-list"></i> </span> Bloqueos</a></li>#}
@@ -214,52 +174,117 @@
 
 {% block sonata_admin_content -%}
 
-    {#{% set cit_vars = { 'simagd_title': 'FORMULARIO PARA PROGRAMACIÓN DE CITA DE IMAGENOLOGÍA',
-                        'simagd_message': 'Arrastre las solicitudes hacia el calendario para crear una cita al paciente'
-    }%}
-    {% include 'MinsalSimagdBundle:Menu:simagd_cabecera.html.twig' ignore missing with cit_vars %}#}
-
     {{ parent() }}
 
     <div id="div-resultado-agenda-rx" class="menu-vistas-agenda" {% if _CIT_ALLOW_CREATE == false %} style="visibility: hidden;" {% endif %} >
 
 	<div class="row outer">
 
-        <div class="col-lg-12 col-md-12 col-sm-12 {#col-xs-offset-2 #}">
-            {#<div class="row">#} <!-- row block -->
-                <div class="box box-drop-outside-shadow-emergency {#box-dark-theme#} box-emergency" style="padding: 28px 48px;">
-                    <div class="box-body" >
+        <!-- FC - BLOCK FORM SEARCH -->
+        <div class="col-lg-12 col-md-12 col-sm-12 ">    <!-- form block -->
+            <div class="box box-drop-outside-shadow-emergency {#box-dark-theme#} box-emergency" style="padding: 28px 48px;">
+                <div class="box-body" >
 
-                        <!-- FORM --| SEARCH PATIENT -->
-                        <form id="_fc_filter_box_form" name="_fc_filter_box_form" method="post" class="form-horizontal" role="search">
+                    <!-- FORM --| SEARCH PATIENT -->
+                    <form id="_fc_filter_box_form" name="_fc_filter_box_form" method="post" class="form-horizontal" role="search">
 
-                            <div class="form-group">
-                                <div class="col-xs-5">
-                                    <ul class="list-unstyled list-inline formstyle-radio-list-inline input-sm col-lg-12 col-md-12 col-sm-12" id="_fc_filter_search_type">
-                                        <li>
-                                            <label class="">
-                                                <input type="radio" {#checked="checked"#} value="agenda" name="_fc_filter_search_type" id="_fc_filter_search_type_0">
-                                                <span style="margin-left: 5px;"> Lista de pacientes</span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="">
-                                                <input type="radio" checked="checked" value="summary" name="_fc_filter_search_type" id="_fc_filter_search_type_1">
-                                                <span style="margin-left: 5px;"> Resumen</span>
-                                            </label>
-                                        </li>
-                                    </ul>
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <input type="hidden" id="_search_patient" name="_search_patient" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-5">
+                                <ul class="list-unstyled list-inline formstyle-radio-list-inline input-sm col-lg-12 col-md-12 col-sm-12" id="_search_type">
+                                    <li>
+                                        <label class="">
+                                            <input type="radio" checked="checked" value="0" name="_search_type" id="_search_type_0">
+                                            <span style="margin-left: 5px;"> Expediente creado</span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="">
+                                            <input type="radio" value="1" name="_search_type" id="_search_type_1">
+                                            <span style="margin-left: 5px;"> Paciente referido / Desconocido / Servicio externo</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-1">
+                                <a class="btn btn-primary-v4" href="javascript:void(0)" id="_search_more" name="_search_more"><span class="glyphicon glyphicon-zoom-in"></span> </a>
+                                <a class="btn btn-primary-v4" href="javascript:void(0)" id="_search_minus" name="_search_more" style="display: none;"><span class="glyphicon glyphicon-zoom-out"></span> </a>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <div class="input-group date primary-v4" id="navbar_field_cita_goToDate">
+                                    <input type="text" class="form-control" placeholder="ir a..." readonly="readonly">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-time"></span>
+                                    </span>
                                 </div>
                             </div>
+                            <div class="col-xs-5">
+                                <ul class="list-unstyled list-inline formstyle-radio-list-inline input-sm col-lg-12 col-md-12 col-sm-12" id="_fc_filter_search_type">
+                                    <li>
+                                        <label class="">
+                                            <input type="radio" {#checked="checked"#} value="agenda" name="_fc_filter_search_type" id="_fc_filter_search_type_0">
+                                            <span style="margin-left: 5px;"> Lista de pacientes</span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="">
+                                            <input type="radio" checked="checked" value="summary" name="_fc_filter_search_type" id="_fc_filter_search_type_1">
+                                            <span style="margin-left: 5px;"> Resumen</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
-                        </form>
-                        <!-- END --| FORM -->
+                        <div class="form-group">
+                            <label class="col-xs-1 control-label">Radiólogo</label>
+                            <div class="col-xs-4">
+                                <select id="navbar_field_cita_tecnologo" name="navbar_field_cita_tecnologo" class="form-control select2-select" >
+                                    <option value=""></option>
+                                    {% for tipo in tiposEmpleado if tipo.codigo == 'MED' or tipo.codigo == 'TRY' or tipo.codigo == 'MRY' %}
+                                        <optgroup label="{{ tipo }}">
+                                        {% for radiologo in radiologos if radiologo.idTipoEmpleado is not null and radiologo.idTipoEmpleado.id == tipo.id %}
+                                            <option value="{{ radiologo.id }}" {% if radiologo.id == app.user.getIdEmpleado().getId() and app.user.getIdEmpleado().getIdTipoEmpleado().getCodigo() == 'MRY' %} selected {% endif %}>{{ radiologo }}</option>
+                                        {% endfor %}
+                                        </optgroup>
+                                    {% endfor %}
+                                    {% for radiologo in radiologos if radiologo.idTipoEmpleado is null %}
+                                        <option value="{{ radiologo.id }}" {% if radiologo.id == app.user.getIdEmpleado().getId() %} selected {% endif %}>{{ radiologo }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <label class="col-xs-2 control-label required">Modalidad</label>
+                            <div class="col-xs-4">
+                                <select id="navbar_field_cita_modalidad" name="navbar_field_cita_modalidad" class="form-control select2-select" >
+                                    <option value=""></option>
+                                    <optgroup label="Servicio de Diagnóstico por imagen">
+                                        {% for modalidad in modalidades %}
+                                            <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
+                                        {% endfor %}
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
 
-                    </div>
+                        <div class="form-group" id="_group_new_patient">
+                            <div class="col-xs-12">
+                                <a class="btn btn-emergency" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
+                            </div>
+                        </div>
+
+                    </form>
+                    <!-- END --| FORM -->
+
                 </div>
-            {#</div>#}
+            </div> <!-- end form block -->
         </div>
-
+        <!-- END --| FC - BLOCK FORM SEARCH -->
+        
 	    <div id='external-events' class="col-lg-3 col-md-3 col-sm-3">
 
 		<div class="panel panel-primary-v4" id='fc-patient-panel' {% if _CIT_ALLOW_CREATE == false or _CIT_ALLOW_EDIT == false %} disabled="disabled" {% endif %}>
@@ -368,10 +393,10 @@
                         </div>
 
 			<!-- refresh calendar view -->
-			<a   class="btn btn-primary-v4 btn-outline btn-sm pull-left" id="panel_agenda_btn_refresh_calendar" href="javascript:void(0)" style="margin-top: -0.4em;" {% if _CIT_ALLOW_VIEW == false %} disabled="disabled" {% endif %} target="_blank" title="Refrescar agenda">
+			<a class="btn btn-primary-v4 btn-outline btn-sm pull-left" id="panel_agenda_btn_refresh_calendar" href="javascript:void(0)" style="margin-top: -0.4em;" {% if _CIT_ALLOW_VIEW == false %} disabled="disabled" {% endif %} {#target="_blank"#} title="Refrescar agenda">
 			    <i class="glyphicon glyphicon-repeat"></i> Refrescar
 			</a>
-            <form class="{#navbar-form navbar-left navbar-input-group#} pull-left" role="search">
+            {#<form class=" pull-left" role="search">
                 <div class="form-group" style="margin-bottom: 0; margin-top: -0.4em; margin-left: 15px;">
                     <div class="input-group date primary-v4" id="fc_heading_formitem_group_buscarFecha" name="fc_heading_formitem_group_buscarFecha" style="width: 230px;">
                         <span class="input-group-btn">
@@ -379,22 +404,10 @@
                                 &nbsp;&nbsp;<i class="glyphicon glyphicon-dashboard"></i>&nbsp;&nbsp;
                             </button>
                         </span>
-                        <input type="text" class="form-control input-sm {#input-md#} mainnav-search-query" id="fc_heading_formitem_buscarFecha" name="fc_heading_formitem_buscarFecha" placeholder="buscar fecha..." readonly="readonly">
+                        <input type="text" class="form-control input-sm mainnav-search-query" id="fc_heading_formitem_buscarFecha" name="fc_heading_formitem_buscarFecha" placeholder="buscar fecha..." readonly="readonly">
                     </div>
                 </div>
-            </form>
-            <form class="{#navbar-form navbar-left navbar-input-group#} pull-left" role="search">
-                <div class="form-group" style="margin-bottom: 0; margin-top: -0.4em; margin-left: 15px;">
-                    <div class="input-group date primary-v4" id="fc_heading_formitem_group_buscarFecha_2" name="fc_heading_formitem_group_buscarFecha_2" style="width: 230px;">
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-sm mainnav-form-btn btn-primary-v4 btn-outline" id="fc_heading_formitem_btn_buscarFecha_2">
-                                &nbsp;&nbsp;<i class="glyphicon glyphicon-search"></i>&nbsp;&nbsp;
-                            </button>
-                        </span>
-                        <input type="text" class="form-control input-sm {#input-md#} mainnav-search-query" id="fc_heading_formitem_buscarFecha_2" name="fc_heading_formitem_buscarFecha_2" placeholder="buscar fecha...">
-                    </div>
-                </div>
-            </form>
+            </form>#}
 
 			<h3 class="panel-title" style="text-align: center;"> <i class="fa fa-calendar"></i> <i class="fa fa-calendar-check-o"></i> Agenda </h3>
 			

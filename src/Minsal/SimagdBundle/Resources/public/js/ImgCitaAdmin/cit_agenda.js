@@ -43,6 +43,7 @@ jQuery(document).ready(function() {
 	* set calendar configuration
 	*/
 	$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar({   //Onchange de modalidad filtra eventos refresh events, si radiologo no es seleccionado, mostrar todos
+	    lazyFetching: false,
 	    header: {                   //Para todas las modalidades, no solo ultrasonido, asi se puede filtrar solo de 1 tecnologo de TAC x ej.
 		left: 'prev,next today',
 		center: 'title',
@@ -83,7 +84,7 @@ jQuery(document).ready(function() {
 		},
 		currentTimezone: 'America/El_Salvador'
 	    },
-    // 	eventStartEditable: true,
+    	// eventStartEditable: true,
 	    droppable: true, // this allows things to be dropped onto the calendar
 	    drop: function(date, jsEvent, ui) {
 		      /** Hide popovers */
@@ -105,22 +106,22 @@ jQuery(document).ready(function() {
 				  
 				  $popover.popover('hide');
 				  
-    // 			      $el_fc_calendar.filter(':not([disabled]):visible')
-    // 				      .find('.fc-event, .fc-bgevent, [data-toggle="popover"]')
-    // 					  .popover('hide');
+    			    //   $el_fc_calendar.filter(':not([disabled]):visible')
+    				   //    .find('.fc-event, .fc-bgevent, [data-toggle="popover"]')
+    					  // .popover('hide');
 	    },
 	    eventDragStart: function(event, jsEvent, ui, view) {
 				var $popover = jQuery(this);
 				
 				$popover.popover('hide');
 				
-    // 			    $el_fc_calendar.filter(':not([disabled]):visible')
-    // 				    .find('.fc-event, .fc-bgevent, [data-toggle="popover"]')
-    // 					.popover('hide');
+    			  //   $el_fc_calendar.filter(':not([disabled]):visible')
+    				 //    .find('.fc-event, .fc-bgevent, [data-toggle="popover"]')
+    					// .popover('hide');
 	    },
-// 	    defaultTimedEventDuration: '00:05:00',
+	    // defaultTimedEventDuration: '00:05:00',
 	    defaultTimedEventDuration: $options.slot,
-// 	    slotDuration: '00:05:00',
+	    // slotDuration: '00:05:00',
 	    slotDuration: $options.slot,
 	    forceEventDuration: true,
 	    slotEventOverlap: false,
@@ -128,17 +129,23 @@ jQuery(document).ready(function() {
 	    //defaultAllDayEventDuration: $options.slot,
 	    //allDaySlot: false,
 	    eventRender: function(event, element) {//EVENT RECEIVE::::::: Si es en month view, buscar mejor espacio, usando la bd o buscando timeslot vacios
-    //            element.qtip({
-    //                content: event.description,
-    //                position : {
-    //                    my : 'right center',
-    //                    at : 'left center',
-    //                    adjust : {
-    //                        screen : true,
-    //                        scroll: false
-    //                    }
-    //                }
-    //            });
+               // element.qtip({
+               //     content: event.description,
+               //     position : {
+               //         my : 'right center',
+               //         at : 'left center',
+               //         adjust : {
+               //             screen : true,
+               //             scroll: false
+               //         }
+               //     }
+               // });
+
+    					if (event.hasOwnProperty('type') && event.type === 'summary') {
+    						element.find('.fc-time').hide();
+    						element.find('.fc-title').append('<br/>' + event.title_detail);
+    					}
+
 			      element.popover({
 				      html: true,
 				      placement: 'top',
@@ -320,7 +327,7 @@ jQuery(document).ready(function() {
 						
 						$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('removeEvents', event._id);
 						$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('refetchEvents');
-    // 					    http://stackoverflow.com/questions/18141261/how-to-format-date-on-fullcalendar-on-that-way-when-i-click-on-event
+    					    // http://stackoverflow.com/questions/18141261/how-to-format-date-on-fullcalendar-on-that-way-when-i-click-on-event
 				    },
 				    error: function(e) {
 					      console.log('Se ha producido un error al agregar nuevo evento');
@@ -357,7 +364,7 @@ jQuery(document).ready(function() {
 						event.cit_usernameUserMod = response.cit_usernameUserMod;
 						$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('updateEvent', event);
 						
-    // 					    $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('refetchEvents');
+    					    // $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('refetchEvents');
 						console.log('Hora de Evento actualizada satisfactoriamente');
 				    },
 				    error: function(e) {
@@ -398,7 +405,7 @@ jQuery(document).ready(function() {
 					      event.cit_usernameUserMod = response.cit_usernameUserMod;
 					      $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('updateEvent', event);
 						
-    // 					  $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('refetchEvents');
+    					  // $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('refetchEvents');
 					      console.log('Fecha de Evento actualizada satisfactoriamente');
 				  },
 				  error: function(e) {
@@ -411,12 +418,12 @@ jQuery(document).ready(function() {
 			    });
 	    },
 	    dayClick: function(date, jsEvent, view) {
-    // 	    console.log('Clicked on: ' + date.format());
-    // 	    console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-    // 	    console.log('Current view: ' + view.name);
+    	    // console.log('Clicked on: ' + date.format());
+    	    // console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+    	    // console.log('Current view: ' + view.name);
 
 			  // change the day's background color just for fun
-    // 		      jQuery(this).css('background-color', '#e7faff');
+    		      // jQuery(this).css('background-color', '#e7faff');
 			  jQuery(this).addClass('simagd_ac_checked_date');
 			  $('.fc-day').not(jQuery(this)).removeClass('simagd_ac_checked_date');
 	    
@@ -431,8 +438,12 @@ jQuery(document).ready(function() {
 			  $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('changeView', 'agendaDay');
 	    },
 	    eventClick: function(calEvent, jsEvent, view) {
-    //             console.log(calEvent);
-			    jQuery(this).css('border-color', 'yellow');
+                // console.log(calEvent);
+			    jQuery(this).css('border-color', '#f5f2d4');
+
+			    if (!calEvent.hasOwnProperty('type') || calEvent.type !== 'summary') {
+			    	return false;
+			    }
 			    
 			    /* Nuevo evento en modal options y form-edit */
 			    $current_eventObject = jQuery.extend(true, {}, calEvent);
@@ -661,9 +672,51 @@ jQuery(document).ready(function() {
     /*
      * Refresh fullCalendar options without rebuilt
      */
-    // $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 1650);
-    // $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 2650);
+    
+    
     /* http://fullcalendar.io/docs/event_data/events_function/ */
+
+    //////////////////////////////////////////////////////////////////////////
+    //////// go to date
+    //////////////////////////////////////////////////////////////////////////
+    var $el_fc_goToDate = jQuery('[id="navbar_field_cita_goToDate"]');	//  --| dtpicker DOM element
+        $el_fc_goToDate.datetimepicker({
+            locale          : 'es',
+            format          : 'YYYY-MM-DD',
+            showTodayButton : true,
+            showClear       : true,
+            showClose       : true,
+            ignoreReadonly  : true
+        }).on("dp.change", function (e) {
+            jQuery(this).blur();
+            console.log(e.date);
+            var goToDpDate = (typeof e.date !== 'undefined' && e.date !== null && e.date !== false) ? e.date : moment();
+            $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('gotoDate', goToDpDate);
+        }).on("dp.hide", function (e) {
+            jQuery(this).blur();
+        });
+
+    //////////////////////////////////////////////////////////////////////////
+    //////// change content type - month (and height)
+    //////////////////////////////////////////////////////////////////////////
+    var $__DOM__type_ = jQuery('input[name=_fc_filter_search_type]');
+    $__DOM__type_.on('ifClicked', function(e) {
+    	var $__DOM__checked_ = jQuery('input[name=_fc_filter_search_type]:checked');
+        var chk = $__DOM__checked_.val();
+        var $last_view = $el_fc_calendar.fullCalendar('getView');
+        if (chk !== this.value) {
+	    	if (this.value === 'summary') {
+	    		$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 2650);
+	    		// $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 1650);
+	    		// window.console.log (JSON.stringify($el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height')));
+	    	}
+	    	else {
+	    		$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 'auto');
+	    		// $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 'auto');
+	    		// window.console.log (JSON.stringify($el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height')));
+	    	}
+	    }
+    });
     
 });
 

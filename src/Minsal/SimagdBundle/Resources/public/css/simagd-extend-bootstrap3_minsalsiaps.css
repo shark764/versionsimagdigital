@@ -10,6 +10,16 @@ and open the template in the editor.
 
 
 
+/*
+ * *************************************************************************************************************************************************
+ * SUPREME COLOR XRAY
+ * *************************************************************************************************************************************************
+ */
+.xray-supreme {
+  background-color: #284858;
+}
+
+
 .jumbotron ul.formstyle-radio-list-inline,
 .jumbotron ul.list-inline.formstyle-radio-list-inline {
     background-color: #fff;
