@@ -24,7 +24,7 @@ class CitaRepository extends EntityRepository
                         sum(case when s.codigo = 'RPG' then 1 else 0 end) as RPG,
                         sum(case when s.codigo = 'CNL' or s.codigo = 'ANL' then 1 else 0 end) as CNL,
                         count(c.id) as total,
-                        true as allDay, '#333' as color, 'summary' as type
+                        true as allDay, '#555' as color, 'summary' as type
                         /*to_char(c.fecha_hora_inicio, 'FMMonth FMDDth, YYYY') AS title*/
                     from img_cita c
                         inner join img_ctl_estado_cita s
