@@ -1,9 +1,9 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-    
+
 // Objeto que guarda el evento consultado
 var $current_eventObject 	= null;
 
@@ -11,15 +11,15 @@ var $current_eventObject 	= null;
 var $false_eventObject 		= null;
 // Bloqueo falso de prueba, asi evitar el refresh en event_"create"
 var $false_blockObject 		= null;
-    
+
 jQuery(document).ready(function() {
-    
+
     console.log('%cAl presionar un event pendiente patient, entonces transformar el calendar, para q aparezca bloqueado donde no puede ponerlo\nIgual para cuando es eventResize y eventDrop\nY que no sea en refetch, sino que en cliente', 'background: #183f52; color: #fff');
-    
+
     console.log('%cCambiar color de la franja azul en los dropdown list y en tt-menu list', 'background: #183f52; color: #fff');
-    
+
     console.log('%c http://fullcalendar.io/ \n http://fullcalendar.io/docs/display/customButtons/ \n http://fullcalendar.io/docs/display/header/ \n http://fullcalendar.io/docs/dropping/eventReceive/ --> para evitar en proxima consulta \n http://fullcalendar.io/docs/dropping/drop/ <-- para lo mismo \n http://fullcalendar.io/docs/event_ui/dragRevertDuration/ \n draggable tiene tambien revertDuration \n http://fullcalendar.io/docs/event_ui/dragOpacity/ \n http://fullcalendar.io/docs/event_ui/eventOverlap/ \n http://fullcalendar.io/docs/display/weekends/ \n http://fullcalendar.io/docs/display/hiddenDays/', 'background: #183f52; color: #fff');
-    
+
     /*
      * fc-calendar-panel, show refresh calendar message
      * @type @call;$
@@ -49,7 +49,7 @@ jQuery(document).ready(function() {
 		center: 'title',
 		right: 'prevYear,nextYear month,agendaWeek,agendaDay' //Botón "agregar bloqueo en todas las modalidades", haria while de todas las modalidades en Action
 	    },					//una vez teniendo el objeto creado, para crearlo para cada una
-	    lang: 'es',
+	    locale: 'es',
 	    timezone: 'America/El_Salvador',
 	    editable: true,
 	    editExternalEvent: true,
@@ -89,11 +89,11 @@ jQuery(document).ready(function() {
 	    drop: function(date, jsEvent, ui) {
 		      /** Hide popovers */
 		      $('.fc-event, .fc-bgevent, [data-toggle="popover"]').popover('hide');
-				
+
 		      $el_fc_calendar.filter(':not([disabled]):visible')
 			      .find('.fc-event, .fc-bgevent, [data-toggle="popover"]')
 				  .popover('hide');
-		      
+
 		      // is the "remove after drop" checkbox checked?
 		      console.log(date, jsEvent, ui);
 		      if (jQuery('#drop-remove').is(':checked') && jQuery(this).hasClass("fc-event")) {
@@ -103,18 +103,18 @@ jQuery(document).ready(function() {
 	    },
 	    eventResizeStart: function(event, jsEvent, ui, view) {
 				  var $popover = jQuery(this);
-				  
+
 				  $popover.popover('hide');
-				  
+
     			    //   $el_fc_calendar.filter(':not([disabled]):visible')
     				   //    .find('.fc-event, .fc-bgevent, [data-toggle="popover"]')
     					  // .popover('hide');
 	    },
 	    eventDragStart: function(event, jsEvent, ui, view) {
 				var $popover = jQuery(this);
-				
+
 				$popover.popover('hide');
-				
+
     			  //   $el_fc_calendar.filter(':not([disabled]):visible')
     				 //    .find('.fc-event, .fc-bgevent, [data-toggle="popover"]')
     					// .popover('hide');
@@ -141,9 +141,14 @@ jQuery(document).ready(function() {
                //     }
                // });
 
-    					if (event.hasOwnProperty('type') && event.type === 'summary') {
+                        var fc_view = $el_fc_calendar.fullCalendar('getView');
+                        // window.console.log(fc_view, fc_view.name, fc_view.name === 'month');
+    					if (event.hasOwnProperty('type') && event.type === 'summary' && fc_view.name === 'month') {
     						element.find('.fc-time').hide();
     						element.find('.fc-title').append('<br/>' + event.title_detail);
+                            // continue;
+                            return;
+                            // return false;
     					}
 
 			      element.popover({
@@ -204,7 +209,7 @@ jQuery(document).ready(function() {
 							  console.log('Cita confirmada satisfactoriamente');
 							  $popover.popover('hide');
 							  $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('removeEvents', event.cit_id);
-							  
+
 							  if (jQuery('#table-lista-citas').is(':visible')) {
 							      jQuery('#table-lista-citas:visible').bootstrapTable('refresh');
 							      $queued_bsAlert.addFadeSlideEffect();
@@ -230,7 +235,7 @@ jQuery(document).ready(function() {
 				      $el_fc_calendar.filter(':not([disabled]):visible').find('div.popover .close-cita-popover-action').on('click', function(e) {
 					  $popover.popover('hide');
 				      });
-				      
+
 
 				      /** BLOCK action events */
 				      $el_fc_calendar.filter(':not([disabled]):visible').find('div.popover .show-bloqueo-popover-action').on('click', function(e) {
@@ -241,11 +246,11 @@ jQuery(document).ready(function() {
 				      $el_fc_calendar.filter(':not([disabled]):visible').find('div.popover .edit-bloqueo-popover-action').on('click', function(e) {
 					  ___setDataEditBloqueoForm(e, event.blAgd_id, event, event.blAgd_id);
 				      });
-				      
+
 				      $el_fc_calendar.filter(':not([disabled]):visible').find('div.popover .exclude-radx-bloqueo-popover-action').on('click', function(e) {
 					    var $blAgd_excl_modal = jQuery('#excluirRadiologoBloqueo-modal');
 					    $blAgd_excl_modal.fv_displayEditFormInModal({object: event});
-					    
+
 					    jQuery('#formBlAgdExclRadxIdBloqueoAgenda-static-label').text(event.blAgd_titulo);
 					    jQuery('#formBlAgdExclRadxIdExamenServicioDiagnostico-static-label').text(function(index) {
 						var $mld_text = jQuery.trim(event.blAgd_modalidad);
@@ -255,7 +260,7 @@ jQuery(document).ready(function() {
 						    return 'Todas las modalidades';
 						}
 					    });
-					    
+
 					    $blAgd_excl_modal.modal();
 				      });
 
@@ -269,7 +274,7 @@ jQuery(document).ready(function() {
 							  console.log('Bloqueo removido satisfactoriamente');
 							  $popover.popover('hide');
 							  $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('removeEvents', 'bl_' + event.blAgd_id);
-							  
+
 							  if (jQuery('#table-lista-bloqueos').is(':visible')) {
 							      jQuery('#table-lista-bloqueos:visible').bootstrapTable('remove', {field: 'blAgd_id', values: [event.blAgd_id]});
 							  }
@@ -287,7 +292,7 @@ jQuery(document).ready(function() {
 					  $popover.popover('hide');
 				      });
 				  });
-			      
+
 			      if (event._id === 'false_event_id') {
 				  $false_eventObject = jQuery.extend(true, {}, event);
 			      }
@@ -300,11 +305,11 @@ jQuery(document).ready(function() {
 	    eventReceive: function(event) {
 			      /** Hide popovers */
 			      $('.fc-event, .fc-bgevent, [data-toggle="popover"]').popover('hide');
-					
+
 			      $el_fc_calendar.filter(':not([disabled]):visible')
 				      .find('.fc-event, .fc-bgevent, [data-toggle="popover"]')
 					  .popover('hide');
-				  
+
 			      $.ajax({
 				    type: 'post',
 				    dataType: 'json',
@@ -320,11 +325,11 @@ jQuery(document).ready(function() {
 				    },
 				    success: function(response) {
 						console.log('Evento agregado satisfactoriamente', event._id, response.cit_id);
-						
+
 						$el_fc_calendar.filter(':not([disabled]):visible')
 							.find('.fc-event, .fc-bgevent, [data-toggle="popover"]')
 							    .popover('hide');
-						
+
 						$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('removeEvents', event._id);
 						$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('refetchEvents');
     					    // http://stackoverflow.com/questions/18141261/how-to-format-date-on-fullcalendar-on-that-way-when-i-click-on-event
@@ -354,16 +359,16 @@ jQuery(document).ready(function() {
 						event.cit_fechaHoraFinAnterior = event.cit_fechaHoraFin;
 						event.cit_fechaHoraInicio = event.start.format('YYYY-MM-DD h:mm:ss A');
 						event.cit_fechaHoraFin = event.end.format('YYYY-MM-DD h:mm:ss A');
-						
+
 						event.cit_diaCompleto = event._allDay;
-						
+
 						event.cit_fechaReprogramacion = response.cit_fechaReprogramacion;
 						event.cit_id_userMod = response.cit_id_userMod;
 						event.cit_nombreUserMod = response.cit_nombreUserMod;
 						event.cit_reprogramada = true;
 						event.cit_usernameUserMod = response.cit_usernameUserMod;
 						$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('updateEvent', event);
-						
+
     					    // $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('refetchEvents');
 						console.log('Hora de Evento actualizada satisfactoriamente');
 				    },
@@ -375,7 +380,7 @@ jQuery(document).ready(function() {
 					      $error_bsAlert.addFadeSlideEffect();
 				    }
 			      });
-	      
+
 	      console.log(event);
 	    },
 	    eventDrop: function(event, delta, revertFunc) {
@@ -395,16 +400,16 @@ jQuery(document).ready(function() {
 					      event.cit_fechaHoraFinAnterior = event.cit_fechaHoraFin;
 					      event.cit_fechaHoraInicio = event.start.format('YYYY-MM-DD h:mm:ss A');
 					      event.cit_fechaHoraFin = event.end.format('YYYY-MM-DD h:mm:ss A');
-					      
+
 					      event.cit_diaCompleto = event._allDay;
-					      
+
 					      event.cit_fechaReprogramacion = response.cit_fechaReprogramacion;
 					      event.cit_id_userMod = response.cit_id_userMod;
 					      event.cit_nombreUserMod = response.cit_nombreUserMod;
 					      event.cit_reprogramada = true;
 					      event.cit_usernameUserMod = response.cit_usernameUserMod;
 					      $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('updateEvent', event);
-						
+
     					  // $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('refetchEvents');
 					      console.log('Fecha de Evento actualizada satisfactoriamente');
 				  },
@@ -426,11 +431,11 @@ jQuery(document).ready(function() {
     		      // jQuery(this).css('background-color', '#e7faff');
 			  jQuery(this).addClass('simagd_ac_checked_date');
 			  $('.fc-day').not(jQuery(this)).removeClass('simagd_ac_checked_date');
-	    
+
 			  if (jsEvent.target.classList.contains('fc-bgevent')) {
 			      console.log('Click Background Event Area');
 			  }
-			  
+
 			  if (view.name != 'month') {
 			      return;
 			  }
@@ -439,17 +444,21 @@ jQuery(document).ready(function() {
 	    },
 	    eventClick: function(calEvent, jsEvent, view) {
                 // console.log(calEvent);
-			    jQuery(this).css('border-color', '#f5f2d4');
 
-			    if (!calEvent.hasOwnProperty('type') || calEvent.type !== 'summary') {
+                //////// type = summary
+                //////// no action
+			    if (calEvent.hasOwnProperty('type') && calEvent.type === 'summary') {
+                    jQuery(this).css('border-color', '#a0a0a0');
 			    	return false;
 			    }
-			    
+
+			    jQuery(this).css('border-color', '#f5f2d4');
+
 			    /* Nuevo evento en modal options y form-edit */
 			    $current_eventObject = jQuery.extend(true, {}, calEvent);
-			    
+
 			    jQuery('input[id="formConfirmCitId"]').val( calEvent._id);
-			    
+
 			    window.console.log('%c' + 'YYYY-MM-DD h:mm:ss A => ' + calEvent.start.format('YYYY-MM-DD h:mm:ss A') + '\n'
 				+ 'll => ' + calEvent.start.format('ll') + '\n'
 				+ 'LL => ' + calEvent.start.format('LL') + '\n'
@@ -458,15 +467,15 @@ jQuery(document).ready(function() {
 				+ 'llll => ' + calEvent.start.format('llll') + '\n'
 				+ 'LLLL => ' + calEvent.start.format('LLLL') + '\n'
 				+ 'dddd, MMMM Do YYYY, h:mm:ss a => ' + calEvent.start.format('dddd, MMMM Do YYYY, h:mm:ss a'), 'background: #16677d; color: #fc9');
-			    
+
 			    $el_fc_calendar.filter(':not([disabled]):visible')
 				.find('.fc-event, .fc-bgevent, [data-toggle="popover"]')
 				.not(this)
 				.popover('hide');
-			    
+
 			    return false;
 	    },
-	    axisFormat: 'h:mm A',
+	    slotLabelFormat: 'h:mm A',
 	    timeFormat: 'H(:mm) A',
 	    eventLimit: true, // for all non-agenda views
 	    views: {
@@ -514,12 +523,12 @@ jQuery(document).ready(function() {
 	if ($el_fc_calendar.is(':visible')) {
 	    var $last_view	= $el_fc_calendar.fullCalendar('getView');
 	    var $last_date	= $el_fc_calendar.fullCalendar('getDate');
-	    
+
 	    $el_fc_calendar
 		.filter(':not([disabled]):visible')
 			.fullCalendar('destroy');	// --| destroy calendar
 	    fn_init_fullCalendar_configurarion($options);	// --| rebuild calendar with new options
-	    
+
 	    $el_fc_calendar
 		.filter(':not([disabled]):visible')
 			.fullCalendar('changeView', $last_view.name);
@@ -538,16 +547,16 @@ jQuery(document).ready(function() {
     /*
      * --| END call method
      */
-    
+
     $('[data-toggle="popover"]').popover();
-    
+
     /*
      * expand agenda view
      */
     jQuery('#panel_agenda_btn_expand_view').filter(':not([disabled])').click(function(e) {
         jQuery('#panel_agenda_btn_default_view').parents('li').show();
         jQuery(this).parents('li').hide();
-        
+
         jQuery('#external-events').hide('slide', {direction: 'left'}, 100, function() {
             jQuery('#container_fc_agenda_view').removeClass (function (index, css) {
 		    return (css.match (/(^|\s)col-lg-\S+/g) || css.match (/(^|\s)col-md-\S+/g) || css.match (/(^|\s)col-sm-\S+/g) || []).join(' ');
@@ -583,7 +592,7 @@ jQuery(document).ready(function() {
 		})/*.removeClass('col-lg-12 col-md-12 col-sm-12')*/.addClass('col-lg-9 col-md-9 col-sm-9');
             jQuery(window).resize();
         });
-        
+
         jQuery('#panel_agenda_btn_expand_view').parents('li').show();
         jQuery(this).parents('li').hide();
     });
@@ -672,8 +681,8 @@ jQuery(document).ready(function() {
     /*
      * Refresh fullCalendar options without rebuilt
      */
-    
-    
+
+
     /* http://fullcalendar.io/docs/event_data/events_function/ */
 
     //////////////////////////////////////////////////////////////////////////
@@ -717,7 +726,7 @@ jQuery(document).ready(function() {
 	    	}
 	    }
     });
-    
+
 });
 
 /** Set data in popover */
@@ -748,11 +757,11 @@ jQuery.fn.setDataCitaPopoverContent = function(options) {
     jQuery(this).find('[data-render-info="solicitudEstudioProyeccion"]')
 	    .html(function() {
 		var $arr_result = ['<ul>'];
-		
+
 		$.each($citObject.prc_solicitudEstudioProyeccion, function(i, y) {
 		    $arr_result.push('<li>', '<strong><span class="text-info">', jQuery.trim(y.expl_codigo) + '</span></strong> ' + jQuery.trim(y.expl_nombre), '</li>');
 		});
-		
+
 		$arr_result.push('</ul>');
 
                 return $arr_result.join('');
