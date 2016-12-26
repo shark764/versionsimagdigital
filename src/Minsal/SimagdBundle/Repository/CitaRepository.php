@@ -24,7 +24,7 @@ class CitaRepository extends EntityRepository
                         sum(case when s.codigo = 'RPG' then 1 else 0 end) as RPG,
                         sum(case when s.codigo = 'CNL' or s.codigo = 'ANL' then 1 else 0 end) as CNL,
                         count(c.id) as total,
-                        true as allDay, '#183f52' as color, 'summary' as type
+                        true as allDay, '#333' as color, 'summary' as type
                         /*to_char(c.fecha_hora_inicio, 'FMMonth FMDDth, YYYY') AS title*/
                     from img_cita c
                         inner join img_ctl_estado_cita s
@@ -72,10 +72,10 @@ class CitaRepository extends EntityRepository
                             ->groupBy('cit.fechaProgramada')//FECHA LIMITE, PROXIMA CONSULTA
                             ->orderBy('reservados', 'asc')
                             ->addOrderBy('cit.fechaProgramada', 'desc');
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerCitasEstabPorPaciente($idExpediente, $id_estab)
     {
         $query = $this->getEntityManager()
@@ -90,10 +90,10 @@ class CitaRepository extends EntityRepository
                             ->setParameter('id_est', $id_estab)
                             ->orderBy('cit.fechaProgramada', 'desc');
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerEventosReservadosCalendario($id_estab, $start, $end, $idAreaServicioDiagnostico, $idTecnologo = null, $numeroExp = null)
     {
         $query = $this->getEntityManager()
@@ -149,7 +149,7 @@ class CitaRepository extends EntityRepository
                             ->setParameter('status_cit_cod', array('CNF', 'ATN', 'ANL', 'CNL'))
                             ->orderBy('cit.id', 'desc')
                             ->distinct();
-        
+
         $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                             $query->expr()->andx(
@@ -158,7 +158,7 @@ class CitaRepository extends EntityRepository
                                             )
                             )
                             ->setParameter('id_est_explocal', $id_estab);
-        
+
         if ($start && $end)
         {
             $query->andWhere('cit.fechaHoraInicio >= :cal_start_date')
@@ -172,16 +172,16 @@ class CitaRepository extends EntityRepository
             $query->andWhere('cit.idTecnologoProgramado = :id_tcnl')
                             ->setParameter('id_tcnl', $idTecnologo);
         }
-        
+
         /** Número de expediente enviado */
         if($numeroExp) {
             $query->andWhere($query->expr()->like('LOWER(explocal.numero)', ':num_exp'))
                             ->setParameter('num_exp', '%' . strtolower($numeroExp) . '%');
         }
-        
+
         return $query->getQuery()->getScalarResult();
     }
-    
+
     public function obtenerParametroCitacion($id_estab, $idAreaServicioDiagnostico, $idProyeccionesSolicitadas )
     {
 	$examenesIdArray = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')
@@ -189,7 +189,7 @@ class CitaRepository extends EntityRepository
 
 	$countExmArray = array_count_values($examenesIdArray );
 	$idExamenServicioDiagnostico = count($countExmArray) > 0 ? array_search( max($countExmArray), $countExmArray ) : '-1';
-	
+
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prmCit')
@@ -209,10 +209,10 @@ class CitaRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult();
     }
-    
+
     public function obtenerAccesoEstab($id, $idEstab)
     {
         $query = $this->getEntityManager()
@@ -226,10 +226,10 @@ class CitaRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function obtenerAccesoEstabParamCit($id, $idEstab)
     {
         $query = $this->getEntityManager()
@@ -244,10 +244,10 @@ class CitaRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function obtenerExpedientesEstab($id_estab, $numeroExp )
     {
         /** Consulta de pacientes */
@@ -262,13 +262,13 @@ class CitaRepository extends EntityRepository
                             ->addOrderBy('pct.primerApellido')
                             ->addOrderBy('pct.primerNombre')
                             ->distinct();
-        
+
         $query->andWhere($query->expr()->like('LOWER(exp.numero)', ':num_exp'))
                             ->setParameter('num_exp', '%' . strtolower($numeroExp) . '%');
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerCitaOrNullPorSolicitud($idSolicitudEstudio, $idEstab)
     {
         $query = $this->getEntityManager()
@@ -283,11 +283,11 @@ class CitaRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         $result = $query->getQuery()->getOneOrNullResult();
         return $result ? $result['citId'] : NULL;
     }
-    
+
     public function obtenerCitasProgramadasV2($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
@@ -339,7 +339,7 @@ class CitaRepository extends EntityRepository
                             ->leftJoin('prc.idRadiologoAgregaIndicaciones', 'radXInd')
                             ->where('cit.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab);
-        
+
         $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                             $query->expr()->andx(
@@ -348,10 +348,10 @@ class CitaRepository extends EntityRepository
                                             )
                             )
                             ->setParameter('id_est_explocal', $id_estab);
-        
+
         $query->orderBy('cit.id', 'desc')
                             ->distinct();
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -364,8 +364,8 @@ class CitaRepository extends EntityRepository
         /*
          * |-- END filters from BSTABLE_FILTER to query
          */
-        
+
         return $query->getQuery()->getScalarResult();
     }
-    
+
 }
