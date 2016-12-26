@@ -59,6 +59,7 @@ jQuery(document).ready(function() {
 	     */
 	    hiddenDays: [6, 0],	// hide Saturdays (6) and Sundays (0)
 	    nowIndicator: true,
+        aspectRatio: 2,
 	    events: {
 		url: Routing.generate('simagd_cita_obtenerEventosCalendario'),
 		type: 'POST',
