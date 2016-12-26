@@ -6,9 +6,9 @@
  * and open the template in the editor.
  */
 
-namespace Minsal\SimagdBundle\ListViewGenerator;
+namespace Minsal\SimagdBundle\Generator\ListViewGenerator;
 
-use Minsal\SimagdBundle\ListViewGenerator\RyxEntityListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxEntityListViewGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
