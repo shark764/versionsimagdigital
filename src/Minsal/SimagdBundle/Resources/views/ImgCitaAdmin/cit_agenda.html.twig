@@ -28,8 +28,8 @@
     <link href="{{ asset('bundles/minsalsimagd/plugin/summernote-master/dist/summernote.css') }}" type="text/css" rel="stylesheet" />
 
     {# FullCalendar #}
-    <link href="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-2.9.0/fullcalendar.min.css') }}" type="text/css" rel="stylesheet" />
-    <link href="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-2.9.0/fullcalendar.print.css') }}" type="text/css" rel="stylesheet" media="print" />
+    <link href="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/fullcalendar.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/fullcalendar.print.css') }}" type="text/css" rel="stylesheet" media="print" />
 
     {# qTip #}
     <link href="{{ asset('bundles/minsalsimagd/plugin/jquery.qtip.custom/jquery.qtip.css') }}" type="text/css" rel="stylesheet" />
@@ -73,7 +73,7 @@
 
         (function ($) {
             /*
-             * 
+             *
              * @type type
              * Global variables for plugin
              */
@@ -93,8 +93,8 @@
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd-label-bootstrap-table-editable.js') }}" ></script>
 
     {# FullCalendar #}
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-2.9.0/fullcalendar.min.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-2.9.0/lang-all.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/fullcalendar.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/locale-all.js') }}" ></script>
 
     {# qTip #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/jquery.qtip.custom/jquery.qtip.js') }}" ></script>
@@ -284,7 +284,7 @@
             </div> <!-- end form block -->
         </div>
         <!-- END --| FC - BLOCK FORM SEARCH -->
-        
+
 	    <div id='external-events' class="col-lg-3 col-md-3 col-sm-3">
 
 		<div class="panel panel-primary-v4" id='fc-patient-panel' {% if _CIT_ALLOW_CREATE == false or _CIT_ALLOW_EDIT == false %} disabled="disabled" {% endif %}>
@@ -410,14 +410,14 @@
             </form>#}
 
 			<h3 class="panel-title" style="text-align: center;"> <i class="fa fa-calendar"></i> <i class="fa fa-calendar-check-o"></i> Agenda </h3>
-			
+
 			{#<div class="clearfix"></div>#}
 		    </div>
 		    <div class="panel-body" >
 
 			{# calendario #}
 			<div id='calendar' {% if _CIT_ALLOW_CREATE == false or _CIT_ALLOW_EDIT == false %} disabled="disabled" {% endif %}></div>
-                        
+
                         <div class="pull-right" style="margin-top: 10px;">
                             <select class="form-control select2" id="fullcalendar_slotDuration" name="fullcalendar_slotDuration" data-input-transform="select2" data-apply-placeholder="Modificar intervalos" data-apply-width="200px" {% if _CIT_ALLOW_CREATE == false or _CIT_ALLOW_EDIT == false %} disabled {% endif %}>
                                 <option value=""></option>
@@ -476,7 +476,7 @@
         {% include 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_crearSolicitudEstudio_formatoRapido_modal.html.twig'
             ignore missing with { 'medicos': medicos, 'default_empLogged': default_empLogged, 'modalidades': modalidades, 'default_mldRx': default_mldRx, 'proyecciones': proyecciones } %}     {# solicitud de estudio #}
     {% endif %}
-        
+
     {% if _PRC_ALLOW_CREATE == true or _PRC_ALLOW_EDIT == true or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_ADMIN') %}
         {% include 'MinsalSimagdBundle:ImagenologiaDigitalAdmin:simagd_asignarNuevoExpediente_modal.html.twig' %}     {# asignar registros a nuevo expediente #}
     {% endif %}

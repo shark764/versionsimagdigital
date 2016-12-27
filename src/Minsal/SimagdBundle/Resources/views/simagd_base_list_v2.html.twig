@@ -4,17 +4,17 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    
+
     {# Bootstrap #}
     {#<link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css') }}" type="text/css" rel="stylesheet" />#}
-    
+
     {# bootstrap-table #}
     <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-table-master/dist/bootstrap-table.min.css') }}" type="text/css" rel="stylesheet" media="screen" />
-    
+
     {# formvalidation #}
     <link href="{{ asset('bundles/minsalsimagd/plugin/formvalidation-master/dist/css/formValidation.min.css') }}" type="text/css" rel="stylesheet" />
-    
+
     {# bootstrap-X-editable #}
     <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css') }}" type="text/css" rel="stylesheet" media="screen" />
 
@@ -28,42 +28,42 @@
 	    $id_emp_userLogged,
 	    $cod_emp_userLogged,
 	    $id_userEstab;
-	
+
 	var $is_admin,
 	    $is_radX,
 	    $is_prcMed;
-	
+
 	$id_userLogged		= {{ app.user.getId()|escape('js') }};
 	$id_emp_userLogged	= {{ app.user.getIdEmpleado.getId()|escape('js') }};
 	$cod_emp_userLogged	= "{{ app.user.getIdEmpleado.getIdTipoEmpleado.getCodigo()|escape('js') }}";
 	$id_userEstab 		= {{ app.user.getIdEstablecimiento.getId()|escape('js') }};
 
 	console.log($id_userLogged, $id_emp_userLogged, $cod_emp_userLogged, $id_userEstab);
-	
+
 	$is_admin		= {% if is_granted('ROLE_ADMIN') %} true {% else %} false {% endif %};
 	$is_radX		= {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') %} true {% else %} false {% endif %};
 	$is_prcMed		= {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_CREATE') and app.user.idEmpleado.idTipoEmpleado.codigo == 'MED' %} true {% else %} false {% endif %};
 
 	console.log($is_admin, $is_radX, $is_prcMed);
     </script>
-    
+
     {# Bootstrap #}
     {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-3.3.7-dist/js/bootstrap.min.js') }}" ></script>#}
 
     {# scripts minimized with Assetic #}
     {% javascripts
-    
+
 	'bundles/minsalsimagd/js/jquery.formparams.min.js'
 	'bundles/minsalsimagd/js/jquery.mask.min.js'
-	
+
 	output="bundles/minsalsimagd/compiled/js/bundle_javascripts_default___list.js" %}
 	<script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    
+
     {# Twitter Typeahead #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/typeahead.js-master/dist/typeahead.bundle.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/typeahead.js-master/dist/bloodhound.js') }}" ></script>
-    
+
     {# bootstrap-table #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-table-master/dist/bootstrap-table.min.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-table-master/dist/locale/bootstrap-table-es-CR.min.js') }}" ></script>
@@ -74,28 +74,28 @@
 	'bundles/minsalsimagd/js/simagd_data_bsTable_formatter.js'
 	'bundles/minsalsimagd/js/simagd_filter_bstable_config.js'
 	'bundles/minsalsimagd/js/simagd_explocal_navbarFilter_config.js'
-	
+
 	'bundles/minsalsimagd/js/simagd_list_view_config_v2.js'
 	'bundles/minsalsimagd/js/simagd_form_config_v2.js'
 	'bundles/minsalsimagd/js/simagd_config_alert.js'
 	'bundles/minsalsimagd/js/simagd_setterObject_modalData.js'
 	'bundles/minsalsimagd/js/simagd_select2_custom_formatter.js'
-	
+
 	output="bundles/minsalsimagd/compiled/js/bundle_javascripts___list.js" %}
 	<script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    
+
     {# formValidation #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/formvalidation-master/dist/js/formValidation.min.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/formvalidation-master/dist/js/framework/bootstrap.min.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/formvalidation-master/dist/js/language/es_ES.js') }}" ></script>
-    
+
     {# bootstrap-X-editable #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js') }}" ></script>
 {% endblock %}
-    
+
 {% block sonata_admin_content -%}
-    
+
     {% block simagd_navbar_menu_list %}
 	<nav class="navbar navbar-default">
 	    <div class="container-fluid">
@@ -133,7 +133,7 @@
 	    </div><!-- /.container-fluid -->
 	</nav>
     {% endblock %}
-    
+
     {% block simagd_bs_alert %}
 	{% block simagd_inserted_alert %}
 	    <div class="simagd-response-bs-alert" aria-hidden="true">
@@ -180,5 +180,5 @@
 	    </div>
 	{% endblock %}
     {% endblock %}
-    
+
 {% endblock %}

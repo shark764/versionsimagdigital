@@ -14,51 +14,51 @@
     'bundles/minsalsimagd/css/simagd-extend-bootstrap3.css'
     'bundles/minsalsimagd/css/simagd-extend-bootstrap3_minsalsiaps.css'
 	'bundles/minsalsimagd/css/simagd-table.css'
-	
+
 	'bundles/minsalsimagd/css/typeahead.css'
 	'bundles/minsalsimagd/css/select2-bootstrap.css'
     'bundles/minsalsimagd/css/select2-bootstrap_minsalsiaps.css'
-	
+
 	output="bundles/minsalsimagd/compiled/css/bundle_stylesheets___layout.css" %}
 	<link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
     {% endstylesheets %}
-    
-    {# Bootstrap 
+
+    {# Bootstrap
     <link href="{{ asset('bundles/minsalsimagd/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('bundles/minsalsimagd/css/font-awesome.min.css') }}" type="text/css" rel="stylesheet" />#}
-    
+
     {# jquery-ui #}
-    <link href="{{ asset('bundles/minsalsimagd/plugin/jquery-ui-1.12.0.custom/jquery-ui.theme.min.css') }}" type="text/css" rel="stylesheet" />
-    
+    <link href="{{ asset('bundles/minsalsimagd/plugin/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css') }}" type="text/css" rel="stylesheet" />
+
     {# Bootstrap-calendar #}
     <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-datetimepicker-development/build/css/bootstrap-datetimepicker.min.css') }}" type="text/css" rel="stylesheet" />
-    
+
     {# iCheck #}
     <link href="{{ asset('bundles/minsalsimagd/plugin/icheck-1.x/skins/minimal/blue.css') }}" type="text/css" rel="stylesheet" />
-    
+
     {# toastmessage #}
     <link href="{{ asset('bundles/minsalsimagd/plugin/akquinet-jquery-toastmessage-plugin-6f5d7bf/src/main/resources/css/jquery.toastmessage.css') }}" type="text/css" rel="stylesheet" />
-    
+
     {# bootstrap-modal #}
     <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-modal-master/css/bootstrap-modal-bs3patch.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-modal-master/css/bootstrap-modal.css') }}" type="text/css" rel="stylesheet" />
-    
+
     {# bootstrap-vertical-tabs #}
-    <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-vertical-tabs-1.2.1/bootstrap.vertical-tabs.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-vertical-tabs-1.2.2/bootstrap.vertical-tabs.css') }}" type="text/css" rel="stylesheet" />
 {% endblock %}
-    
+
 {% block javascripts %}
     {{ parent() }}
 
     {# select2-es #}
     <script type="text/javascript" src="{{ asset('/bundles/sonataadmin/vendor/select2/select2_locale_es.js') }}" ></script>
-    
+
     {# iCheck #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/icheck-1.x/icheck.js') }}" ></script>
-    
+
     {# jquery-ui #}
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/jquery-ui-1.12.0.custom/jquery-ui.min.js') }}" ></script>
-    
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js') }}" ></script>
+
     {# Bootstrap-datetimepicker #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/moment-develop/min/moment-with-locales.min.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-datetimepicker-development/build/js/bootstrap-datetimepicker.min.js') }}" ></script>
@@ -68,28 +68,28 @@
 	'bundles/minsalsimagd/js/simagd_trim_datos.js'
 	'bundles/minsalsimagd/js/simagd_html5_novalidate.js'
 	'bundles/minsalsimagd/js/simagd_validate_number.js'
-	
+
 	'bundles/minsalsimagd/js/simagd_generar_mensaje_toast.js'
 	'bundles/minsalsimagd/js/simagd_highlight_error_ui.js'
-	
+
 	output="bundles/minsalsimagd/compiled/js/bundle_javascripts___layout.js" %}
 	<script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    
+
     {# toastmessage #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/akquinet-jquery-toastmessage-plugin-6f5d7bf/src/main/javascript/jquery.toastmessage.js') }}" ></script>
-    
+
     {# bootstrap-modal #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-modal-master/js/bootstrap-modalmanager.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-modal-master/js/bootstrap-modal.js') }}" ></script>
 {% endblock %}
-    
+
 {% block content %}
-    
+
     {% block notice %}
         {% include 'MinsalSimagdBundle::simagd_flash_notice.html.twig' %}
     {% endblock notice %}
-    
+
     {{ parent() }}
-    
+
 {% endblock %}
