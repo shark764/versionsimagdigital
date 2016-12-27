@@ -6,43 +6,212 @@
  * and open the template in the editor.
  */
 
-namespace Minsal\SimagdBundle\Generator\ListViewGenerator;
+namespace Minsal\SimagdBundle\Generator\AgendaGenerator;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxEntityListViewGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
-use Minsal\SimagdBundle\Entity\EntityInterface;
 use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 
-use Minsal\SimagdBundle\Entity\RyxCtlMaterial;
-
-///////////////////////////////////////////////////////
-///////////////////////////////////////////////////////
-// http://stackoverflow.com/questions/6956258/adding-onclick-event-to-dynamically-added-button
-///////////////////////////////////////////////////////
-///////////////////////////////////////////////////////
-
 /**
- * RyxCtlMaterialListViewGenerator
+ * AgendaGenerator
  *
  * @author farid
  */
-class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
+class AgendaGenerator
 {
+    /**
+     * @var ContainerInterface
+     *
+     * @api
+     */
+    protected $container;
+
+    /**
+     * The router instance
+     *
+     * @var RouteGeneratorInterface
+     */
+    protected $routeGenerator;
+
+    /**
+     * @var \EntityManager
+     */
+    protected $entityManager;
+
+    /**
+     * @var \UserInterface
+     */
+    protected $user;
+
+    /**
+     * The class name managed by the generator
+     *
+     * @var string
+     */
+    protected $class;
+
     /**
      * @var array
      */
-    protected $entityOptions = array(
-        // 'url'   => $this->routeGenerator->generate('simagd_material_datos'),
+    protected $defaultOptions = array(
+        'idField'       => "id",
+        'cache'         => false,
+        'showRefresh'   => true,
+        'showToggle'    => true,
+        'showColumns'   => true,
+        'search'        => true,
+        'pagination'    => true,
+        'paginationVAlign'  => "both",
+        // 'paginationHAlign'  => "left",
+        // 'paginationDetailHAlign'    => "right",
+        'pageList'      => "[5, 10, 15, 25, 30, 40, 50, 75, 100, 125, 150]",
+        'pageSize'      => 25,
+        'sortName'      => "id",
+        'sortOrder'     => "desc",
+        'classes'       => "table table-hover table-condensed table-striped table-no-bordered",
+        'buttonsClass'  => "primary-v4",
+        'icons'         => array(
+            'paginationSwitchDown'  => 'glyphicon-collapse-down icon-chevron-down',
+            'paginationSwitchUp'    => 'glyphicon-collapse-up icon-chevron-up',
+            'refresh'       => 'glyphicon-repeat icon-repeat',
+            'toggle'        => 'glyphicon-list-alt icon-list-alt',
+            'columns'       => 'glyphicon-th icon-th',
+            'detailOpen'    => 'glyphicon-chevron-down icon-chevron-down',
+            'detailClose'   => 'glyphicon-chevron-up icon-chevron-up',
+        ),
+        'searchAlign'   => "left",
+        'buttonsAlign'  => "left",
+        'toolbarAlign'  => "right",
+        'height'        => "1268",
     );
+
+    /**
+     * @var array
+     */
+    protected $columns = array();
+
+    /**
+     * @var array
+     */
+    protected $data = array();
 
     /**
      * Constructor
      */
-    public function __construct(ContainerInterface $container, RouteGeneratorInterface $routeGenerator, $class, EntityInterface $entity)
+    public function __construct(ContainerInterface $container, RouteGeneratorInterface $routeGenerator, $class)
     {
-        parent::__construct($container, $routeGenerator, $class, $entity);
+        $this->class            = $class;
+        $this->container        = $container;
+        $this->routeGenerator   = $routeGenerator;
+        $this->entityManager    = $this->container->get('doctrine')->getManager();
+        $this->user             = $this->container->get('security.context')->getToken()->getUser();
+
+        // $this->initialize();
+    }
+
+    /**
+     * Sets the Container associated with this Controller.
+     *
+     * @param ContainerInterface $container A ContainerInterface instance
+     *
+     * @api
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+
+    /**
+     * Sets the RouteGenerator associated with this Controller.
+     *
+     * @param RouteGeneratorInterface $routeGenerator A RouteGeneratorInterface instance
+     *
+     * @api
+     */
+    public function setRouteGenerator(RouteGeneratorInterface $routeGenerator)
+    {
+        $this->routeGenerator = $routeGenerator;
+    }
+
+    /**
+     * Sets the EntityManager.
+     *
+     * @param EntityManager $entityManager An EntityManager instance
+     *
+     * @api
+     */
+    public function setEntityManager(EntityManager $entityManager = null)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getClass()
+    {
+        return $this->class;
+    }
+
+    /**
+     * Sets the UserInterface.
+     *
+     * @param UserInterface $user An UserInterface instance
+     *
+     * @api
+     */
+    public function setUser(UserInterface $user = null)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * Sets the array.
+     *
+     * @param array $defaultOptions An array instance
+     *
+     * @api
+     */
+    public function setDefaultOptions(array $defaultOptions)
+    {
+        $this->defaultOptions = $defaultOptions;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDefaultOptions()
+    {
+        return $this->defaultOptions;
+    }
+
+    /**
+     * Sets the array.
+     *
+     * @param array $columns An array instance
+     *
+     * @api
+     */
+    public function setColumns(array $columns)
+    {
+        $this->columns = $columns;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getColumns()
+    {
+        return $this->columns;
     }
 
     /**
@@ -54,104 +223,51 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
      */
     public function defineColumns()
     {
-        array_push($this->columns,
-                array(
-                    'field' => 'id',
-                    'sortable' => true,
-                    'title' => 'ID',
-                    'switchable' => false,
-                ),
-                array(
-                    'field' => 'codigo_grupo',
-                    'sortable' => true,
-                    'title' => 'Cód (Gpo)',
-                    // 'visible' => true,
-                ),
-                array(
-                    'field' => 'grupo',
-                    'sortable' => true,
-                    'title' => 'Grupo',
-                    // 'visible' => true,
-                ),
-                array(
-                    'field' => 'codigo_subgrupo',
-                    'sortable' => true,
-                    'title' => 'Cód (Subgpo)',
-                    // 'visible' => true,
-                ),
-                array(
-                    'field' => 'subgrupo',
-                    'sortable' => true,
-                    'title' => 'Subgrupo',
-                    // 'visible' => true,
-                ),
-                array(
-                    'field' => 'codigo',
-                    'sortable' => true,
-                    'title' => 'Cód (Matr)',
-                    // 'visible' => true,
-                ),
-                array(
-                    'field' => 'nombre',
-                    'sortable' => true,
-                    'title' => 'Material',
-                    // 'visible' => true,
-                ),
-                array(
-                    'field' => 'descripcion',
-                    'sortable' => false,
-                    'title' => 'Descripción',
-                    'class' => 'justify-table-large-row',
-                    'formatter' => 'simagdDescriptionAdvanceFormatter',
-                ),
-                array(
-                    'field' => 'fecha_registro',
-                    'sortable' => true,
-                    'title' => 'Fecha (Registro)',
-                    'visible' => false,
-                    // 'formatter' => 'simagdDateTimeFormatter',
-                ),
-                array(
-                    'field' => 'fecha_edicion',
-                    'sortable' => true,
-                    'title' => 'Fecha (Edición)',
-                    'visible' => false,
-                    // 'formatter' => 'simagdDateTimeFormatter',
-                ),
-                array(
-                    'field' => 'action',
-                    'sortable' => false,
-                    'title' => '<span class="glyphicon glyphicon-cog"></span>',
-                    'formatter' => 'material_actionFormatter',
-                    'events' => 'material_actionEvents',
-                )
-        );
+        // $this->columns = $columns;
+    }
+
+    /**
+     * Sets the array.
+     *
+     * @param array $data An array instance
+     *
+     * @api
+     */
+    public function setData(array $data)
+    {
+        $this->data = $data;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function buildData()
+    public function getData()
     {
-        //////// --| entity manager
-        $em = $this->entityManager;
-        //////// --|
+        return $this->data;
+    }
 
-        ////////
-        $results = $em->getRepository($this->class)->datos();
-        ////////
+    /**
+     * {@inheritdoc}
+     */
+    public function initialize()
+    {
+        // $this->defineColumns();
+    }
 
-        // foreach ($results as $key => $result)
-        // {
-        //     $results[$key]['fecha_registro']    = $result['fecha_examen']->format('Y-m-d H:i:s A');
-        //     $results[$key]['fecha_edicion']     = $result['fecha_edicion'] ? $result['fecha_edicion']->format('Y-m-d H:i:s A') : '';
-        // }
+    /**
+     * {@inheritdoc}
+     */
+    public function setCustomOptions(array $newOptions)
+    {
+        $this->defaultOptions = array_merge($this->defaultOptions, $newOptions);
+    }
 
-        ////////
-        $this->data = $results;
-        ////////
-
-        // return $this->data;
+    /**
+     * {@inheritdoc}
+     */
+    public function setCustomColumns(array $newColumns)
+    {
+        $this->columns = array_merge($this->columns, $newColumns);
     }
 
 }
