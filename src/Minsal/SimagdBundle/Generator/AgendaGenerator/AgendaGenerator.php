@@ -21,253 +21,101 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 class AgendaGenerator
 {
     /**
-     * @var ContainerInterface
-     *
-     * @api
-     */
-    protected $container;
-
-    /**
-     * The router instance
-     *
-     * @var RouteGeneratorInterface
-     */
-    protected $routeGenerator;
-
-    /**
-     * @var \EntityManager
-     */
-    protected $entityManager;
-
-    /**
-     * @var \UserInterface
-     */
-    protected $user;
-
-    /**
-     * The class name managed by the generator
-     *
-     * @var string
-     */
-    protected $class;
-
-    /**
      * @var array
      */
-    protected $defaultOptions = array(
-        'idField'       => "id",
-        'cache'         => false,
-        'showRefresh'   => true,
-        'showToggle'    => true,
-        'showColumns'   => true,
-        'search'        => true,
-        'pagination'    => true,
-        'paginationVAlign'  => "both",
-        // 'paginationHAlign'  => "left",
-        // 'paginationDetailHAlign'    => "right",
-        'pageList'      => "[5, 10, 15, 25, 30, 40, 50, 75, 100, 125, 150]",
-        'pageSize'      => 25,
-        'sortName'      => "id",
-        'sortOrder'     => "desc",
-        'classes'       => "table table-hover table-condensed table-striped table-no-bordered",
-        'buttonsClass'  => "primary-v4",
-        'icons'         => array(
-            'paginationSwitchDown'  => 'glyphicon-collapse-down icon-chevron-down',
-            'paginationSwitchUp'    => 'glyphicon-collapse-up icon-chevron-up',
-            'refresh'       => 'glyphicon-repeat icon-repeat',
-            'toggle'        => 'glyphicon-list-alt icon-list-alt',
-            'columns'       => 'glyphicon-th icon-th',
-            'detailOpen'    => 'glyphicon-chevron-down icon-chevron-down',
-            'detailClose'   => 'glyphicon-chevron-up icon-chevron-up',
+    protected $options = array(
+        'lazyFetching' => false,    // prevent lazy events fetch
+        'header' => array(
+            'left' => 'prev,next today',
+            'center' => 'title',
+            'right' => 'prevYear,nextYear month,agendaWeek,agendaDay',
         ),
-        'searchAlign'   => "left",
-        'buttonsAlign'  => "left",
-        'toolbarAlign'  => "right",
-        'height'        => "1268",
+        'locale' => 'es',
+        'timezone' => 'America/El_Salvador',
+        'editable' => true,
+        'editExternalEvent' => true,
+        'defaultView' => 'agendaWeek',
+        'hiddenDays' => array(6, 0),    // hide saturdays (6) and sundays (0)
+        'nowIndicator' => true,
+        // 'aspectRatio' => 1.15,
+        'aspectRatio' => 1,
+        'droppable' => true,
+        // 'defaultTimedEventDuration' => '00:05:00',
+        'defaultTimedEventDuration' => '00:15:00',
+        // 'slotDuration' => '00:05:00',
+        'slotDuration' => '00:15:00',
+        'forceEventDuration' => true,
+        'slotEventOverlap' => false,
+        'slotLabelFormat' => 'h:mm A',
+        'timeFormat' => 'H(:mm) A',
+        'eventLimit' => true,
+        'views' => array(
+            'agenda' => array('eventLimit' => 6,),
+        ),
+        'handleWindowResize' => true,
+        'events' => array(
+            'url' => 'Routing.generate(\'simagd_cita_obtenerEventosCalendario\')',
+            'type' => 'POST',
+            'data' => 'window.__FULL_CAL__.events.data',
+            // 'error' => 'window.__FULL_CAL__.events.error',
+            'error' => 'function() { console.log(\'Ocurrió un error al desplegar el calendario\'); },',
+            'currentTimezone' => 'America/El_Salvador',
+        ),
+        'drop' => 'drop',
+        'eventResizeStart' => 'eventResizeStart',
+        'eventDragStart' => 'eventDragStart',
+        'eventRender' => 'eventRender',
+        'eventReceive' => 'eventReceive',
+        'eventResize' => 'eventResize',
+        'eventDrop' => 'eventDrop',
+        'dayClick' => 'dayClick',
+        'eventClick' => 'eventClick',
+        'eventAfterRender' => 'eventAfterRender',
+        'loading' => 'loading',
+        'eventAfterAllRender' => 'eventAfterAllRender',
     );
-
-    /**
-     * @var array
-     */
-    protected $columns = array();
-
-    /**
-     * @var array
-     */
-    protected $data = array();
 
     /**
      * Constructor
      */
-    public function __construct(ContainerInterface $container, RouteGeneratorInterface $routeGenerator, $class)
+    public function __construct()
     {
-        $this->class            = $class;
-        $this->container        = $container;
-        $this->routeGenerator   = $routeGenerator;
-        $this->entityManager    = $this->container->get('doctrine')->getManager();
-        $this->user             = $this->container->get('security.context')->getToken()->getUser();
-
-        // $this->initialize();
-    }
-
-    /**
-     * Sets the Container associated with this Controller.
-     *
-     * @param ContainerInterface $container A ContainerInterface instance
-     *
-     * @api
-     */
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->container = $container;
-    }
-
-    /**
-     * Sets the RouteGenerator associated with this Controller.
-     *
-     * @param RouteGeneratorInterface $routeGenerator A RouteGeneratorInterface instance
-     *
-     * @api
-     */
-    public function setRouteGenerator(RouteGeneratorInterface $routeGenerator)
-    {
-        $this->routeGenerator = $routeGenerator;
-    }
-
-    /**
-     * Sets the EntityManager.
-     *
-     * @param EntityManager $entityManager An EntityManager instance
-     *
-     * @api
-     */
-    public function setEntityManager(EntityManager $entityManager = null)
-    {
-        $this->entityManager = $entityManager;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setClass($class)
-    {
-        $this->class = $class;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getClass()
-    {
-        return $this->class;
-    }
-
-    /**
-     * Sets the UserInterface.
-     *
-     * @param UserInterface $user An UserInterface instance
-     *
-     * @api
-     */
-    public function setUser(UserInterface $user = null)
-    {
-        $this->user = $user;
     }
 
     /**
      * Sets the array.
      *
-     * @param array $defaultOptions An array instance
+     * @param array $options An array instance
      *
      * @api
      */
-    public function setDefaultOptions(array $defaultOptions)
+    public function setOptions(array $options = array())
     {
-        $this->defaultOptions = $defaultOptions;
+        if (is_array($options) && count($options) > 0) {
+            $this->options = $options;
+        }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getDefaultOptions()
+    public function getOptions()
     {
-        return $this->defaultOptions;
+        return $this->options;
     }
 
     /**
      * Sets the array.
      *
-     * @param array $columns An array instance
+     * @param array $options An array instance
      *
      * @api
      */
-    public function setColumns(array $columns)
+    public function addOwnOptions(array $options = array())
     {
-        $this->columns = $columns;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getColumns()
-    {
-        return $this->columns;
-    }
-
-    /**
-     * Sets the array.
-     *
-     * @param array $columns An array instance
-     *
-     * @api
-     */
-    public function defineColumns()
-    {
-        // $this->columns = $columns;
-    }
-
-    /**
-     * Sets the array.
-     *
-     * @param array $data An array instance
-     *
-     * @api
-     */
-    public function setData(array $data)
-    {
-        $this->data = $data;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function initialize()
-    {
-        // $this->defineColumns();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setCustomOptions(array $newOptions)
-    {
-        $this->defaultOptions = array_merge($this->defaultOptions, $newOptions);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setCustomColumns(array $newColumns)
-    {
-        $this->columns = array_merge($this->columns, $newColumns);
+        if (is_array($options) && count($options) > 0) {
+            $this->options = array_merge($this->options, $options);
+        }
     }
 
 }

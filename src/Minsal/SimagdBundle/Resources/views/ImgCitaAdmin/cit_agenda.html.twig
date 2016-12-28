@@ -65,10 +65,10 @@
 
         jQuery(document).ready(function() {
     	    /** Lista de prioridades */
-    	    {% for prioridad in prioridades %}
+    	    {#{% for prioridad in prioridades %}
         		$selectionsPriority.push({ id: '{{ prioridad.nombre|trim }}', text: '{{ prioridad.nombre|trim }}' });
         		$listPriority.push({ id: '{{ prioridad.id }}', text: '{{ prioridad.nombre|trim }}', cod: '{{ prioridad.codigo|trim }}', style: '{{ prioridad.estiloPresentacion|trim }}' });
-    	    {% endfor %}
+    	    {% endfor %}#}
         });
 
         (function ($) {
@@ -78,7 +78,7 @@
              * Global variables for plugin
              */
             window.GROUP_DEPENDENT_ENTITIES = null;   // --| build data collection
-            GROUP_DEPENDENT_ENTITIES        = JSON.parse('{{ GROUP_DEPENDENT_ENTITIES|json_encode|e('js')|raw }}');
+            {#GROUP_DEPENDENT_ENTITIES        = JSON.parse('{{ GROUP_DEPENDENT_ENTITIES|json_encode|e('js')|raw }}');#}
 
         }(jQuery));
     </script>
@@ -287,6 +287,66 @@
 
 	    <div id='external-events' class="col-lg-3 col-md-3 col-sm-3">
 
+        <div style=" margin-bottom: 10px; display: none;" id="_fc_goto_openlink" >
+            <a class="btn btn-primary-v4 btn-outline btn-block" href="javascript:void(0)" onclick="fc_goto_calendarDate(this); return false;" title="mostrar calendario..." >
+                {#ver calendario#}<span class="glyphicon glyphicon-calendar "></span> {#<span class="glyphicon glyphicon-chevron-down "></span>#}
+            </a>
+        </div>
+        <div><center><div id="_fc_goto_dtpicker" ></div></center></div>
+        <script type="text/javascript">
+            jQuery(function () {
+                jQuery('#_fc_goto_dtpicker').datetimepicker({
+                    locale : 'es',
+                    format : 'YYYY-MM-DD',
+                    showTodayButton : true,
+                    showClear : true,
+                    showClose : true,
+                    ignoreReadonly : true,
+                    inline: true,
+                    sideBySide: true,
+                }).on('dp.change dp.show', function(e) {
+                    var goto_date = (typeof e.date !== 'undefined' && e.date !== null && e.date !== false) ? e.date : moment();
+                    var $el_fc_calendar = jQuery('#calendar');   //  --| calendar DOM element
+                    $el_fc_calendar
+                        .filter(':not([disabled]):visible')
+                        .fullCalendar('gotoDate', goto_date);
+                    jQuery('#_fc_goto_openlink').hide();
+                }).on('dp.hide', function(e) {
+                    jQuery('#_fc_goto_openlink').show();
+                });
+            });
+
+            fc_goto_calendarDate = function(el) {
+                // if (jQuery(el).attr('id') !== "undefined" && (jQuery(el).attr('id') === "pry2" || jQuery(el).attr('id') === "pry4")) {
+                //     $table = jQuery('#ryx_target_bstable');
+                //     $table.bootstrapTable('destroy');
+                // }
+                jQuery('#_fc_goto_dtpicker').data('DateTimePicker').show();
+                // jQuery(el).hide();
+            }
+
+            jQuery(document).ready(function() {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: Routing.generate('simagd_cita_generateCalendar'),
+                    data: {_xml_http_request: true},
+                    success: function(result) {
+                        ////////
+                        var $el_fc_calendar = jQuery('#calendar');   //  --| calendar DOM element
+                        $el_fc_calendar
+                            .filter(':not([disabled]):visible')
+                            .fullCalendar(result.options);
+                        console.log('%cfullCalendar is successfully initiated', 'background: #183f52; color: #ccc');
+                        ////////
+                    },
+                    error: function(e) {
+                        window.console.log(e.error, e.responseText);
+                    }
+                });
+            });
+        </script>
+
 		<div class="panel panel-primary-v4" id='fc-patient-panel' {% if _CIT_ALLOW_CREATE == false or _CIT_ALLOW_EDIT == false %} disabled="disabled" {% endif %}>
 		    <div class="panel-heading">
 			<div class="dropdown pull-right">
@@ -460,8 +520,8 @@
 
     {% include 'MinsalSimagdBundle:ImgCitaAdmin:cit_popover_contentwrapper.html.twig' %}    					{# container pacientes pendientes #}
     {% include 'MinsalSimagdBundle:ImgCitaAdmin:cit_event_contentwrapper.html.twig' %}    					{# container citas programadas #}
-    {% include 'MinsalSimagdBundle:ImgBloqueoAgendaAdmin:blAgd_event_contentwrapper.html.twig'
-                ignore missing with { 'radiologos': radiologos } %}                                                             {# container bloqueos programados #}
+    {#{% include 'MinsalSimagdBundle:ImgBloqueoAgendaAdmin:blAgd_event_contentwrapper.html.twig'
+                ignore missing with { 'radiologos': radiologos } %}#} {# container bloqueos programados #}
 
     {% if _CIT_ALLOW_VIEW == true %}
 	{% include 'MinsalSimagdBundle:show_container_fullEntity:cit_total_info_modal_v2.html.twig' %}    			{# cita #}
@@ -470,11 +530,11 @@
         {% include 'MinsalSimagdBundle:show_container_fullEntity:prc_total_info_modal_v2.html.twig' %}    			{# solicitud #}
     {% endif %}
     {% if _PRC_ALLOW_EDIT == true %}
-        {% include 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_agregarIndicacionesRadiologo_modal.html.twig' %}              {# solicitud (indRadx) #}
+        {#{% include 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_agregarIndicacionesRadiologo_modal.html.twig' %}#}              {# solicitud (indRadx) #}
     {% endif %}
     {% if _PRC_ALLOW_CREATE == true or _PRC_ALLOW_EDIT == true %}
-        {% include 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_crearSolicitudEstudio_formatoRapido_modal.html.twig'
-            ignore missing with { 'medicos': medicos, 'default_empLogged': default_empLogged, 'modalidades': modalidades, 'default_mldRx': default_mldRx, 'proyecciones': proyecciones } %}     {# solicitud de estudio #}
+        {#{% include 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_crearSolicitudEstudio_formatoRapido_modal.html.twig'
+            ignore missing with { 'medicos': medicos, 'default_empLogged': default_empLogged, 'modalidades': modalidades, 'default_mldRx': default_mldRx, 'proyecciones': proyecciones } %}#}     {# solicitud de estudio #}
     {% endif %}
 
     {% if _PRC_ALLOW_CREATE == true or _PRC_ALLOW_EDIT == true or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') or is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_ADMIN') %}
@@ -486,10 +546,10 @@
     {% endif %}
 
     {% if _CIT_ALLOW_CREATE == true and _CIT_ALLOW_EDIT == true %}
-	{% include 'MinsalSimagdBundle:ImgCitaAdmin:cit_editarCita_modal.html.twig'
-		    ignore missing with { 'modalidades': modalidades, 'default_mldRx': default_mldRx, 'radiologos': radiologos, 'estados': estados } %}
-	{% include 'MinsalSimagdBundle:ImgCitaAdmin:cit_cancelarCita_modal.html.twig'
-		    ignore missing with { 'estados': estados, 'default_statusCancelCit': default_statusCancelCit } %}
+	{#{% include 'MinsalSimagdBundle:ImgCitaAdmin:cit_editarCita_modal.html.twig'
+		    ignore missing with { 'modalidades': modalidades, 'default_mldRx': default_mldRx, 'radiologos': radiologos, 'estados': estados } %}#}
+	{#{% include 'MinsalSimagdBundle:ImgCitaAdmin:cit_cancelarCita_modal.html.twig'
+		    ignore missing with { 'estados': estados, 'default_statusCancelCit': default_statusCancelCit } %}#}
     {% endif %}
 
     <!-- -->
@@ -503,10 +563,10 @@
     {% endif %}
 
     {% if _BLOQUEO_ALLOW_CREATE == true and _BLOQUEO_ALLOW_EDIT == true %}
-        {% include 'MinsalSimagdBundle:ImgBloqueoAgendaAdmin:blAgd_crearBloqueo_modal.html.twig'
-                ignore missing with { 'modalidades': modalidades, 'default_mldRx': default_mldRx, 'radiologos': radiologos } %}  	{# bloqueo #}
-        {% include 'MinsalSimagdBundle:ImgBloqueoAgendaAdmin:blAgd_excluirRadiologoBloqueo_modal.html.twig'
-                ignore missing with { 'radiologos': radiologos, 'default_empLogged': default_empLogged } %}  	{# excluir en bloqueo #}
+        {#{% include 'MinsalSimagdBundle:ImgBloqueoAgendaAdmin:blAgd_crearBloqueo_modal.html.twig'
+                ignore missing with { 'modalidades': modalidades, 'default_mldRx': default_mldRx, 'radiologos': radiologos } %}#}  	{# bloqueo #}
+        {#{% include 'MinsalSimagdBundle:ImgBloqueoAgendaAdmin:blAgd_excluirRadiologoBloqueo_modal.html.twig'
+                ignore missing with { 'radiologos': radiologos, 'default_empLogged': default_empLogged } %}#}  	{# excluir en bloqueo #}
     {% endif %}
 
 {% endblock -%}

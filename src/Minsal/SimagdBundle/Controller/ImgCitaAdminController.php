@@ -21,6 +21,8 @@ use DateInterval;
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
+use Minsal\SimagdBundle\Generator\AgendaGenerator\AgendaGenerator;
+
 class ImgCitaAdminController extends Controller
 {
     public function createDateRangeArray($from, $to)
@@ -42,6 +44,17 @@ class ImgCitaAdminController extends Controller
             }
         }
         return $range;
+    }
+
+    public function generateCalendarAction(Request $request)
+    {
+        $AGENDA_GENERATOR_ = new AgendaGenerator();
+        $options = $AGENDA_GENERATOR_->getOptions();
+
+        return $this->renderJson(array(
+            'result'    => 'ok',
+            'options'   => $options,
+        ));
     }
 
     public function obtenerEventosCalendarioAction(Request $request)
@@ -96,8 +109,8 @@ class ImgCitaAdminController extends Controller
                                                             '<tr><th>Cancelados:</th><td class="col-md-2">' . $r['cnl'] . '</td></tr>' .
                                                         '</table>' .
                                                     '</div>' .
-                                                    '<div style="float: right; margin-left: 10px; margin-right: 15px; text-align: center;">' .
-                                                        '<h5>TOTAL<br/><small>' . $r['total'] . '</small></h5>' .
+                                                    '<div style="float: right; margin-left: 5px; margin-right: 10px; text-align: center;">' .
+                                                        '<h6>TOTAL<br/><small>' . $r['total'] . '</small></h6>' .
                                                     '</div>';
                 $results[$k]['start']   = $date_truncated->format('Y-m-d\TH:i:s');
                 $results[$k]['end']     = $date_truncated->modify('+23 hours 59 minutes')->format('Y-m-d\TH:i:s');
@@ -416,96 +429,96 @@ class ImgCitaAdminController extends Controller
 	$sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
         
-        $default_areaAtn        = 2;
-        $default_atn            = 1;
-        $sessionSpecialty       = $this->container->get('session')->get('_idEmpEspecialidadEstab');
-        if ($sessionSpecialty)
-        {
-            //Valores para area, atencion y empleado desde session
-            $specialtyObject    = $em->getRepository('MinsalSiapsBundle:MntAtenAreaModEstab')->find($sessionSpecialty);
-            if ($specialtyObject)
-            {
-                $default_areaAtn    = $specialtyObject->getIdAreaModEstab()->getIdAreaAtencion()->getId();
-                $default_atn        = $specialtyObject->getIdAtencion()->getId();
+        // $default_areaAtn        = 2;
+        // $default_atn            = 1;
+        // $sessionSpecialty       = $this->container->get('session')->get('_idEmpEspecialidadEstab');
+        // if ($sessionSpecialty)
+        // {
+        //     //Valores para area, atencion y empleado desde session
+        //     $specialtyObject    = $em->getRepository('MinsalSiapsBundle:MntAtenAreaModEstab')->find($sessionSpecialty);
+        //     if ($specialtyObject)
+        //     {
+        //         $default_areaAtn    = $specialtyObject->getIdAreaModEstab()->getIdAreaAtencion()->getId();
+        //         $default_atn        = $specialtyObject->getIdAtencion()->getId();
                 
-            }
-        }
+        //     }
+        // }
         
         $tiposEmpleado          = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
         
-        $medicos                = $em->getRepository('MinsalSiapsBundle:MntEmpleado')
-                                        ->obtenerEmpleadosPorTipoOperaciones($estabLocal->getId(), array(1, 2, 4))
-                                                ->getQuery()->getResult();
+        // $medicos                = $em->getRepository('MinsalSiapsBundle:MntEmpleado')
+        //                                 ->obtenerEmpleadosPorTipoOperaciones($estabLocal->getId(), array(1, 2, 4))
+        //                                         ->getQuery()->getResult();
         
         $radiologos             = $em->getRepository('MinsalSiapsBundle:MntEmpleado')
                                         ->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(4, 5))
                                                 ->getQuery()->getResult();
         
-        $tiposEstab             = $em->getRepository('MinsalSiapsBundle:CtlTipoEstablecimiento')->findAll();
+        // $tiposEstab             = $em->getRepository('MinsalSiapsBundle:CtlTipoEstablecimiento')->findAll();
         
-        $establecimientos       = $em->getRepository('MinsalSiapsBundle:CtlEstablecimiento')
-                                        ->obtenerEstabParaRefDiag('idEstablecimientoDiagnosticante')
-                                                ->getQuery()->getResult();
+        // $establecimientos       = $em->getRepository('MinsalSiapsBundle:CtlEstablecimiento')
+        //                                 ->obtenerEstabParaRefDiag('idEstablecimientoDiagnosticante')
+        //                                         ->getQuery()->getResult();
         
-        $estados                = $em->getRepository('MinsalSimagdBundle:ImgCtlEstadoCita')->findAll();
+        // $estados                = $em->getRepository('MinsalSimagdBundle:ImgCtlEstadoCita')->findAll();
         
-        $prioridades            = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2();
+        // $prioridades            = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2();
         
         $modalidades            = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
-        $examenes               = $em->getRepository('MinsalSiapsBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
-        $proyecciones           = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
-        $sexos                  = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
+        // $examenes               = $em->getRepository('MinsalSiapsBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
+        // $proyecciones           = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
+        // $sexos                  = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
         
-        $areasAtencion          = $em->getRepository('MinsalSiapsBundle:CtlAreaAtencion')->findAll();
+        // $areasAtencion          = $em->getRepository('MinsalSiapsBundle:CtlAreaAtencion')->findAll();
         
-        $tiposAtencion          = $em->getRepository('MinsalSiapsBundle:CtlTipoAtencion')->findAll();
-        $atenciones             = $em->getRepository('MinsalSiapsBundle:CtlAtencion')->findAll();
+        // $tiposAtencion          = $em->getRepository('MinsalSiapsBundle:CtlTipoAtencion')->findAll();
+        // $atenciones             = $em->getRepository('MinsalSiapsBundle:CtlAtencion')->findAll();
         
         /*
          * GROUP_DEPENDENT_ENTITIES
          */
-        $GROUP_DEPENDENT_ENTITIES   = array();
-        try {
-            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesAgrupadasV2($estabLocal->getId());
-        } catch (Exception $e) {
-            $status = 'failed';
-        }
-        try {
-            $GROUP_DEPENDENT_ENTITIES['ar_atn']   = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerAtencionesAgrupadasV2($estabLocal->getId());
-        } catch (Exception $e) {
-            $status = 'failed';
-        }
-        try {
-            $GROUP_DEPENDENT_ENTITIES['atn_emp']  = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerEmpleadosAgrupadosV2($estabLocal->getId());
-        } catch (Exception $e) {
-            $status = 'failed';
-        }
+        // $GROUP_DEPENDENT_ENTITIES   = array();
+        // try {
+        //     $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesAgrupadasV2($estabLocal->getId());
+        // } catch (Exception $e) {
+        //     $status = 'failed';
+        // }
+        // try {
+        //     $GROUP_DEPENDENT_ENTITIES['ar_atn']   = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerAtencionesAgrupadasV2($estabLocal->getId());
+        // } catch (Exception $e) {
+        //     $status = 'failed';
+        // }
+        // try {
+        //     $GROUP_DEPENDENT_ENTITIES['atn_emp']  = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerEmpleadosAgrupadosV2($estabLocal->getId());
+        // } catch (Exception $e) {
+        //     $status = 'failed';
+        // }
 
         return $this->render($this->admin->getTemplate('list'),
                 array('tiposEmpleado'           => $tiposEmpleado,
-                        'medicos'               => $medicos,
-                        'tiposEstab'            => $tiposEstab,
-                        'establecimientos'      => $establecimientos,
-			'radiologos'            => $radiologos,
-			'default_empLogged'     => $sessionUser->getIdEmpleado(),
-                        'estados'               => $estados,
-                        'default_statusCit'     => 1,
-                        'default_statusCancelCit'   => 6,
-                        'defaultEstab'          => $estabLocal,
-                        'prioridades'           => $prioridades,
+                        // 'medicos'               => $medicos,
+                        // 'tiposEstab'            => $tiposEstab,
+                        // 'establecimientos'      => $establecimientos,
+            			'radiologos'            => $radiologos,
+            			// 'default_empLogged'     => $sessionUser->getIdEmpleado(),
+               //          'estados'               => $estados,
+               //          'default_statusCit'     => 1,
+               //          'default_statusCancelCit'   => 6,
+               //          'defaultEstab'          => $estabLocal,
+               //          'prioridades'           => $prioridades,
                         'modalidades'           => $modalidades,
-                        'sexos'                 => $sexos,
-                        'examenes'              => $examenes,
-                        'areasAtencion'         => $areasAtencion,
-                        'tiposAtencion'         => $tiposAtencion,
-                        'atenciones'            => $atenciones,
-                        'proyecciones'          => $proyecciones,
-                        'default_exmRx'         => 27,
-                        'default_mldRx'         => 13,
-                        'default_areaAtn'       => $default_areaAtn,
-                        'default_atn'           => $default_atn,
-                        'default_prAtn'         => 3,
-                        'GROUP_DEPENDENT_ENTITIES'  => $GROUP_DEPENDENT_ENTITIES,
+               //          'sexos'                 => $sexos,
+               //          'examenes'              => $examenes,
+               //          'areasAtencion'         => $areasAtencion,
+               //          'tiposAtencion'         => $tiposAtencion,
+               //          'atenciones'            => $atenciones,
+               //          'proyecciones'          => $proyecciones,
+               //          'default_exmRx'         => 27,
+               //          'default_mldRx'         => 13,
+               //          'default_areaAtn'       => $default_areaAtn,
+               //          'default_atn'           => $default_atn,
+               //          'default_prAtn'         => 3,
+               //          'GROUP_DEPENDENT_ENTITIES'  => $GROUP_DEPENDENT_ENTITIES,
                     ));
     }
     
