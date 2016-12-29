@@ -116,6 +116,7 @@
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_accionesCita.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_pendientesCita.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_listarPacientesSinCita_v2.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_agendaGenerator.js') }}" ></script>
     {# bloqueos #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_crearBloqueo.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_listarBloqueos.js') }}" ></script>
@@ -292,14 +293,21 @@
         </div>
         <!-- END --| FC - BLOCK FORM SEARCH -->
 
-	    <div id='external-events' class="col-lg-3 col-md-3 col-sm-3">
+	<div id='external-events' class="col-lg-3 col-md-3 col-sm-3">
 
-        <div style=" margin-bottom: 10px; display: none;" id="_fc_goto_openlink" >
-            <a class="btn btn-primary-v4 btn-outline btn-block" href="javascript:void(0)" onclick="fc_goto_calendarDate(this); return false;" title="mostrar calendario..." >
-                {#ver calendario#}<span class="glyphicon glyphicon-calendar "></span> {#<span class="glyphicon glyphicon-chevron-down "></span>#}
-            </a>
-        </div>
-        <div><center><div id="_fc_goto_dtpicker" ></div></center></div>
+	<div class="panel panel-primary-v4" id="_fc_goto_panel">
+	    <div class="panel-heading">
+		<h3 class="panel-title"> <span class="glyphicon glyphicon-calendar "></span> Calendario </h3>
+	    </div>
+	    <div class="panel-body" >
+		<div style=" {#margin-bottom: 10px;#} display: none;" id="_fc_goto_openlink" >
+		    <a class="btn btn-primary-v4 btn-outline btn-block" href="javascript:void(0)" onclick="fc_goto_calendarDate(this); return false;" title="mostrar calendario..." >
+			<span class="glyphicon glyphicon-chevron-down "></span>
+		    </a>
+		</div>
+		<div><center><div id="_fc_goto_dtpicker" ></div></center></div>
+	    </div>
+	</div>
         <script type="text/javascript">
             jQuery(function () {
                 jQuery('#_fc_goto_dtpicker').datetimepicker({
@@ -324,12 +332,7 @@
             });
 
             fc_goto_calendarDate = function(el) {
-                // if (jQuery(el).attr('id') !== "undefined" && (jQuery(el).attr('id') === "pry2" || jQuery(el).attr('id') === "pry4")) {
-                //     $table = jQuery('#ryx_target_bstable');
-                //     $table.bootstrapTable('destroy');
-                // }
                 jQuery('#_fc_goto_dtpicker').data('DateTimePicker').show();
-                // jQuery(el).hide();
             }
 
             jQuery(document).ready(function() {
@@ -340,11 +343,24 @@
                     data: {_xml_http_request: true},
                     success: function(result) {
                         ////////
+                        // var $options = applyFunctionsFromServer(result.options);
+                        $.each(result.options, function(i, opt) {
+                            if (typeof opt === 'string' && opt.indexOf('__FULL_CAL__.functions') !== -1) {
+                                var namespaces = opt.split('.');
+                                var func = namespaces.pop();
+                                var context = window;
+                                for(var x = 0; x < namespaces.length; x++) {
+                                    context = context[namespaces[x]];
+                                }
+                                result.options[i] = context[func];  // set function
+                            }
+                        });
+
                         var $el_fc_calendar = jQuery('#calendar');   //  --| calendar DOM element
                         $el_fc_calendar
                             .filter(':not([disabled]):visible')
                             .fullCalendar(result.options);
-                        console.log('%cfullCalendar is successfully initiated', 'background: #183f52; color: #ccc');
+                        console.log('%cfullCalendar is successfully initiated', 'background: #183f52; color: #eee');
                         ////////
                     },
                     error: function(e) {

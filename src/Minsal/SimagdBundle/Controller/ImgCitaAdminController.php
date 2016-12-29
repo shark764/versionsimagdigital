@@ -48,7 +48,11 @@ class ImgCitaAdminController extends Controller
 
     public function generateCalendarAction(Request $request)
     {
-        $AGENDA_GENERATOR_ = new AgendaGenerator();
+        $AGENDA_GENERATOR_ = new AgendaGenerator(
+            $this->container,
+            $this->admin->getRouteGenerator(),
+            $this->admin->getClass()
+        );
         $options = $AGENDA_GENERATOR_->getOptions();
 
         return $this->renderJson(array(

@@ -21,6 +21,32 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 class AgendaGenerator
 {
     /**
+     * @var ContainerInterface
+     *
+     * @api
+     */
+    protected $container;
+
+    /**
+     * The router instance
+     *
+     * @var RouteGeneratorInterface
+     */
+    protected $routeGenerator;
+
+    /**
+     * @var \EntityManager
+     */
+    protected $entityManager;
+
+    /**
+     * The class name managed by the generator
+     *
+     * @var string
+     */
+    protected $class;
+
+    /**
      * @var array
      */
     protected $options = array(
@@ -53,33 +79,90 @@ class AgendaGenerator
             'agenda' => array('eventLimit' => 6,),
         ),
         'handleWindowResize' => true,
-        'events' => array(
-            'url' => 'Routing.generate(\'simagd_cita_obtenerEventosCalendario\')',
-            'type' => 'POST',
-            'data' => 'window.__FULL_CAL__.events.data',
-            // 'error' => 'window.__FULL_CAL__.events.error',
-            'error' => 'function() { console.log(\'Ocurrió un error al desplegar el calendario\'); },',
-            'currentTimezone' => 'America/El_Salvador',
-        ),
-        'drop' => 'drop',
-        'eventResizeStart' => 'eventResizeStart',
-        'eventDragStart' => 'eventDragStart',
-        'eventRender' => 'eventRender',
-        'eventReceive' => 'eventReceive',
-        'eventResize' => 'eventResize',
-        'eventDrop' => 'eventDrop',
-        'dayClick' => 'dayClick',
-        'eventClick' => 'eventClick',
-        'eventAfterRender' => 'eventAfterRender',
-        'loading' => 'loading',
-        'eventAfterAllRender' => 'eventAfterAllRender',
+        'events' => '__FULL_CAL__.functions.events',
+        // 'events' => array(
+        //     'type' => 'POST',
+        //     'data' => '__FULL_CAL__.functions.data',
+        //     'error' => '__FULL_CAL__.functions.error',
+        //     'currentTimezone' => 'America/El_Salvador',
+        // ),
+        'drop' => '__FULL_CAL__.functions.drop',
+        'eventResizeStart' => '__FULL_CAL__.functions.eventResizeStart',
+        'eventDragStart' => '__FULL_CAL__.functions.eventDragStart',
+        'eventRender' => '__FULL_CAL__.functions.eventRender',
+        'eventReceive' => '__FULL_CAL__.functions.eventReceive',
+        'eventResize' => '__FULL_CAL__.functions.eventResize',
+        'eventDrop' => '__FULL_CAL__.functions.eventDrop',
+        'dayClick' => '__FULL_CAL__.functions.dayClick',
+        'eventClick' => '__FULL_CAL__.functions.eventClick',
+        'eventAfterRender' => '__FULL_CAL__.functions.eventAfterRender',
+        'loading' => '__FULL_CAL__.functions.loading',
+        'eventAfterAllRender' => '__FULL_CAL__.functions.eventAfterAllRender',
     );
 
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(ContainerInterface $container, RouteGeneratorInterface $routeGenerator, $class)
     {
+        $this->class            = $class;
+        $this->container        = $container;
+        $this->routeGenerator   = $routeGenerator;
+        $this->entityManager    = $this->container->get('doctrine')->getManager();
+
+        // $this->options['events']['url'] = $this->routeGenerator->generate('simagd_cita_obtenerEventosCalendario');
+    }
+
+    /**
+     * Sets the Container associated with this Controller.
+     *
+     * @param ContainerInterface $container A ContainerInterface instance
+     *
+     * @api
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+
+    /**
+     * Sets the RouteGenerator associated with this Controller.
+     *
+     * @param RouteGeneratorInterface $routeGenerator A RouteGeneratorInterface instance
+     *
+     * @api
+     */
+    public function setRouteGenerator(RouteGeneratorInterface $routeGenerator)
+    {
+        $this->routeGenerator = $routeGenerator;
+    }
+
+    /**
+     * Sets the EntityManager.
+     *
+     * @param EntityManager $entityManager An EntityManager instance
+     *
+     * @api
+     */
+    public function setEntityManager(EntityManager $entityManager = null)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getClass()
+    {
+        return $this->class;
     }
 
     /**

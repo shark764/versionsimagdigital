@@ -522,22 +522,22 @@ jQuery(document).ready(function() {
      */
     function fn_reset_fullCalendar_configurarion ($options)
     {
-	if ($el_fc_calendar.is(':visible')) {
-	    var $last_view	= $el_fc_calendar.fullCalendar('getView');
-	    var $last_date	= $el_fc_calendar.fullCalendar('getDate');
+		if ($el_fc_calendar.is(':visible')) {
+		    var $last_view	= $el_fc_calendar.fullCalendar('getView');
+		    var $last_date	= $el_fc_calendar.fullCalendar('getDate');
 
-	    $el_fc_calendar
-		.filter(':not([disabled]):visible')
-			.fullCalendar('destroy');	// --| destroy calendar
-	    fn_init_fullCalendar_configurarion($options);	// --| rebuild calendar with new options
+		    $el_fc_calendar
+			.filter(':not([disabled]):visible')
+				.fullCalendar('destroy');	// --| destroy calendar
+		    fn_init_fullCalendar_configurarion($options);	// --| rebuild calendar with new options
 
-	    $el_fc_calendar
-		.filter(':not([disabled]):visible')
-			.fullCalendar('changeView', $last_view.name);
-	    $el_fc_calendar
-		.filter(':not([disabled]):visible')
-			.fullCalendar('gotoDate', $last_date);
-	}
+		    $el_fc_calendar
+			.filter(':not([disabled]):visible')
+				.fullCalendar('changeView', $last_view.name);
+		    $el_fc_calendar
+			.filter(':not([disabled]):visible')
+				.fullCalendar('gotoDate', $last_date);
+		}
     }
 
     /*
