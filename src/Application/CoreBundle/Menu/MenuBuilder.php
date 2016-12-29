@@ -106,5 +106,10 @@ class MenuBuilder extends ContainerAware {
             $this->menu['Reporte']->addChild('Emergencias por Fecha', array('route' => 'admin_minsal_seguimiento_secemergencia_resumen_emergencia'));
             
         }
+
+        if ($user->hasRole('ROLE_MINSAL_SIMAGD_ADMIN_RYX_LECTURA_RADIOLOGICA_LIST') || $user->hasRole('ROLE_MINSAL_SIMAGD_ADMIN_RYX_DIAGNOSTICO_RADIOLOGICO_LIST') || $user->hasRole('ROLE_SUPER_ADMIN'))
+        {
+            $this->menu['Imagenología']->addChild('Listas de trabajo', array('route' => 'simagd_imagenologia_digital_worklist'));
+        }
     }
 }

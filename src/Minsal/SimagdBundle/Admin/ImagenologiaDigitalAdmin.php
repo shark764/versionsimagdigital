@@ -31,6 +31,7 @@ class ImagenologiaDigitalAdmin extends Admin
         $collection->add('listarExamenesPaciente', null, [], [], ['expose' => true]);
         $collection->add('listarDiagnosticosPaciente', null, [], [], ['expose' => true]);
         $collection->add('asignarNuevoExpediente', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('worklist', null, [], [], ['expose' => true]);
         /*
          * getJsonFiltersForBsTables
          */
@@ -57,6 +58,9 @@ class ImagenologiaDigitalAdmin extends Admin
                 break;
             case 'listarDatosPaciente':
                 return 'MinsalSimagdBundle:ImagenologiaDigitalAdmin:simagd_listarDatosPaciente.html.twig';
+                break;
+            case 'worklist':
+                return 'MinsalSimagdBundle:Worklist:worklist.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);
