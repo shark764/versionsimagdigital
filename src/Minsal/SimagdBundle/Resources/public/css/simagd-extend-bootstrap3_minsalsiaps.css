@@ -3,39 +3,11 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/*
+/* 
     Created on : 20-06-2016, 11:45:02 AM
     Author     : farid
 */
 
-
-.right-side {
-    margin-left: 1%;
-    margin-right: 1%;
-}
-
-.table.table-black-head>thead>tr>th,
-.table.table-black-head>thead>tr>td {
-  /*background-color: #333;*/
-  background-color: #555;
-  color: #fdfdfd;
-}
-.table-striped > tbody > tr:nth-child(odd) > td,
-.table-striped > tbody > tr:nth-child(odd) > th {
-    background-color: #bfbbbb;
-    /*background-color: #c6c6c6;*/
-}
-
-
-
-/*
- * *************************************************************************************************************************************************
- * SUPREME COLOR XRAY
- * *************************************************************************************************************************************************
- */
-.xray-supreme {
-  background-color: #284858;
-}
 
 
 .jumbotron ul.formstyle-radio-list-inline,
