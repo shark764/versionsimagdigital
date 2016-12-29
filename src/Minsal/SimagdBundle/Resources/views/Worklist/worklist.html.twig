@@ -108,15 +108,15 @@
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-datetimepicker-development/build/js/bootstrap-datetimepicker.min.js') }}" ></script>
     
     {# Simagd Custom Scripts #}
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_personal_formplugin.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_init_formplugin.js') }}" ></script>
+    {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_personal_formplugin.js') }}" ></script>#}
+    {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_init_formplugin.js') }}" ></script>#}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_form_configuration_v2.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_configuration_alert.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_setterObject_modalData.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_select2_custom_formatter.js') }}" ></script>
     
     {# Patologia Custom Scripts #}
-    <script type="text/javascript" src="{{ asset('bundles/minsalpatologia/js/patlg_edittemplate_bsform_configuration.js') }}" ></script>
+    {#<script type="text/javascript" src="{{ asset('bundles/minsalpatologia/js/patlg_edittemplate_bsform_configuration.js') }}" ></script>#}
     
     {# formValidation #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/formvalidation-master/dist/js/formValidation.min.js') }}" ></script>
@@ -235,7 +235,7 @@
 {% block content %}
     {{ parent() }}
 
-    <ul class="nav nav-pills">
+    <ul class="nav nav-pills nav-justified">
         <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill">Examinar</a></li>
         <li><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill">Lectura</a></li>
         <li><a href="javascript:void(0)" onclick="generate(this, 'non_transcribed_results'); return false;" data-toggle="pill">Transcripción</a></li>
