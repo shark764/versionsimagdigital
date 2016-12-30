@@ -31,7 +31,7 @@ class ImagenologiaDigitalAdmin extends Admin
         $collection->add('listarExamenesPaciente', null, [], [], ['expose' => true]);
         $collection->add('listarDiagnosticosPaciente', null, [], [], ['expose' => true]);
         $collection->add('asignarNuevoExpediente', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('worklist', null, [], [], ['expose' => true]);
+        $collection->add('worklist', 'lista-de-trabajo', [], [], ['expose' => true]);
         /*
          * getJsonFiltersForBsTables
          */

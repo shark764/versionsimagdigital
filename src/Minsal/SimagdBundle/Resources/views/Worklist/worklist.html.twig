@@ -4,12 +4,28 @@
 
 {% block stylesheets %}
     {{ parent() }}
+
+    {# stylesheets minimized with Assetic #}
+    {% stylesheets
+        'bundles/minsalsimagd/css/simagd-styles.css'
+        'bundles/minsalsimagd/css/simagd-form-styles.css'
+        'bundles/minsalsimagd/css/simagd-extend-bootstrap3.css'
+        'bundles/minsalsimagd/css/simagd-extend-bootstrap3_minsalsiaps.css'
+        'bundles/minsalsimagd/css/simagd-table.css'
+
+        'bundles/minsalsimagd/css/typeahead.css'
+        'bundles/minsalsimagd/css/select2-bootstrap.css'
+        'bundles/minsalsimagd/css/select2-bootstrap_minsalsiaps.css'
+
+        output="bundles/minsalsimagd/compiled/css/bundle_stylesheets___layout.css" %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
     
-    {# simagd-styles #}
+    {# simagd-styles
     <link href="{{ asset('bundles/minsalsimagd/css/simagd-styles.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('bundles/minsalsimagd/css/simagd-form-styles.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('bundles/minsalsimagd/css/simagd-extend-bootstrap3.css') }}" type="text/css" rel="stylesheet" />
-    <link href="{{ asset('bundles/minsalsimagd/css/simagd-table.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/minsalsimagd/css/simagd-table.css') }}" type="text/css" rel="stylesheet" /> #}
     
     {# Bootstrap-calendar #}
     <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-datetimepicker-development/build/css/bootstrap-datetimepicker.min.css') }}" type="text/css" rel="stylesheet" />
