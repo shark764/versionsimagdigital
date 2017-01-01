@@ -33,17 +33,7 @@ class RyxLecturaPendienteTranscripcionListViewGenerator extends RyxEntityListVie
     /**
      * @var array
      */
-    protected $entityOptions = array(
-        // 'url'   => $this->routeGenerator->generate('simagd_lectura_datos'),
-    );
-
-    /**
-     * Constructor
-     */
-    public function __construct(ContainerInterface $container, RouteGeneratorInterface $routeGenerator, $class)
-    {
-        parent::__construct($container, $routeGenerator, $class);
-    }
+    protected $entityOptions = array();
 
     /**
      * Sets the array.
@@ -176,6 +166,28 @@ class RyxLecturaPendienteTranscripcionListViewGenerator extends RyxEntityListVie
         ////////
 
         // return $this->data;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function initialize()
+    {
+        $this->generateURL();
+        $this->setEntityOptions();
+        $this->defineColumns();
+        // $this->buildData();
+        // $this->generateData();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function generateURL()
+    {
+        ////////
+        $this->entityOptions['url'] = $this->routeGenerator->generate('simagd_sin_transcribir_listarPendientesTranscripcion');
+        ////////
     }
 
 }

@@ -33,17 +33,7 @@ class MntExpedienteListViewGenerator extends RyxEntityListViewGenerator
     /**
      * @var array
      */
-    protected $entityOptions = array(
-        // 'url'   => $this->routeGenerator->generate('simagd_lectura_datos'),
-    );
-
-    /**
-     * Constructor
-     */
-    public function __construct(ContainerInterface $container, RouteGeneratorInterface $routeGenerator, $class)
-    {
-        parent::__construct($container, $routeGenerator, $class);
-    }
+    protected $entityOptions = array();
 
     /**
      * Sets the array.

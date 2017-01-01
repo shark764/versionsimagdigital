@@ -33,17 +33,7 @@ class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListView
     /**
      * @var array
      */
-    protected $entityOptions = array(
-        // 'url'   => $this->routeGenerator->generate('simagd_proyeccion_datos'),
-    );
-
-    /**
-     * Constructor
-     */
-    public function __construct(ContainerInterface $container, RouteGeneratorInterface $routeGenerator, $class)
-    {
-        parent::__construct($container, $routeGenerator, $class);
-    }
+    protected $entityOptions = array();
 
     /**
      * Sets the array.
