@@ -184,7 +184,7 @@ class ImgPendienteTranscripcionAdminController extends Controller
         $ENTITY_LIST_VIEW_GENERATOR_ = new RyxLecturaPendienteTranscripcionListViewGenerator(
                 $this->container,
                 $this->admin->getRouteGenerator(),
-                $this->admin->getClass(),
+                $this->admin->getClass()
                 // new RyxLecturaPendienteTranscripcion()
         );
         //////// --|

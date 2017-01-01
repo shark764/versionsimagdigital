@@ -76,7 +76,7 @@ class RyxListViewGenerator /*implements ListViewGeneratorInterface*/
         'pageSize'      => 25,
         'sortName'      => "id",
         'sortOrder'     => "desc",
-        'classes'       => "table table-hover table-condensed table-striped table-no-bordered",
+        'classes'       => "table table-hover table-condensed table-no-bordered table-striped table-black-head",
         'buttonsClass'  => "primary-v4",
         'icons'         => array(
             'paginationSwitchDown'  => 'glyphicon-collapse-down icon-chevron-down',

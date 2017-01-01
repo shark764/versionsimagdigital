@@ -243,7 +243,7 @@ class ImgPendienteLecturaAdminController extends Controller
         $ENTITY_LIST_VIEW_GENERATOR_ = new RyxEstudioPendienteLecturaListViewGenerator(
                 $this->container,
                 $this->admin->getRouteGenerator(),
-                $this->admin->getClass(),
+                $this->admin->getClass()
                 // new RyxEstudioPendienteLectura()
         );
         //////// --|

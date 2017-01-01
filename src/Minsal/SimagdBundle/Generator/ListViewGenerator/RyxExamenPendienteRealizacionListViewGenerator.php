@@ -196,7 +196,7 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
     public function generateURL()
     {
         ////////
-        $this->entityOptions['url'] => $this->routeGenerator->generate('simagd_sin_realizar_listarPendientesRealizar');
+        $this->entityOptions['url'] = $this->routeGenerator->generate('simagd_sin_realizar_listarPendientesRealizar');
         ////////
     }
 

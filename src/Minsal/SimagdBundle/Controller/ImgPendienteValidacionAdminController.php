@@ -120,7 +120,7 @@ class ImgPendienteValidacionAdminController extends Controller
         $ENTITY_LIST_VIEW_GENERATOR_ = new RyxDiagnosticoPendienteValidacionListViewGenerator(
                 $this->container,
                 $this->admin->getRouteGenerator(),
-                $this->admin->getClass(),
+                $this->admin->getClass()
                 // new RyxDiagnosticoPendienteValidacion()
         );
         //////// --|
