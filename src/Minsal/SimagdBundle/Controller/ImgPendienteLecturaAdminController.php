@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 use Minsal\SimagdBundle\Entity\ImgPendienteLectura;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxEstudioPendienteLecturaListViewGenerator;
+
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
 class ImgPendienteLecturaAdminController extends Controller
@@ -222,6 +224,35 @@ class ImgPendienteLecturaAdminController extends Controller
         $response   = new Response();
         $response->setContent(json_encode(array('update' => $status)));
         return $response;
+    }
+
+    /**
+     * TABLE GENERATOR
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function generateTableAction(Request $request)
+    {
+        $request->isXmlHttpRequest();
+        
+        $em = $this->getDoctrine()->getManager();
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxEstudioPendienteLecturaListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass(),
+                // new RyxEstudioPendienteLectura()
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+        
+        return $this->renderJson(array(
+            'result'    => 'ok',
+            'options'   => $options
+        ));
     }
 
 }

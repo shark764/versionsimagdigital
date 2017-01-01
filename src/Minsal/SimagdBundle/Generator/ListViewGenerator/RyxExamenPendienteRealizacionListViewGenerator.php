@@ -178,4 +178,26 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
         // return $this->data;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function initialize()
+    {
+        $this->generateURL();
+        $this->setEntityOptions();
+        $this->defineColumns();
+        // $this->buildData();
+        // $this->generateData();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function generateURL()
+    {
+        ////////
+        $this->entityOptions['url'] => $this->routeGenerator->generate('simagd_sin_realizar_listarPendientesRealizar');
+        ////////
+    }
+
 }

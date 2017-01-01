@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 use Minsal\SimagdBundle\Entity\ImgPendienteRealizacion;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxExamenPendienteRealizacionListViewGenerator;
+
 class ImgPendienteRealizacionAdminController extends Controller
 {
     public function realizarAction() {
@@ -240,6 +242,35 @@ class ImgPendienteRealizacionAdminController extends Controller
         $response           = new Response();
         $response->setContent(json_encode(array()));
         return $response;
+    }
+
+    /**
+     * TABLE GENERATOR
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function generateTableAction(Request $request)
+    {
+        $request->isXmlHttpRequest();
+        
+        $em = $this->getDoctrine()->getManager();
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxExamenPendienteRealizacionListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass(),
+                // new RyxExamenPendienteRealizacion()
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+        
+        return $this->renderJson(array(
+            'result'    => 'ok',
+            'options'   => $options
+        ));
     }
     
 }

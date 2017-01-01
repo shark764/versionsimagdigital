@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 use Minsal\SimagdBundle\Entity\ImgPendienteValidacion;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxDiagnosticoPendienteValidacionListViewGenerator;
+
 class ImgPendienteValidacionAdminController extends Controller
 {
     public function validarAction() {
@@ -26,7 +28,7 @@ class ImgPendienteValidacionAdminController extends Controller
     }
     
     public function listAction() {
-	//Acceso denegado
+	   //Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -43,8 +45,8 @@ class ImgPendienteValidacionAdminController extends Controller
         
         $em                     = $this->getDoctrine()->getManager();
 
-	$securityContext        = $this->container->get('security.context');
-	$sessionUser           = $securityContext->getToken()->getUser();
+    	$securityContext        = $this->container->get('security.context');
+    	$sessionUser           = $securityContext->getToken()->getUser();
         $estabLocal             = $sessionUser->getIdEstablecimiento();
 
         $resultados             = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->obtenerPendientesValidacionV2($estabLocal->getId(), $sessionUser/*->getId()*/, $BS_FILTERS_DECODE);
@@ -54,7 +56,7 @@ class ImgPendienteValidacionAdminController extends Controller
                     ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_EDIT'))) || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
         
         foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgPendienteValidacion;
+           // $resultado = new \Minsal\SimagdBundle\Entity\ImgPendienteValidacion;
 
             $resultados[$key]['diag_fechaTranscrito']    = $resultado['diag_fechaTranscrito'] ? $resultado['diag_fechaTranscrito']->format('Y-m-d H:i:s A') : '';
             $resultados[$key]['diag_fechaCorregido']     = $resultado['diag_fechaCorregido'] ? $resultado['diag_fechaCorregido']->format('Y-m-d H:i:s A') : '';
@@ -74,7 +76,7 @@ class ImgPendienteValidacionAdminController extends Controller
     {
         $request->isXmlHttpRequest();
         
-	$status     = 'OK';
+	   $status     = 'OK';
         
         /*
          * request
@@ -84,8 +86,8 @@ class ImgPendienteValidacionAdminController extends Controller
         
         $em         = $this->getDoctrine()->getManager();
         
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+    	$securityContext    = $this->container->get('security.context');
+    	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
         //Actualizar registros
@@ -99,6 +101,35 @@ class ImgPendienteValidacionAdminController extends Controller
         $response   = new Response();
         $response->setContent(json_encode(array('update' => $status)));
         return $response;
+    }
+
+    /**
+     * TABLE GENERATOR
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function generateTableAction(Request $request)
+    {
+        $request->isXmlHttpRequest();
+        
+        $em = $this->getDoctrine()->getManager();
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxDiagnosticoPendienteValidacionListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass(),
+                // new RyxDiagnosticoPendienteValidacion()
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+        
+        return $this->renderJson(array(
+            'result'    => 'ok',
+            'options'   => $options
+        ));
     }
     
 }

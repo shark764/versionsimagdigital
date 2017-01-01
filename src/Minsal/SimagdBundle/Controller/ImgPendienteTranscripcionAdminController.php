@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 use Minsal\SimagdBundle\Entity\ImgPendienteTranscripcion;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxLecturaPendienteTranscripcionListViewGenerator;
+
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
 class ImgPendienteTranscripcionAdminController extends Controller
@@ -51,15 +53,15 @@ class ImgPendienteTranscripcionAdminController extends Controller
     }
     
     public function listAction() {
-	//Acceso denegado
+	   //Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
         
         $em                 = $this->getDoctrine()->getManager();
         
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+    	$securityContext    = $this->container->get('security.context');
+    	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
         $tiposEmpleado      = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
@@ -105,8 +107,8 @@ class ImgPendienteTranscripcionAdminController extends Controller
         
         $em                         = $this->getDoctrine()->getManager();
 
-	$securityContext            = $this->container->get('security.context');
-	$sessionUser               = $securityContext->getToken()->getUser();
+    	$securityContext            = $this->container->get('security.context');
+    	$sessionUser               = $securityContext->getToken()->getUser();
         $estabLocal                 = $sessionUser->getIdEstablecimiento();
 
         $resultados                 = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->obtenerPendientesTranscripcionV2($estabLocal->getId(), $BS_FILTERS_DECODE);
@@ -114,12 +116,12 @@ class ImgPendienteTranscripcionAdminController extends Controller
         $isUser_allowTranscribir    = ($this->admin->getRoutes()->has('transcribir') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_EDIT')) ||
                     $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
-	$isUser_allowRegInicial     = ($this->admin->getRoutes()->has('registrarEnMiLista') &&
+	   $isUser_allowRegInicial     = ($this->admin->getRoutes()->has('registrarEnMiLista') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_EDIT')) ||
                     $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
         
         foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgPendienteTranscripcion();
+           // $resultado = new \Minsal\SimagdBundle\Entity\ImgPendienteTranscripcion();
 
             $resultados[$key]['lct_fechaLectura']       = $resultado['lct_fechaLectura']->format('Y-m-d H:i:s A');
             $resultados[$key]['pndT_fechaIngresoLista'] = $resultado['pndT_fechaIngresoLista']->format('Y-m-d H:i:s A');
@@ -138,7 +140,7 @@ class ImgPendienteTranscripcionAdminController extends Controller
     {
         $request->isXmlHttpRequest();
         
-	$status     = 'OK';
+	   $status     = 'OK';
         
         /*
          * request
@@ -148,8 +150,8 @@ class ImgPendienteTranscripcionAdminController extends Controller
         
         $em         = $this->getDoctrine()->getManager();
         
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+    	$securityContext    = $this->container->get('security.context');
+    	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
         //Actualizar registros
@@ -163,6 +165,35 @@ class ImgPendienteTranscripcionAdminController extends Controller
         $response   = new Response();
         $response->setContent(json_encode(array('update' => $status)));
         return $response;
+    }
+
+    /**
+     * TABLE GENERATOR
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function generateTableAction(Request $request)
+    {
+        $request->isXmlHttpRequest();
+        
+        $em = $this->getDoctrine()->getManager();
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxLecturaPendienteTranscripcionListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass(),
+                // new RyxLecturaPendienteTranscripcion()
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+        
+        return $this->renderJson(array(
+            'result'    => 'ok',
+            'options'   => $options
+        ));
     }
 
 }
