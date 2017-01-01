@@ -90,7 +90,7 @@ class RyxListViewGenerator /*implements ListViewGeneratorInterface*/
         'searchAlign'   => "left",
         'buttonsAlign'  => "left",
         'toolbarAlign'  => "right",
-        'height'        => "1268",
+        // 'height'        => "1268",
     );
 
     /**
