@@ -81,7 +81,7 @@ jQuery(document).ready(function() {
 
 function ___editarCitaAction() {
     $.ajax({
-	    type: 'post',
+	    type: 'POST',
 	    dataType: 'json',
 	    url: Routing.generate('simagd_cita_editarCita'),
 	    data: jQuery('#editarCitaForm').formParams(),
@@ -112,7 +112,7 @@ function ___editarCitaAction() {
 
 function ___cancelarCitaAction(event_id) {
     $.ajax({
-            type: 'post',
+            type: 'POST',
             dataType: 'json',
             url: Routing.generate('simagd_cita_cancelarCita'),
             data: jQuery('#cancelarCitaForm').formParams(),
@@ -145,7 +145,7 @@ function ___cancelarCitaAction(event_id) {
 
 function ___confirmarCitaAction(event_id) {
     $.ajax({
-            type: 'post',
+            type: 'POST',
             dataType: 'json',
             url: Routing.generate('simagd_cita_confirmarCita'),
             data: { id: event_id },

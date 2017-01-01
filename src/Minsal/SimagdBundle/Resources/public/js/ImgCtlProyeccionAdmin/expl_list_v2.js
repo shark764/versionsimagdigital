@@ -307,7 +307,7 @@ jQuery(document).ready(function() {
 
         // Use Ajax to submit form data
         $.ajax({
-                type: 'post',
+                type: 'POST',
                 dataType: 'json',
                 url: Routing.generate('simagd_proyeccion_asignarElementoListaLocal'),
                 data: $pryXLocalList_params,

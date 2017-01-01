@@ -136,7 +136,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate(url),
 		    data: $form.formParams(),
@@ -253,7 +253,7 @@ jQuery(document).ready(function() {
 	e.preventDefault();
 
 	$.ajax({
-	    type: 'post',
+	    type: 'POST',
 	    dataType: 'json',
 	    url: Routing.generate('simagd_diagnostico_aprobarDiagnostico'),
 	    data: { id: $current_diagRowForm.diag_id },
@@ -457,7 +457,7 @@ jQuery(document).ready(function() {
 
         // Use Ajax to submit form data
         $.ajax({
-                type: 'post',
+                type: 'POST',
                 dataType: 'json',
                 url: Routing.generate('simagd_sin_validar_asignarElementoListaTrabajo'),
                 data: $pndVWorklist_params,

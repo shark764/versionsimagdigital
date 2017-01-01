@@ -25,6 +25,7 @@ class ImgPendienteValidacionAdmin extends Admin
         $collection->add('validar');
         $collection->add('listarPendientesValidacion', null, [], [], ['expose' => true]);
         $collection->add('asignarElementoListaTrabajo', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
     }
     
     /**

@@ -292,7 +292,7 @@ jQuery(document).ready(function() {
 
         // Use Ajax to submit form data
         $.ajax({
-                type: 'post',
+                type: 'POST',
                 dataType: 'json',
                 url: Routing.generate('simagd_imagenologia_digital_asignarNuevoExpediente'),
                 data: $newRecord_params,

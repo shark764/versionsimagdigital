@@ -26,6 +26,7 @@ class ImgPendienteTranscripcionAdmin extends Admin
         $collection->add('registrarEnMiLista', null, [], [], ['expose' => true]);
         $collection->add('listarPendientesTranscripcion', null, [], [], ['expose' => true]);
         $collection->add('asignarElementoListaTrabajo', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
     }
     
     /**

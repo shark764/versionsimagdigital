@@ -100,7 +100,7 @@ jQuery(document).ready(function() {
 	    $chkHbl = false;
 	}
 	$.ajax({
-	    type: 'post',
+	    type: 'POST',
 	    dataType: 'json',
 	    url: Routing.generate('simagd_pacs_habilitarPacs'),
             data: {

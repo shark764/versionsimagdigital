@@ -27,6 +27,7 @@ class ImgPendienteLecturaAdmin extends Admin
         $collection->add('listarPendientesLectura', null, [], [], ['expose' => true]);
         $collection->add('anexarEstudioEnListaSinLectura', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('asignarElementoListaTrabajo', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
     }
     
     /**

@@ -37,7 +37,7 @@ window.lectura_actionEvents = {
 	___actionLecturaSetterObjectModalData(row.lct_id, row, {});
         jQuery('#lecturaFullData-showModalContainer').modal();
 // 	if (jQuery.inArray(row.id, lecturaCacheShowView ) === -1) {
-//             $.ajax({ type: 'post', dataType: 'json', url: Routing.generate('simagd_lectura_getObjectVarsAsArray'), data: { id: row.id },
+//             $.ajax({ type: 'POST', dataType: 'json', url: Routing.generate('simagd_lectura_getObjectVarsAsArray'), data: { id: row.id },
 //                 success: function(response) {
 //                             console.log(response);
 //                             ___actionLecturaSetterObjectModalData(response.id, response.object, {});

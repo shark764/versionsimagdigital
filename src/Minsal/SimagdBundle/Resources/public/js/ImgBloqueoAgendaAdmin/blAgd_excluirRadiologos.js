@@ -121,7 +121,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate('simagd_bloqueo_agenda_excluirRadiologoBloqueo'),
 		    data: $form.formParams(),

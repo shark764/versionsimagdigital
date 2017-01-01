@@ -251,12 +251,21 @@
 {% block content %}
     {{ parent() }}
 
-    <ul class="nav nav-pills nav-justified">
-        <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill">Examinar</a></li>
-        <li><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill">Lectura</a></li>
-        <li><a href="javascript:void(0)" onclick="generate(this, 'non_transcribed_results'); return false;" data-toggle="pill">Transcripción</a></li>
-        <li><a href="javascript:void(0)" onclick="generate(this, 'non_validated_results'); return false;" data-toggle="pill">Revisión</a></li>
-    </ul>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-offset-2{# #}">
+        <div class="row"> <!-- row block -->
+            <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
+                <div class="box-body">
+
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill">Examinar</a></li>
+                        <li><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill">Lectura</a></li>
+                        <li><a href="javascript:void(0)" onclick="generate(this, 'non_transcribed_results'); return false;" data-toggle="pill">Transcripción</a></li>
+                        <li><a href="javascript:void(0)" onclick="generate(this, 'non_validated_results'); return false;" data-toggle="pill">Revisión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="tab-pane fade in active" id="tab_list__" >
 
@@ -287,14 +296,7 @@
     //////////////////////////////////////////////////////////////
      -->
     <script type="text/javascript">
-        setchecked = function(el) {
-            jQuery(el)
-                .closest('li')
-                        .find('input:radio')
-                        .iCheck('check');
-        }
-
-        generate = function(el, slug) {
+        generate = function(el, slug, type = null) {
             ////////
             var $table = jQuery('#ryx_target_bstable');
             ////////
@@ -302,25 +304,26 @@
 
             $url = null;
             if (slug === 'unrealized_procedures') {
-                $url = 'simagd_proyeccion_generateTable';
+                $url = 'simagd_sin_realizar_generateTable';
             }
             if (slug === 'undiagnosed_studies') {
-                $url = 'simagd_material_generateTable';
+                $url = 'simagd_sin_lectura_generateTable';
             }
             if (slug === 'non_transcribed_results') {
-                $url = 'simagd_material_generateTable';
+                $url = 'simagd_sin_transcribir_generateTable';
             }
             if (slug === 'non_validated_results') {
-                $url = 'simagd_material_generateTable';
+                $url = 'simagd_sin_validar_generateTable';
             }
 
             $.ajax({
-                type: 'post',
+                type: 'POST',
                 dataType: 'json',
                 url: Routing.generate($url),
                 data: {
                     id: 'id',
                     slug: slug,
+                    type: type
                 },
                 success: function(response) {
                     $table

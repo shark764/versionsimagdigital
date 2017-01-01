@@ -93,7 +93,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate('simagd_solicitud_estudio_agregarIndicacionesRadiologo'),
 		    data: $form.formParams(),

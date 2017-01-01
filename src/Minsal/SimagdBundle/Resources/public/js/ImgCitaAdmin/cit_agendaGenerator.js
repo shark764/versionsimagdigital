@@ -143,7 +143,7 @@
 
 				$el_fc_calendar.filter(':not([disabled]):visible').find('div.popover .confirm-cita-popover-action').on('click', function(e) {
 					$.ajax({
-						type: 'post',
+						type: 'POST',
 						dataType: 'json',
 						url: Routing.generate('simagd_cita_confirmarCita'),
 						data: {id: event.cit_id},
@@ -208,7 +208,7 @@
 
 				$el_fc_calendar.filter(':not([disabled]):visible').find('div.popover .remove-bloqueo-popover-action').on('click', function(e) {
 					$.ajax({
-						type: 'post',
+						type: 'POST',
 						dataType: 'json',
 						url: Routing.generate('simagd_bloqueo_agenda_removerBloqueo'),
 						data: {id: event.blAgd_id},
@@ -253,7 +253,7 @@
 				.popover('hide');
 
 			$.ajax({
-				type: 'post',
+				type: 'POST',
 				dataType: 'json',
 				url: Routing.generate('simagd_cita_nuevaCita'),
 				data: {
@@ -288,7 +288,7 @@
 	    	var $el_fc_calendar = jQuery('#calendar');	//  --| calendar DOM element
 
 			$.ajax({
-				type: 'post',
+				type: 'POST',
 				dataType: 'json',
 				url: Routing.generate('simagd_cita_actualizarCita'),
 				data: {
@@ -331,7 +331,7 @@
 	    	var $el_fc_calendar = jQuery('#calendar');	//  --| calendar DOM element
 
 		    $.ajax({
-				type: 'post',
+				type: 'POST',
 				dataType: 'json',
 				url: Routing.generate('simagd_cita_actualizarCita'),
 				data: {

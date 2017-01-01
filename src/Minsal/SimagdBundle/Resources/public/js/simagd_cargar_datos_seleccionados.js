@@ -7,7 +7,7 @@
     function loadDatosSeleccionadosArray(param_filterA, param_filterB, ruta, selector) {
         var dataArray = [];
         if (param_filterA && param_filterB) {
-            $.ajax({ type: 'post', dataType: 'json', async: false, url: Routing.generate(ruta),
+            $.ajax({ type: 'POST', dataType: 'json', async: false, url: Routing.generate(ruta),
                 data: { param_filterA : param_filterA, param_filterB : param_filterB, selector : selector },
                 success: function(data) {
                                 $.each(data, function(i) {

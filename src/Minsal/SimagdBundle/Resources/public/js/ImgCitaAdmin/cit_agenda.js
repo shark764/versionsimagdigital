@@ -203,7 +203,7 @@ jQuery(document).ready(function() {
 
 					      $el_fc_calendar.filter(':not([disabled]):visible').find('div.popover .confirm-cita-popover-action').on('click', function(e) {
 						  $.ajax({
-						      type: 'post',
+						      type: 'POST',
 						      dataType: 'json',
 						      url: Routing.generate('simagd_cita_confirmarCita'),
 						      data: { id: event.cit_id },
@@ -268,7 +268,7 @@ jQuery(document).ready(function() {
 
 					      $el_fc_calendar.filter(':not([disabled]):visible').find('div.popover .remove-bloqueo-popover-action').on('click', function(e) {
 						  $.ajax({
-						      type: 'post',
+						      type: 'POST',
 						      dataType: 'json',
 						      url: Routing.generate('simagd_bloqueo_agenda_removerBloqueo'),
 						      data: { id: event.blAgd_id },
@@ -313,7 +313,7 @@ jQuery(document).ready(function() {
 						  .popover('hide');
 
 				      $.ajax({
-					    type: 'post',
+					    type: 'POST',
 					    dataType: 'json',
 					    url: Routing.generate('simagd_cita_nuevaCita'),
 					    data: {
@@ -346,7 +346,7 @@ jQuery(document).ready(function() {
 		    },
 		    eventResize: function(event, delta, revertFunc) {
 				      $.ajax({
-					    type: 'post',
+					    type: 'POST',
 					    dataType: 'json',
 					    url: Routing.generate('simagd_cita_actualizarCita'),
 					    data: {
@@ -387,7 +387,7 @@ jQuery(document).ready(function() {
 		    },
 		    eventDrop: function(event, delta, revertFunc) {
 				    $.ajax({
-					  type: 'post',
+					  type: 'POST',
 					  dataType: 'json',
 					  url: Routing.generate('simagd_cita_actualizarCita'),
 					  data: {

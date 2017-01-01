@@ -27,6 +27,7 @@ class ImgPendienteRealizacionAdmin extends Admin
         $collection->add('listarPendientesRealizar', null, [], [], ['expose' => true]);
         $collection->add('registrarEstudioAlmacenado', null, [], [], ['expose' => true]);
         $collection->add('agregarEmergencia', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
     }
     
     /**

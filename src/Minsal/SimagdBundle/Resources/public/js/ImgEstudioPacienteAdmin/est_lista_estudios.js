@@ -99,7 +99,7 @@ window.actionEvents = {
     },
     'click .anexar-lista-lectura-estudio-action': function (e, value, row, index) {
         $.ajax({
-            type: 'post',
+            type: 'POST',
             dataType: 'json',
             url: Routing.generate('simagd_sin_lectura_anexarEstudioEnListaSinLectura'),
             data: {
@@ -264,7 +264,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate(url),
 		    data: $form.formParams(),

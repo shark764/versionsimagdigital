@@ -7,7 +7,7 @@
     function getValorCampoCompuesto(param_filterA, param_filterB, inputDatos, ruta, selector) {
         if (param_filterA && param_filterB) {
             $.ajax({
-		type: 'post',
+		type: 'POST',
 		dataType: 'json',
 		url: Routing.generate(ruta),
                 data: {
