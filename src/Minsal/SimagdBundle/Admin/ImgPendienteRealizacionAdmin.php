@@ -21,7 +21,8 @@ class ImgPendienteRealizacionAdmin extends Admin
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
-        $collection->clearExcept(array('list'));
+        $collection->add('show', 'consultar');
+        // $collection->clearExcept(array('list'));
         $collection->add('realizar');
         $collection->add('registrarEnMiLista', null, [], [], ['expose' => true]);
         $collection->add('listarPendientesRealizar', null, [], [], ['expose' => true]);

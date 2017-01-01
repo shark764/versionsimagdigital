@@ -805,7 +805,7 @@ class ImagenologiaDigitalAdminController extends Controller
         return $this->render($this->admin->getTemplate($templateKey), array(
             'action'        => 'worklist',
             'csrf_token'    => $this->getCsrfToken('sonata.batch'),
-            'default_table_options' => $options,
+            'DEFAULT_TABLE_OPTIONS' => $options,
         ));
     }
 

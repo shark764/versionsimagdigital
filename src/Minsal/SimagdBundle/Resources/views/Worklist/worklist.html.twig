@@ -53,19 +53,19 @@
     <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-vertical-tabs-1.2.2/bootstrap.vertical-tabs.css') }}" type="text/css" rel="stylesheet" />
     
     {# bootstrap-switch #}
-    <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.min.css') }}" type="text/css" rel="stylesheet" />
+    {#<link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.min.css') }}" type="text/css" rel="stylesheet" />#}
     
     {# select2-bootstrap #}
-    <link href="{{ asset('bundles/minsalsimagd/css/select2-bootstrap.css') }}" type="text/css" rel="stylesheet" />
+    {#<link href="{{ asset('bundles/minsalsimagd/css/select2-bootstrap.css') }}" type="text/css" rel="stylesheet" />#}
 
     {# Bootstrap-Colorpicker #}
-    <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-colorpicker-master/dist/css/bootstrap-colorpicker.min.css') }}" type="text/css" rel="stylesheet" />
+    {#<link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-colorpicker-master/dist/css/bootstrap-colorpicker.min.css') }}" type="text/css" rel="stylesheet" />#}
     {# colorpicker #}
-    <link href="{{ asset('bundles/minsalsimagd/css/colorpicker.css') }}" type="text/css" rel="stylesheet" />
+    {#<link href="{{ asset('bundles/minsalsimagd/css/colorpicker.css') }}" type="text/css" rel="stylesheet" />#}
 
     {# bootstrap text-editor summernote #}
-    <link href="{{ asset('bundles/minsalsimagd/plugin/summernote-master/dist/summernote.css') }}" type="text/css" rel="stylesheet" />
-    <link href="{{ asset('bundles/minsalsimagd/css/summernote.css') }}" type="text/css" rel="stylesheet" />
+    {#<link href="{{ asset('bundles/minsalsimagd/plugin/summernote-master/dist/summernote.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/minsalsimagd/css/summernote.css') }}" type="text/css" rel="stylesheet" />#}
 {% endblock %}
 
 {% block javascripts %}
@@ -128,7 +128,7 @@
     {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_init_formplugin.js') }}" ></script>#}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_form_configuration_v2.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_configuration_alert.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_setterObject_modalData.js') }}" ></script>
+    {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_setterObject_modalData.js') }}" ></script>#}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_select2_custom_formatter.js') }}" ></script>
     
     {# Patologia Custom Scripts #}
@@ -147,95 +147,11 @@
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-modal-master/js/bootstrap-modal.js') }}" ></script>
     
     {# bootstrap-switch #}
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-switch-master/dist/js/bootstrap-switch.min.js') }}" ></script>
+    {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-switch-master/dist/js/bootstrap-switch.min.js') }}" ></script>#}
 
-    <script type="text/javascript">
-        ////////////////////////////////////////////////////////////////
-        //////// clear form
-        ////////////////////////////////////////////////////////////////
-        clearForm = function(el) {
-            $form = jQuery(el).closest('form');
-            $form.data('formValidation').resetForm();
-            $form.get(0).reset();
-            $form
-                .find('select')
-                    .each(function () {
-                        var $select2    = jQuery(this);
-                        $select2.select2('val', $select2.find(':selected').val());
-                    });
-        }
-        ////////////////////////////////////////////////////////////////
-
-        jQuery.extend(true,
-                window.Admin,
-                {
-                    setup_select2: function(subject) {
-                        if (window.SONATA_CONFIG && window.SONATA_CONFIG.USE_SELECT2 && window.Select2) {
-
-                            jQuery('select:not([data-sonata-select2="false"])', subject).each(function() {
-                                var select = $(this);
-
-                                var allowClearEnabled = false;
-
-                                if (select.find('option[value=""]').length) {
-                                    allowClearEnabled = true;
-                                }
-
-                                if (select.attr('data-sonata-select2-allow-clear')==='true') {
-                                    allowClearEnabled = true;
-                                } else if (select.attr('data-sonata-select2-allow-clear')==='false') {
-                                    allowClearEnabled = false;
-                                }
-
-                                __select2_options__ = {
-                                    width: 'resolve',
-                                    minimumResultsForSearch: 10,
-                                    // dropdownAutoWidth : true,
-                                    allowClear: allowClearEnabled
-                                };
-
-                                //////// escapeMarkup
-                                if (select.attr('data-sonata-select2-escape-markup')==='true') {
-                                    jQuery.extend(true,
-                                        __select2_options__,
-                                        {
-                                            escapeMarkup: function(markup) {
-                                                return markup;
-                                            }
-                                        }
-                                    );
-                                }
-                                ////////
-
-                                //////// width
-                                // if (select.attr('data-sonata-select2-limit-width')==='true') {
-                                //     jQuery.extend(true,
-                                //         __select2_options__,
-                                //         {
-                                //             width: '75%'
-                                //         }
-                                //     );
-                                // }
-                                ////////
-
-                                //////// initialize with custom options
-                                select.select2(__select2_options__);
-                                ////////
-
-                                var popover = select.data('popover');
-
-                                if (undefined !== popover) {
-                                    select
-                                        .select2('container')
-                                        .popover(popover.options)
-                                    ;
-                                }
-                            });
-                        }
-                    }
-                }
-        ); // set value for filter
-    </script>
+    {#<script type="text/javascript">
+    </script>#}
+    {% include 'MinsalSimagdBundle:General:general_form_script.html.twig' %}
 {% endblock %}
 
 
@@ -295,117 +211,9 @@
     //////// SCRIPT FUNCTIONS
     //////////////////////////////////////////////////////////////
      -->
-    <script type="text/javascript">
-        generate = function(el, slug, type = null) {
-            ////////
-            var $table = jQuery('#ryx_target_bstable');
-            ////////
-            $table.bootstrapTable('showLoading');
-
-            $url = null;
-            if (slug === 'unrealized_procedures') {
-                $url = 'simagd_sin_realizar_generateTable';
-            }
-            if (slug === 'undiagnosed_studies') {
-                $url = 'simagd_sin_lectura_generateTable';
-            }
-            if (slug === 'non_transcribed_results') {
-                $url = 'simagd_sin_transcribir_generateTable';
-            }
-            if (slug === 'non_validated_results') {
-                $url = 'simagd_sin_validar_generateTable';
-            }
-
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                url: Routing.generate($url),
-                data: {
-                    id: 'id',
-                    slug: slug,
-                    type: type
-                },
-                success: function(response) {
-                    $table
-                        .bootstrapTable('destroy')
-                        .bootstrapTable(response.options);
-                    // $table.bootstrapTable('refreshOptions', response.options);
-                },
-                error: function(err) {
-                    console.log(err.error, err.responseText);
-                }
-            });
-        }
-
-        (function ($) {
-            /*
-             *
-             * @type type
-             * Get Table definition
-             */
-             // generate(null, 'unrealized_procedures');
-             // jQuery('#')
-             
-            ////////
-            var $table = jQuery('#ryx_target_bstable');
-            ////////
-            $table.bootstrapTable('showLoading');
-            $table
-                .bootstrapTable('destroy')
-                .bootstrapTable(JSON.parse('{{ default_table_options|json_encode|e('js')|raw }}'));
-        }(jQuery));
-
-        // destroy = function(el) {
-        //     if (jQuery(el).attr('id') !== "undefined" && (jQuery(el).attr('id') === "pry2" || jQuery(el).attr('id') === "pry4")) {
-        //         var $table = jQuery('#ryx_target_bstable');
-        //         $table.bootstrapTable('destroy');
-        //     }
-        // }
-
-        // function patientFormatResult(el) {
-        //     var markup = '<div class="row-fluid">' +
-        //                         // '<div class="span2"><img src="' + el.owner.avatar_url + '" /></div>' +
-        //                         '<div class="span10">' +
-        //                         '<div class="row-fluid">' +
-        //                         '<div class="span6">' + el.full_name + '</div>' +
-        //                         // '<div class="span3"><i class="fa fa-code-fork"></i> ' + el.forks_count + '</div>' +
-        //                         // '<div class="span3"><i class="fa fa-star"></i> ' + el.stargazers_count + '</div>' +
-        //                     '</div>';
-
-        //     // if (el.description) {
-        //     //     markup += '<div>' + el.description + '</div>';
-        //     // }
-
-        //     markup += '</div></div>';
-
-        //     return markup;
-        // }
-
-        // function patientFormatSelection(el) {
-        //     return el.full_name;
-        // }
-
-        // function displaySelection(data)
-        // {
-        //     var jt = [];
-        //     if (!data.t || !parseInt(data.t, 10)) {
-        //         jt.push('<div class="jumbotron">');
-        //     }
-        //     else {
-        //         jt.push('<div class="jumbotron" style="background-color: #ebc5b9;">');
-        //     }
-        //     jt.push('<div class="container">', '<h2><strong><span class="text-primary-v4">', data.item.full_name, '</span></strong></h2>');
-        //     if (!data.t || !parseInt(data.t, 10)) {
-        //         jt.push('<strong><span class="badge badge-primary-v4" style="font-size: 25px;">', data.item.numero, '</span></strong>');
-        //     }
-        //     else {
-        //         jt.push('<strong><span class="badge badge-emergency" style="font-size: 25px;">', data.item.numero, '</span></strong>');
-        //     }
-        //     jt.push('<p><a class="btn btn-primary-v4 " role="button">Crear solicitud</a></p>');
-        //     jt.push('</div>', '</div>');
-        //     return jt.join('');
-        // }
-    </script>
+    {#<script type="text/javascript">
+    </script>#}
+    {% include 'MinsalSimagdBundle:General:worklist_script.html.twig' %}
     <!-- 
     //////////////////////////////////////////////////////////////
     //////// END --| SCRIPT FUNCTIONS
