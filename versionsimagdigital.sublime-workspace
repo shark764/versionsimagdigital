@@ -194,6 +194,17 @@
 	],
 	"file_history":
 	[
+		"/home/farid/NetBeansProjects/versionsharksimagdigital/app/config/bundles/sonata_cache.yml",
+		"/home/farid/NetBeansProjects/versionsimagdigital/app/config/bundles/sonata_cache.yml",
+		"/home/farid/NetBeansProjects/versionsimagdigital/app/config/bundles/sonata_formatter.yml",
+		"/home/farid/NetBeansProjects/versionsimagdigital/app/config/bundles/sonata_core.yml",
+		"/home/farid/NetBeansProjects/versionsimagdigital/app/config/bundles/sonata_user.yml",
+		"/home/farid/NetBeansProjects/versionsimagdigital/app/config/bundles/fos_user.yml",
+		"/home/farid/NetBeansProjects/versionsimagdigital/app/config/bundles/sonata_admin.yml",
+		"/home/farid/NetBeansProjects/versionsimagdigital/app/AppKernel.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/app/AppCache.php",
+		"/home/farid/NetBeansProjects/versionsharksimagdigital/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/ClassMetadataInfo.php",
+		"/home/farid/NetBeansProjects/versionsharksimagdigital/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/ClassMetadata.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgBloqueoAgendaAdmin/blAgd_listarBloqueos.js",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgBloqueoAgendaAdmin/blAgd_set_form_data.js",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgCitaAdmin/cit_list_v2.js",
@@ -310,18 +321,7 @@
 		"/home/farid/NetBeansProjects/versionsharksimagdigital/src/Minsal/SimagdBundle/Resources/views/simagd_layout.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_calendarioCitasProgramadas.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_cancel_modal.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_cancelarCita_modal.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_edit.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_editarCita_modal.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_event_contentwrapper.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_imprimirComprobante.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_list.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_popover_contentwrapper.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_show.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlConfiguracionAgendaAdmin/prmCit_edit.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlConfiguracionAgendaAdmin/prmCit_show.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlMaterialAdmin/mtrl_agregarEnCatalogoLocal_modal.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlMaterialAdmin/mtrl_crearMaterial_modal.html.twig"
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_cancelarCita_modal.html.twig"
 	],
 	"find":
 	{
@@ -332,6 +332,8 @@
 		"height": 217.0,
 		"where_history":
 		[
+			"/home/farid/NetBeansProjects/versionsimagdigital/app",
+			" /home/farid/NetBeansProjects/versionsharksimagdigital/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/",
 			"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js",
 			"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin,/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller,/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views,/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js",
 			"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin,/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller,/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views"
@@ -342,6 +344,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"sonata.cache.apc",
+			"<?",
 			"$return,\n                '  ',\n                '<i class=\"glyphicon glyphicon-ok-sign\">',\n                '</i>',",
 			"primary-v3",
 			"primary-v2",
@@ -600,7 +604,7 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": -0.0,
+						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
