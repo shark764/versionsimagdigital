@@ -12,6 +12,8 @@ use Minsal\SimagdBundle\Entity\ImgSolicitudEstudio;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sonata\AdminBundle\Exception\ModelManagerException;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxExamenPendienteRealizacionListViewGenerator;
+
 class ImagenologiaDigitalAdminController extends Controller
 {
     /**
@@ -790,9 +792,20 @@ class ImagenologiaDigitalAdminController extends Controller
 
         // $COLLECTION_modalities_ = $em->getRepository('MinsalLaboratorioBundle:CtlAreaServicioDiagnostico')->findBy(array('idAtencion' => self::___XRAY_CLINICAL_SERVICE___));
 
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxExamenPendienteRealizacionListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass()
+                // new RyxExamenPendienteRealizacion()
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+
         return $this->render($this->admin->getTemplate($templateKey), array(
             'action'        => 'worklist',
             'csrf_token'    => $this->getCsrfToken('sonata.batch'),
+            'default_table_options' => $options,
         ));
     }
 

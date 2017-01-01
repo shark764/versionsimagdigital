@@ -329,6 +329,7 @@
                     $table
                         .bootstrapTable('destroy')
                         .bootstrapTable(response.options);
+                    // $table.bootstrapTable('refreshOptions', response.options);
                 },
                 error: function(err) {
                     console.log(err.error, err.responseText);
@@ -336,56 +337,74 @@
             });
         }
 
-        destroy = function(el) {
-            if (jQuery(el).attr('id') !== "undefined" && (jQuery(el).attr('id') === "pry2" || jQuery(el).attr('id') === "pry4")) {
-                var $table = jQuery('#ryx_target_bstable');
-                $table.bootstrapTable('destroy');
-            }
-        }
+        (function ($) {
+            /*
+             *
+             * @type type
+             * Get Table definition
+             */
+             // generate(null, 'unrealized_procedures');
+             // jQuery('#')
+             
+            ////////
+            var $table = jQuery('#ryx_target_bstable');
+            ////////
+            $table.bootstrapTable('showLoading');
+            $table
+                .bootstrapTable('destroy')
+                .bootstrapTable(JSON.parse('{{ default_table_options|json_encode|e('js')|raw }}'));
+        }(jQuery));
 
-        function patientFormatResult(el) {
-            var markup = '<div class="row-fluid">' +
-                                // '<div class="span2"><img src="' + el.owner.avatar_url + '" /></div>' +
-                                '<div class="span10">' +
-                                '<div class="row-fluid">' +
-                                '<div class="span6">' + el.full_name + '</div>' +
-                                // '<div class="span3"><i class="fa fa-code-fork"></i> ' + el.forks_count + '</div>' +
-                                // '<div class="span3"><i class="fa fa-star"></i> ' + el.stargazers_count + '</div>' +
-                            '</div>';
+        // destroy = function(el) {
+        //     if (jQuery(el).attr('id') !== "undefined" && (jQuery(el).attr('id') === "pry2" || jQuery(el).attr('id') === "pry4")) {
+        //         var $table = jQuery('#ryx_target_bstable');
+        //         $table.bootstrapTable('destroy');
+        //     }
+        // }
 
-            // if (el.description) {
-            //     markup += '<div>' + el.description + '</div>';
-            // }
+        // function patientFormatResult(el) {
+        //     var markup = '<div class="row-fluid">' +
+        //                         // '<div class="span2"><img src="' + el.owner.avatar_url + '" /></div>' +
+        //                         '<div class="span10">' +
+        //                         '<div class="row-fluid">' +
+        //                         '<div class="span6">' + el.full_name + '</div>' +
+        //                         // '<div class="span3"><i class="fa fa-code-fork"></i> ' + el.forks_count + '</div>' +
+        //                         // '<div class="span3"><i class="fa fa-star"></i> ' + el.stargazers_count + '</div>' +
+        //                     '</div>';
 
-            markup += '</div></div>';
+        //     // if (el.description) {
+        //     //     markup += '<div>' + el.description + '</div>';
+        //     // }
 
-            return markup;
-        }
+        //     markup += '</div></div>';
 
-        function patientFormatSelection(el) {
-            return el.full_name;
-        }
+        //     return markup;
+        // }
 
-        function displaySelection(data)
-        {
-            var jt = [];
-            if (!data.t || !parseInt(data.t, 10)) {
-                jt.push('<div class="jumbotron">');
-            }
-            else {
-                jt.push('<div class="jumbotron" style="background-color: #ebc5b9;">');
-            }
-            jt.push('<div class="container">', '<h2><strong><span class="text-primary-v4">', data.item.full_name, '</span></strong></h2>');
-            if (!data.t || !parseInt(data.t, 10)) {
-                jt.push('<strong><span class="badge badge-primary-v4" style="font-size: 25px;">', data.item.numero, '</span></strong>');
-            }
-            else {
-                jt.push('<strong><span class="badge badge-emergency" style="font-size: 25px;">', data.item.numero, '</span></strong>');
-            }
-            jt.push('<p><a class="btn btn-primary-v4 " role="button">Crear solicitud</a></p>');
-            jt.push('</div>', '</div>');
-            return jt.join('');
-        }
+        // function patientFormatSelection(el) {
+        //     return el.full_name;
+        // }
+
+        // function displaySelection(data)
+        // {
+        //     var jt = [];
+        //     if (!data.t || !parseInt(data.t, 10)) {
+        //         jt.push('<div class="jumbotron">');
+        //     }
+        //     else {
+        //         jt.push('<div class="jumbotron" style="background-color: #ebc5b9;">');
+        //     }
+        //     jt.push('<div class="container">', '<h2><strong><span class="text-primary-v4">', data.item.full_name, '</span></strong></h2>');
+        //     if (!data.t || !parseInt(data.t, 10)) {
+        //         jt.push('<strong><span class="badge badge-primary-v4" style="font-size: 25px;">', data.item.numero, '</span></strong>');
+        //     }
+        //     else {
+        //         jt.push('<strong><span class="badge badge-emergency" style="font-size: 25px;">', data.item.numero, '</span></strong>');
+        //     }
+        //     jt.push('<p><a class="btn btn-primary-v4 " role="button">Crear solicitud</a></p>');
+        //     jt.push('</div>', '</div>');
+        //     return jt.join('');
+        // }
     </script>
     <!-- 
     //////////////////////////////////////////////////////////////
