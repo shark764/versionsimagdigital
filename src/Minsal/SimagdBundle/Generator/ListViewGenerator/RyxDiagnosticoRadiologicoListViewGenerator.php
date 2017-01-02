@@ -31,11 +31,6 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 class RyxDiagnosticoRadiologicoListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
-     * @var array
-     */
-    protected $entityOptions = array();
-
-    /**
      * Sets the array.
      *
      * @param array $columns An array instance

@@ -137,8 +137,16 @@ class RyxEntityListViewGenerator extends RyxListViewGenerator
     /**
      * {@inheritdoc}
      */
+    public function defineEntityOptions()
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function setEntityOptions()
     {
+        $this->defineEntityOptions();
         $this->defaultOptions = array_merge($this->defaultOptions, $this->entityOptions);
     }
 

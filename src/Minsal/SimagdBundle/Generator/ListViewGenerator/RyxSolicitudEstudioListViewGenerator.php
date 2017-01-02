@@ -31,11 +31,6 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 class RyxSolicitudEstudioListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
-     * @var array
-     */
-    protected $entityOptions = array();
-
-    /**
      * Sets the array.
      *
      * @param array $columns An array instance
@@ -109,9 +104,11 @@ class RyxSolicitudEstudioListViewGenerator extends RyxEntityListViewGenerator
                 array(
                     'field' => 'action',
                     'sortable' => false,
-                    'title' => '<span class="glyphicon glyphicon-cog"></span>',
-                    'formatter' => 'lectura_actionFormatter',
-                    'events' => 'lectura_actionEvents',
+                    'align' => 'center',
+                    'halign' => 'center',
+                    'title' => '<span class="glyphicon glyphicon-cog"></span> Operaciones',
+                    'formatter' => 'operateFormatter',
+                    'events' => 'operateEvents',
                 )
         );
     }

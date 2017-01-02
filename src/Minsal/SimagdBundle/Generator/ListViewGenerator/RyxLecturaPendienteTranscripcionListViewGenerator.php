@@ -31,11 +31,6 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 class RyxLecturaPendienteTranscripcionListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
-     * @var array
-     */
-    protected $entityOptions = array();
-
-    /**
      * Sets the array.
      *
      * @param array $columns An array instance
@@ -135,9 +130,11 @@ class RyxLecturaPendienteTranscripcionListViewGenerator extends RyxEntityListVie
                 array(
                     'field' => 'action',
                     'sortable' => false,
-                    'title' => '<span class="glyphicon glyphicon-cog"></span>',
-                    'formatter' => 'lectura_actionFormatter',
-                    'events' => 'lectura_actionEvents',
+                    'align' => 'center',
+                    'halign' => 'center',
+                    'title' => '<span class="glyphicon glyphicon-cog"></span> Operaciones',
+                    'formatter' => 'operateFormatter',
+                    'events' => 'operateEvents',
                 )
         );
     }
@@ -173,7 +170,6 @@ class RyxLecturaPendienteTranscripcionListViewGenerator extends RyxEntityListVie
      */
     public function initialize()
     {
-        $this->generateURL();
         $this->setEntityOptions();
         $this->defineColumns();
         // $this->buildData();
@@ -183,10 +179,11 @@ class RyxLecturaPendienteTranscripcionListViewGenerator extends RyxEntityListVie
     /**
      * {@inheritdoc}
      */
-    public function generateURL()
+    public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url'] = $this->routeGenerator->generate('simagd_sin_transcribir_listarPendientesTranscripcion');
+        $this->entityOptions['url']     = $this->routeGenerator->generate('simagd_sin_transcribir_listarPendientesTranscripcion');
+        $this->entityOptions['classes'] = 'table table-hover table-condensed table-striped table-black-head';
         ////////
     }
 

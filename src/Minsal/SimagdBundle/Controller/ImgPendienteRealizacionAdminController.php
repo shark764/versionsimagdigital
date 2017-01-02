@@ -58,15 +58,15 @@ class ImgPendienteRealizacionAdminController extends Controller
     }
     
     public function listAction() {
-	//Acceso denegado
+	   //Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
         
         $em                     = $this->getDoctrine()->getManager();
         
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+    	$securityContext 	= $this->container->get('security.context');
+    	$sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
         
         $default_areaAtn        = 2;
@@ -166,8 +166,8 @@ class ImgPendienteRealizacionAdminController extends Controller
         
         $em                                 = $this->getDoctrine()->getManager();
 
-	$securityContext                    = $this->container->get('security.context');
-	$sessionUser                       = $securityContext->getToken()->getUser();
+    	$securityContext                    = $this->container->get('security.context');
+    	$sessionUser                       = $securityContext->getToken()->getUser();
         $estabLocal                         = $sessionUser->getIdEstablecimiento();
 
         $resultados                         = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')->obtenerPendientesRealizarV2($estabLocal->getId(), $BS_FILTERS_DECODE);
@@ -175,15 +175,15 @@ class ImgPendienteRealizacionAdminController extends Controller
         $isUser_allowRealizar               = ($this->admin->getRoutes()->has('realizar') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_EDIT')) ||
                     $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
-	$isUser_allowRegInicial             = ($this->admin->getRoutes()->has('registrarEnMiLista') &&
+	               $isUser_allowRegInicial             = ($this->admin->getRoutes()->has('registrarEnMiLista') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_EDIT')) ||
                     $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
-	$isUser_allowRegistrarAlmacenado    = ($this->admin->getRoutes()->has('registrarEstudioAlmacenado') &&
+	       $isUser_allowRegistrarAlmacenado    = ($this->admin->getRoutes()->has('registrarEstudioAlmacenado') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_EDIT')) ||
                     $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
         
         foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgPendienteRealizacion;
+           // $resultado = new \Minsal\SimagdBundle\Entity\ImgPendienteRealizacion;
 
             $resultados[$key]['pndR_fechaIngresoLista']             = $resultado['pndR_fechaIngresoLista']->format('Y-m-d H:i:s A');
             
@@ -222,15 +222,15 @@ class ImgPendienteRealizacionAdminController extends Controller
     {
         $request->isXmlHttpRequest();
 
-	$securityContext        = $this->container->get('security.context');
-	$sessionUser           = $securityContext->getToken()->getUser();
+    	$securityContext        = $this->container->get('security.context');
+    	$sessionUser           = $securityContext->getToken()->getUser();
         $estabLocal             = $sessionUser->getIdEstablecimiento();
         
         //Nueva instancia
         $pndRealizar        = $this->admin->getNewInstance();
         
-//        $pndRealizar->setEsEmergencia(TRUE);
-//        $pndRealizar->setIdRegistraEmergencia($sessionUser->getIdEmpleado());
+       // $pndRealizar->setEsEmergencia(TRUE);
+       // $pndRealizar->setIdRegistraEmergencia($sessionUser->getIdEmpleado());
 
         //Crear registro
         try {

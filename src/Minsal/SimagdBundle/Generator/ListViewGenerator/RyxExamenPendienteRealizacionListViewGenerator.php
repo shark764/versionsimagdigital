@@ -31,11 +31,6 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
-     * @var array
-     */
-    protected $entityOptions = array();
-
-    /**
      * Sets the array.
      *
      * @param array $columns An array instance
@@ -54,90 +49,81 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
                 array(
                     'field' => 'origen',
                     'sortable' => true,
-                    'title' => 'Origen',
+                    'title' => '<span class="glyphicon glyphicon-home"></span> ORIGEN',
                     'visible' => false,
                     // 'formatter' => 'simagdOrigenFormatter',
                 ),
                 array(
                     'field' => 'paciente',
                     'sortable' => true,
-                    'title' => 'Paciente',
+                    'title' => '<span class="glyphicon glyphicon-user"></span> PACIENTE',
                     'switchable' => false,
                     // 'formatter' => 'simagdPacienteFormatter',
                 ),
                 array(
                     'field' => 'numero_expediente',
                     'sortable' => true,
-                    'title' => 'Registro',
+                    'title' => '<span class="glyphicon glyphicon-tag"></span> REG.',
                     'switchable' => false,
                     // 'formatter' => 'simagdPacienteFormatter',
                 ),
                 array(
-                    'field' => 'medico',
-                    'sortable' => true,
-                    'title' => 'Médico',
-                    // 'switchable' => false,
-                ),
-                array(
                     'field' => 'area_atencion',
                     'sortable' => true,
-                    'title' => 'Procedencia',
+                    'title' => '<span class="glyphicon glyphicon-paperclip"></span> PROCEDENCIA',
                 ),
                 array(
                     'field' => 'atencion',
                     'sortable' => true,
-                    'title' => 'Servicio',
+                    'title' => '<span class="glyphicon glyphicon-paperclip"></span> SERVICIO',
+                ),
+                array(
+                    'field' => 'medico',
+                    'sortable' => true,
+                    'title' => '<span class="glyphicon glyphicon-user"></span> MÉDICO',
+                    // 'switchable' => false,
                 ),
                 array(
                     'field' => 'modalidad',
                     'sortable' => true,
-                    'title' => 'Modalidad',
+                    'title' => '<span class="glyphicon glyphicon-list-alt"></span> MODALIDAD',
+                ),
+                array(
+                    'field' => 'triage',
+                    'sortable' => true,
+                    'title' => '<span class="glyphicon glyphicon-tag"></span> TRIAGE',
+                    // 'visible' => false,
+                    // 'switchable' => false,
                 ),
                 array(
                     'field' => 'tecnologo',
                     'sortable' => true,
-                    'title' => 'Téc. / Lic. / Rdlg.',
+                    'title' => 'TÉC. / LIC. / RDLG.',
                     'visible' => false,
                     // 'switchable' => false,
                 ),
                 array(
                     'field' => 'estado',
                     'sortable' => true,
-                    'title' => 'Estado',
+                    'title' => 'ESTADO',
+                    'visible' => false,
                     // 'switchable' => false,
                 ),
                 array(
                     'field' => 'fecha_examen',
                     'sortable' => true,
-                    'title' => 'Fecha (Examen)',
-                    'visible' => false,
-                    // 'formatter' => 'simagdDateTimeFormatter',
-                ),
-                array(
-                    'field' => 'correlativo',
-                    'sortable' => true,
-                    'title' => 'Etiqueta',
-                    'visible' => false,
-                ),
-                array(
-                    'field' => 'radiologo',
-                    'sortable' => true,
-                    'title' => 'Radiólogo',
-                    // 'visible' => true,
-                ),
-                array(
-                    'field' => 'fecha_lectura',
-                    'sortable' => true,
-                    'title' => 'Fecha (Lectura)',
+                    'title' => 'FECHA (EXM.)',
                     'visible' => false,
                     // 'formatter' => 'simagdDateTimeFormatter',
                 ),
                 array(
                     'field' => 'action',
                     'sortable' => false,
-                    'title' => '<span class="glyphicon glyphicon-cog"></span>',
-                    'formatter' => 'lectura_actionFormatter',
-                    'events' => 'lectura_actionEvents',
+                    'align' => 'center',
+                    'halign' => 'center',
+                    'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
+                    'formatter' => 'operateFormatter',
+                    'events' => 'operateEvents',
                 )
         );
     }
@@ -173,7 +159,6 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
      */
     public function initialize()
     {
-        $this->generateURL();
         $this->setEntityOptions();
         $this->defineColumns();
         // $this->buildData();
@@ -183,10 +168,12 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
     /**
      * {@inheritdoc}
      */
-    public function generateURL()
+    public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url'] = $this->routeGenerator->generate('simagd_sin_realizar_listarPendientesRealizar');
+        $this->entityOptions['url']     = $this->routeGenerator->generate('simagd_sin_realizar_listarPendientesRealizar');
+        $this->entityOptions['classes'] = 'table table-hover table-condensed table-striped table-darkblue-head';
+        $this->entityOptions['height']  = '1268';
         ////////
     }
 
