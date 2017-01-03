@@ -277,7 +277,8 @@ class ImgPendienteRealizacionAdminController extends Controller
             'result'    => 'ok',
             'options'   => $options,
             'slug'      => $__REQUEST__slug,
-            'type'      => $__REQUEST__type
+            'type'      => $__REQUEST__type,
+            'type2'      => $ENTITY_LIST_VIEW_GENERATOR_->getType()
         ));
     }
     
