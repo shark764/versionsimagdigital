@@ -28,6 +28,10 @@ and open the template in the editor.
   /*border-radius: 4px !important;*/
   border-radius: 5px !important;
 }
+.form-control .select2-choice {
+    /*border: 0 none;*/
+    border-radius: 4px;
+}
 
 .form-control.select2-container.select2-dropdown-open {
   border-color: #2a5469 !important;
