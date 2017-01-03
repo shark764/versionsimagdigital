@@ -46,9 +46,9 @@ class RyxEntityListViewGenerator extends RyxListViewGenerator
     /**
      * Constructor
      */
-    public function __construct(ContainerInterface $container, RouteGeneratorInterface $routeGenerator, $class)
+    public function __construct(ContainerInterface $container, RouteGeneratorInterface $routeGenerator, $class, $type = 'list')
     {
-        parent::__construct($container, $routeGenerator, $class);
+        parent::__construct($container, $routeGenerator, $class, $type);
 
         $this->initialize();
     }

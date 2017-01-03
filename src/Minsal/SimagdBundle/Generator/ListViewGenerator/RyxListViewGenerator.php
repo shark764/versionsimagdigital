@@ -111,9 +111,10 @@ class RyxListViewGenerator /*implements ListViewGeneratorInterface*/
     /**
      * Constructor
      */
-    public function __construct(ContainerInterface $container, RouteGeneratorInterface $routeGenerator, $class)
+    public function __construct(ContainerInterface $container, RouteGeneratorInterface $routeGenerator, $class, $type = 'list')
     {
         $this->class            = $class;
+        $this->type             = $type;
         $this->container        = $container;
         $this->routeGenerator   = $routeGenerator;
         $this->entityManager    = $this->container->get('doctrine')->getManager();

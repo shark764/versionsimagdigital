@@ -256,7 +256,7 @@ class ImgPendienteRealizacionAdminController extends Controller
         $request->isXmlHttpRequest();
 
         $__REQUEST__slug = $request->request->get('slug');
-        $__REQUEST__type = $request->request->get('type');
+        $__REQUEST__type = $request->request->get('type', 'detail');
         
         $em = $this->getDoctrine()->getManager();
 
@@ -264,20 +264,21 @@ class ImgPendienteRealizacionAdminController extends Controller
         $ENTITY_LIST_VIEW_GENERATOR_ = new RyxExamenPendienteRealizacionListViewGenerator(
                 $this->container,
                 $this->admin->getRouteGenerator(),
-                $this->admin->getClass()
+                $this->admin->getClass(),
+                $__REQUEST__type
                 // new RyxExamenPendienteRealizacion()
         );
         //////// --|
-        if ($__REQUEST__type === 'detail') {
-            $ENTITY_LIST_VIEW_GENERATOR_->setType($__REQUEST__type);
-        }
+        // if ($__REQUEST__type === 'detail') {
+        //     $ENTITY_LIST_VIEW_GENERATOR_->setType($__REQUEST__type);
+        // }
         $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
         
         return $this->renderJson(array(
             'result'    => 'ok',
             'options'   => $options,
             'slug'      => $__REQUEST__slug,
-            'type'      => $__REQUEST__type
+            'type'      => $ENTITY_LIST_VIEW_GENERATOR_->getType()
         ));
     }
     

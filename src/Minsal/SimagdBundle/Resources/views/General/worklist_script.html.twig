@@ -28,6 +28,7 @@
                 dataType: 'json',
                 url: Routing.generate($url),
                 data: {
+                    _xml_http_request: true,
                     id: 'id',
                     slug: slug,
                     type: type
@@ -38,7 +39,7 @@
                         .bootstrapTable(response.options);
                     // $table.bootstrapTable('refreshOptions', response.options);
 
-                    $('#ryx_target_bstable').scrollTop(25000);
+                    // $('#ryx_target_bstable').scrollTop(25000);
                 },
                 error: function(err) {
                     console.log(err.error, err.responseText);
