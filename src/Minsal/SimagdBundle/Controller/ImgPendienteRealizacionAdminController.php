@@ -270,13 +270,6 @@ class ImgPendienteRealizacionAdminController extends Controller
         //////// --|
         if ($__REQUEST__type === 'detail') {
             $ENTITY_LIST_VIEW_GENERATOR_->setType($__REQUEST__type);
-            $ENTITY_LIST_VIEW_GENERATOR_->setColumns(array(
-                    'field' => 'detail',
-                    'sortable' => true,
-                    'title' => '<span class="glyphicon glyphicon-zoom-in"></span> DETALLE',
-                    'switchable' => false,
-                    'formatter' => '__fnc_worklistDetailFormatter',
-                ));
         }
         $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
         

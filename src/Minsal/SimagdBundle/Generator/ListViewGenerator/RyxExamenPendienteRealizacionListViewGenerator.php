@@ -39,7 +39,7 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
      */
     public function defineColumns()
     {
-        if ($this->getType() === 'detail')
+        if ($this->type === 'detail')
         {
             array_push($this->columns,
                     array(
@@ -54,93 +54,93 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
             );
         }
         else {
-        array_push($this->columns,
-                array(
-                    'field' => 'id',
-                    'sortable' => true,
-                    'title' => 'ID',
-                    'switchable' => false,
-                ),
-                array(
-                    'field' => 'origen',
-                    'sortable' => true,
-                    'title' => '<span class="glyphicon glyphicon-home"></span> ORIGEN',
-                    'visible' => false,
-                    // 'formatter' => 'simagdOrigenFormatter',
-                ),
-                array(
-                    'field' => 'paciente',
-                    'sortable' => true,
-                    'title' => '<span class="glyphicon glyphicon-user"></span> PACIENTE',
-                    'switchable' => false,
-                    // 'formatter' => 'simagdPacienteFormatter',
-                ),
-                array(
-                    'field' => 'numero_expediente',
-                    'sortable' => true,
-                    'title' => '<span class="glyphicon glyphicon-tag"></span> REG.',
-                    'switchable' => false,
-                    // 'formatter' => 'simagdPacienteFormatter',
-                ),
-                array(
-                    'field' => 'area_atencion',
-                    'sortable' => true,
-                    'title' => '<span class="glyphicon glyphicon-paperclip"></span> PROCEDENCIA',
-                ),
-                array(
-                    'field' => 'atencion',
-                    'sortable' => true,
-                    'title' => '<span class="glyphicon glyphicon-paperclip"></span> SERVICIO',
-                ),
-                array(
-                    'field' => 'medico',
-                    'sortable' => true,
-                    'title' => '<span class="glyphicon glyphicon-user"></span> MÉDICO',
-                    // 'switchable' => false,
-                ),
-                array(
-                    'field' => 'modalidad',
-                    'sortable' => true,
-                    'title' => '<span class="glyphicon glyphicon-list-alt"></span> MODALIDAD',
-                ),
-                array(
-                    'field' => 'triage',
-                    'sortable' => true,
-                    'title' => '<span class="glyphicon glyphicon-tag"></span> TRIAGE',
-                    // 'visible' => false,
-                    // 'switchable' => false,
-                ),
-                array(
-                    'field' => 'tecnologo',
-                    'sortable' => true,
-                    'title' => 'TÉC. / LIC. / RDLG.',
-                    'visible' => false,
-                    // 'switchable' => false,
-                ),
-                array(
-                    'field' => 'estado',
-                    'sortable' => true,
-                    'title' => 'ESTADO',
-                    'visible' => false,
-                    // 'switchable' => false,
-                ),
-                array(
-                    'field' => 'fecha_examen',
-                    'sortable' => true,
-                    'title' => 'FECHA (EXM.)',
-                    'visible' => false,
-                    // 'formatter' => 'simagdDateTimeFormatter',
-                ),
-                array(
-                    'field' => 'action',
-                    'sortable' => false,
-                    'align' => 'center',
-                    'halign' => 'center',
-                    'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
-                    'formatter' => 'operateFormatter',
-                    'events' => 'operateEvents',
-                )
-        );
+            array_push($this->columns,
+                    array(
+                        'field' => 'id',
+                        'sortable' => true,
+                        'title' => 'ID',
+                        'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'origen',
+                        'sortable' => true,
+                        'title' => '<span class="glyphicon glyphicon-home"></span> ORIGEN',
+                        'visible' => false,
+                        // 'formatter' => 'simagdOrigenFormatter',
+                    ),
+                    array(
+                        'field' => 'paciente',
+                        'sortable' => true,
+                        'title' => '<span class="glyphicon glyphicon-user"></span> PACIENTE',
+                        'switchable' => false,
+                        // 'formatter' => 'simagdPacienteFormatter',
+                    ),
+                    array(
+                        'field' => 'numero_expediente',
+                        'sortable' => true,
+                        'title' => '<span class="glyphicon glyphicon-tag"></span> REG.',
+                        'switchable' => false,
+                        // 'formatter' => 'simagdPacienteFormatter',
+                    ),
+                    array(
+                        'field' => 'area_atencion',
+                        'sortable' => true,
+                        'title' => '<span class="glyphicon glyphicon-paperclip"></span> PROCEDENCIA',
+                    ),
+                    array(
+                        'field' => 'atencion',
+                        'sortable' => true,
+                        'title' => '<span class="glyphicon glyphicon-paperclip"></span> SERVICIO',
+                    ),
+                    array(
+                        'field' => 'medico',
+                        'sortable' => true,
+                        'title' => '<span class="glyphicon glyphicon-user"></span> MÉDICO',
+                        // 'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'modalidad',
+                        'sortable' => true,
+                        'title' => '<span class="glyphicon glyphicon-list-alt"></span> MODALIDAD',
+                    ),
+                    array(
+                        'field' => 'triage',
+                        'sortable' => true,
+                        'title' => '<span class="glyphicon glyphicon-tag"></span> TRIAGE',
+                        // 'visible' => false,
+                        // 'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'tecnologo',
+                        'sortable' => true,
+                        'title' => 'TÉC. / LIC. / RDLG.',
+                        'visible' => false,
+                        // 'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'estado',
+                        'sortable' => true,
+                        'title' => 'ESTADO',
+                        'visible' => false,
+                        // 'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'fecha_examen',
+                        'sortable' => true,
+                        'title' => 'FECHA (EXM.)',
+                        'visible' => false,
+                        // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'action',
+                        'sortable' => false,
+                        'align' => 'center',
+                        'halign' => 'center',
+                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
+                        'formatter' => 'operateFormatter',
+                        'events' => 'operateEvents',
+                    )
+            );
         }
     }
 
