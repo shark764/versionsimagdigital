@@ -69,22 +69,13 @@
             //////////////////////////////////////////////////////////////////////////
             var __DOM__worklistDisplayType = jQuery('input[name=_worklist_display_type]');
 
-            __DOM__worklistDisplayType.on('ifClicked', function(e) {
+            __DOM__worklistDisplayType.on('ifChecked', function(e) {
 
-                var chk = jQuery('input[name=_worklist_display_type]:checked').val();
-
-                if (chk !== this.value) {
-                    if (this.value === 'list') {
                         jQuery('#_worklist_display_items li.active').find('a').triggerHandler('click');
-                        window.console.log(chk, this.value);
-                    }
-                    else if (this.value === 'detail') {
-                        jQuery('#_worklist_display_items li.active').find('a').triggerHandler('click');
-                        window.console.log(chk, this.value);
-                    }
-                }
 
             });
+            //////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////
 
         });
 

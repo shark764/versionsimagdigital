@@ -72,7 +72,7 @@ class RyxListViewGenerator /*implements ListViewGeneratorInterface*/
         'paginationVAlign'  => "both",
         // 'paginationHAlign'  => "left",
         // 'paginationDetailHAlign'    => "right",
-        'pageList'      => "[5, 10, 15, 25, 30, 40, 50, 75, 100, 125, 150]",
+        'pageList'      => "[5, 10, 15, 25, 30, 40, 50, 75, 100, 125, 150, 200, 250, 300]",
         'pageSize'      => 25,
         'sortName'      => "id",
         'sortOrder'     => "desc",

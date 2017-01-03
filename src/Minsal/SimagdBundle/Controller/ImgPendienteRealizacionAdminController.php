@@ -254,6 +254,9 @@ class ImgPendienteRealizacionAdminController extends Controller
     public function generateTableAction(Request $request)
     {
         $request->isXmlHttpRequest();
+
+        $__REQUEST__slug = $request->request->get('slug');
+        $__REQUEST__type = $request->request->get('type');
         
         $em = $this->getDoctrine()->getManager();
 
@@ -265,11 +268,22 @@ class ImgPendienteRealizacionAdminController extends Controller
                 // new RyxExamenPendienteRealizacion()
         );
         //////// --|
+        if ($__REQUEST__type === 'detail') {
+            $ENTITY_LIST_VIEW_GENERATOR_->setColumns(array(
+                    'field' => 'detail',
+                    'sortable' => true,
+                    'title' => '<span class="glyphicon glyphicon-zoom-in"></span> DETALLE',
+                    'switchable' => false,
+                    'formatter' => '__fnc_worklistDetailFormatter',
+                ));
+        }
         $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
         
         return $this->renderJson(array(
             'result'    => 'ok',
-            'options'   => $options
+            'options'   => $options,
+            'slug'      => $__REQUEST__slug,
+            'type'      => $__REQUEST__type
         ));
     }
     

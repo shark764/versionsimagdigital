@@ -179,15 +179,17 @@
                 <div class="box-body">
 
                     <!-- WORKLIST MENU -->
-                    <ul class="nav nav-pills nav-justified" id="_worklist_display_items">
-                        <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill">Examinar</a></li>
-                        <li><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill">Lectura</a></li>
-                        <li><a href="javascript:void(0)" onclick="generate(this, 'non_transcribed_results'); return false;" data-toggle="pill">Transcripción</a></li>
-                        <li><a href="javascript:void(0)" onclick="generate(this, 'non_validated_results'); return false;" data-toggle="pill">Revisión</a></li>
-                    </ul>
+                    <div class="col-lg-10 col-md-10 col-sm-10 ">
+                        <ul class="nav nav-pills nav-justified" id="_worklist_display_items">
+                            <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill">Examinar</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill">Lectura</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'non_transcribed_results'); return false;" data-toggle="pill">Transcripción</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'non_validated_results'); return false;" data-toggle="pill">Revisión</a></li>
+                        </ul>
+                    </div>
 
                     <!-- DISPLAY TYPE -->
-                    <ul class="list-unstyled list-inline formstyle-radio-list-inline input-sm {#col-lg-12 col-md-12 col-sm-12#}" id="_worklist_display_type">
+                    <ul class="list-unstyled list-inline input-sm {#col-lg-12 col-md-12 col-sm-12#}" id="_worklist_display_type">
                         <li>
                             <label class="">
                                 <input type="radio" checked="checked" value="list" name="_worklist_display_type" id="_worklist_display_type_0">
