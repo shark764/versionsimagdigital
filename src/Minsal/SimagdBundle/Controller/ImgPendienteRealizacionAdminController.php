@@ -163,6 +163,8 @@ class ImgPendienteRealizacionAdminController extends Controller
         
         $BS_FILTERS                         = $this->get('request')->query->get('filters');
         $BS_FILTERS_DECODE                  = json_decode($BS_FILTERS, true);
+
+        $__REQUEST__type = $this->get('request')->query->get('type', 'list');
         
         $em                                 = $this->getDoctrine()->getManager();
 
@@ -183,7 +185,25 @@ class ImgPendienteRealizacionAdminController extends Controller
                     $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
         
         foreach ($resultados as $key => $resultado) {
-           // $resultado = new \Minsal\SimagdBundle\Entity\ImgPendienteRealizacion;
+            // $resultado = new \Minsal\SimagdBundle\Entity\ImgPendienteRealizacion;
+
+            if ($__REQUEST__type === 'detail') {
+                $resultados[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4">' .
+                                                    '<div class="box-body">' .
+                                                        '<table class="" style="">' .
+                                                            '<tr><th>ORIGEN:</th><td >' . $resultado['origen'] . '</td></tr>' .
+                                                            '<tr><th>PACIENTE:</th><td >' . $resultado['paciente'] . '</td></tr>' .
+                                                            '<tr><th>REG.:</th><td >' . $resultado['numero_expediente'] . '</td></tr>' .
+                                                            '<tr><th>PROCEDENCIA:</th><td >' . $resultado['area_atencion'] . '</td></tr>' .
+                                                            '<tr><th>SERVICIO:</th><td >' . $resultado['atencion'] . '</td></tr>' .
+                                                            '<tr><th>MÉDICO:</th><td >' . $resultado['medico'] . '</td></tr>' .
+                                                            '<tr><th>MODALIDAD:</th><td >' . $resultado['modalidad'] . '</td></tr>' .
+                                                            '<tr><th>TRIAGE:</th><td >' . $resultado['triage'] . '</td></tr>' .
+                                                        '</table>' .
+                                                    '</div>' .
+                                                '</div>';
+                continue;
+            }
 
             $resultados[$key]['pndR_fechaIngresoLista']             = $resultado['pndR_fechaIngresoLista']->format('Y-m-d H:i:s A');
             
@@ -254,9 +274,7 @@ class ImgPendienteRealizacionAdminController extends Controller
     public function generateTableAction(Request $request)
     {
         $request->isXmlHttpRequest();
-
-        $__REQUEST__slug = $request->request->get('slug');
-        $__REQUEST__type = $request->request->get('type', 'detail');
+        $__REQUEST__type = $request->request->get('type', 'list');
         
         $em = $this->getDoctrine()->getManager();
 
@@ -269,16 +287,11 @@ class ImgPendienteRealizacionAdminController extends Controller
                 // new RyxExamenPendienteRealizacion()
         );
         //////// --|
-        // if ($__REQUEST__type === 'detail') {
-        //     $ENTITY_LIST_VIEW_GENERATOR_->setType($__REQUEST__type);
-        // }
         $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
         
         return $this->renderJson(array(
             'result'    => 'ok',
-            'options'   => $options,
-            'slug'      => $__REQUEST__slug,
-            'type'      => $ENTITY_LIST_VIEW_GENERATOR_->getType()
+            'options'   => $options
         ));
     }
     

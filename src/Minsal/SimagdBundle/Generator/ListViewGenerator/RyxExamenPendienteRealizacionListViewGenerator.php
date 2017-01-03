@@ -44,11 +44,11 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
             array_push($this->columns,
                     array(
                         'field' => 'detail',
-                        'title' => '<span class="glyphicon glyphicon-zoom-in"></span> DETALLE',
+                        'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>',
                         'switchable' => false,
                         'align' => 'center',
-                        'halign' => 'center',
-                        'formatter' => '__fnc_worklistDetailFormatter',
+                        'halign' => 'left',
+                        // 'formatter' => '__fnc_worklistDetailFormatter',
                         'events' => 'operateEvents',
                     )
             );
@@ -187,10 +187,14 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']     = $this->routeGenerator->generate('simagd_sin_realizar_listarPendientesRealizar');
-        $this->entityOptions['classes'] = 'table table-hover table-condensed table-striped table-darkblue-head';
-        $this->entityOptions['pageSize']  = '25';
-        // $this->entityOptions['height']  = '1268';
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_sin_realizar_listarPendientesRealizar', array('type' => $this->type));
+        $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
+        $this->entityOptions['pageSize']    = '15';
+        if ($this->type === 'detail') {
+            $this->entityOptions['showToggle']  = false;
+            $this->entityOptions['showColumns'] = false;
+        }
+        // $this->entityOptions['height']      = '1268';
         ////////
     }
 
