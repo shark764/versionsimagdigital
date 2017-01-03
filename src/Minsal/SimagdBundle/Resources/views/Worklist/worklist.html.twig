@@ -172,17 +172,36 @@
     {{ parent() }}
 
     {#<div class="col-lg-8 col-md-8 col-sm-8 col-xs-offset-2 ">#}
-    <div class="col-lg-6 col-md-6 col-sm-6 {#col-xs-offset-3#} ">
+    {#<div class="col-lg-6 col-md-6 col-sm-6 ">#}
+    <div class="col-lg-9 col-md-9 col-sm-9 ">
         <div class="row"> <!-- row block -->
             <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
                 <div class="box-body">
 
-                    <ul class="nav nav-pills nav-justified">
+                    <!-- WORKLIST MENU -->
+                    <ul class="nav nav-pills nav-justified" id="_worklist_display_items">
                         <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill">Examinar</a></li>
                         <li><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill">Lectura</a></li>
                         <li><a href="javascript:void(0)" onclick="generate(this, 'non_transcribed_results'); return false;" data-toggle="pill">Transcripción</a></li>
                         <li><a href="javascript:void(0)" onclick="generate(this, 'non_validated_results'); return false;" data-toggle="pill">Revisión</a></li>
                     </ul>
+
+                    <!-- DISPLAY TYPE -->
+                    <ul class="list-unstyled list-inline formstyle-radio-list-inline input-sm col-lg-12 col-md-12 col-sm-12" id="_worklist_display_type">
+                        <li>
+                            <label class="">
+                                <input type="radio" checked="checked" value="list" name="_worklist_display_type" id="_worklist_display_type_0">
+                                <span style="margin-left: 5px;"> Lista</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="">
+                                <input type="radio" checked="checked" value="detail" name="_worklist_display_type" id="_worklist_display_type_1">
+                                <span style="margin-left: 5px;"> Detalle</span>
+                            </label>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         </div>
@@ -196,7 +215,7 @@
         //////////////////////////////////////////////////////////////
          -->
         <!-- table for any result -->
-        <div class="col-lg-12 col-md-12 col-sm-12{# #}">
+        <div class="{#col-lg-12 col-md-12 col-sm-12#} col-lg-9 col-md-9 col-sm-9 ">
             <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
                 <thead>
                 </thead>

@@ -1,7 +1,7 @@
 {% autoescape false %}
 
 	<script type="text/javascript">
-        generate = function(el, slug, type = null) {
+        generate = function(el, slug/*, type = 'list'*/) {
             ////////
             var $table = jQuery('#ryx_target_bstable');
             ////////
@@ -20,6 +20,8 @@
             if (slug === 'non_validated_results') {
                 $url = 'simagd_sin_validar_generateTable';
             }
+
+            var type = jQuery('input[name=_worklist_display_type]:checked').val();
 
             $.ajax({
                 type: 'POST',
@@ -60,6 +62,30 @@
             $table
                 .bootstrapTable('destroy')
                 .bootstrapTable(JSON.parse('{{ DEFAULT_TABLE_OPTIONS|json_encode|e('js')|raw }}'));
+
+
+            //////////////////////////////////////////////////////////////////////////
+            //////// change content type - worklist
+            //////////////////////////////////////////////////////////////////////////
+            var __DOM__worklistDisplayType = jQuery('input[name=_worklist_display_type]');
+
+            __DOM__worklistDisplayType.on('ifClicked', function(e) {
+
+                var chk = jQuery('input[name=_worklist_display_type]:checked').val();
+
+                if (chk !== this.value) {
+                    if (this.value === 'list') {
+                        jQuery('#_worklist_display_items li.active').find('a').triggerHandler('click');
+                        window.console.log(chk, this.value);
+                    }
+                    else if (this.value === 'detail') {
+                        jQuery('#_worklist_display_items li.active').find('a').triggerHandler('click');
+                        window.console.log(chk, this.value);
+                    }
+                }
+
+            });
+
         });
 
         // destroy = function(el) {
