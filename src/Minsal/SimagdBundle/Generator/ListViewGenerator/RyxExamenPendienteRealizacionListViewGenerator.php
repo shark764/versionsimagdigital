@@ -39,6 +39,21 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
      */
     public function defineColumns()
     {
+        if ($this->getType() === 'detail')
+        {
+            array_push($this->columns,
+                    array(
+                        'field' => 'detail',
+                        'title' => '<span class="glyphicon glyphicon-zoom-in"></span> DETALLE',
+                        'switchable' => false,
+                        'align' => 'center',
+                        'halign' => 'center',
+                        'formatter' => '__fnc_worklistDetailFormatter',
+                        'events' => 'operateEvents',
+                    )
+            );
+        }
+        else {
         array_push($this->columns,
                 array(
                     'field' => 'id',
@@ -126,6 +141,7 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
                     'events' => 'operateEvents',
                 )
         );
+        }
     }
 
     /**

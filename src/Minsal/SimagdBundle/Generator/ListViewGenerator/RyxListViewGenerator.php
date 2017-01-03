@@ -94,6 +94,11 @@ class RyxListViewGenerator /*implements ListViewGeneratorInterface*/
     );
 
     /**
+     * @var string
+     */
+    protected $type = 'list';
+
+    /**
      * @var array
      */
     protected $columns = array();
@@ -199,6 +204,22 @@ class RyxListViewGenerator /*implements ListViewGeneratorInterface*/
     public function getDefaultOptions()
     {
         return $this->defaultOptions;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**

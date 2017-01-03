@@ -269,6 +269,7 @@ class ImgPendienteRealizacionAdminController extends Controller
         );
         //////// --|
         if ($__REQUEST__type === 'detail') {
+            $ENTITY_LIST_VIEW_GENERATOR_->setType($__REQUEST__type);
             $ENTITY_LIST_VIEW_GENERATOR_->setColumns(array(
                     'field' => 'detail',
                     'sortable' => true,
