@@ -173,7 +173,8 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
         ////////
         $this->entityOptions['url']     = $this->routeGenerator->generate('simagd_sin_realizar_listarPendientesRealizar');
         $this->entityOptions['classes'] = 'table table-hover table-condensed table-striped table-darkblue-head';
-        $this->entityOptions['height']  = '1268';
+        $this->entityOptions['pageSize']  = '10';
+        // $this->entityOptions['height']  = '1268';
         ////////
     }
 
