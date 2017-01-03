@@ -1,11 +1,11 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
 jQuery(document).ready(function() {
-    
+
     /*
      * **************************************************************************
      * @type @call;$
@@ -17,40 +17,41 @@ jQuery(document).ready(function() {
      * **************************************************************************
      * @type @call;$
      */
-    
+
     /*
-     * 
+     *
      * @type @call;$
      */
-    
+
 //    http://stackoverflow.com/questions/17611174/grouping-results-in-select2
-//    
+//
 //    http://stackoverflow.com/questions/18346518/dynamically-adding-options-and-optgroups-in-select2
-//    
+//
 //    http://select2.github.io/select2/
-//    
+//
 //    http://stackoverflow.com/questions/28498599/how-to-pre-load-an-array-via-ajax-and-use-it-for-select2
-//    
+//
 //    https://groups.google.com/forum/#!topic/select2/LxjeOs-XdfE
-//    
+//
 //    https://scontent-lga1-1.xx.fbcdn.net/hphotos-xpt1/t31.0-8/s960x960/12006470_920358581370937_3642242769472937838_o.jpg
-    
+
     /** **************** M.I.T ****************** */
     /** http://ocw.mit.edu/courses/index.htm#electrical-engineering-and-computer-science */
     /*
-     * 
+     *
      * @type @call;$
      */
-    
-    
+
+
     /** stdiag DOM */
     var $chkDiag_field 			= $("[id='" + $token + "_activarTranscripcion']"),
 	$patternAsc_field 		= $("select[id='" + $token + "_idPatronAsociado']"),
 	$patternApl_field		= $("select[id='" + $token + "_idPatronAplicado']");
-    
+
     var $tx_hallazgos_field 		= $("[id='" + $token + "_hallazgos']"),
 	$tx_conclusion_field 		= $("[id='" + $token + "_conclusion']"),
-	$tx_recomendaciones_field	= $("[id='" + $token + "_recomendaciones']");
+	$tx_recomendaciones_field	= $("[id='" + $token + "_recomendaciones']")
+	$tx_diagnostico_field	= $("[id='" + $token + "_diagnostico']");
 
     /*
      * BOOTSTRAPSWITCH Activar transcripción inmediata de resultados
@@ -60,7 +61,7 @@ jQuery(document).ready(function() {
 //     $chkDiag_field.iCheck('destroy').wrap('<div id="label-switch" class="make-switch" data-on-label="SI" data-off-label="NO">').parent().bootstrapSwitch();
 //     $chkDiag_field.bootstrapSwitch('setOnLabel', 'I');
 //     $chkDiag_field.bootstrapSwitch('setOffLabel', 'O');
-    
+
     /** Utilización de plantilla */
     $patternAsc_field.change(function() {
 	/** Plantilla será aplicada si se encuentra checkeado */
@@ -81,12 +82,13 @@ jQuery(document).ready(function() {
 	if ($chkDiag_field.is(':checked'))
 	{
 	    var $patterVal  = jQuery(this).val();
-	    
+
 	    $.each($DIAGNOSTIC_PATTERN_LIST, function(i, v) {
 		if (v.ptrDiag_id === parseInt($patterVal)) {
 		    $tx_hallazgos_field.summernote('code', v.ptrDiag_hallazgos);
 		    $tx_conclusion_field.summernote('code', v.ptrDiag_conclusion);
 		    $tx_recomendaciones_field.summernote('code', v.ptrDiag_recomendaciones);
+		    $tx_diagnostico_field.summernote('code', v.ptrDiag_hallazgos + '<p></p><p></p>' + v.ptrDiag_conclusion + '<p></p><p></p>' + v.ptrDiag_recomendaciones);
 		}
 	    });
 	    if (!$patterVal) {
@@ -103,13 +105,13 @@ jQuery(document).ready(function() {
     /*
      * change event --> SUMMERNOTE
      */
-    
+
     /*
      * **************************************************************************
      * Fin - Activar Transcripción inmediata --> BOOTSTRAPSWITCH
      * **************************************************************************
      */
-    
+
     $chkDiag_field.on('switchChange.bootstrapSwitch', function(e, state) {
         if (state === false || (typeof state === "undefined" || state === null || state === "")) { // true | false
             if ($diagExists === 0)
@@ -123,7 +125,7 @@ jQuery(document).ready(function() {
                     jQuery('#simagd_entity_full_admin_form').formValidation('resetField', $field_attrName).formValidation('enableFieldValidators', $field_attrName, false);
                 }
             });
-            
+
             /*
              * disabled in menu
              */
@@ -137,30 +139,30 @@ jQuery(document).ready(function() {
 		    jQuery('#simagd_entity_full_admin_form').formValidation('enableFieldValidators', $field_attrName, true);
 		}
 	    });
-            
+
             if ($patternAsc_field.val() && !$patternApl_field.val() && $diagExists === 0) {	/** No reescribir si existe diagnóstico */
                 $patternApl_field.select2('val', $patternAsc_field.val());
 		$patternApl_field.trigger("change");
             }
-            
+
             /*
              * enable in menu
              */
             jQuery('#panel_box_diag_btn_add_this_to_pattern_catalogue').parents('li').removeClass('disabled');
         }
         console.log('-- diagnóstico inmediato ha sido alternado');
-        
+
     });
     if ($diagExists === 0)
     {
 	/** Activar switchChange.bootstrapSwitch event solo si no existen diagnósticos ya ingresados */
 	$chkDiag_field.bootstrapSwitch('state', false).trigger('switchChange.bootstrapSwitch');
     }
-    
+
 //     window.alert('https://github.com/Daniel-Hug/speech-input \nhttp://stackoverflow.com/questions/23188951/x-webkit-speech-is-deprectated-a-js-replacement-for-simple-speech-input-for-in \nhttp://mindmup.github.io/bootstrap-wysiwyg/ \nhttp://shapeshed.com/html5-speech-recognition-api/');
 //     generarVentanaEstudioPaciente(Routing.generate('simagd_solicitud_estudio_create'));
-      
-    
+
+
     /** Formato para patrones + radiólogo al cual pertenece */
     function patternDiagFormat(state)
     {
@@ -169,7 +171,7 @@ jQuery(document).ready(function() {
 	    return state.text; // optgroup
 	}
 	var $arrText = state.text.split('[');
-	
+
 	return typeof $arrText[1] === "undefined" ?
 	    state.text :
 		$arrText[0] +
@@ -188,13 +190,13 @@ jQuery(document).ready(function() {
 					  return m;
 				      }
 		    });
-    
-    
+
+
     /** --> SUMMERNOTE text-editor Diagnóstico */
     var $_hallazgos 		= $tx_hallazgos_field.val(),
 	$_conclusion 		= $tx_conclusion_field.val(),
 	$_recomendaciones 	= $tx_recomendaciones_field.val();
-	
+
     /**
      * Iniciar buildSummerNote
      */
@@ -229,9 +231,20 @@ jQuery(document).ready(function() {
     if (jQuery.isEmptyObject(jQuery.trim($_recomendaciones)) === false) {
 	$tx_recomendaciones_field.summernote('code', $_recomendaciones);
     }
+
+
+    /** text-editor Recomendaciones */
+    $tx_diagnostico_field.buildSummerNote({ newOptions: jQuery.extend({
+	height: 750,        	// set editor height
+	maxHeight: 850,    	// set maximum height of editor
+	focus: false,      	// set focus to editable area after initializing summernote
+        ___toolbar  : 'expand', // toolbar
+        ___speech   : true,     // active speech recognition
+    }, {})});
     /** -- summernote */
-    
-    
+    $tx_diagnostico_field.summernote('code', $_hallazgos + '<p></p><p></p>' + $_conclusion + '<p></p><p></p>' + $_recomendaciones);
+
+
     /*
      * tab --> box expand on Transcription
      */
@@ -262,14 +275,14 @@ jQuery(document).ready(function() {
                             '</div>'
                     ].join('');
                 });
-    
+
     /*
      * expand transcript view
      */
     jQuery('#panel_box_diag_btn_expand_view').filter(':not([disabled])').click(function(e) {
         jQuery('#panel_box_diag_btn_default_view').parents('li').show();
         jQuery(this).parents('li').hide();
-        
+
         jQuery('.nav-tabs-custom .nav-pills').hide('slide', {direction: 'left'}, 100, function() {
             jQuery('.nav-tabs-custom .tab-content').removeClass('col-lg-9 col-md-9 col-sm-9 col-xs-9').addClass('col-lg-12 col-md-12 col-sm-12 col-xs-12');
             jQuery(window).resize();
@@ -283,17 +296,17 @@ jQuery(document).ready(function() {
             jQuery('.nav-tabs-custom .tab-content').removeClass('col-lg-12 col-md-12 col-sm-12 col-xs-12').addClass('col-lg-9 col-md-9 col-sm-9 col-xs-9');
             jQuery(window).resize();
         });
-        
+
         jQuery('#panel_box_diag_btn_expand_view').parents('li').show();
         jQuery(this).parents('li').hide();
     });
-    
+
     /*
      * add this diagnosis as pattern
      */
     var $bsform_DOM_addThisAsPattern    = jQuery('#bsform_addDiagnosisAsPattern-form'),
         $bsmodal_DOM_addThisAsPattern   = jQuery('#bsmodal_addDiagnosisAsPattern-modal');
-    
+
     /*
      * add as diagnosis pattern
      */
@@ -322,7 +335,7 @@ jQuery(document).ready(function() {
             jQuery(window).resize();
         }
     });
-    
+
     $bsform_DOM_addThisAsPattern
         .formValidation({
             excluded: [':disabled'],
@@ -370,7 +383,7 @@ jQuery(document).ready(function() {
     $bsmodal_DOM_addThisAsPattern.on('hide', function() {
         jQuery(this).fv_resetFormInModal();
     });
-    
+
     /*
      * remove disable from menu if is checked
      */

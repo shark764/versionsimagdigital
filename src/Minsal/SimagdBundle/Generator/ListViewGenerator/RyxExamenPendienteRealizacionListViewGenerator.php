@@ -64,44 +64,44 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
                     array(
                         'field' => 'origen',
                         'sortable' => true,
-                        'title' => '<span class="glyphicon glyphicon-home"></span> ORIGEN',
+                        'title' => '<span class="glyphicon glyphicon-home"></span> Origen',
                         'visible' => false,
                         // 'formatter' => 'simagdOrigenFormatter',
                     ),
                     array(
                         'field' => 'paciente',
                         'sortable' => true,
-                        'title' => '<span class="glyphicon glyphicon-user"></span> PACIENTE',
+                        'title' => '<span class="glyphicon glyphicon-user"></span> Paciente',
                         'switchable' => false,
                         // 'formatter' => 'simagdPacienteFormatter',
                     ),
                     array(
                         'field' => 'numero_expediente',
                         'sortable' => true,
-                        'title' => '<span class="glyphicon glyphicon-tag"></span> REG.',
+                        'title' => '<span class="glyphicon glyphicon-tag"></span> Reg.',
                         'switchable' => false,
                         // 'formatter' => 'simagdPacienteFormatter',
                     ),
                     array(
                         'field' => 'area_atencion',
                         'sortable' => true,
-                        'title' => '<span class="glyphicon glyphicon-paperclip"></span> PROCEDENCIA',
+                        'title' => '<span class="glyphicon glyphicon-paperclip"></span> Área',
                     ),
                     array(
                         'field' => 'atencion',
                         'sortable' => true,
-                        'title' => '<span class="glyphicon glyphicon-paperclip"></span> SERVICIO',
+                        'title' => '<span class="glyphicon glyphicon-paperclip"></span> Servicio',
                     ),
                     array(
                         'field' => 'medico',
                         'sortable' => true,
-                        'title' => '<span class="glyphicon glyphicon-user"></span> MÉDICO',
+                        'title' => '<span class="glyphicon glyphicon-user"></span> Médico',
                         // 'switchable' => false,
                     ),
                     array(
                         'field' => 'modalidad',
                         'sortable' => true,
-                        'title' => '<span class="glyphicon glyphicon-list-alt"></span> MODALIDAD',
+                        'title' => '<span class="glyphicon glyphicon-list-alt"></span> Modalidad',
                     ),
                     array(
                         'field' => 'triage',
@@ -113,21 +113,21 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
                     array(
                         'field' => 'tecnologo',
                         'sortable' => true,
-                        'title' => 'TÉC. / LIC. / RDLG.',
+                        'title' => 'Téc. / Lic. / Rdlg.',
                         'visible' => false,
                         // 'switchable' => false,
                     ),
                     array(
                         'field' => 'estado',
                         'sortable' => true,
-                        'title' => 'ESTADO',
+                        'title' => 'Estado',
                         'visible' => false,
                         // 'switchable' => false,
                     ),
                     array(
                         'field' => 'fecha_examen',
                         'sortable' => true,
-                        'title' => 'FECHA (EXM.)',
+                        'title' => 'Fecha (Exm.)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
@@ -188,7 +188,8 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
     {
         ////////
         $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_sin_realizar_listarPendientesRealizar', array('type' => $this->type));
-        $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
+        // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
+        $this->entityOptions['classes'] = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '15';
         if ($this->type === 'detail') {
             $this->entityOptions['showToggle']  = false;
