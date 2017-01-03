@@ -33,7 +33,7 @@
     <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-datetimepicker-development/build/css/bootstrap-datetimepicker.min.css') }}" type="text/css" rel="stylesheet" />
     
     {# iCheck #}
-    <link href="{{ asset('bundles/minsalsimagd/plugin/icheck-1.x/skins/minimal/aero.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/minsalsimagd/plugin/icheck-1.x/skins/minimal/minimal.css') }}" type="text/css" rel="stylesheet" />
     
     {# Twitter Typeahead #}
     <link href="{{ asset('bundles/minsalsimagd/css/typeahead.css') }}" type="text/css" rel="stylesheet" />
@@ -186,11 +186,8 @@
                         <li><a href="javascript:void(0)" onclick="generate(this, 'non_validated_results'); return false;" data-toggle="pill">Revisión</a></li>
                     </ul>
 
-                </div>
-            </div>
-
                     <!-- DISPLAY TYPE -->
-                    <ul class="list-unstyled list-inline formstyle-radio-list-inline input-sm col-lg-12 col-md-12 col-sm-12" id="_worklist_display_type">
+                    <ul class="list-unstyled list-inline formstyle-radio-list-inline input-sm {#col-lg-12 col-md-12 col-sm-12#}" id="_worklist_display_type">
                         <li>
                             <label class="">
                                 <input type="radio" checked="checked" value="list" name="_worklist_display_type" id="_worklist_display_type_0">
@@ -199,11 +196,14 @@
                         </li>
                         <li>
                             <label class="">
-                                <input type="radio" checked="checked" value="detail" name="_worklist_display_type" id="_worklist_display_type_1">
+                                <input type="radio" {#checked="checked"#} value="detail" name="_worklist_display_type" id="_worklist_display_type_1">
                                 <span style="margin-left: 5px;"> Detalle</span>
                             </label>
                         </li>
                     </ul>
+
+                </div>
+            </div>
         </div>
     </div>
 

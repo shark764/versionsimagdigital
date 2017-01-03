@@ -11,8 +11,8 @@ jQuery(document).ready(function() {
     /** set icheck */
     $(document).find('form.simagd-form-custom-class')
         .find('input:checkbox, input:radio').iCheck({
-            checkboxClass: 'icheckbox_minimal-blue',
-            radioClass: 'iradio_minimal-blue',
+            checkboxClass: 'icheckbox_minimal'/*-blue'*/,
+            radioClass: 'iradio_minimal'/*-blue'*/,
     });
         
     /** set select2 */
