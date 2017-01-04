@@ -3,12 +3,12 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : 20-06-2016, 11:45:02 AM
     Author     : farid
 */
 
- 
+
 .right-side {
     margin-left: 1%;
     margin-right: 1%;
@@ -1700,6 +1700,18 @@ a.anchor-camry-celestial-silver-metallic {
     border-radius: 0;
     color: #444;
 }
+
+
+
+/*
+ * table --> detail display
+ */
+ .label-box-row {
+     text-align: right;
+ }
+ .data-box-row {
+     text-align: justify;;
+ }
 
 
 

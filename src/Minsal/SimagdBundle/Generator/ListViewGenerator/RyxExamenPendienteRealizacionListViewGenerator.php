@@ -44,7 +44,8 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
             array_push($this->columns,
                     array(
                         'field' => 'detail',
-                        'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>',
+                        // 'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>',
+                        'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-collapse-down"></span>',
                         'switchable' => false,
                         'align' => 'center',
                         'halign' => 'left',
@@ -59,54 +60,57 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
                         'field' => 'id',
                         'sortable' => true,
                         'title' => 'ID',
-                        'switchable' => false,
+                        'visible' => false,
+                        // 'switchable' => false,
                     ),
                     array(
                         'field' => 'origen',
                         'sortable' => true,
-                        'title' => '<span class="glyphicon glyphicon-home"></span> Origen',
+                        'title' => /*'<span class="glyphicon glyphicon-home"></span>'*/ 'Origen',
                         'visible' => false,
                         // 'formatter' => 'simagdOrigenFormatter',
                     ),
                     array(
                         'field' => 'paciente',
                         'sortable' => true,
-                        'title' => '<span class="glyphicon glyphicon-user"></span> Paciente',
+                        'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Paciente',
                         'switchable' => false,
                         // 'formatter' => 'simagdPacienteFormatter',
                     ),
                     array(
                         'field' => 'numero_expediente',
                         'sortable' => true,
-                        'title' => '<span class="glyphicon glyphicon-tag"></span> Reg.',
+                        'title' => /*'<span class="glyphicon glyphicon-tag"></span>'*/ 'Reg.',
                         'switchable' => false,
+                        'class' => 'bstable-column-highlighted',
                         // 'formatter' => 'simagdPacienteFormatter',
                     ),
                     array(
                         'field' => 'area_atencion',
                         'sortable' => true,
-                        'title' => '<span class="glyphicon glyphicon-paperclip"></span> Área',
+                        'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Procedencia',
                     ),
                     array(
                         'field' => 'atencion',
                         'sortable' => true,
-                        'title' => '<span class="glyphicon glyphicon-paperclip"></span> Servicio',
+                        'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Servicio',
                     ),
                     array(
                         'field' => 'medico',
                         'sortable' => true,
-                        'title' => '<span class="glyphicon glyphicon-user"></span> Médico',
+                        'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Médico',
                         // 'switchable' => false,
                     ),
                     array(
                         'field' => 'modalidad',
                         'sortable' => true,
-                        'title' => '<span class="glyphicon glyphicon-list-alt"></span> Modalidad',
+                        'title' => /*'<span class="glyphicon glyphicon-list-alt"></span>'*/ 'Modalidad',
                     ),
                     array(
                         'field' => 'triage',
                         'sortable' => true,
-                        'title' => '<span class="glyphicon glyphicon-tag"></span> TRIAGE',
+                        'title' => /*'<span class="glyphicon glyphicon-tag"></span>'*/ 'TRIAGE',
+                        'class' => 'bstable-column-highlighted',
                         // 'visible' => false,
                         // 'switchable' => false,
                     ),
@@ -189,11 +193,12 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
         ////////
         $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_sin_realizar_listarPendientesRealizar', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
-        $this->entityOptions['classes'] = 'table table-hover table-condensed table-striped table-black-head';
-        $this->entityOptions['pageSize']    = '15';
+        $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
+        $this->entityOptions['pageSize']    = '25';
         if ($this->type === 'detail') {
             $this->entityOptions['showToggle']  = false;
             $this->entityOptions['showColumns'] = false;
+            $this->entityOptions['pageSize']    = '5';
         }
         // $this->entityOptions['height']      = '1268';
         ////////
