@@ -61,6 +61,49 @@ and open the template in the editor.
 
 
 
+
+.btn-link-black-thrash {
+  color: #555;
+}
+
+.btn-link-black-thrash:focus,
+.btn-link-black-thrash:hover {
+    color: #333 !important;
+    text-decoration: underline !important;
+    background-color: transparent !important;
+}
+
+.btn .btn-black-thrash {
+  background-color: #555;
+  border-color: #444;
+  transition: all .5s;
+}
+
+.btn-black-thrash {
+  color: rgb(255, 255, 255);
+  background-color: #555;
+  border-color: #444;
+}
+
+.btn.btn-black-thrash:hover,
+.btn.btn-black-thrash:active,
+.btn.btn-black-thrash.hover {
+  background-color: #333 !important;
+}
+
+.btn-black-thrash:hover,
+.btn-black-thrash:focus,
+.btn-black-thrash:active,
+.btn-black-thrash.active,
+.open .dropdown-toggle.btn-black-thrash {
+  color: #fff;
+  background-color: #333 !important;
+  border-color: #222 !important;
+}
+
+
+
+
 /*
  * *************************************************************************************************************************************************
  * SUPREME COLOR XRAY
@@ -1712,6 +1755,18 @@ a.anchor-camry-celestial-silver-metallic {
  .data-box-row {
      text-align: justify;;
  }
+
+
+
+ .bs-btn-separator-toolbar:after {
+    content: ' ';
+    display: block;
+    float: left;
+    background: #adadad;
+    margin: 0 10px;
+    height: 14px;
+    width: 1px;
+}
 
 
 
