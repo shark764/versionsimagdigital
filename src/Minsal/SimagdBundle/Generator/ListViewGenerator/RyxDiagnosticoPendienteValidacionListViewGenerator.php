@@ -162,12 +162,19 @@ class RyxDiagnosticoPendienteValidacionListViewGenerator extends RyxEntityListVi
                         // 'switchable' => false,
                     ),
                     array(
+                        'field' => 'fecha_ingreso',
+                        'sortable' => true,
+                        'title' => 'Ingreso',
+                        // 'visible' => false,
+                        // 'switchable' => false,
+                    ),
+                    array(
                         'field' => 'action',
                         'sortable' => false,
                         'align' => 'center',
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
-                        'formatter' => 'operateFormatter',
+                        // 'formatter' => 'operateFormatter',
                         'events' => 'operateEvents',
                     )
             );

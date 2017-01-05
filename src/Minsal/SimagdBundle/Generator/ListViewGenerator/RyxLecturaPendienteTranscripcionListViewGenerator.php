@@ -37,142 +37,149 @@ class RyxLecturaPendienteTranscripcionListViewGenerator extends RyxEntityListVie
      *
      * @api
      */
-     public function defineColumns()
-     {
-         if ($this->type === 'detail')
-         {
-             array_push($this->columns,
-                     array(
-                         'field' => 'detail',
-                         // 'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>',
-                         'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-collapse-down"></span>',
-                         'switchable' => false,
-                         'align' => 'center',
-                         'halign' => 'left',
-                         // 'formatter' => '__fnc_worklistDetailFormatter',
-                         'events' => 'operateEvents',
-                     )
-             );
-         }
-         else {
-             array_push($this->columns,
-                     array(
-                         'field' => 'id',
-                         'sortable' => true,
-                         'title' => 'ID',
-                         'visible' => false,
-                         // 'switchable' => false,
-                     ),
-                     array(
-                         'field' => 'origen',
-                         'sortable' => true,
-                         'title' => /*'<span class="glyphicon glyphicon-home"></span>'*/ 'Origen',
-                         'visible' => false,
-                         // 'formatter' => 'simagdOrigenFormatter',
-                     ),
-                     array(
-                         'field' => 'paciente',
-                         'sortable' => true,
-                         'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Paciente',
-                         'switchable' => false,
-                         // 'formatter' => 'simagdPacienteFormatter',
-                     ),
-                     array(
-                         'field' => 'numero_expediente',
-                         'sortable' => true,
-                         'title' => /*'<span class="glyphicon glyphicon-tag"></span>'*/ 'Reg.',
-                         'switchable' => false,
-                         'class' => 'bstable-column-highlighted',
-                         // 'formatter' => 'simagdPacienteFormatter',
-                     ),
-                     array(
-                         'field' => 'area_atencion',
-                         'sortable' => true,
-                         'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Procedencia',
-                     ),
-                     array(
-                         'field' => 'atencion',
-                         'sortable' => true,
-                         'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Servicio',
-                     ),
-                     array(
-                         'field' => 'medico',
-                         'sortable' => true,
-                         'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Médico',
-                         // 'switchable' => false,
-                     ),
-                     array(
-                         'field' => 'modalidad',
-                         'sortable' => true,
-                         'title' => /*'<span class="glyphicon glyphicon-list-alt"></span>'*/ 'Modalidad',
-                     ),
-                     array(
-                         'field' => 'triage',
-                         'sortable' => true,
-                         'title' => /*'<span class="glyphicon glyphicon-tag"></span>'*/ 'TRIAGE',
-                         'class' => 'bstable-column-highlighted',
-                         // 'visible' => false,
-                         // 'switchable' => false,
-                     ),
-                     array(
-                         'field' => 'tecnologo',
-                         'sortable' => true,
-                         'title' => 'Téc. / Lic. / Rdlg.',
-                         'visible' => false,
-                         // 'switchable' => false,
-                     ),
-                     array(
-                         'field' => 'fecha_examen',
-                         'sortable' => true,
-                         'title' => 'Fecha (Exm.)',
-                         'visible' => false,
-                         // 'formatter' => 'simagdDateTimeFormatter',
-                     ),
-                     array(
-                         'field' => 'correlativo',
-                         'sortable' => true,
-                         'title' => 'Etiqueta',
-                         'visible' => false,
-                     ),
-                     array(
-                         'field' => 'radiologo',
-                         'sortable' => true,
-                         'title' => 'Radiólogo',
-                         // 'visible' => true,
-                     ),
-                     array(
-                         'field' => 'fecha_lectura',
-                         'sortable' => true,
-                         'title' => 'Fecha (Lct)',
-                         'visible' => false,
-                         // 'formatter' => 'simagdDateTimeFormatter',
-                     ),
-                     array(
-                         'field' => 'fecha_diagnostico',
-                         'sortable' => true,
-                         'title' => 'Fecha (Trc)',
-                         'visible' => false,
-                         // 'formatter' => 'simagdDateTimeFormatter',
-                     ),
-                     array(
-                         'field' => 'estado',
-                         'sortable' => true,
-                         'title' => 'Estado',
-                         'visible' => false,
-                         // 'switchable' => false,
-                     ),
-                     array(
-                         'field' => 'action',
-                         'sortable' => false,
-                         'align' => 'center',
-                         'halign' => 'center',
-                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
-                         'formatter' => 'operateFormatter',
-                         'events' => 'operateEvents',
-                     )
-             );
-         }
-     }
+    public function defineColumns()
+    {
+        if ($this->type === 'detail')
+        {
+            array_push($this->columns,
+                    array(
+                        'field' => 'detail',
+                        // 'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>',
+                        'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-collapse-down"></span>',
+                        'switchable' => false,
+                        'align' => 'center',
+                        'halign' => 'left',
+                        // 'formatter' => '__fnc_worklistDetailFormatter',
+                        'events' => 'operateEvents',
+                    )
+            );
+        }
+        else {
+            array_push($this->columns,
+                    array(
+                        'field' => 'id',
+                        'sortable' => true,
+                        'title' => 'ID',
+                        'visible' => false,
+                        // 'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'origen',
+                        'sortable' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-home"></span>'*/ 'Origen',
+                        'visible' => false,
+                        // 'formatter' => 'simagdOrigenFormatter',
+                    ),
+                    array(
+                        'field' => 'paciente',
+                        'sortable' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Paciente',
+                        'switchable' => false,
+                        // 'formatter' => 'simagdPacienteFormatter',
+                    ),
+                    array(
+                        'field' => 'numero_expediente',
+                        'sortable' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-tag"></span>'*/ 'Reg.',
+                        'switchable' => false,
+                        'class' => 'bstable-column-highlighted',
+                        // 'formatter' => 'simagdPacienteFormatter',
+                    ),
+                    array(
+                        'field' => 'area_atencion',
+                        'sortable' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Procedencia',
+                    ),
+                    array(
+                        'field' => 'atencion',
+                        'sortable' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Servicio',
+                    ),
+                    array(
+                        'field' => 'medico',
+                        'sortable' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Médico',
+                        // 'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'modalidad',
+                        'sortable' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-list-alt"></span>'*/ 'Modalidad',
+                    ),
+                    array(
+                        'field' => 'triage',
+                        'sortable' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-tag"></span>'*/ 'TRIAGE',
+                        'class' => 'bstable-column-highlighted',
+                        // 'visible' => false,
+                        // 'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'tecnologo',
+                        'sortable' => true,
+                        'title' => 'Téc. / Lic. / Rdlg.',
+                        'visible' => false,
+                        // 'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'fecha_examen',
+                        'sortable' => true,
+                        'title' => 'Fecha (Exm.)',
+                        'visible' => false,
+                        // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'correlativo',
+                        'sortable' => true,
+                        'title' => 'Etiqueta',
+                        'visible' => false,
+                    ),
+                    array(
+                        'field' => 'radiologo',
+                        'sortable' => true,
+                        'title' => 'Radiólogo',
+                        // 'visible' => true,
+                    ),
+                    array(
+                        'field' => 'fecha_lectura',
+                        'sortable' => true,
+                        'title' => 'Fecha (Lct)',
+                        'visible' => false,
+                        // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'fecha_diagnostico',
+                        'sortable' => true,
+                        'title' => 'Fecha (Trc)',
+                        'visible' => false,
+                        // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'estado',
+                        'sortable' => true,
+                        'title' => 'Estado',
+                        'visible' => false,
+                        // 'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'fecha_ingreso',
+                        'sortable' => true,
+                        'title' => 'Ingreso',
+                        // 'visible' => false,
+                        // 'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'action',
+                        'sortable' => false,
+                        'align' => 'center',
+                        'halign' => 'center',
+                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
+                        // 'formatter' => 'operateFormatter',
+                        'events' => 'operateEvents',
+                    )
+            );
+        }
+    }
 
      /**
      * {@inheritdoc}

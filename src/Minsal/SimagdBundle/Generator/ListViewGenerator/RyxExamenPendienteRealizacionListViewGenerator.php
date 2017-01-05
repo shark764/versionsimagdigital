@@ -94,12 +94,14 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
                         'field' => 'atencion',
                         'sortable' => true,
                         'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Servicio',
+                        'visible' => false,
                     ),
                     array(
                         'field' => 'medico',
                         'sortable' => true,
                         'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Médico',
                         // 'switchable' => false,
+                        'visible' => false,
                     ),
                     array(
                         'field' => 'modalidad',
@@ -136,12 +138,19 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
+                        'field' => 'fecha_ingreso',
+                        'sortable' => true,
+                        'title' => 'Ingreso',
+                        // 'visible' => false,
+                        // 'switchable' => false,
+                    ),
+                    array(
                         'field' => 'action',
                         'sortable' => false,
                         'align' => 'center',
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
-                        'formatter' => 'operateFormatter',
+                        // 'formatter' => 'operateFormatter',
                         'events' => 'operateEvents',
                     )
             );
@@ -195,6 +204,7 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '25';
+        // $this->entityOptions['sortName']    = 'undefined';
         if ($this->type === 'detail') {
             $this->entityOptions['showToggle']  = false;
             $this->entityOptions['showColumns'] = false;
