@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -447,14 +447,14 @@
 	    eventAfterAllRender: function(view) {
 	    	var $fc_calendar_panel  = jQuery('[id="fc-calendar-panel"]');
 
-		    $fc_calendar_panel.find('.panel-title').html(function() {
+		    $fc_calendar_panel.find('.panel-title').html('AGENDA'/*function() {
 				return [
-				    '<i class="fa fa-calendar"></i>',
-				    ' ',
-				    '<i class="fa fa-calendar-check-o"></i>',
-				    ' Agenda'
+				    // '<i class="fa fa-calendar"></i>',
+				    // ' ',
+				    // '<i class="fa fa-calendar-check-o"></i>',
+				    'AGENDA'
 				].join('');
-		    });
+		    }*/);
 	    },
     };	// --| build function object
 
