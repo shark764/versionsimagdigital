@@ -30,6 +30,7 @@ class ImgSolicitudEstudioComplementarioAdmin extends Admin
         $collection->add('show', 'consultar', [], [], ['expose' => true]);
         $collection->add('crearSolicitudEstudioComplementarioFastFormat', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarSolicitudEstudioComplementarioFastFormat', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
     }
 
     public function getTemplate($name)

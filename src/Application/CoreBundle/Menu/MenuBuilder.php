@@ -111,5 +111,10 @@ class MenuBuilder extends ContainerAware {
         {
             $this->menu['Imagenología']->addChild('Listas de trabajo', array('route' => 'simagd_imagenologia_digital_worklist'));
         }
+        if ($user->hasRole('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') || $user->hasRole('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_DIAGNOSTICO_POST_ESTUDIO_LIST') || $user->hasRole('ROLE_SUPER_ADMIN'))
+        {
+            $this->menu['Imagenología']->addChild('Solicitudes', array('route' => 'simagd_imagenologia_digital_request_dashboard'));
+        }
     }
+
 }
