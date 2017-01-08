@@ -55,8 +55,9 @@ class ImgPendienteLecturaAdminController extends Controller
         return $this->redirect($this->generateUrl('simagd_lectura_agregarPendiente', array('__est' => $estudio)));
     }
 
-    public function listAction() {
-	       //Acceso denegado
+    public function listAction()
+    {
+        //Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -303,7 +304,6 @@ class ImgPendienteLecturaAdminController extends Controller
                 $this->admin->getRouteGenerator(),
                 $this->admin->getClass(),
                 $__REQUEST__type
-                // new RyxExamenPendienteRealizacion()
         );
         //////// --|
         $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();

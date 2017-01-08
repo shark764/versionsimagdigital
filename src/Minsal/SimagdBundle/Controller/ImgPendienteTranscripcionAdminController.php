@@ -243,8 +243,7 @@ class ImgPendienteTranscripcionAdminController extends Controller
                 $this->container,
                 $this->admin->getRouteGenerator(),
                 $this->admin->getClass(),
-                $__REQUEST__type
-                // new RyxLecturaPendienteTranscripcion()
+                $__REQUEST__type()
         );
         //////// --|
         $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();

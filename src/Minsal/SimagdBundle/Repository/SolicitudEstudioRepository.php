@@ -450,6 +450,9 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->addSelect('explocal')
                             ->addSelect('unknExp')
                             ->addSelect('prAtn')
+
+                            ->addSelect('prc.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, prc.fechaCreacion as fecha_solicitud')
+
                             ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
                             ->addSelect('stdroot.nombre as prc_origen, stdroot.id as prc_id_origen, ar.nombre as prc_areaAtencion, ar.id as prc_id_areaAtencion, atn.nombre as prc_atencion, atn.id as prc_id_atencion')
                             ->addSelect('concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) as prc_empleado, empprc.id as prc_id_empleado, tpEmp.tipo as prc_tipoEmpleado')

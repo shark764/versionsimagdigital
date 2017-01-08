@@ -15,7 +15,7 @@ use FOS\UserBundle\Model\UserInterface;
 // use Minsal\SimagdBundle\Entity\EntityInterface;
 use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 
-// use Minsal\SimagdBundle\Entity\RyxSolicitudEstudio;
+// use Minsal\SimagdBundle\Entity\RyxSolicitudDiagnosticoPostEstudio;
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -24,11 +24,11 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 ///////////////////////////////////////////////////////
 
 /**
- * RyxSolicitudEstudioListViewGenerator
+ * RyxSolicitudDiagnosticoPostEstudioListViewGenerator
  *
  * @author farid
  */
-class RyxSolicitudEstudioListViewGenerator extends RyxEntityListViewGenerator
+class RyxSolicitudDiagnosticoPostEstudioListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
      * @var boolean
@@ -50,7 +50,7 @@ class RyxSolicitudEstudioListViewGenerator extends RyxEntityListViewGenerator
     {
         return $this->isEmergency;
     }
-
+    
     /**
      * Sets the array.
      *
@@ -221,7 +221,7 @@ class RyxSolicitudEstudioListViewGenerator extends RyxEntityListViewGenerator
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_solicitud_estudio_listarSolicitudesEstudio', array('type' => $this->type, 'emrg' => $this->isEmergency));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_solicitud_diagnostico_listarSolicitudesDiagnostico', array('type' => $this->type, 'emrg' => $this->isEmergency));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '25';

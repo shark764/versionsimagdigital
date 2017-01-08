@@ -111,6 +111,9 @@ class SolicitudDiagnosticoRepository extends EntityRepository
                             ->select('soldiag')
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
+
+                            ->addSelect('soldiag.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empsoldiag.id is not null) then concat(coalesce(empsoldiag.apellido, \'\'), \', \', coalesce(empsoldiag.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, soldiag.fechaCreacion as fecha_solicitud')
+
                             ->addSelect('prc.fechaCreacion as prc_fechaCreacion, est.id as est_id, est.fechaEstudio as est_fechaEstudio, est.url as est_url, prz.fechaAlmacenado as prz_fechaAlmacenado, prz.fechaNacimientoIndeterminada as prz_fechaNacimientoIndeterminada')
                             ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
                             ->addSelect('stdroot.nombre as prc_origen, stdroot.id as prc_id_origen, ar.nombre as prc_areaAtencion, ar.id as prc_id_areaAtencion, atn.nombre as prc_atencion, atn.id as prc_id_atencion')
