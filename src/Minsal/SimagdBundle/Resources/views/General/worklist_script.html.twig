@@ -1,6 +1,10 @@
 {% autoescape false %}
 
 	<script type="text/javascript">
+        _fn_show_object_detail = function(el, slug, id) {
+            window.alert(slug + '\n' + id);
+        }
+
         generate = function(el, slug/*, type = 'list'*/) {
             ////////
             var $table = jQuery('#ryx_target_bstable');

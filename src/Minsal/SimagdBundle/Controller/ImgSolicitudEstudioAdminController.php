@@ -714,6 +714,11 @@ class ImgSolicitudEstudioAdminController extends Controller
     	$isUser_allowEdit       = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
     	$allowChangePriority    = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('cambiarPrioridadAtencionSolicitud')) ? TRUE : FALSE;
     	$isUser_allowIndRadx    = (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN')) && $this->admin->getRoutes()->has('agregarIndicacionesRadiologo')) ? TRUE : FALSE;
+
+        $slug = 'study_request';
+        if ($__REQUEST__emrg === 1) {
+            $slug = 'emergency_study_request';
+        }
         
         foreach ($results as $key => $r)
         {
@@ -722,7 +727,8 @@ class ImgSolicitudEstudioAdminController extends Controller
             if ($__REQUEST__type === 'detail')
             {
                 $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
-                        '<div class="box-body">' .
+                        $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
+                        '<div class="box-body" ondblclick="_fn_show_object_detail(this, ' . $slug . ', ' . $r['id'] . '); return false;">' .
                             // '<div class="container">' .
                             // '<div class=" col-lg-12 col-md-12 col-sm-12">' .
                                 '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3></div></div>' .

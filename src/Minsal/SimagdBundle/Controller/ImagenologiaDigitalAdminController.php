@@ -778,6 +778,12 @@ class ImagenologiaDigitalAdminController extends Controller
         $templateKey = 'worklist';
         
         $securityContext = $this->container->get('security.context');
+        
+        $em = $this->getDoctrine()->getManager();
+
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
+        $estabLocal         = $sessionUser->getIdEstablecimiento();
 
         $tiposEmpleado = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
         $radiologos = $em->getRepository('MinsalSiapsBundle:MntEmpleado')
