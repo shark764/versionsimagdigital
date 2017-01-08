@@ -712,7 +712,7 @@ jQuery(document).ready(function() {
     //////////////////////////////////////////////////////////////////////////
     var __DOM__filter_search_type = jQuery('input[name=_fc_filter_search_type]');
 
-    __DOM__worklistDisplayType.on('ifChecked', function(e) {
+    __DOM__filter_search_type.on('ifChecked', function(e) {
         var chk = jQuery('input[name=_fc_filter_search_type]:checked').val();
         // var $last_view = $el_fc_calendar.fullCalendar('getView');
     	if (this.value === 'summary') {
