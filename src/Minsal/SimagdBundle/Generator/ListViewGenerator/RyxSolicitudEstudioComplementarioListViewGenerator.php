@@ -78,6 +78,15 @@ class RyxSolicitudEstudioComplementarioListViewGenerator extends RyxEntityListVi
         else {
             array_push($this->columns,
                     array(
+                        'field' => 'action',
+                        'sortable' => false,
+                        'align' => 'center',
+                        'halign' => 'center',
+                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
+                        // 'formatter' => 'operateFormatter',
+                        'events' => 'operateEvents',
+                    ),
+                    array(
                         'field' => 'id',
                         'sortable' => true,
                         'title' => 'ID',
@@ -164,15 +173,6 @@ class RyxSolicitudEstudioComplementarioListViewGenerator extends RyxEntityListVi
                         'title' => 'Ingreso',
                         // 'visible' => false,
                         // 'switchable' => false,
-                    ),
-                    array(
-                        'field' => 'action',
-                        'sortable' => false,
-                        'align' => 'center',
-                        'halign' => 'center',
-                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
-                        // 'formatter' => 'operateFormatter',
-                        'events' => 'operateEvents',
                     )
             );
         }

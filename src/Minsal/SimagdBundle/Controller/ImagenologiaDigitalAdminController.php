@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sonata\AdminBundle\Exception\ModelManagerException;
 
 use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxExamenPendienteRealizacionListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxSolicitudEstudioListViewGenerator;
 
 class ImagenologiaDigitalAdminController extends Controller
 {
@@ -778,6 +779,12 @@ class ImagenologiaDigitalAdminController extends Controller
         
         $securityContext = $this->container->get('security.context');
 
+        $tiposEmpleado = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
+        $radiologos = $em->getRepository('MinsalSiapsBundle:MntEmpleado')
+                                        ->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(4, 5))
+                                                ->getQuery()->getResult();
+        $modalidades = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
+
         // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
         //     return new RedirectResponse($this->generateUrl('simagd_solicitud_estudio_accessDenied'));
         // }
@@ -797,7 +804,6 @@ class ImagenologiaDigitalAdminController extends Controller
                 $this->container,
                 $this->admin->getRouteGenerator(),
                 $this->admin->getClass()
-                // new RyxExamenPendienteRealizacion()
         );
         //////// --|
         $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
@@ -805,6 +811,9 @@ class ImagenologiaDigitalAdminController extends Controller
         return $this->render($this->admin->getTemplate($templateKey), array(
             'action'        => 'worklist',
             'csrf_token'    => $this->getCsrfToken('sonata.batch'),
+            'tiposEmpleado' => $tiposEmpleado,
+            'radiologos'    => $radiologos,
+            'modalidades'   => $modalidades,
             'DEFAULT_TABLE_OPTIONS' => $options,
         ));
     }
@@ -841,7 +850,6 @@ class ImagenologiaDigitalAdminController extends Controller
                 $this->container,
                 $this->admin->getRouteGenerator(),
                 $this->admin->getClass()
-                // new RyxExamenPendienteRealizacion()
         );
         //////// --|
         $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();

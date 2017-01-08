@@ -218,6 +218,59 @@
         </div>
     </div>
 
+    <!-- WORKLIST elements -->
+    <div class="col-lg-9 col-md-9 col-sm-9 ">
+        <div class="row"> <!-- row block -->
+            <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
+                <div class="box-body">
+
+                    <div class="form-group">
+                        <label class="col-xs-1 control-label">TECNÓLOGO</label>
+                        <div class="col-xs-3">
+                            <select id="_exam_worklist_radiologist" name="_exam_worklist_radiologist" class="form-control select2-select" >
+                                <option value=""></option>
+                                {% for tipo in tiposEmpleado if tipo.codigo == 'TRY' or tipo.codigo == 'MRY' %}
+                                    <optgroup label="{{ tipo }}">
+                                    {% for radiologo in radiologos if radiologo.idTipoEmpleado is not null and radiologo.idTipoEmpleado.id == tipo.id %}
+                                        <option value="{{ radiologo.id }}" {% if radiologo.id == app.user.getIdEmpleado().getId() %} selected {% endif %}>{{ radiologo }}</option>
+                                    {% endfor %}
+                                    </optgroup>
+                                {% endfor %}
+                                {% for radiologo in radiologos if radiologo.idTipoEmpleado is null %}
+                                    <option value="{{ radiologo.id }}" {% if radiologo.id == app.user.getIdEmpleado().getId() %} selected {% endif %}>{{ radiologo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <label class="col-xs-1 control-label required">MODALIDAD</label>
+                        <div class="col-xs-3">
+                            <select id="_exam_worklist_modality" name="_exam_worklist_modality" class="form-control select2-select" >
+                                <option value=""></option>
+                                {#<optgroup label="Servicio de Diagnóstico por imagen">#}
+                                    {% for modalidad in modalidades %}
+                                        <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
+                                    {% endfor %}
+                                {#</optgroup>#}
+                            </select>
+                        </div>
+                        <label class="col-xs-1 control-label required">SALA</label>
+                        <div class="col-xs-3">
+                            <select id="_exam_worklist_hospital_room" name="_exam_worklist_hospital_room" class="form-control select2-select" >
+                                <option value=""></option>
+                                {#<optgroup label="Servicio de Diagnóstico por imagen">#}
+                                    {#{% for modalidad in modalidades %}
+                                        <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
+                                    {% endfor %}#}
+                                {#</optgroup>#}
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div> <!-- END --| WORKLIST elements -->
+
+
     <div class="tab-pane fade in active" id="tab_list__" style="min-height: 768px;" >
 
         <!--
