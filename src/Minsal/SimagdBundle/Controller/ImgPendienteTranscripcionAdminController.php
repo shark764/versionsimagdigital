@@ -129,7 +129,6 @@ class ImgPendienteTranscripcionAdminController extends Controller
             if ($__REQUEST__type === 'detail')
             {
                 $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
-                        $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
                         '<div class="box-body" ondblclick="_fn_show_object_detail(this, \'non_transcribed_results\', ' . $r['id'] . '); return false;">' .
                             // '<div class="container">' .
                             // '<div class=" col-lg-12 col-md-12 col-sm-12">' .

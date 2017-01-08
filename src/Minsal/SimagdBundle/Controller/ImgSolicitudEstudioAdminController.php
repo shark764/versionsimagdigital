@@ -727,7 +727,6 @@ class ImgSolicitudEstudioAdminController extends Controller
             if ($__REQUEST__type === 'detail')
             {
                 $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
-                        $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
                         '<div class="box-body">' .
                         // '<div class="box-body" ondblclick="_fn_show_object_detail(this, \'' . $slug . '\', ' . $r['id'] . '); return false;">' .
                             // '<div class="container">' .
