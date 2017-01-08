@@ -603,53 +603,53 @@ jQuery(document).ready(function() {
      * Detail for study request pending
      */
     jQuery('#panel_patient_btn_show_request_detail').filter(':not([disabled])').click(function(e) {
-	/*
-	* Add detail for study request
-	*/
-	jQuery('#external-events').find('.fc-event').html(function($i, $html) {
-	    var $this	= jQuery(this),
-		$event	= $this.data('event').event_server_object;
-	    var $result	= $html + [
-		    '<br/>',
-		    '<span style="font-weight: 900;">', $event.explocal_numero, '</span>',
-		    '<br/>',
-		    '<div class="pending-patient-request">',
-		    	'<u>' + $event.prc_areaAtencion + ' - ' + $event.prc_atencion + '</u>',
-		    	'<br/>',
-		    	'<strong>', $event.prc_modalidad, '</strong>',
-		    	'<br/>',
-		    	'<strong>Solicitó</strong>&nbsp; ' + $event.prc_empleado,
-			'<br/>',
-		    	'<strong>Se solicitó</strong>&nbsp; ' + simagdDateTimeFormatter($event.prc_fechaCreacion, $event, $event.prc_id),
-			'<br/>',
-		    	'<strong>Próxima consulta</strong>&nbsp; ' + simagdDateFormatter($event.prc_fechaProximaConsulta, $event, $event.prc_id),
-			'<br/>',
-		    	'<strong>Prioridad</strong>&nbsp; ' + $event.prAtn_nombre,
-		    '</div>',
-		].join('');
-	    return $result;
-	});
+		/*
+		 * Add detail for study request
+		 */
+		jQuery('#external-events').find('.fc-event').html(function($i, $html) {
+		    var $this	= jQuery(this),
+			$event	= $this.data('event').event_server_object;
+		    var $result	= $html + [
+			    '<br/>',
+			    '<span style="font-weight: 900;">', $event.explocal_numero, '</span>',
+			    '<br/>',
+			    '<div class="pending-patient-request">',
+			    	'<u>' + $event.prc_areaAtencion + ' - ' + $event.prc_atencion + '</u>',
+			    	'<br/>',
+			    	'<strong>', $event.prc_modalidad, '</strong>',
+			    	'<br/>',
+			    	'<strong>Solicitó</strong>&nbsp; ' + $event.prc_empleado,
+				'<br/>',
+			    	'<strong>Se solicitó</strong>&nbsp; ' + simagdDateTimeFormatter($event.prc_fechaCreacion, $event, $event.prc_id),
+				'<br/>',
+			    	'<strong>Próxima consulta</strong>&nbsp; ' + simagdDateFormatter($event.prc_fechaProximaConsulta, $event, $event.prc_id),
+				'<br/>',
+			    	'<strong>Prioridad</strong>&nbsp; ' + $event.prAtn_nombre,
+			    '</div>',
+			].join('');
+		    return $result;
+		});
 
-        jQuery('#panel_patient_btn_hide_request_detail').parents('li').show();
-        jQuery(this).parents('li').hide();
+	        jQuery('#panel_patient_btn_hide_request_detail').parents('li').show();
+	        jQuery(this).parents('li').hide();
 
-	/*
-	* Detail for study request
-	*/
-	NODATED_REQUEST_VIEW_DETAIL_FORMAT = true;   // --| change detail format
+		/*
+		* Detail for study request
+		*/
+		NODATED_REQUEST_VIEW_DETAIL_FORMAT = true;   // --| change detail format
     });
     jQuery('#panel_patient_btn_hide_request_detail').filter(':not([disabled])').click(function(e) {
-	jQuery('#external-events').find('.fc-event').html(function($i, $html) {
-	    return jQuery(this).data('event').preferred_title;
-	});
+		jQuery('#external-events').find('.fc-event').html(function($i, $html) {
+		    return jQuery(this).data('event').preferred_title;
+		});
 
         jQuery('#panel_patient_btn_show_request_detail').parents('li').show();
         jQuery(this).parents('li').hide();
 
-	/*
-	* Detail for study request
-	*/
-	NODATED_REQUEST_VIEW_DETAIL_FORMAT = false;   // --| change detail format
+		/*
+		 * Detail for study request
+		 */
+		NODATED_REQUEST_VIEW_DETAIL_FORMAT = false;   // --| change detail format
     });
 
     /*
@@ -658,12 +658,12 @@ jQuery(document).ready(function() {
     jQuery('#fullcalendar_slotDuration')
 	    .filter(':not([disabled])')
 		    .change(function(e) {
-			var $new_slot 	= parseInt(jQuery(this).val(), 10);
-			$time_slot	= isNaN($new_slot) ? '00:05:00'
-					      : ($new_slot === 60 || $new_slot === '60' ? '01:00:00'
-						      : '00:' + ($new_slot < 10 ? '0' : '') + $new_slot.toString() + ':00');
-			console.log('$new_slot', $new_slot, '$time_slot', $time_slot);
-			fn_reset_fullCalendar_configurarion({slot: $time_slot});	// --| default to 5 minutes between dates
+				var $new_slot 	= parseInt(jQuery(this).val(), 10);
+				$time_slot	= isNaN($new_slot) ? '00:05:00'
+						      : ($new_slot === 60 || $new_slot === '60' ? '01:00:00'
+							      : '00:' + ($new_slot < 10 ? '0' : '') + $new_slot.toString() + ':00');
+				console.log('$new_slot', $new_slot, '$time_slot', $time_slot);
+				fn_reset_fullCalendar_configurarion({slot: $time_slot});	// --| default to 5 minutes between dates
 		    });
 
     /*
@@ -672,12 +672,12 @@ jQuery(document).ready(function() {
     jQuery('#panel_agenda_btn_refresh_calendar')
 	    .filter(':not([disabled])')
 		    .click(function(e) {
-			/*
-			* fullCalendar
-			*/
-			$el_fc_calendar
-				.filter(':not([disabled]):visible')
-				.fullCalendar('refetchEvents');	// --| refresh the view
+				/*
+				* fullCalendar
+				*/
+				$el_fc_calendar
+					.filter(':not([disabled]):visible')
+					.fullCalendar('refetchEvents');	// --| refresh the view
 		    });
 
     /*
@@ -690,105 +690,112 @@ jQuery(document).ready(function() {
     //////////////////////////////////////////////////////////////////////////
     //////// go to date
     //////////////////////////////////////////////////////////////////////////
-    var $el_fc_goToDate = jQuery('[id="navbar_field_cita_goToDate"]');	//  --| dtpicker DOM element
-        $el_fc_goToDate.datetimepicker({
-            locale          : 'es',
-            format          : 'YYYY-MM-DD',
-            showTodayButton : true,
-            showClear       : true,
-            showClose       : true,
-            ignoreReadonly  : true
-        }).on("dp.change", function (e) {
-            jQuery(this).blur();
-            console.log(e.date);
-            var goToDpDate = (typeof e.date !== 'undefined' && e.date !== null && e.date !== false) ? e.date : moment();
-            $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('gotoDate', goToDpDate);
-        }).on("dp.hide", function (e) {
-            jQuery(this).blur();
-        });
+    // var $el_fc_goToDate = jQuery('[id="navbar_field_cita_goToDate"]');	//  --| dtpicker DOM element
+    //     $el_fc_goToDate.datetimepicker({
+    //         locale          : 'es',
+    //         format          : 'YYYY-MM-DD',
+    //         showTodayButton : true,
+    //         showClear       : true,
+    //         showClose       : true,
+    //         ignoreReadonly  : true
+    //     }).on("dp.change", function (e) {
+    //         jQuery(this).blur();
+    //         console.log(e.date);
+    //         var goToDpDate = (typeof e.date !== 'undefined' && e.date !== null && e.date !== false) ? e.date : moment();
+    //         $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('gotoDate', goToDpDate);
+    //     }).on("dp.hide", function (e) {
+    //         jQuery(this).blur();
+    //     });
 
     //////////////////////////////////////////////////////////////////////////
     //////// change content type - month (and height)
     //////////////////////////////////////////////////////////////////////////
-    var $__DOM__type_ = jQuery('input[name=_fc_filter_search_type]');
-    $__DOM__type_.on('ifClicked', function(e) {
-    	var $__DOM__checked_ = jQuery('input[name=_fc_filter_search_type]:checked');
-        var chk = $__DOM__checked_.val();
-        var $last_view = $el_fc_calendar.fullCalendar('getView');
-        if (chk !== this.value) {
-	    	if (this.value === 'summary') {
-	    		$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 2650);
-	    		// $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 1650);
-	    		// window.console.log (JSON.stringify($el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height')));
-	    	}
-	    	else {
-	    		$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 'auto');
-	    		// $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 'auto');
-	    		// window.console.log (JSON.stringify($el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height')));
-	    	}
-	    }
+    var __DOM__filter_search_type = jQuery('input[name=_fc_filter_search_type]');
+
+    __DOM__worklistDisplayType.on('ifChecked', function(e) {
+        var chk = jQuery('input[name=_fc_filter_search_type]:checked').val();
+        // var $last_view = $el_fc_calendar.fullCalendar('getView');
+    	if (this.value === 'summary') {
+			$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'aspectRatio', 1);
+    		// $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 2650);
+    		// $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 1650);
+    		// window.console.log (JSON.stringify($el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height')));
+    	}
+    	else {
+			$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'aspectRatio', 0.75);
+    		// $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 'auto');
+    		// $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 'auto');
+    		// window.console.log (JSON.stringify($el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height')));
+    	}
+		/*
+		 * fullCalendar
+		 */
+		$el_fc_calendar
+			.filter(':not([disabled]):visible')
+			.fullCalendar('refetchEvents');	// --| refresh the view
+
     });
 
 });
 
 /** Set data in popover */
-jQuery.fn.setDataCitaPopoverContent = function(options) {
-    moment.locale('es');
-    var $citObject = options.object;
+// jQuery.fn.setDataCitaPopoverContent = function(options) {
+//     moment.locale('es');
+//     var $citObject = options.object;
 
-    jQuery(this).find('[data-render-info="idEmpleado"]')
-	    .html(jQuery.trim($citObject.cit_empleado));
-    jQuery(this).find('[data-render-info="fechaCreacion"]')
-	    .html(moment(jQuery.trim($citObject.cit_fechaCreacion), "YYYY-MM-DD HH:mm:ss").format("dddd, MMMM D YYYY, h:mm:ss A"));
-    jQuery(this).find('[data-render-info="idEstablecimiento"]')
-	    .html(jQuery.trim($citObject.prc_origen));
-    jQuery(this).find('[data-render-info="idAreaAtencion"]')
-	    .html(jQuery.trim($citObject.prc_areaAtencion));
-    jQuery(this).find('[data-render-info="idAtencion"]')
-	    .html(jQuery.trim($citObject.prc_atencion));
-    jQuery(this).find('[data-render-info="idEmpleadoSolicitante"]')
-	    .html(jQuery.trim($citObject.prc_solicitante));
-    jQuery(this).find('[data-render-info="idAreaServicioDiagnostico"]')
-	    .html(jQuery.trim($citObject.prc_modalidad));
-    jQuery(this).find('[data-render-info="idPrioridadAtencion"]')
-	    .html(jQuery.isEmptyObject($citObject.prAtn_nombre) === false ? simagdPrioridadAtencionFormatter($citObject.prAtn_nombre, $citObject, $citObject.prc_id) : '');
-    jQuery(this).find('[data-render-info="fechaProximaConsulta"]')
-	    .html(moment(jQuery.trim($citObject.prc_fechaProximaConsulta), "YYYY-MM-DD").format("dddd, MMMM D YYYY"));
-    jQuery(this).find('[data-render-info="fechaCreacion"]')
-	    .html(moment(jQuery.trim($citObject.prc_fechaCreacion), "YYYY-MM-DD HH:mm:ss").format("dddd, MMMM D YYYY, h:mm:ss A"));
-    jQuery(this).find('[data-render-info="solicitudEstudioProyeccion"]')
-	    .html(function() {
-		var $arr_result = ['<ul>'];
+//     jQuery(this).find('[data-render-info="idEmpleado"]')
+// 	    .html(jQuery.trim($citObject.cit_empleado));
+//     jQuery(this).find('[data-render-info="fechaCreacion"]')
+// 	    .html(moment(jQuery.trim($citObject.cit_fechaCreacion), "YYYY-MM-DD HH:mm:ss").format("dddd, MMMM D YYYY, h:mm:ss A"));
+//     jQuery(this).find('[data-render-info="idEstablecimiento"]')
+// 	    .html(jQuery.trim($citObject.prc_origen));
+//     jQuery(this).find('[data-render-info="idAreaAtencion"]')
+// 	    .html(jQuery.trim($citObject.prc_areaAtencion));
+//     jQuery(this).find('[data-render-info="idAtencion"]')
+// 	    .html(jQuery.trim($citObject.prc_atencion));
+//     jQuery(this).find('[data-render-info="idEmpleadoSolicitante"]')
+// 	    .html(jQuery.trim($citObject.prc_solicitante));
+//     jQuery(this).find('[data-render-info="idAreaServicioDiagnostico"]')
+// 	    .html(jQuery.trim($citObject.prc_modalidad));
+//     jQuery(this).find('[data-render-info="idPrioridadAtencion"]')
+// 	    .html(jQuery.isEmptyObject($citObject.prAtn_nombre) === false ? simagdPrioridadAtencionFormatter($citObject.prAtn_nombre, $citObject, $citObject.prc_id) : '');
+//     jQuery(this).find('[data-render-info="fechaProximaConsulta"]')
+// 	    .html(moment(jQuery.trim($citObject.prc_fechaProximaConsulta), "YYYY-MM-DD").format("dddd, MMMM D YYYY"));
+//     jQuery(this).find('[data-render-info="fechaCreacion"]')
+// 	    .html(moment(jQuery.trim($citObject.prc_fechaCreacion), "YYYY-MM-DD HH:mm:ss").format("dddd, MMMM D YYYY, h:mm:ss A"));
+//     jQuery(this).find('[data-render-info="solicitudEstudioProyeccion"]')
+// 	    .html(function() {
+// 		var $arr_result = ['<ul>'];
 
-		$.each($citObject.prc_solicitudEstudioProyeccion, function(i, y) {
-		    $arr_result.push('<li>', '<strong><span class="text-info">', jQuery.trim(y.expl_codigo) + '</span></strong> ' + jQuery.trim(y.expl_nombre), '</li>');
-		});
+// 		$.each($citObject.prc_solicitudEstudioProyeccion, function(i, y) {
+// 		    $arr_result.push('<li>', '<strong><span class="text-info">', jQuery.trim(y.expl_codigo) + '</span></strong> ' + jQuery.trim(y.expl_nombre), '</li>');
+// 		});
 
-		$arr_result.push('</ul>');
+// 		$arr_result.push('</ul>');
 
-                return $arr_result.join('');
-            });
-};
+//                 return $arr_result.join('');
+//             });
+// };
 
 /** Set data in popover */
-jQuery.fn.setDataBloqueoPopoverContent = function(options) {
-    moment.locale('es');
-    var $blAgdObject = options.object;
+// jQuery.fn.setDataBloqueoPopoverContent = function(options) {
+//     moment.locale('es');
+//     var $blAgdObject = options.object;
 
-    jQuery(this).find('[data-render-info="idRadiologoBloqueo"]')
-	    .html(jQuery.isEmptyObject($blAgdObject.blAgd_radiologo) === false ? jQuery.trim($blAgdObject.blAgd_radiologo) : '');
-    jQuery(this).find('[data-render-info="idAreaServicioDiagnostico"]')
-	    .html(jQuery.isEmptyObject($blAgdObject.blAgd_modalidad) === false ? jQuery.trim($blAgdObject.blAgd_modalidad) : '');
-    jQuery(this).find('[data-render-info="fechaInicio"]')
-	    .html(moment(jQuery.trim($blAgdObject.blAgd_fechaInicio), "YYYY-MM-DD").format("dddd, MMMM D YYYY"));
-    jQuery(this).find('[data-render-info="horaInicio"]')
-	    .html(moment(jQuery.trim($blAgdObject.blAgd_horaInicio), "HH:mm:ss").format("h:mm:ss A"));
-    jQuery(this).find('[data-render-info="fechaFin"]')
-	    .html(moment(jQuery.trim($blAgdObject.blAgd_fechaFin), "YYYY-MM-DD").format("dddd, MMMM D YYYY"));
-    jQuery(this).find('[data-render-info="horaFin"]')
-	    .html(moment(jQuery.trim($blAgdObject.blAgd_horaFin), "HH:mm:ss").format("h:mm:ss A"));
-    jQuery(this).find('[data-render-info="idEmpleadoRegistra"]')
-	    .html(jQuery.trim($blAgdObject.blAgd_empleado));
-    jQuery(this).find('[data-render-info="fechaCreacion"]')
-	    .html(moment(jQuery.trim($blAgdObject.blAgd_fechaCreacion), "YYYY-MM-DD HH:mm:ss").format("dddd, MMMM D YYYY, h:mm:ss A"));
-};
+//     jQuery(this).find('[data-render-info="idRadiologoBloqueo"]')
+// 	    .html(jQuery.isEmptyObject($blAgdObject.blAgd_radiologo) === false ? jQuery.trim($blAgdObject.blAgd_radiologo) : '');
+//     jQuery(this).find('[data-render-info="idAreaServicioDiagnostico"]')
+// 	    .html(jQuery.isEmptyObject($blAgdObject.blAgd_modalidad) === false ? jQuery.trim($blAgdObject.blAgd_modalidad) : '');
+//     jQuery(this).find('[data-render-info="fechaInicio"]')
+// 	    .html(moment(jQuery.trim($blAgdObject.blAgd_fechaInicio), "YYYY-MM-DD").format("dddd, MMMM D YYYY"));
+//     jQuery(this).find('[data-render-info="horaInicio"]')
+// 	    .html(moment(jQuery.trim($blAgdObject.blAgd_horaInicio), "HH:mm:ss").format("h:mm:ss A"));
+//     jQuery(this).find('[data-render-info="fechaFin"]')
+// 	    .html(moment(jQuery.trim($blAgdObject.blAgd_fechaFin), "YYYY-MM-DD").format("dddd, MMMM D YYYY"));
+//     jQuery(this).find('[data-render-info="horaFin"]')
+// 	    .html(moment(jQuery.trim($blAgdObject.blAgd_horaFin), "HH:mm:ss").format("h:mm:ss A"));
+//     jQuery(this).find('[data-render-info="idEmpleadoRegistra"]')
+// 	    .html(jQuery.trim($blAgdObject.blAgd_empleado));
+//     jQuery(this).find('[data-render-info="fechaCreacion"]')
+// 	    .html(moment(jQuery.trim($blAgdObject.blAgd_fechaCreacion), "YYYY-MM-DD HH:mm:ss").format("dddd, MMMM D YYYY, h:mm:ss A"));
+// };

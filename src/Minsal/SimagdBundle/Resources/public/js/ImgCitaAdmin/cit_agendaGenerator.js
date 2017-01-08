@@ -11,6 +11,7 @@
      * Global variables for plugin
      */
     window.__FULL_CAL__ = {};   // --| build data collection
+    
     /*
      * Collection of functions / fc options
      */
