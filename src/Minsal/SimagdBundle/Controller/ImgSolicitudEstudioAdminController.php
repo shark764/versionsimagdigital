@@ -728,7 +728,8 @@ class ImgSolicitudEstudioAdminController extends Controller
             {
                 $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
                         $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
-                        '<div class="box-body" ondblclick="_fn_show_object_detail(this, ' . $slug . ', ' . $r['id'] . '); return false;">' .
+                        '<div class="box-body">' .
+                        // '<div class="box-body" ondblclick="_fn_show_object_detail(this, \'' . $slug . '\', ' . $r['id'] . '); return false;">' .
                             // '<div class="container">' .
                             // '<div class=" col-lg-12 col-md-12 col-sm-12">' .
                                 '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3></div></div>' .
