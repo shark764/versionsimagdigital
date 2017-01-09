@@ -11,8 +11,40 @@ use Minsal\SimagdBundle\Entity\ImgDiagnostico;
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxDiagnosticoRadiologicoListViewGenerator;
+
 class ImgDiagnosticoAdminController extends Controller
 {
+    /**
+     * TABLE GENERATOR
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function generateTableAction(Request $request)
+    {
+        $request->isXmlHttpRequest();
+        $__REQUEST__type = $request->request->get('type', 'list');
+
+        $em = $this->getDoctrine()->getManager();
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxDiagnosticoRadiologicoListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass(),
+                $__REQUEST__type
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+
+        return $this->renderJson(array(
+            'result'    => 'ok',
+            'options'   => $options
+        ));
+    }
+
     /**
      * 
      * @return type
@@ -104,7 +136,7 @@ class ImgDiagnosticoAdminController extends Controller
      */
     public function createAction()
     {
-	//Acceso denegado
+        //Acceso denegado
         if (false === $this->admin->isGranted('CREATE')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -141,9 +173,9 @@ class ImgDiagnosticoAdminController extends Controller
         //Obtener entidad lectura
         $em = $this->getDoctrine()->getManager();
         $entityLct = $em->getRepository('MinsalSimagdBundle:ImgLectura')->find($idLecturaPadre);
-	if (!$entityLct) {
-            return $this->render('MinsalSimagdBundle:ImagenologiaDigitalAdmin:simagd_modal_support_default.html.twig', array());
-	}
+    	if (!$entityLct) {
+                return $this->render('MinsalSimagdBundle:ImagenologiaDigitalAdmin:simagd_modal_support_default.html.twig', array());
+    	}
         
         //Establecimiento local
         $estabLocal = $this->container->get('security.context')->getToken()->getUser()->getIdEstablecimiento()->getId();
@@ -154,7 +186,7 @@ class ImgDiagnosticoAdminController extends Controller
         $entityPrc = $entityEst->getIdProcedimientoRealizado()->getIdSolicitudEstudio();
 
         //Expediente local e información del paciente
-	$entityExp = $em->getRepository('MinsalSiapsBundle:MntExpediente')
+        $entityExp = $em->getRepository('MinsalSiapsBundle:MntExpediente')
 		                        ->findOneBy(array('idEstablecimiento' => $estabLocal,
 		                                        'idPaciente' => $entityEst->getIdExpediente()->getIdPaciente()->getId()
 		                                    ));
@@ -190,26 +222,26 @@ class ImgDiagnosticoAdminController extends Controller
     }
     
     public function editAction($id = null) {
-	//Acceso denegado
+        //Acceso denegado
         if (false === $this->admin->isGranted('EDIT')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
         
         $em = $this->getDoctrine()->getManager();
 
-	//No existe el registro
+        //No existe el registro
         if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgDiagnostico', 'diag')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
-	//No puede acceder al registro
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+    	//No puede acceder al registro
+    	$securityContext 	= $this->container->get('security.context');
+    	$sessionUser 		= $securityContext->getToken()->getUser();
         if (false === $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
-	//No está autorizado a editar el registro
+        //No está autorizado a editar el registro
         if (!($em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->obtenerAccesoDiagnostico($id, $sessionUser->getId()) ||
 			$securityContext->isGranted('ROLE_ADMIN'))) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
@@ -219,20 +251,20 @@ class ImgDiagnosticoAdminController extends Controller
     }
     
     public function showAction($id = null) {
-	//Acceso denegado
+        //Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
         
         $em = $this->getDoctrine()->getManager();
 
-	//No existe el registro
+        //No existe el registro
         if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgDiagnostico', 'diag')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
-	//No puede acceder al registro
-	$sessionUser = $this->container->get('security.context')->getToken()->getUser();
+    	//No puede acceder al registro
+    	$sessionUser = $this->container->get('security.context')->getToken()->getUser();
         if (false === $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -241,7 +273,7 @@ class ImgDiagnosticoAdminController extends Controller
     }
     
     public function listAction() {
-	//Acceso denegado
+        //Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -255,40 +287,97 @@ class ImgDiagnosticoAdminController extends Controller
         
         $BS_FILTERS         = $this->get('request')->query->get('filters');
         $BS_FILTERS_DECODE  = json_decode($BS_FILTERS, true);
+
+        $__REQUEST__type = $this->get('request')->query->get('type', 'list');
         
         $em                 = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $resultados         = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->obtenerDiagnosticosV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results         = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->obtenerDiagnosticosV2($estabLocal->getId(), $BS_FILTERS_DECODE);
 
-	$isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
-	$isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
-	$allowUserCod       = (in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('MED', 'TRY'))) ? TRUE : FALSE;
-        
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgDiagnostico();
+    	$isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
+    	$isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
+    	$allowUserCod       = (in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('MED', 'TRY'))) ? TRUE : FALSE;
 
-            $resultados[$key]['diag_fechaTranscrito']    = $resultado['diag_fechaTranscrito'] ? $resultado['diag_fechaTranscrito']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['diag_fechaCorregido']     = $resultado['diag_fechaCorregido'] ? $resultado['diag_fechaCorregido']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['diag_fechaAprobado']      = $resultado['diag_fechaAprobado'] ? $resultado['diag_fechaAprobado']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['diag_fechaRegistro']      = $resultado['diag_fechaRegistro']->format('Y-m-d H:i:s A');
-            $resultados[$key]['lct_fechaLectura']                   = $resultado['lct_fechaLectura']->format('Y-m-d H:i:s A');
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgDiagnostico();
+
+            if ($__REQUEST__type === 'detail')
+            {
+                $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
+                        '<div class="box-body" ondblclick="_fn_show_object_detail(this, \'undiagnosed_studies\', ' . $r['id'] . '); return false;">' .
+                            // '<div class="container">' .
+                            // '<div class=" col-lg-12 col-md-12 col-sm-12">' .
+                                '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3></div></div>' .
+                                '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 14px;">' . $r['numero_expediente'] . '</span></div></div><p></p>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['origen'] . '</div><div class="col-lg-6 col-md-6 col-sm-6 "><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" >' . /*<span class="glyphicon glyphicon-check"></span>*/ 'Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['area_atencion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['atencion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['medico'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['modalidad'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['triage'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>Radiólogo:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['radiologo'] . '</div></div>' .
+                            // '</div>' .
+                        '</div>' .
+                    '</div>';
+                continue;
+            }
+
+            $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
+                    '<div class="btn-group" role="group">' .
+                        '<a class=" worklist-show-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Ver detalle..." >' .
+                        // '<a class=" worklist-show-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Ver detalle..." >' .
+                            // 'Ver' .
+                            '<i class="glyphicon glyphicon-chevron-down"></i>' .
+                        '</a>' .
+                    '</div>' .
+                    '<div class="btn-group" role="group">' .
+                        '<a class=" worklist-save-form-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Abrir formulario..." >' .
+                        // '<a class=" worklist-save-form-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Abrir formulario..." >' .
+                            // 'Formulario' .
+                            '<i class="glyphicon glyphicon-edit"></i>' .
+                        '</a>' .
+                    '</div>' .
+                    '<div class="btn-group" role="group">' .
+                        '<a class=" worklist-save-and-pacs-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Guardar y asociar..." >' .
+                        // '<a class=" worklist-save-and-pacs-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Guardar y asociar..." >' .
+                            // 'Guardar y asociar' .
+                            // '<i class="glyphicon glyphicon-check"></i>' .
+                            '<i class="glyphicon glyphicon-link"></i>' .
+                        '</a>' .
+                    '</div>' .
+                    // '<span class="bs-btn-separator-toolbar"></span>' .
+                    '<div class="btn-group" role="group">' .
+                        '<a class=" worklist-save-action btn-link btn-link-emergency " href="javascript:void(0)" title="Guardar sin asociar..." >' .
+                        // '<a class=" worklist-save-action btn btn-emergency btn-outline btn-xs " href="javascript:void(0)" title="Guardar sin asociar..." >' .
+                            // 'Guardar' .
+                            '<i class="glyphicon glyphicon-check"></i>' .
+                        '</a>' .
+                    '</div>' .
+                '</div>';
+
+            $results[$key]['diag_fechaTranscrito']    = $r['diag_fechaTranscrito'] ? $r['diag_fechaTranscrito']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['diag_fechaCorregido']     = $r['diag_fechaCorregido'] ? $r['diag_fechaCorregido']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['diag_fechaAprobado']      = $r['diag_fechaAprobado'] ? $r['diag_fechaAprobado']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['diag_fechaRegistro']      = $r['diag_fechaRegistro']->format('Y-m-d H:i:s A');
+            $results[$key]['lct_fechaLectura']                   = $r['lct_fechaLectura']->format('Y-m-d H:i:s A');
             
-            $resultados[$key]['allowShow']                          = $isUser_allowShow;
+            $results[$key]['allowShow']                          = $isUser_allowShow;
             
-            $resultados[$key]['allowEdit']                          = (false !== $isUser_allowEdit &&
-                    ($resultado['diag_id_userReg'] == $sessionUser->getId() || ($resultado['diag_id_userMod'] == $sessionUser->getId()) ||
-                    ($resultado['lct_id_usrRg'] == $sessionUser->getId()) || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
+            $results[$key]['allowEdit']                          = (false !== $isUser_allowEdit &&
+                    ($r['diag_id_userReg'] == $sessionUser->getId() || ($r['diag_id_userMod'] == $sessionUser->getId()) ||
+                    ($r['lct_id_usrRg'] == $sessionUser->getId()) || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
             
-            $resultados[$key]['allowNota']                          = ($this->admin->getRoutes()->has('nota') && in_array($resultado['diag_codEstado'], array('APR')) && (((false !== $allowUserCod) &&
+            $results[$key]['allowNota']                          = ($this->admin->getRoutes()->has('nota') && in_array($r['diag_codEstado'], array('APR')) && (((false !== $allowUserCod) &&
                     ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_NOTA_DIAGNOSTICO_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_NOTA_DIAGNOSTICO_EDIT'))) || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
         }
         
         $response = new Response();
-        $response->setContent(json_encode($resultados));
+        $response->setContent(json_encode($results));
         return $response;
     }
     
@@ -302,7 +391,7 @@ class ImgDiagnosticoAdminController extends Controller
 
         //Nueva instancia
         $diagnostico        = $this->admin->getNewInstance();
-//        $diagnostico = new ImgDiagnostico();
+        // $diagnostico = new ImgDiagnostico();
         
         $empleado           = $request->request->get('formDiagIdEmpleado');
         $estado             = $request->request->get('formDiagIdEstado');
@@ -416,7 +505,7 @@ class ImgDiagnosticoAdminController extends Controller
         $response->setContent(json_encode(
                 array('id' => $object->getId(),
                         'object' => $object->getObjectVarsAsArray()
-//                        'url' => $this->admin->generateUrl('show', array('id' => $object->getId()))
+                        // 'url' => $this->admin->generateUrl('show', array('id' => $object->getId()))
                 )));
         return $response;
     }
