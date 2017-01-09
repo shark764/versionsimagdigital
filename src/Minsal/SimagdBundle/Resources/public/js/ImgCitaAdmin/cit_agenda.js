@@ -713,27 +713,23 @@ jQuery(document).ready(function() {
     var __DOM__filter_search_type = jQuery('input[name=_fc_filter_search_type]');
 
     __DOM__filter_search_type.on('ifChecked', function(e) {
-        var chk = jQuery('input[name=_fc_filter_search_type]:checked').val();
-        // var $last_view = $el_fc_calendar.fullCalendar('getView');
-    	if (this.value === 'summary') {
-			$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'aspectRatio', 1);
-    		// $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 2650);
-    		// $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 1650);
-    		// window.console.log (JSON.stringify($el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height')));
-    	}
-    	else {
-			$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'aspectRatio', 0.75);
-    		// $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 'auto');
-    		// $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 'auto');
-    		// window.console.log (JSON.stringify($el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height')));
-    	}
-		/*
-		 * fullCalendar
-		 */
-		$el_fc_calendar
-			.filter(':not([disabled]):visible')
-			.fullCalendar('refetchEvents');	// --| refresh the view
+        /*
+         * fullCalendar
+         */
+        var $last_view = $el_fc_calendar.fullCalendar('getView');
+        if ($last_view.name !== 'month') {
+            return;
+        }
 
+        var aspectRatio = 0.75;
+    	if (this.value === 'summary') {
+            aspectRatio = 1;
+    	}
+        $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'aspectRatio', aspectRatio);
+        $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('refetchEvents');	// --| refresh the view
+		// $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height', 2650);
+		// $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'contentHeight', 1650);
+		// window.console.log (JSON.stringify($el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('option', 'height')));
     });
 
 });
