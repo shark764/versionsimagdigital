@@ -252,6 +252,9 @@ class DiagnosticoRepository extends EntityRepository
                             ->addSelect('ptrAsc')
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
+
+                            ->addSelect('diag.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, concat(coalesce(emplct.apellido, \'\'), \', \', coalesce(emplct.nombre, \'\')) as radiologo, statusdiag.nombreEstado as estado, diag.conclusion as conclusion, concat(coalesce(empdiag.apellido, \'\'), \', \', coalesce(empdiag.nombre, \'\')) as transcriptor, diag.fechaTranscrito as fecha_transcrito, diag.fechaAprobado as fecha_aprobado, diag.fechaRegistro as fecha_diagnostico')
+
                             ->addSelect('statusdiag.id as diag_id_estado, statusdiag.nombreEstado as diag_estado, statusdiag.codigo as diag_codEstado')
                             ->addSelect('prc.fechaCreacion as prc_fechaCreacion, est.id as est_id, est.fechaEstudio as est_fechaEstudio, est.url as est_url, prz.fechaAlmacenado as prz_fechaAlmacenado')
                             ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')

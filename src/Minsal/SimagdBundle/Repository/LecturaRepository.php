@@ -183,6 +183,9 @@ class LecturaRepository extends EntityRepository
                             ->addSelect('ptrAsc')
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
+
+                            ->addSelect('lct.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, concat(coalesce(emplct.apellido, \'\'), \', \', coalesce(emplct.nombre, \'\')) as radiologo, statuslct.nombreEstado as estado, lct.fechaLectura as fecha_lectura')
+
                             ->addSelect('statusprz.id as prz_id_estado, statusprz.nombreEstado as prz_estado, statusprz.codigo as prz_codEstado')
                             ->addSelect('statuslct.id as lct_id_estado, statuslct.nombreEstado as lct_estado, statuslct.codigo as lct_codEstado, tipoR.id as lct_id_tipoResultado, tipoR.nombreTipo as lct_tipoResultado, tipoR.indeterminado as lct_indeterminado')
                             ->addSelect('prc.fechaCreacion as prc_fechaCreacion, prz.fechaAlmacenado as prz_fechaAlmacenado')
