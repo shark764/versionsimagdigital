@@ -9,34 +9,66 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxCtlPatronDiagnosticoListViewGenerator;
+
 class ImgCtlPatronDiagnosticoAdminController extends Controller
 {
+    /**
+     * TABLE GENERATOR
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function generateTableAction(Request $request)
+    {
+        $request->isXmlHttpRequest();
+        $__REQUEST__type = $request->request->get('type', 'list');
+
+        $em = $this->getDoctrine()->getManager();
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxCtlPatronDiagnosticoListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass(),
+                $__REQUEST__type
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+
+        return $this->renderJson(array(
+            'result'    => 'ok',
+            'options'   => $options
+        ));
+    }
+    
     public function listAction()
     {
 	//Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
-        
+
         $em                 = $this->getDoctrine()->getManager();
-        
+
 	$securityContext    = $this->container->get('security.context');
 	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
-        
+
         $tiposEmpleado      = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
-        
+
         $empleados          = $em->getRepository('MinsalSiapsBundle:MntEmpleado')
                                         ->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(1, 2, 4, 5, 6, 7))
                                         ->getQuery()->getResult();
-        
+
         $modalidades        = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')
                                             ->obtenerModalidadesRealizablesLocalV2($estabLocal->getId());
-        
+
         $radiologos         = $em->getRepository('MinsalSiapsBundle:MntEmpleado')
                                             ->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(4, 5))
                                             ->getQuery()->getResult();
-        
+
         $tiposResultado     = $em->getRepository('MinsalSimagdBundle:ImgCtlTipoResultado')->findAll();
 
         return $this->render($this->admin->getTemplate('list'),
@@ -50,20 +82,20 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
                         'tipoResultDefault'     => 1
                     ));
     }
-    
+
     public function listarPatronesDiagnosticoAction(Request $request)
     {
         $request->isXmlHttpRequest();
-        
+
         $BS_FILTERS         = $this->get('request')->query->get('filters');
         $BS_FILTERS_DECODE  = json_decode($BS_FILTERS, true);
-        
+
         $em                 = $this->getDoctrine()->getManager();
-        
+
 	$securityContext    = $this->container->get('security.context');
 	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
-        
+
         $resultados         = $em->getRepository('MinsalSimagdBundle:ImgCtlPatronDiagnostico')->obtenerPatronesDiagnosticoV2($estabLocal->getId(), $BS_FILTERS_DECODE);
 
 	$isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
@@ -74,17 +106,17 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
 
             $resultados[$key]['ptrDiag_fechaHoraReg']   = $resultado['ptrDiag_fechaHoraReg']->format('Y-m-d H:i:s A');
             $resultados[$key]['ptrDiag_fechaHoraMod']   = $resultado['ptrDiag_fechaHoraMod'] ? $resultado['ptrDiag_fechaHoraMod']->format('Y-m-d H:i:s A') : '';
-            
+
             $resultados[$key]['allowShow']              = $isUser_allowShow;
-            
+
             $resultados[$key]['allowEdit']              = $isUser_allowEdit;
         }
-        
+
         $response = new Response();
         $response->setContent(json_encode($resultados));
         return $response;
     }
-    
+
     public function crearPatronDiagnosticoAction(Request $request)
     {
         $request->isXmlHttpRequest();
@@ -92,7 +124,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
         //Nueva instancia
         $patronDiagnostico      = $this->admin->getNewInstance();
 //        $patronDiagnostico = new ImgCtlPatronDiagnostico();
-        
+
         $empleado               = $request->request->get('formPtrDiagIdEmpleado');
         $modalidad              = $request->request->get('formPtrDiagIdAreaServicioDiagnostico');
         $radiologo              = $request->request->get('formPtrDiagIdRadiologoDefine');
@@ -113,7 +145,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
 
         //Establecimiento local
         $patronDiagnostico->setIdEstablecimiento($estabLocal);
-        
+
         //Empleado
         $empleadoReference      = $em->getReference('Minsal\SiapsBundle\Entity\MntEmpleado', $empleado);
         $patronDiagnostico->setIdEmpleadoRegistra($empleadoReference);
@@ -123,7 +155,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
         //Tipo Resultado
         $tipoResultReference    = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlTipoResultado', $tipoResult);
         $patronDiagnostico->setIdTipoResultado($tipoResultReference);
-        
+
         //Radiologo
 	if ($radiologo)
 	{
@@ -132,7 +164,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
 	} else {
 	    $patronDiagnostico->setIdRadiologoDefine(NULL);
 	}
-        
+
         $patronDiagnostico->setNombre(trim($nombre));
         $patronDiagnostico->setCodigo(trim($codigo));
         $patronDiagnostico->setHallazgos($hallazgos);
@@ -147,22 +179,22 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
         } catch (Exception $e) {
             $status = 'failed';
         }
-        
+
         $response = new Response();
         $response->setContent(json_encode(array()));
         return $response;
     }
-    
+
     public function editarPatronDiagnosticoAction(Request $request)
     {
         $request->isXmlHttpRequest();
-	
+
         //Get parameter from diagnostico
         $id                     = $request->request->get('formPtrDiagId');
-        
+
         //Objeto
         $patronDiagnostico      = $this->admin->getObject($id);
-        
+
         $empleado 		= $request->request->get('formPtrDiagIdEmpleado');
         $modalidad 		= $request->request->get('formPtrDiagIdAreaServicioDiagnostico');
         $radiologo 		= $request->request->get('formPtrDiagIdRadiologoDefine');
@@ -174,9 +206,9 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
         $recomendaciones 	= $request->request->get('formPtrDiagRecomendaciones');
         $indicaciones 		= $request->request->get('formPtrDiagIndicacionesGenerales');
         $observaciones 		= $request->request->get('formPtrDiagObservaciones');
-        
+
         $em = $this->getDoctrine()->getManager();
-        
+
         //Empleado
         $empleadoReference 	= $em->getReference('Minsal\SiapsBundle\Entity\MntEmpleado', $empleado);
         $patronDiagnostico->setIdEmpleadoRegistra($empleadoReference);
@@ -186,7 +218,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
         //Tipo Resultado
         $tipoResultReference 	= $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlTipoResultado', $tipoResult);
         $patronDiagnostico->setIdTipoResultado($tipoResultReference);
-        
+
         //Radiologo
 	if ($radiologo)
 	{
@@ -195,7 +227,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
 	} else {
 	    $patronDiagnostico->setIdRadiologoDefine(NULL);
 	}
-        
+
         $patronDiagnostico->setNombre(trim($nombre));
         $patronDiagnostico->setCodigo(trim($codigo));
         $patronDiagnostico->setHallazgos($hallazgos);
@@ -203,23 +235,23 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
         $patronDiagnostico->setRecomendaciones($recomendaciones);
         $patronDiagnostico->setIndicacionesGenerales(trim($indicaciones));
         $patronDiagnostico->setObservaciones(trim($observaciones));
-        
+
         //Actualizar registro
         try {
             /*$patronDiagnostico  = */$this->admin->update($patronDiagnostico);
         } catch (Exception $e) {
             $status = 'failed';
         }
-        
+
         $response = new Response();
         $response->setContent(json_encode(array()));
         return $response;
     }
-    
+
     public function addDiagnosisAsPatternAction(Request $request)
     {
         $request->isXmlHttpRequest();
-        
+
 	$status = 'OK';
 
         //Nueva instancia
@@ -234,7 +266,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
 
         //Establecimiento local
         $object_ptrDiag->setIdEstablecimiento($estabLocal);
-        
+
         //Empleado
         $object_ptrDiag->setIdEmpleadoRegistra($sessionUser->getIdEmpleado());
         //Modalidad
@@ -244,7 +276,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
         $object_ptrDiag->setIdTipoResultado($em->getReference('Minsal\SimagdBundle\Entity\ImgCtlTipoResultado', $request->request->get('form_diagAsPattern_idTipoResultado')));
         //Radiologo
         $object_ptrDiag->setIdRadiologoDefine($sessionUser->getIdEmpleado());
-        
+
         $object_ptrDiag->setNombre(trim($request->request->get('form_diagAsPattern_nombre')));
         $object_ptrDiag->setCodigo(trim($request->request->get('form_diagAsPattern_codigo')));
         $object_ptrDiag->setHallazgos(trim($request->request->get('form_diagAsPattern_hallazgos')));
@@ -257,7 +289,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
         } catch (Exception $e) {
             $status = 'failed';
         }
-        
+
         $response   = new Response();
         $response->setContent(json_encode(
                 array(

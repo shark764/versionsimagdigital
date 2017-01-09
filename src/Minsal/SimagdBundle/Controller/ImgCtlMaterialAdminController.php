@@ -11,8 +11,39 @@ use Doctrine\ORM\EntityRepository;
 
 use Minsal\SimagdBundle\Entity\ImgCtlMaterialEstablecimiento;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxCtlMaterialListViewGenerator;
+
 class ImgCtlMaterialAdminController extends Controller
 {
+    /**
+     * TABLE GENERATOR
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function generateTableAction(Request $request)
+    {
+        $request->isXmlHttpRequest();
+        $__REQUEST__type = $request->request->get('type', 'list');
+
+        $em = $this->getDoctrine()->getManager();
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxCtlMaterialListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass(),
+                $__REQUEST__type
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+
+        return $this->renderJson(array(
+            'result'    => 'ok',
+            'options'   => $options
+        ));
+    }
 
     /**
      * Redirect the user depend on this choice
@@ -56,48 +87,48 @@ class ImgCtlMaterialAdminController extends Controller
 
         return new RedirectResponse($url);
     }
-    
+
     public function createAction() {
 	//Acceso denegado
         if (false === $this->admin->isGranted('CREATE')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
-        
+
         return parent::createAction();
     }
-    
+
     public function editAction($id = null) {
 	//Acceso denegado
         if (false === $this->admin->isGranted('EDIT')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
-        
+
 //        $em = $this->getDoctrine()->getManager();
 //
 //	//No existe el registro
 //        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlProyeccion', 'expl')) {
 //            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
 //        }
-        
+
         return parent::editAction($id);
     }
-    
+
     public function showAction($id = null) {
 	//Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
-        
+
 //        $em = $this->getDoctrine()->getManager();
 //
 //	//No existe el registro
 //        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlProyeccion', 'expl')) {
 //            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
 //        }
-        
+
         return parent::showAction($id);
     }
-    
+
     public function listAction() {
 	//Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
@@ -106,20 +137,20 @@ class ImgCtlMaterialAdminController extends Controller
 
         return $this->render($this->admin->getTemplate('list'));
     }
-    
+
     public function listarMaterialesAction(Request $request)
     {
         $request->isXmlHttpRequest();
-        
+
         $BS_FILTERS         = $this->get('request')->query->get('filters');
         $BS_FILTERS_DECODE  = json_decode($BS_FILTERS, true);
-        
+
         $em                 = $this->getDoctrine()->getManager();
-        
+
 	$securityContext    = $this->container->get('security.context');
 	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
-        
+
         $resultados         = $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')->obtenerMaterialesV2($BS_FILTERS_DECODE);
 
 	$isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
@@ -130,27 +161,27 @@ class ImgCtlMaterialAdminController extends Controller
 
             $resultados[$key]['mtrl_fechaHoraReg']  = $resultado['mtrl_fechaHoraReg']->format('Y-m-d H:i:s A');
             $resultados[$key]['mtrl_fechaHoraMod']  = $resultado['mtrl_fechaHoraMod'] ? $resultado['mtrl_fechaHoraMod']->format('Y-m-d H:i:s A') : '';
-            
+
             $resultados[$key]['allowShow']          = $isUser_allowShow;
-            
+
             $resultados[$key]['allowEdit']          = $isUser_allowEdit;
-            
+
             $resultados[$key]['allowAgregarLc']     = ($this->admin->getRoutes()->has('agregarEnMiCatalogo') &&
                     false === $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')->existeMaterialEnLocalV2($estabLocal->getId(), $resultado['mtrl_id']) &&
                     ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_MATERIAL_ESTABLECIMIENTO_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
         }
-        
+
         $response = new Response();
         $response->setContent(json_encode($resultados));
         return $response;
     }
-    
+
     public function crearMaterialAction(Request $request)
     {
         $request->isXmlHttpRequest();
-        
+
         $em                 = $this->getDoctrine()->getManager();
-        
+
         $securityContext    = $this->container->get('security.context');
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
@@ -158,11 +189,11 @@ class ImgCtlMaterialAdminController extends Controller
         //Nueva instancia
         $material           = $this->admin->getNewInstance();
 //        $material = new \Minsal\SimagdBundle\Entity\ImgCtlMaterial();
-        
+
         $nombre             = $request->request->get('formMtrlNombre');
         $codigo             = $request->request->get('formMtrlCodigo');
         $descripcion        = $request->request->get('formMtrlDescripcion');
-        
+
         $material->setNombre($nombre);
         $material->setCodigo($codigo);
         $material->setDescripcion($descripcion);
@@ -173,7 +204,7 @@ class ImgCtlMaterialAdminController extends Controller
         } catch (Exception $e) {
             $status = 'failed';
         }
-        
+
         $cantidadDisponible = $request->request->get('formMtrlCantidadDisponibleLocal');
         $habilitado         = $this->get('request')->request->get('formMtrlHabilitadoLocal') ? TRUE : FALSE;
         $descripcionLocal   = $request->request->get('formMtrlDescripcionLocal');
@@ -200,40 +231,40 @@ class ImgCtlMaterialAdminController extends Controller
 		$status = 'failed';
 	    }
         }
-        
+
         $response = new Response();
         $response->setContent(json_encode(array()));
         return $response;
     }
-    
+
     public function editarMaterialAction(Request $request)
     {
         $request->isXmlHttpRequest();
-        
+
         $em             = $this->getDoctrine()->getManager();
-	
+
         //Get parameter from diagnostico
         $id             = $request->request->get('formMtrlId');
-        
+
         //Objeto
         $material       = $this->admin->getObject($id);
 //        $material = new \Minsal\SimagdBundle\Entity\ImgCtlMaterial();
-        
+
         $nombre         = $request->request->get('formMtrlNombre');
         $codigo         = $request->request->get('formMtrlCodigo');
         $descripcion    = $request->request->get('formMtrlDescripcion');
-        
+
         $material->setNombre($nombre);
         $material->setCodigo($codigo);
         $material->setDescripcion($descripcion);
-        
+
         //Actualizar registro
         try {
             /*$material       = */$this->admin->update($material);
         } catch (Exception $e) {
             $status = 'failed';
         }
-        
+
         $response = new Response();
         $response->setContent(json_encode(array()));
         return $response;

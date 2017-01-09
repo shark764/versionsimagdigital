@@ -11,8 +11,39 @@ use Doctrine\ORM\EntityRepository;
 use Minsal\SiapsBundle\Entity\MntAreaExamenEstablecimiento;
 use Minsal\SimagdBundle\Entity\ImgCtlProyeccionEstablecimiento;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxCtlProyeccionRadiologicaListViewGenerator;
+
 class ImgCtlProyeccionAdminController extends Controller
 {
+    /**
+     * TABLE GENERATOR
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function generateTableAction(Request $request)
+    {
+        $request->isXmlHttpRequest();
+        $__REQUEST__type = $request->request->get('type', 'list');
+
+        $em = $this->getDoctrine()->getManager();
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxCtlProyeccionRadiologicaListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass(),
+                $__REQUEST__type
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+
+        return $this->renderJson(array(
+            'result'    => 'ok',
+            'options'   => $options
+        ));
+    }
 
     /**
      * Redirect the user depend on this choice
@@ -56,60 +87,60 @@ class ImgCtlProyeccionAdminController extends Controller
 
         return new RedirectResponse($url);
     }
-    
+
     public function createAction() {
 	//Acceso denegado
         if (false === $this->admin->isGranted('CREATE')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
-        
+
         return parent::createAction();
     }
-    
+
     public function editAction($id = null) {
 	//Acceso denegado
         if (false === $this->admin->isGranted('EDIT')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
-        
+
         $em = $this->getDoctrine()->getManager();
 
 	//No existe el registro
         if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlProyeccion', 'expl')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
-        
+
         return parent::editAction($id);
     }
-    
+
     public function showAction($id = null) {
 	//Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
-        
+
         $em = $this->getDoctrine()->getManager();
 
 	//No existe el registro
         if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlProyeccion', 'expl')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
-        
+
         return parent::showAction($id);
     }
-    
+
     public function listAction() {
 	//Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
-        
+
 	$securityContext    = $this->container->get('security.context');
 	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
-        
+
         $em                 = $this->getDoctrine()->getManager();
-        
+
         $modalidades        = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
         $examenes           = $em->getRepository('MinsalSiapsBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
         $proyecciones       = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
@@ -125,20 +156,20 @@ class ImgCtlProyeccionAdminController extends Controller
                     'default_mldRx'    => 13
         ));
     }
-    
+
     public function listarProyeccionesAction(Request $request)
     {
         $request->isXmlHttpRequest();
-        
+
         $BS_FILTERS             = $this->get('request')->query->get('filters');
         $BS_FILTERS_DECODE      = json_decode($BS_FILTERS, true);
-        
+
         $em                     = $this->getDoctrine()->getManager();
-        
+
 	$securityContext 	= $this->container->get('security.context');
 	$sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
-        
+
         $resultados             = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesV2($BS_FILTERS_DECODE);
 
 	$isUser_allowShow       = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
@@ -149,42 +180,42 @@ class ImgCtlProyeccionAdminController extends Controller
 
             $resultados[$key]['expl_fechaHoraReg']  = $resultado['expl_fechaHoraReg']->format('Y-m-d H:i:s A');
             $resultados[$key]['expl_fechaHoraMod']  = $resultado['expl_fechaHoraMod'] ? $resultado['expl_fechaHoraMod']->format('Y-m-d H:i:s A') : '';
-            
+
             $resultados[$key]['allowShow']          = $isUser_allowShow;
-            
+
             $resultados[$key]['allowEdit']          = $isUser_allowEdit;
-            
+
             $resultados[$key]['allowAgregarLc']     = ($this->admin->getRoutes()->has('agregarEnMiCatalogo') &&
                     false === $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->existeProyeccionEnLocalV2($estabLocal->getId(), $resultado['expl_id']) &&
                     ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_PROYECCION_ESTABLECIMIENTO_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
         }
-        
+
         $response = new Response();
         $response->setContent(json_encode($resultados));
         return $response;
     }
-    
+
     /**
-     * 
+     *
      * @return type
      */
     public function obtenerModalidadesAction() {
-        
+
         $em = $this->getDoctrine()->getManager();
-        
+
         $estabLocal = $this->container->get('security.context')->getToken()->getUser()->getIdEstablecimiento()->getId();
-        
+
         $areaAtn = '97';
-        
+
         $modalidades = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesImagenologia($areaAtn);
-        
+
         return $this->render('MinsalSimagdBundle:ImgCtlProyeccionAdmin:expl_modalidadesComboBox.html.twig', array('modalidades' => $modalidades->getQuery()->getResult()));
     }
-    
+
     public function crearProyeccionAction(Request $request)
     {
         $request->isXmlHttpRequest();
-        
+
         $securityContext    = $this->container->get('security.context');
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
@@ -192,7 +223,7 @@ class ImgCtlProyeccionAdminController extends Controller
         //Nueva instancia
         $proyeccion        = $this->admin->getNewInstance();
 //        $proyeccion = new \Minsal\SimagdBundle\Entity\ImgCtlProyeccion();
-        
+
         $nombre             = $request->request->get('formExplNombre');
         $codigo             = $request->request->get('formExplCodigo');
         $examen             = $request->request->get('formExplIdExamenServicioDiagnostico');
@@ -202,13 +233,13 @@ class ImgCtlProyeccionAdminController extends Controller
         $observaciones      = $request->request->get('formExplObservaciones');
         $realizable         = $request->request->get('formExplProyeccionRealizable') ? TRUE : FALSE;
         $area               = $request->request->get('formExplIdAreaServicioDiagnostico');
-        
+
         $em                 = $this->getDoctrine()->getManager();
-        
+
         //Examen
         $examenReference    = $em->getReference('Minsal\SiapsBundle\Entity\CtlExamenServicioDiagnostico', $examen);
         $proyeccion->setIdExamenServicioDiagnostico($examenReference);
-        
+
         $proyeccion->setNombre($nombre);
         $proyeccion->setCodigo($codigo);
         $proyeccion->setDescripcion($descripcion);
@@ -233,13 +264,13 @@ class ImgCtlProyeccionAdminController extends Controller
             $pryRealizable->setIdProyeccion($proyeccion);
             $pryRealizable->setIdUserReg($sessionUser);
             $pryRealizable->setFechaHoraReg(new \DateTime('now'));
-        
+
 	    $habilitado         = $request->request->get('formExplHabilitadoLocal') ? TRUE : FALSE;
 	    $observacionesLc    = $request->request->get('formExplObservacionesLocal');
-	    
+
 	    $pryRealizable->setHabilitado($habilitado);
 	    $pryRealizable->setObservaciones($observacionesLc);
-            
+
             $areaExmEstab       = $em->getRepository('MinsalSiapsBundle:MntAreaExamenEstablecimiento')
                                                     ->findOneBy(array('idEstablecimiento' => $estabLocal->getId(),
                                                                         'idAreaServicioDiagnostico' => $area,
@@ -270,22 +301,22 @@ class ImgCtlProyeccionAdminController extends Controller
             $em->persist($pryRealizable);
             $em->flush();
         }
-        
+
         $response = new Response();
         $response->setContent(json_encode(array()));
         return $response;
     }
-    
+
     public function editarProyeccionAction(Request $request)
     {
         $request->isXmlHttpRequest();
-	
+
         //Get parameter from proyección
         $id                 = $request->request->get('formExplId');
-        
+
         //Objeto
         $proyeccion        = $this->admin->getObject($id);
-        
+
         $nombre             = $request->request->get('formExplNombre');
         $codigo             = $request->request->get('formExplCodigo');
         $examen             = $request->request->get('formExplIdExamenServicioDiagnostico');
@@ -293,13 +324,13 @@ class ImgCtlProyeccionAdminController extends Controller
         $tiempoMedico       = $request->request->get('formExplTiempoMedico');
         $descripcion        = $request->request->get('formExplDescripcion');
         $observaciones      = $request->request->get('formExplObservaciones');
-        
+
         $em                 = $this->getDoctrine()->getManager();
-        
+
         //Examen
         $examenReference    = $em->getReference('Minsal\SiapsBundle\Entity\CtlExamenServicioDiagnostico', $examen);
         $proyeccion->setIdExamenServicioDiagnostico($examenReference);
-        
+
         $proyeccion->setNombre($nombre);
         $proyeccion->setCodigo($codigo);
         $proyeccion->setDescripcion($descripcion);
@@ -310,29 +341,29 @@ class ImgCtlProyeccionAdminController extends Controller
         if ($tiempoSala) {
             $proyeccion->setTiempoOcupacionSala($tiempoSala);
         }
-        
+
         //Actualizar registro
         try {
             /*$proyeccion    = */$this->admin->update($proyeccion);
         } catch (Exception $e) {
             $status = 'failed';
         }
-        
+
         $response = new Response();
         $response->setContent(json_encode(array()));
         return $response;
     }
-    
+
     public function getObjectVarsAsArrayAction(Request $request)
     {
         $request->isXmlHttpRequest();
-	
+
         //Get parameter from object
         $id = $request->request->get('id');
-        
+
         //Objeto
         $object = $this->admin->getObject($id);
-        
+
         $response = new Response();
         $response->setContent(json_encode(
                 array('id' => $object->getId(),
@@ -341,25 +372,25 @@ class ImgCtlProyeccionAdminController extends Controller
                 )));
         return $response;
     }
-    
+
     public function asignarElementoListaLocalAction(Request $request)
     {
         $request->isXmlHttpRequest();
-        
+
 	$status     = 'OK';
-        
+
         /*
          * request
          */
         $id_areaSrvDiag    = $request->request->get('__mldx');
         $pryX_rows  = $request->request->get('__ar_rowsAffected');
-        
+
         $em         = $this->getDoctrine()->getManager();
-        
+
 	$securityContext    = $this->container->get('security.context');
 	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
-        
+
         //Actualizar registros
         try {
             $result = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')
@@ -367,7 +398,7 @@ class ImgCtlProyeccionAdminController extends Controller
         } catch (Exception $e) {
             $status = 'failed';
         }
-        
+
         $response   = new Response();
         $response->setContent(json_encode(array('update' => $status)));
         return $response;
