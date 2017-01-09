@@ -12,21 +12,24 @@
             $table.bootstrapTable('showLoading');
 
             $url = null;
-            if (slug === 'study_request' || slug === 'emergency_study_request') {
-                $url = 'simagd_solicitud_estudio_generateTable';
+            if (slug === 'radiological_result') {
+                $url = 'simagd_lectura_generateTable';
             }
-            if (slug === 'diagnostic_request') {
-                $url = 'simagd_solicitud_diagnostico_generateTable';
+            if (slug === 'transcribed_diagnosis') {
+                $url = 'simagd_diagnostico_generateTable';
+            }
+            if (slug === 'second_medical_opinions') {
+                $url = 'simagd_nota_generateTable';
             }
             if (slug === 'further_study_request') {
                 $url = 'simagd_solicitud_estudio_complementario_generateTable';
             }
 
-            // if (slug === 'emergency_study_request') {
+            // if (slug === 'transcribed_diagnosis') {
             //     emrg
             // }
 
-            var type = jQuery('input[name=_request_dashboard_display_type]:checked').val();
+            var type = jQuery('input[name=_results_dashboard_display_type]:checked').val();
 
             $.ajax({
                 type: 'POST',
@@ -59,7 +62,7 @@
              * @type type
              * Get Table definition
              */
-             // generate(null, 'study_request');
+             // generate(null, 'radiological_result');
              // jQuery('#')
 
             //////
@@ -74,11 +77,11 @@
             //////////////////////////////////////////////////////////////////////////
             //////// change content type - worklist
             //////////////////////////////////////////////////////////////////////////
-            var __DOM__worklistDisplayType = jQuery('input[name=_request_dashboard_display_type]');
+            var __DOM__worklistDisplayType = jQuery('input[name=_results_dashboard_display_type]');
 
             __DOM__worklistDisplayType.on('ifChecked', function(e) {
 
-                        jQuery('#_request_dashboard_display_items li.active').find('a').triggerHandler('click');
+                        jQuery('#_results_dashboard_display_items li.active').find('a').triggerHandler('click');
 
             });
             //////////////////////////////////////////////////////////////////////////
