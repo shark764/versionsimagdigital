@@ -15,6 +15,7 @@ use Sonata\AdminBundle\Exception\ModelManagerException;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxExamenPendienteRealizacionListViewGenerator;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxSolicitudEstudioListViewGenerator;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxLecturaRadiologicaListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxCtlProyeccionRadiologicaListViewGenerator;
 
 class ImagenologiaDigitalAdminController extends Controller
 {
@@ -100,7 +101,7 @@ class ImagenologiaDigitalAdminController extends Controller
         $atenciones             = $em->getRepository('MinsalSiapsBundle:CtlAtencion')->findAll();
 
         $expRequest         = $em->getRepository('MinsalSiapsBundle:MntExpediente')->find($id_expRequest ? $id_expRequest : '-1');
-        
+
         $collection_tiposEmpleado  = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
         $collection_radiologos     = $em->getRepository('MinsalSiapsBundle:MntEmpleado')->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(4, 5))->getQuery()->getResult();
         $collection_prioridades    = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2();
@@ -108,7 +109,7 @@ class ImagenologiaDigitalAdminController extends Controller
         $collection_examenes       = $em->getRepository('MinsalSiapsBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
         $collection_proyecciones   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
         $collection_sexos          = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
-        
+
         /*
          * GROUP_DEPENDENT_ENTITIES
          */
@@ -735,25 +736,25 @@ class ImagenologiaDigitalAdminController extends Controller
        ));
         return $response;
     }
-    
+
     public function asignarNuevoExpedienteAction(Request $request)
     {
         $request->isXmlHttpRequest();
-        
+
         $status     = 'OK';
-        
+
         /*
          * request
          */
         $id_expLocal    = $request->request->get('__tt_newRecord');
         $prc_rows  = $request->request->get('__ar_rowsAffected');
-        
+
         $em         = $this->getDoctrine()->getManager();
-        
+
     	$securityContext    = $this->container->get('security.context');
     	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
-        
+
         //Actualizar registros
         try {
             $result = $em->getRepository('MinsalSimagdBundle:ImgExpedienteFicticio')
@@ -761,7 +762,7 @@ class ImagenologiaDigitalAdminController extends Controller
         } catch (Exception $e) {
             $status = 'failed';
         }
-        
+
         $response   = new Response();
         $response->setContent(json_encode(array('update' => $status)));
         return $response;
@@ -777,9 +778,9 @@ class ImagenologiaDigitalAdminController extends Controller
     {
         // the key used to lookup the template
         $templateKey = 'worklist';
-        
+
         $securityContext = $this->container->get('security.context');
-        
+
         $em = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
@@ -801,7 +802,7 @@ class ImagenologiaDigitalAdminController extends Controller
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         // $em = $this->getDoctrine()->getManager();
 
         // $COLLECTION_modalities_ = $em->getRepository('MinsalLaboratorioBundle:CtlAreaServicioDiagnostico')->findBy(array('idAtencion' => self::___XRAY_CLINICAL_SERVICE___));
@@ -835,7 +836,7 @@ class ImagenologiaDigitalAdminController extends Controller
     {
         // the key used to lookup the template
         $templateKey = 'request_dashboard';
-        
+
         $securityContext = $this->container->get('security.context');
 
         // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
@@ -847,7 +848,7 @@ class ImagenologiaDigitalAdminController extends Controller
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         // $em = $this->getDoctrine()->getManager();
 
         // $COLLECTION_modalities_ = $em->getRepository('MinsalLaboratorioBundle:CtlAreaServicioDiagnostico')->findBy(array('idAtencion' => self::___XRAY_CLINICAL_SERVICE___));
@@ -878,7 +879,7 @@ class ImagenologiaDigitalAdminController extends Controller
     {
         // the key used to lookup the template
         $templateKey = 'results_dashboard';
-        
+
         $securityContext = $this->container->get('security.context');
 
         // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
@@ -890,7 +891,7 @@ class ImagenologiaDigitalAdminController extends Controller
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         // $em = $this->getDoctrine()->getManager();
 
         // $COLLECTION_modalities_ = $em->getRepository('MinsalLaboratorioBundle:CtlAreaServicioDiagnostico')->findBy(array('idAtencion' => self::___XRAY_CLINICAL_SERVICE___));
@@ -921,7 +922,7 @@ class ImagenologiaDigitalAdminController extends Controller
     {
         // the key used to lookup the template
         $templateKey = 'catalogs_dashboard';
-        
+
         $securityContext = $this->container->get('security.context');
 
         // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
@@ -933,7 +934,7 @@ class ImagenologiaDigitalAdminController extends Controller
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         // $em = $this->getDoctrine()->getManager();
 
         // $COLLECTION_modalities_ = $em->getRepository('MinsalLaboratorioBundle:CtlAreaServicioDiagnostico')->findBy(array('idAtencion' => self::___XRAY_CLINICAL_SERVICE___));

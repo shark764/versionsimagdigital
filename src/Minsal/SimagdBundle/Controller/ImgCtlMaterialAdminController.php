@@ -159,6 +159,8 @@ class ImgCtlMaterialAdminController extends Controller
         foreach ($resultados as $key => $resultado) {
 //            $resultado = new \Minsal\SimagdBundle\Entity\ImgCtlMaterial();
 
+        $resultados[$key]['action'] = '<div class="btn-group btn-group-xs"> <button type="button" class="btn btn-default dropdown-toggle example2-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
+
             $resultados[$key]['mtrl_fechaHoraReg']  = $resultado['mtrl_fechaHoraReg']->format('Y-m-d H:i:s A');
             $resultados[$key]['mtrl_fechaHoraMod']  = $resultado['mtrl_fechaHoraMod'] ? $resultado['mtrl_fechaHoraMod']->format('Y-m-d H:i:s A') : '';
 

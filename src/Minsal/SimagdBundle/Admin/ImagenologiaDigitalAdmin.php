@@ -13,7 +13,7 @@ class ImagenologiaDigitalAdmin extends Admin
 {
     protected $baseRouteName = 'simagd_imagenologia_digital';
     protected $baseRoutePattern = 'rayos-x-imagenologia-digital';
-    
+
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->clear();
@@ -34,7 +34,7 @@ class ImagenologiaDigitalAdmin extends Admin
         $collection->add('worklist', 'lista-de-trabajo', [], [], ['expose' => true]);
         $collection->add('requestDashboard', 'solicitudes', [], [], ['expose' => true]);
         $collection->add('resultsDashboard', 'resultados', [], [], ['expose' => true]);
-        $collection->add('catalogsDashboard', 'resultados', [], [], ['expose' => true]);
+        $collection->add('catalogsDashboard', 'catalogos', [], [], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         /*
          * getJsonFiltersForBsTables
@@ -42,7 +42,7 @@ class ImagenologiaDigitalAdmin extends Admin
         $collection->add('getJsonFiltersForBsTables', null, [], [], ['expose' => true]);
         $collection->add('getJsonGroupDependentEntities', null, [], [], ['expose' => true]);
     }
-    
+
     public function getTemplate($name) {
         switch ($name) {
             case 'busquedaPaciente':
@@ -80,13 +80,13 @@ class ImagenologiaDigitalAdmin extends Admin
                 break;
         }
     }
-    
+
     /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        
+
     }
 
     /**
@@ -94,7 +94,7 @@ class ImagenologiaDigitalAdmin extends Admin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
-        
+
     }
 
     /**
@@ -102,7 +102,7 @@ class ImagenologiaDigitalAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        
+
     }
 
     /**
@@ -110,7 +110,7 @@ class ImagenologiaDigitalAdmin extends Admin
      */
     protected function configureShowFields(ShowMapper $showMapper)
     {
-        
+
     }
-    
+
 }
