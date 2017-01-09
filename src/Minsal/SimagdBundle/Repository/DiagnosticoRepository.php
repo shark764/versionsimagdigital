@@ -355,7 +355,7 @@ class DiagnosticoRepository extends EntityRepository
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
 
-                            ->addSelect('pndT.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, concat(coalesce(emplct.apellido, \'\'), \', \', coalesce(emplct.nombre, \'\')) as radiologo, statuslct.nombreEstado as estado, pndT.fechaIngresoLista as fecha_ingreso')
+                            ->addSelect('pndT.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, concat(coalesce(emplct.apellido, \'\'), \', \', coalesce(emplct.nombre, \'\')) as radiologo, statuslct.nombreEstado as estado, pndT.fechaIngresoLista as fecha_ingreso'/*, diag.conclusion as conclusion'*/)
 
                             ->addSelect('statuslct.id as lct_id_estado, statuslct.nombreEstado as lct_estado, tipoR.id as lct_id_tipoResultado, tipoR.nombreTipo as lct_tipoResultado, tipoR.indeterminado as lct_indeterminado')
                             ->addSelect('prc.fechaCreacion as prc_fechaCreacion, est.id as est_id, est.fechaEstudio as est_fechaEstudio, est.url as est_url, prz.fechaAlmacenado as prz_fechaAlmacenado')
@@ -400,6 +400,9 @@ class DiagnosticoRepository extends EntityRepository
                             ->leftJoin('exp.idPaciente', 'pct')
                             ->innerJoin('usrRg.idEmpleado', 'usrRgEmp')
                             ->leftJoin('emplct.idTipoEmpleado', 'tpEmp')
+                            // ->leftJoin('MinsalSimagdBundle:ImgDiagnostico', 'diag',
+                            //         \Doctrine\ORM\Query\Expr\Join::WITH,
+                            //         'lct.id = diag.idLectura')
                             ->where('pndT.idEstablecimiento = :id_est_diag')
                             ->setParameter('id_est_diag', $id_estab)
                             ->orderBy('pndT.fechaIngresoLista', 'asc')
@@ -546,7 +549,7 @@ class DiagnosticoRepository extends EntityRepository
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
 
-                            ->addSelect('pndV.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, concat(coalesce(emplct.apellido, \'\'), \', \', coalesce(emplct.nombre, \'\')) as radiologo, statusdiag.nombreEstado as estado, pndV.fechaIngresoLista as fecha_ingreso')
+                            ->addSelect('pndV.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, concat(coalesce(emplct.apellido, \'\'), \', \', coalesce(emplct.nombre, \'\')) as radiologo, statusdiag.nombreEstado as estado, pndV.fechaIngresoLista as fecha_ingreso, diag.conclusion as conclusion')
 
                             ->addSelect('statusdiag.id as diag_id_estado, statusdiag.nombreEstado as diag_estado, statusdiag.codigo as diag_codEstado')
                             ->addSelect('prc.fechaCreacion as prc_fechaCreacion, est.id as est_id, est.fechaEstudio as est_fechaEstudio, est.url as est_url, prz.fechaAlmacenado as prz_fechaAlmacenado')

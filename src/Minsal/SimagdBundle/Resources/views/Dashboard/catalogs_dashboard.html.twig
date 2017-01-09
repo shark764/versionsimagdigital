@@ -182,25 +182,25 @@
 
                     <!-- WORKLIST MENU -->
                     <div class="col-lg-10 col-md-10 col-sm-10 ">
-                        <ul class="nav nav-pills nav-justified" id="_worklist_display_items">
-                            <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill">EXAMINAR</a></li>
-                            <li><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill">LECTURA</a></li>
-                            <li><a href="javascript:void(0)" onclick="generate(this, 'non_transcribed_results'); return false;" data-toggle="pill">TRANSCRIPCIÓN</a></li>
-                            <li><a href="javascript:void(0)" onclick="generate(this, 'non_validated_results'); return false;" data-toggle="pill">REVISIÓN</a></li>
+                        <ul class="nav nav-pills nav-justified" id="_results_dashboard_display_items">
+                            <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'radiological_result'); return false;" data-toggle="pill">RESULTADOS</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'transcribed_diagnosis', 1); return false;" data-toggle="pill">RESULTADOS (TRC)</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'second_medical_opinions'); return false;" data-toggle="pill">SEG. OPINIONES</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'further_study_request'); return false;" data-toggle="pill">SOLICITUDES (ADIC.)</a></li>
                         </ul>
                     </div>
 
                     <!-- DISPLAY TYPE -->
-                    <ul class="list-unstyled list-inline input-sm " id="_worklist_display_type" style="margin-top: 3px; margin-bottom: 6px;">
+                    <ul class="list-unstyled list-inline input-sm " id="_results_dashboard_display_type" style="margin-top: 3px; margin-bottom: 6px;">
                         <li>
                             <label class="">
-                                <input type="radio" checked="checked" value="list" name="_worklist_display_type" id="_worklist_display_type_0">
+                                <input type="radio" checked="checked" value="list" name="_results_dashboard_display_type" id="_results_dashboard_display_type_0">
                                 <span style="margin-left: 5px;"> Lista</span>
                             </label>
                         </li>
                         <li>
                             <label class="">
-                                <input type="radio" {#checked="checked"#} value="detail" name="_worklist_display_type" id="_worklist_display_type_1">
+                                <input type="radio" {#checked="checked"#} value="detail" name="_results_dashboard_display_type" id="_results_dashboard_display_type_1">
                                 <span style="margin-left: 5px;"> Detalle</span>
                             </label>
                         </li>
@@ -217,71 +217,6 @@
             </div>
         {#</div>#} <!-- end row block -->
     </div>
-
-    <!-- WORKLIST elements -->
-    <div class="col-lg-9 col-md-9 col-sm-9 ">
-        {#<div class="row">#} <!-- row block -->
-            <div class="box box-drop-outside-shadow box-primary-v4">
-                <div class="box-body">
-
-                    <div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h5>CONFIGURACIÓN DE LISTA DE TRABAJO <small>(Para lista de pacientes a examinar)</small></h5></div></div>
-                    <p></p>
-
-                    <form id="_exam_worklist_form" name="_fc_filter_box_form" method="post" class="form-horizontal" role="search" style="margin-top: 0px; margin-bottom: -14px;">
-
-                        <div class="form-group">
-                            <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">MODALIDAD</label>
-                            <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
-                                <select id="_exam_worklist_modality" name="_exam_worklist_modality" class="form-control select2-select" >
-                                    <option value=""></option>
-                                    {#<optgroup label="Servicio de Diagnóstico por imagen">#}
-                                        {% for modalidad in modalidades %}
-                                            <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
-                                        {% endfor %}
-                                    {#</optgroup>#}
-                                </select>
-                            </div>
-                        {#</div>
-                        <div class="form-group">#}
-                            <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">SALA</label>
-                            <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
-                                <select id="_exam_worklist_hospital_room" name="_exam_worklist_hospital_room" class="form-control select2-select" >
-                                    <option value=""></option>
-                                    {#<optgroup label="Servicio de Diagnóstico por imagen">#}
-                                        {#{% for modalidad in modalidades %}
-                                            <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
-                                        {% endfor %}#}
-                                    {#</optgroup>#}
-                                </select>
-                            </div>
-                        {#</div>
-                        <div class="form-group">#}
-                            <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">TECNÓLOGO</label>
-                            <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
-                                <select id="_exam_worklist_radiologist" name="_exam_worklist_radiologist" class="form-control select2-select" >
-                                    <option value=""></option>
-                                    {% for tipo in tiposEmpleado if tipo.codigo == 'TRY' or tipo.codigo == 'MRY' %}
-                                        <optgroup label="{{ tipo }}">
-                                        {% for radiologo in radiologos if radiologo.idTipoEmpleado is not null and radiologo.idTipoEmpleado.id == tipo.id %}
-                                            <option value="{{ radiologo.id }}" {% if radiologo.id == app.user.getIdEmpleado().getId() %} selected {% endif %}>{{ radiologo }}</option>
-                                        {% endfor %}
-                                        </optgroup>
-                                    {% endfor %}
-                                    {% for radiologo in radiologos if radiologo.idTipoEmpleado is null %}
-                                        <option value="{{ radiologo.id }}" {% if radiologo.id == app.user.getIdEmpleado().getId() %} selected {% endif %}>{{ radiologo }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-
-                    </form>
-                    <!-- END --| FORM -->
-
-                </div>
-            </div>
-        {#</div>#} <!-- end row block -->
-    </div> <!-- END --| WORKLIST elements -->
-
 
     <div class="tab-pane fade in active" id="tab_list__" style="min-height: 768px;" >
 
@@ -313,7 +248,7 @@
      -->
     {#<script type="text/javascript">
     </script>#}
-    {% include 'MinsalSimagdBundle:General:worklist_script.html.twig' %}
+    {% include 'MinsalSimagdBundle:General:catalogs_dashboard_script.html.twig' %}
     <!--
     //////////////////////////////////////////////////////////////
     //////// END --| SCRIPT FUNCTIONS

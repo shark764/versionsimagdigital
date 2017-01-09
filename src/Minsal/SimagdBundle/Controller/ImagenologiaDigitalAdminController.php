@@ -877,7 +877,7 @@ class ImagenologiaDigitalAdminController extends Controller
     public function resultsDashboardAction()
     {
         // the key used to lookup the template
-        $templateKey = 'request_dashboard';
+        $templateKey = 'results_dashboard';
         
         $securityContext = $this->container->get('security.context');
 
@@ -905,7 +905,50 @@ class ImagenologiaDigitalAdminController extends Controller
         $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
 
         return $this->render($this->admin->getTemplate($templateKey), array(
-            'action'        => 'request_dashboard',
+            'action'        => 'results_dashboard',
+            'csrf_token'    => $this->getCsrfToken('sonata.batch'),
+            'DEFAULT_TABLE_OPTIONS' => $options,
+        ));
+    }
+
+    /**
+     * return the Response object associated to the create action
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return Response
+     */
+    public function catalogsDashboardAction()
+    {
+        // the key used to lookup the template
+        $templateKey = 'catalogs_dashboard';
+        
+        $securityContext = $this->container->get('security.context');
+
+        // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
+        //     return new RedirectResponse($this->generateUrl('simagd_solicitud_estudio_accessDenied'));
+        // }
+
+        // $this->get('request')->request->set('__menurequest__', true);
+        // $this->admin->setMenuMode(true);
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        // $em = $this->getDoctrine()->getManager();
+
+        // $COLLECTION_modalities_ = $em->getRepository('MinsalLaboratorioBundle:CtlAreaServicioDiagnostico')->findBy(array('idAtencion' => self::___XRAY_CLINICAL_SERVICE___));
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxCtlProyeccionRadiologicaListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass()
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+
+        return $this->render($this->admin->getTemplate($templateKey), array(
+            'action'        => 'catalogs_dashboard',
             'csrf_token'    => $this->getCsrfToken('sonata.batch'),
             'DEFAULT_TABLE_OPTIONS' => $options,
         ));

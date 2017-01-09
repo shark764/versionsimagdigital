@@ -188,7 +188,7 @@ class RyxDiagnosticoRadiologicoListViewGenerator extends RyxEntityListViewGenera
                     array(
                         'field' => 'fecha_diagnostico',
                         'sortable' => true,
-                        'title' => 'Fecha (Diagnóstico)',
+                        'title' => 'Fecha (Dx)',
                         // 'visible' => true,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
@@ -198,7 +198,7 @@ class RyxDiagnosticoRadiologicoListViewGenerator extends RyxEntityListViewGenera
                         'title' => 'Resultado',
                         // 'visible' => true,
                         'class' => 'justify-table-large-row',
-                        'formatter' => 'simagdDescriptionAdvanceFormatter',
+                        // 'formatter' => 'simagdDescriptionAdvanceFormatter',
                     )
             );
         }
