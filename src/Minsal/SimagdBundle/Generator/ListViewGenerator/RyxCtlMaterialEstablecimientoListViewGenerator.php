@@ -15,7 +15,7 @@ use FOS\UserBundle\Model\UserInterface;
 // use Minsal\SimagdBundle\Entity\EntityInterface;
 use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 
-// use Minsal\SimagdBundle\Entity\RyxCtlProyeccionRadiologica;
+// use Minsal\SimagdBundle\Entity\RyxCtlMaterialEstablecimiento;
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -24,11 +24,11 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 ///////////////////////////////////////////////////////
 
 /**
- * RyxCtlProyeccionRadiologicaListViewGenerator
+ * RyxCtlMaterialEstablecimientoListViewGenerator
  *
  * @author farid
  */
-class RyxCtlProyeccionRadiologicaListViewGenerator extends RyxEntityListViewGenerator
+class RyxCtlMaterialEstablecimientoListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
      * Sets the array.
@@ -182,7 +182,7 @@ class RyxCtlProyeccionRadiologicaListViewGenerator extends RyxEntityListViewGene
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_proyeccion_listarProyecciones', array('type' => $this->type));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_material_local_listarMaterialesLocales', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '25';
