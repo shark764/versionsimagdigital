@@ -196,8 +196,7 @@ class RyxDiagnosticoPendienteValidacionListViewGenerator extends RyxEntityListVi
 
         // foreach ($results as $key => $result)
         // {
-        //     $results[$key]['fecha_examen']  = $result['fecha_examen']->format('Y-m-d H:i:s A');
-        //     $results[$key]['fecha_lectura'] = $result['fecha_lectura']->format('Y-m-d H:i:s A');
+        //     $results[$key]['fecha'] = $result['fecha']->format('Y-m-d H:i:s A');
         // }
 
         ////////
