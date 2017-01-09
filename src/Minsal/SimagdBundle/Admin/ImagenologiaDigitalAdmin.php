@@ -33,6 +33,7 @@ class ImagenologiaDigitalAdmin extends Admin
         $collection->add('asignarNuevoExpediente', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('worklist', 'lista-de-trabajo', [], [], ['expose' => true]);
         $collection->add('requestDashboard', 'solicitudes', [], [], ['expose' => true]);
+        $collection->add('resultsDashboard', 'resultados', [], [], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         /*
          * getJsonFiltersForBsTables
@@ -66,6 +67,9 @@ class ImagenologiaDigitalAdmin extends Admin
                 break;
             case 'request_dashboard':
                 return 'MinsalSimagdBundle:Dashboard:request_dashboard.html.twig';
+                break;
+            case 'results_dashboard':
+                return 'MinsalSimagdBundle:Dashboard:results_dashboard.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);
