@@ -12,24 +12,30 @@
             $table.bootstrapTable('showLoading');
 
             $url = null;
-            if (slug === 'radiological_result') {
-                $url = 'simagd_lectura_generateTable';
+            if (slug === 'radiological_examinations') {
+                $url = 'simagd_proyeccion_generateTable';
             }
-            if (slug === 'transcribed_diagnosis') {
-                $url = 'simagd_diagnostico_generateTable';
+            if (slug === 'local_radiological_examinations') {
+                $url = 'simagd_proyeccion_establecimiento_generateTable';
             }
-            if (slug === 'second_medical_opinions') {
-                $url = 'simagd_nota_generateTable';
+            if (slug === 'materials') {
+                $url = 'simagd_material_generateTable';
             }
-            if (slug === 'further_study_request') {
-                $url = 'simagd_solicitud_estudio_complementario_generateTable';
+            if (slug === 'local_materials') {
+                $url = 'simagd_material_local_generateTable';
             }
+			if (slug === 'pacs_server_connections') {
+			    $url = 'simagd_pacs_generateTable';
+			}
+			if (slug === 'radiological_diagnostic_patterns') {
+			    $url = 'simagd_patron_diagnostico_generateTable';
+			}
 
-            // if (slug === 'transcribed_diagnosis') {
+            // if (slug === 'local_radiological_examinations') {
             //     emrg
             // }
 
-            var type = jQuery('input[name=_results_dashboard_display_type]:checked').val();
+            var type = jQuery('input[name=_catalogs_dashboard_display_type]:checked').val();
 
             $.ajax({
                 type: 'POST',
@@ -62,7 +68,7 @@
              * @type type
              * Get Table definition
              */
-             // generate(null, 'radiological_result');
+             // generate(null, 'radiological_examinations');
              // jQuery('#')
 
             //////
@@ -77,11 +83,11 @@
             //////////////////////////////////////////////////////////////////////////
             //////// change content type - worklist
             //////////////////////////////////////////////////////////////////////////
-            var __DOM__worklistDisplayType = jQuery('input[name=_results_dashboard_display_type]');
+            var __DOM__worklistDisplayType = jQuery('input[name=_catalogs_dashboard_display_type]');
 
             __DOM__worklistDisplayType.on('ifChecked', function(e) {
 
-                        jQuery('#_results_dashboard_display_items li.active').find('a').triggerHandler('click');
+                        jQuery('#_catalogs_dashboard_display_items li.active').find('a').triggerHandler('click');
 
             });
             //////////////////////////////////////////////////////////////////////////

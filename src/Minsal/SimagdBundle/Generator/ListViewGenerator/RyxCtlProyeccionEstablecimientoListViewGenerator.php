@@ -73,21 +73,15 @@ class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListView
                         // 'switchable' => false,
                     ),
                     array(
-                        'field' => 'modalidad',
-                        'sortable' => true,
-                        'title' => 'Modalidad',
-                        // 'visible' => true,
-                    ),
-                    array(
                         'field' => 'codigo_modalidad',
                         'sortable' => true,
                         'title' => 'Código (Modalidad)',
                         // 'visible' => true,
                     ),
                     array(
-                        'field' => 'examen',
+                        'field' => 'modalidad',
                         'sortable' => true,
-                        'title' => 'Examen / Grupo',
+                        'title' => 'Modalidad',
                         // 'visible' => true,
                     ),
                     array(
@@ -97,15 +91,21 @@ class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListView
                         // 'visible' => true,
                     ),
                     array(
-                        'field' => 'nombre',
+                        'field' => 'examen',
                         'sortable' => true,
-                        'title' => 'Proyección',
+                        'title' => 'Examen / Grupo',
                         // 'visible' => true,
                     ),
                     array(
                         'field' => 'codigo',
                         'sortable' => true,
                         'title' => 'Código (Proyección)',
+                        // 'visible' => true,
+                    ),
+                    array(
+                        'field' => 'nombre',
+                        'sortable' => true,
+                        'title' => 'Proyección',
                         // 'visible' => true,
                     ),
                     array(

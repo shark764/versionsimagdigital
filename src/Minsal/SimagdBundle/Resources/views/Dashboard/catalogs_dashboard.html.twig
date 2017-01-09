@@ -182,25 +182,27 @@
 
                     <!-- WORKLIST MENU -->
                     <div class="col-lg-10 col-md-10 col-sm-10 ">
-                        <ul class="nav nav-pills nav-justified" id="_results_dashboard_display_items">
-                            <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'radiological_result'); return false;" data-toggle="pill">RESULTADOS</a></li>
-                            <li><a href="javascript:void(0)" onclick="generate(this, 'transcribed_diagnosis', 1); return false;" data-toggle="pill">RESULTADOS (TRC)</a></li>
-                            <li><a href="javascript:void(0)" onclick="generate(this, 'second_medical_opinions'); return false;" data-toggle="pill">SEG. OPINIONES</a></li>
-                            <li><a href="javascript:void(0)" onclick="generate(this, 'further_study_request'); return false;" data-toggle="pill">SOLICITUDES (ADIC.)</a></li>
+                        <ul class="nav nav-pills nav-justified" id="_catalogs_dashboard_display_items">
+                            <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'radiological_examinations'); return false;" data-toggle="pill">PROYECCIONES</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'local_radiological_examinations', 1); return false;" data-toggle="pill">PROYECCIONES (LOC.)</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'materials'); return false;" data-toggle="pill">MATERIALES</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'local_materials'); return false;" data-toggle="pill">MATERIALES (LOC.)</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'pacs_server_connections'); return false;" data-toggle="pill">CONEXIONES (PACS)</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'radiological_diagnostic_patterns'); return false;" data-toggle="pill">PATRONES (DX)</a></li>
                         </ul>
                     </div>
 
                     <!-- DISPLAY TYPE -->
-                    <ul class="list-unstyled list-inline input-sm " id="_results_dashboard_display_type" style="margin-top: 3px; margin-bottom: 6px;">
+                    <ul class="list-unstyled list-inline input-sm " id="_catalogs_dashboard_display_type" style="margin-top: 3px; margin-bottom: 6px;">
                         <li>
                             <label class="">
-                                <input type="radio" checked="checked" value="list" name="_results_dashboard_display_type" id="_results_dashboard_display_type_0">
+                                <input type="radio" checked="checked" value="list" name="_catalogs_dashboard_display_type" id="_catalogs_dashboard_display_type_0">
                                 <span style="margin-left: 5px;"> Lista</span>
                             </label>
                         </li>
                         <li>
                             <label class="">
-                                <input type="radio" {#checked="checked"#} value="detail" name="_results_dashboard_display_type" id="_results_dashboard_display_type_1">
+                                <input type="radio" {#checked="checked"#} value="detail" name="_catalogs_dashboard_display_type" id="_catalogs_dashboard_display_type_1">
                                 <span style="margin-left: 5px;"> Detalle</span>
                             </label>
                         </li>
