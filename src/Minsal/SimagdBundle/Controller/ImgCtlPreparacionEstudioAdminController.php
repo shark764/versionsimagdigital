@@ -13,15 +13,15 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
 {
     public function listAction()
     {
-	//Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
         $em = $this->getDoctrine()->getManager();
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+        $securityContext 	= $this->container->get('security.context');
+        $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $tiposEmpleado = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
@@ -46,8 +46,8 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+        $securityContext 	= $this->container->get('security.context');
+        $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $resultados = $em->getRepository('MinsalSimagdBundle:ImgCtlPreparacionEstudio')->obtenerPreparacionEstudiosV2($estabLocal->getId(), $BS_FILTERS_DECODE);
@@ -55,8 +55,9 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
 	$isUser_allowShow = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
 	$isUser_allowEdit = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
 
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgCtlPreparacionEstudio();
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgCtlPreparacionEstudio();
 
             $resultados[$key]['indCit_fechaHoraReg'] = $resultado['indCit_fechaHoraReg']->format('Y-m-d H:i:s A');
             $resultados[$key]['indCit_fechaHoraMod'] = $resultado['indCit_fechaHoraMod'] ? $resultado['indCit_fechaHoraMod']->format('Y-m-d H:i:s A') : '';
@@ -77,7 +78,7 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
 
         //Nueva instancia
         $indicacionesCita = $this->admin->getNewInstance();
-//        $indicacionesCita = new ImgCtlPreparacionEstudio();
+        // $indicacionesCita = new ImgCtlPreparacionEstudio();
 
         $empleado 		= $request->request->get('formIndCitIdEmpleado');
         $modalidad 		= $request->request->get('formIndCitIdAreaServicioDiagnosticoAplica');
@@ -85,8 +86,8 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
         $recomendaciones 	= $request->request->get('formIndCitRecomendaciones');
         $observaciones 		= $request->request->get('formIndCitObservaciones');
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+        $securityContext 	= $this->container->get('security.context');
+        $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $em = $this->getDoctrine()->getManager();

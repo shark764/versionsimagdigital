@@ -88,8 +88,9 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
         return new RedirectResponse($url);
     }
 
-    public function createAction() {
-	//Acceso denegado
+    public function createAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('CREATE')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -97,21 +98,22 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
         return parent::createAction();
     }
 
-    public function editAction($id = null) {
-	//Acceso denegado
+    public function editAction($id = null)
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('EDIT')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
         $em = $this->getDoctrine()->getManager();
 
-	//No existe el registro
+        // No existe el registro
         if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlProyeccionEstablecimiento', 'explrz')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
-	//No puede acceder al registro
-	$sessionUser = $this->container->get('security.context')->getToken()->getUser();
+        // No puede acceder al registro
+        $sessionUser = $this->container->get('security.context')->getToken()->getUser();
         if (false === $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -119,21 +121,22 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
         return parent::editAction($id);
     }
 
-    public function showAction($id = null) {
-	//Acceso denegado
+    public function showAction($id = null)
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
         $em = $this->getDoctrine()->getManager();
 
-	//No existe el registro
+        // No existe el registro
         if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlProyeccionEstablecimiento', 'explrz')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
-	//No puede acceder al registro
-	$sessionUser = $this->container->get('security.context')->getToken()->getUser();
+        // No puede acceder al registro
+        $sessionUser = $this->container->get('security.context')->getToken()->getUser();
         if (false === $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -141,8 +144,9 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
         return parent::showAction($id);
     }
 
-    public function listAction() {
-	//Acceso denegado
+    public function listAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -159,29 +163,84 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
 
         $em                 = $this->getDoctrine()->getManager();
 
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $resultados         = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesLocalesV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results         = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesLocalesV2($estabLocal->getId(), $BS_FILTERS_DECODE);
 
-	$isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
-	$isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
+        $isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
+        $isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
 
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgCtlProyeccionEstablecimiento();
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgCtlProyeccionEstablecimiento();
 
-            $resultados[$key]['expl_fechaHoraReg']      = $resultado['expl_fechaHoraReg']->format('Y-m-d H:i:s A');
-            $resultados[$key]['explrz_fechaHoraReg']    = $resultado['explrz_fechaHoraReg']->format('Y-m-d H:i:s A');
-            $resultados[$key]['explrz_fechaHoraMod']    = $resultado['explrz_fechaHoraMod'] ? $resultado['explrz_fechaHoraMod']->format('Y-m-d H:i:s A') : '';
+            if ($__REQUEST__type === 'detail')
+            {
+                $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
+                        '<div class="box-body" ondblclick="_fn_show_object_detail(this, \'undiagnosed_studies\', ' . $r['id'] . '); return false;">' .
+                            // '<div class="container">' .
+                            // '<div class=" col-lg-12 col-md-12 col-sm-12">' .
+                                '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3></div></div>' .
+                                '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 14px;">' . $r['numero_expediente'] . '</span></div></div><p></p>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['origen'] . '</div><div class="col-lg-6 col-md-6 col-sm-6 "><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" >' . /*<span class="glyphicon glyphicon-check"></span>*/ 'Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['area_atencion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['atencion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['medico'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['modalidad'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['triage'] . '</div></div>' .
+                                // '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>RADIÓLOGO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['radiologo'] . '</div></div>' .
+                            // '</div>' .
+                        '</div>' .
+                    '</div>';
+                continue;
+            }
 
-            $resultados[$key]['allowShow']              = $isUser_allowShow;
+            $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
+                    '<div class="btn-group" role="group">' .
+                        '<a class=" worklist-show-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Ver detalle..." >' .
+                        // '<a class=" worklist-show-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Ver detalle..." >' .
+                            // 'Ver' .
+                            '<i class="glyphicon glyphicon-chevron-down"></i>' .
+                        '</a>' .
+                    '</div>' .
+                    '<div class="btn-group" role="group">' .
+                        '<a class=" worklist-save-form-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Abrir formulario..." >' .
+                        // '<a class=" worklist-save-form-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Abrir formulario..." >' .
+                            // 'Formulario' .
+                            '<i class="glyphicon glyphicon-edit"></i>' .
+                        '</a>' .
+                    '</div>' .
+                    '<div class="btn-group" role="group">' .
+                        '<a class=" worklist-save-and-pacs-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Guardar y asociar..." >' .
+                        // '<a class=" worklist-save-and-pacs-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Guardar y asociar..." >' .
+                            // 'Guardar y asociar' .
+                            // '<i class="glyphicon glyphicon-check"></i>' .
+                            '<i class="glyphicon glyphicon-link"></i>' .
+                        '</a>' .
+                    '</div>' .
+                    // '<span class="bs-btn-separator-toolbar"></span>' .
+                    '<div class="btn-group" role="group">' .
+                        '<a class=" worklist-save-action btn-link btn-link-emergency " href="javascript:void(0)" title="Guardar sin asociar..." >' .
+                        // '<a class=" worklist-save-action btn btn-emergency btn-outline btn-xs " href="javascript:void(0)" title="Guardar sin asociar..." >' .
+                            // 'Guardar' .
+                            '<i class="glyphicon glyphicon-check"></i>' .
+                        '</a>' .
+                    '</div>' .
+                '</div>';
 
-            $resultados[$key]['allowEdit']              = $isUser_allowEdit;
+            $results[$key]['expl_fechaHoraReg']      = $r['expl_fechaHoraReg']->format('Y-m-d H:i:s A');
+            $results[$key]['explrz_fechaHoraReg']    = $r['explrz_fechaHoraReg']->format('Y-m-d H:i:s A');
+            $results[$key]['explrz_fechaHoraMod']    = $r['explrz_fechaHoraMod'] ? $r['explrz_fechaHoraMod']->format('Y-m-d H:i:s A') : '';
+
+            $results[$key]['allowShow']              = $isUser_allowShow;
+
+            $results[$key]['allowEdit']              = $isUser_allowEdit;
         }
 
         $response = new Response();
-        $response->setContent(json_encode($resultados));
+        $response->setContent(json_encode($results));
         return $response;
     }
 
@@ -192,8 +251,8 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
         $observaciones      = $this->get('request')->request->get('formExplExplrzObservaciones');
         $habilitado         = $this->get('request')->request->get('formExplExplrzHabilitado') ? TRUE : FALSE;
 
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
         /** CtlAreaServicioDiagnostico */
@@ -261,7 +320,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
 
         //Nueva instancia
         $proyeccionRz          = $this->admin->getNewInstance();
-//        $proyeccionRz = new \Minsal\SimagdBundle\Entity\ImgCtlProyeccionEstablecimiento();
+        // $proyeccionRz = new \Minsal\SimagdBundle\Entity\ImgCtlProyeccionEstablecimiento();
 
         $habilitado             = $request->request->get('formExplrzHabilitado') ? TRUE : FALSE;
         $observaciones          = $request->request->get('formExplrzObservaciones');
@@ -361,7 +420,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
         $response->setContent(json_encode(
                 array('id' => $object->getId(),
                         'object' => $object->getObjectVarsAsArray()
-//                        'url' => $this->admin->generateUrl('show', array('id' => $object->getId()))
+                        // 'url' => $this->admin->generateUrl('show', array('id' => $object->getId()))
                 )));
         return $response;
     }

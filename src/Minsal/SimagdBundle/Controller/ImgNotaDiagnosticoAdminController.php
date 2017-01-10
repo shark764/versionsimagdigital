@@ -226,8 +226,9 @@ class ImgNotaDiagnosticoAdminController extends Controller
         return parent::showAction($id);
     }
     
-    public function listAction() {
-	//Acceso denegado
+    public function listAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }

@@ -18,8 +18,9 @@ class ImgMisLecturasNoConcluidasAdminController extends Controller
         return $this->redirect($this->generateUrl('simagd_sin_lectura_leer', array('id' => $id)));
     }
     
-    public function listAction() {
-	//Acceso denegado
+    public function listAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -36,8 +37,8 @@ class ImgMisLecturasNoConcluidasAdminController extends Controller
         
         $em                     = $this->getDoctrine()->getManager();
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+        $securityContext 	= $this->container->get('security.context');
+        $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $resultados = $em->getRepository('MinsalSimagdBundle:ImgLectura')->obtenerPendientesLecturaPersonalV2($estabLocal->getId(), $sessionUser->getId(), $BS_FILTERS_DECODE);
@@ -46,8 +47,9 @@ class ImgMisLecturasNoConcluidasAdminController extends Controller
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_EDIT')) ||
                     $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
 
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgPendienteLectura();
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgPendienteLectura();
 
             $resultados[$key]['pndL_fechaIngresoLista'] = $resultado['pndL_fechaIngresoLista']->format('Y-m-d H:i:s A');
             $resultados[$key]['est_fechaEstudio'] = $resultado['est_fechaEstudio']->format('Y-m-d H:i:s A');

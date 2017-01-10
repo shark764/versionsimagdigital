@@ -15,8 +15,9 @@ class GeneracionReporteImagenologiaAdminController extends Controller
      * Redirigir inmediatamente hacia la generación de reportes
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function listAction() {
-	//Acceso denegado
+    public function listAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -28,8 +29,9 @@ class GeneracionReporteImagenologiaAdminController extends Controller
      * 
      * @return type
      */
-    public function resultadoGeneracionReporteAction() {
-	//Acceso denegado
+    public function resultadoGeneracionReporteAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }

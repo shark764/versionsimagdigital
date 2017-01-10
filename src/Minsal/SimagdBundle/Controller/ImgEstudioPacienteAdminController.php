@@ -21,8 +21,9 @@ class ImgEstudioPacienteAdminController extends CRUDController
      * Redirigir inmediatamente hacia la busqueda de paciente
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function listAction() {
-	//Acceso denegado
+    public function listAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST') /*|| false === $this->admin->isGranted('VIEW')*/) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -36,8 +37,8 @@ class ImgEstudioPacienteAdminController extends CRUDController
         
         $em                 = $this->getDoctrine()->getManager();
         
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
         $tiposEmpleado      = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
@@ -111,8 +112,8 @@ class ImgEstudioPacienteAdminController extends CRUDController
         
         $em                     = $this->getDoctrine()->getManager();
         
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+        $securityContext 	= $this->container->get('security.context');
+        $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
         
         $resultados             = null;
@@ -196,8 +197,9 @@ class ImgEstudioPacienteAdminController extends CRUDController
 				      $em->getRepository('MinsalSimagdBundle:ImgCtlPacsEstablecimiento')->getConfiguredServerPACSConnection($estabLocal->getId())
 				      : null;
 
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgEstudioPaciente();
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgEstudioPaciente();
 
             $resultados[$key]['est_fechaEstudio']                   = $resultado['est_fechaEstudio']->format('Y-m-d H:i:s A');
             
@@ -275,8 +277,8 @@ class ImgEstudioPacienteAdminController extends CRUDController
     {
         $request->isXmlHttpRequest();
         
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
         $numeroExp          = $this->get('request')->query->get('query');
@@ -285,8 +287,9 @@ class ImgEstudioPacienteAdminController extends CRUDController
         
         $resultados         = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')->obtenerExpedientesEstabV2($estabLocal->getId(), $numeroExp);
 
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgEstudioPaciente();
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgEstudioPaciente();
 
             $resultados[$key]['pct_edad']   = $resultado['pct_fechaNacimiento'] ? $resultado['pct_fechaNacimiento']->diff((new \DateTime('now'))) : null;
         }

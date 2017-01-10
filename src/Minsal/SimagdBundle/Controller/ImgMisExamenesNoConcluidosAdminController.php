@@ -18,8 +18,9 @@ class ImgMisExamenesNoConcluidosAdminController extends Controller
         return $this->redirect($this->generateUrl('simagd_sin_realizar_realizar', array('id' => $id)));
     }
     
-    public function listAction() {
-	//Acceso denegado
+    public function listAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -49,8 +50,9 @@ class ImgMisExamenesNoConcluidosAdminController extends Controller
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_EDIT')) ||
                     $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
         
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgPendienteRealizacion;
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgPendienteRealizacion;
 
             $resultados[$key]['pndR_fechaIngresoLista']             = $resultado['pndR_fechaIngresoLista']->format('Y-m-d H:i:s A');
             

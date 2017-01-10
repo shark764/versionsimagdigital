@@ -170,7 +170,7 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
      */
     public function createAction()
     {
-	//Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('CREATE')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -186,16 +186,16 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
             $this->get('request')->query->set('__cmpl', null);
         }
         
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
         $em                 = $this->getDoctrine()->getManager();
 
-//        $idPrcRequest = $this->get('request')->query->get('__prc');
-//        $idEstPadreRequest = $this->get('request')->query->get('__est');
+        // $idPrcRequest = $this->get('request')->query->get('__prc');
+        // $idEstPadreRequest = $this->get('request')->query->get('__est');
 //        
-//        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
 //
 //        //validar parámetros
 //        if ($idPrcRequest || $idEstPadreRequest) {
@@ -327,8 +327,8 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
      */
     public function editAction($id = null)
     {
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
         $em                 = $this->getDoctrine()->getManager();
@@ -443,7 +443,7 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
      */
     public function showAction($id = null)
     {
-	//Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -452,8 +452,8 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
 	//brinda facilidad para crear nueva solicitud a partir de anterior
         $object             = $this->admin->getObject($id);
         
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
         if (!$object) {
@@ -529,7 +529,7 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
     {
         $request->isXmlHttpRequest();
         
-	$status = 'OK';
+        $status = 'OK';
         
         $request_solicitudPadre = $request->request->get('formSolcmplFastRequestIdSolicitudEstudio');
         $request_estudioPadre   = $request->request->get('formSolcmplFastRequestIdEstudioPadre');
@@ -543,13 +543,13 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
         //Nueva instancia
         $new_studyRequest   = $this->admin->getNewInstance();
         
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
         $em = $this->getDoctrine()->getManager();
         
-//        $new_studyRequest = new ImgSolicitudEstudioComplementario();
+        // $new_studyRequest = new ImgSolicitudEstudioComplementario();
         
         /*
          * Registros padres
@@ -607,7 +607,7 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
     {
         $request->isXmlHttpRequest();
         
-	$status = 'OK';
+        $status = 'OK';
         
         $request_solicitudPadre = $request->request->get('formSolcmplFastRequestIdSolicitudEstudio');
         $request_estudioPadre   = $request->request->get('formSolcmplFastRequestIdEstudioPadre');
@@ -621,13 +621,13 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
         $id = $request->request->get('formSolcmplFastRequestId');
         $edit_studyRequest  = $this->admin->getObject($id);     // get object
         
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
         $em = $this->getDoctrine()->getManager();
         
-//        $edit_studyRequest = new ImgSolicitudEstudioComplementario();
+        // $edit_studyRequest = new ImgSolicitudEstudioComplementario();
         
         /*
          * Radiólogo

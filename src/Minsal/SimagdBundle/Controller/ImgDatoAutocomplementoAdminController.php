@@ -25,7 +25,7 @@ class ImgDatoAutocomplementoAdminController extends Controller
         $response->setContent(json_encode(
                 array('id' => $object->getId(),
                         'object' => $object->getObjectVarsAsArray()
-//                        'url' => $this->admin->generateUrl('show', array('id' => $object->getId()))
+                        // 'url' => $this->admin->generateUrl('show', array('id' => $object->getId()))
                 )));
         return $response;
     }

@@ -306,9 +306,9 @@ class ImgCitaAdminController extends Controller
     {
         $request->isXmlHttpRequest();
 
-	$status = 'OK';
+        $status = 'OK';
 
-//        $title = $request->request->get('title');
+        // $title = $request->request->get('title');
         $id     = $request->request->get('id');
         $cita = $this->admin->getObject($id);
 
@@ -338,9 +338,9 @@ class ImgCitaAdminController extends Controller
     {
         $request->isXmlHttpRequest();
 
-	$status = 'OK';
+        $status = 'OK';
 
-//        $title = $request->request->get('title');
+        // $title = $request->request->get('title');
         $id     = $request->request->get('formCancelCitId');
         $cita = $this->admin->getObject($id);
 
@@ -377,21 +377,22 @@ class ImgCitaAdminController extends Controller
         return $response;
     }
 
-    public function editAction($id = null) {
-	//Acceso denegado
+    public function editAction($id = null)
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('EDIT')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
         $em = $this->getDoctrine()->getManager();
 
-	//No existe el registro
+        // No existe el registro
         if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCita', 'cit')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
-	//No puede acceder al registro
-	$sessionUser = $this->container->get('security.context')->getToken()->getUser();
+        // No puede acceder al registro
+        $sessionUser = $this->container->get('security.context')->getToken()->getUser();
         if (false === $em->getRepository('MinsalSimagdBundle:ImgCita')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -399,21 +400,22 @@ class ImgCitaAdminController extends Controller
         return parent::editAction($id);
     }
 
-    public function showAction($id = null) {
-	//Acceso denegado
+    public function showAction($id = null)
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
         $em = $this->getDoctrine()->getManager();
 
-	//No existe el registro
+        // No existe el registro
         if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCita', 'cit')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
-	//No puede acceder al registro
-	$sessionUser = $this->container->get('security.context')->getToken()->getUser();
+        // No puede acceder al registro
+        $sessionUser = $this->container->get('security.context')->getToken()->getUser();
         if (false === $em->getRepository('MinsalSimagdBundle:ImgCita')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -421,8 +423,9 @@ class ImgCitaAdminController extends Controller
         return parent::showAction($id);
     }
 
-    public function listAction() {
-	//Acceso denegado
+    public function listAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -611,7 +614,7 @@ class ImgCitaAdminController extends Controller
 
 	$status     = 'OK';
 
-//        $title = $request->request->get('title');
+        // $title = $request->request->get('title');
         $id         = $request->request->get('id');
 
         //Objeto
@@ -650,7 +653,7 @@ class ImgCitaAdminController extends Controller
     {
         $request->isXmlHttpRequest();
 
-	$status = 'OK';
+        $status = 'OK';
 
 	$id     = $request->request->get('formCitId');
 
@@ -715,14 +718,15 @@ class ImgCitaAdminController extends Controller
 
         $em                     = $this->getDoctrine()->getManager();
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+        $securityContext 	= $this->container->get('security.context');
+        $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $resultados             = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerPreinscripcionesNoCitadasV2($estabLocal->getId(), $BS_FILTERS_DECODE);
 
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudio();
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudio();
 
             $resultados[$key]['tooltip_title']  = ($resultado['explocal_numero'] ? '<span class="label label-primary-v4" style="margin-left: 5px; padding: .4em .6em .3em;"><span class="badge badge-primary-v4">' . $resultado['explocal_numero'] . '</span></span> &nbsp;' : '') . $resultado['prc_paciente'];
 
@@ -761,8 +765,9 @@ class ImgCitaAdminController extends Controller
         $isUser_allowCancel 	= ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('cancelarCita')) ? TRUE : FALSE;
 	$isUser_allowIndRadx	= ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN')) ? TRUE : FALSE;
 
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgCita();
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgCita();
 
             $resultados[$key]['cit_fechaCreacion']              = $resultado['cit_fechaCreacion']->format('Y-m-d H:i:s A');
             $resultados[$key]['cit_fechaHoraInicio']                = $resultado['cit_fechaHoraInicio']->format('Y-m-d H:i:s A');
@@ -799,8 +804,8 @@ class ImgCitaAdminController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
         //Get parameter from object

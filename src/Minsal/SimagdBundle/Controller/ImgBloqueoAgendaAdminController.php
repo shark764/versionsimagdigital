@@ -149,8 +149,8 @@ class ImgBloqueoAgendaAdminController extends Controller
         
         $em                     = $this->getDoctrine()->getManager();
         
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+        $securityContext 	= $this->container->get('security.context');
+        $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
         
         $resultados             = $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')->obtenerBloqueosAgendaV2($estabLocal->getId(), $BS_FILTERS_DECODE);
@@ -159,8 +159,9 @@ class ImgBloqueoAgendaAdminController extends Controller
         $isUser_allowEdit       = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('actualizarBloqueo')) ? TRUE : FALSE;
         $isUser_allowRemove     = ($this->admin->isGranted('DELETE') && $this->admin->getRoutes()->has('removerBloqueo')) ? TRUE : FALSE;
         
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgBloqueoAgenda();
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgBloqueoAgenda();
             
             $resultados[$key]['blAgd_fechaCreacion']        = $resultado['blAgd_fechaCreacion']->format('Y-m-d H:i:s A');
             $resultados[$key]['blAgd_fechaUltimaEdicion']   = $resultado['blAgd_fechaUltimaEdicion'] ? $resultado['blAgd_fechaUltimaEdicion']->format('Y-m-d H:i:s A') : '';
@@ -209,14 +210,14 @@ class ImgBloqueoAgendaAdminController extends Controller
     {
         $request->isXmlHttpRequest();
         
-	$status = 'OK';
+        $status = 'OK';
         
         $id                 = $request->request->get('formBlAgdExclRadxIdBloqueoAgenda');
         $object_blAgd       = $this->admin->getObject($id);     // get object
         $request_radiologos = $request->request->get('formBlAgdExclRadxIdRadiologoExcluido');	// array []
         
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
         $em                 = $this->getDoctrine()->getManager();

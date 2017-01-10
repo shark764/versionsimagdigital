@@ -30,7 +30,7 @@ class ImgProcedimientoRealizadoAdminController extends Controller
      */
     public function createAction()
     {
-	//Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('CREATE')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -74,8 +74,8 @@ class ImgProcedimientoRealizadoAdminController extends Controller
 
 //        return parent::createAction();
 
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
         $em                 = $this->getDoctrine()->getManager();
@@ -337,8 +337,9 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         ));
     }
 
-    public function editAction($id = null) {
-	//Acceso denegado
+    public function editAction($id = null)
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('EDIT')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -346,13 +347,13 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         /** request object id */
         $id             = $this->get('request')->get($this->admin->getIdParameter());
 
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
         $em                 = $this->getDoctrine()->getManager();
 
-	//No existe el registro
+        // No existe el registro
         if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgProcedimientoRealizado', 'prz')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
@@ -444,21 +445,22 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         ));
     }
 
-    public function showAction($id = null) {
-	//Acceso denegado
+    public function showAction($id = null)
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
         $em = $this->getDoctrine()->getManager();
 
-	//No existe el registro
+        // No existe el registro
         if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgProcedimientoRealizado', 'prz')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
-	//No puede acceder al registro
-	$sessionUser = $this->container->get('security.context')->getToken()->getUser();
+        // No puede acceder al registro
+        $sessionUser = $this->container->get('security.context')->getToken()->getUser();
         if (false === $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -466,16 +468,17 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         return parent::showAction($id);
     }
 
-    public function listAction() {
-	//Acceso denegado
+    public function listAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
         $em                     = $this->getDoctrine()->getManager();
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+        $securityContext 	= $this->container->get('security.context');
+        $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $default_areaAtn        = 2;
@@ -575,17 +578,18 @@ class ImgProcedimientoRealizadoAdminController extends Controller
 
         $em                 = $this->getDoctrine()->getManager();
 
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
         $resultados         = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')->obtenerProcedimientosRealizadosV2($estabLocal->getId(), $BS_FILTERS_DECODE);
 
-	$isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
-	$isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
+        $isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
+        $isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
 
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgProcedimientoRealizado();
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgProcedimientoRealizado();
 
             $resultados[$key]['prz_fechaRegistro']            = $resultado['prz_fechaRegistro']->format('Y-m-d H:i:s A');
             $resultados[$key]['prz_fechaAtendido']                  = $resultado['prz_fechaAtendido'] ? $resultado['prz_fechaAtendido']->format('Y-m-d H:i:s A') : '';
@@ -630,7 +634,7 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         $response->setContent(json_encode(
                 array('id' => $object->getId(),
                         'object' => $object->getObjectVarsAsArray()
-//                        'url' => $this->admin->generateUrl('show', array('id' => $object->getId()))
+                        // 'url' => $this->admin->generateUrl('show', array('id' => $object->getId()))
                 )));
         return $response;
     }
@@ -645,8 +649,8 @@ class ImgProcedimientoRealizadoAdminController extends Controller
 	//producto de este procedimiento realizado al paciente
         $object             = $this->admin->getObject($id);
 
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
         if (!$object) {
@@ -760,8 +764,8 @@ class ImgProcedimientoRealizadoAdminController extends Controller
     public function enlazarEstudio($new_przObject = null)
     {
         $new_przObject = new ImgProcedimientoRealizado();
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
         $em                 = $this->getDoctrine()->getManager();

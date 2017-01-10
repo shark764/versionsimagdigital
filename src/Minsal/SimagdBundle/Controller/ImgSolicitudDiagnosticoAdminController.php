@@ -63,7 +63,7 @@ class ImgSolicitudDiagnosticoAdminController extends Controller
      */
     public function createAction()
     {
-	//Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('CREATE')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -212,8 +212,9 @@ class ImgSolicitudDiagnosticoAdminController extends Controller
         return parent::editAction($id);
     }
     
-    public function showAction($id = null) {
-	//Acceso denegado
+    public function showAction($id = null)
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }

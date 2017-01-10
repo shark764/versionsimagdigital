@@ -18,8 +18,9 @@ class ImgMisTranscripcionesNoConcluidasAdminController extends Controller
         return $this->redirect($this->generateUrl('simagd_sin_transcribir_transcribir', array('id' => $id)));
     }
     
-    public function listAction() {
-	//Acceso denegado
+    public function listAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -36,8 +37,8 @@ class ImgMisTranscripcionesNoConcluidasAdminController extends Controller
         
         $em                     = $this->getDoctrine()->getManager();
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+        $securityContext 	= $this->container->get('security.context');
+        $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $resultados = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->obtenerPendientesTranscripcionPersonalV2($estabLocal->getId(), $sessionUser->getId(), $BS_FILTERS_DECODE);
@@ -46,8 +47,9 @@ class ImgMisTranscripcionesNoConcluidasAdminController extends Controller
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_EDIT')) ||
                     $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
         
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgPendienteTranscripcion();
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgPendienteTranscripcion();
 
             $resultados[$key]['diag_fechaTranscrito'] = $resultado['diag_fechaTranscrito'] ? $resultado['diag_fechaTranscrito']->format('Y-m-d H:i:s A') : '';
             $resultados[$key]['diag_fechaCorregido'] = $resultado['diag_fechaCorregido'] ? $resultado['diag_fechaCorregido']->format('Y-m-d H:i:s A') : '';

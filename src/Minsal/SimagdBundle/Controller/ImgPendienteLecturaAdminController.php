@@ -129,7 +129,7 @@ class ImgPendienteLecturaAdminController extends Controller
 
         foreach ($results as $key => $r)
         {
-            //    $r = new \Minsal\SimagdBundle\Entity\ImgPendienteLectura();
+            // $r = new \Minsal\SimagdBundle\Entity\ImgPendienteLectura();
 
             if ($__REQUEST__type === 'detail')
             {

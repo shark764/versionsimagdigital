@@ -1,6 +1,6 @@
 {% autoescape false %}
 
-	<script type="text/javascript">
+    <script type="text/javascript">
         _fn_show_object_detail = function(el, slug, id) {
             window.alert(slug + '\n' + id);
         }
@@ -24,12 +24,12 @@
             if (slug === 'local_materials') {
                 $url = 'simagd_material_local_generateTable';
             }
-			if (slug === 'pacs_server_connections') {
-			    $url = 'simagd_pacs_generateTable';
-			}
-			if (slug === 'radiological_diagnostic_patterns') {
-			    $url = 'simagd_patron_diagnostico_generateTable';
-			}
+            if (slug === 'pacs_server_connections') {
+                $url = 'simagd_pacs_generateTable';
+            }
+            if (slug === 'radiological_diagnostic_patterns') {
+                $url = 'simagd_patron_diagnostico_generateTable';
+            }
 
             // if (slug === 'local_radiological_examinations') {
             //     emrg
