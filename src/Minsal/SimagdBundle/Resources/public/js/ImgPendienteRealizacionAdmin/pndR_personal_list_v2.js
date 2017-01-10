@@ -25,7 +25,7 @@ function pendienteRealizar_personal_actionFormatter(value, row, index) {
 window.pendienteRealizar_personal_actionEvents = {
     'click .almacenar-personal-pendiente-realizar-action': function (e, value, row, index) {
         $.ajax({
-            type: 'post',
+            type: 'POST',
             dataType: 'json',
             url: Routing.generate('simagd_realizado_actualizarEstudioAlmacenado'),
             data: {

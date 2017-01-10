@@ -16,9 +16,9 @@ class LecturaRepository extends EntityRepository
     {
         $tiposResultado = $this->getEntityManager()
                     ->getRepository('MinsalSimagdBundle:ImgCtlTipoResultado')->findAll();
-        
+
         $list = array();
-        
+
         foreach ($tiposResultado as $tipoResult)
         {
             if(!$tipoResult->getIndeterminado()) {
@@ -28,10 +28,10 @@ class LecturaRepository extends EntityRepository
                 $list['Indeterminado'][$tipoResult->getId()] = $tipoResult;
             }
         }
-        
+
         return $list;
     }
-    
+
     public function obtenerUltimoCorrelativo($id_estab, $idAreaServicioDiagnostico)
     {
         $query = $this->getEntityManager()
@@ -50,10 +50,10 @@ class LecturaRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult();
     }
-    
+
     public function obtenerAccesoEstab($id, $idEstab)
     {
         $query = $this->getEntityManager()
@@ -67,10 +67,10 @@ class LecturaRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function obtenerAccesoLectura($id, $idUser)
     {
         $query = $this->getEntityManager()
@@ -84,10 +84,10 @@ class LecturaRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function lecturaFueTranscrita($idLct = '-1' )
     {
         $query = $this->getEntityManager()
@@ -99,10 +99,10 @@ class LecturaRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function obtenerLecturas($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
@@ -114,10 +114,10 @@ class LecturaRepository extends EntityRepository
                             ->orderBy('lct.fechaLectura', 'desc')
                             ->addOrderBy('lct.id', 'desc');
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerPendientesLectura($id_estab, $bs_filters = array())
     {
         /** SubQuery */
@@ -127,7 +127,7 @@ class LecturaRepository extends EntityRepository
                             ->from('MinsalSimagdBundle:ImgLectura', 'lct')
 //                            ->where('lct.idEstadoLectura NOT IN ( 4, 5, 6 )')
                             ->andWhere('lct.idEstudio = pndL.idEstudio');
-                
+
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -137,14 +137,14 @@ class LecturaRepository extends EntityRepository
                             ->setParameter('id_est_diag', $id_estab)
                             ->orderBy('pndL.fechaIngresoLista', 'asc')
                             ->addOrderBy('pndL.id', 'desc');
-        
+
         $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())));
-                
+
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerPendientesLecturaPersonal($id_estab, $sessionUser, $bs_filters = array())
     {
         /** SubQuery */
@@ -155,7 +155,7 @@ class LecturaRepository extends EntityRepository
                             ->where('lct.idUserReg = :id_user')
                             ->andWhere('lct.idEstadoLectura NOT IN ( 4, 5, 6 )')
                             ->andWhere('lct.idEstudio = pndL.idEstudio');
-                
+
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -165,12 +165,12 @@ class LecturaRepository extends EntityRepository
                             ->setParameter('id_est_diag', $id_estab)
                             ->orderBy('pndL.fechaIngresoLista', 'asc')
                             ->addOrderBy('pndL.id', 'desc');
-        
+
         $query->andWhere($query->expr()->exists($subQuery->getDql()))
                             ->setParameter('id_user', $sessionUser);
-                
+
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
 
@@ -183,6 +183,9 @@ class LecturaRepository extends EntityRepository
                             ->addSelect('ptrAsc')
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
+
+                            ->addSelect('lct.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, concat(coalesce(emplct.apellido, \'\'), \', \', coalesce(emplct.nombre, \'\')) as radiologo, statuslct.nombreEstado as estado, lct.fechaLectura as fecha_lectura')
+
                             ->addSelect('statusprz.id as prz_id_estado, statusprz.nombreEstado as prz_estado, statusprz.codigo as prz_codEstado')
                             ->addSelect('statuslct.id as lct_id_estado, statuslct.nombreEstado as lct_estado, statuslct.codigo as lct_codEstado, tipoR.id as lct_id_tipoResultado, tipoR.nombreTipo as lct_tipoResultado, tipoR.indeterminado as lct_indeterminado')
                             ->addSelect('prc.fechaCreacion as prc_fechaCreacion, prz.fechaAlmacenado as prz_fechaAlmacenado')
@@ -232,7 +235,7 @@ class LecturaRepository extends EntityRepository
                             ->orderBy('lct.fechaLectura', 'desc')
                             ->addOrderBy('lct.id', 'desc')
                             ->distinct();
-        
+
         $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                             $query->expr()->andx(
@@ -241,7 +244,7 @@ class LecturaRepository extends EntityRepository
                                             )
                             )
                             ->setParameter('id_est_explocal', $id_estab);
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -288,6 +291,9 @@ class LecturaRepository extends EntityRepository
                             ->addSelect('lctPdr')
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
+
+                            ->addSelect('pndL.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, pndL.fechaIngresoLista as fecha_ingreso')
+
                             ->addSelect('statusprz.id as prz_id_estado, statusprz.nombreEstado as prz_estado, statusprz.codigo as prz_codEstado')
                             ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
                             ->addSelect('stdroot.nombre as prc_origen, stdroot.id as prc_id_origen, ar.nombre as prc_areaAtencion, ar.id as prc_id_areaAtencion, atn.nombre as prc_atencion, atn.id as prc_id_atencion')
@@ -332,7 +338,7 @@ class LecturaRepository extends EntityRepository
                             ->setParameter('id_est_diag', $id_estab)
                             ->orderBy('pndL.fechaIngresoLista', 'asc')
                             ->addOrderBy('pndL.id', 'desc');
-        
+
         $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                             $query->expr()->andx(
@@ -348,7 +354,7 @@ class LecturaRepository extends EntityRepository
                             $query->expr()->not($query->expr()->exists($subQuery2->getDql()))
                         ))
 			    ->distinct();
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -436,7 +442,7 @@ class LecturaRepository extends EntityRepository
                             ->orderBy('pndL.fechaIngresoLista', 'asc')
                             ->addOrderBy('pndL.id', 'desc')
                             ->distinct();
-        
+
         $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                             $query->expr()->andx(
@@ -445,7 +451,7 @@ class LecturaRepository extends EntityRepository
                                             )
                             )
                             ->setParameter('id_est_explocal', $id_estab);
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -461,7 +467,7 @@ class LecturaRepository extends EntityRepository
 
         return $query->getQuery()->getScalarResult();
     }
-    
+
     public function getSourceDataTipo($id_estab, $alias = 'tipoR')
     {
         $entity     = 'ImgCtlTipoResultado';
@@ -474,8 +480,8 @@ class LecturaRepository extends EntityRepository
                             ->select('type.id as id, type.nombreTipo as text, type.codigo as cod')
                             ->from('MinsalSimagdBundle:' . $entity, 'type')
                             ->orderBy('type.id', 'asc');
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
 }

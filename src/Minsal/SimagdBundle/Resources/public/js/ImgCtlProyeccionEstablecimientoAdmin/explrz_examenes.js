@@ -17,7 +17,7 @@ jQuery(document).ready(function() {
 	
 	if (fieldAreaServicioApoyoVal) {
             $.ajax({
-		type: 'post',
+		type: 'POST',
 		dataType: 'json',
 		url: Routing.generate('simagd_solicitud_estudio_cargarDatosPorFiltro'),
                 data: {
@@ -65,7 +65,7 @@ jQuery(document).ready(function() {
 	
 	if (fieldAreaServicioApoyoVal && fieldExamenServicioApoyoVal) {
             $.ajax({
-		type: 'post',
+		type: 'POST',
 		dataType: 'json',
 		url: Routing.generate('simagd_solicitud_estudio_cargarDatosPorFiltro'),
                 data: {

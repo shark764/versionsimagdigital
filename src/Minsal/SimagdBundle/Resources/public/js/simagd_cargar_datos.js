@@ -12,7 +12,7 @@
         
         if (param_filterA && param_filterB) {
             $.ajax({
-		type: 'post',
+		type: 'POST',
 		dataType: 'json',
 		url: Routing.generate(ruta),
                 data: {

@@ -18,7 +18,7 @@ class ImgCtlMaterialAdmin extends Admin
 {
     protected $baseRouteName = 'simagd_material';            //SUSTITUIR METODO GET NEW INSTANCE CON EL ESTABLECIMIENTO YA SETEADO
     protected $baseRoutePattern = 'rayos-x-material';
-    
+
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('delete');
@@ -30,8 +30,9 @@ class ImgCtlMaterialAdmin extends Admin
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
     }
-    
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -59,7 +60,7 @@ class ImgCtlMaterialAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
     }
-    
+
     public function prePersist($material) {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $material->setIdUserReg($user);
@@ -68,7 +69,7 @@ class ImgCtlMaterialAdmin extends Admin
 	    $material->setCodigo(strtoupper($material->getCodigo()));
 	}
     }
-    
+
     public function preUpdate($material) {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $material->setIdUserMod($user);

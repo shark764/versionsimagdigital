@@ -33,6 +33,7 @@ class ImgCtlProyeccionAdmin extends Admin
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
         $collection->add('asignarElementoListaLocal', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
     }
 
     /**

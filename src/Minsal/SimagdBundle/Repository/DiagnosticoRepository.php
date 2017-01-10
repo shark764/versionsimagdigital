@@ -25,10 +25,10 @@ class DiagnosticoRepository extends EntityRepository
                             ->setParameter('id_prc', $idSolicitudEstudio);
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult();
     }
-    
+
     public function obtenerDiagnosticosEstabPorPaciente($idExpediente, $id_estab)
     {
         $query = $this->getEntityManager()
@@ -43,10 +43,10 @@ class DiagnosticoRepository extends EntityRepository
                             ->setParameter('id_est', $id_estab)
                             ->orderBy('diag.fechaTranscrito', 'desc');
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerDiagnosticoOrSolicitud($idSolicitudEstudio )
     {
         /** Diagnóstico registrado */
@@ -62,10 +62,10 @@ class DiagnosticoRepository extends EntityRepository
 
         $queryDiag->distinct();
         $queryDiag->setMaxResults(1);
-        
+
         $diag = $queryDiag->getQuery()->getOneOrNullResult();
         if ($diag ) { return array($diag['diagId'], 'diag'); }
-        
+
         /** Solicitud existente */
         $querySoldiag = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -76,10 +76,10 @@ class DiagnosticoRepository extends EntityRepository
 
         $querySoldiag->distinct();
         $querySoldiag->setMaxResults(1);
-        
+
         $soldiag = $querySoldiag->getQuery()->getOneOrNullResult();
         if ($soldiag ) { return array($soldiag['soldiagId'], 'soldiag'); }
-        
+
         /** Estudio existente */
         $queryEst = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -91,13 +91,13 @@ class DiagnosticoRepository extends EntityRepository
 
         $queryEst->distinct();
         $queryEst->setMaxResults(1);
-        
+
         $est = $queryEst->getQuery()->getOneOrNullResult();
         if ($est ) { return array($est['estId'], 'est'); }
-        
+
         return null;
     }
-    
+
     public function obtenerAccesoDiagnostico($id, $idUser)
     {
         $query = $this->getEntityManager()
@@ -119,10 +119,10 @@ class DiagnosticoRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function obtenerAccesoEstab($id, $idEstab)
     {
         $query = $this->getEntityManager()
@@ -137,10 +137,10 @@ class DiagnosticoRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function obtenerDiagnosticos($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
@@ -154,10 +154,10 @@ class DiagnosticoRepository extends EntityRepository
                             ->addOrderBy('diag.fechaAprobado', 'desc')
                             ->addOrderBy('diag.fechaTranscrito', 'desc');
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerPendientesTranscripcion($id_estab, $bs_filters = array())
     {
         /** SubQuery */
@@ -167,7 +167,7 @@ class DiagnosticoRepository extends EntityRepository
                             ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
 //                            ->where('diag.idEstadoDiagnostico NOT IN ( 3, 5, 6 )')
                             ->andWhere('diag.idLectura = pndT.idLectura');
-                
+
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -177,14 +177,14 @@ class DiagnosticoRepository extends EntityRepository
                             ->setParameter('id_est_diag', $id_estab)
                             ->orderBy('pndT.fechaIngresoLista', 'asc')
                             ->addOrderBy('pndT.id', 'desc');
-        
+
         $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())));
-                
+
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerPendientesTranscripcionPersonal($id_estab, $sessionUser, $bs_filters = array())
     {
         /** SubQuery */
@@ -197,7 +197,7 @@ class DiagnosticoRepository extends EntityRepository
 //                             ->andWhere('diag.idEstadoDiagnostico NOT IN ( 3, 5, 6 )')
                             ->andWhere('statusdiag.codigo NOT IN (:status_diag_cod)')
                             ->andWhere('diag.idLectura = pndT.idLectura');
-                
+
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -207,16 +207,16 @@ class DiagnosticoRepository extends EntityRepository
                             ->setParameter('id_est_diag', $id_estab)
                             ->orderBy('pndT.fechaIngresoLista', 'asc')
                             ->addOrderBy('pndT.id', 'desc');
-        
+
         $query->andWhere($query->expr()->exists($subQuery->getDql()))
                             ->setParameter('id_user', $sessionUser->getId())
                             ->setParameter('status_diag_cod', array('TRC', 'CRG', 'APR'));
-                
+
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerPendientesValidacion($id_estab, $sessionUser, $bs_filters = array())
     {
         $query = $this->getEntityManager()
@@ -236,9 +236,9 @@ class DiagnosticoRepository extends EntityRepository
                         ))
                             ->setParameter('id_user', $sessionUser->getId())
                             ->setParameter('id_diag_val', $sessionUser->getIdEmpleado()->getId());
-                            
+
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
 
@@ -252,6 +252,9 @@ class DiagnosticoRepository extends EntityRepository
                             ->addSelect('ptrAsc')
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
+
+                            ->addSelect('diag.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, concat(coalesce(emplct.apellido, \'\'), \', \', coalesce(emplct.nombre, \'\')) as radiologo, statusdiag.nombreEstado as estado, diag.conclusion as conclusion, concat(coalesce(empdiag.apellido, \'\'), \', \', coalesce(empdiag.nombre, \'\')) as transcriptor, diag.fechaTranscrito as fecha_transcrito, diag.fechaAprobado as fecha_aprobado, diag.fechaRegistro as fecha_diagnostico')
+
                             ->addSelect('statusdiag.id as diag_id_estado, statusdiag.nombreEstado as diag_estado, statusdiag.codigo as diag_codEstado')
                             ->addSelect('prc.fechaCreacion as prc_fechaCreacion, est.id as est_id, est.fechaEstudio as est_fechaEstudio, est.url as est_url, prz.fechaAlmacenado as prz_fechaAlmacenado')
                             ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
@@ -307,7 +310,7 @@ class DiagnosticoRepository extends EntityRepository
                             ->addOrderBy('diag.fechaAprobado', 'desc')
                             ->addOrderBy('diag.fechaTranscrito', 'desc')
                             ->distinct();
-        
+
         $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                             $query->expr()->andx(
@@ -316,7 +319,7 @@ class DiagnosticoRepository extends EntityRepository
                                             )
                             )
                             ->setParameter('id_est_explocal', $id_estab);
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -332,7 +335,7 @@ class DiagnosticoRepository extends EntityRepository
 
         return $query->getQuery()->getScalarResult();
     }
-    
+
     public function obtenerPendientesTranscripcionV2($id_estab, $bs_filters = array())
     {
         /** SubQuery */
@@ -342,7 +345,7 @@ class DiagnosticoRepository extends EntityRepository
                             ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
 //                            ->where('diag.idEstadoDiagnostico NOT IN ( 3, 5, 6 )')
                             ->andWhere('diag.idLectura = pndT.idLectura');
-                
+
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder('pndT')
@@ -351,6 +354,9 @@ class DiagnosticoRepository extends EntityRepository
                             ->addSelect('ptrAsc')
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
+
+                            ->addSelect('pndT.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, concat(coalesce(emplct.apellido, \'\'), \', \', coalesce(emplct.nombre, \'\')) as radiologo, statuslct.nombreEstado as estado, pndT.fechaIngresoLista as fecha_ingreso'/*, diag.conclusion as conclusion'*/)
+
                             ->addSelect('statuslct.id as lct_id_estado, statuslct.nombreEstado as lct_estado, tipoR.id as lct_id_tipoResultado, tipoR.nombreTipo as lct_tipoResultado, tipoR.indeterminado as lct_indeterminado')
                             ->addSelect('prc.fechaCreacion as prc_fechaCreacion, est.id as est_id, est.fechaEstudio as est_fechaEstudio, est.url as est_url, prz.fechaAlmacenado as prz_fechaAlmacenado')
                             ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
@@ -394,11 +400,14 @@ class DiagnosticoRepository extends EntityRepository
                             ->leftJoin('exp.idPaciente', 'pct')
                             ->innerJoin('usrRg.idEmpleado', 'usrRgEmp')
                             ->leftJoin('emplct.idTipoEmpleado', 'tpEmp')
+                            // ->leftJoin('MinsalSimagdBundle:ImgDiagnostico', 'diag',
+                            //         \Doctrine\ORM\Query\Expr\Join::WITH,
+                            //         'lct.id = diag.idLectura')
                             ->where('pndT.idEstablecimiento = :id_est_diag')
                             ->setParameter('id_est_diag', $id_estab)
                             ->orderBy('pndT.fechaIngresoLista', 'asc')
                             ->addOrderBy('pndT.id', 'desc');
-        
+
         $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                             $query->expr()->andx(
@@ -407,10 +416,10 @@ class DiagnosticoRepository extends EntityRepository
                                             )
                             )
                             ->setParameter('id_est_explocal', $id_estab);
-        
+
         $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())))
                             ->distinct();
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -426,7 +435,7 @@ class DiagnosticoRepository extends EntityRepository
 
         return $query->getQuery()->getScalarResult();
     }
-    
+
     public function obtenerPendientesTranscripcionPersonalV2($id_estab, $sessionUser, $bs_filters = array())
     {
         /** Query */
@@ -502,7 +511,7 @@ class DiagnosticoRepository extends EntityRepository
                             ->orderBy('pndT.fechaIngresoLista', 'asc')
                             ->addOrderBy('pndT.id', 'desc')
                             ->distinct();
-        
+
         $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                             $query->expr()->andx(
@@ -511,7 +520,7 @@ class DiagnosticoRepository extends EntityRepository
                                             )
                             )
                             ->setParameter('id_est_explocal', $id_estab);
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -527,7 +536,7 @@ class DiagnosticoRepository extends EntityRepository
 
         return $query->getQuery()->getScalarResult();
     }
-    
+
     public function obtenerPendientesValidacionV2($id_estab, $sessionUser, $bs_filters = array())
     {
         $query = $this->getEntityManager()
@@ -539,6 +548,9 @@ class DiagnosticoRepository extends EntityRepository
                             ->addSelect('ptrAsc')
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
+
+                            ->addSelect('pndV.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, concat(coalesce(emplct.apellido, \'\'), \', \', coalesce(emplct.nombre, \'\')) as radiologo, statusdiag.nombreEstado as estado, pndV.fechaIngresoLista as fecha_ingreso, diag.conclusion as conclusion')
+
                             ->addSelect('statusdiag.id as diag_id_estado, statusdiag.nombreEstado as diag_estado, statusdiag.codigo as diag_codEstado')
                             ->addSelect('prc.fechaCreacion as prc_fechaCreacion, est.id as est_id, est.fechaEstudio as est_fechaEstudio, est.url as est_url, prz.fechaAlmacenado as prz_fechaAlmacenado')
                             ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
@@ -593,7 +605,7 @@ class DiagnosticoRepository extends EntityRepository
                             ->setParameter('id_est_diag', $id_estab)
                             ->orderBy('pndV.fechaIngresoLista', 'asc')
                             ->addOrderBy('pndV.id', 'desc');
-        
+
         $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                             $query->expr()->andx(
@@ -610,7 +622,7 @@ class DiagnosticoRepository extends EntityRepository
                             ->setParameter('id_user', $sessionUser->getId())
                             ->setParameter('id_diag_val', $sessionUser->getIdEmpleado()->getId())
                             ->distinct();
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -638,8 +650,8 @@ class DiagnosticoRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult();
     }
-    
+
 }

@@ -60,7 +60,7 @@ window.actionLecturaEvents = {
 	    lecturaCacheShowViewObject.push({ 'id' : row.lectura3.id, 'lectura' : row.lectura3 });
 	    console.log('added');
 
-            $.ajax({ type: 'post', dataType: 'json', url: Routing.generate('simagd_lectura_getObjectVarsAsArray'), data: { id: row.id, pct: pctId },
+            $.ajax({ type: 'POST', dataType: 'json', url: Routing.generate('simagd_lectura_getObjectVarsAsArray'), data: { id: row.id, pct: pctId },
                 success: function(response) {
                             console.log('objeto recuperado exitosamente');
                             console.log(response);

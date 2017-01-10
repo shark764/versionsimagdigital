@@ -45,6 +45,7 @@ class ImgSolicitudEstudioAdmin extends Admin
         $collection->add('listarPacientesSinCita', null, [], [], ['expose' => true]);
         $collection->add('crearSolicitudEstudioFormatoRapido', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarSolicitudEstudioFormatoRapido', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
     }
 
     /**

@@ -16,7 +16,7 @@ class ImgCtlPatronDiagnosticoAdmin extends Admin
 {
     protected $baseRouteName = 'simagd_patron_diagnostico';
     protected $baseRoutePattern = 'rayos-x-patron-diagnostico';
-    
+
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('delete');
@@ -29,8 +29,9 @@ class ImgCtlPatronDiagnosticoAdmin extends Admin
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
     }
-    
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -58,7 +59,7 @@ class ImgCtlPatronDiagnosticoAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
     }
-    
+
     public function prePersist($patron)
     {
         $sessionUser = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
@@ -68,7 +69,7 @@ class ImgCtlPatronDiagnosticoAdmin extends Admin
 	    $patron->setCodigo(strtoupper($patron->getCodigo()));
 	}
     }
-    
+
     public function preUpdate($patron)
     {
         $sessionUser = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
@@ -96,5 +97,5 @@ class ImgCtlPatronDiagnosticoAdmin extends Admin
                 break;
         }
     }
-    
+
 }

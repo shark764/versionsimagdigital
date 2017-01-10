@@ -225,14 +225,14 @@ class ImgEstudioPacienteAdminController extends CRUDController
                                                         ($PACS_SERVER_CONFIGURED !== null && $resultado['est_estudioUid'] !== null ?
                                                                 'http://'
                                                                 . trim($PACS_SERVER_CONFIGURED->getIp())
-                                                                . ':8080/weasis-pacs-connector/viewer.jnlp?studyUID='
+                                                                . ':8081/weasis-pacs-connector/viewer.jnlp?studyUID='
                                                                 . trim($resultado['est_estudioUid'])
                                                         : '') : '';
             $resultados[$key]['est_url_oviyam2']    = $isUser_allowDownload !== false ?
                                                         ($PACS_SERVER_CONFIGURED !== null && $resultado['est_estudioUid'] !== null ?
                                                                 'http://'
                                                                 . trim($PACS_SERVER_CONFIGURED->getIp())
-                                                                . ':8080/oviyam2/viewer.html?patientID='
+                                                                . ':8081/oviyam2/viewer.html?patientID='
                                                                 . trim($resultado['explocal_numero'])
                                                                 . '&studyUID='
                                                                 . trim($resultado['est_estudioUid'])

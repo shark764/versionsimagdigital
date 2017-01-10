@@ -36,6 +36,7 @@ class ImgCitaAdmin extends Admin
         $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('listarCitasProgramadas', null, [], [], ['expose' => true]);
         $collection->add('imprimirComprobante', 'imprimir-comprobante', [], [], ['expose' => true]);
+        $collection->add('generateCalendar', null, [], [], ['expose' => true]);
     }
     
     /**

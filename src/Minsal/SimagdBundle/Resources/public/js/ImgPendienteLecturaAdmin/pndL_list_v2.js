@@ -25,7 +25,7 @@ function pendienteLectura_actionFormatter(value, row, index) {
 window.pendienteLectura_actionEvents = {
     'click .agregar-pendiente-lectura-action': function (e, value, row, index) {
         $.ajax({
-            type: 'post',
+            type: 'POST',
             dataType: 'json',
             url: Routing.generate('simagd_lectura_agregarPendiente'),
             data: {
@@ -163,7 +163,7 @@ jQuery(document).ready(function() {
 
         // Use Ajax to submit form data
         $.ajax({
-                type: 'post',
+                type: 'POST',
                 dataType: 'json',
                 url: Routing.generate('simagd_sin_lectura_asignarElementoListaTrabajo'),
                 data: $pndLWorklist_params,

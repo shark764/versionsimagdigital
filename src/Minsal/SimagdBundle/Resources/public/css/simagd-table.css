@@ -3,7 +3,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : 09-03-2014, 03:16:13 PM
     Author     : farid
 */
@@ -13,7 +13,7 @@ http://codepen.io/lukepeters/pen/bfFur
 http://wptheming.com/downloads/simpletable.zip
 http://wptheming.com/downloads/simpletable/*/
 
-.box-simagd .box-body table { 
+.box-simagd .box-body table {
     table-layout: fixed;
     width: 100%;
 /*     overflow: hidden; */
@@ -45,7 +45,7 @@ table.simagd-search-table tr.sonata-ba-list-field-header {
     text-align: center;
 }
 
-/* 
+/*
  * Loading Efect in button
  */
 .glyphicon-refresh-animate {
@@ -230,13 +230,13 @@ span.bstable-toolbar-span-label {
 {
     /*background-color: #ffffff !important;*/
     /*padding: 0.25em !important;*/
-    
+
     /*
      border-top: 1px solid red;
      border-bottom: 1px solid red;
      *
      */
-    
+
     border-top: 1px solid red/*#16677d*/;
     border-bottom: 1px solid red/*#16677d*/;
 }
@@ -301,4 +301,12 @@ span.bstable-toolbar-span-label {
 .pull-leftt.search,
 .pull-right.search {
     width: 39.50%;
+}
+
+
+
+.bstable_detailview_display > tr > th,
+.bstable_detailview_display > thead > tr > th,
+.bstable_detailview_display > tbody > tr > th {
+    text-align: right;
 }

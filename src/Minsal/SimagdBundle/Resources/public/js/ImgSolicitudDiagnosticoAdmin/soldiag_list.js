@@ -34,7 +34,7 @@ window.actionSolDiagEvents = {
 
 	console.log('******************** ************ ***** AQUI COMIENZA LO BUENO!! ***** ************ ********************');
 	if (jQuery.inArray(row.id, solicitudDiagCacheShowView ) === -1) {
-            $.ajax({ type: 'post', dataType: 'json', url: Routing.generate('simagd_solicitud_diagnostico_getObjectVarsAsArray'), data: { id: row.id },
+            $.ajax({ type: 'POST', dataType: 'json', url: Routing.generate('simagd_solicitud_diagnostico_getObjectVarsAsArray'), data: { id: row.id },
                 success: function(response) {
                             solicitudDiagCacheShowView.push(row.id);
                             solicitudDiagCacheShowViewObject.push({ 'id' : row.id, 'object' : response.object });
@@ -103,7 +103,7 @@ $(document).on('click', "button[id='btn_editar_soldiag']", function(e) {
     e.preventDefault();
 
     $.ajax({
-        type: 'post',
+        type: 'POST',
         dataType: 'json',
         url: Routing.generate('simagd_solicitud_diagnostico_editarSolicitudDiag'),
         data: jQuery('#crearSolicitudDiagForm').formParams(),

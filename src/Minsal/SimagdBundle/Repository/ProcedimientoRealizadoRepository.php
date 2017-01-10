@@ -71,7 +71,7 @@ class ProcedimientoRealizadoRepository extends EntityRepository
                         ->createQueryBuilder()
                             ->select('prz')
                             ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz')
-//                            ->where('prz.idEstadoProcedimientoRealizado NOT IN (5, 6, 7, 8, 9)')
+                           // ->where('prz.idEstadoProcedimientoRealizado NOT IN (5, 6, 7, 8, 9)')
                             ->andWhere('prz.idSolicitudEstudio = pndR.idSolicitudEstudio');
                 
         /** Query */
@@ -127,15 +127,15 @@ class ProcedimientoRealizadoRepository extends EntityRepository
                         ->createQueryBuilder()
                             ->select('prz')
                             ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz');
-//                            ->where('prz.idEstadoProcedimientoRealizado NOT IN (5, 6, 7, 8, 9)');
+                           // ->where('prz.idEstadoProcedimientoRealizado NOT IN (5, 6, 7, 8, 9)');
 
         $subQuery->andWhere($subQuery->expr()->orx(
                             $subQuery->expr()->eq('prz.idSolicitudEstudio', 'pndR.idSolicitudEstudio'),
                             $subQuery->expr()->eq('prz.idCitaProgramada', 'pndR.idCitaProgramada'),
                             $subQuery->expr()->eq('prz.idSolicitudEstudioComplementario', 'pndR.idSolicitudEstudioComplementario')
                         ));
-// 			    ->where('prz.id = pndR.idProcedimientoIniciado');
-// 			    ->where('prz.idSolicitudEstudio = pndR.idSolicitudEstudio OR prz.idCitaProgramada = pndR.idCitaProgramada OR prz.idSolicitudEstudioComplementario = pndR.idSolicitudEstudioComplementario');
+			    // ->where('prz.id = pndR.idProcedimientoIniciado');
+			    // ->where('prz.idSolicitudEstudio = pndR.idSolicitudEstudio OR prz.idCitaProgramada = pndR.idCitaProgramada OR prz.idSolicitudEstudioComplementario = pndR.idSolicitudEstudioComplementario');
 
         /** Query */
         $query = $this->getEntityManager()
@@ -146,6 +146,8 @@ class ProcedimientoRealizadoRepository extends EntityRepository
                             ->addSelect('solcmpl')
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
+
+                            ->addSelect('pndR.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, pndR.fechaIngresoLista as fecha_ingreso')
 
                             ->addSelect('stdPndR.nombre as pndR_establecimiento, stdPndR.id as pndR_id_establecimiento')
 
@@ -225,19 +227,19 @@ class ProcedimientoRealizadoRepository extends EntityRepository
     public function obtenerPendientesRealizarPersonalV2($id_estab, $sessionUser, $bs_filters = array())
     {
         /** SubQuery */
-//         $subQuery = $this->getEntityManager()
-//                         ->createQueryBuilder()
-//                             ->select('prz')
-//                             ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz');
-// //                            ->where('prz.idEstadoProcedimientoRealizado NOT IN (5, 6, 7, 8, 9)');
-//
-//         $subQuery->andWhere($subQuery->expr()->orx(
-//                             $subQuery->expr()->eq('prz.idSolicitudEstudio', 'pndR.idSolicitudEstudio'),
-//                             $subQuery->expr()->eq('prz.idCitaProgramada', 'pndR.idCitaProgramada'),
-//                             $subQuery->expr()->eq('prz.idSolicitudEstudioComplementario', 'pndR.idSolicitudEstudioComplementario')
-//                         ));
-// // 			    ->where('prz.id = pndR.idProcedimientoIniciado');
-// // 			    ->where('prz.idSolicitudEstudio = pndR.idSolicitudEstudio OR prz.idCitaProgramada = pndR.idCitaProgramada OR prz.idSolicitudEstudioComplementario = pndR.idSolicitudEstudioComplementario');
+        //         $subQuery = $this->getEntityManager()
+        //                         ->createQueryBuilder()
+        //                             ->select('prz')
+        //                             ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz');
+        // //                            ->where('prz.idEstadoProcedimientoRealizado NOT IN (5, 6, 7, 8, 9)');
+        //
+        //         $subQuery->andWhere($subQuery->expr()->orx(
+        //                             $subQuery->expr()->eq('prz.idSolicitudEstudio', 'pndR.idSolicitudEstudio'),
+        //                             $subQuery->expr()->eq('prz.idCitaProgramada', 'pndR.idCitaProgramada'),
+        //                             $subQuery->expr()->eq('prz.idSolicitudEstudioComplementario', 'pndR.idSolicitudEstudioComplementario')
+        //                         ));
+        // // 			    ->where('prz.id = pndR.idProcedimientoIniciado');
+        // // 			    ->where('prz.idSolicitudEstudio = pndR.idSolicitudEstudio OR prz.idCitaProgramada = pndR.idCitaProgramada OR prz.idSolicitudEstudioComplementario = pndR.idSolicitudEstudioComplementario');
 
         /** Query */
         $query = $this->getEntityManager()

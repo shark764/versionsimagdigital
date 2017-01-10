@@ -24,7 +24,7 @@ function pendienteTranscripcion_actionFormatter(value, row, index) {
 window.pendienteTranscripcion_actionEvents = {
     'click .agregar-pendiente-transcribir-action': function (e, value, row, index) {
         $.ajax({
-            type: 'post',
+            type: 'POST',
             dataType: 'json',
             url: Routing.generate('simagd_diagnostico_agregarPendiente'),
             data: { __lct: row.lct_id },
@@ -233,7 +233,7 @@ jQuery(document).ready(function() {
 
         // Use Ajax to submit form data
         $.ajax({
-                type: 'post',
+                type: 'POST',
                 dataType: 'json',
                 url: Routing.generate('simagd_sin_transcribir_asignarElementoListaTrabajo'),
                 data: $pndTWorklist_params,

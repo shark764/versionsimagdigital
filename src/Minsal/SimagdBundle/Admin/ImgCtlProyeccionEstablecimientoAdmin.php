@@ -29,6 +29,7 @@ class ImgCtlProyeccionEstablecimientoAdmin extends Admin
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
     }
 
     /**

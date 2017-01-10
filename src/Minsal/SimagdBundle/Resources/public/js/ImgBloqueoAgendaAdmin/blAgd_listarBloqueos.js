@@ -60,7 +60,7 @@ window.actionBloqueoEvents = {
     },
     'click .remove-bloqueo-action': function (e, value, row, index) {
         $.ajax({
-            type: 'post',
+            type: 'POST',
             dataType: 'json',
             url: Routing.generate('simagd_bloqueo_agenda_removerBloqueo'),
             data: { id: row.blAgd_id },

@@ -46,7 +46,7 @@ window.actionLocalEvents = {
 	var $fieldIdMaterial = $("select[id='formMtrLcIdMaterial']");
 	
 	$.ajax({
-	    type: 'post',
+	    type: 'POST',
 	    dataType: 'json',
 	    url: Routing.generate('simagd_material_local_obtenerMaterialesNoAgregados'),
 	    beforeSend: function() {
@@ -158,7 +158,7 @@ jQuery(document).ready(function() {
 	    $chkHbl = false;
 	}
 	$.ajax({
-	    type: 'post',
+	    type: 'POST',
 	    dataType: 'json',
 	    url: Routing.generate('simagd_material_local_habilitarMaterial'),
             data: {
