@@ -105,14 +105,14 @@ class RyxCtlProyeccionRadiologicaListViewGenerator extends RyxEntityListViewGene
                     array(
                         'field' => 'fecha_registro',
                         'sortable' => true,
-                        'title' => 'Fecha (Registro)',
+                        'title' => 'Fecha (Reg.)',
                         // 'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
                         'field' => 'fecha_edicion',
                         'sortable' => true,
-                        'title' => 'Fecha (Edición)',
+                        'title' => 'Fecha (Ed.)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),

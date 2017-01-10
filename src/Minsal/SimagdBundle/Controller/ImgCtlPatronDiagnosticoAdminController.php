@@ -9,6 +9,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxCtlPatronDiagnosticoListViewGenerator;
 
 class ImgCtlPatronDiagnosticoAdminController extends Controller
@@ -103,6 +104,8 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
         $isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
 
+        $formatter = new Formatter();
+
         foreach ($results as $key => $r)
         {
             // $r = new \Minsal\SimagdBundle\Entity\ImgCtlPatronDiagnostico();
@@ -117,13 +120,11 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
                                 // '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 14px;">' . $r['numero_expediente'] . '</span></div></div><p></p>' .
                                 '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>NOMBRE:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['nombre'] . '</div><div class="col-lg-6 col-md-6 col-sm-6 "><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" >' . /*<span class="glyphicon glyphicon-check"></span>*/ 'Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div></div>' .
                                 '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>CÓDIGO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['codigo'] . '</div></div>' .
-                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SUBGRUPO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['subgrupo'] . '</div></div>' .
-                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>CÓDIGO (SUBGPO):</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['codigo_subgrupo'] . '</div></div>' .
-                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>GRUPO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['grupo'] . '</div></div>' .
-                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>CÓDIGO (GPO):</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['codigo_grupo'] . '</div></div>' .
-                                // '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>FECHA REGISTRO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['fecha_registro'] . '</div></div>' .
-                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>FECHA REGISTRO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . \DateTime::createFromFormat('Y-m-d H:i:s', $r['fecha_registro'])->format('Y-m-d H:i:s A') . '</div></div>' .
-                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>DESCRIPCIÓN:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['descripcion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['modalidad'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>RADIÓLOGO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['radiologo'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TIPO DE RESULTADO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['tipo_resultado'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>DIAGNÓSTICO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['conclusion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>FECHA REGISTRO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $formatter->dateFormatter($r['fecha_registro']) . '</div></div>' .
                                 '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>HABILITADO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $formatter->booleanFormatter($r['habilitado']) . '</div></div>' .
                             // '</div>' .
                         '</div>' .
@@ -163,6 +164,20 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
                         '</a>' .
                     '</div>' .
                 '</div>';
+
+            // $results[$key]['action'] = '<div class="btn-group btn-group-xs"> <button type="button" class="btn btn-default dropdown-toggle example2-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
+
+            // $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="..."> <div class="btn-group btn-group-xs" role="group"> <button type="button" class="btn-link btn-link-black-thrash dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
+
+            // $results[$key]['action'] = /*'<div class="btn-toolbar" role="toolbar" aria-label="...">' .*/
+            //         '<div class="btn-group" role="group">' .
+            //             '<a class=" btn-link btn-link-black-thrash " href="javascript:void(0)" title="Operaciones..." >' .
+            //                 '<i class="glyphicon glyphicon-chevron-down"></i>' .
+            //             '</a>' .
+            //         // '</div>' .
+            //     '</div>';
+
+            $results[$key]['habilitado'] = $formatter->booleanFormatter($r['habilitado']);
 
             $results[$key]['ptrDiag_fechaHoraReg']   = $r['ptrDiag_fechaHoraReg']->format('Y-m-d H:i:s A');
             $results[$key]['ptrDiag_fechaHoraMod']   = $r['ptrDiag_fechaHoraMod'] ? $r['ptrDiag_fechaHoraMod']->format('Y-m-d H:i:s A') : '';

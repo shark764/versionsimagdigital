@@ -20,14 +20,14 @@ class PacsEstablecimientoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('m')
-                            ->from('MinsalSimagdBundle:ImgCtlPacsEstablecimiento', 'm')        
+                            ->from('MinsalSimagdBundle:ImgCtlPacsEstablecimiento', 'm')
                             ->where('m.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
                             ->andWhere('m.habilitado = :habilitado')
                             ->setParameter('habilitado', TRUE)
                            ;
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
 
@@ -37,6 +37,9 @@ class PacsEstablecimientoRepository extends EntityRepository
                         ->createQueryBuilder('pacs')
                             ->select('pacs')
                             ->addSelect('mtrBd')
+
+                            ->addSelect('pacs.id as id, pacs.nombreConexion as conexion, pacs.habilitado as habilitado, pacs.ip as ip, pacs.usuario as usuario, pacs.puerto as puerto, pacs.host as host, pacs.duracionEstudio as duracion_estudio, pacs.nombreBaseDatos as base_datos, pacs.fechaHoraReg as fecha_registro, pacs.fechaHoraMod as fecha_edicion, mtrBd.nombre as motor')
+
                             ->addSelect('stdpacs.nombre as pacs_establecimiento, stdpacs.id as pacs_id_establecimiento')
                             ->addSelect('usrRg.username as pacs_usernameUserReg, usrRg.id as pacs_id_userReg, usrMd.username as pacs_usernameUserMod, usrMd.id as pacs_id_userMod')
                             ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as pacs_nombreUserReg')
@@ -51,7 +54,7 @@ class PacsEstablecimientoRepository extends EntityRepository
                             ->orderBy('mtrBd.id', 'desc')
                             ->addOrderBy('pacs.id', 'desc')
                             ->distinct();
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -67,20 +70,20 @@ class PacsEstablecimientoRepository extends EntityRepository
 
         return $query->getQuery()->getScalarResult();
     }
-    
+
     public function getConfiguredServerPACSConnection($id_estab)
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('pacs')
-                            ->from('MinsalSimagdBundle:ImgCtlPacsEstablecimiento', 'pacs')        
+                            ->from('MinsalSimagdBundle:ImgCtlPacsEstablecimiento', 'pacs')
                             ->where('pacs.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
                             ->andWhere('pacs.habilitado = TRUE')
                             ->orderBy('pacs.id', 'desc')
                             ->distinct()
                             ->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult();
     }
 }

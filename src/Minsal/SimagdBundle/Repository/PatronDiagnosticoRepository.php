@@ -19,6 +19,9 @@ class PatronDiagnosticoRepository extends EntityRepository
                             ->select('ptrDiag')
                             ->addSelect('m')
                             ->addSelect('tpR')
+
+                            ->addSelect('ptrDiag.id as id, ptrDiag.nombre as nombre, ptrDiag.codigo as codigo, ptrDiag.habilitado as habilitado, ptrDiag.conclusion as conclusion, ptrDiag.fechaHoraReg as fecha_registro, ptrDiag.fechaHoraMod as fecha_edicion, m.nombrearea as modalidad, case when (radX.id is not null) then concat(coalesce(radX.apellido, \'\'), \', \', coalesce(radX.nombre, \'\')) else \'\' end as radiologo, tpR.nombreTipo as tipo_resultado, concat(coalesce(empptrDiag.apellido, \'\'), \', \', coalesce(empptrDiag.nombre, \'\')) as empleado')
+
                             ->addSelect('IDENTITY(m.idAtencion) as m_id_atencion')
                             ->addSelect('case when (radX.id is not null) then concat(coalesce(radX.apellido, \'\'), \', \', coalesce(radX.nombre, \'\')) else \'\' end as ptrDiag_radiologo, radX.id as ptrDiag_id_radiologo')
                             ->addSelect('concat(coalesce(empptrDiag.apellido, \'\'), \', \', coalesce(empptrDiag.nombre, \'\')) as ptrDiag_empleado, empptrDiag.id as ptrDiag_id_empleado, tpEmp.tipo as ptrDiag_tipoEmpleado')
@@ -41,7 +44,7 @@ class PatronDiagnosticoRepository extends EntityRepository
                             ->addOrderBy('radX.id', 'asc')
                             ->addOrderBy('ptrDiag.id', 'desc')
                             ->distinct();
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -57,7 +60,7 @@ class PatronDiagnosticoRepository extends EntityRepository
 
         return $query->getQuery()->getScalarResult();
     }
-    
+
     public function obtenerPatronesDiagnosticoUtilizablesV2($id_estab, $idAtencion = '97')
     {
         /** SubQuery */
@@ -68,7 +71,7 @@ class PatronDiagnosticoRepository extends EntityRepository
                             ->where('m.id = mr.idAreaServicioDiagnostico')
                             ->andWhere('mr.imgHabilitado = TRUE')
                             ->andWhere('mr.idEstablecimiento = :id_est');
-                
+
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -81,7 +84,7 @@ class PatronDiagnosticoRepository extends EntityRepository
                             ->where('ptrDiag.habilitado = TRUE')
                             ->andWhere('m.idAtencion = :id_atn')
                             ->setParameter('id_atn', $idAtencion);
-        
+
         $query->andWhere($query->expr()->exists($subQuery->getDql()))
                             ->setParameter('id_est', $id_estab)
                             ->orderBy('m.id', 'asc')
@@ -89,8 +92,8 @@ class PatronDiagnosticoRepository extends EntityRepository
                             ->addOrderBy('radxPtrDiag.id', 'asc')
                             ->addOrderBy('ptrDiag.id', 'desc')
                             ->distinct();
-        
+
         return $query;
     }
-    
+
 }
