@@ -90,6 +90,8 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
         $BS_FILTERS         = $this->get('request')->query->get('filters');
         $BS_FILTERS_DECODE  = json_decode($BS_FILTERS, true);
 
+        $__REQUEST__type = $this->get('request')->query->get('type', 'list');
+
         $em                 = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
