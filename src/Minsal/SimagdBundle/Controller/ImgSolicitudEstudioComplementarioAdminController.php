@@ -18,7 +18,7 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 use Minsal\SimagdBundle\Entity\ImgSolicitudEstudioComplementario;
 use Doctrine\ORM\EntityRepository;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxSolicitudEstudioComplementarioListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxSolicitudEstudioComplementarioListViewGenerator;
 
 class ImgSolicitudEstudioComplementarioAdminController extends Controller
 {

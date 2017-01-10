@@ -12,10 +12,10 @@ use Minsal\SimagdBundle\Entity\ImgSolicitudEstudio;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sonata\AdminBundle\Exception\ModelManagerException;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxExamenPendienteRealizacionListViewGenerator;
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxSolicitudEstudioListViewGenerator;
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxLecturaRadiologicaListViewGenerator;
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxCtlProyeccionRadiologicaListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxExamenPendienteRealizacionListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxSolicitudEstudioListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxLecturaRadiologicaListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxCtlProyeccionRadiologicaListViewGenerator;
 
 class ImagenologiaDigitalAdminController extends Controller
 {

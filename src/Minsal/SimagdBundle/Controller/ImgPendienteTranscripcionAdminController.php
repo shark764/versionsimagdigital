@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 use Minsal\SimagdBundle\Entity\ImgPendienteTranscripcion;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxLecturaPendienteTranscripcionListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxLecturaPendienteTranscripcionListViewGenerator;
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 

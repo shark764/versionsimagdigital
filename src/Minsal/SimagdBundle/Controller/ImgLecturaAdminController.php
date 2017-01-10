@@ -13,7 +13,7 @@ use Minsal\SimagdBundle\Entity\ImgPendienteLectura; // --| Lista de trabajo
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxLecturaRadiologicaListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxLecturaRadiologicaListViewGenerator;
 
 class ImgLecturaAdminController extends Controller
 {

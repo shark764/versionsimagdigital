@@ -6,16 +6,16 @@
  * and open the template in the editor.
  */
 
-namespace Minsal\SimagdBundle\Generator\ListViewGenerator;
+namespace Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxEntityListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxEntityListViewGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
 // use Minsal\SimagdBundle\Entity\EntityInterface;
 use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 
-// use Minsal\SimagdBundle\Entity\RyxSolicitudEstudio;
+// use Minsal\SimagdBundle\Entity\RyxCtlProyeccionEstablecimiento;
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -24,33 +24,12 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 ///////////////////////////////////////////////////////
 
 /**
- * RyxSolicitudEstudioListViewGenerator
+ * RyxCtlProyeccionEstablecimientoListViewGenerator
  *
  * @author farid
  */
-class RyxSolicitudEstudioListViewGenerator extends RyxEntityListViewGenerator
+class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListViewGenerator
 {
-    /**
-     * @var boolean
-     */
-    private $isEmergency = false;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setIsEmergency($isEmergency)
-    {
-        $this->isEmergency = $isEmergency;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getIsEmergency()
-    {
-        return $this->isEmergency;
-    }
-
     /**
      * Sets the array.
      *
@@ -94,85 +73,75 @@ class RyxSolicitudEstudioListViewGenerator extends RyxEntityListViewGenerator
                         // 'switchable' => false,
                     ),
                     array(
-                        'field' => 'origen',
+                        'field' => 'codigo_modalidad',
                         'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-home"></span>'*/ 'Origen',
-                        'visible' => false,
-                        // 'formatter' => 'simagdOrigenFormatter',
-                    ),
-                    array(
-                        'field' => 'paciente',
-                        'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Paciente',
-                        'switchable' => false,
-                        // 'formatter' => 'simagdPacienteFormatter',
-                    ),
-                    array(
-                        'field' => 'numero_expediente',
-                        'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-tag"></span>'*/ 'Reg.',
-                        'switchable' => false,
-                        'class' => 'bstable-column-highlighted',
-                        // 'formatter' => 'simagdPacienteFormatter',
-                    ),
-                    array(
-                        'field' => 'area_atencion',
-                        'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Procedencia',
-                    ),
-                    array(
-                        'field' => 'atencion',
-                        'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Servicio',
-                        'visible' => false,
-                    ),
-                    array(
-                        'field' => 'medico',
-                        'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Médico',
-                        // 'switchable' => false,
-                        'visible' => false,
+                        'title' => 'Código (Modalidad)',
+                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'modalidad',
                         'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-list-alt"></span>'*/ 'Modalidad',
+                        'title' => 'Modalidad',
+                        // 'visible' => true,
                     ),
                     array(
-                        'field' => 'triage',
+                        'field' => 'codigo_examen',
                         'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-tag"></span>'*/ 'TRIAGE',
-                        'class' => 'bstable-column-highlighted',
-                        // 'visible' => false,
-                        // 'switchable' => false,
+                        'title' => 'Código (Examen)',
+                        // 'visible' => true,
                     ),
                     array(
-                        'field' => 'tecnologo',
+                        'field' => 'examen',
                         'sortable' => true,
-                        'title' => 'Téc. / Lic. / Rdlg.',
-                        'visible' => false,
-                        // 'switchable' => false,
+                        'title' => 'Examen / Grupo',
+                        // 'visible' => true,
                     ),
                     array(
-                        'field' => 'estado',
+                        'field' => 'codigo',
                         'sortable' => true,
-                        'title' => 'Estado',
-                        'visible' => false,
-                        // 'switchable' => false,
+                        'title' => 'Código (Proyección)',
+                        // 'visible' => true,
                     ),
                     array(
-                        'field' => 'fecha_examen',
+                        'field' => 'nombre',
                         'sortable' => true,
-                        'title' => 'Fecha (Exm.)',
+                        'title' => 'Proyección',
+                        // 'visible' => true,
+                    ),
+                    array(
+                        'field' => 'fecha_registro',
+                        'sortable' => true,
+                        'title' => 'Fecha (Registro)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
-                        'field' => 'fecha_ingreso',
+                        'field' => 'fecha_edicion',
                         'sortable' => true,
-                        'title' => 'Ingreso',
+                        'title' => 'Fecha (Edición)',
+                        'visible' => false,
+                        // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'habilitado',
+                        'sortable' => true,
+                        'title' => '¿Act.?',
                         // 'visible' => false,
-                        // 'switchable' => false,
+                        // 'formatter' => 'habilitadoFormatter',
+                    ),
+                    array(
+                        'field' => 'fecha_registro_local',
+                        'sortable' => true,
+                        'title' => 'Fecha (Registro)',
+                        'visible' => false,
+                        // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'fecha_edicion_local',
+                        'sortable' => true,
+                        'title' => 'Fecha (Edición)',
+                        'visible' => false,
+                        // 'formatter' => 'simagdDateTimeFormatter',
                     )
             );
         }
@@ -220,10 +189,10 @@ class RyxSolicitudEstudioListViewGenerator extends RyxEntityListViewGenerator
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_solicitud_estudio_listarSolicitudesEstudio', array('type' => $this->type, 'emrg' => $this->isEmergency));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_proyeccion_establecimiento_listarProyeccionesLocales', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
-        $this->entityOptions['pageSize']    = '25';
+        $this->entityOptions['pageSize']    = '50';
         // $this->entityOptions['sortName']    = 'undefined';
         if ($this->type === 'detail') {
             $this->entityOptions['showToggle']  = false;

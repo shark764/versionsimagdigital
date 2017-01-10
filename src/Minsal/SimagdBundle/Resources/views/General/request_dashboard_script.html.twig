@@ -5,22 +5,30 @@
             window.alert(slug + '\n' + id);
         }
 
-        var generate = function(el, slug, emrg = 0/*, type = 'list'*/) {
+        var generate = function(el, slug, emrg/* = 0, type = 'list'*/) {
+			if (emrg === undefined) {
+		        emrg = 0;
+		    }
             ////////
             var $table = jQuery('#ryx_target_bstable');
             ////////
             $table.bootstrapTable('showLoading');
 
             $url = null;
-            if (slug === 'study_request' || slug === 'emergency_study_request') {
-                $url = 'simagd_solicitud_estudio_generateTable';
-            }
-            if (slug === 'diagnostic_request') {
-                $url = 'simagd_solicitud_diagnostico_generateTable';
-            }
-            if (slug === 'further_study_request') {
-                $url = 'simagd_solicitud_estudio_complementario_generateTable';
-            }
+			switch (slug) {
+				case 'study_request':
+				case 'emergency_study_request':
+					$url = 'simagd_solicitud_estudio_generateTable';
+					break;
+				case 'diagnostic_request':
+					$url = 'simagd_solicitud_diagnostico_generateTable';
+					break;
+				case 'further_study_request':
+					$url = 'simagd_solicitud_estudio_complementario_generateTable';
+					break;
+				default:
+					break;
+			}
 
             // if (slug === 'emergency_study_request') {
             //     emrg

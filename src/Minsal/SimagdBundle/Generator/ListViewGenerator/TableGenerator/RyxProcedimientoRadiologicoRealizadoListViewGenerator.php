@@ -6,16 +6,16 @@
  * and open the template in the editor.
  */
 
-namespace Minsal\SimagdBundle\Generator\ListViewGenerator;
+namespace Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxEntityListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxEntityListViewGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
 // use Minsal\SimagdBundle\Entity\EntityInterface;
 use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 
-// use Minsal\SimagdBundle\Entity\MntExpedienteReferido;
+// use Minsal\SimagdBundle\Entity\RyxProcedimientoRadiologicoRealizado;
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -24,11 +24,11 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 ///////////////////////////////////////////////////////
 
 /**
- * MntExpedienteReferidoListViewGenerator
+ * RyxProcedimientoRadiologicoRealizadoListViewGenerator
  *
  * @author farid
  */
-class MntExpedienteReferidoListViewGenerator extends RyxEntityListViewGenerator
+class RyxProcedimientoRadiologicoRealizadoListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
      * Sets the array.
@@ -47,6 +47,13 @@ class MntExpedienteReferidoListViewGenerator extends RyxEntityListViewGenerator
                     'switchable' => false,
                 ),
                 array(
+                    'field' => 'origen',
+                    'sortable' => true,
+                    'title' => 'Origen',
+                    'visible' => false,
+                    // 'formatter' => 'simagdOrigenFormatter',
+                ),
+                array(
                     'field' => 'paciente',
                     'sortable' => true,
                     'title' => 'Paciente',
@@ -54,32 +61,52 @@ class MntExpedienteReferidoListViewGenerator extends RyxEntityListViewGenerator
                     // 'formatter' => 'simagdPacienteFormatter',
                 ),
                 array(
-                    'field' => 'numero',
+                    'field' => 'numero_expediente',
                     'sortable' => true,
                     'title' => 'Registro',
                     'switchable' => false,
                     // 'formatter' => 'simagdPacienteFormatter',
                 ),
                 array(
-                    'field' => 'fecha_nacimiento',
+                    'field' => 'medico',
                     'sortable' => true,
-                    'title' => 'Fecha (Naciemiento)',
+                    'title' => 'Médico',
                     // 'switchable' => false,
-                    // 'formatter' => 'simagdPacienteFormatter',
                 ),
                 array(
-                    'field' => 'numero_afiliacion',
+                    'field' => 'area_atencion',
                     'sortable' => true,
-                    'title' => 'Número (Afiliación)',
-                    // 'switchable' => false,
-                    // 'formatter' => 'simagdPacienteFormatter',
+                    'title' => 'Procedencia',
                 ),
                 array(
-                    'field' => 'origen',
+                    'field' => 'atencion',
                     'sortable' => true,
-                    'title' => 'Origen',
-                    // 'visible' => false,
-                    // 'formatter' => 'simagdOrigenFormatter',
+                    'title' => 'Servicio',
+                ),
+                array(
+                    'field' => 'modalidad',
+                    'sortable' => true,
+                    'title' => 'Modalidad',
+                ),
+                array(
+                    'field' => 'tecnologo',
+                    'sortable' => true,
+                    'title' => 'Téc. / Lic. / Rdlg.',
+                    'visible' => false,
+                    // 'switchable' => false,
+                ),
+                array(
+                    'field' => 'estado',
+                    'sortable' => true,
+                    'title' => 'Estado',
+                    // 'switchable' => false,
+                ),
+                array(
+                    'field' => 'fecha_examen',
+                    'sortable' => true,
+                    'title' => 'Fecha (Examen)',
+                    'visible' => false,
+                    // 'formatter' => 'simagdDateTimeFormatter',
                 ),
                 array(
                     'field' => 'action',
@@ -108,7 +135,7 @@ class MntExpedienteReferidoListViewGenerator extends RyxEntityListViewGenerator
 
         // foreach ($results as $key => $result)
         // {
-        //     $results[$key]['fecha_solicitud']  = $result['fecha_solicitud']->format('Y-m-d H:i:s A');
+        //     $results[$key]['fecha_examen']  = $result['fecha_examen']->format('Y-m-d H:i:s A');
         // }
 
         ////////
@@ -116,16 +143,6 @@ class MntExpedienteReferidoListViewGenerator extends RyxEntityListViewGenerator
         ////////
 
         // return $this->data;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function initialize()
-    {
-        $this->setEntityOptions();
-        $this->defineColumns();
-        // $this->buildData();
     }
 
 }

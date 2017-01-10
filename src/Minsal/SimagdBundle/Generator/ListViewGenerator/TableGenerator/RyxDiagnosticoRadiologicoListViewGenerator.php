@@ -6,16 +6,16 @@
  * and open the template in the editor.
  */
 
-namespace Minsal\SimagdBundle\Generator\ListViewGenerator;
+namespace Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxEntityListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxEntityListViewGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
 // use Minsal\SimagdBundle\Entity\EntityInterface;
 use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 
-// use Minsal\SimagdBundle\Entity\RyxEstudioPendienteLectura;
+// use Minsal\SimagdBundle\Entity\RyxDiagnosticoRadiologico;
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -24,11 +24,11 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 ///////////////////////////////////////////////////////
 
 /**
- * RyxEstudioPendienteLecturaListViewGenerator
+ * RyxDiagnosticoRadiologicoListViewGenerator
  *
  * @author farid
  */
-class RyxEstudioPendienteLecturaListViewGenerator extends RyxEntityListViewGenerator
+class RyxDiagnosticoRadiologicoListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
      * Sets the array.
@@ -103,12 +103,14 @@ class RyxEstudioPendienteLecturaListViewGenerator extends RyxEntityListViewGener
                         'field' => 'atencion',
                         'sortable' => true,
                         'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Servicio',
+                        'visible' => false,
                     ),
                     array(
                         'field' => 'medico',
                         'sortable' => true,
                         'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Médico',
                         // 'switchable' => false,
+                        'visible' => false,
                     ),
                     array(
                         'field' => 'modalidad',
@@ -145,6 +147,26 @@ class RyxEstudioPendienteLecturaListViewGenerator extends RyxEntityListViewGener
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
+                        'field' => 'transcriptor',
+                        'sortable' => true,
+                        'title' => 'Transcriptor',
+                        'visible' => false,
+                    ),
+                    array(
+                        'field' => 'fecha_transcrito',
+                        'sortable' => true,
+                        'title' => 'Registrada',
+                        'visible' => false,
+                        // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'fecha_aprobado',
+                        'sortable' => true,
+                        'title' => 'Fecha (Aprobación)',
+                        'visible' => false,
+                        // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
                         'field' => 'correlativo',
                         'sortable' => true,
                         'title' => 'Etiqueta',
@@ -159,16 +181,24 @@ class RyxEstudioPendienteLecturaListViewGenerator extends RyxEntityListViewGener
                     array(
                         'field' => 'fecha_lectura',
                         'sortable' => true,
-                        'title' => 'Fecha (Lct)',
+                        'title' => 'Fecha (Lectura)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
-                        'field' => 'fecha_ingreso',
+                        'field' => 'fecha_diagnostico',
                         'sortable' => true,
-                        'title' => 'Ingreso',
-                        // 'visible' => false,
-                        // 'switchable' => false,
+                        'title' => 'Fecha (Dx)',
+                        // 'visible' => true,
+                        // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'conclusion',
+                        'sortable' => false,
+                        'title' => 'Resultado',
+                        // 'visible' => true,
+                        'class' => 'justify-table-large-row',
+                        // 'formatter' => 'simagdDescriptionAdvanceFormatter',
                     )
             );
         }
@@ -216,10 +246,11 @@ class RyxEstudioPendienteLecturaListViewGenerator extends RyxEntityListViewGener
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_sin_lectura_listarPendientesLectura', array('type' => $this->type));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_diagnostico_listarDiagnosticos', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '25';
+        // $this->entityOptions['sortName']    = 'undefined';
         if ($this->type === 'detail') {
             $this->entityOptions['showToggle']  = false;
             $this->entityOptions['showColumns'] = false;

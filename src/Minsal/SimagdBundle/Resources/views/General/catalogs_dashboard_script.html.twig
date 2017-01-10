@@ -1,36 +1,42 @@
 {% autoescape false %}
 
     <script type="text/javascript">
-	window.alert('http://www.codereadability.com/javascript-default-parameters-with-or-operator/');
         var _fn_show_object_detail = function(el, slug, id) {
             window.alert(slug + '\n' + id);
         }
 
-        var generate = function(el, slug, emrg /*= 0 *//*, type = 'list'*/) {
+        var generate = function(el, slug, emrg/* = 0, type = 'list'*/) {
+			if (emrg === undefined) {
+		        emrg = 0;
+		    }
             ////////
             var $table = jQuery('#ryx_target_bstable');
             ////////
             $table.bootstrapTable('showLoading');
 
             $url = null;
-            if (slug === 'radiological_examinations') {
-                $url = 'simagd_proyeccion_generateTable';
-            }
-            if (slug === 'local_radiological_examinations') {
-                $url = 'simagd_proyeccion_establecimiento_generateTable';
-            }
-            if (slug === 'materials') {
-                $url = 'simagd_material_generateTable';
-            }
-            if (slug === 'local_materials') {
-                $url = 'simagd_material_local_generateTable';
-            }
-            if (slug === 'pacs_server_connections') {
-                $url = 'simagd_pacs_generateTable';
-            }
-            if (slug === 'radiological_diagnostic_patterns') {
-                $url = 'simagd_patron_diagnostico_generateTable';
-            }
+			switch (slug) {
+				case 'radiological_examinations':
+					$url = 'simagd_proyeccion_generateTable';
+					break;
+				case 'local_radiological_examinations':
+					$url = 'simagd_proyeccion_establecimiento_generateTable';
+					break;
+				case 'materials':
+					$url = 'simagd_material_generateTable';
+					break;
+				case 'local_materials':
+					$url = 'simagd_material_local_generateTable';
+					break;
+				case 'pacs_server_connections':
+					$url = 'simagd_pacs_generateTable';
+					break;
+				case 'radiological_diagnostic_patterns':
+					$url = 'simagd_patron_diagnostico_generateTable';
+					break;
+				default:
+					break;
+			}
 
             // if (slug === 'local_radiological_examinations') {
             //     emrg

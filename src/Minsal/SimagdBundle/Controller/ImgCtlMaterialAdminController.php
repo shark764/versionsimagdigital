@@ -11,7 +11,8 @@ use Doctrine\ORM\EntityRepository;
 
 use Minsal\SimagdBundle\Entity\ImgCtlMaterialEstablecimiento;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxCtlMaterialListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxCtlMaterialListViewGenerator;
 
 class ImgCtlMaterialAdminController extends Controller
 {
@@ -161,6 +162,8 @@ class ImgCtlMaterialAdminController extends Controller
 
         $isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
+
+        $formatter = new Formatter();
 
         foreach ($results as $key => $r)
         {

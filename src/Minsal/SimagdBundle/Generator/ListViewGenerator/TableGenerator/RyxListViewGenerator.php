@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Minsal\SimagdBundle\Generator\ListViewGenerator;
+namespace Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
@@ -62,22 +62,23 @@ class RyxListViewGenerator /*implements ListViewGeneratorInterface*/
      * @var array
      */
     protected $defaultOptions = array(
-        'idField'       => "id",
+        'idField'       => 'id',
         'cache'         => false,
         'showRefresh'   => true,
         'showToggle'    => true,
         'showColumns'   => true,
         'search'        => true,
         'pagination'    => true,
-        // 'paginationVAlign'  => "both",
-        'paginationHAlign'  => "left",
-        'paginationDetailHAlign'    => "right",
-        'pageList'      => "[5, 10, 15, 25, 30, 40, 50, 75, 100, 125, 150, 200, 250, 300]",
+        // 'paginationVAlign'  => 'both',
+        'paginationHAlign'  => 'left',
+        'paginationDetailHAlign'    => 'right',
+        'pageList'      => '[5, 10, 15, 25, 30, 40, 50, 75, 100, 125, 150, 200, 250, 300]',
         'pageSize'      => 25,
-        'sortName'      => "id",
-        'sortOrder'     => "desc",
-        'classes'       => "table table-hover table-condensed table-no-bordered table-striped table-black-head",
-        'buttonsClass'  => "primary-v4",
+        'sortName'      => 'id',
+        'sortOrder'     => 'desc',
+        'classes'       => 'table table-hover table-condensed table-no-bordered table-striped table-black-head',
+        // 'buttonsClass'  => 'primary-v4',
+        'buttonsClass'  => 'black-thrash',
         'icons'         => array(
             'paginationSwitchDown'  => 'glyphicon-collapse-down icon-chevron-down',
             'paginationSwitchUp'    => 'glyphicon-collapse-up icon-chevron-up',
@@ -87,10 +88,10 @@ class RyxListViewGenerator /*implements ListViewGeneratorInterface*/
             'detailOpen'    => 'glyphicon-chevron-down icon-chevron-down',
             'detailClose'   => 'glyphicon-chevron-up icon-chevron-up',
         ),
-        'searchAlign'   => "left",
-        'buttonsAlign'  => "left",
-        'toolbarAlign'  => "right",
-        // 'height'        => "1268",
+        'searchAlign'   => 'left',
+        'buttonsAlign'  => 'left',
+        'toolbarAlign'  => 'right',
+        // 'height'        => '1268',
     );
 
     /**

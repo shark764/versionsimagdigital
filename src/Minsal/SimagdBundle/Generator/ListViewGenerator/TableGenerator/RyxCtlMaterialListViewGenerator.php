@@ -6,16 +6,16 @@
  * and open the template in the editor.
  */
 
-namespace Minsal\SimagdBundle\Generator\ListViewGenerator;
+namespace Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxEntityListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxEntityListViewGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
 // use Minsal\SimagdBundle\Entity\EntityInterface;
 use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 
-// use Minsal\SimagdBundle\Entity\RyxLecturaPendienteTranscripcion;
+// use Minsal\SimagdBundle\Entity\RyxCtlMaterial;
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -24,11 +24,11 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 ///////////////////////////////////////////////////////
 
 /**
- * RyxLecturaPendienteTranscripcionListViewGenerator
+ * RyxCtlMaterialListViewGenerator
  *
  * @author farid
  */
-class RyxLecturaPendienteTranscripcionListViewGenerator extends RyxEntityListViewGenerator
+class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
      * Sets the array.
@@ -73,115 +73,67 @@ class RyxLecturaPendienteTranscripcionListViewGenerator extends RyxEntityListVie
                         // 'switchable' => false,
                     ),
                     array(
-                        'field' => 'origen',
+                        'field' => 'codigo_grupo',
                         'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-home"></span>'*/ 'Origen',
-                        'visible' => false,
-                        // 'formatter' => 'simagdOrigenFormatter',
-                    ),
-                    array(
-                        'field' => 'paciente',
-                        'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Paciente',
-                        'switchable' => false,
-                        // 'formatter' => 'simagdPacienteFormatter',
-                    ),
-                    array(
-                        'field' => 'numero_expediente',
-                        'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-tag"></span>'*/ 'Reg.',
-                        'switchable' => false,
-                        'class' => 'bstable-column-highlighted',
-                        // 'formatter' => 'simagdPacienteFormatter',
-                    ),
-                    array(
-                        'field' => 'area_atencion',
-                        'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Procedencia',
-                    ),
-                    array(
-                        'field' => 'atencion',
-                        'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Servicio',
-                    ),
-                    array(
-                        'field' => 'medico',
-                        'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Médico',
-                        // 'switchable' => false,
-                    ),
-                    array(
-                        'field' => 'modalidad',
-                        'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-list-alt"></span>'*/ 'Modalidad',
-                    ),
-                    array(
-                        'field' => 'triage',
-                        'sortable' => true,
-                        'title' => /*'<span class="glyphicon glyphicon-tag"></span>'*/ 'TRIAGE',
-                        'class' => 'bstable-column-highlighted',
-                        // 'visible' => false,
-                        // 'switchable' => false,
-                    ),
-                    array(
-                        'field' => 'tecnologo',
-                        'sortable' => true,
-                        'title' => 'Téc. / Lic. / Rdlg.',
-                        'visible' => false,
-                        // 'switchable' => false,
-                    ),
-                    array(
-                        'field' => 'fecha_examen',
-                        'sortable' => true,
-                        'title' => 'Fecha (Exm.)',
-                        'visible' => false,
-                        // 'formatter' => 'simagdDateTimeFormatter',
-                    ),
-                    array(
-                        'field' => 'correlativo',
-                        'sortable' => true,
-                        'title' => 'Etiqueta',
-                        'visible' => false,
-                    ),
-                    array(
-                        'field' => 'radiologo',
-                        'sortable' => true,
-                        'title' => 'Radiólogo',
+                        'title' => 'Cód (Gpo)',
                         // 'visible' => true,
                     ),
                     array(
-                        'field' => 'fecha_lectura',
+                        'field' => 'grupo',
                         'sortable' => true,
-                        'title' => 'Fecha (Lct)',
+                        'title' => 'Grupo',
+                        // 'visible' => true,
+                    ),
+                    array(
+                        'field' => 'codigo_subgrupo',
+                        'sortable' => true,
+                        'title' => 'Cód (Subgpo)',
+                        // 'visible' => true,
+                    ),
+                    array(
+                        'field' => 'subgrupo',
+                        'sortable' => true,
+                        'title' => 'Subgrupo',
+                        // 'visible' => true,
+                    ),
+                    array(
+                        'field' => 'codigo',
+                        'sortable' => true,
+                        'title' => 'Cód (Matr)',
+                        // 'visible' => true,
+                    ),
+                    array(
+                        'field' => 'nombre',
+                        'sortable' => true,
+                        'title' => 'Material',
+                        // 'visible' => true,
+                    ),
+                    array(
+                        'field' => 'descripcion',
+                        'sortable' => false,
+                        'title' => 'Descripción',
+                        'class' => 'justify-table-large-row',
+                        'formatter' => 'simagdDescriptionAdvanceFormatter',
+                    ),
+                    array(
+                        'field' => 'fecha_registro',
+                        'sortable' => true,
+                        'title' => 'Fecha (Reg.)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
-                        'field' => 'fecha_diagnostico',
+                        'field' => 'fecha_edicion',
                         'sortable' => true,
-                        'title' => 'Fecha (Trc)',
+                        'title' => 'Fecha (Ed.)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
-                    ),
-                    array(
-                        'field' => 'estado',
-                        'sortable' => true,
-                        'title' => 'Estado',
-                        'visible' => false,
-                        // 'switchable' => false,
-                    ),
-                    array(
-                        'field' => 'fecha_ingreso',
-                        'sortable' => true,
-                        'title' => 'Ingreso',
-                        // 'visible' => false,
-                        // 'switchable' => false,
                     )
             );
         }
     }
 
-     /**
+    /**
      * {@inheritdoc}
      */
     public function buildData()
@@ -223,10 +175,11 @@ class RyxLecturaPendienteTranscripcionListViewGenerator extends RyxEntityListVie
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_sin_transcribir_listarPendientesTranscripcion', array('type' => $this->type));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_material_listarMateriales', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
-        $this->entityOptions['pageSize']    = '25';
+        $this->entityOptions['pageSize']    = '50';
+        // $this->entityOptions['sortName']    = 'undefined';
         if ($this->type === 'detail') {
             $this->entityOptions['showToggle']  = false;
             $this->entityOptions['showColumns'] = false;

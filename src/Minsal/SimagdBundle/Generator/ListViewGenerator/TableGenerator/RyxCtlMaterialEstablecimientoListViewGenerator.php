@@ -6,16 +6,16 @@
  * and open the template in the editor.
  */
 
-namespace Minsal\SimagdBundle\Generator\ListViewGenerator;
+namespace Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxEntityListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxEntityListViewGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
 // use Minsal\SimagdBundle\Entity\EntityInterface;
 use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 
-// use Minsal\SimagdBundle\Entity\RyxCtlConexionPacsEstablecimiento;
+// use Minsal\SimagdBundle\Entity\RyxCtlMaterialEstablecimiento;
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -24,11 +24,11 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 ///////////////////////////////////////////////////////
 
 /**
- * RyxCtlConexionPacsEstablecimientoListViewGenerator
+ * RyxCtlMaterialEstablecimientoListViewGenerator
  *
  * @author farid
  */
-class RyxCtlConexionPacsEstablecimientoListViewGenerator extends RyxEntityListViewGenerator
+class RyxCtlMaterialEstablecimientoListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
      * Sets the array.
@@ -73,42 +73,82 @@ class RyxCtlConexionPacsEstablecimientoListViewGenerator extends RyxEntityListVi
                         // 'switchable' => false,
                     ),
                     array(
-                        'field' => 'codigo_examen',
+                        'field' => 'codigo_grupo',
                         'sortable' => true,
-                        'title' => 'Código (Examen)',
+                        'title' => 'Cód (Gpo)',
                         // 'visible' => true,
                     ),
                     array(
-                        'field' => 'examen',
+                        'field' => 'grupo',
                         'sortable' => true,
-                        'title' => 'Examen / Grupo',
+                        'title' => 'Grupo',
+                        // 'visible' => true,
+                    ),
+                    array(
+                        'field' => 'codigo_subgrupo',
+                        'sortable' => true,
+                        'title' => 'Cód (Subgpo)',
+                        // 'visible' => true,
+                    ),
+                    array(
+                        'field' => 'subgrupo',
+                        'sortable' => true,
+                        'title' => 'Subgrupo',
                         // 'visible' => true,
                     ),
                     array(
                         'field' => 'codigo',
                         'sortable' => true,
-                        'title' => 'Código (Proyección)',
+                        'title' => 'Cód (Matr)',
                         // 'visible' => true,
                     ),
                     array(
                         'field' => 'nombre',
                         'sortable' => true,
-                        'title' => 'Proyección',
+                        'title' => 'Material',
                         // 'visible' => true,
+                    ),
+                    array(
+                        'field' => 'descripcion',
+                        'sortable' => false,
+                        'title' => 'Descripción',
+                        'class' => 'justify-table-large-row',
+                        'formatter' => 'simagdDescriptionAdvanceFormatter',
                     ),
                     array(
                         'field' => 'fecha_registro',
                         'sortable' => true,
-                        'title' => 'Fecha (Registro)',
+                        'title' => 'Fecha (Reg.)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
                         'field' => 'fecha_edicion',
                         'sortable' => true,
-                        'title' => 'Fecha (Edición)',
+                        'title' => 'Fecha (Ed.)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'fecha_registro_local',
+                        'sortable' => true,
+                        'title' => 'Fecha (Reg.)',
+                        'visible' => false,
+                        // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'fecha_edicion_local',
+                        'sortable' => true,
+                        'title' => 'Fecha (Ed.)',
+                        'visible' => false,
+                        // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'habilitado',
+                        'sortable' => true,
+                        'title' => '¿Act.?',
+                        // 'visible' => false,
+                        // 'formatter' => 'habilitadoFormatter',
                     )
             );
         }
@@ -156,10 +196,10 @@ class RyxCtlConexionPacsEstablecimientoListViewGenerator extends RyxEntityListVi
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_pacs_listarPacsEstablecimiento', array('type' => $this->type));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_material_local_listarMaterialesLocales', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
-        $this->entityOptions['pageSize']    = '25';
+        $this->entityOptions['pageSize']    = '50';
         // $this->entityOptions['sortName']    = 'undefined';
         if ($this->type === 'detail') {
             $this->entityOptions['showToggle']  = false;

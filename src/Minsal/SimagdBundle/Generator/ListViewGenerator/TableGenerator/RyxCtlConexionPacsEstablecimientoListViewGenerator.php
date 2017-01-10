@@ -6,16 +6,16 @@
  * and open the template in the editor.
  */
 
-namespace Minsal\SimagdBundle\Generator\ListViewGenerator;
+namespace Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxEntityListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxEntityListViewGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
 // use Minsal\SimagdBundle\Entity\EntityInterface;
 use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 
-// use Minsal\SimagdBundle\Entity\RyxCtlMaterialEstablecimiento;
+// use Minsal\SimagdBundle\Entity\RyxCtlConexionPacsEstablecimiento;
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -24,11 +24,11 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 ///////////////////////////////////////////////////////
 
 /**
- * RyxCtlMaterialEstablecimientoListViewGenerator
+ * RyxCtlConexionPacsEstablecimientoListViewGenerator
  *
  * @author farid
  */
-class RyxCtlMaterialEstablecimientoListViewGenerator extends RyxEntityListViewGenerator
+class RyxCtlConexionPacsEstablecimientoListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
      * Sets the array.
@@ -73,68 +73,42 @@ class RyxCtlMaterialEstablecimientoListViewGenerator extends RyxEntityListViewGe
                         // 'switchable' => false,
                     ),
                     array(
-                        'field' => 'codigo_grupo',
+                        'field' => 'codigo_examen',
                         'sortable' => true,
-                        'title' => 'Cód (Gpo)',
+                        'title' => 'Código (Examen)',
                         // 'visible' => true,
                     ),
                     array(
-                        'field' => 'grupo',
+                        'field' => 'examen',
                         'sortable' => true,
-                        'title' => 'Grupo',
-                        // 'visible' => true,
-                    ),
-                    array(
-                        'field' => 'codigo_subgrupo',
-                        'sortable' => true,
-                        'title' => 'Cód (Subgpo)',
-                        // 'visible' => true,
-                    ),
-                    array(
-                        'field' => 'subgrupo',
-                        'sortable' => true,
-                        'title' => 'Subgrupo',
+                        'title' => 'Examen / Grupo',
                         // 'visible' => true,
                     ),
                     array(
                         'field' => 'codigo',
                         'sortable' => true,
-                        'title' => 'Cód (Matr)',
+                        'title' => 'Código (Proyección)',
                         // 'visible' => true,
                     ),
                     array(
                         'field' => 'nombre',
                         'sortable' => true,
-                        'title' => 'Material',
+                        'title' => 'Proyección',
                         // 'visible' => true,
-                    ),
-                    array(
-                        'field' => 'descripcion',
-                        'sortable' => false,
-                        'title' => 'Descripción',
-                        'class' => 'justify-table-large-row',
-                        'formatter' => 'simagdDescriptionAdvanceFormatter',
                     ),
                     array(
                         'field' => 'fecha_registro',
                         'sortable' => true,
-                        'title' => 'Fecha (Reg.)',
+                        'title' => 'Fecha (Registro)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
                         'field' => 'fecha_edicion',
                         'sortable' => true,
-                        'title' => 'Fecha (Ed.)',
+                        'title' => 'Fecha (Edición)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
-                    ),
-                    array(
-                        'field' => 'habilitado',
-                        'sortable' => true,
-                        'title' => '¿Act.?',
-                        'visible' => false,
-                        // 'formatter' => 'habilitadoFormatter',
                     )
             );
         }
@@ -182,7 +156,7 @@ class RyxCtlMaterialEstablecimientoListViewGenerator extends RyxEntityListViewGe
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_material_local_listarMaterialesLocales', array('type' => $this->type));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_pacs_listarPacsEstablecimiento', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '25';

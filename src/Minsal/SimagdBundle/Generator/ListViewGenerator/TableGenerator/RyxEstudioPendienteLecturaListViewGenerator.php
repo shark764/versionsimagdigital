@@ -6,16 +6,16 @@
  * and open the template in the editor.
  */
 
-namespace Minsal\SimagdBundle\Generator\ListViewGenerator;
+namespace Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxEntityListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxEntityListViewGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
 // use Minsal\SimagdBundle\Entity\EntityInterface;
 use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 
-// use Minsal\SimagdBundle\Entity\RyxCtlProyeccionEstablecimiento;
+// use Minsal\SimagdBundle\Entity\RyxEstudioPendienteLectura;
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -24,11 +24,11 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 ///////////////////////////////////////////////////////
 
 /**
- * RyxCtlProyeccionEstablecimientoListViewGenerator
+ * RyxEstudioPendienteLecturaListViewGenerator
  *
  * @author farid
  */
-class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListViewGenerator
+class RyxEstudioPendienteLecturaListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
      * Sets the array.
@@ -73,61 +73,102 @@ class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListView
                         // 'switchable' => false,
                     ),
                     array(
-                        'field' => 'codigo_modalidad',
+                        'field' => 'origen',
                         'sortable' => true,
-                        'title' => 'Código (Modalidad)',
-                        // 'visible' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-home"></span>'*/ 'Origen',
+                        'visible' => false,
+                        // 'formatter' => 'simagdOrigenFormatter',
+                    ),
+                    array(
+                        'field' => 'paciente',
+                        'sortable' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Paciente',
+                        'switchable' => false,
+                        // 'formatter' => 'simagdPacienteFormatter',
+                    ),
+                    array(
+                        'field' => 'numero_expediente',
+                        'sortable' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-tag"></span>'*/ 'Reg.',
+                        'switchable' => false,
+                        'class' => 'bstable-column-highlighted',
+                        // 'formatter' => 'simagdPacienteFormatter',
+                    ),
+                    array(
+                        'field' => 'area_atencion',
+                        'sortable' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Procedencia',
+                    ),
+                    array(
+                        'field' => 'atencion',
+                        'sortable' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Servicio',
+                    ),
+                    array(
+                        'field' => 'medico',
+                        'sortable' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Médico',
+                        // 'switchable' => false,
                     ),
                     array(
                         'field' => 'modalidad',
                         'sortable' => true,
-                        'title' => 'Modalidad',
-                        // 'visible' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-list-alt"></span>'*/ 'Modalidad',
                     ),
                     array(
-                        'field' => 'codigo_examen',
+                        'field' => 'triage',
                         'sortable' => true,
-                        'title' => 'Código (Examen)',
-                        // 'visible' => true,
+                        'title' => /*'<span class="glyphicon glyphicon-tag"></span>'*/ 'TRIAGE',
+                        'class' => 'bstable-column-highlighted',
+                        // 'visible' => false,
+                        // 'switchable' => false,
                     ),
                     array(
-                        'field' => 'examen',
+                        'field' => 'tecnologo',
                         'sortable' => true,
-                        'title' => 'Examen / Grupo',
-                        // 'visible' => true,
-                    ),
-                    array(
-                        'field' => 'codigo',
-                        'sortable' => true,
-                        'title' => 'Código (Proyección)',
-                        // 'visible' => true,
-                    ),
-                    array(
-                        'field' => 'nombre',
-                        'sortable' => true,
-                        'title' => 'Proyección',
-                        // 'visible' => true,
-                    ),
-                    array(
-                        'field' => 'habilitado',
-                        'sortable' => true,
-                        'title' => '¿Act.?',
+                        'title' => 'Téc. / Lic. / Rdlg.',
                         'visible' => false,
-                        // 'formatter' => 'habilitadoFormatter',
+                        // 'switchable' => false,
                     ),
                     array(
-                        'field' => 'fecha_registro',
+                        'field' => 'estado',
                         'sortable' => true,
-                        'title' => 'Fecha (Registro)',
+                        'title' => 'Estado',
+                        'visible' => false,
+                        // 'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'fecha_examen',
+                        'sortable' => true,
+                        'title' => 'Fecha (Exm.)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
-                        'field' => 'fecha_edicion',
+                        'field' => 'correlativo',
                         'sortable' => true,
-                        'title' => 'Fecha (Edición)',
+                        'title' => 'Etiqueta',
+                        'visible' => false,
+                    ),
+                    array(
+                        'field' => 'radiologo',
+                        'sortable' => true,
+                        'title' => 'Radiólogo',
+                        // 'visible' => true,
+                    ),
+                    array(
+                        'field' => 'fecha_lectura',
+                        'sortable' => true,
+                        'title' => 'Fecha (Lct)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'fecha_ingreso',
+                        'sortable' => true,
+                        'title' => 'Ingreso',
+                        // 'visible' => false,
+                        // 'switchable' => false,
                     )
             );
         }
@@ -175,11 +216,10 @@ class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListView
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_proyeccion_establecimiento_listarProyeccionesLocales', array('type' => $this->type));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_sin_lectura_listarPendientesLectura', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '25';
-        // $this->entityOptions['sortName']    = 'undefined';
         if ($this->type === 'detail') {
             $this->entityOptions['showToggle']  = false;
             $this->entityOptions['showColumns'] = false;

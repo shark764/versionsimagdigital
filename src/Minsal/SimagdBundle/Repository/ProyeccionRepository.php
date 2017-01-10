@@ -28,10 +28,10 @@ class ProyeccionRepository extends EntityRepository
                             ->andWhere('mr.imgHabilitado = TRUE')
                             ->orderBy('m.nombrearea');
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerProyeccionesRealizables($id_estab, $idAreaServicioDiagnostico, $idSexo, $idAtencion = '97')
     {
         $query = $this->getEntityManager()
@@ -52,7 +52,7 @@ class ProyeccionRepository extends EntityRepository
                             ->setParameter('id_atn', $idAtencion)
                             ->andWhere('exm.idAtencion = :id_atn_exm')
                             ->setParameter('id_atn_exm', $idAtencion);
-        
+
         $query->andWhere($query->expr()->orx(
                                 $query->expr()->eq('exm.idsexo', ':id_sexo'),
                                 $query->expr()->isNull('exm.idsexo')
@@ -62,12 +62,12 @@ class ProyeccionRepository extends EntityRepository
                             ->andWhere('explrz.habilitado = TRUE')
                             ->orderBy('expl.idExamenServicioDiagnostico') //INTENTAR HACER EL OUTGROUP DEL SELECT
                             ->addOrderBy('expl.nombre');
-        
+
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerExamenes($id_estab, $idAreaServicioDiagnostico, $idAtencion = '97')   //Talvez considerar habilitado para modalidades, exam y expl
     {
         $query = $this->getEntityManager()
@@ -86,22 +86,22 @@ class ProyeccionRepository extends EntityRepository
                             ->andWhere('mr.imgHabilitado = TRUE')
                             ->orderBy('exm.descripcion');
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerEstabDiagnosticantes($idAreaServicioDiagnostico, $idProyeccionesSolicitadas, $return = 'result')
     {
-	$aliasNum = 0;
-	
+        $aliasNum = 0;
+
         $examenesIdArray = $this->obtenerExamenesPorExplArray($idProyeccionesSolicitadas);
-                
+
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('stdiag')
                             ->from('MinsalSiapsBundle:CtlEstablecimiento', 'stdiag');
-        
+
         foreach ($examenesIdArray as $idExamenServicioDiagnostico) {
             $query->andWhere($query->expr()->exists($this->obtenerSubQueryEstabDiag($aliasNum)))
                                 ->setParameter('id_mod', $idAreaServicioDiagnostico)
@@ -109,17 +109,17 @@ class ProyeccionRepository extends EntityRepository
             ++$aliasNum;
 
         }
-        
+
         $query->orderBy('stdiag.idTipoEstablecimiento')
                             ->addOrderBy('stdiag.nombre');
-        
+
         $query->distinct();
-        
+
         if ( count($examenesIdArray) < 1 ) { $query->setMaxResults(0); }
 
         return ($return == 'query' ) ? $query : $query->getQuery()->getResult();
     }
-    
+
     public function obtenerSubQueryEstabDiag($aliasNum)
     {
         /** SubQuery */
@@ -134,7 +134,7 @@ class ProyeccionRepository extends EntityRepository
 
         return $subQuery->getDql();
     }
-    
+
     public function obtenerExamenesPorExplArray($idProyeccionesSolicitadas, $unique = true)
     {
         $query = $this->getEntityManager()
@@ -147,8 +147,8 @@ class ProyeccionRepository extends EntityRepository
                             ->where('expl.id IN (:id_expl_array)')
                             ->setParameter('id_expl_array', $idProyeccionesSolicitadas);
 
-	if ($unique ) { $query->distinct(); }
-        
+        if ($unique ) { $query->distinct(); }
+
         $ids = array();
         foreach($query->getQuery()->getScalarResult() as $resultado) {
             $ids[] = $resultado['id'];
@@ -156,7 +156,7 @@ class ProyeccionRepository extends EntityRepository
 
         return $unique ? array_unique($ids) : $ids;
     }
-    
+
     public function obtenerProyeccionesNoAgregadas($id_estab, $idAreaServicioDiagnostico, $idExamenServicioDiagnostico)
     {
         /** SubQuery */
@@ -168,7 +168,7 @@ class ProyeccionRepository extends EntityRepository
                             ->where('expl.id = explrz.idProyeccion')
                             ->andWhere('mr.idEstablecimiento = :id_est')
                             ->andWhere('mr.idAreaServicioDiagnostico = :id_mod');
-                
+
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -180,15 +180,15 @@ class ProyeccionRepository extends EntityRepository
         $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())))
                             ->setParameter('id_est', $id_estab)
                             ->setParameter('id_mod', $idAreaServicioDiagnostico);
-        
+
         $query->orderBy('expl.idExamenServicioDiagnostico')
                             ->addOrderBy('expl.nombre');
-                
+
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerAccesoEstab($id, $idEstab)
     {
         $query = $this->getEntityManager()
@@ -203,10 +203,10 @@ class ProyeccionRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function obtenerProyeccionesLocales($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
@@ -220,12 +220,12 @@ class ProyeccionRepository extends EntityRepository
                             ->orderBy('mr.idAreaServicioDiagnostico')
                             ->addOrderBy('mr.idExamenServicioDiagnostico')
                             ->addOrderBy('expl.nombre'); //INTENTAR HACER EL OUTGROUP DEL SELECT
-        
+
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function existeProyeccionEnLocal($id_estab, $idProyeccion)
     {
         /** SubQuery */
@@ -236,7 +236,7 @@ class ProyeccionRepository extends EntityRepository
                             ->innerJoin('explrz.idAreaExamenEstab', 'mr')
                             ->where('expl.id = explrz.idProyeccion')
                             ->andWhere('mr.idEstablecimiento = :id_est');
-                
+
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -250,7 +250,7 @@ class ProyeccionRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
 
@@ -260,6 +260,9 @@ class ProyeccionRepository extends EntityRepository
                         ->createQueryBuilder('expl')
                             ->select('expl')
                             ->addSelect('exm')
+
+                            ->addSelect('expl.id as id, expl.nombre as nombre, expl.codigo as codigo, exm.descripcion as examen, exm.idestandar as codigo_examen, expl.descripcion as descripcion, expl.fechaHoraReg as fecha_registro, expl.fechaHoraMod as fecha_edicion')
+
                             ->addSelect('IDENTITY(exm.idAtencion) as exm_id_atencion')
                             ->addSelect('usrRg.username as expl_usernameUserReg, usrRg.id as expl_id_userReg, usrMd.username as expl_usernameUserMod, usrMd.id as expl_id_userMod')
                             ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as expl_nombreUserReg')
@@ -275,7 +278,7 @@ class ProyeccionRepository extends EntityRepository
                             ->orderBy('exm.id', 'desc')
                             ->addOrderBy('expl.id', 'desc')
                             ->distinct();
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -291,7 +294,7 @@ class ProyeccionRepository extends EntityRepository
 
         return $query->getQuery()->getScalarResult();
     }
-    
+
     public function obtenerProyeccionesSolicitudEstudio($idSolicitud)
     {
         $query = $this->getEntityManager()
@@ -325,6 +328,9 @@ class ProyeccionRepository extends EntityRepository
                             ->addSelect('mr')
                             ->addSelect('exm')
                             ->addSelect('m')
+
+                            ->addSelect('explrz.id as id, expl.nombre as nombre, expl.codigo as codigo, exm.descripcion as examen, exm.idestandar as codigo_examen, m.nombrearea as modalidad, m.idarea as codigo_modalidad, expl.descripcion as descripcion, expl.fechaHoraReg as fecha_registro, expl.fechaHoraMod as fecha_edicion, explrz.fechaHoraReg as fecha_registro_local, explrz.fechaHoraMod as fecha_edicion_local, explrz.habilitado as habilitado')
+
                             ->addSelect('IDENTITY(exm.idAtencion) as exm_id_atencion, IDENTITY(m.idAtencion) as m_id_atencion')
                             ->addSelect('usrRg.username as explrz_usernameUserReg, usrRg.id as explrz_id_userReg, usrMd.username as explrz_usernameUserMod, usrMd.id as explrz_id_userMod')
                             ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as explrz_nombreUserReg')
@@ -346,7 +352,7 @@ class ProyeccionRepository extends EntityRepository
                             ->addOrderBy('exm.id', 'desc')
                             ->addOrderBy('expl.id', 'desc')
                             ->distinct();
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -362,7 +368,7 @@ class ProyeccionRepository extends EntityRepository
 
         return $query->getQuery()->getScalarResult();
     }
-    
+
     public function existeProyeccionEnLocalV2($id_estab, $idProyeccion)
     {
         /** Query */
@@ -378,7 +384,7 @@ class ProyeccionRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
 
@@ -394,10 +400,10 @@ class ProyeccionRepository extends EntityRepository
                             ->addOrderBy('expl.id', 'desc')
                             ->distinct();
 
-	if($return == 'scalar')
-	{
-	    $query->addSelect('expl.id as id, expl.nombre as text, expl.codigo as cod, IDENTITY(expl.idExamenServicioDiagnostico) as exmGroup');
-	}
+    	if($return == 'scalar')
+    	{
+    	    $query->addSelect('expl.id as id, expl.nombre as text, expl.codigo as cod, IDENTITY(expl.idExamenServicioDiagnostico) as exmGroup');
+    	}
 
         return $return == 'query' ?
 	    $query : ($return == 'scalar' ? $query->getQuery()->getScalarResult()
@@ -433,7 +439,7 @@ class ProyeccionRepository extends EntityRepository
 		: $query->getQuery()->getResult()
 	    );
     }
-    
+
     public function obtenerProyeccionesSolicitudEstudioComplementario($id_solcmpl)
     {
         $query = $this->getEntityManager()
@@ -457,5 +463,5 @@ class ProyeccionRepository extends EntityRepository
 
         return $query->getQuery()->getScalarResult();
     }
-    
+
 }

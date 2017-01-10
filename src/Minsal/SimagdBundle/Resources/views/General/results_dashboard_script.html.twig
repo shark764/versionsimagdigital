@@ -5,25 +5,32 @@
             window.alert(slug + '\n' + id);
         }
 
-        var generate = function(el, slug, emrg = 0/*, type = 'list'*/) {
+        var generate = function(el, slug, emrg/* = 0, type = 'list'*/) {
+			if (emrg === undefined) {
+		        emrg = 0;
+		    }
             ////////
             var $table = jQuery('#ryx_target_bstable');
             ////////
             $table.bootstrapTable('showLoading');
 
             $url = null;
-            if (slug === 'radiological_result') {
-                $url = 'simagd_lectura_generateTable';
-            }
-            if (slug === 'transcribed_diagnosis') {
-                $url = 'simagd_diagnostico_generateTable';
-            }
-            if (slug === 'second_medical_opinions') {
-                $url = 'simagd_nota_generateTable';
-            }
-            if (slug === 'further_study_request') {
-                $url = 'simagd_solicitud_estudio_complementario_generateTable';
-            }
+			switch (slug) {
+				case 'radiological_result':
+					$url = 'simagd_lectura_generateTable';
+					break;
+				case 'transcribed_diagnosis':
+					$url = 'simagd_diagnostico_generateTable';
+					break;
+				case 'second_medical_opinions':
+					$url = 'simagd_nota_generateTable';
+					break;
+				case 'further_study_request':
+					$url = 'simagd_solicitud_estudio_complementario_generateTable';
+					break;
+				default:
+					break;
+			}
 
             // if (slug === 'transcribed_diagnosis') {
             //     emrg

@@ -14,7 +14,7 @@ use Sonata\AdminBundle\Exception\ModelManagerException;
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxSolicitudEstudioListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxSolicitudEstudioListViewGenerator;
 
 class ImgSolicitudEstudioAdminController extends Controller
 {

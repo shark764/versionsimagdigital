@@ -6,24 +6,33 @@
         }
 
         var generate = function(el, slug/*, type = 'list'*/) {
+			////////
+			var form_worklist = jQuery('#_exam_worklist_form');
+			form_worklist.find('select').prop('disabled', slug !== 'unrealized_procedures');
+            ////////
+
             ////////
             var $table = jQuery('#ryx_target_bstable');
             ////////
             $table.bootstrapTable('showLoading');
 
             $url = null;
-            if (slug === 'unrealized_procedures') {
-                $url = 'simagd_sin_realizar_generateTable';
-            }
-            if (slug === 'undiagnosed_studies') {
-                $url = 'simagd_sin_lectura_generateTable';
-            }
-            if (slug === 'non_transcribed_results') {
-                $url = 'simagd_sin_transcribir_generateTable';
-            }
-            if (slug === 'non_validated_results') {
-                $url = 'simagd_sin_validar_generateTable';
-            }
+			switch (slug) {
+				case 'unrealized_procedures':
+					$url = 'simagd_sin_realizar_generateTable';
+					break;
+				case 'undiagnosed_studies':
+					$url = 'simagd_sin_lectura_generateTable';
+					break;
+				case 'non_transcribed_results':
+					$url = 'simagd_sin_transcribir_generateTable';
+					break;
+				case 'non_validated_results':
+					$url = 'simagd_sin_validar_generateTable';
+					break;
+				default:
+					break;
+			}
 
             var type = jQuery('input[name=_worklist_display_type]:checked').val();
 

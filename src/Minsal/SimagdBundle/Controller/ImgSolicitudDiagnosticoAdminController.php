@@ -20,7 +20,7 @@ use Doctrine\ORM\EntityRepository;
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxSolicitudDiagnosticoPostEstudioListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxSolicitudDiagnosticoPostEstudioListViewGenerator;
 
 class ImgSolicitudDiagnosticoAdminController extends Controller
 {

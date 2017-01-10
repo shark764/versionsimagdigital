@@ -6,16 +6,16 @@
  * and open the template in the editor.
  */
 
-namespace Minsal\SimagdBundle\Generator\ListViewGenerator;
+namespace Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxEntityListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxEntityListViewGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
 // use Minsal\SimagdBundle\Entity\EntityInterface;
 use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 
-// use Minsal\SimagdBundle\Entity\RyxDiagnosticoSegundaOpinionMedica;
+// use Minsal\SimagdBundle\Entity\RyxDiagnosticoPendienteValidacion;
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -24,11 +24,11 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 ///////////////////////////////////////////////////////
 
 /**
- * RyxDiagnosticoSegundaOpinionMedicaListViewGenerator
+ * RyxDiagnosticoPendienteValidacionListViewGenerator
  *
  * @author farid
  */
-class RyxDiagnosticoSegundaOpinionMedicaListViewGenerator extends RyxEntityListViewGenerator
+class RyxDiagnosticoPendienteValidacionListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
      * Sets the array.
@@ -103,14 +103,12 @@ class RyxDiagnosticoSegundaOpinionMedicaListViewGenerator extends RyxEntityListV
                         'field' => 'atencion',
                         'sortable' => true,
                         'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Servicio',
-                        'visible' => false,
                     ),
                     array(
                         'field' => 'medico',
                         'sortable' => true,
                         'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Médico',
                         // 'switchable' => false,
-                        'visible' => false,
                     ),
                     array(
                         'field' => 'modalidad',
@@ -133,36 +131,9 @@ class RyxDiagnosticoSegundaOpinionMedicaListViewGenerator extends RyxEntityListV
                         // 'switchable' => false,
                     ),
                     array(
-                        'field' => 'estado',
-                        'sortable' => true,
-                        'title' => 'Estado',
-                        'visible' => false,
-                        // 'switchable' => false,
-                    ),
-                    array(
                         'field' => 'fecha_examen',
                         'sortable' => true,
                         'title' => 'Fecha (Exm.)',
-                        'visible' => false,
-                        // 'formatter' => 'simagdDateTimeFormatter',
-                    ),
-                    array(
-                        'field' => 'transcriptor',
-                        'sortable' => true,
-                        'title' => 'Transcriptor',
-                        'visible' => false,
-                    ),
-                    array(
-                        'field' => 'fecha_transcrito',
-                        'sortable' => true,
-                        'title' => 'Registrada',
-                        'visible' => false,
-                        // 'formatter' => 'simagdDateTimeFormatter',
-                    ),
-                    array(
-                        'field' => 'fecha_aprobado',
-                        'sortable' => true,
-                        'title' => 'Fecha (Aprobación)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
@@ -181,24 +152,30 @@ class RyxDiagnosticoSegundaOpinionMedicaListViewGenerator extends RyxEntityListV
                     array(
                         'field' => 'fecha_lectura',
                         'sortable' => true,
-                        'title' => 'Fecha (Lectura)',
+                        'title' => 'Fecha (Lct)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
                         'field' => 'fecha_diagnostico',
                         'sortable' => true,
-                        'title' => 'Fecha (Dx)',
-                        // 'visible' => true,
+                        'title' => 'Fecha (Trc)',
+                        'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
-                        'field' => 'conclusion',
-                        'sortable' => false,
-                        'title' => 'Resultado',
-                        // 'visible' => true,
-                        'class' => 'justify-table-large-row',
-                        // 'formatter' => 'simagdDescriptionAdvanceFormatter',
+                        'field' => 'estado',
+                        'sortable' => true,
+                        'title' => 'Estado',
+                        'visible' => false,
+                        // 'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'fecha_ingreso',
+                        'sortable' => true,
+                        'title' => 'Ingreso',
+                        // 'visible' => false,
+                        // 'switchable' => false,
                     )
             );
         }
@@ -246,11 +223,10 @@ class RyxDiagnosticoSegundaOpinionMedicaListViewGenerator extends RyxEntityListV
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_nota_listarNotasDiagnostico', array('type' => $this->type));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_sin_validar_listarPendientesValidacion', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '25';
-        // $this->entityOptions['sortName']    = 'undefined';
         if ($this->type === 'detail') {
             $this->entityOptions['showToggle']  = false;
             $this->entityOptions['showColumns'] = false;

@@ -11,7 +11,7 @@ use Minsal\SimagdBundle\Entity\ImgDiagnostico;
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxDiagnosticoRadiologicoListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxDiagnosticoRadiologicoListViewGenerator;
 
 class ImgDiagnosticoAdminController extends Controller
 {

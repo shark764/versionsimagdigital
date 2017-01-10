@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 use Minsal\SimagdBundle\Entity\ImgPendienteValidacion;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxDiagnosticoPendienteValidacionListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxDiagnosticoPendienteValidacionListViewGenerator;
 
 class ImgPendienteValidacionAdminController extends Controller
 {

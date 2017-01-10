@@ -3,7 +3,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : 11-18-2014, 12:00:00 PM
     Author     : farid
 */
@@ -97,3 +97,15 @@ and open the template in the editor.
 .select2-container.select2-allowclear .select2-choice abbr {
     top: 7px !important;
 }*/
+
+.select2-container.select2-container-disabled .select2-choice {
+    background-color: #aaa;
+    background-image: none;
+    border: 1px solid #ddd;
+    cursor: not-allowed;
+}
+.select2-container.select2-container-disabled .select2-choice .select2-arrow {
+    background-color: #555;
+    background-image: none;
+    border-left: 0;
+}

@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxCtlPatronDiagnosticoListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxCtlPatronDiagnosticoListViewGenerator;
 
 class ImgCtlPatronDiagnosticoAdminController extends Controller
 {

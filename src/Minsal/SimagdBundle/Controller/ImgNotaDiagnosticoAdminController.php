@@ -11,7 +11,7 @@ use Minsal\SimagdBundle\Entity\ImgNotaDiagnostico;
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxDiagnosticoSegundaOpinionMedicaListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxDiagnosticoSegundaOpinionMedicaListViewGenerator;
 
 class ImgNotaDiagnosticoAdminController extends Controller
 {

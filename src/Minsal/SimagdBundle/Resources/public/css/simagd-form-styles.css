@@ -3,7 +3,7 @@ to change this license header, choose license headers in project properties.
 to change this template file, choose tools | templates
 and open the template in the editor.
 */
-/* 
+/*
     created on : 10-17-2014, 08:19:42 pm
     author     : farid
 */
@@ -24,7 +24,7 @@ textarea.form-control {
     -webkit-border-radius: 5px !important;
     -moz-border-radius: 5px !important;
     border-radius: 5px;
-}    
+}
 
 /** input:hover */
 input[type="text"]:hover,
@@ -88,8 +88,8 @@ textarea:focus:hover {
 
 
 /* enable absolute positioning */
-.inner-addon { 
-    position: relative; 
+.inner-addon {
+    position: relative;
 }
 
 /* style icon */
@@ -392,11 +392,14 @@ div.form-actions {
 .pagination>.active>span:hover,
 .pagination>.active>a:focus,
 .pagination>.active>span:focus {
-  z-index: 2;
-  color: rgb(255, 255, 255) !important;
-  background-color: #2a5469 !important;
-  border-color: #1b4154 !important;
-  cursor: auto !important;
+  /*z-index: 2;*/
+  /*color: rgb(255, 255, 255) !important;*/
+  /*background-color: #2a5469 !important;*/
+  /*border-color: #1b4154 !important;*/
+  background-color: #555 !important;
+  border-color: #444 !important;
+  /*cursor: auto !important;*/
+  cursor: auto;
 }
 
 .editable-empty-v2,
@@ -933,10 +936,10 @@ label.label_form_sm {
   font-weight: normal !important;
   font-size: 75% !important;
   margin-left: 25px !important;
-  white-space: pre-wrap !important;      /* CSS3 */   
-  white-space: -moz-pre-wrap !important; /* Firefox */    
-  white-space: -pre-wrap !important;     /* Opera <7 */   
-  white-space: -o-pre-wrap !important;   /* Opera 7 */    
+  white-space: pre-wrap !important;      /* CSS3 */
+  white-space: -moz-pre-wrap !important; /* Firefox */
+  white-space: -pre-wrap !important;     /* Opera <7 */
+  white-space: -o-pre-wrap !important;   /* Opera 7 */
   word-wrap: break-word !important;      /* IE */
 }
 

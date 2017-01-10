@@ -6,16 +6,16 @@
  * and open the template in the editor.
  */
 
-namespace Minsal\SimagdBundle\Generator\ListViewGenerator;
+namespace Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator;
 
-use Minsal\SimagdBundle\Generator\ListViewGenerator\RyxEntityListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxEntityListViewGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
 // use Minsal\SimagdBundle\Entity\EntityInterface;
 use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 
-// use Minsal\SimagdBundle\Entity\RyxDiagnosticoPendienteValidacion;
+// use Minsal\SimagdBundle\Entity\RyxSolicitudEstudioComplementario;
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -24,12 +24,33 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 ///////////////////////////////////////////////////////
 
 /**
- * RyxDiagnosticoPendienteValidacionListViewGenerator
+ * RyxSolicitudEstudioComplementarioListViewGenerator
  *
  * @author farid
  */
-class RyxDiagnosticoPendienteValidacionListViewGenerator extends RyxEntityListViewGenerator
+class RyxSolicitudEstudioComplementarioListViewGenerator extends RyxEntityListViewGenerator
 {
+    /**
+     * @var boolean
+     */
+    private $isEmergency = false;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setIsEmergency($isEmergency)
+    {
+        $this->isEmergency = $isEmergency;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIsEmergency()
+    {
+        return $this->isEmergency;
+    }
+    
     /**
      * Sets the array.
      *
@@ -103,12 +124,14 @@ class RyxDiagnosticoPendienteValidacionListViewGenerator extends RyxEntityListVi
                         'field' => 'atencion',
                         'sortable' => true,
                         'title' => /*'<span class="glyphicon glyphicon-paperclip"></span>'*/ 'Servicio',
+                        'visible' => false,
                     ),
                     array(
                         'field' => 'medico',
                         'sortable' => true,
                         'title' => /*'<span class="glyphicon glyphicon-user"></span>'*/ 'Médico',
                         // 'switchable' => false,
+                        'visible' => false,
                     ),
                     array(
                         'field' => 'modalidad',
@@ -131,44 +154,18 @@ class RyxDiagnosticoPendienteValidacionListViewGenerator extends RyxEntityListVi
                         // 'switchable' => false,
                     ),
                     array(
-                        'field' => 'fecha_examen',
-                        'sortable' => true,
-                        'title' => 'Fecha (Exm.)',
-                        'visible' => false,
-                        // 'formatter' => 'simagdDateTimeFormatter',
-                    ),
-                    array(
-                        'field' => 'correlativo',
-                        'sortable' => true,
-                        'title' => 'Etiqueta',
-                        'visible' => false,
-                    ),
-                    array(
-                        'field' => 'radiologo',
-                        'sortable' => true,
-                        'title' => 'Radiólogo',
-                        // 'visible' => true,
-                    ),
-                    array(
-                        'field' => 'fecha_lectura',
-                        'sortable' => true,
-                        'title' => 'Fecha (Lct)',
-                        'visible' => false,
-                        // 'formatter' => 'simagdDateTimeFormatter',
-                    ),
-                    array(
-                        'field' => 'fecha_diagnostico',
-                        'sortable' => true,
-                        'title' => 'Fecha (Trc)',
-                        'visible' => false,
-                        // 'formatter' => 'simagdDateTimeFormatter',
-                    ),
-                    array(
                         'field' => 'estado',
                         'sortable' => true,
                         'title' => 'Estado',
                         'visible' => false,
                         // 'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'fecha_examen',
+                        'sortable' => true,
+                        'title' => 'Fecha (Exm.)',
+                        'visible' => false,
+                        // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
                         'field' => 'fecha_ingreso',
@@ -223,10 +220,11 @@ class RyxDiagnosticoPendienteValidacionListViewGenerator extends RyxEntityListVi
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_sin_validar_listarPendientesValidacion', array('type' => $this->type));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_solicitud_estudio_complementario_listarSolicitudesEstudioComplementario', array('type' => $this->type, 'emrg' => $this->isEmergency));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '25';
+        // $this->entityOptions['sortName']    = 'undefined';
         if ($this->type === 'detail') {
             $this->entityOptions['showToggle']  = false;
             $this->entityOptions['showColumns'] = false;

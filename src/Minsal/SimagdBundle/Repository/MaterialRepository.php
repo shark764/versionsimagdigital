@@ -191,6 +191,9 @@ class MaterialRepository extends EntityRepository
                         ->createQueryBuilder('mtrLc')
                             ->select('mtrLc')
                             ->addSelect('mtrl')
+
+                            ->addSelect('mtrLc.id as id, mtrl.nombre as nombre, mtrl.codigo as codigo, sgm.nombre as subgrupo, sgm.codigo as codigo_subgrupo, gm.nombre as grupo, gm.codigo as codigo_grupo, mtrl.descripcion as descripcion, mtrl.fechaHoraReg as fecha_registro, mtrl.fechaHoraMod as fecha_edicion, mtrLc.habilitado as habilitado, mtrLc.fechaHoraReg as fecha_registro_local, mtrLc.fechaHoraMod as fecha_edicion_local')
+
                             ->addSelect('stdmtrl.nombre as mtrLc_establecimiento, stdmtrl.id as mtrLc_id_establecimiento')
                             ->addSelect('usrRg.username as mtrLc_usernameUserReg, usrRg.id as mtrLc_id_userReg, usrMd.username as mtrLc_usernameUserMod, usrMd.id as mtrLc_id_userMod, usrRgMtrl.username as mtrl_usernameUserReg, usrRgMtrl.id as mtrl_id_userReg')
                             ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as mtrLc_nombreUserReg')
@@ -198,6 +201,8 @@ class MaterialRepository extends EntityRepository
                             ->addSelect('concat(coalesce(usrRgMtrlEmp.apellido, \'\'), \', \', coalesce(usrRgMtrlEmp.nombre, \'\')) as mtrl_nombreUserReg')
                             ->from('MinsalSimagdBundle:ImgCtlMaterialEstablecimiento', 'mtrLc')
                             ->innerJoin('mtrLc.idMaterial', 'mtrl')
+                            ->innerJoin('mtrl.idSubgrupoMaterial', 'sgm')
+                            ->innerJoin('sgm.idGrupoMaterial', 'gm')
                             ->innerJoin('mtrLc.idEstablecimiento', 'stdmtrl')
                             ->innerJoin('mtrLc.idUserReg', 'usrRg')
                             ->leftJoin('mtrLc.idUserMod', 'usrMd')
