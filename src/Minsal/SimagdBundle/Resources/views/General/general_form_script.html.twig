@@ -4,7 +4,7 @@
         ////////////////////////////////////////////////////////////////
         //////// clear form
         ////////////////////////////////////////////////////////////////
-        clearForm = function(el) {
+        var clearForm = function(el) {
             $form = jQuery(el).closest('form');
             $form.data('formValidation').resetForm();
             $form.get(0).reset();

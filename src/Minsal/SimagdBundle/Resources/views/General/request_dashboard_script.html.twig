@@ -1,11 +1,11 @@
 {% autoescape false %}
 
 	<script type="text/javascript">
-        _fn_show_object_detail = function(el, slug, id) {
+        var _fn_show_object_detail = function(el, slug, id) {
             window.alert(slug + '\n' + id);
         }
 
-        generate = function(el, slug, emrg = 0/*, type = 'list'*/) {
+        var generate = function(el, slug, emrg = 0/*, type = 'list'*/) {
             ////////
             var $table = jQuery('#ryx_target_bstable');
             ////////
@@ -89,7 +89,7 @@
 
         });
 
-        // destroy = function(el) {
+        // var destroy = function(el) {
         //     if (jQuery(el).attr('id') !== "undefined" && (jQuery(el).attr('id') === "pry2" || jQuery(el).attr('id') === "pry4")) {
         //         var $table = jQuery('#ryx_target_bstable');
         //         $table.bootstrapTable('destroy');
