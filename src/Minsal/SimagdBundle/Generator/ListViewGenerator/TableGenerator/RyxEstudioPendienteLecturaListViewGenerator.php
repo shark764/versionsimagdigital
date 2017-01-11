@@ -44,7 +44,6 @@ class RyxEstudioPendienteLecturaListViewGenerator extends RyxEntityListViewGener
             array_push($this->columns,
                     array(
                         'field' => 'detail',
-                        // 'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>',
                         'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-collapse-down"></span>',
                         'switchable' => false,
                         'align' => 'center',
@@ -154,7 +153,6 @@ class RyxEstudioPendienteLecturaListViewGenerator extends RyxEntityListViewGener
                         'field' => 'radiologo',
                         'sortable' => true,
                         'title' => 'Radiólogo',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'fecha_lectura',

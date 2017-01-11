@@ -44,7 +44,6 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
             array_push($this->columns,
                     array(
                         'field' => 'detail',
-                        // 'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>',
                         'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-collapse-down"></span>',
                         'switchable' => false,
                         'align' => 'center',
@@ -76,44 +75,38 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
                         'field' => 'codigo_grupo',
                         'sortable' => true,
                         'title' => 'Cód (Gpo)',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'grupo',
                         'sortable' => true,
                         'title' => 'Grupo',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'codigo_subgrupo',
                         'sortable' => true,
                         'title' => 'Cód (Subgpo)',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'subgrupo',
                         'sortable' => true,
                         'title' => 'Subgrupo',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'codigo',
                         'sortable' => true,
                         'title' => 'Cód (Matr)',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'nombre',
                         'sortable' => true,
                         'title' => 'Material',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'descripcion',
                         'sortable' => false,
                         'title' => 'Descripción',
                         'class' => 'justify-table-large-row',
-                        'formatter' => 'simagdDescriptionAdvanceFormatter',
+                        // 'formatter' => 'simagdDescriptionAdvanceFormatter',
                     ),
                     array(
                         'field' => 'fecha_registro',

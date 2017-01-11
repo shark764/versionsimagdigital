@@ -44,7 +44,6 @@ class RyxCtlPatronDiagnosticoListViewGenerator extends RyxEntityListViewGenerato
             array_push($this->columns,
                     array(
                         'field' => 'detail',
-                        // 'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>',
                         'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-collapse-down"></span>',
                         'switchable' => false,
                         'align' => 'center',
@@ -76,31 +75,26 @@ class RyxCtlPatronDiagnosticoListViewGenerator extends RyxEntityListViewGenerato
                         'field' => 'codigo',
                         'sortable' => true,
                         'title' => 'Código',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'nombre',
                         'sortable' => true,
                         'title' => 'Patrón',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'modalidad',
                         'sortable' => true,
                         'title' => 'Modalidad',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'radiologo',
                         'sortable' => true,
                         'title' => 'Radiólogo',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'tipo_resultado',
                         'sortable' => true,
                         'title' => 'Tipo (Rtdo.)',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'conclusion',
@@ -113,6 +107,7 @@ class RyxCtlPatronDiagnosticoListViewGenerator extends RyxEntityListViewGenerato
                         'field' => 'habilitado',
                         'sortable' => true,
                         'title' => '¿Act.?',
+                        'align' => 'center',
                         // 'visible' => false,
                         // 'formatter' => 'habilitadoFormatter',
                     ),

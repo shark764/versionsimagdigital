@@ -44,7 +44,6 @@ class RyxCtlProyeccionRadiologicaListViewGenerator extends RyxEntityListViewGene
             array_push($this->columns,
                     array(
                         'field' => 'detail',
-                        // 'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>',
                         'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-collapse-down"></span>',
                         'switchable' => false,
                         'align' => 'center',
@@ -76,31 +75,26 @@ class RyxCtlProyeccionRadiologicaListViewGenerator extends RyxEntityListViewGene
                         'field' => 'codigo_examen',
                         'sortable' => true,
                         'title' => 'Código (Examen)',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'examen',
                         'sortable' => true,
                         'title' => 'Examen / Grupo',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'codigo',
                         'sortable' => true,
                         'title' => 'Código (Proyección)',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'nombre',
                         'sortable' => true,
                         'title' => 'Proyección',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'localizacion',
                         'sortable' => true,
                         'title' => 'Región',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'fecha_registro',
@@ -122,7 +116,7 @@ class RyxCtlProyeccionRadiologicaListViewGenerator extends RyxEntityListViewGene
                         'title' => 'Descripción',
                         'visible' => false,
                         'class' => 'justify-table-large-row',
-                        'formatter' => 'simagdDescriptionAdvanceFormatter',
+                        // 'formatter' => 'simagdDescriptionAdvanceFormatter',
                     )
             );
         }

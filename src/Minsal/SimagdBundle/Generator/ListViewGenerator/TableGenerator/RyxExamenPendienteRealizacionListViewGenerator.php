@@ -44,7 +44,6 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
             array_push($this->columns,
                     array(
                         'field' => 'detail',
-                        // 'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>',
                         'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-collapse-down"></span>',
                         'switchable' => false,
                         'align' => 'center',

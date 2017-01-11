@@ -44,7 +44,6 @@ class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListView
             array_push($this->columns,
                     array(
                         'field' => 'detail',
-                        // 'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>',
                         'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-collapse-down"></span>',
                         'switchable' => false,
                         'align' => 'center',
@@ -76,37 +75,31 @@ class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListView
                         'field' => 'codigo_modalidad',
                         'sortable' => true,
                         'title' => 'Código (Modalidad)',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'modalidad',
                         'sortable' => true,
                         'title' => 'Modalidad',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'codigo_examen',
                         'sortable' => true,
                         'title' => 'Código (Examen)',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'examen',
                         'sortable' => true,
                         'title' => 'Examen / Grupo',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'codigo',
                         'sortable' => true,
                         'title' => 'Código (Proyección)',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'nombre',
                         'sortable' => true,
                         'title' => 'Proyección',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'fecha_registro',
@@ -126,6 +119,7 @@ class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListView
                         'field' => 'habilitado',
                         'sortable' => true,
                         'title' => '¿Act.?',
+                        'align' => 'center',
                         // 'visible' => false,
                         // 'formatter' => 'habilitadoFormatter',
                     ),

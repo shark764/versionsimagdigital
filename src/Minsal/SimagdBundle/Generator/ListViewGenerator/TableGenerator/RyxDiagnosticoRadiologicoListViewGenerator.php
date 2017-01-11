@@ -44,7 +44,6 @@ class RyxDiagnosticoRadiologicoListViewGenerator extends RyxEntityListViewGenera
             array_push($this->columns,
                     array(
                         'field' => 'detail',
-                        // 'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>',
                         'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-collapse-down"></span>',
                         'switchable' => false,
                         'align' => 'center',
@@ -176,7 +175,6 @@ class RyxDiagnosticoRadiologicoListViewGenerator extends RyxEntityListViewGenera
                         'field' => 'radiologo',
                         'sortable' => true,
                         'title' => 'Radiólogo',
-                        // 'visible' => true,
                     ),
                     array(
                         'field' => 'fecha_lectura',
@@ -189,14 +187,12 @@ class RyxDiagnosticoRadiologicoListViewGenerator extends RyxEntityListViewGenera
                         'field' => 'fecha_diagnostico',
                         'sortable' => true,
                         'title' => 'Fecha (Dx)',
-                        // 'visible' => true,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
                         'field' => 'conclusion',
                         'sortable' => false,
                         'title' => 'Resultado',
-                        // 'visible' => true,
                         'class' => 'justify-table-large-row',
                         // 'formatter' => 'simagdDescriptionAdvanceFormatter',
                     )

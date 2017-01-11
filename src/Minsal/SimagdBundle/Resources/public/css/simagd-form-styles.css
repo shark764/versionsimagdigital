@@ -620,13 +620,13 @@ th.simagd-th-text-primary {
 }
 
 /* bootstrap pills */
-.nav-pills>li>a {
+/*.nav-pills>li>a {
     border-radius: 4px !important;
     border-top-left-radius: 4px !important;
     border-top-right-radius: 4px !important;
     border-bottom-right-radius: 4px !important;
     border-bottom-left-radius: 4px !important;
-}
+}*/
 /*.nav>li>a {
     position: relative !important;
     display: block !important;
@@ -636,21 +636,25 @@ th.simagd-th-text-primary {
     padding-bottom: 10px !important;
     padding-left: 15px !important;
 }*/
-.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+/*.nav-pills>li.active>a,
+.nav-pills>li.active>a:hover,
+.nav-pills>li.active>a:focus {
     color: #fff !important;
     background-color: #31708f !important;
     border-top-color: #31708f !important;
-}
-.nav>li>a:hover, .nav>li>a:focus {
+}*/
+/*.nav>li>a:hover,
+.nav>li>a:focus {
     text-decoration: none !important;
     background-color: #eee !important;
-}
-.nav.nav-pills.nav-stacked > li.active > a, .nav.nav-pills.nav-stacked > li.active > a:hover {
+}*/
+/*.nav.nav-pills.nav-stacked > li.active > a,
+.nav.nav-pills.nav-stacked > li.active > a:hover {
     background-color: #f6f6f6;
     border-left-color: #31708f;
     color: #444;
-}
-.nav.nav-pills.nav-stacked > li > a {
+}*/
+/*.nav.nav-pills.nav-stacked > li > a {
     border-top: 0;
     border-top-width: 0px;
     border-top-style: initial;
@@ -663,7 +667,7 @@ th.simagd-th-text-primary {
     -moz-border-radius: 0;
     border-radius: 0;
     color: #444;
-}
+}*/
 
 a.anchor-primary-v2 {
     color: #31708f !important;
