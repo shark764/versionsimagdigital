@@ -175,7 +175,7 @@
 
     {#<div class="col-lg-8 col-md-8 col-sm-8 col-xs-offset-2 ">#}
     {#<div class="col-lg-6 col-md-6 col-sm-6 ">#}
-    <div class="col-lg-9 col-md-9 col-sm-9 ">
+    <div class="{#col-lg-9 col-md-9 col-sm-9#} col-lg-10 col-md-10 col-sm-10 ">
         {#<div class="row">#} <!-- row block -->
             <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
                 <div class="box-body">
@@ -183,10 +183,10 @@
                     <!-- WORKLIST MENU -->
                     <div class="col-lg-10 col-md-10 col-sm-10 nav-pills-darkblue ">
                         <ul class="nav nav-pills nav-justified" id="_request_dashboard_display_items">
-                            <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'study_request'); return false;" data-toggle="pill">SOLICITUDES</a></li>
-                            <li><a href="javascript:void(0)" onclick="generate(this, 'emergency_study_request', 1); return false;" data-toggle="pill">SOLICITUDES (EMERG)</a></li>
-                            <li><a href="javascript:void(0)" onclick="generate(this, 'diagnostic_request'); return false;" data-toggle="pill">SOLICITUDES (DIAG)</a></li>
-                            <li><a href="javascript:void(0)" onclick="generate(this, 'further_study_request'); return false;" data-toggle="pill">SOLICITUDES (ADIC.)</a></li>
+                            <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'study_request'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-inbox"></span> SOLICITUDES</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'emergency_study_request', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-send"></span> SOLICITUDES (EMERG)</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'diagnostic_request'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-adjust"></span> SOLICITUDES (DIAG)</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'further_study_request'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-inbox"></span> SOLICITUDES (ADIC.)</a></li>
                         </ul>
                     </div>
 
@@ -206,38 +206,44 @@
                         </li>
                     </ul>
 
-                    {#<div class="checkbox">
-                        <label>#}
-                            {#<input type="checkbox" value="1" name="switch_display" id="switch_display" checked="checked" /> Día completo#}
-                            {#<input type="checkbox" name="_switch_display" id="_switch_display" data-apply-bootstrap-switch="true" checked data-on-text=" Lista" data-off-text=" Detalle" data-label-text="Vista" data-inverse="true" class="" />#}
-                        {#</label>
-                    </div>#}
-
                 </div>
             </div>
         {#</div>#} <!-- end row block -->
+
+        <div class="tab-pane fade in active" id="tab_list__" style="min-height: 768px;" >
+            <!--
+            //////////////////////////////////////////////////////////////
+            //////// TABLE
+            //////////////////////////////////////////////////////////////
+             -->
+            <!-- table for any result -->
+            <div class="{#col-lg-12 col-md-12 col-sm-12#} {#col-lg-9 col-md-9 col-sm-9#} ">
+                <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
+                    <thead>
+                    </thead>
+                </table>
+            </div>
+            <!-- end table -->
+            <!--
+            //////////////////////////////////////////////////////////////
+            //////// END --| TABLE
+            //////////////////////////////////////////////////////////////
+             -->
+        </div>
+
     </div>
 
-    <div class="tab-pane fade in active" id="tab_list__" style="min-height: 768px;" >
+    <div class="{#col-lg-3 col-md-3 col-sm-3#} col-lg-2 col-md-2 col-sm-2 ">
 
-        <!--
-        //////////////////////////////////////////////////////////////
-        //////// TABLE
-        //////////////////////////////////////////////////////////////
-         -->
-        <!-- table for any result -->
-        <div class="{#col-lg-12 col-md-12 col-sm-12#} col-lg-9 col-md-9 col-sm-9 ">
-            <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
-                <thead>
-                </thead>
-            </table>
+        <!-- vertical pills -->
+        <div class="{#col-lg-3 col-md-3 col-sm-3#} nav-pills-medicine ">
+            <ul class="nav nav-pills nav-stacked {#nav-justified#} " id="_stacked_request_dashboard_display_items">
+                <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'study_request'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-inbox"></span> SOLICITUDES</a></li>
+                <li><a href="javascript:void(0)" onclick="generate(this, 'emergency_study_request', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-send"></span> SOLICITUDES (EMERG)</a></li>
+                <li><a href="javascript:void(0)" onclick="generate(this, 'diagnostic_request'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-adjust"></span> SOLICITUDES (DIAG)</a></li>
+                <li><a href="javascript:void(0)" onclick="generate(this, 'further_study_request'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-inbox"></span> SOLICITUDES (ADIC.)</a></li>
+            </ul>
         </div>
-        <!-- end table -->
-        <!--
-        //////////////////////////////////////////////////////////////
-        //////// END --| TABLE
-        //////////////////////////////////////////////////////////////
-         -->
 
     </div>
 
