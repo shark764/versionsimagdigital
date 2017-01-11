@@ -71,6 +71,13 @@ class RyxSolicitudEstudioListViewGenerator extends RyxEntityListViewGenerator
                         'halign' => 'left',
                         // 'formatter' => '__fnc_worklistDetailFormatter',
                         'events' => 'operateEvents',
+                    ),
+                    array(
+                        'field' => 'id',
+                        'sortable' => true,
+                        'title' => 'ID',
+                        'visible' => false,
+                        'switchable' => false,
                     )
             );
         }
@@ -167,9 +174,9 @@ class RyxSolicitudEstudioListViewGenerator extends RyxEntityListViewGenerator
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
-                        'field' => 'fecha_ingreso',
+                        'field' => 'fecha_solicitud',
                         'sortable' => true,
-                        'title' => 'Ingreso',
+                        'title' => 'Fecha (Reg.)',
                         // 'visible' => false,
                         // 'switchable' => false,
                     )
