@@ -87,7 +87,7 @@ class MaterialRepository extends EntityRepository
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('mtrl.id as mtrlId')
+                            ->select('mtrl.id AS mtrlId')
                             ->from('MinsalSimagdBundle:ImgCtlMaterial', 'mtrl')
                             ->where('mtrl.id = :id_mtrl')
                             ->setParameter('id_mtrl', $idMaterial);
@@ -134,7 +134,7 @@ class MaterialRepository extends EntityRepository
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('mtrLc.id as mtrLcId')
+                            ->select('mtrLc.id AS mtrLcId')
                             ->from('MinsalSimagdBundle:ImgCtlMaterialEstablecimiento', 'mtrLc')
                             ->where('mtrLc.idMaterial = :id_mtrl')
                             ->setParameter('id_mtrl', $idMaterial)
@@ -153,11 +153,11 @@ class MaterialRepository extends EntityRepository
                         ->createQueryBuilder('mtrl')
                             ->select('mtrl')
 
-                            ->addSelect('mtrl.id as id, mtrl.nombre as nombre, mtrl.codigo as codigo, sgm.nombre as subgrupo, sgm.codigo as codigo_subgrupo, gm.nombre as grupo, gm.codigo as codigo_grupo, mtrl.descripcion as descripcion, mtrl.fechaHoraReg as fecha_registro, mtrl.fechaHoraMod as fecha_edicion')
+                            ->addSelect('mtrl.id AS id, mtrl.nombre AS nombre, mtrl.codigo as codigo, sgm.nombre AS subgrupo, sgm.codigo as codigo_subgrupo, gm.nombre AS grupo, gm.codigo as codigo_grupo, mtrl.descripcion as descripcion, mtrl.fechaHoraReg as fecha_registro, mtrl.fechaHoraMod as fecha_edicion')
 
-                            ->addSelect('usrRg.username as mtrl_usernameUserReg, usrRg.id as mtrl_id_userReg, usrMd.username as mtrl_usernameUserMod, usrMd.id as mtrl_id_userMod')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as mtrl_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as mtrl_nombreUserMod')
+                            ->addSelect('usrRg.username as mtrl_usernameUserReg, usrRg.id AS mtrl_id_userReg, usrMd.username as mtrl_usernameUserMod, usrMd.id AS mtrl_id_userMod')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS mtrl_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS mtrl_nombreUserMod')
                             ->from('MinsalSimagdBundle:ImgCtlMaterial', 'mtrl')
                             ->innerJoin('mtrl.idSubgrupoMaterial', 'sgm')
                             ->innerJoin('sgm.idGrupoMaterial', 'gm')
@@ -192,13 +192,13 @@ class MaterialRepository extends EntityRepository
                             ->select('mtrLc')
                             ->addSelect('mtrl')
 
-                            ->addSelect('mtrLc.id as id, mtrl.nombre as nombre, mtrl.codigo as codigo, sgm.nombre as subgrupo, sgm.codigo as codigo_subgrupo, gm.nombre as grupo, gm.codigo as codigo_grupo, mtrl.descripcion as descripcion, mtrl.fechaHoraReg as fecha_registro, mtrl.fechaHoraMod as fecha_edicion, mtrLc.habilitado as habilitado, mtrLc.fechaHoraReg as fecha_registro_local, mtrLc.fechaHoraMod as fecha_edicion_local')
+                            ->addSelect('mtrLc.id AS id, mtrl.nombre AS nombre, mtrl.codigo as codigo, sgm.nombre AS subgrupo, sgm.codigo as codigo_subgrupo, gm.nombre AS grupo, gm.codigo as codigo_grupo, mtrl.descripcion as descripcion, mtrl.fechaHoraReg as fecha_registro, mtrl.fechaHoraMod as fecha_edicion, mtrLc.habilitado as habilitado, mtrLc.fechaHoraReg as fecha_registro_local, mtrLc.fechaHoraMod as fecha_edicion_local')
 
-                            ->addSelect('stdmtrl.nombre as mtrLc_establecimiento, stdmtrl.id as mtrLc_id_establecimiento')
-                            ->addSelect('usrRg.username as mtrLc_usernameUserReg, usrRg.id as mtrLc_id_userReg, usrMd.username as mtrLc_usernameUserMod, usrMd.id as mtrLc_id_userMod, usrRgMtrl.username as mtrl_usernameUserReg, usrRgMtrl.id as mtrl_id_userReg')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as mtrLc_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as mtrLc_nombreUserMod')
-                            ->addSelect('concat(coalesce(usrRgMtrlEmp.apellido, \'\'), \', \', coalesce(usrRgMtrlEmp.nombre, \'\')) as mtrl_nombreUserReg')
+                            ->addSelect('stdmtrl.nombre AS mtrLc_establecimiento, stdmtrl.id AS mtrLc_id_establecimiento')
+                            ->addSelect('usrRg.username as mtrLc_usernameUserReg, usrRg.id AS mtrLc_id_userReg, usrMd.username as mtrLc_usernameUserMod, usrMd.id AS mtrLc_id_userMod, usrRgMtrl.username as mtrl_usernameUserReg, usrRgMtrl.id AS mtrl_id_userReg')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS mtrLc_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS mtrLc_nombreUserMod')
+                            ->addSelect('CONCAT(COALESCE(usrRgMtrlEmp.apellido, \'\'), \', \', COALESCE(usrRgMtrlEmp.nombre, \'\')) AS mtrl_nombreUserReg')
                             ->from('MinsalSimagdBundle:ImgCtlMaterialEstablecimiento', 'mtrLc')
                             ->innerJoin('mtrLc.idMaterial', 'mtrl')
                             ->innerJoin('mtrl.idSubgrupoMaterial', 'sgm')
@@ -242,7 +242,7 @@ class MaterialRepository extends EntityRepository
 
 	if($return == 'scalar')
 	{
-	    $query->addSelect('mtrl.id as id, mtrl.nombre as text, mtrl.codigo as cod');
+	    $query->addSelect('mtrl.id AS id, mtrl.nombre AS text, mtrl.codigo as cod');
 	}
 
         return $return == 'query' ?

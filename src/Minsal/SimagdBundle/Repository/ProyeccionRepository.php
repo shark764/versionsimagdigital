@@ -150,7 +150,7 @@ class ProyeccionRepository extends EntityRepository
         if ($unique ) { $query->distinct(); }
 
         $ids = array();
-        foreach($query->getQuery()->getScalarResult() as $resultado) {
+        foreach($query->getQuery()->getScalarResult() AS $resultado) {
             $ids[] = $resultado['id'];
         }
 
@@ -193,7 +193,7 @@ class ProyeccionRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('explrz.id as explrzId')
+                            ->select('explrz.id AS explrzId')
                             ->from('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento', 'explrz')
                             ->innerJoin('explrz.idAreaExamenEstab', 'mr')
                             ->where('explrz.id = :id_explrz')
@@ -240,7 +240,7 @@ class ProyeccionRepository extends EntityRepository
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('expl.id as explId')
+                            ->select('expl.id AS explId')
                             ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
                             ->where('expl.id = :id_expl')
                             ->setParameter('id_expl', $idProyeccion);
@@ -261,13 +261,13 @@ class ProyeccionRepository extends EntityRepository
                             ->select('expl')
                             ->addSelect('exm')
 
-                            ->addSelect('expl.id as id, expl.nombre as nombre, expl.codigo as codigo, exm.descripcion as examen, exm.idestandar as codigo_examen, expl.descripcion as descripcion, expl.fechaHoraReg as fecha_registro, expl.fechaHoraMod as fecha_edicion')
+                            ->addSelect('expl.id AS id, expl.nombre AS nombre, expl.codigo as codigo, exm.descripcion as examen, exm.idestandar as codigo_examen, expl.descripcion as descripcion, expl.fechaHoraReg as fecha_registro, expl.fechaHoraMod as fecha_edicion')
 
-                            ->addSelect('IDENTITY(exm.idAtencion) as exm_id_atencion')
-                            ->addSelect('usrRg.username as expl_usernameUserReg, usrRg.id as expl_id_userReg, usrMd.username as expl_usernameUserMod, usrMd.id as expl_id_userMod')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as expl_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as expl_nombreUserMod')
-                            ->addSelect('case when (sex.id is not null) then sex.nombre else \'Todos los sexos\' end as exm_sexo')
+                            ->addSelect('IDENTITY(exm.idAtencion) AS exm_id_atencion')
+                            ->addSelect('usrRg.username as expl_usernameUserReg, usrRg.id AS expl_id_userReg, usrMd.username as expl_usernameUserMod, usrMd.id AS expl_id_userMod')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS expl_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS expl_nombreUserMod')
+                            ->addSelect('CASE WHEN (sex.id IS NOT NULL) THEN sex.nombre ELSE \'Todos los sexos\' END AS exm_sexo')
                             ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
                             ->innerJoin('expl.idExamenServicioDiagnostico', 'exm')
                             ->leftJoin('exm.idsexo', 'sex')
@@ -302,8 +302,8 @@ class ProyeccionRepository extends EntityRepository
                             ->select('expl')
                             ->addSelect('exm')
                             ->addSelect('prcExpl')
-                            ->addSelect('IDENTITY(exm.idAtencion) as exm_id_atencion')
-                            ->addSelect('case when (sex.id is not null) then sex.nombre else \'Todos los sexos\' end as exm_sexo')
+                            ->addSelect('IDENTITY(exm.idAtencion) AS exm_id_atencion')
+                            ->addSelect('CASE WHEN (sex.id IS NOT NULL) THEN sex.nombre ELSE \'Todos los sexos\' END AS exm_sexo')
                             ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
                             ->innerJoin('expl.idExamenServicioDiagnostico', 'exm')
                             ->leftJoin('exm.idsexo', 'sex')
@@ -329,13 +329,13 @@ class ProyeccionRepository extends EntityRepository
                             ->addSelect('exm')
                             ->addSelect('m')
 
-                            ->addSelect('explrz.id as id, expl.nombre as nombre, expl.codigo as codigo, exm.descripcion as examen, exm.idestandar as codigo_examen, m.nombrearea as modalidad, m.idarea as codigo_modalidad, expl.descripcion as descripcion, expl.fechaHoraReg as fecha_registro, expl.fechaHoraMod as fecha_edicion, explrz.fechaHoraReg as fecha_registro_local, explrz.fechaHoraMod as fecha_edicion_local, explrz.habilitado as habilitado')
+                            ->addSelect('explrz.id AS id, expl.nombre AS nombre, expl.codigo as codigo, exm.descripcion as examen, exm.idestandar as codigo_examen, m.nombrearea as modalidad, m.idarea as codigo_modalidad, expl.descripcion as descripcion, expl.fechaHoraReg as fecha_registro, expl.fechaHoraMod as fecha_edicion, explrz.fechaHoraReg as fecha_registro_local, explrz.fechaHoraMod as fecha_edicion_local, explrz.habilitado as habilitado')
 
-                            ->addSelect('IDENTITY(exm.idAtencion) as exm_id_atencion, IDENTITY(m.idAtencion) as m_id_atencion')
-                            ->addSelect('usrRg.username as explrz_usernameUserReg, usrRg.id as explrz_id_userReg, usrMd.username as explrz_usernameUserMod, usrMd.id as explrz_id_userMod')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as explrz_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as explrz_nombreUserMod')
-                            ->addSelect('case when (sex.id is not null) then sex.nombre else \'Todos los sexos\' end as exm_sexo')
+                            ->addSelect('IDENTITY(exm.idAtencion) AS exm_id_atencion, IDENTITY(m.idAtencion) AS m_id_atencion')
+                            ->addSelect('usrRg.username as explrz_usernameUserReg, usrRg.id AS explrz_id_userReg, usrMd.username as explrz_usernameUserMod, usrMd.id AS explrz_id_userMod')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS explrz_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS explrz_nombreUserMod')
+                            ->addSelect('CASE WHEN (sex.id IS NOT NULL) THEN sex.nombre ELSE \'Todos los sexos\' END AS exm_sexo')
                             ->from('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento', 'explrz')
                             ->innerJoin('explrz.idProyeccion', 'expl')
                             ->innerJoin('explrz.idAreaExamenEstab', 'mr')
@@ -374,7 +374,7 @@ class ProyeccionRepository extends EntityRepository
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('explrz.id as explrzId')
+                            ->select('explrz.id AS explrzId')
                             ->from('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento', 'explrz')
                             ->innerJoin('explrz.idAreaExamenEstab', 'mr')
                             ->where('explrz.idProyeccion = :id_expl')
@@ -402,7 +402,7 @@ class ProyeccionRepository extends EntityRepository
 
     	if($return == 'scalar')
     	{
-    	    $query->addSelect('expl.id as id, expl.nombre as text, expl.codigo as cod, IDENTITY(expl.idExamenServicioDiagnostico) as exmGroup');
+    	    $query->addSelect('expl.id AS id, expl.nombre AS text, expl.codigo as cod, IDENTITY(expl.idExamenServicioDiagnostico) AS exmGroup');
     	}
 
         return $return == 'query' ?
@@ -415,7 +415,7 @@ class ProyeccionRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('m.id as id_m, expl.id as id_expl')
+                            ->select('m.id AS id_m, expl.id AS id_expl')
                             ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
                             ->innerJoin('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento', 'explrz',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
@@ -447,8 +447,8 @@ class ProyeccionRepository extends EntityRepository
                             ->select('expl')
                             ->addSelect('exm')
                             ->addSelect('solcmplExpl')
-                            ->addSelect('IDENTITY(exm.idAtencion) as exm_id_atencion')
-                            ->addSelect('case when (sex.id is not null) then sex.nombre else \'Todos los sexos\' end as exm_sexo')
+                            ->addSelect('IDENTITY(exm.idAtencion) AS exm_id_atencion')
+                            ->addSelect('CASE WHEN (sex.id IS NOT NULL) THEN sex.nombre ELSE \'Todos los sexos\' END AS exm_sexo')
                             ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
                             ->innerJoin('expl.idExamenServicioDiagnostico', 'exm')
                             ->leftJoin('exm.idsexo', 'sex')

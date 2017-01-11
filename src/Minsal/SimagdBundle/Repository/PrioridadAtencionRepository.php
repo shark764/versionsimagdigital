@@ -23,7 +23,7 @@ class PrioridadAtencionRepository extends EntityRepository
 
 	if($return == 'scalar')
 	{
-	    $query->addSelect('prAtn.id as id, prAtn.nombre as text, prAtn.codigo as cod, prAtn.estiloPresentacion as style');
+	    $query->addSelect('prAtn.id AS id, prAtn.nombre AS text, prAtn.codigo as cod, prAtn.estiloPresentacion as style');
 	}
 
         return $return == 'query' ?

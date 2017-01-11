@@ -19,7 +19,7 @@ class ExpedienteFicticioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('IDENTITY(unknExp.idEstablecimiento) as idEstab, MAX(unknExp.numero) as maxNumber')   // last is not always max numer
+                            ->select('IDENTITY(unknExp.idEstablecimiento) AS idEstab, MAX(unknExp.numero) AS maxNumber')   // last is not always max numer
                             ->from('MinsalSimagdBundle:ImgExpedienteFicticio', 'unknExp')
                             ->where('unknExp.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estabLocal)
@@ -71,7 +71,7 @@ class ExpedienteFicticioRepository extends EntityRepository
 /*
  * LA VERDADERA --| PARA TRIGGER
  * *********************************************************************************************
- * select max(numero) as max_number_exp from img_expediente_ficticio where numero like concat('%-', substring(to_char(now(), 'yyyy') from 3));
+ * select max(numero) AS max_number_exp from img_expediente_ficticio where numero like CONCAT('%-', substring(to_char(now(), 'yyyy') from 3));
  * *********************************************************************************************
  */
 

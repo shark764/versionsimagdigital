@@ -38,12 +38,12 @@ class PacsEstablecimientoRepository extends EntityRepository
                             ->select('pacs')
                             ->addSelect('mtrBd')
 
-                            ->addSelect('pacs.id as id, pacs.nombreConexion as conexion, pacs.habilitado as habilitado, pacs.ip as ip, pacs.usuario as usuario, pacs.puerto as puerto, pacs.host as host, pacs.duracionEstudio as duracion_estudio, pacs.nombreBaseDatos as base_datos, pacs.fechaHoraReg as fecha_registro, pacs.fechaHoraMod as fecha_edicion, mtrBd.nombre as motor')
+                            ->addSelect('pacs.id AS id, pacs.nombreConexion as conexion, pacs.habilitado as habilitado, pacs.ip as ip, pacs.usuario as usuario, pacs.puerto as puerto, pacs.host as host, pacs.duracionEstudio as duracion_estudio, pacs.nombreBaseDatos as base_datos, pacs.fechaHoraReg as fecha_registro, pacs.fechaHoraMod as fecha_edicion, mtrBd.nombre AS motor')
 
-                            ->addSelect('stdpacs.nombre as pacs_establecimiento, stdpacs.id as pacs_id_establecimiento')
-                            ->addSelect('usrRg.username as pacs_usernameUserReg, usrRg.id as pacs_id_userReg, usrMd.username as pacs_usernameUserMod, usrMd.id as pacs_id_userMod')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as pacs_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as pacs_nombreUserMod')
+                            ->addSelect('stdpacs.nombre AS pacs_establecimiento, stdpacs.id AS pacs_id_establecimiento')
+                            ->addSelect('usrRg.username as pacs_usernameUserReg, usrRg.id AS pacs_id_userReg, usrMd.username as pacs_usernameUserMod, usrMd.id AS pacs_id_userMod')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS pacs_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS pacs_nombreUserMod')
                             ->from('MinsalSimagdBundle:ImgCtlPacsEstablecimiento', 'pacs')
                             ->innerJoin('pacs.idEstablecimiento', 'stdpacs')
                             ->innerJoin('pacs.idMotor', 'mtrBd')

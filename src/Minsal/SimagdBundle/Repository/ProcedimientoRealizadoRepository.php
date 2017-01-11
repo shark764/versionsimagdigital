@@ -33,7 +33,7 @@ class ProcedimientoRealizadoRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prz.id as przId')
+                            ->select('prz.id AS przId')
                             ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz')
                             ->innerJoin('prz.idSolicitudEstudio', 'prc')
                             ->where('prz.id = :id_prz')
@@ -147,21 +147,21 @@ class ProcedimientoRealizadoRepository extends EntityRepository
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
 
-                            ->addSelect('pndR.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, pndR.fechaIngresoLista as fecha_ingreso')
+                            ->addSelect('pndR.id AS id, stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea as modalidad, prAtn.nombre AS triage, pndR.fechaIngresoLista as fecha_ingreso')
 
-                            ->addSelect('stdPndR.nombre as pndR_establecimiento, stdPndR.id as pndR_id_establecimiento')
+                            ->addSelect('stdPndR.nombre AS pndR_establecimiento, stdPndR.id AS pndR_id_establecimiento')
 
-                            ->addSelect('statuscit.id as cit_id_estado, statuscit.nombreEstado as cit_estado')
-                            ->addSelect('case when (empCit.id is not null) then concat(coalesce(empCit.apellido, \'\'), \', \', coalesce(empCit.nombre, \'\')) else \'\' end as cit_recepcionista, empCit.id as cit_id_recepcionista')
-                            ->addSelect('case when (tcnlcit.id is not null) then concat(coalesce(tcnlcit.apellido, \'\'), \', \', coalesce(tcnlcit.nombre, \'\')) else \'\' end as cit_tecnologo, tcnlcit.id as cit_id_tecnologo')
+                            ->addSelect('statuscit.id AS cit_id_estado, statuscit.nombreEstado as cit_estado')
+                            ->addSelect('CASE WHEN (empCit.id IS NOT NULL) THEN CONCAT(COALESCE(empCit.apellido, \'\'), \', \', COALESCE(empCit.nombre, \'\')) ELSE \'\' END AS cit_recepcionista, empCit.id AS cit_id_recepcionista')
+                            ->addSelect('CASE WHEN (tcnlcit.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlcit.apellido, \'\'), \', \', COALESCE(tcnlcit.nombre, \'\')) ELSE \'\' END AS cit_tecnologo, tcnlcit.id AS cit_id_tecnologo')
 
-                            ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
-                            ->addSelect('stdroot.nombre as prc_origen, stdroot.id as prc_id_origen, ar.nombre as prc_areaAtencion, ar.id as prc_id_areaAtencion, atn.nombre as prc_atencion, atn.id as prc_id_atencion')
-                            ->addSelect('case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as prc_solicitante')
-                            ->addSelect('m.nombrearea as prc_modalidad, m.id as prc_id_modalidad, prAtn.nombre as prc_prioridadAtencion, prAtn.codigo as prc_codigoPrioridad, frCt.nombre as prc_formaContacto, ctPct.parentesco as prc_contactoPaciente')
+                            ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS prc_paciente')
+                            ->addSelect('stdroot.nombre AS prc_origen, stdroot.id AS prc_id_origen, ar.nombre AS prc_areaAtencion, ar.id AS prc_id_areaAtencion, atn.nombre AS prc_atencion, atn.id AS prc_id_atencion')
+                            ->addSelect('CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS prc_solicitante')
+                            ->addSelect('m.nombrearea AS prc_modalidad, m.id AS prc_id_modalidad, prAtn.nombre AS prc_prioridadAtencion, prAtn.codigo AS prc_codigoPrioridad, frCt.nombre AS prc_formaContacto, ctPct.parentesco AS prc_contactoPaciente')
 
-                            ->addSelect('case when (empcmpl.id is not null) then concat(coalesce(empcmpl.apellido, \'\'), \', \', coalesce(empcmpl.nombre, \'\')) else \'\' end as solcmpl_solicitante')
-                            ->addSelect('mcmpl.nombrearea as solcmpl_modalidad, prAtnCmpl.nombre as solcmpl_prioridadAtencion, prAtnCmpl.codigo as solcmpl_codigoPrioridad')
+                            ->addSelect('CASE WHEN (empcmpl.id IS NOT NULL) THEN CONCAT(COALESCE(empcmpl.apellido, \'\'), \', \', COALESCE(empcmpl.nombre, \'\')) ELSE \'\' END AS solcmpl_solicitante')
+                            ->addSelect('mcmpl.nombrearea as solcmpl_modalidad, prAtnCmpl.nombre AS solcmpl_prioridadAtencion, prAtnCmpl.codigo as solcmpl_codigoPrioridad')
 
                             ->from('MinsalSimagdBundle:ImgPendienteRealizacion', 'pndR')
                             ->innerJoin('pndR.idEstablecimiento', 'stdPndR')
@@ -252,22 +252,22 @@ class ProcedimientoRealizadoRepository extends EntityRepository
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
 
-                            ->addSelect('stdPndR.nombre as pndR_establecimiento, stdPndR.id as pndR_id_establecimiento')
+                            ->addSelect('stdPndR.nombre AS pndR_establecimiento, stdPndR.id AS pndR_id_establecimiento')
 
-                            ->addSelect('statusprz.id as prz_id_estado, statusprz.nombreEstado as prz_estado, statusprz.codigo as prz_codEstado')
-                            ->addSelect('concat(coalesce(tcnlprz.apellido, \'\'), \', \', coalesce(tcnlprz.nombre, \'\')) as prz_tecnologo, tcnlprz.id as prz_id_tecnologo')
+                            ->addSelect('statusprz.id AS prz_id_estado, statusprz.nombreEstado AS prz_estado, statusprz.codigo AS prz_codEstado')
+                            ->addSelect('CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) AS prz_tecnologo, tcnlprz.id AS prz_id_tecnologo')
 
-                            ->addSelect('statuscit.id as cit_id_estado, statuscit.nombreEstado as cit_estado')
-                            ->addSelect('case when (empCit.id is not null) then concat(coalesce(empCit.apellido, \'\'), \', \', coalesce(empCit.nombre, \'\')) else \'\' end as cit_recepcionista, empCit.id as cit_id_recepcionista')
-                            ->addSelect('case when (tcnlcit.id is not null) then concat(coalesce(tcnlcit.apellido, \'\'), \', \', coalesce(tcnlcit.nombre, \'\')) else \'\' end as cit_tecnologo, tcnlcit.id as cit_id_tecnologo')
+                            ->addSelect('statuscit.id AS cit_id_estado, statuscit.nombreEstado as cit_estado')
+                            ->addSelect('CASE WHEN (empCit.id IS NOT NULL) THEN CONCAT(COALESCE(empCit.apellido, \'\'), \', \', COALESCE(empCit.nombre, \'\')) ELSE \'\' END AS cit_recepcionista, empCit.id AS cit_id_recepcionista')
+                            ->addSelect('CASE WHEN (tcnlcit.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlcit.apellido, \'\'), \', \', COALESCE(tcnlcit.nombre, \'\')) ELSE \'\' END AS cit_tecnologo, tcnlcit.id AS cit_id_tecnologo')
 
-                            ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
-                            ->addSelect('stdroot.nombre as prc_origen, stdroot.id as prc_id_origen, ar.nombre as prc_areaAtencion, ar.id as prc_id_areaAtencion, atn.nombre as prc_atencion, atn.id as prc_id_atencion')
-                            ->addSelect('case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as prc_solicitante')
-                            ->addSelect('m.nombrearea as prc_modalidad, m.id as prc_id_modalidad, prAtn.nombre as prc_prioridadAtencion, prAtn.codigo as prc_codigoPrioridad, frCt.nombre as prc_formaContacto, ctPct.parentesco as prc_contactoPaciente')
+                            ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS prc_paciente')
+                            ->addSelect('stdroot.nombre AS prc_origen, stdroot.id AS prc_id_origen, ar.nombre AS prc_areaAtencion, ar.id AS prc_id_areaAtencion, atn.nombre AS prc_atencion, atn.id AS prc_id_atencion')
+                            ->addSelect('CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS prc_solicitante')
+                            ->addSelect('m.nombrearea AS prc_modalidad, m.id AS prc_id_modalidad, prAtn.nombre AS prc_prioridadAtencion, prAtn.codigo AS prc_codigoPrioridad, frCt.nombre AS prc_formaContacto, ctPct.parentesco AS prc_contactoPaciente')
 
-                            ->addSelect('case when (empcmpl.id is not null) then concat(coalesce(empcmpl.apellido, \'\'), \', \', coalesce(empcmpl.nombre, \'\')) else \'\' end as solcmpl_solicitante')
-                            ->addSelect('mcmpl.nombrearea as solcmpl_modalidad, prAtnCmpl.nombre as solcmpl_prioridadAtencion, prAtnCmpl.codigo as solcmpl_codigoPrioridad')
+                            ->addSelect('CASE WHEN (empcmpl.id IS NOT NULL) THEN CONCAT(COALESCE(empcmpl.apellido, \'\'), \', \', COALESCE(empcmpl.nombre, \'\')) ELSE \'\' END AS solcmpl_solicitante')
+                            ->addSelect('mcmpl.nombrearea as solcmpl_modalidad, prAtnCmpl.nombre AS solcmpl_prioridadAtencion, prAtnCmpl.codigo as solcmpl_codigoPrioridad')
 
                             ->from('MinsalSimagdBundle:ImgPendienteRealizacion', 'pndR')
                             ->innerJoin('pndR.idEstablecimiento', 'stdPndR')
@@ -348,23 +348,23 @@ class ProcedimientoRealizadoRepository extends EntityRepository
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
 
-                            ->addSelect('statusprz.id as prz_id_estado, statusprz.nombreEstado as prz_estado, statusprz.codigo as prz_codEstado')
-                            ->addSelect('concat(coalesce(tcnlprz.apellido, \'\'), \', \', coalesce(tcnlprz.nombre, \'\')) as prz_tecnologo, tcnlprz.id as prz_id_tecnologo, tpEmp.tipo as prz_tipoEmpleado')
-                            ->addSelect('usrRg.username as prz_usernameUserReg, usrRg.id as prz_id_userReg, usrMd.username as prz_usernameUserMod, usrMd.id as prz_id_userMod')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as prz_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as prz_nombreUserMod')
+                            ->addSelect('statusprz.id AS prz_id_estado, statusprz.nombreEstado AS prz_estado, statusprz.codigo AS prz_codEstado')
+                            ->addSelect('CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) AS prz_tecnologo, tcnlprz.id AS prz_id_tecnologo, tpEmp.tipo AS prz_tipoEmpleado')
+                            ->addSelect('usrRg.username AS prz_usernameUserReg, usrRg.id AS prz_id_userReg, usrMd.username AS prz_usernameUserMod, usrMd.id AS prz_id_userMod')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS prz_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS prz_nombreUserMod')
 
-                            ->addSelect('statuscit.id as cit_id_estado, statuscit.nombreEstado as cit_estado')
-                            ->addSelect('case when (empCit.id is not null) then concat(coalesce(empCit.apellido, \'\'), \', \', coalesce(empCit.nombre, \'\')) else \'\' end as cit_recepcionista, empCit.id as cit_id_recepcionista')
-                            ->addSelect('case when (tcnlcit.id is not null) then concat(coalesce(tcnlcit.apellido, \'\'), \', \', coalesce(tcnlcit.nombre, \'\')) else \'\' end as cit_tecnologo, tcnlcit.id as cit_id_tecnologo')
+                            ->addSelect('statuscit.id AS cit_id_estado, statuscit.nombreEstado as cit_estado')
+                            ->addSelect('CASE WHEN (empCit.id IS NOT NULL) THEN CONCAT(COALESCE(empCit.apellido, \'\'), \', \', COALESCE(empCit.nombre, \'\')) ELSE \'\' END AS cit_recepcionista, empCit.id AS cit_id_recepcionista')
+                            ->addSelect('CASE WHEN (tcnlcit.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlcit.apellido, \'\'), \', \', COALESCE(tcnlcit.nombre, \'\')) ELSE \'\' END AS cit_tecnologo, tcnlcit.id AS cit_id_tecnologo')
 
-                            ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
-                            ->addSelect('stdroot.nombre as prc_origen, stdroot.id as prc_id_origen, ar.nombre as prc_areaAtencion, ar.id as prc_id_areaAtencion, atn.nombre as prc_atencion, atn.id as prc_id_atencion')
-                            ->addSelect('case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as prc_solicitante')
-                            ->addSelect('m.nombrearea as prc_modalidad, m.id as prc_id_modalidad, prAtn.nombre as prc_prioridadAtencion, prAtn.codigo as prc_codigoPrioridad, frCt.nombre as prc_formaContacto, ctPct.parentesco as prc_contactoPaciente')
+                            ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS prc_paciente')
+                            ->addSelect('stdroot.nombre AS prc_origen, stdroot.id AS prc_id_origen, ar.nombre AS prc_areaAtencion, ar.id AS prc_id_areaAtencion, atn.nombre AS prc_atencion, atn.id AS prc_id_atencion')
+                            ->addSelect('CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS prc_solicitante')
+                            ->addSelect('m.nombrearea AS prc_modalidad, m.id AS prc_id_modalidad, prAtn.nombre AS prc_prioridadAtencion, prAtn.codigo AS prc_codigoPrioridad, frCt.nombre AS prc_formaContacto, ctPct.parentesco AS prc_contactoPaciente')
 
-                            ->addSelect('case when (empcmpl.id is not null) then concat(coalesce(empcmpl.apellido, \'\'), \', \', coalesce(empcmpl.nombre, \'\')) else \'\' end as solcmpl_solicitante')
-                            ->addSelect('mcmpl.nombrearea as solcmpl_modalidad, prAtnCmpl.nombre as solcmpl_prioridadAtencion, prAtnCmpl.codigo as solcmpl_codigoPrioridad')
+                            ->addSelect('CASE WHEN (empcmpl.id IS NOT NULL) THEN CONCAT(COALESCE(empcmpl.apellido, \'\'), \', \', COALESCE(empcmpl.nombre, \'\')) ELSE \'\' END AS solcmpl_solicitante')
+                            ->addSelect('mcmpl.nombrearea as solcmpl_modalidad, prAtnCmpl.nombre AS solcmpl_prioridadAtencion, prAtnCmpl.codigo as solcmpl_codigoPrioridad')
                             
                             ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz')
                             ->innerJoin('prz.idEstadoProcedimientoRealizado', 'statusprz')
@@ -439,7 +439,7 @@ class ProcedimientoRealizadoRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prz.idTecnologoRealiza as prz_id_tcnl, count(prz.id) as prz_num_realizados')
+                            ->select('prz.idTecnologoRealiza AS prz_id_tcnl, COUNT(prz.id) AS prz_num_realizados')
                             ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz')
                             ->leftJoin('MinsalSimagdBundle:ImgEstudioPaciente', 'est',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
@@ -476,7 +476,7 @@ class ProcedimientoRealizadoRepository extends EntityRepository
         }
         $query      = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('status.id as id, status.nombreEstado as text, status.codigo as cod')
+                            ->select('status.id AS id, status.nombreEstado AS text, status.codigo as cod')
                             ->from('MinsalSimagdBundle:' . $entity, 'status')
                             ->orderBy('status.id', 'asc');
         
