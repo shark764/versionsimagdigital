@@ -174,7 +174,7 @@ class SolicitudEstudioRepository extends EntityRepository
         /** Diagnóstico registrado */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select($cod . '.id as regId')
+                            ->select($cod . '.id AS regId')
                             ->from('MinsalSimagdBundle:' . $entity, $cod)
                             ->where($cod . '.id = :id_reg')
                             ->setParameter('id_reg', $id);
@@ -189,7 +189,7 @@ class SolicitudEstudioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prc.id as prcId')
+                            ->select('prc.id AS prcId')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
                             ->where('prc.id = :id_prc')
@@ -214,7 +214,7 @@ class SolicitudEstudioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prc.id as prcId')
+                            ->select('prc.id AS prcId')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
                             ->where('prc.id = :id_prc')
@@ -232,7 +232,7 @@ class SolicitudEstudioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prc.id as prcId')
+                            ->select('prc.id AS prcId')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->where('prc.id = :id_prc')
                             ->setParameter('id_prc', $id);
@@ -254,7 +254,7 @@ class SolicitudEstudioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select($alias . '.id as regId')
+                            ->select($alias . '.id AS regId')
                             ->from('MinsalSimagdBundle:' . $entity, $alias)
                             ->where($alias . '.idSolicitudEstudio = :id_prc')
                             ->setParameter('id_prc', $idPrc);
@@ -269,7 +269,7 @@ class SolicitudEstudioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('lct.id as lctId')
+                            ->select('lct.id AS lctId')
                             ->from('MinsalSimagdBundle:ImgLectura', 'lct')
                             ->innerJoin('lct.idEstudio', 'est')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
@@ -286,7 +286,7 @@ class SolicitudEstudioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('est.id as estId')
+                            ->select('est.id AS estId')
                             ->from('MinsalSimagdBundle:ImgEstudioPaciente', 'est')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
                             ->where('prz.idSolicitudEstudio = :id_prc')
@@ -321,7 +321,7 @@ class SolicitudEstudioRepository extends EntityRepository
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prc.id as prcId')
+                            ->select('prc.id AS prcId')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idExpediente', 'exp')
                             ->where('prc.idAreaServicioDiagnostico = :id_mod')
@@ -341,7 +341,7 @@ class SolicitudEstudioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prc.id as prcId')
+                            ->select('prc.id AS prcId')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idSolicitudestudios', 'solest')
                             ->where('prc.idAreaServicioDiagnostico = :id_mod')
@@ -359,7 +359,7 @@ class SolicitudEstudioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prc.id as prcId, IDENTITY(prc.idContactoPaciente) as idCtPct, prc.nombreContacto as nmCt, IDENTITY(prc.idFormaContacto) as idFrmCt, prc.contacto as cnt')
+                            ->select('prc.id AS prcId, IDENTITY(prc.idContactoPaciente) AS idCtPct, prc.nombreContacto AS nmCt, IDENTITY(prc.idFormaContacto) AS idFrmCt, prc.contacto AS cnt')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idExpediente', 'exp')
                             ->where('exp.idPaciente = :id_pct')
@@ -451,17 +451,17 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->addSelect('unknExp')
                             ->addSelect('prAtn')
 
-                            ->addSelect('prc.id as id, stdroot.nombre as origen, concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as paciente, explocal.numero as numero_expediente, case when (empprc.id is not null) then concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) else \'\' end as medico, ar.nombre as area_atencion, atn.nombre as atencion, m.nombrearea as modalidad, prAtn.nombre as triage, prc.fechaCreacion as fecha_solicitud, statusSc.nombreEstado as estado, coalesce(statusSc.porcentajeAvance, 0) as progreso')
+                            ->addSelect('prc.id AS id, stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea as modalidad, prAtn.nombre AS triage, prc.fechaCreacion as fecha_solicitud, statusSc.nombreEstado as estado, COALESCE(statusSc.porcentajeAvance, 0) AS progreso')
 
-                            ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
-                            ->addSelect('stdroot.nombre as prc_origen, stdroot.id as prc_id_origen, ar.nombre as prc_areaAtencion, ar.id as prc_id_areaAtencion, atn.nombre as prc_atencion, atn.id as prc_id_atencion')
-                            ->addSelect('concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) as prc_empleado, empprc.id as prc_id_empleado, tpEmp.tipo as prc_tipoEmpleado')
-                            ->addSelect('stdref.nombre as prc_referido, stdref.id as prc_id_referido, stdiag.nombre as prc_diagnosticante, stdiag.id as prc_id_diagnosticante')
-                            ->addSelect('m.nombrearea as prc_modalidad, m.id as prc_id_modalidad, prAtn.nombre as prc_prioridadAtencion, prAtn.id as prc_id_prioridad, prAtn.codigo as prc_codigoPrioridad, frCt.nombre as prc_formaContacto, ctPct.parentesco as prc_contactoPaciente')
-                            ->addSelect('usrRg.username as prc_usernameUserReg, usrRg.id as prc_id_userReg, usrMd.username as prc_usernameUserMod, usrMd.id as prc_id_userMod')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as prc_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as prc_nombreUserMod')
-                            ->addSelect('case when (radXInd.id is not null) then concat(coalesce(radXInd.apellido, \'\'), \', \', coalesce(radXInd.nombre, \'\')) else \'\' end as prc_radXInd, radXInd.id as prc_id_radXInd')
+                            ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS prc_paciente')
+                            ->addSelect('stdroot.nombre AS prc_origen, stdroot.id AS prc_id_origen, ar.nombre AS prc_areaAtencion, ar.id AS prc_id_areaAtencion, atn.nombre AS prc_atencion, atn.id AS prc_id_atencion')
+                            ->addSelect('CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) AS prc_empleado, empprc.id AS prc_id_empleado, tpEmp.tipo AS prc_tipoEmpleado')
+                            ->addSelect('stdref.nombre AS prc_referido, stdref.id AS prc_id_referido, stdiag.nombre AS prc_diagnosticante, stdiag.id AS prc_id_diagnosticante')
+                            ->addSelect('m.nombrearea AS prc_modalidad, m.id AS prc_id_modalidad, prAtn.nombre AS prc_prioridadAtencion, prAtn.id AS prc_id_prioridad, prAtn.codigo AS prc_codigoPrioridad, frCt.nombre AS prc_formaContacto, ctPct.parentesco AS prc_contactoPaciente')
+                            ->addSelect('usrRg.username AS prc_usernameUserReg, usrRg.id AS prc_id_userReg, usrMd.username AS prc_usernameUserMod, usrMd.id AS prc_id_userMod')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS prc_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS prc_nombreUserMod')
+                            ->addSelect('CASE WHEN (radXInd.id IS NOT NULL) THEN CONCAT(COALESCE(radXInd.apellido, \'\'), \', \', COALESCE(radXInd.nombre, \'\')) ELSE \'\' END AS prc_radXInd, radXInd.id AS prc_id_radXInd')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idEmpleado', 'empprc')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
@@ -538,8 +538,8 @@ class SolicitudEstudioRepository extends EntityRepository
                         ->createQueryBuilder('exp')
                             ->select('exp')
                             ->addSelect('pct')
-                            ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as pct_nombreCompleto')
-                            ->addSelect('sex.nombre as pct_sexo, pctOcp.nombre as pct_ocupacion, pctEstCv.nombre as pct_estadoCivil, pctNcl.nacionalidad as pct_nacionalidad')
+                            ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS pct_nombreCompleto')
+                            ->addSelect('sex.nombre AS pct_sexo, pctOcp.nombre AS pct_ocupacion, pctEstCv.nombre AS pct_estadoCivil, pctNcl.nacionalidad AS pct_nacionalidad')
                             ->from('MinsalSiapsBundle:MntExpediente', 'exp')
                             ->innerJoin('exp.idPaciente', 'pct')
                             ->innerJoin('pct.idSexo', 'sex')
@@ -624,15 +624,15 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->addSelect('statusSc')
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
-                            ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
-                            ->addSelect('stdroot.nombre as prc_origen, stdroot.id as prc_id_origen, ar.nombre as prc_areaAtencion, ar.id as prc_id_areaAtencion, atn.nombre as prc_atencion, atn.id as prc_id_atencion')
-                            ->addSelect('concat(coalesce(emp.apellido, \'\'), \', \', coalesce(emp.nombre, \'\')) as prc_empleado, emp.id as prc_id_empleado, tpEmp.tipo as prc_tipoEmpleado')
-                            ->addSelect('stdref.nombre as prc_referido, stdref.id as prc_id_referido, stdiag.nombre as prc_diagnosticante, stdiag.id as prc_id_diagnosticante')
-                            ->addSelect('m.nombrearea as prc_modalidad, m.id as prc_id_modalidad, prAtn.nombre as prc_prioridadAtencion, prAtn.id as prc_id_prioridad, prAtn.codigo as prc_codigoPrioridad, frCt.nombre as prc_formaContacto, ctPct.parentesco as prc_contactoPaciente')
-                            ->addSelect('usrRg.username as prc_usernameUserReg, usrRg.id as prc_id_userReg, usrMd.username as prc_usernameUserMod, usrMd.id as prc_id_userMod')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as prc_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as prc_nombreUserMod')
-                            ->addSelect('case when (radXInd.id is not null) then concat(coalesce(radXInd.apellido, \'\'), \', \', coalesce(radXInd.nombre, \'\')) else \'\' end as prc_radXInd, radXInd.id as prc_id_radXInd')
+                            ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS prc_paciente')
+                            ->addSelect('stdroot.nombre AS prc_origen, stdroot.id AS prc_id_origen, ar.nombre AS prc_areaAtencion, ar.id AS prc_id_areaAtencion, atn.nombre AS prc_atencion, atn.id AS prc_id_atencion')
+                            ->addSelect('CONCAT(COALESCE(emp.apellido, \'\'), \', \', COALESCE(emp.nombre, \'\')) AS prc_empleado, emp.id AS prc_id_empleado, tpEmp.tipo AS prc_tipoEmpleado')
+                            ->addSelect('stdref.nombre AS prc_referido, stdref.id AS prc_id_referido, stdiag.nombre AS prc_diagnosticante, stdiag.id AS prc_id_diagnosticante')
+                            ->addSelect('m.nombrearea AS prc_modalidad, m.id AS prc_id_modalidad, prAtn.nombre AS prc_prioridadAtencion, prAtn.id AS prc_id_prioridad, prAtn.codigo AS prc_codigoPrioridad, frCt.nombre AS prc_formaContacto, ctPct.parentesco AS prc_contactoPaciente')
+                            ->addSelect('usrRg.username AS prc_usernameUserReg, usrRg.id AS prc_id_userReg, usrMd.username AS prc_usernameUserMod, usrMd.id AS prc_id_userMod')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS prc_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS prc_nombreUserMod')
+                            ->addSelect('CASE WHEN (radXInd.id IS NOT NULL) THEN CONCAT(COALESCE(radXInd.apellido, \'\'), \', \', COALESCE(radXInd.nombre, \'\')) ELSE \'\' END AS prc_radXInd, radXInd.id AS prc_id_radXInd')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idEmpleado', 'emp')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
@@ -720,9 +720,9 @@ class SolicitudEstudioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prc.id as prcId, prc.tallaPaciente as talla')
-                            ->addSelect('case when prc.pesoActualKg is not null then prc.pesoActualKg else prc.pesoActualLb / 2.20462262 end as pesoKg')
-                            ->addSelect('case when prc.pesoActualLb is not null then prc.pesoActualLb else prc.pesoActualKg * 2.20462262 end as pesoLb')
+                            ->select('prc.id AS prcId, prc.tallaPaciente as talla')
+                            ->addSelect('CASE WHEN prc.pesoActualKg IS NOT NULL THEN prc.pesoActualKg ELSE prc.pesoActualLb / 2.20462262 END AS pesoKg')
+                            ->addSelect('CASE WHEN prc.pesoActualLb IS NOT NULL THEN prc.pesoActualLb ELSE prc.pesoActualKg * 2.20462262 END AS pesoLb')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idExpediente', 'exp')
                             ->where('exp.idPaciente = :id_pct')
@@ -744,7 +744,7 @@ class SolicitudEstudioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('ar.id as id_ar, atn.id as id_atn')
+                            ->select('ar.id AS id_ar, atn.id AS id_atn')
                             ->from('MinsalSiapsBundle:CtlAreaAtencion', 'ar')
                             ->innerJoin('MinsalSiapsBundle:MntAreaModEstab', 'ams',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
@@ -773,7 +773,7 @@ class SolicitudEstudioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('ar.id as id_ar, atn.id as id_atn, emp.id as id_emp')
+                            ->select('ar.id AS id_ar, atn.id AS id_atn, emp.id AS id_emp')
                             ->from('MinsalSiapsBundle:MntEmpleado', 'emp')
                             ->innerJoin('MinsalSiapsBundle:MntEmpleadoEspecialidadEstab', 'ees',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
@@ -813,7 +813,7 @@ class SolicitudEstudioRepository extends EntityRepository
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('ar.id as id, ar.nombre as text')
+                            ->select('ar.id AS id, ar.nombre AS text')
                             ->from('MinsalSiapsBundle:CtlAreaAtencion', 'ar')
                             ->orderBy('ar.nombre')
                             ->distinct();
@@ -831,7 +831,7 @@ class SolicitudEstudioRepository extends EntityRepository
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('atn.id as id, atn.nombre as text')
+                            ->select('atn.id AS id, atn.nombre AS text')
                             ->from('MinsalSiapsBundle:CtlAtencion', 'atn')
                             ->orderBy('atn.nombre')
                             ->distinct();
@@ -849,7 +849,7 @@ class SolicitudEstudioRepository extends EntityRepository
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('stdsol.id as id, stdsol.nombre as text, IDENTITY(stdsol.idTipoEstablecimiento) as tipo')
+                            ->select('stdsol.id AS id, stdsol.nombre AS text, IDENTITY(stdsol.idTipoEstablecimiento) AS tipo')
                             ->from('MinsalSiapsBundle:CtlEstablecimiento', 'stdsol')
                             ->orderBy('stdsol.idTipoEstablecimiento')
                             ->addOrderBy('stdsol.nombre');
