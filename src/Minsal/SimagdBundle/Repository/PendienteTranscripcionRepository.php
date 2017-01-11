@@ -17,7 +17,7 @@ class PendienteTranscripcionRepository extends EntityRepository
      * Asignar transcriptor a elementos de lista
      * **************************************************************************
      */
-    public function asignarElementoListaTrabajo($id_estabLocal, $id_trcX, $id_empUsserAssign, $rows = array())
+    public function addToWorkList($id_estabLocal, $id_trcX, $id_empUsserAssign, $rows = array())
     {
         /*
          * QueryBuilder

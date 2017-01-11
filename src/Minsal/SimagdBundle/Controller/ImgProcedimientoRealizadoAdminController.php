@@ -569,7 +569,7 @@ class ImgProcedimientoRealizadoAdminController extends Controller
                     ));
     }
 
-    public function listarProcedimientosRealizadosAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
 

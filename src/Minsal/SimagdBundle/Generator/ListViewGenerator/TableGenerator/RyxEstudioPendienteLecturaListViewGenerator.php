@@ -221,7 +221,7 @@ class RyxEstudioPendienteLecturaListViewGenerator extends RyxEntityListViewGener
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_sin_lectura_listarPendientesLectura', array('type' => $this->type));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_sin_lectura_generateData', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '25';

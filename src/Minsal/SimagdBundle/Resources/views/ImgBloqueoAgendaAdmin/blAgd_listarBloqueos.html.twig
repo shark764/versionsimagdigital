@@ -4,12 +4,12 @@
     {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'blAgd' } %}
     <!-- END --| toolbar table-lista-bloqueos -->
 
-    <div id="div-resultado-bloqueos-agenda" style="display: none;" class="menu-vistas-agenda" data-refresh-url="{{ path('simagd_bloqueo_agenda_listarBloqueos') }}">
+    <div id="div-resultado-bloqueos-agenda" style="display: none;" class="menu-vistas-agenda" data-refresh-url="{{ path('simagd_bloqueo_agenda_generateData') }}">
 	<table class="table table-condensed" id="table-lista-bloqueos"
 		data-toggle="table"
 		data-id-field="blAgd_id"
 		data-url=""
-                data-backup-url="simagd_bloqueo_agenda_listarBloqueos"
+                data-backup-url="simagd_bloqueo_agenda_generateData"
                 data-toolbar="#bs_blAgd_toolbar"
 		data-cache="false"
 		data-show-refresh="true"

@@ -42,7 +42,7 @@
             /*
              * get sources from remote
              */
-            var $getJSON_url            = 'simagd_patron_diagnostico_listarPatronesDiagnostico';  // --| url to get the sources
+            var $getJSON_url            = 'simagd_patron_diagnostico_generateData';  // --| url to get the sources
             $.getJSON(Routing.generate($getJSON_url), {
                 filters: JSON.stringify([]),
             })
@@ -171,12 +171,12 @@
 
         </div> <!-- END --| toolbar for table-lista-transcripciones-pendientes -->
         
-	<div id="div-resultado-transcripciones-pendientes" class="menu-listas-transcripciones-pendientes" data-refresh-url="{{ path('simagd_sin_transcribir_listarPendientesTranscripcion') }}">
+	<div id="div-resultado-transcripciones-pendientes" class="menu-listas-transcripciones-pendientes" data-refresh-url="{{ path('simagd_sin_transcribir_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-pendientes-transcripcion"
 		  data-toggle="table"
 		  data-id-field="pndT_id"
-		  data-url="{{ path('simagd_sin_transcribir_listarPendientesTranscripcion') }}"
-		  data-backup-url="simagd_sin_transcribir_listarPendientesTranscripcion"
+		  data-url="{{ path('simagd_sin_transcribir_generateData') }}"
+		  data-backup-url="simagd_sin_transcribir_generateData"
 		  data-toolbar="#bs_pndT_toolbar"
 		  data-cache="false"
 		  data-show-refresh="true"
@@ -221,12 +221,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'pndTPr' } %}
         <!-- END --| toolbar for table-lista-lecturas -->
         
-	<div id="div-resultado-transcripciones-personal-pendientes" style="display: none;" class="menu-listas-transcripciones-pendientes" data-refresh-url="{{ path('simagd_mi_lista_sin_transcribir_listarPendientesTranscripcion') }}">
+	<div id="div-resultado-transcripciones-personal-pendientes" style="display: none;" class="menu-listas-transcripciones-pendientes" data-refresh-url="{{ path('simagd_mi_lista_sin_transcribir_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-personal-pendientes-transcripcion"
 		  data-toggle="table"
 		  data-id-field="pndT_id"
 		  data-url=""
-                  data-backup-url="simagd_mi_lista_sin_transcribir_listarPendientesTranscripcion"
+                  data-backup-url="simagd_mi_lista_sin_transcribir_generateData"
 		  data-toolbar="#bs_pndTPr_toolbar"
 		  data-cache="false"
 		  data-show-refresh="true"

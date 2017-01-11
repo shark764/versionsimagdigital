@@ -24,10 +24,10 @@ class ImgPendienteLecturaAdmin extends Admin
         $collection->clearExcept(array('list'));
         $collection->add('leer');
         $collection->add('registrarEnMiLista', null, [], [], ['expose' => true]);
-        $collection->add('listarPendientesLectura', null, [], [], ['expose' => true]);
-        $collection->add('anexarEstudioEnListaSinLectura', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('asignarElementoListaTrabajo', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('addToUndiagnosedStudiesList', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('addToWorkList', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
     
     /**

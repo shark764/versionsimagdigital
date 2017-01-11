@@ -103,12 +103,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'mtrl' } %}
         <!-- END --| toolbar for table-lista-materiales -->
         
-	<div id="div-resultado-materiales" class="menu-listas-materiales" data-refresh-url="{{ path('simagd_material_listarMateriales') }}">
+	<div id="div-resultado-materiales" class="menu-listas-materiales" data-refresh-url="{{ path('simagd_material_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-materiales"
 		  	data-toggle="table"
 		  	data-id-field="mtrl_id"
-		  	data-url="{{ path('simagd_material_listarMateriales') }}"
-			data-backup-url="simagd_material_listarMateriales"
+		  	data-url="{{ path('simagd_material_generateData') }}"
+			data-backup-url="simagd_material_generateData"
 			data-toolbar="#bs_mtrl_toolbar"
 			data-cache="false"
 			data-show-refresh="true"
@@ -145,12 +145,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'mtrLc' } %}
         <!-- END --| toolbar for table-lista-materiales-locales -->
         
-	<div id="div-resultado-materiales-locales" style="display: none;" class="menu-listas-materiales" data-refresh-url="{{ path('simagd_material_local_listarMaterialesLocales') }}">
+	<div id="div-resultado-materiales-locales" style="display: none;" class="menu-listas-materiales" data-refresh-url="{{ path('simagd_material_local_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-materiales-locales"
 		  data-toggle="table"
 		  data-id-field="mtrLc_id"
 		  data-url=""
-                  data-backup-url="simagd_material_local_listarMaterialesLocales"
+                  data-backup-url="simagd_material_local_generateData"
                   data-toolbar="#bs_mtrLc_toolbar"
 		  data-cache="false"
 		  data-show-refresh="true"

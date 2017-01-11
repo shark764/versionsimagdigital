@@ -28,7 +28,7 @@ class ImgMisLecturasNoConcluidasAdminController extends Controller
         return $this->render($this->admin->getTemplate('list'));
     }
     
-    public function listarPendientesLecturaAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
         

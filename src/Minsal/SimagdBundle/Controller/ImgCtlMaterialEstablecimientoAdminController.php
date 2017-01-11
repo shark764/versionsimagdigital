@@ -44,7 +44,7 @@ class ImgCtlMaterialEstablecimientoAdminController extends Controller
         ));
     }
 
-    public function listarMaterialesLocalesAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
@@ -277,7 +277,7 @@ class ImgCtlMaterialEstablecimientoAdminController extends Controller
         return $response;
     }
 
-    public function obtenerMaterialesNoAgregadosAction()
+    public function getNonAggregatedMaterialsAction()
     {
         $em                 = $this->getDoctrine()->getManager();
 
@@ -286,7 +286,7 @@ class ImgCtlMaterialEstablecimientoAdminController extends Controller
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
         $resultados         = $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')
-				    ->obtenerMaterialesNoAgregados($estabLocal->getId());
+				    ->getNonAggregatedMaterials($estabLocal->getId());
 
         $response           = new Response();
         $response->setContent(json_encode($resultados));

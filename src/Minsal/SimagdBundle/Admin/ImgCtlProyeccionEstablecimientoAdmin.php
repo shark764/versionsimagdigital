@@ -21,7 +21,6 @@ class ImgCtlProyeccionEstablecimientoAdmin extends Admin
     {
         $collection->remove('delete');
         $collection->add('agregarProyeccionEnLocal', null, [], [], ['expose' => true]);
-        $collection->add('listarProyeccionesLocales', null, [], [], ['expose' => true]);
         $collection->add('crearProyeccionLocal', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarProyeccionLocal', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
@@ -30,6 +29,7 @@ class ImgCtlProyeccionEstablecimientoAdmin extends Admin
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
 
     /**

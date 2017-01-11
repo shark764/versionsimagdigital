@@ -25,7 +25,6 @@ class ImgCtlProyeccionAdmin extends Admin
         $collection->remove('delete');
         $collection->add('agregarEnMiCatalogo', null, [], [], ['expose' => true]);
         $collection->add('obtenerModalidades', null, [], [], ['expose' => true]);
-        $collection->add('listarProyecciones', null, [], [], ['expose' => true]);
         $collection->add('crearProyeccion', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarProyeccion', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
@@ -34,6 +33,7 @@ class ImgCtlProyeccionAdmin extends Admin
         $collection->add('list', 'lista');
         $collection->add('asignarElementoListaLocal', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
 
     /**

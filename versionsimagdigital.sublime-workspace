@@ -3,15 +3,63 @@
 	{
 		"selected_items":
 		[
+			[
+				"isE",
+				"isExternal"
+			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxSolicitudEstudioListViewGenerator.php",
+			"file": "src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCitaProgramadaListViewGenerator.php",
 			"settings":
 			{
-				"buffer_size": 8777,
+				"buffer_size": 9122,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Minsal/SimagdBundle/Admin/ImgCitaAdmin.php",
+			"settings":
+			{
+				"buffer_size": 26893,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Minsal/SimagdBundle/Admin/ImgEstudioPacienteAdmin.php",
+			"settings":
+			{
+				"buffer_size": 2168,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioComplementarioAdmin.php",
+			"settings":
+			{
+				"buffer_size": 16668,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Minsal/SimagdBundle/Controller/ImgCitaAdminController.php",
+			"settings":
+			{
+				"buffer_size": 41229,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Minsal/SimagdBundle/Controller/ImgSolicitudEstudioAdminController.php",
+			"settings":
+			{
+				"buffer_size": 66887,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -49,6 +97,44 @@
 	},
 	"file_history":
 	[
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlConfiguracionAgendaAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlPacsEstablecimientoAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlPatronDiagnosticoAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlPreparacionEstudioAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlProyeccionAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlProyeccionEstablecimientoAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgDatoAutocomplementoAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgDiagnosticoAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgLecturaAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgLecturaEstudioAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgMaterialUtilizadoAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgMisExamenesNoConcluidosAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgMisLecturasNoConcluidasAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgMisTranscripcionesNoConcluidasAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgNotaDiagnosticoAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgPendienteLecturaAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/results_dashboard.html.twig",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Worklist/worklist.html.twig",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgPendienteTranscripcionAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgPendienteRealizacionAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgPendienteValidacionAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgProcedimientoRealizadoAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudDiagnosticoAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlMotorBdAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlMaterialEstablecimientoAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlMaterialAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgBloqueoAgendaAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImagenologiaDigitalAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/GeneracionReporteImagenologiaAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/BusquedaDiagnosticoAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioComplementarioProyeccionAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioMamografiaAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioMamografiaSintomatologiaAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioProyeccionAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCitaAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgEstudioPacienteAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioComplementarioAdmin.php",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlConexionPacsEstablecimientoListViewGenerator.php",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlMaterialEstablecimientoListViewGenerator.php",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlMaterialListViewGenerator.php",
@@ -67,13 +153,15 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
 		"height": 521.0,
 		"where_history":
 		[
+			"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/",
+			"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin",
 			"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator"
 		]
 	},
@@ -82,6 +170,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"addEmergency",
+			"addToWorkList",
+			"\n        $collection->add('generateData', null, [], [], ['expose' => true]);\n        $collection",
+			"\n        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);\n    }",
+			"listarCitasProgramadas",
+			"RyxSolicitudEstudio",
 			"\n            array_push($this->columns,\n                    array(\n                        'field' => 'detail',\n                        'title' => 'VISTA EN DETALLE &nbsp; <span class=\"glyphicon glyphicon-collapse-down\"></span>',\n                        'switchable' => false,\n                        'align' => 'center',\n                        'halign' => 'left',\n                        // 'formatter' => '__fnc_worklistDetailFormatter',\n                        'events' => 'operateEvents',\n                    ),\n                    array(\n                        'field' => 'id',\n                        'sortable' => true,\n                        'title' => 'ID',\n                        'visible' => false,\n                        'switchable' => false,\n                    )\n            );",
 			"\n            array_push($this->columns,\n                    array(\n                        'field' => 'detail',\n                        'title' => 'VISTA EN DETALLE &nbsp; <span class=\"glyphicon glyphicon-collapse-down\"></span>',\n                        'switchable' => false,\n                        'align' => 'center',\n                        'halign' => 'left',\n                        // 'formatter' => '__fnc_worklistDetailFormatter',\n                        'events' => 'operateEvents',\n                    )\n            );"
 		],
@@ -91,6 +185,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"\n        $collection",
+			"\n        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);\n        $collection->add('generateData', null, [], [], ['expose' => true]);\n    }",
+			"RyxCitaProgramada",
 			"\n            array_push($this->columns,\n                    array(\n                        'field' => 'id',\n                        'sortable' => true,\n                        'title' => 'ID',\n                        'visible' => false,\n                        'switchable' => false,\n                    ),\n                    array(\n                        'field' => 'detail',\n                        'title' => 'VISTA EN DETALLE &nbsp; <span class=\"glyphicon glyphicon-collapse-down\"></span>',\n                        'switchable' => false,\n                        'align' => 'center',\n                        'halign' => 'left',\n                        // 'formatter' => '__fnc_worklistDetailFormatter',\n                        'events' => 'operateEvents',\n                    )\n            );",
 			"\n            array_push($this->columns,\n                    array(\n                        'field' => 'detail',\n                        'title' => 'VISTA EN DETALLE &nbsp; <span class=\"glyphicon glyphicon-collapse-down\"></span>',\n                        'switchable' => false,\n                        'align' => 'center',\n                        'halign' => 'left',\n                        // 'formatter' => '__fnc_worklistDetailFormatter',\n                        'events' => 'operateEvents',\n                    ),\n                    array(\n                        'field' => 'id',\n                        'sortable' => true,\n                        'title' => 'ID',\n                        'visible' => false,\n                        'switchable' => false,\n                    )\n            );"
 		],
@@ -103,16 +200,166 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxSolicitudEstudioListViewGenerator.php",
+					"file": "src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCitaProgramadaListViewGenerator.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8777,
+						"buffer_size": 9122,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8149,
+								8149
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3129.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/Minsal/SimagdBundle/Admin/ImgCitaAdmin.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 26893,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2292,
+								2292
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/Minsal/SimagdBundle/Admin/ImgEstudioPacienteAdmin.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2168,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1248,
+								1248
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioComplementarioAdmin.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16668,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1708,
+								1708
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 84.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/Minsal/SimagdBundle/Controller/ImgCitaAdminController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 41229,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								36108,
+								36108
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 10324.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/Minsal/SimagdBundle/Controller/ImgSolicitudEstudioAdminController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 66887,
 						"regions":
 						{
 						},
@@ -130,10 +377,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 588.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -141,7 +388,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 22.0
 	},
 	"input":
 	{
@@ -178,7 +425,7 @@
 	"project": "versionsimagdigital.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 82.0
 	},
 	"save_all_on_build": true,
 	"select_file":

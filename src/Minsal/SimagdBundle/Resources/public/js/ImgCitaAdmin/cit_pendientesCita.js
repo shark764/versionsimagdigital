@@ -67,7 +67,7 @@ jQuery.fn.loadPacientesSinCita = function() {
     $.ajax({
         type: 'POST',
         dataType: 'json',
-        url: Routing.generate('simagd_cita_cargarPacientesSinCita'),
+        url: Routing.generate('simagd_cita_loadPendingPatients'),
         data: {
             filters: JSON.stringify($patient_filters_sendToServer)
         },
@@ -403,7 +403,7 @@ jQuery(document).ready(function() {
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-            url: Routing.generate('simagd_estudio_obtenerExpedientesEstab') + '?query=%QUERY',
+            url: Routing.generate('simagd_estudio_getPatients') + '?query=%QUERY',
             wildcard: '%QUERY'
         },
     }); // --| suggestion class, bloodhound mode

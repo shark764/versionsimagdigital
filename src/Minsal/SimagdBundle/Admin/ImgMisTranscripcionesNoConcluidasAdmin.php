@@ -23,8 +23,8 @@ class ImgMisTranscripcionesNoConcluidasAdmin extends Admin
         $collection->add('list', 'lista');
         $collection->clearExcept(array('list'));
         $collection->add('transcribir');
-        $collection->add('listarPendientesTranscripcion', null, [], [], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
     
     /**

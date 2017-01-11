@@ -29,14 +29,15 @@ class ImgCitaAdmin extends Admin
         $collection->add('list', 'agenda', [], [], ['expose' => true]);
         $collection->add('nuevaCita', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('actualizarCita', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('obtenerExpedientesEstab', null, [], [], ['expose' => true]);
+        $collection->add('getPatients', null, [], [], ['expose' => true]);
         $collection->add('editarCita', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('cargarPacientesSinCita', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('loadPendingPatients', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->remove('delete');
         $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('listarCitasProgramadas', null, [], [], ['expose' => true]);
         $collection->add('imprimirComprobante', 'imprimir-comprobante', [], [], ['expose' => true]);
-        $collection->add('generateCalendar', null, [], [], ['expose' => true]);
+        $collection->add('generateCalendar', 'generar-calendario', [], [], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
     
     /**

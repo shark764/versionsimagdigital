@@ -155,12 +155,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'prz' } %}
         <!-- END --| toolbar for table-lista-lecturas -->
 
-	<div id="div-resultado-procedimientos-realizados" class="menu-listas-procedimientos-realizados" data-refresh-url="{{ path('simagd_realizado_listarProcedimientosRealizados') }}">
+	<div id="div-resultado-procedimientos-realizados" class="menu-listas-procedimientos-realizados" data-refresh-url="{{ path('simagd_realizado_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-procedimientos-realizados"
 		    data-toggle="table"
 		    data-id-field="prz_id"
-		    data-url="{{ path('simagd_realizado_listarProcedimientosRealizados') }}"
-		    data-backup-url="simagd_realizado_listarProcedimientosRealizados"
+		    data-url="{{ path('simagd_realizado_generateData') }}"
+		    data-backup-url="simagd_realizado_generateData"
 		    data-toolbar="#bs_prz_toolbar"
 		    data-cache="false"
 		    data-show-refresh="true"
@@ -266,12 +266,12 @@
 
         </div> <!-- END --| toolbar for table-lista-pendientes-realizar -->
 
-	<div id="div-resultado-examenes-pendientes" style="display: none;" class="menu-listas-procedimientos-realizados" data-refresh-url="{{ path('simagd_sin_realizar_listarPendientesRealizar') }}">
+	<div id="div-resultado-examenes-pendientes" style="display: none;" class="menu-listas-procedimientos-realizados" data-refresh-url="{{ path('simagd_sin_realizar_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-pendientes-realizar"
 		    data-toggle="table"
 		    data-id-field="pndR_id"
-		    data-url="{{ path('simagd_sin_realizar_listarPendientesRealizar') }}"
-		    data-backup-url="simagd_sin_realizar_listarPendientesRealizar"
+		    data-url="{{ path('simagd_sin_realizar_generateData') }}"
+		    data-backup-url="simagd_sin_realizar_generateData"
 		    data-toolbar="#bs_pndR_toolbar"
 		    data-cache="false"
 		    data-show-refresh="true"
@@ -312,12 +312,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'pndRPr' } %}
         <!-- END --| toolbar for table-lista-lecturas -->
 
-	<div id="div-resultado-examenes-personal-pendientes" style="display: none;" class="menu-listas-procedimientos-realizados" data-refresh-url="{{ path('simagd_mi_lista_sin_realizar_listarPendientesRealizar') }}">
+	<div id="div-resultado-examenes-personal-pendientes" style="display: none;" class="menu-listas-procedimientos-realizados" data-refresh-url="{{ path('simagd_mi_lista_sin_realizar_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-personal-pendientes-realizar"
 		    data-toggle="table"
 		    data-id-field="pndR_id"
 		    data-url=""
-                    data-backup-url="simagd_mi_lista_sin_realizar_listarPendientesRealizar"
+                    data-backup-url="simagd_mi_lista_sin_realizar_generateData"
 		    data-toolbar="#bs_pndRPr_toolbar"
 		    data-cache="false"
 		    data-show-refresh="true"

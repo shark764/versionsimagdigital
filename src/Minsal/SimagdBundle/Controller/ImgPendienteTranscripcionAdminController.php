@@ -98,7 +98,7 @@ class ImgPendienteTranscripcionAdminController extends Controller
                     ));
     }
 
-    public function listarPendientesTranscripcionAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
@@ -194,7 +194,7 @@ class ImgPendienteTranscripcionAdminController extends Controller
         return $response;
     }
 
-    public function asignarElementoListaTrabajoAction(Request $request)
+    public function addToWorkListAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
@@ -215,7 +215,7 @@ class ImgPendienteTranscripcionAdminController extends Controller
         //Actualizar registros
         try {
             $result = $em->getRepository('MinsalSimagdBundle:ImgPendienteTranscripcion')
-                            ->asignarElementoListaTrabajo($estabLocal->getId(), $id_trcX, $sessionUser->getIdEmpleado()->getId(), $pndT_rows);
+                            ->addToWorkList($estabLocal->getId(), $id_trcX, $sessionUser->getIdEmpleado()->getId(), $pndT_rows);
         } catch (Exception $e) {
             $status = 'failed';
         }

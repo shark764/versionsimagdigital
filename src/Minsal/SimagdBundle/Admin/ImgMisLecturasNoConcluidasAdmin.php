@@ -23,8 +23,8 @@ class ImgMisLecturasNoConcluidasAdmin extends Admin
         $collection->add('list', 'lista');
         $collection->clearExcept(array('list'));
         $collection->add('leer');
-        $collection->add('listarPendientesLectura', null, [], [], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
     
     /**

@@ -23,9 +23,9 @@ class ImgMisExamenesNoConcluidosAdmin extends Admin
         $collection->add('list', 'lista');
         $collection->clearExcept(array('list'));
         $collection->add('realizar');
-        $collection->add('listarPendientesRealizar', null, [], [], ['expose' => true]);
         $collection->add('actualizarEstudioAlmacenado', null, [], [], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
     
     /**

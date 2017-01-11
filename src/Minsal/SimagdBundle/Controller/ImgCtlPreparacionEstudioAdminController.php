@@ -42,7 +42,7 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
                    ));
     }
 
-    public function listarIndicacionesCitaAction()
+    public function generateDataAction()
     {
         $em = $this->getDoctrine()->getManager();
 

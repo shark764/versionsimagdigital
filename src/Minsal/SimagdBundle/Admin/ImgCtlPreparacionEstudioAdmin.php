@@ -23,7 +23,6 @@ class ImgCtlPreparacionEstudioAdmin extends Admin
         $collection->add('agregarEnMiCatalogo', null, [], [], ['expose' => true]);
         $collection->add('crearIndicacionCita', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarIndicacionCita', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('listarIndicacionesCita', null, [], [], ['expose' => true]);
         $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');

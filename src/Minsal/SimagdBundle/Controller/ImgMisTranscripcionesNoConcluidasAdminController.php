@@ -28,7 +28,7 @@ class ImgMisTranscripcionesNoConcluidasAdminController extends Controller
         return $this->render($this->admin->getTemplate('list'));
     }
     
-    public function listarPendientesTranscripcionAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
         

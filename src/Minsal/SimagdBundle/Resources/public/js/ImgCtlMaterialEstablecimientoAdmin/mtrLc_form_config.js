@@ -166,7 +166,7 @@ jQuery(document).ready(function() {
 	$.ajax({
 	    type: 'POST',
 	    dataType: 'json',
-	    url: Routing.generate('simagd_material_local_obtenerMaterialesNoAgregados'),
+	    url: Routing.generate('simagd_material_local_getNonAggregatedMaterials'),
 	    beforeSend: function() {
 			    $fieldIdMaterial.select2('val', '');
 			    $fieldIdMaterial.attr('disabled', true);

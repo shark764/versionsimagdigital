@@ -190,7 +190,7 @@ class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListView
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_proyeccion_establecimiento_listarProyeccionesLocales', array('type' => $this->type));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_proyeccion_establecimiento_generateData', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '50';

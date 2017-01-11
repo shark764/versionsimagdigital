@@ -248,7 +248,7 @@ class CitaRepository extends EntityRepository
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
 
-    public function obtenerExpedientesEstab($id_estab, $numeroExp )
+    public function getPatients($id_estab, $numeroExp )
     {
         /** Consulta de pacientes */
         $query = $this->getEntityManager()

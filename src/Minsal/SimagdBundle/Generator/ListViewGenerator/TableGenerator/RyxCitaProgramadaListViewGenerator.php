@@ -15,7 +15,7 @@ use FOS\UserBundle\Model\UserInterface;
 // use Minsal\SimagdBundle\Entity\EntityInterface;
 use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 
-// use Minsal\SimagdBundle\Entity\RyxLecturaRadiologica;
+// use Minsal\SimagdBundle\Entity\RyxCitaProgramada;
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -24,12 +24,54 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 ///////////////////////////////////////////////////////
 
 /**
- * RyxLecturaRadiologicaListViewGenerator
+ * RyxCitaProgramadaListViewGenerator
  *
  * @author farid
  */
-class RyxLecturaRadiologicaListViewGenerator extends RyxEntityListViewGenerator
+class RyxCitaProgramadaListViewGenerator extends RyxEntityListViewGenerator
 {
+    /**
+     * @var boolean
+     */
+    private $isEmergency = false;
+
+    /**
+     * @var boolean
+     */
+    private $isExternal = false;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setIsEmergency($isEmergency = false)
+    {
+        $this->isEmergency = $isEmergency;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIsEmergency()
+    {
+        return $this->isEmergency;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setIsExternal($isExternal = false)
+    {
+        $this->isExternal = $isExternal;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIsExternal()
+    {
+        return $this->isExternal;
+    }
+
     /**
      * Sets the array.
      *
@@ -153,22 +195,11 @@ class RyxLecturaRadiologicaListViewGenerator extends RyxEntityListViewGenerator
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
-                        'field' => 'correlativo',
+                        'field' => 'fecha_solicitud',
                         'sortable' => true,
-                        'title' => 'Etiqueta',
-                        'visible' => false,
-                    ),
-                    array(
-                        'field' => 'radiologo',
-                        'sortable' => true,
-                        'title' => 'Radiólogo',
-                    ),
-                    array(
-                        'field' => 'fecha_lectura',
-                        'sortable' => true,
-                        'title' => 'Fecha (Lectura)',
-                        'visible' => false,
-                        // 'formatter' => 'simagdDateTimeFormatter',
+                        'title' => 'Fecha (Reg.)',
+                        // 'visible' => false,
+                        // 'switchable' => false,
                     )
             );
         }
@@ -216,7 +247,7 @@ class RyxLecturaRadiologicaListViewGenerator extends RyxEntityListViewGenerator
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_lectura_generateData', array('type' => $this->type));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_cita_generateData', array('type' => $this->type, 'foreign' => $this->isExternal, 'emrg' => $this->isEmergency));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '25';

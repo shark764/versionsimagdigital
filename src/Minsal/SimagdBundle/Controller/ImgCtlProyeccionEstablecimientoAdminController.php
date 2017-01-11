@@ -155,7 +155,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
         return $this->render($this->admin->getTemplate('list'));
     }
 
-    public function listarProyeccionesLocalesAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
 

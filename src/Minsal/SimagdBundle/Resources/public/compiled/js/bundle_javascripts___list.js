@@ -1309,7 +1309,7 @@ jQuery(document).ready(function() {
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             remote: {
-                url: Routing.generate('simagd_estudio_obtenerExpedientesEstab') + '?query=%QUERY',
+                url: Routing.generate('simagd_estudio_getPatients') + '?query=%QUERY',
                 wildcard: '%QUERY'
             },
         }); // --| suggestion class, bloodhound mode

@@ -165,7 +165,7 @@ jQuery(document).ready(function() {
         $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: Routing.generate('simagd_sin_lectura_asignarElementoListaTrabajo'),
+                url: Routing.generate('simagd_sin_lectura_addToWorkList'),
                 data: $pndLWorklist_params,
                 success: function(response) {
                             console.log('Registros han sido asignados a Radiólogo satisfactoriamente');

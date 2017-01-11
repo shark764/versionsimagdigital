@@ -235,7 +235,7 @@ jQuery(document).ready(function() {
         $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: Routing.generate('simagd_sin_transcribir_asignarElementoListaTrabajo'),
+                url: Routing.generate('simagd_sin_transcribir_addToWorkList'),
                 data: $pndTWorklist_params,
                 success: function(response) {
                             console.log('Registros han sido asignados a Transcriptor satisfactoriamente');

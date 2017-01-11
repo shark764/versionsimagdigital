@@ -477,7 +477,7 @@ class EstudioRepository extends EntityRepository
         return $query->getQuery()->getScalarResult();
     }
 
-    public function obtenerExpedientesEstabV2($id_estab, $numeroExp)
+    public function getPatientsV2($id_estab, $numeroExp)
     {
         /** Consulta de pacientes */
         $query = $this->getEntityManager()

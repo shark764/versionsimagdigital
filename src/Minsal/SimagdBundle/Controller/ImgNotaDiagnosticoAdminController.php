@@ -236,7 +236,7 @@ class ImgNotaDiagnosticoAdminController extends Controller
         return $this->render($this->admin->getTemplate('list'));
     }
     
-    public function listarNotasDiagnosticoAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
         

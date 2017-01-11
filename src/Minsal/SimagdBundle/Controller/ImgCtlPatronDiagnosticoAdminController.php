@@ -84,7 +84,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
                     ));
     }
 
-    public function listarPatronesDiagnosticoAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
 

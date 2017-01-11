@@ -17,7 +17,7 @@ class PendienteValidacionRepository extends EntityRepository
      * Asignar radiólogo a elementos de lista
      * **************************************************************************
      */
-    public function asignarElementoListaTrabajo($id_estabLocal, $id_radX, $id_empUsserAssign, $rows = array())
+    public function addToWorkList($id_estabLocal, $id_radX, $id_empUsserAssign, $rows = array())
     {
         /*
          * QueryBuilder

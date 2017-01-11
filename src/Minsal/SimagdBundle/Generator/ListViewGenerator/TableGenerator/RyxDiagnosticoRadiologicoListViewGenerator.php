@@ -249,7 +249,7 @@ class RyxDiagnosticoRadiologicoListViewGenerator extends RyxEntityListViewGenera
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_diagnostico_listarDiagnosticos', array('type' => $this->type));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_diagnostico_generateData', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '25';

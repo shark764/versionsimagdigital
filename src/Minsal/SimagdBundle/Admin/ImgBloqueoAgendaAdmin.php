@@ -21,14 +21,15 @@ class ImgBloqueoAgendaAdmin extends Admin
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
-        $collection->clearExcept(array('show', 'list'));
+        // $collection->clearExcept(array('show', 'list'));
         $collection->add('obtenerBloqueosAgenda', null, [], [], ['expose' => true]);
         $collection->add('nuevoBloqueo', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('actualizarBloqueo', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('removerBloqueo', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('listarBloqueos', null, [], [], ['expose' => true]);
         $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('excluirRadiologoBloqueo', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
     
     /**

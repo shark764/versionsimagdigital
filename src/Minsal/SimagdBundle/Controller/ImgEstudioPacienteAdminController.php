@@ -103,7 +103,7 @@ class ImgEstudioPacienteAdminController extends CRUDController
      * 
      * @return type
      */
-    public function resultadosBusquedaEstudioAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
         
@@ -273,7 +273,7 @@ class ImgEstudioPacienteAdminController extends CRUDController
      * 
      * @return type
      */
-    public function obtenerExpedientesEstabAction(Request $request)
+    public function getPatientsAction(Request $request)
     {
         $request->isXmlHttpRequest();
         
@@ -285,7 +285,7 @@ class ImgEstudioPacienteAdminController extends CRUDController
         
         $em                 = $this->getDoctrine()->getManager();
         
-        $resultados         = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')->obtenerExpedientesEstabV2($estabLocal->getId(), $numeroExp);
+        $resultados         = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')->getPatientsV2($estabLocal->getId(), $numeroExp);
 
         foreach ($results as $key => $r)
         {

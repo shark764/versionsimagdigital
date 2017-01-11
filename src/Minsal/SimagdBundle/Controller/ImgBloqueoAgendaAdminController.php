@@ -140,7 +140,7 @@ class ImgBloqueoAgendaAdminController extends Controller
         return $response;
     }
     
-    public function listarBloqueosAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
         

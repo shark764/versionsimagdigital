@@ -281,7 +281,7 @@ class ImgDiagnosticoAdminController extends Controller
         return $this->render($this->admin->getTemplate('list'));
     }
     
-    public function listarDiagnosticosAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
         
@@ -511,7 +511,7 @@ class ImgDiagnosticoAdminController extends Controller
         return $response;
     }
     
-    public function aprobarDiagnosticoAction(Request $request)
+    public function approveTranscribedDiagnosisAction(Request $request)
     {
         $request->isXmlHttpRequest();
         

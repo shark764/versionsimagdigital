@@ -20,7 +20,6 @@ class ImgDatoAutocomplementoAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('delete');
-        $collection->add('listarDatosAutocomplemento', null, [], [], ['expose' => true]);
         $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');

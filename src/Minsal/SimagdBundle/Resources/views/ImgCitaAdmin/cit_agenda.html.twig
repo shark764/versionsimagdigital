@@ -108,11 +108,11 @@
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_config_search.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_accionesCita.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_pendientesCita.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_listarPacientesSinCita_v2.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_pendingPatients_v2.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_agendaGenerator.js') }}" ></script>
     {# bloqueos #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_crearBloqueo.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_listarBloqueos.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_generateData.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_excluirRadiologos.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_set_form_data.js') }}" ></script>
 
@@ -165,7 +165,7 @@
 	    </li>
 	    <li class="divider"></li>
 	    <li class="list-table-link-navbar" {% if _BLOQUEO_ALLOW_LIST == false %} class="disabled link-full-disabled" {% endif %}>
-		<a   href="javascript:void(0)" id="listarBloqueosBtn" id="show-table-bloqueos-agenda" data-divtabletarget="div-resultado-bloqueos-agenda"
+		<a   href="javascript:void(0)" id="generateDataBtn" id="show-table-bloqueos-agenda" data-divtabletarget="div-resultado-bloqueos-agenda"
 		    {% if _BLOQUEO_ALLOW_LIST == false %} disabled="disabled" {% endif %}> <span class="glyphicon glyphicon-lock "></span> Lista de bloqueos
 		</a>
 	    </li>
@@ -444,7 +444,7 @@
 	</div>{# row #}
 
         {#{% if _PRC_ALLOW_LIST == true %}
-            {% include 'MinsalSimagdBundle:ImgCitaAdmin:cit_listarPacientesSinCita_v2.html.twig' %}
+            {% include 'MinsalSimagdBundle:ImgCitaAdmin:cit_pendingPatients_v2.html.twig' %}
         {% endif %}#}
 
     </div>
@@ -490,7 +490,7 @@
     {% endif %}#}
 
     {#{% if _BLOQUEO_ALLOW_LIST == true %}
-        {% include 'MinsalSimagdBundle:ImgBloqueoAgendaAdmin:blAgd_listarBloqueos.html.twig' %}
+        {% include 'MinsalSimagdBundle:ImgBloqueoAgendaAdmin:blAgd_generateData.html.twig' %}
     {% endif %}#}
 
     {#{% if _BLOQUEO_ALLOW_CREATE == true and _BLOQUEO_ALLOW_EDIT == true %}

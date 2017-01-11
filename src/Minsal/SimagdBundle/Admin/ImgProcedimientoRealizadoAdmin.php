@@ -29,7 +29,6 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
         $collection->add('agregarPendiente', null, [], [], ['expose' => true]);
         $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
         $collection->add('obtenerEstudioRealizado', null, [], [], ['expose' => true]);
-        $collection->add('listarProcedimientosRealizados', null, [], [], ['expose' => true]);
         $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
@@ -37,6 +36,8 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
         $collection->add('diagnostico', 'iniciar-diagnostico', [], [], ['expose' => true]);
         $collection->add('registrarEstudioAlmacenado', null, [], [], ['expose' => true]);
         $collection->add('actualizarEstudioAlmacenado', null, [], [], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
 
     /**

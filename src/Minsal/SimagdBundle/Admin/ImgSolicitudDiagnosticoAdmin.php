@@ -26,7 +26,6 @@ class ImgSolicitudDiagnosticoAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
-        $collection->add('listarSolicitudesDiagnostico', null, [], [], ['expose' => true]);
         $collection->remove('delete');
         $collection->add('crearSolicitudDiag', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarSolicitudDiag', null, [], ['_method' => 'POST'], ['expose' => true]);
@@ -35,6 +34,7 @@ class ImgSolicitudDiagnosticoAdmin extends Admin
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
     
     /**

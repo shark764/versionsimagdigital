@@ -102,7 +102,7 @@ class ImgPendienteLecturaAdminController extends Controller
                     ));
     }
 
-    public function listarPendientesLecturaAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
@@ -219,7 +219,7 @@ class ImgPendienteLecturaAdminController extends Controller
         return $response;
     }
 
-    public function anexarEstudioEnListaSinLecturaAction(Request $request)
+    public function addToUndiagnosedStudiesListAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
@@ -248,7 +248,7 @@ class ImgPendienteLecturaAdminController extends Controller
         return $response;
     }
 
-    public function asignarElementoListaTrabajoAction(Request $request)
+    public function addToWorkListAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
@@ -274,7 +274,7 @@ class ImgPendienteLecturaAdminController extends Controller
         //Actualizar registros
         try {
             $result = $em->getRepository('MinsalSimagdBundle:ImgPendienteLectura')
-                        ->asignarElementoListaTrabajo($estabLocal->getId(), $id_radX, $sessionUser->getIdEmpleado()->getId(), $pndL_rows);
+                        ->addToWorkList($estabLocal->getId(), $id_radX, $sessionUser->getIdEmpleado()->getId(), $pndL_rows);
         } catch (Exception $e) {
             $status = 'failed';
         }

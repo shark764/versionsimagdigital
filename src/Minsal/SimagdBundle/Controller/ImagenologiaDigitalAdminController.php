@@ -314,7 +314,7 @@ class ImagenologiaDigitalAdminController extends Controller
 			));
     }
 
-    public function listarSolicitudesEstudioPacienteAction()
+    public function generateDataPacienteAction()
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -431,7 +431,7 @@ class ImagenologiaDigitalAdminController extends Controller
         return $response;
     }
 
-    public function listarDiagnosticosPacienteAction()
+    public function generateDataPacienteAction()
     {
         $em = $this->getDoctrine()->getManager();
 

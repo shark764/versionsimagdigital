@@ -247,7 +247,7 @@
 
         </div> <!-- END --| toolbar for table-lista-solicitudes -->
         
-	<div id="div-resultado-solicitudes-estudio" class="menu-listas-solicitudes" data-refresh-url="{{ path('simagd_solicitud_estudio_listarSolicitudesEstudio') }}">
+	<div id="div-resultado-solicitudes-estudio" class="menu-listas-solicitudes" data-refresh-url="{{ path('simagd_solicitud_estudio_generateData') }}">
             
             <div class="row outer">
                 {% if _PRC_ALLOW_CREATE != false %}
@@ -279,8 +279,8 @@
                     <table class="table table-condensed" id="table-lista-solicitudes-estudio"
                             data-toggle="table"
                             data-id-field="prc_id"
-                            data-url="{% if _PRC_ALLOW_CREATE == false and _PRC_ALLOW_EDIT == false %}{{ path('simagd_solicitud_estudio_listarSolicitudesEstudio') }}{% endif %}"
-                            data-backup-url="simagd_solicitud_estudio_listarSolicitudesEstudio"
+                            data-url="{% if _PRC_ALLOW_CREATE == false and _PRC_ALLOW_EDIT == false %}{{ path('simagd_solicitud_estudio_generateData') }}{% endif %}"
+                            data-backup-url="simagd_solicitud_estudio_generateData"
                             data-toolbar="#bs_prc_toolbar"
                             data-cache="false"
                             data-show-refresh="true"
@@ -329,12 +329,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'soldiag' } %}
         <!-- END --| toolbar for table-lista-lecturas -->
         
-	<div id="div-resultado-solicitudes-diagnostico" style="display: none;" class="menu-listas-solicitudes" data-refresh-url="{{ path('simagd_solicitud_diagnostico_listarSolicitudesDiagnostico') }}">
+	<div id="div-resultado-solicitudes-diagnostico" style="display: none;" class="menu-listas-solicitudes" data-refresh-url="{{ path('simagd_solicitud_diagnostico_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-solicitudes-diagnostico"
 		  data-toggle="table"
 		  data-id-field="soldiag_id"
 		  data-url=""
-                  data-backup-url="simagd_solicitud_diagnostico_listarSolicitudesDiagnostico"
+                  data-backup-url="simagd_solicitud_diagnostico_generateData"
 		  data-toolbar="#bs_soldiag_toolbar"
 		  data-cache="false"
 		  data-show-refresh="true"
@@ -378,12 +378,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'solcmpl' } %}
         <!-- END --| toolbar for table-lista-lecturas -->
         
-	<div id="div-resultado-solicitudes-estudio-compl" style="display: none;" class="menu-listas-solicitudes" data-refresh-url="{{ path('simagd_solicitud_estudio_complementario_listarSolicitudesEstudioComplementario') }}">
+	<div id="div-resultado-solicitudes-estudio-compl" style="display: none;" class="menu-listas-solicitudes" data-refresh-url="{{ path('simagd_solicitud_estudio_complementario_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-solicitudes-estudio-compl"
 		  data-toggle="table"
 		  data-id-field="solcmpl_id"
 		  data-url=""
-                  data-backup-url="simagd_solicitud_estudio_complementario_listarSolicitudesEstudioComplementario"
+                  data-backup-url="simagd_solicitud_estudio_complementario_generateData"
 		  data-toolbar="#bs_solcmpl_toolbar"
 		  data-cache="false"
 		  data-show-refresh="true"

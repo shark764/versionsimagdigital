@@ -175,7 +175,7 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_material_listarMateriales', array('type' => $this->type));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_material_generateData', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '50';

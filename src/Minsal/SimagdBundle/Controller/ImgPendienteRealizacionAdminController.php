@@ -159,7 +159,7 @@ class ImgPendienteRealizacionAdminController extends Controller
                     ));
     }
 
-    public function listarPendientesRealizarAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
@@ -291,7 +291,7 @@ class ImgPendienteRealizacionAdminController extends Controller
         return $response;
     }
 
-    public function agregarEmergenciaAction(Request $request)
+    public function addEmergencyAction(Request $request)
     {
         $request->isXmlHttpRequest();
 

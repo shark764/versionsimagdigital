@@ -16,13 +16,14 @@ class ImgEstudioPacienteAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->clearExcept(array('show', 'list'));
-        $collection->add('resultadosBusquedaEstudio', null, [], [], ['expose' => true]);
         $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('download', null, [], [], ['expose' => true]);
-        $collection->add('obtenerExpedientesEstab', null, [], [], ['expose' => true]);
+        $collection->add('getPatients', null, [], [], ['expose' => true]);
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
         $collection->add('list', 'busqueda-estudio', [], [], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
     
     /**

@@ -86,12 +86,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'ptrDiag' } %}
         <!-- END --| toolbar for table-lista-patrones-diagnostico -->
         
-	<div id="div-resultado-patrones-diagnostico" class="menu-listas-patrones-diagnostico" data-refresh-url="{{ path('simagd_patron_diagnostico_listarPatronesDiagnostico') }}">
+	<div id="div-resultado-patrones-diagnostico" class="menu-listas-patrones-diagnostico" data-refresh-url="{{ path('simagd_patron_diagnostico_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-patrones-diagnostico"
 		  data-toggle="table"
 		  data-id-field="ptrDiag_id"
-		  data-url="{{ path('simagd_patron_diagnostico_listarPatronesDiagnostico') }}"
-		  data-backup-url="simagd_patron_diagnostico_listarPatronesDiagnostico"
+		  data-url="{{ path('simagd_patron_diagnostico_generateData') }}"
+		  data-backup-url="simagd_patron_diagnostico_generateData"
 		  data-toolbar="#bs_ptrDiag_toolbar"
 		  data-cache="false"
 		  data-show-refresh="true"

@@ -36,7 +36,7 @@ class ImgPendienteValidacionAdminController extends Controller
         return $this->render($this->admin->getTemplate('list'));
     }
 
-    public function listarPendientesValidacionAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
@@ -130,7 +130,7 @@ class ImgPendienteValidacionAdminController extends Controller
         return $response;
     }
 
-    public function asignarElementoListaTrabajoAction(Request $request)
+    public function addToWorkListAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
@@ -151,7 +151,7 @@ class ImgPendienteValidacionAdminController extends Controller
         //Actualizar registros
         try {
             $result = $em->getRepository('MinsalSimagdBundle:ImgPendienteValidacion')
-                        ->asignarElementoListaTrabajo($estabLocal->getId(), $id_radX, $sessionUser->getIdEmpleado()->getId(), $pndV_rows);
+                        ->addToWorkList($estabLocal->getId(), $id_radX, $sessionUser->getIdEmpleado()->getId(), $pndV_rows);
         } catch (Exception $e) {
             $status = 'failed';
         }

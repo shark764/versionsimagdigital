@@ -244,7 +244,7 @@ class ImgSolicitudDiagnosticoAdminController extends Controller
         return $this->render($this->admin->getTemplate('list'));
     }
     
-    public function listarSolicitudesDiagnosticoAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
         

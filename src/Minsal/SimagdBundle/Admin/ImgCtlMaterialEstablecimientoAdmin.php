@@ -23,14 +23,14 @@ class ImgCtlMaterialEstablecimientoAdmin extends Admin
         $collection->add('agregarMaterialEnLocal', null, [], [], ['expose' => true]);
         $collection->add('crearMaterialLocal', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarMaterialLocal', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('listarMaterialesLocales', null, [], [], ['expose' => true]);
         $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('obtenerMaterialesNoAgregados', null, [], [], ['expose' => true]);
+        $collection->add('getNonAggregatedMaterials', null, [], [], ['expose' => true]);
         $collection->add('habilitarMaterial', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
 
     /**

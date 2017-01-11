@@ -32,7 +32,6 @@ class ImgSolicitudEstudioAdmin extends Admin
         $collection->add('extractCamposComponentes', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('cargarDatosPorFiltro', null, [], [], ['expose' => true]);
         $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
-        $collection->add('listarSolicitudesEstudio', null, [], [], ['expose' => true]);
         $collection->remove('delete');
         $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('cambiarPrioridadAtencionSolicitud', null, [], ['_method' => 'POST'], ['expose' => true]);
@@ -42,10 +41,11 @@ class ImgSolicitudEstudioAdmin extends Admin
         $collection->add('list', 'lista');
         $collection->add('show', 'consultar', [], [], ['expose' => true]);
         $collection->add('agregarIndicacionesRadiologo', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('listarPacientesSinCita', null, [], [], ['expose' => true]);
+        $collection->add('pendingPatients', null, [], [], ['expose' => true]);
         $collection->add('crearSolicitudEstudioFormatoRapido', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarSolicitudEstudioFormatoRapido', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
 
     /**

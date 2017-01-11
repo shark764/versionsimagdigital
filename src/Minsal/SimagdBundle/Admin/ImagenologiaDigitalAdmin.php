@@ -26,10 +26,10 @@ class ImagenologiaDigitalAdmin extends Admin
         $collection->add('accesoDenegado', 'acceso-no-autorizado', [], [], ['expose' => true]);
         $collection->add('registroNoEncontrado', 'registro-no-encontrado', [], [], ['expose' => true]);
         $collection->add('listarDatosPaciente', null, [], [], ['expose' => true]);
-        $collection->add('listarSolicitudesEstudioPaciente', null, [], [], ['expose' => true]);
+        $collection->add('generateDataPaciente', null, [], [], ['expose' => true]);
         $collection->add('listarCitasPaciente', null, [], [], ['expose' => true]);
         $collection->add('listarExamenesPaciente', null, [], [], ['expose' => true]);
-        $collection->add('listarDiagnosticosPaciente', null, [], [], ['expose' => true]);
+        $collection->add('generateDataPaciente', null, [], [], ['expose' => true]);
         $collection->add('asignarNuevoExpediente', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('worklist', 'lista-de-trabajo', [], [], ['expose' => true]);
         $collection->add('requestDashboard', 'solicitudes', [], [], ['expose' => true]);

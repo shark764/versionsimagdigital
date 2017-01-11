@@ -705,7 +705,7 @@ class ImgCitaAdminController extends Controller
         return $response;
     }
 
-    public function cargarPacientesSinCitaAction(Request $request)
+    public function loadPendingPatientsAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
@@ -744,7 +744,7 @@ class ImgCitaAdminController extends Controller
         return $response;
     }
 
-    public function listarCitasProgramadasAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
 

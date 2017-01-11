@@ -162,7 +162,7 @@ class ImgCtlProyeccionAdminController extends Controller
         ));
     }
 
-    public function listarProyeccionesAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
 

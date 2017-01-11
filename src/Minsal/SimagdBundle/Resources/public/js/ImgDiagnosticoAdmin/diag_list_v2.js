@@ -311,7 +311,7 @@ jQuery(document).ready(function() {
 	$.ajax({
 		type: 'POST',
 		dataType: 'json',
-		url: Routing.generate('simagd_diagnostico_listarDiagnosticos'),
+		url: Routing.generate('simagd_diagnostico_generateData'),
 		data: $form.formParams(),
 		success: function(response) {
 			    console.log(response);

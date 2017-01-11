@@ -144,7 +144,7 @@ class ImgCtlPacsEstablecimientoAdminController extends Controller
         return $this->render($this->admin->getTemplate('list'));
     }
 
-    public function listarPacsEstablecimientoAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
 

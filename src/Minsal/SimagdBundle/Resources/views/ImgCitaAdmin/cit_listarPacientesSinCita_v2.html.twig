@@ -33,12 +33,12 @@
 
     </div> <!-- END --| toolbar for table-lista-solicitudes -->
 
-    <div id="div-resultado-pacientes-sin-cita" style="display: none;" class="{#menu-vistas-agenda#} bstable-patiens-nodated" data-refresh-url="{{ path('simagd_solicitud_estudio_listarPacientesSinCita') }}">
+    <div id="div-resultado-pacientes-sin-cita" style="display: none;" class="{#menu-vistas-agenda#} bstable-patiens-nodated" data-refresh-url="{{ path('simagd_solicitud_estudio_pendingPatients') }}">
 	<table class="table table-condensed" id="table-lista-pacientes-sin-cita"
 		data-toggle="table"
 		  data-id-field="prc_id"
 		  data-url=""
-		  data-backup-url="simagd_solicitud_estudio_listarPacientesSinCita"
+		  data-backup-url="simagd_solicitud_estudio_pendingPatients"
 		  data-toolbar="#bs_prc_toolbar"
 		  data-cache="false"
 		  data-show-refresh="true"

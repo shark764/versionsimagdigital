@@ -692,7 +692,7 @@ class ImgSolicitudEstudioAdminController extends Controller
                     ));
     }
 
-    public function listarSolicitudesEstudioAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
@@ -947,7 +947,7 @@ class ImgSolicitudEstudioAdminController extends Controller
         ));
     }
 
-    public function listarPacientesSinCitaAction(Request $request)
+    public function pendingPatientsAction(Request $request)
     {
         $request->isXmlHttpRequest();
 

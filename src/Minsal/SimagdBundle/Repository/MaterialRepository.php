@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class MaterialRepository extends EntityRepository
 {
-    public function obtenerMaterialesNoAgregados($id_estab, $bs_filters = array())
+    public function getNonAggregatedMaterials($id_estab, $bs_filters = array())
     {
         /** SubQuery */
         $subQuery = $this->getEntityManager()

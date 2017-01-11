@@ -226,7 +226,7 @@ class RyxSolicitudEstudioListViewGenerator extends RyxEntityListViewGenerator
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_solicitud_estudio_listarSolicitudesEstudio', array('type' => $this->type, 'emrg' => $this->isEmergency));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_solicitud_estudio_generateData', array('type' => $this->type, 'emrg' => $this->isEmergency));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '25';

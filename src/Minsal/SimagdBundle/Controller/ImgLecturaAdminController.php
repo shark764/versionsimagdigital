@@ -723,7 +723,7 @@ class ImgLecturaAdminController extends Controller
                     ));
     }
     
-    public function listarLecturasAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
         

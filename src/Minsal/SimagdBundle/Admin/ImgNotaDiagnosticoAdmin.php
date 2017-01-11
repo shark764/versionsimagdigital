@@ -19,7 +19,6 @@ class ImgNotaDiagnosticoAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
-        $collection->add('listarNotasDiagnostico', null, [], [], ['expose' => true]);
         $collection->remove('delete');
         $collection->add('crearNota', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarNota', null, [], ['_method' => 'POST'], ['expose' => true]);
@@ -28,6 +27,7 @@ class ImgNotaDiagnosticoAdmin extends Admin
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
     
     /**

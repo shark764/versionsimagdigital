@@ -20,7 +20,6 @@ class ImgSolicitudEstudioComplementarioAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
-        $collection->add('listarSolicitudesEstudioComplementario', null, [], [], ['expose' => true]);
         $collection->remove('delete');
         $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('cambiarPrioridadAtencionSolicitud', null, [], ['_method' => 'POST'], ['expose' => true]);
@@ -31,6 +30,7 @@ class ImgSolicitudEstudioComplementarioAdmin extends Admin
         $collection->add('crearSolicitudEstudioComplementarioFastFormat', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarSolicitudEstudioComplementarioFastFormat', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
 
     public function getTemplate($name)
