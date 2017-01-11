@@ -43,6 +43,13 @@ class RyxLecturaRadiologicaListViewGenerator extends RyxEntityListViewGenerator
         {
             array_push($this->columns,
                     array(
+                        'field' => 'id',
+                        'sortable' => true,
+                        'title' => 'ID',
+                        'visible' => false,
+                        'switchable' => false,
+                    ),
+                    array(
                         'field' => 'detail',
                         'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-collapse-down"></span>',
                         'switchable' => false,
