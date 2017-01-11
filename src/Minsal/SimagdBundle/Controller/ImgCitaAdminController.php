@@ -722,25 +722,25 @@ class ImgCitaAdminController extends Controller
         $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
-        $resultados             = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerPreinscripcionesNoCitadasV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results             = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerPreinscripcionesNoCitadasV2($estabLocal->getId(), $BS_FILTERS_DECODE);
 
         foreach ($results as $key => $r)
         {
             // $r = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudio();
 
-            $resultados[$key]['tooltip_title']  = ($resultado['explocal_numero'] ? '<span class="label label-primary-v4" style="margin-left: 5px; padding: .4em .6em .3em;"><span class="badge badge-primary-v4">' . $resultado['explocal_numero'] . '</span></span> &nbsp;' : '') . $resultado['prc_paciente'];
+            $results[$key]['tooltip_title']  = ($r['explocal_numero'] ? '<span class="label label-primary-v4" style="margin-left: 5px; padding: .4em .6em .3em;"><span class="badge badge-primary-v4">' . $r['explocal_numero'] . '</span></span> &nbsp;' : '') . $r['prc_paciente'];
 
-            $resultados[$key]['prc_editUrl']                        = $this->generateUrl('simagd_solicitud_estudio_edit', array('id' => $resultado['prc_id']));
-            $resultados[$key]['prc_fechaCreacion']    = $resultado['prc_fechaCreacion']->format('Y-m-d H:i:s A');
-            $resultados[$key]['prc_fechaProximaConsulta']           = $resultado['prc_fechaProximaConsulta']->format('Y-m-d');
+            $results[$key]['prc_editUrl']                        = $this->generateUrl('simagd_solicitud_estudio_edit', array('id' => $r['prc_id']));
+            $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion']->format('Y-m-d H:i:s A');
+            $results[$key]['prc_fechaProximaConsulta']           = $r['prc_fechaProximaConsulta']->format('Y-m-d');
 
-            $resultados[$key]['color']                              = $resultado['prc_id_areaAtencion'] == 2 ? '#e0533d' : ($resultado['prc_id_areaAtencion'] == 3 ? '#16677d' : '#183f52');
+            $results[$key]['color']                              = $r['prc_id_areaAtencion'] == 2 ? '#e0533d' : ($r['prc_id_areaAtencion'] == 3 ? '#16677d' : '#183f52');
 
-            $resultados[$key]['prc_solicitudEstudioProyeccion']      = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($resultado['prc_id']);
+            $results[$key]['prc_solicitudEstudioProyeccion']      = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
         }
 
         $response = new Response();
-        $response->setContent(json_encode($resultados));
+        $response->setContent(json_encode($results));
         return $response;
     }
 
@@ -753,48 +753,48 @@ class ImgCitaAdminController extends Controller
 
         $em                     = $this->getDoctrine()->getManager();
 
-	$securityContext	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+    	$securityContext	= $this->container->get('security.context');
+    	$sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
-        $resultados             = $em->getRepository('MinsalSimagdBundle:ImgCita')->obtenerCitasProgramadasV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results             = $em->getRepository('MinsalSimagdBundle:ImgCita')->obtenerCitasProgramadasV2($estabLocal->getId(), $BS_FILTERS_DECODE);
 
         $isUser_allowShow 	= ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit 	= ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('editarCita')) ? TRUE : FALSE;
         $isUser_allowConfirm 	= ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('confirmarCita')) ? TRUE : FALSE;
         $isUser_allowCancel 	= ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('cancelarCita')) ? TRUE : FALSE;
-	$isUser_allowIndRadx	= ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN')) ? TRUE : FALSE;
+    	$isUser_allowIndRadx	= ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN')) ? TRUE : FALSE;
 
         foreach ($results as $key => $r)
         {
             // $r = new \Minsal\SimagdBundle\Entity\ImgCita();
 
-            $resultados[$key]['cit_fechaCreacion']              = $resultado['cit_fechaCreacion']->format('Y-m-d H:i:s A');
-            $resultados[$key]['cit_fechaHoraInicio']                = $resultado['cit_fechaHoraInicio']->format('Y-m-d H:i:s A');
-            $resultados[$key]['cit_fechaHoraFin']                   = $resultado['cit_fechaHoraFin']->format('Y-m-d H:i:s A');
-            $resultados[$key]['cit_fechaHoraInicioAnterior']        = $resultado['cit_fechaHoraInicioAnterior'] ? $resultado['cit_fechaHoraInicioAnterior']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['cit_fechaHoraFinAnterior']           = $resultado['cit_fechaHoraFinAnterior'] ? $resultado['cit_fechaHoraFinAnterior']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['cit_fechaConfirmacion']          = $resultado['cit_fechaConfirmacion'] ? $resultado['cit_fechaConfirmacion']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['cit_fechaReprogramacion']        = $resultado['cit_fechaReprogramacion'] ? $resultado['cit_fechaReprogramacion']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['cit_fechaCreacion']              = $r['cit_fechaCreacion']->format('Y-m-d H:i:s A');
+            $results[$key]['cit_fechaHoraInicio']                = $r['cit_fechaHoraInicio']->format('Y-m-d H:i:s A');
+            $results[$key]['cit_fechaHoraFin']                   = $r['cit_fechaHoraFin']->format('Y-m-d H:i:s A');
+            $results[$key]['cit_fechaHoraInicioAnterior']        = $r['cit_fechaHoraInicioAnterior'] ? $r['cit_fechaHoraInicioAnterior']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['cit_fechaHoraFinAnterior']           = $r['cit_fechaHoraFinAnterior'] ? $r['cit_fechaHoraFinAnterior']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['cit_fechaConfirmacion']          = $r['cit_fechaConfirmacion'] ? $r['cit_fechaConfirmacion']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['cit_fechaReprogramacion']        = $r['cit_fechaReprogramacion'] ? $r['cit_fechaReprogramacion']->format('Y-m-d H:i:s A') : '';
 
-            $resultados[$key]['prc_fechaProximaConsulta']           = $resultado['prc_fechaProximaConsulta'] ? $resultado['prc_fechaProximaConsulta']->format('Y-m-d') : '';
-            $resultados[$key]['prc_fechaCreacion']    = $resultado['prc_fechaCreacion'] ? $resultado['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['prc_fechaProximaConsulta']           = $r['prc_fechaProximaConsulta'] ? $r['prc_fechaProximaConsulta']->format('Y-m-d') : '';
+            $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion'] ? $r['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
 
-            $resultados[$key]['allowShow'] 	= $isUser_allowShow; /** Permiso compartido */
+            $results[$key]['allowShow'] 	= $isUser_allowShow; /** Permiso compartido */
 
-            $resultados[$key]['allowEdit'] 	= $isUser_allowEdit; /** Permiso compartido */
+            $results[$key]['allowEdit'] 	= $isUser_allowEdit; /** Permiso compartido */
 
-            $resultados[$key]['allowConfirm'] 	= (false !== $isUser_allowConfirm &&
-		    !in_array($resultado['cit_codEstado'], array('CNF'))) ? TRUE : FALSE;
+            $results[$key]['allowConfirm'] 	= (false !== $isUser_allowConfirm &&
+		    !in_array($r['cit_codEstado'], array('CNF'))) ? TRUE : FALSE;
 
-            $resultados[$key]['allowCancel'] 	= (false !== $isUser_allowCancel &&
-		    !in_array($resultado['cit_codEstado'], array('CNL', 'ANL'))) ? TRUE : FALSE;
+            $results[$key]['allowCancel'] 	= (false !== $isUser_allowCancel &&
+		    !in_array($r['cit_codEstado'], array('CNL', 'ANL'))) ? TRUE : FALSE;
 
-            $resultados[$key]['allowIndRadx'] 	= $isUser_allowIndRadx;
+            $results[$key]['allowIndRadx'] 	= $isUser_allowIndRadx;
         }
 
         $response = new Response();
-        $response->setContent(json_encode($resultados));
+        $response->setContent(json_encode($results));
         return $response;
     }
 
@@ -817,7 +817,7 @@ class ImgCitaAdminController extends Controller
         $solicitud          = $object->getIdSolicitudEstudio();
 
         //Expediente local e información del paciente
-	$expediente         = $em->getRepository('MinsalSiapsBundle:MntExpediente')
+        $expediente         = $em->getRepository('MinsalSiapsBundle:MntExpediente')
                                     ->findOneBy(
                                             array('idEstablecimiento' => $estabLocal->getId(),
                                                     'idPaciente' => $solicitud->getIdExpediente()->getIdPaciente()->getId()
