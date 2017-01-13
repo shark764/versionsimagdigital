@@ -22,7 +22,7 @@ class ImgBloqueoAgendaAdmin extends Admin
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
         // $collection->clearExcept(array('show', 'list'));
-        $collection->add('obtenerBloqueosAgenda', null, [], [], ['expose' => true]);
+        $collection->add('generateData', null, [], [], ['expose' => true]);
         $collection->add('nuevoBloqueo', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('actualizarBloqueo', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('removerBloqueo', null, [], ['_method' => 'POST'], ['expose' => true]);
