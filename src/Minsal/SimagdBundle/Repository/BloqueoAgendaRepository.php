@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class BloqueoAgendaRepository extends EntityRepository
 {
-    public function obtenerBloqueosAgendaCalendario($id_estab, $start, $end, $idAreaServicioDiagnostico = null, $idTecnologo = null )
+    public function getCalendarLocks($id_estab, $start, $end, $idAreaServicioDiagnostico = null, $idTecnologo = null )
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('blAgd')
@@ -63,7 +63,7 @@ class BloqueoAgendaRepository extends EntityRepository
         return $query->getQuery()->getScalarResult();
     }
     
-    public function obtenerBloqueosAgendaV2($id_estab, $bs_filters = array())
+    public function generateDataV2($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('blAgd')
