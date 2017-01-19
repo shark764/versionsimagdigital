@@ -48,7 +48,7 @@ jQuery(document).ready(function() {
                      * enable options that matching data
                      */
 		    var arr_pryResultValues = []; // create array here
-                    $.each(data.resultados, function(i, r) {
+                    $.each(data.results, function(i, r) {
 			arr_pryResultValues.push(this.value); //push values here
                         $fieldProyection.find('option[value=' + this.value + ']').prop('disabled', false);
                     });

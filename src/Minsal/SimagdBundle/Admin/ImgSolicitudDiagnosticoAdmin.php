@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ImgSolicitudDiagnosticoAdmin extends Admin
 {
-    protected $baseRouteName = 'simagd_solicitud_diagnostico';
+    protected $baseRouteName    = 'simagd_solicitud_diagnostico';
     protected $baseRoutePattern = 'rayos-x-solicitud-diagnostico';
     
     protected $datagridValues = array(
@@ -25,30 +25,16 @@ class ImgSolicitudDiagnosticoAdmin extends Admin
     
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
-        $collection->remove('delete');
+        // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
+        // $collection->remove('delete');
         $collection->add('crearSolicitudDiag', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarSolicitudDiag', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
-    }
-    
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
 
     /**
@@ -278,8 +264,9 @@ class ImgSolicitudDiagnosticoAdmin extends Admin
             }
         }
     }
-    
-    public function getNewInstance() {
+
+    public function getNewInstance()
+    {
         $instance = parent::getNewInstance();
         
         $sessionUser = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
@@ -317,8 +304,9 @@ class ImgSolicitudDiagnosticoAdmin extends Admin
         
         return $instance;
     }
-    
-    public function createQuery($context = 'list') {
+
+    public function createQuery($context = 'list')
+    {
         $query = parent::createQuery($context);
         
         $estabLocal = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()
@@ -349,8 +337,9 @@ class ImgSolicitudDiagnosticoAdmin extends Admin
                                 ->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')
                                             ->obtenerEstabDiagnosticantes($preinscripcionSolicitada->getIdAreaServicioDiagnostico()->getId(), $explArray, 'query');
     }
-    
-    public function getTemplate($name) {
+
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'edit':
                 return 'MinsalSimagdBundle:ImgSolicitudDiagnosticoAdmin:soldiag_edit.html.twig';
@@ -366,5 +355,5 @@ class ImgSolicitudDiagnosticoAdmin extends Admin
                 break;
         }
     }
-    
+
 }

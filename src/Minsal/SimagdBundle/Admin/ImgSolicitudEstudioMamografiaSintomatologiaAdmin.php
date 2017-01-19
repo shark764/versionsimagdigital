@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class ImgSolicitudEstudioMamografiaSintomatologiaAdmin extends Admin
 {
-    protected $baseRouteName = 'simagd_solicitud_estudio_mamografia_sintomatologia';
+    protected $baseRouteName    = 'simagd_solicitud_estudio_mamografia_sintomatologia';
     protected $baseRoutePattern = 'rayos-x-solicitud-estudio-mamografia-sintomatologia';
 
     /**
@@ -87,4 +87,5 @@ class ImgSolicitudEstudioMamografiaSintomatologiaAdmin extends Admin
             ->add('secrecion')
         ;
     }
+
 }

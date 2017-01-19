@@ -14,16 +14,16 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ImgCtlProyeccionEstablecimientoAdmin extends Admin
 {
-    protected $baseRouteName = 'simagd_proyeccion_establecimiento';
+    protected $baseRouteName    = 'simagd_proyeccion_establecimiento';
     protected $baseRoutePattern = 'rayos-x-proyeccion-realizable';
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('delete');
+        // $collection->remove('delete');
         $collection->add('agregarProyeccionEnLocal', null, [], [], ['expose' => true]);
         $collection->add('crearProyeccionLocal', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarProyeccionLocal', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('habilitarLocal', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
@@ -48,13 +48,6 @@ class ImgCtlProyeccionEstablecimientoAdmin extends Admin
             ->add('fechaHoraReg', null, array('label' => 'Se registró'))
             ->add('habilitado', null, array('label' => 'Habilitada'))
         ;
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
 
     /**
@@ -132,13 +125,6 @@ class ImgCtlProyeccionEstablecimientoAdmin extends Admin
         ;
     }
 
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
-
     public function prePersist($pryRealizable) {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $pryRealizable->setIdUserReg($user);
@@ -181,7 +167,8 @@ class ImgCtlProyeccionEstablecimientoAdmin extends Admin
                                                                         ->addViolation ('¿Cuál es el examen que agrupa a esta proyección?')->end(); }
     }
 
-    public function createQuery($context = 'list') {
+    public function createQuery($context = 'list')
+    {
         $query = parent::createQuery($context);
 
         $estabLocal = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()
@@ -194,7 +181,8 @@ class ImgCtlProyeccionEstablecimientoAdmin extends Admin
         return $query;
     }
 
-    public function getTemplate($name) {
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'edit':
                 return 'MinsalSimagdBundle:ImgCtlProyeccionEstablecimientoAdmin:explrz_edit.html.twig';
@@ -210,4 +198,5 @@ class ImgCtlProyeccionEstablecimientoAdmin extends Admin
                 break;
         }
     }
+
 }

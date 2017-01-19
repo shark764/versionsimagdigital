@@ -20,7 +20,7 @@ use Minsal\SeguimientoBundle\Entity\SecDetallesolicitudestudios;
 
 class ImgSolicitudEstudioAdmin extends Admin
 {
-    protected $baseRouteName = 'simagd_solicitud_estudio';
+    protected $baseRouteName    = 'simagd_solicitud_estudio';
     protected $baseRoutePattern = 'rayos-x-solicitud-estudio';
 
     protected function configureRoutes(RouteCollection $collection)
@@ -31,9 +31,9 @@ class ImgSolicitudEstudioAdmin extends Admin
         $collection->add('valorCampoCompuesto', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('extractCamposComponentes', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('cargarDatosPorFiltro', null, [], [], ['expose' => true]);
-        $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
-        $collection->remove('delete');
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
+        // $collection->remove('delete');
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('cambiarPrioridadAtencionSolicitud', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('obtenerPrioridadesAtencion', null, [], [], ['expose' => true]);
         $collection->add('create', 'crear', [], [], ['expose' => true]);
@@ -46,20 +46,6 @@ class ImgSolicitudEstudioAdmin extends Admin
         $collection->add('editarSolicitudEstudioFormatoRapido', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
-    }
-
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
 
     /**
@@ -1415,7 +1401,8 @@ class ImgSolicitudEstudioAdmin extends Admin
         return $instance;
     }
 
-    public function createQuery($context = 'list') {
+    public function createQuery($context = 'list')
+    {
         $query = parent::createQuery($context);
 
         $estabLocal = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()

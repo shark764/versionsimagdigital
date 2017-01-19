@@ -11,6 +11,7 @@ use Minsal\SimagdBundle\Entity\ImgDiagnostico;
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxDiagnosticoRadiologicoListViewGenerator;
 
 class ImgDiagnosticoAdminController extends Controller
@@ -27,7 +28,7 @@ class ImgDiagnosticoAdminController extends Controller
         $request->isXmlHttpRequest();
         $__REQUEST__type = $request->request->get('type', 'list');
 
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
 
         //////// --| builder entity
         $ENTITY_LIST_VIEW_GENERATOR_ = new RyxDiagnosticoRadiologicoListViewGenerator(
@@ -49,7 +50,8 @@ class ImgDiagnosticoAdminController extends Controller
      * 
      * @return type
      */
-    public function notaAction()  {
+    public function notaAction()
+    {
         $id = $this->get('request')->get($this->admin->getIdParameter());
         $object = $this->admin->getObject($id);
         if (!$object) {
@@ -104,7 +106,7 @@ class ImgDiagnosticoAdminController extends Controller
         return new RedirectResponse($url);
     }
     
-    public function agregarPendienteAction()
+    public function addPendingToWorkListAction()
     {
         //Get parameter from lectura
         if (!$this->get('request')->request->get('__lct')) { $this->get('request')->request->set('__lct', null); }
@@ -113,7 +115,7 @@ class ImgDiagnosticoAdminController extends Controller
         $diagnostico        = $this->admin->getNewInstance();
         
         //Cambio de estado de registro
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $estadoReference    = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlEstadoDiagnostico', '1'); //Inicial
         $diagnostico->setIdEstadoDiagnostico($estadoReference);
 
@@ -124,9 +126,7 @@ class ImgDiagnosticoAdminController extends Controller
             $status = 'failed';
         }
         
-        $response           = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
     
     /**
@@ -221,7 +221,8 @@ class ImgDiagnosticoAdminController extends Controller
         ));
     }
     
-    public function editAction($id = null) {
+    public function editAction($id = null)
+    {
         //Acceso denegado
         if (false === $this->admin->isGranted('EDIT')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
@@ -250,7 +251,8 @@ class ImgDiagnosticoAdminController extends Controller
         return parent::editAction($id);
     }
     
-    public function showAction($id = null) {
+    public function showAction($id = null)
+    {
         //Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
@@ -272,7 +274,8 @@ class ImgDiagnosticoAdminController extends Controller
         return parent::showAction($id);
     }
     
-    public function listAction() {
+    public function listAction()
+    {
         //Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
@@ -290,17 +293,19 @@ class ImgDiagnosticoAdminController extends Controller
 
         $__REQUEST__type = $this->get('request')->query->get('type', 'list');
         
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $results         = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->obtenerDiagnosticosV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
 
     	$isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
     	$isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
     	$allowUserCod       = (in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('MED', 'TRY'))) ? TRUE : FALSE;
+
+        $formatter = new Formatter();
 
         foreach ($results as $key => $r)
         {
@@ -377,9 +382,7 @@ class ImgDiagnosticoAdminController extends Controller
                     ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_NOTA_DIAGNOSTICO_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_NOTA_DIAGNOSTICO_EDIT'))) || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
         }
         
-        $response = new Response();
-        $response->setContent(json_encode($results));
-        return $response;
+        return $this->renderJson($results);
     }
     
     public function transcribirDiagnosticoAction(Request $request)
@@ -433,9 +436,7 @@ class ImgDiagnosticoAdminController extends Controller
             $status = 'failed';
         }
         
-        $response           = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
     
     public function editarDiagnosticoAction(Request $request)
@@ -458,7 +459,7 @@ class ImgDiagnosticoAdminController extends Controller
         $observaciones      = $request->request->get('formDiagObservaciones');
         $errores            = $request->request->get('formDiagErrores');
         
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
         //Empleado
         $empleadoReference  = $em->getReference('Minsal\SiapsBundle\Entity\MntEmpleado', $empleado);
@@ -487,38 +488,17 @@ class ImgDiagnosticoAdminController extends Controller
             $status = 'failed';
         }
         
-        $response           = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
-    }
-    
-    public function getObjectVarsAsArrayAction(Request $request)
-    {
-        $request->isXmlHttpRequest();
-	
-        //Get parameter from object
-        $id = $request->request->get('id');
-        
-        //Objeto
-        $object = $this->admin->getObject($id);
-        
-        $response = new Response();
-        $response->setContent(json_encode(
-                array('id' => $object->getId(),
-                        'object' => $object->getObjectVarsAsArray()
-                        // 'url' => $this->admin->generateUrl('show', array('id' => $object->getId()))
-                )));
-        return $response;
+        return $this->renderJson(array());
     }
     
     public function approveTranscribedDiagnosisAction(Request $request)
     {
         $request->isXmlHttpRequest();
         
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 	
         //Get parameter from diagnostico
-        $id                 = $request->request->get('id');
+        $id = $request->request->get('id');
         
         //Objeto
         $diagnostico        = $this->admin->getObject($id);
@@ -536,9 +516,7 @@ class ImgDiagnosticoAdminController extends Controller
             $status = 'failed';
         }
         
-        $response           = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
 }

@@ -11,22 +11,8 @@ use Doctrine\ORM\EntityRepository;
 
 class ImgSolicitudEstudioComplementarioProyeccionAdmin extends Admin
 {
-    protected $baseRouteName = 'simagd_solicitud_estudio_complementario_proyeccion';
+    protected $baseRouteName    = 'simagd_solicitud_estudio_complementario_proyeccion';
     protected $baseRoutePattern = 'rayos-x-proyecciones-complementarias-solicitadas';
-
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
-    }
 
     /**
      * @param FormMapper $formMapper
@@ -105,10 +91,4 @@ class ImgSolicitudEstudioComplementarioProyeccionAdmin extends Admin
         ;
     }
 
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
 }

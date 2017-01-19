@@ -26,7 +26,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
         $request->isXmlHttpRequest();
         $__REQUEST__type = $request->request->get('type', 'list');
 
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
 
         //////// --| builder entity
         $ENTITY_LIST_VIEW_GENERATOR_ = new RyxCtlPatronDiagnosticoListViewGenerator(
@@ -51,7 +51,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
         $sessionUser        = $securityContext->getToken()->getUser();
@@ -93,13 +93,13 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
 
         $__REQUEST__type = $this->get('request')->query->get('type', 'list');
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $results         = $em->getRepository('MinsalSimagdBundle:ImgCtlPatronDiagnostico')->obtenerPatronesDiagnosticoV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgCtlPatronDiagnostico')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
 
         $isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
@@ -187,9 +187,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
             $results[$key]['allowEdit']              = $isUser_allowEdit;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($results));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function crearPatronDiagnosticoAction(Request $request)
@@ -216,7 +214,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
         $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal             = $sessionUser->getIdEstablecimiento();
 
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //Establecimiento local
         $patronDiagnostico->setIdEstablecimiento($estabLocal);
@@ -255,9 +253,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function editarPatronDiagnosticoAction(Request $request)
@@ -318,9 +314,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function addDiagnosisAsPatternAction(Request $request)
@@ -365,7 +359,7 @@ class ImgCtlPatronDiagnosticoAdminController extends Controller
             $status = 'failed';
         }
 
-        $response   = new Response();
+        $response = new Response();
         $response->setContent(json_encode(
                 array(
                     'id' => $object_ptrDiag->getId(),

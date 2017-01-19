@@ -26,7 +26,7 @@ class ImgCtlPacsEstablecimientoAdminController extends Controller
         $request->isXmlHttpRequest();
         $__REQUEST__type = $request->request->get('type', 'list');
 
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
 
         //////// --| builder entity
         $ENTITY_LIST_VIEW_GENERATOR_ = new RyxCtlConexionPacsEstablecimientoListViewGenerator(
@@ -153,13 +153,13 @@ class ImgCtlPacsEstablecimientoAdminController extends Controller
 
         $__REQUEST__type = $this->get('request')->query->get('type', 'list');
 
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext 	= $this->container->get('security.context');
         $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
-        $results             = $em->getRepository('MinsalSimagdBundle:ImgCtlPacsEstablecimiento')->obtenerPacsV2($BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgCtlPacsEstablecimiento')->data($BS_FILTERS_DECODE);
 
         $isUser_allowShow       = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit       = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
@@ -239,9 +239,7 @@ class ImgCtlPacsEstablecimientoAdminController extends Controller
             $results[$key]['allowEdit']          = (false !== $isUser_allowEdit && ($estabLocal->getId() == $r['pacs_id_establecimiento'])) ? TRUE : FALSE;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($results));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function getObjectVarsAsArrayAction(Request $request)
@@ -284,9 +282,7 @@ class ImgCtlPacsEstablecimientoAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
 }

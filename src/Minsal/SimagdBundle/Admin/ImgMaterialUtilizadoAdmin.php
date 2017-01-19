@@ -11,22 +11,8 @@ use Doctrine\ORM\EntityRepository;
 
 class ImgMaterialUtilizadoAdmin extends Admin
 {
-    protected $baseRouteName = 'simagd_material_utilizado';
+    protected $baseRouteName    = 'simagd_material_utilizado';
     protected $baseRoutePattern = 'rayos-x-material-utilizado';
-    
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
-    }
 
     /**
      * @param FormMapper $formMapper
@@ -75,7 +61,7 @@ class ImgMaterialUtilizadoAdmin extends Admin
                                                 'required' => true,
                                                 'empty_value' => '',
                                                 'query_builder' => function(EntityRepository $er) use ($estabLocal) {
-                                                                        return $er->obtenerMaterialesUtilizables($estabLocal);
+                                                                        return $er->getUsableMaterials($estabLocal);
                                                                 },
 						  'attr' => array('style' => 'min-width: 100%; max-width: 100%;',
 								  'data-fv-notempty' => 'true',
@@ -122,10 +108,4 @@ class ImgMaterialUtilizadoAdmin extends Admin
         ;
     }
 
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
 }

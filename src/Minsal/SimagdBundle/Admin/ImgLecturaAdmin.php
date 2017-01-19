@@ -21,30 +21,16 @@ class ImgLecturaAdmin extends Admin
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('delete');
-        $collection->add('agregarPendiente', null, [], [], ['expose' => true]);
-        $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
-        $collection->add('proximaConsulta', null, [], [], ['expose' => true]);
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        // $collection->remove('delete');
+        $collection->add('addPendingToWorkList', null, [], [], ['expose' => true]);
+        // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
+        // $collection->add('proximaConsulta', null, [], [], ['expose' => true]);
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
-    }
-
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
 
     /**
@@ -192,7 +178,7 @@ class ImgLecturaAdmin extends Admin
 							'required' => false,
 							'empty_value' => '',
                                                         'query_builder' => function(EntityRepository $er) use ($estabLocal) {
-                                                                                return $er->obtenerPatronesDiagnosticoUtilizablesV2($estabLocal);
+                                                                                return $er->getUsableDiagnosticPatterns($estabLocal);
                                                                             },
                                                         'group_by' => 'idAreaServicioDiagnostico',
                                                         'attr' => array('style' => 'min-width: 100%; max-width: 100%;',
@@ -259,7 +245,7 @@ class ImgLecturaAdmin extends Admin
                                                         'multiple' => true,
                                                         'class' => 'MinsalSimagdBundle:ImgEstudioPaciente',
                                                         'query_builder' => function(EntityRepository $er) use ($estabLocal, $lctId, $pctId) {
-                                                                                return $er->obtenerEstudiosSinLectura($estabLocal, $lctId, $pctId);
+                                                                                return $er->getStudiesWithoutRadiologicalDiagnosis($estabLocal, $lctId, $pctId);
                                                                             },
 //                                                        'help' => 'Estado en que se registra',
 //                                                        'attr' => array('style' => 'min-width: 100%; max-width: 100%;')
@@ -284,7 +270,7 @@ class ImgLecturaAdmin extends Admin
 							'empty_value' => '',
                                                         'class' => 'MinsalSimagdBundle:ImgCtlPatronDiagnostico',
                                                         'query_builder' => function(EntityRepository $er) use ($estabLocal) {
-                                                                                return $er->obtenerPatronesDiagnosticoUtilizablesV2($estabLocal);
+                                                                                return $er->getUsableDiagnosticPatterns($estabLocal);
                                                                             },
 //                                                         'property' => 'nombre',
                                                         'group_by' => 'idAreaServicioDiagnostico',
@@ -429,13 +415,6 @@ class ImgLecturaAdmin extends Admin
                 ->end()
 //             ->end()
         ;
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
     }
 
     public function prePersist($lectura)
@@ -760,7 +739,8 @@ class ImgLecturaAdmin extends Admin
 	}
     }
 
-    public function getNewInstance() {
+    public function getNewInstance()
+    {
         $instance = parent::getNewInstance();
 //        $instance = new \Minsal\SimagdBundle\Entity\ImgLectura();
 
@@ -837,7 +817,8 @@ class ImgLecturaAdmin extends Admin
         return $instance;
     }
 
-    public function createQuery($context = 'list') {
+    public function createQuery($context = 'list')
+    {
         $query = parent::createQuery($context);
 
         $estabLocal = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()
@@ -863,7 +844,7 @@ class ImgLecturaAdmin extends Admin
 
 	$mayor = $this->getConfigurationPool()->getContainer()->get('doctrine')
                                 ->getRepository($this->getClass() )
-						->obtenerUltimoCorrelativo($estabLocal->getId(), $modalidadSolicitada->getId());
+						->getLatestCorrelative($estabLocal->getId(), $modalidadSolicitada->getId());
 
 	//Substraer los ultimos 6 digitos, parse Int y sumar 1
 	$valor = $mayor ? substr($mayor['maxCod'], -8 ) : '0';

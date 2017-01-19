@@ -35,7 +35,7 @@ class ImgBloqueoAgendaAdminController extends Controller
         $request->isXmlHttpRequest();
         $__REQUEST__type = $request->request->get('type', 'list');
 
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
 
         //////// --| builder entity
         $ENTITY_LIST_VIEW_GENERATOR_ = new RyxBloqueoAgendaListViewGenerator(
@@ -73,7 +73,7 @@ class ImgBloqueoAgendaAdminController extends Controller
         $nuevoBloqueo   = $this->admin->getNewInstance();
         
         //Cambio de estado de registro
-        $em             = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
         $nuevoBloqueo->setTitulo($titulo);
         $nuevoBloqueo->setDescripcion($descripcion);
@@ -134,7 +134,7 @@ class ImgBloqueoAgendaAdminController extends Controller
         $editBloqueo    = $this->admin->getObject($id);
         
         //Cambio de estado de registro
-        $em             = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
         $editBloqueo->setTitulo($titulo);
         $editBloqueo->setDescripcion($descripcion);
@@ -168,9 +168,7 @@ class ImgBloqueoAgendaAdminController extends Controller
             $status = 'failed';
         }
         
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
     
     public function generateDataAction(Request $request)
@@ -182,20 +180,20 @@ class ImgBloqueoAgendaAdminController extends Controller
 
         $__REQUEST__type    = $this->get('request')->query->get('type', 'list');
         
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
         $securityContext 	= $this->container->get('security.context');
         $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
         
-        $results             = $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')->generateDataV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
         
         $isUser_allowShow       = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit       = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('actualizarBloqueo')) ? TRUE : FALSE;
         $isUser_allowRemove     = ($this->admin->isGranted('DELETE') && $this->admin->getRoutes()->has('removerBloqueo')) ? TRUE : FALSE;
 
         $formatter = new Formatter();
-        
+
         foreach ($results as $key => $r)
         {
             // $r = new \Minsal\SimagdBundle\Entity\ImgBloqueoAgenda();
@@ -275,16 +273,14 @@ class ImgBloqueoAgendaAdminController extends Controller
             $results[$key]['blAgd_bloqueoExclusionesBloqueo']	= $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')->obtenerExclusionesBloqueo($r['blAgd_id']);
         }
         
-        $response = new Response();
-        $response->setContent(json_encode($results));
-        return $response;
+        return $this->renderJson($results);
     }
     
     public function removerBloqueoAction(Request $request)
     {
         $request->isXmlHttpRequest();
 	
-        $id             = $request->request->get('id');
+        $id = $request->request->get('id');
         
         //Objeto
         $removeBloqueo  = $this->admin->getObject($id);
@@ -296,9 +292,7 @@ class ImgBloqueoAgendaAdminController extends Controller
             $status = 'failed';
         }
         
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function excluirRadiologoBloqueoAction(Request $request)
@@ -315,7 +309,7 @@ class ImgBloqueoAgendaAdminController extends Controller
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
 //         $object_blAgd       = new \Minsal\SimagdBundle\Entity\ImgBloqueoAgenda();
         

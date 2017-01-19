@@ -13,33 +13,19 @@ use Sonata\AdminBundle\Route\RouteCollection;
 
 class ImgCtlPacsEstablecimientoAdmin extends Admin
 {
-    protected $baseRouteName = 'simagd_pacs';
+    protected $baseRouteName    = 'simagd_pacs';
     protected $baseRoutePattern = 'rayos-x-pacs-establecimiento';
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('delete');
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        // $collection->remove('delete');
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('habilitarPacs', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
-    }
-
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
 
     /**
@@ -242,13 +228,6 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
         ;
     }
 
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
-
     public function validate(ErrorElement $errorElement, $ctlPacs)
     {
         $errorElement
@@ -317,7 +296,8 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
         $pacs->setFechaHoraMod(new \DateTime('now'));
     }
 
-    public function getNewInstance() {
+    public function getNewInstance()
+    {
         $instance = parent::getNewInstance();
 
         $sessionUser = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();

@@ -14,13 +14,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ImgCtlMotorBdAdmin extends Admin
 {
-    protected $baseRouteName = 'simagd_motor_bd';
+    protected $baseRouteName    = 'simagd_motor_bd';
     protected $baseRoutePattern = 'rayos-x-motor-bd';
     
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('delete');
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        // $collection->remove('delete');
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
@@ -36,13 +36,6 @@ class ImgCtlMotorBdAdmin extends Admin
             ->add('nombre', null, array('label' =>'Nombre'))
             ->add('codigo', null, array('label' =>'Código'))
         ;
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
 
     /**
@@ -66,13 +59,6 @@ class ImgCtlMotorBdAdmin extends Admin
             ->end()
         ;
     }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
     
     public function validate(ErrorElement $errorElement, $motorBd) {
         $errorElement
@@ -89,8 +75,9 @@ class ImgCtlMotorBdAdmin extends Admin
                                     'message' => 'Este campo contiene carácteres no permitidos ( \', ", \ ). Por favor elimínelos.'))
             ->end();
     }
-    
-    public function getTemplate($name) {
+
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'edit':
                 return 'MinsalSimagdBundle:ImgCtlMotorBdAdmin:mtrBd_edit.html.twig';
@@ -106,4 +93,5 @@ class ImgCtlMotorBdAdmin extends Admin
                 break;
         }
     }
+
 }

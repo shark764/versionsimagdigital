@@ -14,14 +14,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ImgSolicitudEstudioComplementarioAdmin extends Admin
 {
-    protected $baseRouteName = 'simagd_solicitud_estudio_complementario';
+    protected $baseRouteName    = 'simagd_solicitud_estudio_complementario';
     protected $baseRoutePattern = 'rayos-x-solicitud-estudio-complementario';
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
-        $collection->remove('delete');
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
+        // $collection->remove('delete');
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('cambiarPrioridadAtencionSolicitud', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
@@ -49,20 +49,6 @@ class ImgSolicitudEstudioComplementarioAdmin extends Admin
                 return parent::getTemplate($name);
                 break;
         }
-    }
-
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
 
     /**
@@ -216,13 +202,6 @@ class ImgSolicitudEstudioComplementarioAdmin extends Admin
         ;
     }
 
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
-
     public function getNewInstance()
     {
         $instance = parent::getNewInstance();
@@ -302,4 +281,5 @@ class ImgSolicitudEstudioComplementarioAdmin extends Admin
 	}
 
     }
+
 }

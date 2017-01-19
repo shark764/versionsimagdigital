@@ -28,7 +28,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
         $request->isXmlHttpRequest();
         $__REQUEST__type = $request->request->get('type', 'list');
 
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
 
         //////// --| builder entity
         $ENTITY_LIST_VIEW_GENERATOR_ = new RyxCtlProyeccionEstablecimientoListViewGenerator(
@@ -164,13 +164,13 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
 
         $__REQUEST__type = $this->get('request')->query->get('type', 'list');
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $results         = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesLocalesV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->localData($estabLocal->getId(), $BS_FILTERS_DECODE);
 
         $isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
@@ -252,9 +252,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
             $results[$key]['allowEdit']              = $isUser_allowEdit;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($results));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function agregarProyeccionEnLocalAction()
@@ -277,7 +275,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
         $proyeccionRz      = $this->admin->getNewInstance();
 
         //Proyección
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $proyeccionRef     = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlProyeccion', $proyeccion);
         $proyeccionRz->setIdProyeccion($proyeccionRef);
 
@@ -318,9 +316,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function crearProyeccionLocalAction(Request $request)
@@ -342,7 +338,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
         $examen                 = $request->request->get('formExplrzIdExamenServicioDiagnostico');
         $proyeccion            = $request->request->get('formExplrzIdProyeccion');
 
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //Proyeccion
         $proyeccionReference   = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlProyeccion', $proyeccion);
@@ -365,9 +361,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function editarProyeccionLocalAction(Request $request)
@@ -391,7 +385,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
         $examen                 = $request->request->get('formExplrzIdExamenServicioDiagnostico');
         $proyeccion            = $request->request->get('formExplrzIdProyeccion');
 
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //Proyeccion
         $proyeccionReference   = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlProyeccion', $proyeccion);
@@ -414,9 +408,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function getObjectVarsAsArrayAction(Request $request)
@@ -442,12 +434,12 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
     {
         $request->isXmlHttpRequest();
 
-        $id             = $request->request->get('id');
+        $id = $request->request->get('id');
         $proyeccionRz  = $this->admin->getObject($id);
 
         $habilitado     = $request->request->get('formExplrzHabilitado');
 
-        $em             = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //Habilitar
         $proyeccionRz->setHabilitado($habilitado);
@@ -459,9 +451,7 @@ class ImgCtlProyeccionEstablecimientoAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
 }

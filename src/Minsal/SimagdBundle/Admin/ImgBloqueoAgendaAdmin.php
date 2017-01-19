@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 
 class ImgBloqueoAgendaAdmin extends Admin
 {
-    protected $baseRouteName = 'simagd_bloqueo_agenda';
+    protected $baseRouteName    = 'simagd_bloqueo_agenda';
     protected $baseRoutePattern = 'rayos-x-bloqueos';
     
     protected function configureRoutes(RouteCollection $collection)
@@ -22,42 +22,14 @@ class ImgBloqueoAgendaAdmin extends Admin
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
         // $collection->clearExcept(array('show', 'list'));
-        $collection->add('generateData', null, [], [], ['expose' => true]);
+        // $collection->add('generateData', null, [], [], ['expose' => true]);
         $collection->add('nuevoBloqueo', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('actualizarBloqueo', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('removerBloqueo', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('excluirRadiologoBloqueo', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
-    }
-    
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
-    }
-
-    /**
-     * @param FormMapper $formMapper
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
     }
     
     public function prePersist($bloqueo) {
@@ -77,8 +49,9 @@ class ImgBloqueoAgendaAdmin extends Admin
 	    $bloqueo->setColor('yellow');
         }
     }
-    
-    public function getNewInstance() {
+
+    public function getNewInstance()
+    {
         $instance = parent::getNewInstance();
         
         $sessionUser = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
@@ -88,4 +61,5 @@ class ImgBloqueoAgendaAdmin extends Admin
         
         return $instance;
     }
+
 }

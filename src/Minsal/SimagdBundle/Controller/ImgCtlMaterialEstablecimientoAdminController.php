@@ -26,7 +26,7 @@ class ImgCtlMaterialEstablecimientoAdminController extends Controller
         $request->isXmlHttpRequest();
         $__REQUEST__type = $request->request->get('type', 'list');
 
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
 
         //////// --| builder entity
         $ENTITY_LIST_VIEW_GENERATOR_ = new RyxCtlMaterialEstablecimientoListViewGenerator(
@@ -53,13 +53,13 @@ class ImgCtlMaterialEstablecimientoAdminController extends Controller
 
         $__REQUEST__type = $this->get('request')->query->get('type', 'list');
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $results         = $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')->obtenerMaterialesLocalesV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')->localData($estabLocal->getId(), $BS_FILTERS_DECODE);
 
         $isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
@@ -140,16 +140,14 @@ class ImgCtlMaterialEstablecimientoAdminController extends Controller
             $results[$key]['allowEdit']          = $isUser_allowEdit;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($results));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function agregarMaterialEnLocalAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
         $sessionUser        = $securityContext->getToken()->getUser();
@@ -183,16 +181,14 @@ class ImgCtlMaterialEstablecimientoAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function crearMaterialLocalAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
         $sessionUser        = $securityContext->getToken()->getUser();
@@ -226,16 +222,14 @@ class ImgCtlMaterialEstablecimientoAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function editarMaterialLocalAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
         $sessionUser        = $securityContext->getToken()->getUser();
@@ -272,14 +266,12 @@ class ImgCtlMaterialEstablecimientoAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function getNonAggregatedMaterialsAction()
     {
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
         $sessionUser        = $securityContext->getToken()->getUser();
@@ -288,21 +280,19 @@ class ImgCtlMaterialEstablecimientoAdminController extends Controller
         $resultados         = $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')
 				    ->getNonAggregatedMaterials($estabLocal->getId());
 
-        $response           = new Response();
-        $response->setContent(json_encode($resultados));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function habilitarMaterialAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
-        $id             = $request->request->get('id');
+        $id = $request->request->get('id');
         $materialLc     = $this->admin->getObject($id);
 
         $habilitado     = $request->request->get('formMtrLcHabilitado');
 
-        $em             = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //Habilitar
         $materialLc->setHabilitado($habilitado);
@@ -314,9 +304,7 @@ class ImgCtlMaterialEstablecimientoAdminController extends Controller
             $status = 'failed';
         }
 
-        $response       = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
 }

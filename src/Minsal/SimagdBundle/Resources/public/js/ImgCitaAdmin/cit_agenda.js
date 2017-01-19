@@ -62,7 +62,7 @@ jQuery(document).ready(function() {
 	        // aspectRatio: 1.15,
 	        aspectRatio: 1,
 		    events: {
-				url: Routing.generate('simagd_cita_obtenerEventosCalendario'),
+				url: Routing.generate('simagd_cita_getEvents'),
 				type: 'POST',
 				data: function() {
 					    moment.locale('es');
@@ -231,7 +231,7 @@ jQuery(document).ready(function() {
 					      });
 
 					      $el_fc_calendar.filter(':not([disabled]):visible').find('div.popover .print-cita-popover-action').on('click', function(e) {
-						  generarVentanaEstudioPaciente(Routing.generate('simagd_cita_imprimirComprobante', { id: event.cit_id }));
+						  generarVentanaEstudioPaciente(Routing.generate('simagd_cita_print', { id: event.cit_id }));
 					      });
 
 					      $el_fc_calendar.filter(':not([disabled]):visible').find('div.popover .close-cita-popover-action').on('click', function(e) {

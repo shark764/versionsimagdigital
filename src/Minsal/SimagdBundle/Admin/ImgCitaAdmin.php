@@ -14,44 +14,30 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ImgCitaAdmin extends Admin
 {
-    protected $baseRouteName = 'simagd_cita';
+    protected $baseRouteName    = 'simagd_cita';
     protected $baseRoutePattern = 'rayos-x-citas';
     
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('obtenerEventosCalendario', null, [], [], ['expose' => true]);
+        $collection->add('getEvents', null, [], [], ['expose' => true]);
         $collection->add('espaciosReservados', null, [], [], ['expose' => true]);
         $collection->add('confirmarCita', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('cancelarCita', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
-        $collection->add('citaCancelable', null, [], [], ['expose' => true]);
-        $collection->add('calendario', null, [], [], ['expose' => true]);
+        // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
+        // $collection->add('citaCancelable', null, [], [], ['expose' => true]);
+        // $collection->add('calendario', null, [], [], ['expose' => true]);
         $collection->add('list', 'agenda', [], [], ['expose' => true]);
         $collection->add('nuevaCita', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('actualizarCita', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('getPatients', null, [], [], ['expose' => true]);
         $collection->add('editarCita', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('loadPendingPatients', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->remove('delete');
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('imprimirComprobante', 'imprimir-comprobante', [], [], ['expose' => true]);
+        // $collection->remove('delete');
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('print', 'imprimir-comprobante', [], [], ['expose' => true]);
         $collection->add('generateCalendar', 'generar-calendario', [], [], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
-    }
-    
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
 
     /**
@@ -188,13 +174,6 @@ class ImgCitaAdmin extends Admin
                 ->end()
             ->end()
         ;
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
     }
     
     public function prePersist($cita) {
@@ -375,8 +354,9 @@ class ImgCitaAdmin extends Admin
                 ->end();
         }
     }
-    
-    public function getNewInstance() {
+
+    public function getNewInstance()
+    {
         $instance = parent::getNewInstance();
          
         //Fecha programada
@@ -416,8 +396,9 @@ class ImgCitaAdmin extends Admin
         
         return $instance;
     }
-    
-    public function createQuery($context = 'list') {
+
+    public function createQuery($context = 'list')
+    {
         $query = parent::createQuery($context);
         
         $estabLocal = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()
@@ -433,7 +414,7 @@ class ImgCitaAdmin extends Admin
     
     public function obtenerParametroCitacionPorExpl($preinscripcionRequest)
     {
-	$sessionUser = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
+        $sessionUser = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
     
         $preinscripcionSolicitada = $this->getModelManager()->find('MinsalSimagdBundle:ImgSolicitudEstudio', $preinscripcionRequest);
         
@@ -448,8 +429,9 @@ class ImgCitaAdmin extends Admin
 									$preinscripcionSolicitada->getIdAreaServicioDiagnostico()->getId(),
 									$explArray);
     }
-    
-    public function getTemplate($name) {
+
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'edit':
                 return 'MinsalSimagdBundle:ImgCitaAdmin:cit_edit.html.twig';
@@ -460,14 +442,14 @@ class ImgCitaAdmin extends Admin
             case 'show':
                 return 'MinsalSimagdBundle:ImgCitaAdmin:cit_show.html.twig';
                 break;
-            case 'calendario':
-                return 'MinsalSimagdBundle:ImgCitaAdmin:cit_calendario.html.twig';
-                break;
+            // case 'calendario':
+            //     return 'MinsalSimagdBundle:ImgCitaAdmin:cit_calendario.html.twig';
+            //     break;
             case 'agenda':
                 return 'MinsalSimagdBundle:ImgCitaAdmin:cit_agenda.html.twig';
                 break;
-            case 'imprimirComprobante':
-                return 'MinsalSimagdBundle:ImgCitaAdmin:cit_imprimirComprobante.html.twig';
+            case 'print':
+                return 'MinsalSimagdBundle:ImgCitaAdmin:cit_print.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

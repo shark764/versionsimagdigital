@@ -28,7 +28,7 @@ class ImgCtlMaterialAdminController extends Controller
         $request->isXmlHttpRequest();
         $__REQUEST__type = $request->request->get('type', 'list');
 
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
 
         //////// --| builder entity
         $ENTITY_LIST_VIEW_GENERATOR_ = new RyxCtlMaterialListViewGenerator(
@@ -152,13 +152,13 @@ class ImgCtlMaterialAdminController extends Controller
 
         $__REQUEST__type = $this->get('request')->query->get('type', 'list');
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $results         = $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')->obtenerMaterialesV2($BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')->data($BS_FILTERS_DECODE);
 
         $isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
@@ -225,7 +225,9 @@ class ImgCtlMaterialAdminController extends Controller
             //         '</div>' .
             //     '</div>';
 
-            $results[$key]['action'] = '<div class="btn-group btn-group-xs"> <button type="button" class="btn btn-default dropdown-toggle example2-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
+//            $results[$key]['action'] = '<div class="btn-group btn-group-xs"> <button type="button" class="btn btn-default dropdown-toggle example2-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
+            // $results[$key]['action'] = '<div class="btn-group btn-group-xs"> <button type="button" class="btn btn-link btn-link-emergency dropdown-toggle material-btn-list-op" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" color: #e45315; "> <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
+            $results[$key]['action'] = '<div class="btn-group btn-group-xs"> <button type="button" class="btn btn-link btn-link-emergency dropdown-toggle material-btn-list-op" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" color: #e45315; cursor: context-menu; "> <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
 
             $results[$key]['mtrl_fechaHoraReg']  = $r['mtrl_fechaHoraReg']->format('Y-m-d H:i:s A');
             $results[$key]['mtrl_fechaHoraMod']  = $r['mtrl_fechaHoraMod'] ? $r['mtrl_fechaHoraMod']->format('Y-m-d H:i:s A') : '';
@@ -239,16 +241,14 @@ class ImgCtlMaterialAdminController extends Controller
                     ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_MATERIAL_ESTABLECIMIENTO_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($results));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function crearMaterialAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
         $sessionUser        = $securityContext->getToken()->getUser();
@@ -300,16 +300,14 @@ class ImgCtlMaterialAdminController extends Controller
 	    }
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function editarMaterialAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
-        $em             = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //Get parameter from diagnostico
         $id             = $request->request->get('formMtrlId');
@@ -333,9 +331,7 @@ class ImgCtlMaterialAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
 }

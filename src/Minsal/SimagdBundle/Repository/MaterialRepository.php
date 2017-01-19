@@ -38,7 +38,7 @@ class MaterialRepository extends EntityRepository
         return $query->getQuery()->getScalarResult();
     }
 
-    public function obtenerMaterialesUtilizables($id_estab, $bs_filters = array())
+    public function getUsableMaterials($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -66,7 +66,7 @@ class MaterialRepository extends EntityRepository
                             ->innerJoin('mtrLc.idMaterial', 'mtrl')
                             ->where('mtrLc.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
-                            ->orderBy('mtrl.nombre', 'desc')
+                            ->orderBy('mtrl.nombre', 'DESC')
                             ->addOrderBy('mtrLc.cantidadDisponible'); //INTENTAR HACER EL OUTGROUP DEL SELECT
 
         $query->distinct();
@@ -101,19 +101,19 @@ class MaterialRepository extends EntityRepository
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
 
-    public function __obtenerMaterialesV2()
+    public function __data()
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('mtrl')
                             ->select('mtrl')
                             ->from('MinsalSimagdBundle:ImgCtlMaterial', 'mtrl')
-                            ->orderBy('mtrl.id', 'desc')
+                            ->orderBy('mtrl.id', 'DESC')
                             ->distinct();
 
         return $query->getQuery()->getScalarResult();
     }
 
-    public function __obtenerMaterialesLocalesV2($id_estab, $bs_filters = array())
+    public function __localData($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('mtrLc')
@@ -123,7 +123,7 @@ class MaterialRepository extends EntityRepository
                             ->innerJoin('mtrLc.idMaterial', 'mtrl')
                             ->where('mtrLc.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
-                            ->orderBy('mtrLc.id', 'desc')
+                            ->orderBy('mtrLc.id', 'DESC')
                             ->distinct();
 
         return $query->getQuery()->getScalarResult();
@@ -147,15 +147,15 @@ class MaterialRepository extends EntityRepository
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
 
-    public function obtenerMaterialesV2($bs_filters = array())
+    public function data($bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('mtrl')
                             ->select('mtrl')
 
-                            ->addSelect('mtrl.id AS id, mtrl.nombre AS nombre, mtrl.codigo as codigo, sgm.nombre AS subgrupo, sgm.codigo as codigo_subgrupo, gm.nombre AS grupo, gm.codigo as codigo_grupo, mtrl.descripcion as descripcion, mtrl.fechaHoraReg as fecha_registro, mtrl.fechaHoraMod as fecha_edicion')
+                            ->addSelect('mtrl.id AS id, mtrl.nombre AS nombre, mtrl.codigo AS codigo, sgm.nombre AS subgrupo, sgm.codigo AS codigo_subgrupo, gm.nombre AS grupo, gm.codigo AS codigo_grupo, mtrl.descripcion as descripcion, mtrl.fechaHoraReg AS fecha_registro, mtrl.fechaHoraMod AS fecha_edicion')
 
-                            ->addSelect('usrRg.username as mtrl_usernameUserReg, usrRg.id AS mtrl_id_userReg, usrMd.username as mtrl_usernameUserMod, usrMd.id AS mtrl_id_userMod')
+                            ->addSelect('usrRg.username AS mtrl_usernameUserReg, usrRg.id AS mtrl_id_userReg, usrMd.username AS mtrl_usernameUserMod, usrMd.id AS mtrl_id_userMod')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS mtrl_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS mtrl_nombreUserMod')
                             ->from('MinsalSimagdBundle:ImgCtlMaterial', 'mtrl')
@@ -165,7 +165,7 @@ class MaterialRepository extends EntityRepository
                             ->leftJoin('mtrl.idUserMod', 'usrMd')
                             ->innerJoin('usrRg.idEmpleado', 'usrRgEmp')
                             ->leftJoin('usrMd.idEmpleado', 'usrMdEmp')
-                            ->orderBy('mtrl.id', 'desc')
+                            ->orderBy('mtrl.id', 'DESC')
                             ->distinct();
 
         /*
@@ -185,17 +185,17 @@ class MaterialRepository extends EntityRepository
         return $query->getQuery()->getScalarResult();
     }
 
-    public function obtenerMaterialesLocalesV2($id_estab, $bs_filters = array())
+    public function localData($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('mtrLc')
                             ->select('mtrLc')
                             ->addSelect('mtrl')
 
-                            ->addSelect('mtrLc.id AS id, mtrl.nombre AS nombre, mtrl.codigo as codigo, sgm.nombre AS subgrupo, sgm.codigo as codigo_subgrupo, gm.nombre AS grupo, gm.codigo as codigo_grupo, mtrl.descripcion as descripcion, mtrl.fechaHoraReg as fecha_registro, mtrl.fechaHoraMod as fecha_edicion, mtrLc.habilitado as habilitado, mtrLc.fechaHoraReg as fecha_registro_local, mtrLc.fechaHoraMod as fecha_edicion_local')
+                            ->addSelect('mtrLc.id AS id, mtrl.nombre AS nombre, mtrl.codigo AS codigo, sgm.nombre AS subgrupo, sgm.codigo AS codigo_subgrupo, gm.nombre AS grupo, gm.codigo AS codigo_grupo, mtrl.descripcion as descripcion, mtrl.fechaHoraReg AS fecha_registro, mtrl.fechaHoraMod AS fecha_edicion, mtrLc.habilitado AS habilitado, mtrLc.fechaHoraReg AS fecha_registro_local, mtrLc.fechaHoraMod AS fecha_edicion_local')
 
                             ->addSelect('stdmtrl.nombre AS mtrLc_establecimiento, stdmtrl.id AS mtrLc_id_establecimiento')
-                            ->addSelect('usrRg.username as mtrLc_usernameUserReg, usrRg.id AS mtrLc_id_userReg, usrMd.username as mtrLc_usernameUserMod, usrMd.id AS mtrLc_id_userMod, usrRgMtrl.username as mtrl_usernameUserReg, usrRgMtrl.id AS mtrl_id_userReg')
+                            ->addSelect('usrRg.username AS mtrLc_usernameUserReg, usrRg.id AS mtrLc_id_userReg, usrMd.username AS mtrLc_usernameUserMod, usrMd.id AS mtrLc_id_userMod, usrRgMtrl.username AS mtrl_usernameUserReg, usrRgMtrl.id AS mtrl_id_userReg')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS mtrLc_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS mtrLc_nombreUserMod')
                             ->addSelect('CONCAT(COALESCE(usrRgMtrlEmp.apellido, \'\'), \', \', COALESCE(usrRgMtrlEmp.nombre, \'\')) AS mtrl_nombreUserReg')
@@ -212,7 +212,7 @@ class MaterialRepository extends EntityRepository
                             ->innerJoin('usrRgMtrl.idEmpleado', 'usrRgMtrlEmp')
                             ->where('mtrLc.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
-                            ->orderBy('mtrLc.id', 'desc')
+                            ->orderBy('mtrLc.id', 'DESC')
                             ->distinct();
 
         /*
@@ -231,18 +231,18 @@ class MaterialRepository extends EntityRepository
         return $query->getQuery()->getScalarResult();
     }
 
-    public function obtenerMaterialesScalarV2($return = 'scalar')
+    public function scalarData($return = 'scalar')
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('mtrl')
                             ->select('mtrl')
                             ->from('MinsalSimagdBundle:ImgCtlMaterial', 'mtrl')
-                            ->orderBy('mtrl.id', 'desc')
+                            ->orderBy('mtrl.id', 'DESC')
                             ->distinct();
 
 	if($return == 'scalar')
 	{
-	    $query->addSelect('mtrl.id AS id, mtrl.nombre AS text, mtrl.codigo as cod');
+	    $query->addSelect('mtrl.id AS id, mtrl.nombre AS text, mtrl.codigo AS cod');
 	}
 
         return $return == 'query' ?

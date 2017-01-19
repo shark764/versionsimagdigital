@@ -18,6 +18,7 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 use Minsal\SimagdBundle\Entity\ImgSolicitudEstudioComplementario;
 use Doctrine\ORM\EntityRepository;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxSolicitudEstudioComplementarioListViewGenerator;
 
 class ImgSolicitudEstudioComplementarioAdminController extends Controller
@@ -35,7 +36,7 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
         $__REQUEST__type = $request->request->get('type', 'list');
         $__REQUEST__emrg = $request->request->get('emrg', 0);
 
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
 
         //////// --| builder entity
         $ENTITY_LIST_VIEW_GENERATOR_ = new RyxSolicitudEstudioComplementarioListViewGenerator(
@@ -54,7 +55,8 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
         ));
     }
 
-    public function listAction() {
+    public function listAction()
+    {
         //Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
@@ -73,18 +75,19 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
         $__REQUEST__type = $this->get('request')->query->get('type', 'list');
         $__REQUEST__emrg = $this->get('request')->query->get('emrg', 0);
         
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
     	$securityContext    = $this->container->get('security.context');
     	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $results         = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudioComplementario')
-                                        ->obtenerSolicitudesEstudioComplementarioV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudioComplementario')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
                                         
     	$isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
     	$isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
-        
+
+        $formatter = new Formatter();
+
         foreach ($results as $key => $r)
         {
             // $r = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioComplementario();
@@ -156,9 +159,7 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
             $results[$key]['solcmpl_solicitudEstudioComplementarioProyeccion']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudioComplementario($r['solcmpl_id']);
         }
         
-        $response           = new Response();
-        $response->setContent(json_encode($results));
-        return $response;
+        return $this->renderJson($results);
     }
     
     /**
@@ -190,23 +191,23 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         // $idPrcRequest = $this->get('request')->query->get('__prc');
         // $idEstPadreRequest = $this->get('request')->query->get('__est');
-//        
-        // $em = $this->getDoctrine()->getManager();
-//
-//        //validar parámetros
-//        if ($idPrcRequest || $idEstPadreRequest) {
-//            $sessionUser = $this->container->get('security.context')->getToken()->getUser();
-//            $imgFunciones = new ImagenologiaDigitalFunciones($em);
-//            $validArray = $imgFunciones->verificarCreacionPreinscripcion($idPrcRequest, $idEstPadreRequest, $sessionUser);
-//            if (!$validArray[0]) {
-//                $this->addFlash('sonata_flash_error', $imgFunciones->obtenerMensajeError($validArray[1]));
-//                return new RedirectResponse($this->admin->generateUrl('list'));
-//            }
-//        }
+       
+        $em = $this->getDoctrine()->getManager();
+
+        // validar parámetros
+        // if ($idPrcRequest || $idEstPadreRequest) {
+        //     $sessionUser = $this->container->get('security.context')->getToken()->getUser();
+        //     $imgFunciones = new ImagenologiaDigitalFunciones($em);
+        //     $validArray = $imgFunciones->verificarCreacionPreinscripcion($idPrcRequest, $idEstPadreRequest, $sessionUser);
+        //     if (!$validArray[0]) {
+        //         $this->addFlash('sonata_flash_error', $imgFunciones->obtenerMensajeError($validArray[1]));
+        //         return new RedirectResponse($this->admin->generateUrl('list'));
+        //     }
+        // }
         
         // the key used to lookup the template
         $templateKey = 'edit';
@@ -244,11 +245,11 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
         
         
         /** ***** CUSTOM CODE ***** */
-//        if ($object->getIdAtenAreaModEstab())
-//        {
-//	    $form->get('idAreaAtencion')->setData($object->getIdAtenAreaModEstab()->getIdAreaModEstab()->getIdAreaAtencion());
-//	    $form->get('idAtencion')->setData($object->getIdAtenAreaModEstab()->getIdAtencion());
-//        }
+        // if ($object->getIdAtenAreaModEstab())
+        // {
+        //     $form->get('idAreaAtencion')->setData($object->getIdAtenAreaModEstab()->getIdAreaModEstab()->getIdAreaAtencion());
+        //     $form->get('idAtencion')->setData($object->getIdAtenAreaModEstab()->getIdAtencion());
+        // }
         /** ***** END CUSTOM CODE ***** */
 
         
@@ -301,8 +302,8 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
          * local record for patient
          * **********************************************************************
          */
-	$patient        = $object->getIdEstudioPadre()->getIdExpediente() ? $object->getIdEstudioPadre()->getIdExpediente()->getIdPaciente() : null;
-	$localRecord    = $em->getRepository('MinsalSiapsBundle:MntExpediente')
+    	$patient        = $object->getIdEstudioPadre()->getIdExpediente() ? $object->getIdEstudioPadre()->getIdExpediente()->getIdPaciente() : null;
+    	$localRecord    = $em->getRepository('MinsalSiapsBundle:MntExpediente')
 						        ->findOneBy(array('idEstablecimiento' => $estabLocal->getId(),
 						                        'idPaciente' => $patient ? $patient->getId() : null
 						                    ));
@@ -331,7 +332,7 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
         // the key used to lookup the template
         $templateKey = 'edit';
@@ -397,8 +398,8 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
          * local record for patient
          * **********************************************************************
          */
-	$patient        = $object->getIdEstudioPadre()->getIdExpediente() ? $object->getIdEstudioPadre()->getIdExpediente()->getIdPaciente() : null;
-	$localRecord    = $em->getRepository('MinsalSiapsBundle:MntExpediente')
+    	$patient        = $object->getIdEstudioPadre()->getIdExpediente() ? $object->getIdEstudioPadre()->getIdExpediente()->getIdPaciente() : null;
+    	$localRecord    = $em->getRepository('MinsalSiapsBundle:MntExpediente')
 						        ->findOneBy(array('idEstablecimiento' => $estabLocal->getId(),
 						                        'idPaciente' => $patient ? $patient->getId() : null
 						                    ));
@@ -415,12 +416,12 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
     {
         $request->isXmlHttpRequest();
         
-        $id                 = $request->request->get('id');
+        $id = $request->request->get('id');
         $solEstudioCmpl     = $this->admin->getObject($id);
 
         $prioridadNv        = $request->request->get('formSolcmplEditIdPrioridadAtencion');
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //Cambio de prioridad requerida
         $prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion', $prioridadNv);
@@ -433,9 +434,7 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
             $status = 'failed';
         }
 
-        $response           = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     /**
@@ -447,10 +446,10 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
-        $id                 = $this->get('request')->get($this->admin->getIdParameter());
-        //contiene solicitud de estudio complementario anterior
-	//brinda facilidad para crear nueva solicitud a partir de anterior
-        $object             = $this->admin->getObject($id);
+        $id = $this->get('request')->get($this->admin->getIdParameter());
+        // contiene solicitud de estudio complementario anterior
+        // brinda facilidad para crear nueva solicitud a partir de anterior
+        $object = $this->admin->getObject($id);
         
         $securityContext    = $this->container->get('security.context');
         $sessionUser        = $securityContext->getToken()->getUser();

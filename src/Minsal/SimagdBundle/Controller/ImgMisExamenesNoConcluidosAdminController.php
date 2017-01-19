@@ -11,7 +11,8 @@ use Doctrine\ORM\EntityRepository;
 
 class ImgMisExamenesNoConcluidosAdminController extends Controller
 {
-    public function realizarAction() {
+    public function realizarAction()
+    {
         $id = $this->get('request')->get($this->admin->getIdParameter());
         
         $this->addFlash('sonata_flash_success', 'Registro extraido de mi lista de exámenes no concluidos.');
@@ -41,7 +42,7 @@ class ImgMisExamenesNoConcluidosAdminController extends Controller
 	$sessionUser                       = $securityContext->getToken()->getUser();
         $estabLocal                         = $sessionUser->getIdEstablecimiento();
 
-        $resultados                         = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')->obtenerPendientesRealizarPersonalV2($estabLocal->getId(), $sessionUser->getId(), $BS_FILTERS_DECODE);
+        $resultados                         = $em->getRepository('MinsalSimagdBundle:ImgPendienteRealizacion')->assignedWorkList($estabLocal->getId(), $sessionUser->getId(), $BS_FILTERS_DECODE);
         
         $isUser_allowRealizar               = ($this->admin->getRoutes()->has('realizar') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_EDIT')) ||
@@ -49,7 +50,9 @@ class ImgMisExamenesNoConcluidosAdminController extends Controller
 	$isUser_allowActualizarAlmacenado   = ($this->admin->getRoutes()->has('actualizarEstudioAlmacenado') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_EDIT')) ||
                     $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
-        
+
+        $formatter = new Formatter();
+
         foreach ($results as $key => $r)
         {
             // $r = new \Minsal\SimagdBundle\Entity\ImgPendienteRealizacion;
@@ -79,9 +82,9 @@ class ImgMisExamenesNoConcluidosAdminController extends Controller
             $resultados[$key]['allowActualizarAlmacenado']          = false !== $isUser_allowActualizarAlmacenado && 'ALM' !== $resultado['prz_codEstado'];
         }
         
-        $response   = new Response();
+        $response = new Response();
         $response->setContent(json_encode($resultados));
         return $response;
     }
-    
+
 }

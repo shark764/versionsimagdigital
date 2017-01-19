@@ -55,6 +55,8 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
 	$isUser_allowShow = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
 	$isUser_allowEdit = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
 
+        $formatter = new Formatter();
+
         foreach ($results as $key => $r)
         {
             // $r = new \Minsal\SimagdBundle\Entity\ImgCtlPreparacionEstudio();
@@ -67,9 +69,7 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
             $resultados[$key]['allowEdit'] = $isUser_allowEdit;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($resultados));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function crearIndicacionCitaAction(Request $request)
@@ -113,9 +113,7 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function editarIndicacionCitaAction(Request $request)
@@ -154,9 +152,7 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
 }

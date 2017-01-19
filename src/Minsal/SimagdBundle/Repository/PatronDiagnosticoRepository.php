@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class PatronDiagnosticoRepository extends EntityRepository
 {
-    public function obtenerPatronesDiagnosticoV2($id_estab, $bs_filters = array())
+    public function data($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('ptrDiag')
@@ -20,12 +20,12 @@ class PatronDiagnosticoRepository extends EntityRepository
                             ->addSelect('m')
                             ->addSelect('tpR')
 
-                            ->addSelect('ptrDiag.id AS id, ptrDiag.nombre AS nombre, ptrDiag.codigo as codigo, ptrDiag.habilitado as habilitado, ptrDiag.conclusion as conclusion, ptrDiag.fechaHoraReg as fecha_registro, ptrDiag.fechaHoraMod as fecha_edicion, m.nombrearea as modalidad, CASE WHEN (radX.id IS NOT NULL) THEN CONCAT(COALESCE(radX.apellido, \'\'), \', \', COALESCE(radX.nombre, \'\')) ELSE \'\' END AS radiologo, tpR.nombreTipo as tipo_resultado, CONCAT(COALESCE(empptrDiag.apellido, \'\'), \', \', COALESCE(empptrDiag.nombre, \'\')) AS empleado')
+                            ->addSelect('ptrDiag.id AS id, ptrDiag.nombre AS nombre, ptrDiag.codigo AS codigo, ptrDiag.habilitado AS habilitado, ptrDiag.conclusion AS conclusion, ptrDiag.fechaHoraReg AS fecha_registro, ptrDiag.fechaHoraMod AS fecha_edicion, m.nombrearea AS modalidad, CASE WHEN (radX.id IS NOT NULL) THEN CONCAT(COALESCE(radX.apellido, \'\'), \', \', COALESCE(radX.nombre, \'\')) ELSE \'\' END AS radiologo, tpR.nombreTipo as tipo_resultado, CONCAT(COALESCE(empptrDiag.apellido, \'\'), \', \', COALESCE(empptrDiag.nombre, \'\')) AS empleado')
 
                             ->addSelect('IDENTITY(m.idAtencion) AS m_id_atencion')
                             ->addSelect('CASE WHEN (radX.id IS NOT NULL) THEN CONCAT(COALESCE(radX.apellido, \'\'), \', \', COALESCE(radX.nombre, \'\')) ELSE \'\' END AS ptrDiag_radiologo, radX.id AS ptrDiag_id_radiologo')
-                            ->addSelect('CONCAT(COALESCE(empptrDiag.apellido, \'\'), \', \', COALESCE(empptrDiag.nombre, \'\')) AS ptrDiag_empleado, empptrDiag.id AS ptrDiag_id_empleado, tpEmp.tipo as ptrDiag_tipoEmpleado')
-                            ->addSelect('usrRg.username as ptrDiag_usernameUserReg, usrRg.id AS ptrDiag_id_userReg, usrMd.username as ptrDiag_usernameUserMod, usrMd.id AS ptrDiag_id_userMod')
+                            ->addSelect('CONCAT(COALESCE(empptrDiag.apellido, \'\'), \', \', COALESCE(empptrDiag.nombre, \'\')) AS ptrDiag_empleado, empptrDiag.id AS ptrDiag_id_empleado, tpEmp.tipo AS ptrDiag_tipoEmpleado')
+                            ->addSelect('usrRg.username AS ptrDiag_usernameUserReg, usrRg.id AS ptrDiag_id_userReg, usrMd.username AS ptrDiag_usernameUserMod, usrMd.id AS ptrDiag_id_userMod')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS ptrDiag_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS ptrDiag_nombreUserMod')
                             ->from('MinsalSimagdBundle:ImgCtlPatronDiagnostico', 'ptrDiag')
@@ -40,9 +40,9 @@ class PatronDiagnosticoRepository extends EntityRepository
                             ->leftJoin('usrMd.idEmpleado', 'usrMdEmp')
                             ->where('ptrDiag.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
-                            ->orderBy('m.id', 'asc')
-                            ->addOrderBy('radX.id', 'asc')
-                            ->addOrderBy('ptrDiag.id', 'desc')
+                            ->orderBy('m.id', 'ASC')
+                            ->addOrderBy('radX.id', 'ASC')
+                            ->addOrderBy('ptrDiag.id', 'DESC')
                             ->distinct();
 
         /*
@@ -61,7 +61,7 @@ class PatronDiagnosticoRepository extends EntityRepository
         return $query->getQuery()->getScalarResult();
     }
 
-    public function obtenerPatronesDiagnosticoUtilizablesV2($id_estab, $idAtencion = '97')
+    public function getUsableDiagnosticPatterns($id_estab, $idAtencion = '97')
     {
         /** SubQuery */
         $subQuery = $this->getEntityManager()
@@ -87,10 +87,10 @@ class PatronDiagnosticoRepository extends EntityRepository
 
         $query->andWhere($query->expr()->exists($subQuery->getDql()))
                             ->setParameter('id_est', $id_estab)
-                            ->orderBy('m.id', 'asc')
-                            ->addOrderBy('ptrDiag.nombre', 'asc')
-                            ->addOrderBy('radxPtrDiag.id', 'asc')
-                            ->addOrderBy('ptrDiag.id', 'desc')
+                            ->orderBy('m.id', 'ASC')
+                            ->addOrderBy('ptrDiag.nombre', 'ASC')
+                            ->addOrderBy('radxPtrDiag.id', 'ASC')
+                            ->addOrderBy('ptrDiag.id', 'DESC')
                             ->distinct();
 
         return $query;

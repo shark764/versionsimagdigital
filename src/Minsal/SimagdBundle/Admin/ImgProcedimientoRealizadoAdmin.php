@@ -17,7 +17,7 @@ use Doctrine\DBAL as DBAL;
 
 class ImgProcedimientoRealizadoAdmin extends Admin {
 
-    protected $baseRouteName = 'simagd_realizado';
+    protected $baseRouteName    = 'simagd_realizado';
     protected $baseRoutePattern = 'rayos-x-examenes-realizados';
     private $status_exp = 0; /* Variable para difenciar si el establecimiento es local o remoto */
     private $expedienteV; /* guarda el objeto expediente */
@@ -25,11 +25,11 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('delete');
-        $collection->add('agregarPendiente', null, [], [], ['expose' => true]);
-        $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
+        // $collection->remove('delete');
+        $collection->add('addPendingToWorkList', null, [], [], ['expose' => true]);
+        // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
         $collection->add('obtenerEstudioRealizado', null, [], [], ['expose' => true]);
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
@@ -38,20 +38,6 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
         $collection->add('actualizarEstudioAlmacenado', null, [], [], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
-    }
-
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
 
     /**
@@ -270,13 +256,6 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
                 ->end()
             // ->end()
         ;
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
     }
 
     public function prePersist($realizado)
@@ -630,7 +609,7 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
         $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
 
  	/* Buscar conexion del PACS registrado en el establecimiento */
-        $entities = $em->getRepository('MinsalSimagdBundle:ImgCtlPacsEstablecimiento')->obtenerDatosConexion($estabLocal->getId());
+        $entities = $em->getRepository('MinsalSimagdBundle:ImgCtlPacsEstablecimiento')->getConnectionData($estabLocal->getId());
 
 
         /* Pregunta si el procedimiento realizado se ha cambiado a almacenado
@@ -866,7 +845,8 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
         return $expRef->getNumero();
     }
 
-    public function getNewInstance() {
+    public function getNewInstance()
+    {
         $instance = parent::getNewInstance();
 
         $securityContext = $this->getConfigurationPool()->getContainer()->get('security.context');
@@ -933,7 +913,8 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
         return $instance;
     }
 
-    public function createQuery($context = 'list') {
+    public function createQuery($context = 'list')
+    {
         $query = parent::createQuery($context);
 
         $estabLocal = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()
@@ -946,7 +927,8 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
         return $query;
     }
 
-    public function getTemplate($name) {
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'edit':
                 return 'MinsalSimagdBundle:ImgProcedimientoRealizadoAdmin:prz_edit.html.twig';

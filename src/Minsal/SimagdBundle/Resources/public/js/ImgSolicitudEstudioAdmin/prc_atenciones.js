@@ -40,7 +40,7 @@ jQuery(document).ready(function() {
                     /*
                      * enable options that matching data
                      */
-                    $.each(data.resultados, function(i, r) {
+                    $.each(data.results, function(i, r) {
                         $fieldAtencion.find('option[value=' + this.value + ']').prop('disabled', false);
 			if (jQuery.isEmptyObject(field_atn_val) === false && parseInt(field_atn_val, 10) === this.value)
 			{

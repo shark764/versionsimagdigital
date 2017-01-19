@@ -34,7 +34,7 @@ window.pendienteRealizar_actionEvents = {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: Routing.generate('simagd_realizado_agregarPendiente'),
+            url: Routing.generate('simagd_realizado_addPendingToWorkList'),
             data: {
 		__prc: row.prc_id,
 		__cit: row.cit_id,

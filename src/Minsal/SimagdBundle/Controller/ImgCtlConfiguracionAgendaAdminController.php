@@ -120,24 +120,5 @@ class ImgCtlConfiguracionAgendaAdminController extends Controller
         
         return parent::listAction();
     }
-    
-    public function getObjectVarsAsArrayAction(Request $request)
-    {
-        $request->isXmlHttpRequest();
-	
-        //Get parameter from object
-        $id = $request->request->get('id');
-        
-        //Objeto
-        $object = $this->admin->getObject($id);
-        
-        $response = new Response();
-        $response->setContent(json_encode(
-                array('id' => $object->getId(),
-                        'object' => $object->getObjectVarsAsArray()
-                        // 'url' => $this->admin->generateUrl('show', array('id' => $object->getId()))
-                )));
-        return $response;
-    }
 
 }

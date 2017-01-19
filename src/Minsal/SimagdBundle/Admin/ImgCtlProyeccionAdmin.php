@@ -17,21 +17,21 @@ use Minsal\SiapsBundle\Entity\MntAreaExamenEstablecimiento;
 
 class ImgCtlProyeccionAdmin extends Admin
 {
-    protected $baseRouteName = 'simagd_proyeccion';            //SUSTITUIR METODO GET NEW INSTANCE CON EL ESTABLECIMIENTO YA SETEADO
+    protected $baseRouteName    = 'simagd_proyeccion';            //SUSTITUIR METODO GET NEW INSTANCE CON EL ESTABLECIMIENTO YA SETEADO
     protected $baseRoutePattern = 'rayos-x-proyecciones';
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('delete');
+        // $collection->remove('delete');
         $collection->add('agregarEnMiCatalogo', null, [], [], ['expose' => true]);
         $collection->add('obtenerModalidades', null, [], [], ['expose' => true]);
         $collection->add('crearProyeccion', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarProyeccion', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
-        $collection->add('asignarElementoListaLocal', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('addToLocalCatalogue', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
@@ -48,13 +48,6 @@ class ImgCtlProyeccionAdmin extends Admin
             ->add('tiempoOcupacionSala', null, array('label' => 'Tiempo en sala ( min )'))
             ->add('tiempoMedico', null, array('label' => 'Tiempo de médico  ( min )'))
         ;
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
 
     /**
@@ -189,13 +182,6 @@ class ImgCtlProyeccionAdmin extends Admin
         }
     }
 
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
-
     public function prePersist($proyeccion) {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $proyeccion->setIdUserReg($user);
@@ -312,7 +298,8 @@ class ImgCtlProyeccionAdmin extends Admin
 //        }
     }
 
-    public function getTemplate($name) {
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'edit':
                 return 'MinsalSimagdBundle:ImgCtlProyeccionAdmin:expl_edit.html.twig';
@@ -328,4 +315,5 @@ class ImgCtlProyeccionAdmin extends Admin
                 break;
         }
     }
+
 }

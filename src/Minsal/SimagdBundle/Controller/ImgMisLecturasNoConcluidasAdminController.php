@@ -11,7 +11,8 @@ use Doctrine\ORM\EntityRepository;
 
 class ImgMisLecturasNoConcluidasAdminController extends Controller
 {
-    public function leerAction() {
+    public function leerAction()
+    {
         $id = $this->get('request')->get($this->admin->getIdParameter());
         
         $this->addFlash('sonata_flash_success', 'Registro extraido de mi lista de estudios no leidos.');
@@ -35,17 +36,19 @@ class ImgMisLecturasNoConcluidasAdminController extends Controller
         $BS_FILTERS             = $this->get('request')->query->get('filters');
         $BS_FILTERS_DECODE      = json_decode($BS_FILTERS, true);
         
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext 	= $this->container->get('security.context');
         $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
-        $resultados = $em->getRepository('MinsalSimagdBundle:ImgLectura')->obtenerPendientesLecturaPersonalV2($estabLocal->getId(), $sessionUser->getId(), $BS_FILTERS_DECODE);
+        $resultados = $em->getRepository('MinsalSimagdBundle:ImgPendienteLectura')->assignedWorkList($estabLocal->getId(), $sessionUser->getId(), $BS_FILTERS_DECODE);
 
         $isUser_allowInterpretar = ($this->admin->getRoutes()->has('leer') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_EDIT')) ||
                     $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
+
+        $formatter = new Formatter();
 
         foreach ($results as $key => $r)
         {
@@ -68,9 +71,7 @@ class ImgMisLecturasNoConcluidasAdminController extends Controller
             $resultados[$key]['allowInterpretar'] = $isUser_allowInterpretar;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($resultados));
-        return $response;
+        return $this->renderJson($results);
     }
-    
+
 }

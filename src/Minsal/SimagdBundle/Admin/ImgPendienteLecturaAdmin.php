@@ -13,7 +13,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 
 class ImgPendienteLecturaAdmin extends Admin
 {
-    protected $baseRouteName = 'simagd_sin_lectura';
+    protected $baseRouteName    = 'simagd_sin_lectura';
     protected $baseRoutePattern = 'rayos-x-sin-lectura';
     
     protected function configureRoutes(RouteCollection $collection)
@@ -21,7 +21,7 @@ class ImgPendienteLecturaAdmin extends Admin
         $collection->add('create', 'crear');
         $collection->add('edit', 'editar');
         $collection->add('list', 'lista');
-        $collection->clearExcept(array('list'));
+        // $collection->clearExcept(array('list'));
         $collection->add('leer');
         $collection->add('registrarEnMiLista', null, [], [], ['expose' => true]);
         $collection->add('addToUndiagnosedStudiesList', null, [], ['_method' => 'POST'], ['expose' => true]);
@@ -29,36 +29,9 @@ class ImgPendienteLecturaAdmin extends Admin
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
-    
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
 
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
+    public function createQuery($context = 'list')
     {
-    }
-
-    /**
-     * @param FormMapper $formMapper
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
-    
-    public function createQuery($context = 'list') {
         $query = parent::createQuery($context);
         
         /** SubQuery */
@@ -83,7 +56,8 @@ class ImgPendienteLecturaAdmin extends Admin
         return $query;
     }
 
-    public function getTemplate($name) {
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'list':
                 return 'MinsalSimagdBundle:ImgPendienteLecturaAdmin:pndL_list_v2.html.twig';
@@ -101,8 +75,9 @@ class ImgPendienteLecturaAdmin extends Admin
     public function preUpdate($pndLectura) {
         $pndLectura->setFechaIngresoLista(new \DateTime('now'));
     }
-    
-    public function getNewInstance() {
+
+    public function getNewInstance()
+    {
         $instance = parent::getNewInstance();
         
         $securityContext = $this->getConfigurationPool()->getContainer()->get('security.context');
@@ -137,5 +112,5 @@ class ImgPendienteLecturaAdmin extends Admin
         
         return $instance;
     }
-    
+
 }

@@ -72,7 +72,8 @@ class GeneracionReporteImagenologiaAdminController extends Controller
      * 
      * @return type
      */
-    public function generarReporteImagenologicoAction()  {
+    public function generarReporteImagenologicoAction()
+    {
         /** Captura de parámetros generales */
         $report_format = $this->get('request')->query->get('report_format');
         $report_selector = $this->get('request')->query->get('report_selector');
@@ -224,4 +225,5 @@ class GeneracionReporteImagenologiaAdminController extends Controller
 //        var_dump($report_params);
         return $jasperReport->buildReport();
     }
+
 }

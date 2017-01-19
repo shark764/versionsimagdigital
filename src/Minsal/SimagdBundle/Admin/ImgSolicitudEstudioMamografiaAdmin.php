@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class ImgSolicitudEstudioMamografiaAdmin extends Admin
 {
-    protected $baseRouteName = 'simagd_solicitud_estudio_mamografia';
+    protected $baseRouteName    = 'simagd_solicitud_estudio_mamografia';
     protected $baseRoutePattern = 'rayos-x-solicitud-estudio-mamografia';
     
     /**
