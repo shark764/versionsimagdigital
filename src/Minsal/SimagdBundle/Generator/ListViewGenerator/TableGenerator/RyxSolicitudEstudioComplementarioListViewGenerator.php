@@ -148,7 +148,7 @@ class RyxSolicitudEstudioComplementarioListViewGenerator extends RyxEntityListVi
                         'field' => 'triage',
                         'sortable' => true,
                         'title' => /*'<span class="glyphicon glyphicon-tag"></span>'*/ 'TRIAGE',
-                        'class' => 'bstable-column-highlighted',
+                        'class' => 'bstable-column-emergency',
                         // 'visible' => false,
                         // 'switchable' => false,
                     ),
