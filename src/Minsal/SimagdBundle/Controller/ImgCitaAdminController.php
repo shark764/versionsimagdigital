@@ -131,7 +131,7 @@ class ImgCitaAdminController extends Controller
                 'modality'      => intval($idAreaServicioDiagnostico),
                 'technologist'  => $idTecnologo,
             );
-            
+
             $results = $em->getRepository('MinsalSimagdBundle:ImgCita')->events($p);
 
             foreach ($results as $k => $r)
@@ -207,32 +207,33 @@ class ImgCitaAdminController extends Controller
         $results[]                           = $falseEvent;
 
         /* Agregar bloqueos */
-        // $results     = $this->addCalendarLocks($estabLocal, $start, $end, $results, $idAreaServicioDiagnostico, $idTecnologo);
-        $this->addCalendarLocks($estabLocal, $start, $end, $results, $idAreaServicioDiagnostico, $idTecnologo);
+        $results     = $this->addCalendarLocks($estabLocal, $start, $end, $results, $idAreaServicioDiagnostico, $idTecnologo);
+        // $this->addCalendarLocks($estabLocal, $start, $end, $results, $idAreaServicioDiagnostico, $idTecnologo);
 
         return $this->renderJson($results);
     }
 
-    public function addCalendarLocks($idEstablecimiento, $start, $end, $eventos = array(), $idAreaServicioDiagnostico = null, $idTecnologo = null)
+    public function addCalendarLocks($idEstablecimiento, $start, $end, $results = array(), $idAreaServicioDiagnostico = null, $idTecnologo = null)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')
+        $events = $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')
                                 ->getCalendarLocks($idEstablecimiento, $start, $end, $idAreaServicioDiagnostico, $idTecnologo);
+        // var_dump($events);
 
-        foreach ($results as $key => $r)
+        foreach ($events as $key => $r)
         {
-            // $results[$key]['overlap']                    = false;
+            // $events[$key]['overlap']                    = false;
 
-            $results[$key]['blAgd_fechaCreacion']        = $r['blAgd_fechaCreacion']->format('Y-m-d H:i:s A');
-            $results[$key]['blAgd_fechaUltimaEdicion']   = $r['blAgd_fechaUltimaEdicion'] ? $r['blAgd_fechaUltimaEdicion']->format('Y-m-d H:i:s A') : '';
+            $events[$key]['blAgd_fechaCreacion']        = $r['blAgd_fechaCreacion']->format('Y-m-d H:i:s A');
+            $events[$key]['blAgd_fechaUltimaEdicion']   = $r['blAgd_fechaUltimaEdicion'] ? $r['blAgd_fechaUltimaEdicion']->format('Y-m-d H:i:s A') : '';
 
-            $results[$key]['blAgd_fechaInicio']          = $r['blAgd_fechaInicio']->format('Y-m-d');
-            $results[$key]['blAgd_fechaFin']             = $r['blAgd_fechaFin']->format('Y-m-d');
-            $results[$key]['blAgd_horaInicio']           = $r['blAgd_horaInicio']->format('H:i:s A');
-            $results[$key]['blAgd_horaFin']              = $r['blAgd_horaFin']->format('H:i:s A');
+            $events[$key]['blAgd_fechaInicio']          = $r['blAgd_fechaInicio']->format('Y-m-d');
+            $events[$key]['blAgd_fechaFin']             = $r['blAgd_fechaFin']->format('Y-m-d');
+            $events[$key]['blAgd_horaInicio']           = $r['blAgd_horaInicio']->format('H:i:s A');
+            $events[$key]['blAgd_horaFin']              = $r['blAgd_horaFin']->format('H:i:s A');
 
-            $results[$key]['blAgd_bloqueoExclusionesBloqueo']	= $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')->obtenerExclusionesBloqueo($r['blAgd_id']);
+            $events[$key]['blAgd_bloqueoExclusionesBloqueo']	= $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')->obtenerExclusionesBloqueo($r['blAgd_id']);
 
             $iv     = $r['blAgd_fechaInicio']->diff($r['blAgd_fechaFin'])->days;
             $i      = 0;
@@ -243,12 +244,12 @@ class ImgCitaAdminController extends Controller
 
                 $ini                        = \DateTime::createFromFormat('Y-m-d H:i',
                                                     $cloneIni->add(new DateInterval('P' . $i . 'D'))->format('Y-m-d') . ' ' . $r['blAgd_horaInicio']->format('H:i'));
-                $results[$key]['start']  = $ini->format('Y-m-d\TH:i:s');
+                $events[$key]['start']  = $ini->format('Y-m-d\TH:i:s');
 
                 $fin                        = \DateTime::createFromFormat('Y-m-d H:i',
                                                     $cloneIni->format('Y-m-d') . ' ' . $r['blAgd_horaFin']->format('H:i'));
-                $results[$key]['end']    = $fin->format('Y-m-d\TH:i:s');
-                $eventos[]                  = $results[$key];
+                $events[$key]['end']    = $fin->format('Y-m-d\TH:i:s');
+                $results[]                  = $events[$key];
 
                 $i++;
             }
@@ -264,9 +265,9 @@ class ImgCitaAdminController extends Controller
         $falseEvent['rendering']    = 'background';
         $falseEvent['start']        = (new \DateTime('now'))->format('Y-m-d\TH:i:s');
         $falseEvent['end']          = (new \DateTime('now'))->format('Y-m-d\TH:i:s');
-        $eventos[]                  = $falseEvent;
+        $results[]                  = $falseEvent;
 
-        return $eventos;
+        return $results;
     }
 
 

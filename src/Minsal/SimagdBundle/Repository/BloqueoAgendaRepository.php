@@ -38,13 +38,13 @@ class BloqueoAgendaRepository extends EntityRepository
                             ->where('blAgd.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab);
         
-        if ($start && $end)
-        {
-            $query->andWhere('blAgd.fechaInicio >= :cal_start_date')
-                            ->andWhere('blAgd.fechaFin <= :cal_end_date')
-                            ->setParameter('cal_start_date', \DateTime::createFromFormat('Y-m-d', $start)->setTime(0, 0))
-                            ->setParameter('cal_end_date', \DateTime::createFromFormat('Y-m-d', $end)->setTime(0, 0));
-        }
+        // if ($start && $end)
+        // {
+        //     $query->andWhere('blAgd.fechaInicio >= :cal_start_date')
+        //                     ->andWhere('blAgd.fechaFin <= :cal_end_date')
+        //                     ->setParameter('cal_start_date', \DateTime::createFromFormat('Y-m-d', $start)->setTime(0, 0))
+        //                     ->setParameter('cal_end_date', \DateTime::createFromFormat('Y-m-d', $end)->setTime(0, 0));
+        // }
         
         $query->andWhere($query->expr()->orx(
                                 $query->expr()->eq('blAgd.idAreaServicioDiagnostico', ':id_mod'),

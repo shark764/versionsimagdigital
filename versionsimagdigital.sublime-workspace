@@ -33,7 +33,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/ImgCitaAdminController.php",
 			"settings":
 			{
-				"buffer_size": 48989,
+				"buffer_size": 49020,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -42,7 +42,8 @@
 			"file": "src/Minsal/SimagdBundle/Repository/BloqueoAgendaRepository.php",
 			"settings":
 			{
-				"buffer_size": 8163,
+				"buffer_size": 8135,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		}
@@ -255,6 +256,10 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"FosUserUser",
+			"CtlEstablecimiento",
+			"MntEmpleado",
+			"CtlAreaServicioDiagnostico",
 			"$results     = $em->getRepository(",
 			"getEvents",
 			"\n\n    /**\n     * @param ShowMapper $showMapper\n     */\n    protected function configureShowFields(ShowMapper $showMapper)\n    {\n    }",
@@ -378,8 +383,7 @@
 			"\n        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);\n    }",
 			"listarCitasProgramadas",
 			"RyxSolicitudEstudio",
-			"\n            array_push($this->columns,\n                    array(\n                        'field' => 'detail',\n                        'title' => 'VISTA EN DETALLE &nbsp; <span class=\"glyphicon glyphicon-collapse-down\"></span>',\n                        'switchable' => false,\n                        'align' => 'center',\n                        'halign' => 'left',\n                        // 'formatter' => '__fnc_worklistDetailFormatter',\n                        'events' => 'operateEvents',\n                    ),\n                    array(\n                        'field' => 'id',\n                        'sortable' => true,\n                        'title' => 'ID',\n                        'visible' => false,\n                        'switchable' => false,\n                    )\n            );",
-			"\n            array_push($this->columns,\n                    array(\n                        'field' => 'detail',\n                        'title' => 'VISTA EN DETALLE &nbsp; <span class=\"glyphicon glyphicon-collapse-down\"></span>',\n                        'switchable' => false,\n                        'align' => 'center',\n                        'halign' => 'left',\n                        // 'formatter' => '__fnc_worklistDetailFormatter',\n                        'events' => 'operateEvents',\n                    )\n            );"
+			"\n            array_push($this->columns,\n                    array(\n                        'field' => 'detail',\n                        'title' => 'VISTA EN DETALLE &nbsp; <span class=\"glyphicon glyphicon-collapse-down\"></span>',\n                        'switchable' => false,\n                        'align' => 'center',\n                        'halign' => 'left',\n                        // 'formatter' => '__fnc_worklistDetailFormatter',\n                        'events' => 'operateEvents',\n                    ),\n                    array(\n                        'field' => 'id',\n                        'sortable' => true,\n                        'title' => 'ID',\n                        'visible' => false,\n                        'switchable' => false,\n                    )\n            );"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -387,6 +391,10 @@
 		"regex": false,
 		"replace_history":
 		[
+			"Application\\Sonata\\UserBundle\\Entity\\User",
+			"Minsal\\SiapsBundle\\Entity\\CtlEstablecimiento",
+			"Minsal\\SiapsBundle\\Entity\\MntEmpleado",
+			"Minsal\\SiapsBundle\\Entity\\CtlAreaServicioDiagnostico",
 			"$results = $em->getRepository(",
 			"",
 			"protected $baseRouteName    = '",
@@ -541,7 +549,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 624.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -553,15 +561,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 48989,
+						"buffer_size": 49020,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10852,
-								10852
+								11404,
+								11404
 							]
 						],
 						"settings":
@@ -571,7 +579,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2496.0,
+						"translation.y": 2691.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -583,15 +591,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8163,
+						"buffer_size": 8135,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1214,
-								1214
+								2366,
+								2366
 							]
 						],
 						"settings":
@@ -601,7 +609,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 117.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -649,7 +657,7 @@
 	"project": "versionsimagdigital.sublime-project",
 	"replace":
 	{
-		"height": 78.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
