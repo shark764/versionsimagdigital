@@ -33,7 +33,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/ImgCitaAdminController.php",
 			"settings":
 			{
-				"buffer_size": 49020,
+				"buffer_size": 48994,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -42,7 +42,7 @@
 			"file": "src/Minsal/SimagdBundle/Repository/BloqueoAgendaRepository.php",
 			"settings":
 			{
-				"buffer_size": 8135,
+				"buffer_size": 8156,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -256,6 +256,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"\"blAgd_id\"",
+			"blAgd_id",
 			"FosUserUser",
 			"CtlEstablecimiento",
 			"MntEmpleado",
@@ -381,9 +383,7 @@
 			"addToWorkList",
 			"\n        $collection->add('generateData', null, [], [], ['expose' => true]);\n        $collection",
 			"\n        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);\n    }",
-			"listarCitasProgramadas",
-			"RyxSolicitudEstudio",
-			"\n            array_push($this->columns,\n                    array(\n                        'field' => 'detail',\n                        'title' => 'VISTA EN DETALLE &nbsp; <span class=\"glyphicon glyphicon-collapse-down\"></span>',\n                        'switchable' => false,\n                        'align' => 'center',\n                        'halign' => 'left',\n                        // 'formatter' => '__fnc_worklistDetailFormatter',\n                        'events' => 'operateEvents',\n                    ),\n                    array(\n                        'field' => 'id',\n                        'sortable' => true,\n                        'title' => 'ID',\n                        'visible' => false,\n                        'switchable' => false,\n                    )\n            );"
+			"listarCitasProgramadas"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -492,7 +492,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -549,10 +549,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 624.0,
+						"translation.y": 52.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -561,15 +561,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 49020,
+						"buffer_size": 48994,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11404,
-								11404
+								10753,
+								10753
 							]
 						],
 						"settings":
@@ -579,7 +579,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2691.0,
+						"translation.y": 2655.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -591,15 +591,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8135,
+						"buffer_size": 8156,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2366,
-								2366
+								3376,
+								3376
 							]
 						],
 						"settings":
@@ -609,10 +609,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 117.0,
+						"translation.y": 195.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
