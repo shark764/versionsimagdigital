@@ -29,7 +29,8 @@ class ImgCtlFormaContacto
      */
     private $nombre = 'Teléfono Casa';
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->nombre ? $this->nombre : '';
     }
 

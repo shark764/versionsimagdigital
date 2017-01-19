@@ -147,7 +147,8 @@ class ImgCtlPacsEstablecimiento
     private $idUserReg;
 
 
-    public function __toString() {
+    public function __toString()
+    {
         return 'Conexión PACS: ' . $this->nombreConexion . ' : ' . $this->ip ;
     }
 

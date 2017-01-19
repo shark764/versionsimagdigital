@@ -152,7 +152,8 @@ class ImgEstudioPaciente
 
 
 
-    public function __toString() {
+    public function __toString()
+    {
         if ($this->idProcedimientoRealizado->getEsComplementario())
         {
             return 'Estudio de: ' . $this->idProcedimientoRealizado->getIdSolicitudEstudioComplementario()->getIdAreaServicioDiagnostico();

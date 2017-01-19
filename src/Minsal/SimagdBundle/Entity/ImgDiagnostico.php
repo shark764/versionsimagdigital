@@ -175,7 +175,8 @@ class ImgDiagnostico
     private $diagnosticoPendienteValidar;
 
 
-    public function __toString() {
+    public function __toString()
+    {
         return 'Transcripción de: ' . $this->idLectura . ' :: ' . $this->idEstadoDiagnostico;
     }
 

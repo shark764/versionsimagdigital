@@ -98,7 +98,8 @@ class ImgCtlMaterialEstablecimiento
     private $idUserReg;
 
 
-    public function __toString() {
+    public function __toString()
+    {
         return '' . $this->getIdMaterial();
     }
 

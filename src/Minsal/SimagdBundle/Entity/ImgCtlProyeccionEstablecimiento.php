@@ -90,7 +90,8 @@ class ImgCtlProyeccionEstablecimiento
      */
     private $idUserReg;
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->idProyeccion . ' :: ' . $this->idAreaExamenEstab;
     }
 

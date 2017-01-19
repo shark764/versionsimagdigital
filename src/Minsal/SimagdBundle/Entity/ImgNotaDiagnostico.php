@@ -93,7 +93,8 @@ class ImgNotaDiagnostico
      */
     private $idUserReg;
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->idDiagnostico . ' :: ' . $this->idTipoNotaDiagnostico;
     }
 

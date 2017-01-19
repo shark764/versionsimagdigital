@@ -93,6 +93,13 @@ class ImgBloqueoAgenda
     private $fechaUltimaEdicion;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="superposicion", type="boolean", nullable=true)
+     */
+    private $superposicion = false;
+
+    /**
      * @var \Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico
      *
      * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico")
@@ -158,12 +165,10 @@ class ImgBloqueoAgenda
      */
     private $bloqueoExclusionesBloqueo;
 
-
-
-    public function __toString() {
+    public function __toString()
+    {
         return $this->titulo;
     }
-
 
     /**
      * Constructor
@@ -411,6 +416,29 @@ class ImgBloqueoAgenda
     public function getFechaUltimaEdicion()
     {
         return $this->fechaUltimaEdicion;
+    }
+
+    /**
+     * Set superposicion
+     *
+     * @param boolean $superposicion
+     * @return ImgBloqueoAgenda
+     */
+    public function setSuperposicion($superposicion)
+    {
+        $this->superposicion = $superposicion;
+
+        return $this;
+    }
+
+    /**
+     * Get superposicion
+     *
+     * @return boolean 
+     */
+    public function getSuperposicion()
+    {
+        return $this->superposicion;
     }
 
     /**

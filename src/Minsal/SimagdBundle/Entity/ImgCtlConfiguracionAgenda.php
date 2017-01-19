@@ -80,7 +80,8 @@ class ImgCtlConfiguracionAgenda
      */
     private $idUserReg;
 
-    public function __toString() {
+    public function __toString()
+    {
         return 'Parámetros de: ' . $this->idAreaExamenEstab;
     }
 

@@ -51,7 +51,8 @@ class ImgCtlCampoAutocomplementar
     private $nombreCampo = 'datos_clinicos';
     
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getNombre();
     }
 

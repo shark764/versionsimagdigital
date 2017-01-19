@@ -51,7 +51,8 @@ class ImgCtlEstadoSolicitud
     private $porcentajeAvance = '0';
 
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->nombreEstado ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombreEstado), 'utf-8') : '';
     }
 
