@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Minsal\SimagdBundle\Entity\ImgDiagnostico;
 
-class ImgLecturaAdmin extends Admin
+class ImgLecturaAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_lectura';
     protected $baseRoutePattern = 'rayos-x-lectura';
@@ -26,9 +26,6 @@ class ImgLecturaAdmin extends Admin
         // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
         // $collection->add('proximaConsulta', null, [], [], ['expose' => true]);
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }

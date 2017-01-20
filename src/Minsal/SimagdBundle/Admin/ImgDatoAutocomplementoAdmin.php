@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ImgDatoAutocomplementoAdmin extends Admin
+class ImgDatoAutocomplementoAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_dato_autocomplemento';            //SUSTITUIR METODO GET NEW INSTANCE CON EL ESTABLECIMIENTO YA SETEADO
     protected $baseRoutePattern = 'rayos-x-dato-autocomplemento';
@@ -21,9 +21,6 @@ class ImgDatoAutocomplementoAdmin extends Admin
     {
         // $collection->remove('delete');
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
     }
 
 }

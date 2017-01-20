@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class ImgCtlConfiguracionAgendaAdmin extends Admin
+class ImgCtlConfiguracionAgendaAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_configuracion_agenda';
     protected $baseRoutePattern = 'rayos-x-configuracion-agenda';
@@ -20,9 +20,6 @@ class ImgCtlConfiguracionAgendaAdmin extends Admin
     {
         // $collection->remove('delete');
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
     }
 
     /**

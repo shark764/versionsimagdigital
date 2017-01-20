@@ -44,7 +44,7 @@ class ImgNotaDiagnosticoAdminController extends MinsalSimagdBundleGeneralAdminCo
             'result'    => 'ok',
             'options'   => $options
         ));
-    }Application\Sonata\UserBundle\Entity\User
+    }
     
     public function mostrarInformacionModalAction($idDiagnosticoPadre, $id)
     {

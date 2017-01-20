@@ -61,7 +61,7 @@ class ImgDiagnosticoAdminController extends MinsalSimagdBundleGeneralAdminContro
         $this->addFlash('sonata_flash_info', 'Agregue una nota al diagnóstico');
 
         return $this->redirect($this->generateUrl('simagd_nota_create', array('diagnostico' => $id)));
-    }Application\Sonata\UserBundle\Entity\User
+    }
     
     public function addPendingToWorkListAction()
     {

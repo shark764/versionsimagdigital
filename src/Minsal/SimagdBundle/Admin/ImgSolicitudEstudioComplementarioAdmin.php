@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ImgSolicitudEstudioComplementarioAdmin extends Admin
+class ImgSolicitudEstudioComplementarioAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_solicitud_estudio_complementario';
     protected $baseRoutePattern = 'rayos-x-solicitud-estudio-complementario';
@@ -23,10 +23,6 @@ class ImgSolicitudEstudioComplementarioAdmin extends Admin
         // $collection->remove('delete');
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('cambiarPrioridadAtencionSolicitud', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
-        $collection->add('show', 'consultar', [], [], ['expose' => true]);
         $collection->add('crearSolicitudEstudioComplementarioFastFormat', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarSolicitudEstudioComplementarioFastFormat', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);

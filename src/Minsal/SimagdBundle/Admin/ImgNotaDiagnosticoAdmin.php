@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class ImgNotaDiagnosticoAdmin extends Admin
+class ImgNotaDiagnosticoAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_nota';
     protected $baseRoutePattern = 'rayos-x-nota';
@@ -23,9 +23,6 @@ class ImgNotaDiagnosticoAdmin extends Admin
         $collection->add('crearNota', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarNota', null, [], ['_method' => 'POST'], ['expose' => true]);
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }

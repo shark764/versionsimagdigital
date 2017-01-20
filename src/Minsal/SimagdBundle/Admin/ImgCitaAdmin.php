@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ImgCitaAdmin extends Admin
+class ImgCitaAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_cita';
     protected $baseRoutePattern = 'rayos-x-citas';

@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ImgCtlPreparacionEstudioAdmin extends Admin
+class ImgCtlPreparacionEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_preparacion_estudio';
     protected $baseRoutePattern = 'rayos-x-preparacion-estudio';
@@ -24,9 +24,6 @@ class ImgCtlPreparacionEstudioAdmin extends Admin
         $collection->add('crearIndicacionCita', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarIndicacionCita', null, [], ['_method' => 'POST'], ['expose' => true]);
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
     }
 
     public function prePersist($indicacionesCita)

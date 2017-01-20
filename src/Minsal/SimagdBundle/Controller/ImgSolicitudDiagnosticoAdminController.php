@@ -98,7 +98,7 @@ class ImgSolicitudDiagnosticoAdminController extends MinsalSimagdBundleGeneralAd
         }
         
         return parent::createAction();
-    }Application\Sonata\UserBundle\Entity\User
+    }
     
     public function mostrarInformacionModalAction($idSolicitudEstudioPadre, $idEstudioPadre, $id)
     {

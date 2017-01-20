@@ -125,10 +125,11 @@ class MinsalSimagdBundleGeneralAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         // $collection->remove('delete');
-        $collection->add('delete', 'borrar');
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'listar');
+        $collection->add('delete', 'borrar', [], [], ['expose' => true]);
+        $collection->add('create', 'crear', [], [], ['expose' => true]);
+        $collection->add('edit', 'editar', [], [], ['expose' => true]);
+        $collection->add('list', 'listar', [], [], ['expose' => true]);
+        $collection->add('show', 'consultar', [], [], ['expose' => true]);
     }
     
     public function getTemplate($name)

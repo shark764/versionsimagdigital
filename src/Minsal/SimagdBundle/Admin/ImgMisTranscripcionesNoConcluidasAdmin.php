@@ -11,16 +11,13 @@ use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class ImgMisTranscripcionesNoConcluidasAdmin extends Admin
+class ImgMisTranscripcionesNoConcluidasAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_mi_lista_sin_transcribir';
     protected $baseRoutePattern = 'rayos-x-mi-lista-sin-transcribir';
     
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
         // $collection->clearExcept(array('list'));
         $collection->add('transcribir');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);

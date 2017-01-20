@@ -44,16 +44,6 @@ class ImgCtlMaterialAdminController extends MinsalSimagdBundleGeneralAdminContro
             'result'    => 'ok',
             'options'   => $options
         ));
-    }Application\Sonata\UserBundle\Entity\User
-
-    public function createAction()
-    {
-        // Acceso denegado
-        if (false === $this->admin->isGranted('CREATE')) {
-            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
-        }
-
-        return parent::createAction();
     }
 
     public function editAction($id = null)

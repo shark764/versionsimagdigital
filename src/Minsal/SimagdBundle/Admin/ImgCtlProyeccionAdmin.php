@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Minsal\SimagdBundle\Entity\ImgCtlProyeccionEstablecimiento;
 use Minsal\SiapsBundle\Entity\MntAreaExamenEstablecimiento;
 
-class ImgCtlProyeccionAdmin extends Admin
+class ImgCtlProyeccionAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_proyeccion';            //SUSTITUIR METODO GET NEW INSTANCE CON EL ESTABLECIMIENTO YA SETEADO
     protected $baseRoutePattern = 'rayos-x-proyecciones';
@@ -28,9 +28,6 @@ class ImgCtlProyeccionAdmin extends Admin
         $collection->add('crearProyeccion', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarProyeccion', null, [], ['_method' => 'POST'], ['expose' => true]);
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
         $collection->add('addToLocalCatalogue', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);

@@ -297,7 +297,7 @@ class ImgCitaAdminController extends MinsalSimagdBundleGeneralAdminController
                                     $preinscripcionPadre ? $preinscripcionPadre->getFechaProximaConsulta() : null);
 
         return $this->render('MinsalSimagdBundle:ImgCitaAdmin:cit_espacios_reservados.html.twig', array('reservasCita' => $reservas, 'paramCitacion' => $paramCitacion));
-    }Application\Sonata\UserBundle\Entity\User
+    }
 
     public function confirmarCitaAction(Request $request)
     {

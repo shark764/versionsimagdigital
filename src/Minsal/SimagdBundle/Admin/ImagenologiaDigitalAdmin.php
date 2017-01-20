@@ -9,7 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class ImagenologiaDigitalAdmin extends Admin
+class ImagenologiaDigitalAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_imagenologia_digital';
     protected $baseRoutePattern = 'rayos-x-imagenologia-digital';

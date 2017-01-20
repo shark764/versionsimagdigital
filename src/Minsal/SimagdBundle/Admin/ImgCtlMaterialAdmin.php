@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Minsal\SimagdBundle\Entity\ImgCtlMaterialEstablecimiento;
 
-class ImgCtlMaterialAdmin extends Admin
+class ImgCtlMaterialAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_material';            //SUSTITUIR METODO GET NEW INSTANCE CON EL ESTABLECIMIENTO YA SETEADO
     protected $baseRoutePattern = 'rayos-x-material';
@@ -26,9 +26,6 @@ class ImgCtlMaterialAdmin extends Admin
         $collection->add('crearMaterial', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarMaterial', null, [], ['_method' => 'POST'], ['expose' => true]);
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }

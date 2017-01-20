@@ -9,7 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Doctrine\ORM\EntityRepository;
 
-class ImgMaterialUtilizadoAdmin extends Admin
+class ImgMaterialUtilizadoAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_material_utilizado';
     protected $baseRoutePattern = 'rayos-x-material-utilizado';

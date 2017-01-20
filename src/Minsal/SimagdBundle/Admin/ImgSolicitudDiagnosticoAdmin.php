@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ImgSolicitudDiagnosticoAdmin extends Admin
+class ImgSolicitudDiagnosticoAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_solicitud_diagnostico';
     protected $baseRoutePattern = 'rayos-x-solicitud-diagnostico';
@@ -30,9 +30,6 @@ class ImgSolicitudDiagnosticoAdmin extends Admin
         $collection->add('crearSolicitudDiag', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarSolicitudDiag', null, [], ['_method' => 'POST'], ['expose' => true]);
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
