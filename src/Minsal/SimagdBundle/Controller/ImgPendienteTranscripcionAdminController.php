@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -15,7 +15,7 @@ use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxLecturaPen
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
-class ImgPendienteTranscripcionAdminController extends Controller
+class ImgPendienteTranscripcionAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     /**
      * TABLE GENERATOR

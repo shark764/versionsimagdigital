@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -24,7 +24,7 @@ use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxProcedimientoRadiologicoRealizadoListViewGenerator;
 
-class ImgProcedimientoRealizadoAdminController extends Controller
+class ImgProcedimientoRealizadoAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     /**
      * TABLE GENERATOR
@@ -706,25 +706,6 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         }
 
         return $this->renderJson($results);
-    }
-
-    public function getObjectVarsAsArrayAction(Request $request)
-    {
-        $request->isXmlHttpRequest();
-
-        //Get parameter from object
-        $id = $request->request->get('id');
-
-        //Objeto
-        $object = $this->admin->getObject($id);
-
-        $response = new Response();
-        $response->setContent(json_encode(
-                array('id' => $object->getId(),
-                        'object' => $object->getObjectVarsAsArray()
-                        // 'url' => $this->admin->generateUrl('show', array('id' => $object->getId()))
-                )));
-        return $response;
     }
 
     /**

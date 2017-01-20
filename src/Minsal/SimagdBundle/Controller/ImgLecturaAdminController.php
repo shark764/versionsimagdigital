@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -16,7 +16,7 @@ use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxLecturaRadiologicaListViewGenerator;
 
-class ImgLecturaAdminController extends Controller
+class ImgLecturaAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     /**
      * TABLE GENERATOR
@@ -171,7 +171,7 @@ class ImgLecturaAdminController extends Controller
      */
     public function createAction()
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('CREATE')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -443,7 +443,7 @@ class ImgLecturaAdminController extends Controller
      */
     public function editAction($id = null)
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('EDIT')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -629,7 +629,7 @@ class ImgLecturaAdminController extends Controller
     
     public function showAction($id = NULL)
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -652,7 +652,7 @@ class ImgLecturaAdminController extends Controller
     
     public function listAction()
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }

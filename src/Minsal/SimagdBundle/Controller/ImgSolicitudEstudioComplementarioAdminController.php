@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -21,7 +21,7 @@ use Doctrine\ORM\EntityRepository;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxSolicitudEstudioComplementarioListViewGenerator;
 
-class ImgSolicitudEstudioComplementarioAdminController extends Controller
+class ImgSolicitudEstudioComplementarioAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     /**
      * TABLE GENERATOR
@@ -53,16 +53,6 @@ class ImgSolicitudEstudioComplementarioAdminController extends Controller
             'result'    => 'ok',
             'options'   => $options
         ));
-    }
-
-    public function listAction()
-    {
-        //Acceso denegado
-        if (false === $this->admin->isGranted('LIST')) {
-            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
-        }
-
-        return $this->render($this->admin->getTemplate('list'));
     }
     
     public function generateDataAction(Request $request)

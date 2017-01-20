@@ -15,7 +15,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/ImgProcedimientoRealizadoAdminController.php",
 			"settings":
 			{
-				"buffer_size": 44011,
+				"buffer_size": 43445,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -25,15 +25,6 @@
 			"settings":
 			{
 				"buffer_size": 22969,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Minsal/SimagdBundle/Controller/ImgCitaAdminController.php",
-			"settings":
-			{
-				"buffer_size": 48994,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -501,7 +492,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 44011,
+						"buffer_size": 43445,
 						"regions":
 						{
 						},
@@ -522,7 +513,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -557,36 +548,6 @@
 				},
 				{
 					"buffer": 2,
-					"file": "src/Minsal/SimagdBundle/Controller/ImgCitaAdminController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 48994,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10753,
-								10753
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2655.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "src/Minsal/SimagdBundle/Repository/BloqueoAgendaRepository.php",
 					"semi_transient": false,
 					"settings":
@@ -612,7 +573,7 @@
 						"translation.y": 195.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]

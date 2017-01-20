@@ -1,6 +1,8 @@
 <?php
+
 namespace Minsal\SimagdBundle\Controller;
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -9,7 +11,7 @@ use Minsal\SimagdBundle\Entity\ImgSolicitudEstudio;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sonata\AdminBundle\Exception\ModelManagerException;
 
-class GeneracionReporteImagenologiaAdminController extends Controller
+class GeneracionReporteImagenologiaAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     /**
      * Redirigir inmediatamente hacia la generación de reportes

@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -23,7 +23,7 @@ use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxSolicitudDiagnosticoPostEstudioListViewGenerator;
 
-class ImgSolicitudDiagnosticoAdminController extends Controller
+class ImgSolicitudDiagnosticoAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     /**
      * TABLE GENERATOR
@@ -98,50 +98,7 @@ class ImgSolicitudDiagnosticoAdminController extends Controller
         }
         
         return parent::createAction();
-    }
-
-    /**
-     * Redirect the user depend on this choice
-     *
-     * @param object $object
-     *
-     * @return RedirectResponse
-     */
-    protected function redirectTo($object)
-    {
-        $url = false;
-
-        if (null !== $this->get('request')->get('btn_update_and_list')) {
-            $url = $this->admin->generateUrl('list');
-        }
-        if (null !== $this->get('request')->get('btn_create_and_list')) {
-            $url = $this->admin->generateUrl('list');
-        }
-
-        if (null !== $this->get('request')->get('btn_create_and_create')) {
-            $params = array();
-            if ($this->admin->hasActiveSubClass()) {
-                $params['subclass'] = $this->get('request')->get('subclass');
-            }
-            $url = $this->admin->generateUrl('create', $params);
-        }
-
-        if ($this->getRestMethod() == 'DELETE') {
-            $url = $this->admin->generateUrl('list');
-        }
-
-        /** Crear/Actualizar y mostrar registro */
-        if ((null !== $this->get('request')->get('btn_create_and_show')) ||
-                                (null !== $this->get('request')->get('btn_edit_and_show'))) {
-    		$url = $this->admin->generateObjectUrl('show', $object);
-        }
-
-        if (!$url) {
-            $url = $this->admin->generateObjectUrl('edit', $object);
-        }
-
-        return new RedirectResponse($url);
-    }
+    }Application\Sonata\UserBundle\Entity\User
     
     public function mostrarInformacionModalAction($idSolicitudEstudioPadre, $idEstudioPadre, $id)
     {
@@ -190,7 +147,7 @@ class ImgSolicitudDiagnosticoAdminController extends Controller
     
     public function editAction($id = null)
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('EDIT')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -239,7 +196,7 @@ class ImgSolicitudDiagnosticoAdminController extends Controller
     
     public function listAction()
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
