@@ -90,9 +90,25 @@
             var $table = jQuery('#ryx_target_bstable');
             ////////
             // $table.bootstrapTable('showLoading');
+
+            ////////
+            var DEFAULT_TABLE_OPTIONS = JSON.parse('{{ DEFAULT_TABLE_OPTIONS|json_encode|e('js')|raw }}');
+            $.each(DEFAULT_TABLE_OPTIONS, function(i, opt) {
+                if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
+                    var namespaces = opt.split('.');
+                    var func = namespaces.pop();
+                    var context = window;
+                    for(var x = 0; x < namespaces.length; x++) {
+                        context = context[namespaces[x]];
+                    }
+                    DEFAULT_TABLE_OPTIONS[i] = context[func];  // set function
+                }
+            });
+            ////////
+
             $table
                 .bootstrapTable('destroy')
-                .bootstrapTable(JSON.parse('{{ DEFAULT_TABLE_OPTIONS|json_encode|e('js')|raw }}'));
+                .bootstrapTable(DEFAULT_TABLE_OPTIONS);
 
 
             //////////////////////////////////////////////////////////////////////////
