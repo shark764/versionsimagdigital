@@ -129,42 +129,14 @@ class ImgCtlMaterialAdminController extends MinsalSimagdBundleGeneralAdminContro
                 continue;
             }
 
-            // $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
-            //         '<div class="btn-group" role="group">' .
-            //             '<a class=" worklist-show-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Ver detalle..." >' .
-            //             // '<a class=" worklist-show-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Ver detalle..." >' .
-            //                 // 'Ver' .
-            //                 '<i class="glyphicon glyphicon-chevron-down"></i>' .
-            //             '</a>' .
-            //         '</div>' .
-            //         '<div class="btn-group" role="group">' .
-            //             '<a class=" worklist-save-form-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Abrir formulario..." >' .
-            //             // '<a class=" worklist-save-form-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Abrir formulario..." >' .
-            //                 // 'Formulario' .
-            //                 '<i class="glyphicon glyphicon-edit"></i>' .
-            //             '</a>' .
-            //         '</div>' .
-            //         '<div class="btn-group" role="group">' .
-            //             '<a class=" worklist-save-and-pacs-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Guardar y asociar..." >' .
-            //             // '<a class=" worklist-save-and-pacs-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Guardar y asociar..." >' .
-            //                 // 'Guardar y asociar' .
-            //                 // '<i class="glyphicon glyphicon-check"></i>' .
-            //                 '<i class="glyphicon glyphicon-link"></i>' .
-            //             '</a>' .
-            //         '</div>' .
-            //         // '<span class="bs-btn-separator-toolbar"></span>' .
-            //         '<div class="btn-group" role="group">' .
-            //             '<a class=" worklist-save-action btn-link btn-link-emergency " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-            //             // '<a class=" worklist-save-action btn btn-emergency btn-outline btn-xs " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-            //                 // 'Guardar' .
-            //                 '<i class="glyphicon glyphicon-check"></i>' .
-            //             '</a>' .
-            //         '</div>' .
-            //     '</div>';
-
-//            $results[$key]['action'] = '<div class="btn-group btn-group-xs"> <button type="button" class="btn btn-default dropdown-toggle example2-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
-            // $results[$key]['action'] = '<div class="btn-group btn-group-xs"> <button type="button" class="btn btn-link btn-link-emergency dropdown-toggle material-btn-list-op" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" color: #e45315; "> <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
-            $results[$key]['action'] = '<div class="btn-group btn-group-xs"> <button type="button" class="btn btn-link btn-link-emergency dropdown-toggle material-btn-list-op" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" color: #e45315; cursor: context-menu; "> <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
+            $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
+                    '<div class="btn-group" role="group">' .
+                        '<a class=" example2-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                            // 'OP.' .
+                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
+                        '</a>' .
+                    '</div>' .
+                '</div>';
 
             $results[$key]['mtrl_fechaHoraReg']  = $r['mtrl_fechaHoraReg']->format('Y-m-d H:i:s A');
             $results[$key]['mtrl_fechaHoraMod']  = $r['mtrl_fechaHoraMod'] ? $r['mtrl_fechaHoraMod']->format('Y-m-d H:i:s A') : '';

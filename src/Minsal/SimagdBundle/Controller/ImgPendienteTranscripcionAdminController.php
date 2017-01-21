@@ -185,33 +185,9 @@ class ImgPendienteTranscripcionAdminController extends MinsalSimagdBundleGeneral
 
             $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
                     '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-show-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Ver detalle..." >' .
-                        // '<a class=" worklist-show-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Ver detalle..." >' .
-                            // 'Ver' .
-                            '<i class="glyphicon glyphicon-chevron-down"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-form-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Abrir formulario..." >' .
-                        // '<a class=" worklist-save-form-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Abrir formulario..." >' .
-                            // 'Formulario' .
-                            '<i class="glyphicon glyphicon-edit"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-and-pacs-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                        // '<a class=" worklist-save-and-pacs-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                            // 'Guardar y asociar' .
-                            // '<i class="glyphicon glyphicon-check"></i>' .
-                            '<i class="glyphicon glyphicon-link"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    // '<span class="bs-btn-separator-toolbar"></span>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-action btn-link btn-link-emergency " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                        // '<a class=" worklist-save-action btn btn-emergency btn-outline btn-xs " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                            // 'Guardar' .
-                            '<i class="glyphicon glyphicon-check"></i>' .
+                        '<a class=" example2-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                            // 'OP.' .
+                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
                     '</div>' .
                 '</div>';

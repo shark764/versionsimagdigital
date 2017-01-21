@@ -48,6 +48,20 @@
                     emrg: emrg,
                 },
                 success: function(response) {
+                    ////////
+                    $.each(response.options, function(i, opt) {
+                        if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
+                            var namespaces = opt.split('.');
+                            var func = namespaces.pop();
+                            var context = window;
+                            for(var x = 0; x < namespaces.length; x++) {
+                                context = context[namespaces[x]];
+                            }
+                            response.options[i] = context[func];  // set function
+                        }
+                    });
+                    ////////
+
                     $table
                         .bootstrapTable('destroy')
                         .bootstrapTable(response.options);
@@ -96,6 +110,31 @@
 			// jQuery('#_switch_display').iCheck('destroy').bootstrapSwitch();
 
         });
+
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__FUNCTIONS_CALL__ = {};   // --| build data collection
+
+            /*
+             * Collection of functions / fc options
+             */
+            __FUNCTIONS_CALL__.functions = {
+                onContextMenuItem: function(row, $el) {
+                    if($el.data('item') == 'show') {
+                        alert('Show: ' + JSON.stringify(row));
+                    } else if($el.data('item') == 'edit') {
+                        alert('Edit: ' + row.itemid + ' ' + row.name + ' ' + row.price);
+                    } else if($el.data('item') == 'delete') {
+                        alert('Delete: ' + row.itemid + ' ' + row.name + ' ' + row.price);
+                    }
+                },
+            };  // --| build function object
+
+        }(jQuery));
 
         // var destroy = function(el) {
         //     if (jQuery(el).attr('id') !== "undefined" && (jQuery(el).attr('id') === "pry2" || jQuery(el).attr('id') === "pry4")) {
