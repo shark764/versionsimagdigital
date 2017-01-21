@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 
 class ImgCtlMotorBdAdminController extends MinsalSimagdBundleGeneralAdminController
-{Application\Sonata\UserBundle\Entity\User
+{
     
     public function createAction()
     {
