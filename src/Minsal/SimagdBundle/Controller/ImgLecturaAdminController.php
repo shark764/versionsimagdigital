@@ -634,18 +634,18 @@ class ImgLecturaAdminController extends MinsalSimagdBundleGeneralAdminController
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
         
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
 
-        //No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgLectura', 'lct')) {
-            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
-        }
+        // //No existe el registro
+        // if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgLectura', 'lct')) {
+        //     return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
+        // }
 
-        //No puede acceder al registro
-        $sessionUser = $this->container->get('security.context')->getToken()->getUser();
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgLectura')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
-            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
-        }
+        // //No puede acceder al registro
+        // $sessionUser = $this->container->get('security.context')->getToken()->getUser();
+        // if (false === $em->getRepository('MinsalSimagdBundle:ImgLectura')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
+        //     return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
+        // }
         
         return parent::showAction($id);
     }
