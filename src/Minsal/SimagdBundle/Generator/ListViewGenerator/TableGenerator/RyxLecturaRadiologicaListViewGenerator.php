@@ -63,15 +63,6 @@ class RyxLecturaRadiologicaListViewGenerator extends RyxEntityListViewGenerator
         else {
             array_push($this->columns,
                     array(
-                        'field' => 'action',
-                        'sortable' => false,
-                        'align' => 'center',
-                        'halign' => 'center',
-                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
-                        // 'formatter' => 'operateFormatter',
-                        'events' => 'operateEvents',
-                    ),
-                    array(
                         'field' => 'id',
                         'sortable' => true,
                         'title' => 'ID',
@@ -135,6 +126,7 @@ class RyxLecturaRadiologicaListViewGenerator extends RyxEntityListViewGenerator
                         'field' => 'tecnologo',
                         'sortable' => true,
                         'title' => 'Téc. / Lic. / Rdlg.',
+                        'class' => 'bstable-column-darkmedicine',
                         'visible' => false,
                         // 'switchable' => false,
                     ),
@@ -162,6 +154,7 @@ class RyxLecturaRadiologicaListViewGenerator extends RyxEntityListViewGenerator
                         'field' => 'radiologo',
                         'sortable' => true,
                         'title' => 'Radiólogo',
+                        'class' => 'bstable-column-darkblue',
                     ),
                     array(
                         'field' => 'fecha_lectura',
@@ -169,6 +162,15 @@ class RyxLecturaRadiologicaListViewGenerator extends RyxEntityListViewGenerator
                         'title' => 'Fecha (Lectura)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'action',
+                        'sortable' => false,
+                        'align' => 'center',
+                        'halign' => 'center',
+                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
+                        // 'formatter' => 'operateFormatter',
+                        'events' => 'operateEvents',
                     )
             );
         }

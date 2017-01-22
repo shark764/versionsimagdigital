@@ -88,6 +88,7 @@ class RyxCtlPatronDiagnosticoListViewGenerator extends RyxEntityListViewGenerato
                         'field' => 'radiologo',
                         'sortable' => true,
                         'title' => 'Radiólogo',
+                        'class' => 'bstable-column-darkblue',
                     ),
                     array(
                         'field' => 'tipo_resultado',
@@ -135,6 +136,15 @@ class RyxCtlPatronDiagnosticoListViewGenerator extends RyxEntityListViewGenerato
                         'align' => 'center',
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
+                        // 'formatter' => 'operateFormatter',
+                        'events' => 'operateEvents',
+                    ),
+                    array(
+                        'field' => 'action2',
+                        'sortable' => false,
+                        'align' => 'center',
+                        'halign' => 'center',
+                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP2.',
                         // 'formatter' => 'operateFormatter',
                         'events' => 'operateEvents',
                     )
@@ -188,6 +198,9 @@ class RyxCtlPatronDiagnosticoListViewGenerator extends RyxEntityListViewGenerato
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '25';
+        $this->entityOptions['searchAlign'] = 'right';
+        $this->entityOptions['buttonsAlign']    = 'right';
+        $this->entityOptions['toolbarAlign']    = 'right';
         // $this->entityOptions['sortName']    = 'undefined';
         if ($this->type === 'detail') {
             $this->entityOptions['showToggle']  = false;

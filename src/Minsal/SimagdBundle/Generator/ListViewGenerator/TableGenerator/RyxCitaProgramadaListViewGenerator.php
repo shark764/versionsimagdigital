@@ -105,15 +105,6 @@ class RyxCitaProgramadaListViewGenerator extends RyxEntityListViewGenerator
         else {
             array_push($this->columns,
                     array(
-                        'field' => 'action',
-                        'sortable' => false,
-                        'align' => 'center',
-                        'halign' => 'center',
-                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
-                        // 'formatter' => 'operateFormatter',
-                        'events' => 'operateEvents',
-                    ),
-                    array(
                         'field' => 'id',
                         'sortable' => true,
                         'title' => 'ID',
@@ -177,6 +168,7 @@ class RyxCitaProgramadaListViewGenerator extends RyxEntityListViewGenerator
                         'field' => 'tecnologo',
                         'sortable' => true,
                         'title' => 'Téc. / Lic. / Rdlg.',
+                        'class' => 'bstable-column-darkmedicine',
                         'visible' => false,
                         // 'switchable' => false,
                     ),
@@ -200,6 +192,15 @@ class RyxCitaProgramadaListViewGenerator extends RyxEntityListViewGenerator
                         'title' => 'Fecha (Reg.)',
                         // 'visible' => false,
                         // 'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'action',
+                        'sortable' => false,
+                        'align' => 'center',
+                        'halign' => 'center',
+                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
+                        // 'formatter' => 'operateFormatter',
+                        'events' => 'operateEvents',
                     )
             );
         }

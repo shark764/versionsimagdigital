@@ -63,15 +63,6 @@ class RyxCtlProyeccionRadiologicaListViewGenerator extends RyxEntityListViewGene
         else {
             array_push($this->columns,
                     array(
-                        'field' => 'action',
-                        'sortable' => false,
-                        'align' => 'center',
-                        'halign' => 'center',
-                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
-                        // 'formatter' => 'operateFormatter',
-                        'events' => 'operateEvents',
-                    ),
-                    array(
                         'field' => 'id',
                         'sortable' => true,
                         'title' => 'ID',
@@ -124,6 +115,15 @@ class RyxCtlProyeccionRadiologicaListViewGenerator extends RyxEntityListViewGene
                         'visible' => false,
                         'class' => 'justify-table-large-row',
                         // 'formatter' => 'simagdDescriptionAdvanceFormatter',
+                    ),
+                    array(
+                        'field' => 'action',
+                        'sortable' => false,
+                        'align' => 'center',
+                        'halign' => 'center',
+                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
+                        // 'formatter' => 'operateFormatter',
+                        'events' => 'operateEvents',
                     )
             );
         }
