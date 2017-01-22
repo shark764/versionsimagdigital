@@ -147,9 +147,13 @@
                         var url = Routing.generate('simagd_lectura_show', {id: row.id});
                         window.location.href = url; // simulate link click
                     } else if($el.data('item') == 'edit') {
-                        alert('Edit: ' + row.itemid + ' ' + row.name + ' ' + row.price);
+                        // alert('Edit: ' + row.itemid + ' ' + row.name + ' ' + row.price);
+                        var url = Routing.generate('simagd_lectura_edit', {id: row.id});
+                        window.location.href = url; // simulate link click
                     } else if($el.data('item') == 'delete') {
-                        alert('Delete: ' + row.itemid + ' ' + row.name + ' ' + row.price);
+                        // alert('Delete: ' + row.itemid + ' ' + row.name + ' ' + row.price);
+                        var url = Routing.generate('simagd_lectura_delete', {id: row.id});
+                        window.location.href = url; // simulate link click
                     }
                 },
             };  // --| build function object

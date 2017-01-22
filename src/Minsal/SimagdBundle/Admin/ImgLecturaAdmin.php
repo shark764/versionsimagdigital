@@ -866,8 +866,8 @@ class ImgLecturaAdmin extends MinsalSimagdBundleGeneralAdmin
             case 'list':
                 return 'MinsalSimagdBundle:ImgLecturaAdmin:lct_list_v2.html.twig';
                 break;
-            case 'show':
-                return 'MinsalSimagdBundle:ImgLecturaAdmin:lct_show.html.twig';
+            // case 'show':
+            //     return 'MinsalSimagdBundle:ImgLecturaAdmin:lct_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);
