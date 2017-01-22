@@ -142,15 +142,15 @@
                 onContextMenuItem: function(row, $el) {
                     if($el.data('item') == 'show') {
                         // alert('Show: ' + JSON.stringify(row));
-                        var url = Routing.generate('simagd_lectura_show', {id: row.id});
+                        var url = Routing.generate('simagd_solicitud_estudio_show', {id: row.id});
                         window.location.href = url; // simulate link click
                     } else if($el.data('item') == 'edit') {
                         // alert('Edit: ' + row.itemid + ' ' + row.name + ' ' + row.price);
-                        var url = Routing.generate('simagd_lectura_edit', {id: row.id});
+                        var url = Routing.generate('simagd_solicitud_estudio_edit', {id: row.id});
                         window.location.href = url; // simulate link click
                     } else if($el.data('item') == 'delete') {
                         // alert('Delete: ' + row.itemid + ' ' + row.name + ' ' + row.price);
-                        var url = Routing.generate('simagd_lectura_delete', {id: row.id});
+                        var url = Routing.generate('simagd_solicitud_estudio_delete', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                 },

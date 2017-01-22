@@ -444,27 +444,27 @@ class ImgSolicitudEstudioAdminController extends MinsalSimagdBundleGeneralAdminC
         $id = $this->get('request')->get($this->admin->getIdParameter());
 
         //No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgSolicitudEstudio', 'prc')) {
-            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
-        }
+  //       if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgSolicitudEstudio', 'prc')) {
+  //           return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
+  //       }
 
     	$securityContext    = $this->container->get('security.context');
     	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        //No puede acceder al registro
-        if (!((in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) && $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
-                ->obtenerAccesoEstabEdit($id, $estabLocal->getId(), 'prc', 'idEstablecimientoReferido')) ||
-		($this->admin->isGranted('CREATE') && $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
-                                ->obtenerAccesoEstabEdit($id, $estabLocal->getId())))) {
-            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
-        }
+  //       //No puede acceder al registro
+  //       if (!((in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) && $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+  //               ->obtenerAccesoEstabEdit($id, $estabLocal->getId(), 'prc', 'idEstablecimientoReferido')) ||
+		// ($this->admin->isGranted('CREATE') && $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+  //                               ->obtenerAccesoEstabEdit($id, $estabLocal->getId())))) {
+  //           return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
+  //       }
 
-        //No está autorizado a editar el registro
-        if (!($em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerAccesoPreinscripcion($id, $sessionUser->getId()) ||
-                $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) {
-            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
-        }
+  //       //No está autorizado a editar el registro
+  //       if (!($em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerAccesoPreinscripcion($id, $sessionUser->getId()) ||
+  //               $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) {
+  //           return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
+  //       }
 
         // the key used to lookup the template
         $templateKey = 'edit';
