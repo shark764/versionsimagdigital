@@ -25,28 +25,10 @@
 			}
 		},
 		{
-			"file": "src/Minsal/SimagdBundle/Resources/views/General/request_dashboard_script.html.twig",
+			"file": "src/Minsal/SimagdBundle/Resources/views/Dashboard/catalogs_dashboard.html.twig",
 			"settings":
 			{
-				"buffer_size": 7972,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Minsal/SimagdBundle/Resources/views/General/results_dashboard_script.html.twig",
-			"settings":
-			{
-				"buffer_size": 8018,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Minsal/SimagdBundle/Resources/views/General/worklist_script.html.twig",
-			"settings":
-			{
-				"buffer_size": 7964,
+				"buffer_size": 16233,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -84,10 +66,19 @@
 	},
 	"file_history":
 	[
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/request_dashboard.html.twig",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/vendor/sonata-project/doctrine-orm-admin-bundle/Resources/views/CRUD/edit_orm_one_association_script.html.twig",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/vendor/sonata-project/doctrine-orm-admin-bundle/Resources/views/CRUD/edit_orm_many_association_script.html.twig",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/vendor/sonata-project/doctrine-orm-admin-bundle/Resources/views/CRUD/edit_orm_one_to_many.html.twig",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/CRUD/simagd_edit_orm_modal.html.twig",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/request_dashboard_script.html.twig",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/results_dashboard_script.html.twig",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/worklist_script.html.twig",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxLecturaRadiologicaListViewGenerator.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlPatronDiagnosticoListViewGenerator.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/Formatter/Formatter.php",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/results_dashboard.html.twig",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/catalogs_dashboard.html.twig",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/request_dashboard.html.twig",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Worklist/worklist.html.twig",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/general_form_script.html.twig",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/css/simagd-form-styles.css",
@@ -202,16 +193,7 @@
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/GeneracionReporteImagenologiaAdmin.php",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImagenologiaDigitalAdmin.php",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgBloqueoAgendaAdmin.php",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCitaAdmin.php",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlConfiguracionAgendaAdmin.php",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlMaterialAdmin.php",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlMaterialEstablecimientoAdmin.php",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlMotorBdAdmin.php",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlPacsEstablecimientoAdmin.php",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlPatronDiagnosticoAdmin.php",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlPreparacionEstudioAdmin.php",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlProyeccionAdmin.php",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCtlProyeccionEstablecimientoAdmin.php"
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCitaAdmin.php"
 	],
 	"find":
 	{
@@ -263,6 +245,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"start_field_dialog_form_add_",
+			"field_dialog_form_add_",
 			"\n\n            //////\n            var $table = jQuery('#ryx_target_bstable');\n            ////////\n            // $table.bootstrapTable('showLoading');\n            $table\n                .bootstrapTable('destroy')\n                .bootstrapTable(JSON.parse('{{ DEFAULT_TABLE_OPTIONS|json_encode|e('js')|raw }}'));\n\n\n            //////////////////////////////////////////////////////////////////////////",
 			"response.options",
 			"dropdown-menu",
@@ -388,9 +372,7 @@
 			"generateDataV2($estabLocal->getId()",
 			"HEAD",
 			"horarioMe",
-			"parameters",
-			"HEAD",
-			"horarioMe"
+			"parameters"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -503,7 +485,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -530,27 +512,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1643.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "src/Minsal/SimagdBundle/Resources/views/General/request_dashboard_script.html.twig",
+					"file": "src/Minsal/SimagdBundle/Resources/views/Dashboard/catalogs_dashboard.html.twig",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7972,
+						"buffer_size": 16233,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5531,
-								5531
+								0,
+								0
 							]
 						],
 						"settings":
@@ -560,70 +542,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1326.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/Minsal/SimagdBundle/Resources/views/General/results_dashboard_script.html.twig",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8018,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3952,
-								3952
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1055.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/Minsal/SimagdBundle/Resources/views/General/worklist_script.html.twig",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7964,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3916,
-								3916
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 356.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
 					"type": "text"
 				}
 			]
