@@ -19,7 +19,7 @@
 			"file": "src/Minsal/SimagdBundle/Resources/views/Worklist/worklist.html.twig",
 			"settings":
 			{
-				"buffer_size": 23342,
+				"buffer_size": 23496,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -28,7 +28,7 @@
 			"file": "src/Minsal/SimagdBundle/Resources/views/Dashboard/catalogs_dashboard.html.twig",
 			"settings":
 			{
-				"buffer_size": 16429,
+				"buffer_size": 16575,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -37,7 +37,7 @@
 			"file": "src/Minsal/SimagdBundle/Resources/views/Dashboard/request_dashboard.html.twig",
 			"settings":
 			{
-				"buffer_size": 16784,
+				"buffer_size": 16938,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -46,7 +46,43 @@
 			"file": "src/Minsal/SimagdBundle/Resources/views/Dashboard/results_dashboard.html.twig",
 			"settings":
 			{
-				"buffer_size": 16808,
+				"buffer_size": 16962,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Minsal/SimagdBundle/Resources/views/General/results_dashboard_script.html.twig",
+			"settings":
+			{
+				"buffer_size": 8521,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Minsal/SimagdBundle/Resources/views/General/catalogs_dashboard_script.html.twig",
+			"settings":
+			{
+				"buffer_size": 8754,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Minsal/SimagdBundle/Resources/views/General/request_dashboard_script.html.twig",
+			"settings":
+			{
+				"buffer_size": 8505,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Minsal/SimagdBundle/Resources/views/General/worklist_script.html.twig",
+			"settings":
+			{
+				"buffer_size": 8467,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -84,8 +120,11 @@
 	},
 	"file_history":
 	[
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/css/simagd-table.css",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgSolicitudEstudioAdminController.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgLecturaAdmin.php",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/plugin/fullcalendar-3.1.0/fullcalendar.js",
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/css/simagd-table.css",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgDiagnosticoAdminController.php",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/BusquedaDiagnosticoAdminController.php",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlPatronDiagnosticoListViewGenerator.php",
@@ -208,10 +247,7 @@
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlProyeccionRadiologicaListViewGenerator.php",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgProcedimientoRealizadoAdmin.php",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudDiagnosticoAdmin.php",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioAdmin.php",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioComplementarioAdmin.php",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioComplementarioProyeccionAdmin.php",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioMamografiaAdmin.php"
+		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgSolicitudEstudioComplementarioAdmin.php"
 	],
 	"find":
 	{
@@ -222,6 +258,10 @@
 		"height": 277.0,
 		"where_history":
 		[
+			"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views",
+			"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js",
+			"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/",
+			"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js",
 			"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller",
 			"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views",
 			"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/css",
@@ -264,6 +304,11 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"simagd_lectura",
+			"\n                onContextMenuItem: function(row, $el) {\n                    if($el.data('item') == 'show') {\n                        alert('Show: ' + JSON.stringify(row));\n                    } else if($el.data('item') == 'edit') {\n                        alert('Edit: ' + row.itemid + ' ' + row.name + ' ' + row.price);\n                    } else if($el.data('item') == 'delete') {\n                        alert('Delete: ' + row.itemid + ' ' + row.name + ' ' + row.price);\n                    }\n                },",
+			"\n                <li class=\"dropdown-header\">MENÚ</li>\n                <li data-item=\"edit\"><a><span class=\"glyphicon glyphicon-plus-sign\"></span>Crear nuevo</a></li>\n                <li class=\"divider\"></li>",
+			"Routing.generate('",
+			"window.location.href =",
 			"\n    }\n\n}\n",
 			"start_field_dialog_form_add_",
 			"field_dialog_form_add_",
@@ -386,12 +431,7 @@
 			".codigo as ",
 			".fechaSolicitud as ",
 			".nombrearea as ",
-			" as modalidad",
-			".tipo as ",
-			".username as ",
-			"generateDataV2($estabLocal->getId()",
-			"HEAD",
-			"horarioMe"
+			" as modalidad"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -399,6 +439,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"simagd_solicitud_estudio",
+			"\n                onContextMenuItem: function(row, $el) {\n                    if($el.data('item') == 'show') {\n                        // alert('Show: ' + JSON.stringify(row));\n                        var url = Routing.generate('simagd_lectura_show', {id: row.id});\n                        window.location.href = url; // simulate link click\n                    } else if($el.data('item') == 'edit') {\n                        // alert('Edit: ' + row.itemid + ' ' + row.name + ' ' + row.price);\n                        var url = Routing.generate('simagd_lectura_edit', {id: row.id});\n                        window.location.href = url; // simulate link click\n                    } else if($el.data('item') == 'delete') {\n                        // alert('Delete: ' + row.itemid + ' ' + row.name + ' ' + row.price);\n                        var url = Routing.generate('simagd_lectura_delete', {id: row.id});\n                        window.location.href = url; // simulate link click\n                    }\n                },",
+			"\n                <li class=\"dropdown-header\">MENÚ</li>",
 			"\n    }\n\n}",
 			"\n\n            //////\n            var $table = jQuery('#ryx_target_bstable');\n            ////////\n            // $table.bootstrapTable('showLoading');\n\n            ////////\n            var DEFAULT_TABLE_OPTIONS = JSON.parse('{{ DEFAULT_TABLE_OPTIONS|json_encode|e('js')|raw }}');\n            $.each(DEFAULT_TABLE_OPTIONS, function(i, opt) {\n                if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {\n                    var namespaces = opt.split('.');\n                    var func = namespaces.pop();\n                    var context = window;\n                    for(var x = 0; x < namespaces.length; x++) {\n                        context = context[namespaces[x]];\n                    }\n                    DEFAULT_TABLE_OPTIONS[i] = context[func];  // set function\n                }\n            });\n            ////////\n\n            $table\n                .bootstrapTable('destroy')\n                .bootstrapTable(DEFAULT_TABLE_OPTIONS);\n\n\n            //////////////////////////////////////////////////////////////////////////",
 			"DEFAULT_TABLE_OPTIONS",
@@ -505,7 +548,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 6,
 			"sheets":
 			[
 				{
@@ -514,15 +557,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 23342,
+						"buffer_size": 23496,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								21035,
-								21035
+								21194,
+								21194
 							]
 						],
 						"settings":
@@ -532,10 +575,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 603.0,
+						"translation.y": 5078.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -544,15 +587,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16429,
+						"buffer_size": 16575,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								15051,
-								15051
+								15579,
+								15579
 							]
 						],
 						"settings":
@@ -562,10 +605,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3645.0,
+						"translation.y": 3868.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -574,15 +617,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16784,
+						"buffer_size": 16938,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14195,
-								14195
+								14710,
+								14710
 							]
 						],
 						"settings":
@@ -592,10 +635,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3452.0,
+						"translation.y": 3767.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -604,15 +647,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16808,
+						"buffer_size": 16962,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14207,
-								14207
+								14722,
+								14722
 							]
 						],
 						"settings":
@@ -622,10 +665,130 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3524.0,
+						"translation.y": 3685.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/Minsal/SimagdBundle/Resources/views/General/results_dashboard_script.html.twig",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8521,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6014,
+								6014
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1826.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/Minsal/SimagdBundle/Resources/views/General/catalogs_dashboard_script.html.twig",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8754,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/Minsal/SimagdBundle/Resources/views/General/request_dashboard_script.html.twig",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8505,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5188,
+								5188
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1495.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "src/Minsal/SimagdBundle/Resources/views/General/worklist_script.html.twig",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8467,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1599.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -670,7 +833,7 @@
 	"project": "versionsimagdigital.sublime-project",
 	"replace":
 	{
-		"height": 754.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
