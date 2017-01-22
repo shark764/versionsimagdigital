@@ -16,6 +16,8 @@ class ImagenologiaDigitalAdmin extends MinsalSimagdBundleGeneralAdmin
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         $collection->clear();
         $collection->add('list', 'inicio');
         $collection->add('busquedaPaciente', 'busqueda-paciente');

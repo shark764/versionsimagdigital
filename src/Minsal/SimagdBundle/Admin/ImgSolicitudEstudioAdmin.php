@@ -25,6 +25,8 @@ class ImgSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         $collection->add('citar');
         $collection->add('requiereCita', null, [], [], ['expose' => true]);
         $collection->add('solicitarDiag');

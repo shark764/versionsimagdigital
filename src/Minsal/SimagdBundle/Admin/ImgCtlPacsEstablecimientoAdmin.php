@@ -18,6 +18,8 @@ class ImgCtlPacsEstablecimientoAdmin extends MinsalSimagdBundleGeneralAdmin
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->remove('delete');
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('habilitarPacs', null, [], ['_method' => 'POST'], ['expose' => true]);

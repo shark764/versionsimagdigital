@@ -19,6 +19,8 @@ class ImgCtlPreparacionEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->remove('delete');
         $collection->add('agregarEnMiCatalogo', null, [], [], ['expose' => true]);
         $collection->add('crearIndicacionCita', null, [], ['_method' => 'POST'], ['expose' => true]);

@@ -19,6 +19,8 @@ class ImgSolicitudEstudioComplementarioAdmin extends MinsalSimagdBundleGeneralAd
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
         // $collection->remove('delete');
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);

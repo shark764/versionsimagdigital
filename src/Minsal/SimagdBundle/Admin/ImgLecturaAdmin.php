@@ -21,6 +21,8 @@ class ImgLecturaAdmin extends MinsalSimagdBundleGeneralAdmin
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->remove('delete');
         $collection->add('addPendingToWorkList', null, [], [], ['expose' => true]);
         // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);

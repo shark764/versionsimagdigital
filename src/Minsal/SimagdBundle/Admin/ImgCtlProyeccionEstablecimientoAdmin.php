@@ -19,6 +19,8 @@ class ImgCtlProyeccionEstablecimientoAdmin extends MinsalSimagdBundleGeneralAdmi
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->remove('delete');
         $collection->add('agregarProyeccionEnLocal', null, [], [], ['expose' => true]);
         $collection->add('crearProyeccionLocal', null, [], ['_method' => 'POST'], ['expose' => true]);

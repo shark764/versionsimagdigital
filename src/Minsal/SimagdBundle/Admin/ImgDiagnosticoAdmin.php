@@ -18,6 +18,8 @@ class ImgDiagnosticoAdmin extends Admin {
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         $collection->add('nota');
         $collection->add('addPendingToWorkList', null, [], [], ['expose' => true]);
         // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
