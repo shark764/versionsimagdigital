@@ -881,8 +881,8 @@
 						"selection":
 						[
 							[
-								995,
-								995
+								1142,
+								1142
 							]
 						],
 						"settings":
@@ -892,10 +892,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 7982.0,
+						"translation.y": 247.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1019,7 +1019,7 @@
 						"translation.y": 4745.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1049,7 +1049,7 @@
 						"translation.y": 1859.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1076,10 +1076,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3676.0,
+						"translation.y": 3845.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -1119,8 +1119,8 @@
 		"cols":
 		[
 			0.0,
-			0.0367647058824,
-			0.0855928308824,
+			0.33,
+			0.66,
 			1.0
 		],
 		"rows":
@@ -1168,7 +1168,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 2,
+	"selected_group": 1,
 	"settings":
 	{
 	},
