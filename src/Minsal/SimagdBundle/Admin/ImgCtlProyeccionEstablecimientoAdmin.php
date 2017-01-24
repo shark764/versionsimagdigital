@@ -12,22 +12,21 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ImgCtlProyeccionEstablecimientoAdmin extends Admin
+class ImgCtlProyeccionEstablecimientoAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_proyeccion_establecimiento';
     protected $baseRoutePattern = 'rayos-x-proyeccion-realizable';
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->remove('delete');
         $collection->add('agregarProyeccionEnLocal', null, [], [], ['expose' => true]);
         $collection->add('crearProyeccionLocal', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarProyeccionLocal', null, [], ['_method' => 'POST'], ['expose' => true]);
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('habilitarLocal', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }

@@ -132,6 +132,8 @@ class ProcedimientoRealizadoRepository extends EntityRepository
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
 
+                            ->addSelect('prz.id AS id, stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea AS modalidad, prAtn.nombre AS triage, prz.fechaRegistro AS fecha_registro, CASE WHEN (tcnlprz.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) ELSE \'\' END AS tecnologo, statusprz.nombreEstado AS estado')
+
                             ->addSelect('statusprz.id AS prz_id_estado, statusprz.nombreEstado AS prz_estado, statusprz.codigo AS prz_codEstado')
                             ->addSelect('CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) AS prz_tecnologo, tcnlprz.id AS prz_id_tecnologo, tpEmp.tipo AS prz_tipoEmpleado')
                             ->addSelect('usrRg.username AS prz_usernameUserReg, usrRg.id AS prz_id_userReg, usrMd.username AS prz_usernameUserMod, usrMd.id AS prz_id_userMod')

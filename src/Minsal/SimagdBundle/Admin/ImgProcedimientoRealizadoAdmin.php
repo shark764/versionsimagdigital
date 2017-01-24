@@ -25,14 +25,13 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->remove('delete');
         $collection->add('addPendingToWorkList', null, [], [], ['expose' => true]);
         // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
         $collection->add('obtenerEstudioRealizado', null, [], [], ['expose' => true]);
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
         $collection->add('diagnostico', 'iniciar-diagnostico', [], [], ['expose' => true]);
         $collection->add('registrarEstudioAlmacenado', null, [], [], ['expose' => true]);
         $collection->add('actualizarEstudioAlmacenado', null, [], [], ['expose' => true]);

@@ -11,16 +11,13 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Doctrine\ORM\EntityRepository;
 
-class ImgBloqueoAgendaAdmin extends Admin
+class ImgBloqueoAgendaAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_bloqueo_agenda';
     protected $baseRoutePattern = 'rayos-x-bloqueos';
     
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
         // $collection->clearExcept(array('show', 'list'));
         // $collection->add('generateData', null, [], [], ['expose' => true]);
         $collection->add('nuevoBloqueo', null, [], ['_method' => 'POST'], ['expose' => true]);

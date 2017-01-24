@@ -14,21 +14,20 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Minsal\SimagdBundle\Entity\ImgDiagnostico;
 
-class ImgLecturaAdmin extends Admin
+class ImgLecturaAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_lectura';
     protected $baseRoutePattern = 'rayos-x-lectura';
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->remove('delete');
         $collection->add('addPendingToWorkList', null, [], [], ['expose' => true]);
         // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
         // $collection->add('proximaConsulta', null, [], [], ['expose' => true]);
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
@@ -867,8 +866,8 @@ class ImgLecturaAdmin extends Admin
             case 'list':
                 return 'MinsalSimagdBundle:ImgLecturaAdmin:lct_list_v2.html.twig';
                 break;
-            case 'show':
-                return 'MinsalSimagdBundle:ImgLecturaAdmin:lct_show.html.twig';
+            // case 'show':
+            //     return 'MinsalSimagdBundle:ImgLecturaAdmin:lct_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

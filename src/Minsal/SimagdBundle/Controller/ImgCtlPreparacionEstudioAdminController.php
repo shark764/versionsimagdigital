@@ -2,14 +2,14 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 
-class ImgCtlPreparacionEstudioAdminController extends Controller
+class ImgCtlPreparacionEstudioAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     public function listAction()
     {

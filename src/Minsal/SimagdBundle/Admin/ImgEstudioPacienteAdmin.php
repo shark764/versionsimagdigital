@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
-class ImgEstudioPacienteAdmin extends Admin
+class ImgEstudioPacienteAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_estudio';
     protected $baseRoutePattern = 'rayos-x-estudios';

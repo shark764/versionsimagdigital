@@ -11,16 +11,13 @@ use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class ImgMisExamenesNoConcluidosAdmin extends Admin
+class ImgMisExamenesNoConcluidosAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_mi_lista_sin_realizar';
     protected $baseRoutePattern = 'rayos-x-mi-lista-sin-realizar';
     
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
         // $collection->clearExcept(array('list'));
         $collection->add('realizar');
         $collection->add('actualizarEstudioAlmacenado', null, [], [], ['expose' => true]);

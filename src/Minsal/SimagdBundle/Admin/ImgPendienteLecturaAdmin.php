@@ -11,16 +11,13 @@ use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class ImgPendienteLecturaAdmin extends Admin
+class ImgPendienteLecturaAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_sin_lectura';
     protected $baseRoutePattern = 'rayos-x-sin-lectura';
     
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
         // $collection->clearExcept(array('list'));
         $collection->add('leer');
         $collection->add('registrarEnMiLista', null, [], [], ['expose' => true]);

@@ -9,7 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Doctrine\ORM\EntityRepository;
 
-class ImgSolicitudEstudioComplementarioProyeccionAdmin extends Admin
+class ImgSolicitudEstudioComplementarioProyeccionAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_solicitud_estudio_complementario_proyeccion';
     protected $baseRoutePattern = 'rayos-x-proyecciones-complementarias-solicitadas';

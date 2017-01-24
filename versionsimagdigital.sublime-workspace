@@ -195,7 +195,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/ImgCitaAdminController.php",
 			"settings":
 			{
-				"buffer_size": 48994,
+				"buffer_size": 45861,
 				"line_ending": "Unix"
 			}
 		},
@@ -280,6 +280,7 @@
 	},
 	"file_history":
 	[
+		"/home/farid/NetBeansProjects/versionsimagdigital/versionsimagdigital.sublime-workspace",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_agenda.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImagenologiaDigitalAdminController.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgCitaAdmin.php",
@@ -406,8 +407,7 @@
 		"/home/farid/NetBeansProjects/worksimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlProyeccionAdmin/expl_list_v3.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/simagd_filter_bstable_config.js",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgCitaAdmin/cit_agendaGenerator.js",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgPendienteLecturaAdmin/pndL_list_v2.js",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgLecturaAdmin/lct_list.js"
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgPendienteLecturaAdmin/pndL_list_v2.js"
 	],
 	"find":
 	{
@@ -874,15 +874,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 48994,
+						"buffer_size": 45861,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1142,
-								1142
+								0,
+								0
 							]
 						],
 						"settings":
@@ -892,10 +892,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 247.0,
+						"translation.y": 3640.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1065,8 +1065,8 @@
 						"selection":
 						[
 							[
-								40817,
-								40817
+								4206,
+								4206
 							]
 						],
 						"settings":
@@ -1076,10 +1076,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3845.0,
+						"translation.y": 1141.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1119,8 +1119,8 @@
 		"cols":
 		[
 			0.0,
-			0.33,
-			0.66,
+			0.048828125,
+			0.09765625,
 			1.0
 		],
 		"rows":
@@ -1168,7 +1168,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 2,
 	"settings":
 	{
 	},

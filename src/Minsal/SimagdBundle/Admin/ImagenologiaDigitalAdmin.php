@@ -9,13 +9,15 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class ImagenologiaDigitalAdmin extends Admin
+class ImagenologiaDigitalAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_imagenologia_digital';
     protected $baseRoutePattern = 'rayos-x-imagenologia-digital';
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         $collection->clear();
         $collection->add('list', 'inicio');
         $collection->add('busquedaPaciente', 'busqueda-paciente');

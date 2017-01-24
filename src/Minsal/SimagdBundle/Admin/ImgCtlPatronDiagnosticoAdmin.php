@@ -12,22 +12,21 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ImgCtlPatronDiagnosticoAdmin extends Admin
+class ImgCtlPatronDiagnosticoAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_patron_diagnostico';
     protected $baseRoutePattern = 'rayos-x-patron-diagnostico';
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->remove('delete');
         $collection->add('agregarEnMiCatalogo', null, [], [], ['expose' => true]);
         $collection->add('crearPatronDiagnostico', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarPatronDiagnostico', null, [], ['_method' => 'POST'], ['expose' => true]);
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('addDiagnosisAsPattern', null, [], [], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }

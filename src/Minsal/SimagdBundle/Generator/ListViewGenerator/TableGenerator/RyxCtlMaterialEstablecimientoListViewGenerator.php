@@ -63,15 +63,6 @@ class RyxCtlMaterialEstablecimientoListViewGenerator extends RyxEntityListViewGe
         else {
             array_push($this->columns,
                     array(
-                        'field' => 'action',
-                        'sortable' => false,
-                        'align' => 'center',
-                        'halign' => 'center',
-                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
-                        // 'formatter' => 'operateFormatter',
-                        'events' => 'operateEvents',
-                    ),
-                    array(
                         'field' => 'id',
                         'sortable' => true,
                         'title' => 'ID',
@@ -150,6 +141,15 @@ class RyxCtlMaterialEstablecimientoListViewGenerator extends RyxEntityListViewGe
                         'align' => 'center',
                         // 'visible' => false,
                         // 'formatter' => 'habilitadoFormatter',
+                    ),
+                    array(
+                        'field' => 'action',
+                        'sortable' => false,
+                        'align' => 'center',
+                        'halign' => 'center',
+                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
+                        // 'formatter' => 'operateFormatter',
+                        'events' => 'operateEvents',
                     )
             );
         }
@@ -208,6 +208,11 @@ class RyxCtlMaterialEstablecimientoListViewGenerator extends RyxEntityListViewGe
             $this->entityOptions['pageSize']    = '5';
         }
         // $this->entityOptions['height']      = '1268';
+
+        $this->entityOptions['contextMenu']         = '#example2-context-menu';
+        $this->entityOptions['contextMenuButton']   = '.example2-button';
+        // $this->entityOptions['contextMenuTrigger']  = 'both';
+        $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
         ////////
     }
 

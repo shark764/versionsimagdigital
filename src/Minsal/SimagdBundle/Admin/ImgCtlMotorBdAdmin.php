@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ImgCtlMotorBdAdmin extends Admin
+class ImgCtlMotorBdAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_motor_bd';
     protected $baseRoutePattern = 'rayos-x-motor-bd';
@@ -21,9 +21,6 @@ class ImgCtlMotorBdAdmin extends Admin
     {
         // $collection->remove('delete');
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
     }
     
     /**

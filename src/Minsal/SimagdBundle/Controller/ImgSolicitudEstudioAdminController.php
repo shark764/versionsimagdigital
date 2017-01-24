@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -17,7 +17,7 @@ use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxSolicitudEstudioListViewGenerator;
 
-class ImgSolicitudEstudioAdminController extends Controller
+class ImgSolicitudEstudioAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     /**
      * TABLE GENERATOR
@@ -173,7 +173,7 @@ class ImgSolicitudEstudioAdminController extends Controller
      */
     public function createAction()
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('CREATE')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -433,7 +433,7 @@ class ImgSolicitudEstudioAdminController extends Controller
      */
     public function editAction($id = null)
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('EDIT')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -444,27 +444,27 @@ class ImgSolicitudEstudioAdminController extends Controller
         $id = $this->get('request')->get($this->admin->getIdParameter());
 
         //No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgSolicitudEstudio', 'prc')) {
-            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
-        }
+  //       if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgSolicitudEstudio', 'prc')) {
+  //           return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
+  //       }
 
     	$securityContext    = $this->container->get('security.context');
     	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        //No puede acceder al registro
-        if (!((in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) && $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
-                ->obtenerAccesoEstabEdit($id, $estabLocal->getId(), 'prc', 'idEstablecimientoReferido')) ||
-		($this->admin->isGranted('CREATE') && $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
-                                ->obtenerAccesoEstabEdit($id, $estabLocal->getId())))) {
-            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
-        }
+  //       //No puede acceder al registro
+  //       if (!((in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) && $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+  //               ->obtenerAccesoEstabEdit($id, $estabLocal->getId(), 'prc', 'idEstablecimientoReferido')) ||
+		// ($this->admin->isGranted('CREATE') && $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+  //                               ->obtenerAccesoEstabEdit($id, $estabLocal->getId())))) {
+  //           return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
+  //       }
 
-        //No está autorizado a editar el registro
-        if (!($em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerAccesoPreinscripcion($id, $sessionUser->getId()) ||
-                $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) {
-            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
-        }
+  //       //No está autorizado a editar el registro
+  //       if (!($em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerAccesoPreinscripcion($id, $sessionUser->getId()) ||
+  //               $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) {
+  //           return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
+  //       }
 
         // the key used to lookup the template
         $templateKey = 'edit';
@@ -553,7 +553,7 @@ class ImgSolicitudEstudioAdminController extends Controller
 
     public function show2Action($id = null)
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -576,7 +576,7 @@ class ImgSolicitudEstudioAdminController extends Controller
 
     public function listAction()
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -735,7 +735,8 @@ class ImgSolicitudEstudioAdminController extends Controller
                         '<div class="box-body" ondblclick="_fn_show_object_detail(this, \'' . $slug . '\', ' . $r['id'] . '); return false;">' .
                             // '<div class="container">' .
                             // '<div class=" col-lg-12 col-md-12 col-sm-12">' .
-                                '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-primary-v4 badge-inverse" style=""><h3>' . $r['paciente'] . '</h3></span></div></div>' .
+                                '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3></div></div>' .
+                                // '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-primary-v4 badge-inverse" style=""><h3>' . $r['paciente'] . '</h3></span></div></div>' .
                                 '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 14px;">' . $r['numero_expediente'] . '</span></div></div><p></p>' .
                                 '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['origen'] . '</div><div class="col-lg-6 col-md-6 col-sm-6 "><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" >' . /*<span class="glyphicon glyphicon-check"></span>*/ 'Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div></div>' .
                                 '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['area_atencion'] . '</div></div>' .
@@ -755,33 +756,9 @@ class ImgSolicitudEstudioAdminController extends Controller
 
             $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
                     '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-show-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Ver detalle..." >' .
-                        // '<a class=" worklist-show-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Ver detalle..." >' .
-                            // 'Ver' .
-                            '<i class="glyphicon glyphicon-chevron-down"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-form-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Abrir formulario..." >' .
-                        // '<a class=" worklist-save-form-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Abrir formulario..." >' .
-                            // 'Formulario' .
-                            '<i class="glyphicon glyphicon-edit"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-and-pacs-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                        // '<a class=" worklist-save-and-pacs-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                            // 'Guardar y asociar' .
-                            // '<i class="glyphicon glyphicon-check"></i>' .
-                            '<i class="glyphicon glyphicon-link"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    // '<span class="bs-btn-separator-toolbar"></span>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-action btn-link btn-link-emergency " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                        // '<a class=" worklist-save-action btn btn-emergency btn-outline btn-xs " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                            // 'Guardar' .
-                            '<i class="glyphicon glyphicon-check"></i>' .
+                        '<a class=" example2-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                            // 'OP.' .
+                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
                     '</div>' .
                 '</div>';
@@ -895,7 +872,7 @@ class ImgSolicitudEstudioAdminController extends Controller
      */
     public function showAction($id = null)
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -1008,33 +985,9 @@ class ImgSolicitudEstudioAdminController extends Controller
 
             $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
                     '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-show-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Ver detalle..." >' .
-                        // '<a class=" worklist-show-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Ver detalle..." >' .
-                            // 'Ver' .
-                            '<i class="glyphicon glyphicon-chevron-down"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-form-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Abrir formulario..." >' .
-                        // '<a class=" worklist-save-form-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Abrir formulario..." >' .
-                            // 'Formulario' .
-                            '<i class="glyphicon glyphicon-edit"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-and-pacs-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                        // '<a class=" worklist-save-and-pacs-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                            // 'Guardar y asociar' .
-                            // '<i class="glyphicon glyphicon-check"></i>' .
-                            '<i class="glyphicon glyphicon-link"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    // '<span class="bs-btn-separator-toolbar"></span>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-action btn-link btn-link-emergency " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                        // '<a class=" worklist-save-action btn btn-emergency btn-outline btn-xs " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                            // 'Guardar' .
-                            '<i class="glyphicon glyphicon-check"></i>' .
+                        '<a class=" example2-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                            // 'OP.' .
+                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
                     '</div>' .
                 '</div>';

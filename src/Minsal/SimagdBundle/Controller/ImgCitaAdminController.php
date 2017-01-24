@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -25,7 +25,7 @@ use Minsal\SimagdBundle\Generator\AgendaGenerator\AgendaGenerator;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxRyxCitaProgramadaListViewGenerator;
 
-class ImgCitaAdminController extends Controller
+class ImgCitaAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     /**
      * TABLE GENERATOR
@@ -207,7 +207,7 @@ class ImgCitaAdminController extends Controller
         $results[]                           = $falseEvent;
 
         /* Agregar bloqueos */
-        $results     = $this->addCalendarLocks($estabLocal, $start, $end, $results, $idAreaServicioDiagnostico, $idTecnologo);
+        $results = $this->addCalendarLocks($estabLocal, $start, $end, $results, $idAreaServicioDiagnostico, $idTecnologo);
         // $this->addCalendarLocks($estabLocal, $start, $end, $results, $idAreaServicioDiagnostico, $idTecnologo);
 
         return $this->renderJson($results);
@@ -297,49 +297,6 @@ class ImgCitaAdminController extends Controller
                                     $preinscripcionPadre ? $preinscripcionPadre->getFechaProximaConsulta() : null);
 
         return $this->render('MinsalSimagdBundle:ImgCitaAdmin:cit_espacios_reservados.html.twig', array('reservasCita' => $reservas, 'paramCitacion' => $paramCitacion));
-    }
-
-    /**
-     * Redirect the user depend on this choice
-     *
-     * @param object $object
-     *
-     * @return RedirectResponse
-     */
-    protected function redirectTo($object)
-    {
-        $url = false;
-
-        if (null !== $this->get('request')->get('btn_update_and_list')) {
-            $url = $this->admin->generateUrl('list');
-        }
-        if (null !== $this->get('request')->get('btn_create_and_list')) {
-            $url = $this->admin->generateUrl('list');
-        }
-
-        if (null !== $this->get('request')->get('btn_create_and_create')) {
-            $params = array();
-            if ($this->admin->hasActiveSubClass()) {
-                $params['subclass'] = $this->get('request')->get('subclass');
-            }
-            $url = $this->admin->generateUrl('create', $params);
-        }
-
-        if ($this->getRestMethod() == 'DELETE') {
-            $url = $this->admin->generateUrl('list');
-        }
-
-        /** Crear/Actualizar y mostrar registro */
-        if ((null !== $this->get('request')->get('btn_create_and_show')) ||
-                                (null !== $this->get('request')->get('btn_edit_and_show'))) {
-    		$url = $this->admin->generateObjectUrl('show', $object);
-        }
-
-        if (!$url) {
-            $url = $this->admin->generateObjectUrl('edit', $object);
-        }
-
-        return new RedirectResponse($url);
     }
 
     public function confirmarCitaAction(Request $request)
@@ -848,33 +805,9 @@ class ImgCitaAdminController extends Controller
 
             $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
                     '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-show-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Ver detalle..." >' .
-                        // '<a class=" worklist-show-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Ver detalle..." >' .
-                            // 'Ver' .
-                            '<i class="glyphicon glyphicon-chevron-down"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-form-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Abrir formulario..." >' .
-                        // '<a class=" worklist-save-form-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Abrir formulario..." >' .
-                            // 'Formulario' .
-                            '<i class="glyphicon glyphicon-edit"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-and-pacs-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                        // '<a class=" worklist-save-and-pacs-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                            // 'Guardar y asociar' .
-                            // '<i class="glyphicon glyphicon-check"></i>' .
-                            '<i class="glyphicon glyphicon-link"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    // '<span class="bs-btn-separator-toolbar"></span>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-action btn-link btn-link-emergency " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                        // '<a class=" worklist-save-action btn btn-emergency btn-outline btn-xs " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                            // 'Guardar' .
-                            '<i class="glyphicon glyphicon-check"></i>' .
+                        '<a class=" example2-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                            // 'OP.' .
+                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
                     '</div>' .
                 '</div>';

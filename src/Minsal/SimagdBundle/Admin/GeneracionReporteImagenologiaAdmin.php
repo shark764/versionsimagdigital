@@ -9,7 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class GeneracionReporteImagenologiaAdmin extends Admin
+class GeneracionReporteImagenologiaAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_generacion_reporte';
     protected $baseRoutePattern = 'rayos-x-imagenologia-reportes';

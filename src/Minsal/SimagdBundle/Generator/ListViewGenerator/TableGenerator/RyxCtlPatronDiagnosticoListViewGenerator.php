@@ -63,15 +63,6 @@ class RyxCtlPatronDiagnosticoListViewGenerator extends RyxEntityListViewGenerato
         else {
             array_push($this->columns,
                     array(
-                        'field' => 'action',
-                        'sortable' => false,
-                        'align' => 'center',
-                        'halign' => 'center',
-                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
-                        // 'formatter' => 'operateFormatter',
-                        'events' => 'operateEvents',
-                    ),
-                    array(
                         'field' => 'id',
                         'sortable' => true,
                         'title' => 'ID',
@@ -97,6 +88,7 @@ class RyxCtlPatronDiagnosticoListViewGenerator extends RyxEntityListViewGenerato
                         'field' => 'radiologo',
                         'sortable' => true,
                         'title' => 'Radiólogo',
+                        'class' => 'bstable-column-radiology',
                     ),
                     array(
                         'field' => 'tipo_resultado',
@@ -137,6 +129,24 @@ class RyxCtlPatronDiagnosticoListViewGenerator extends RyxEntityListViewGenerato
                         'sortable' => true,
                         'title' => 'Registró',
                         'visible' => false,
+                    ),
+                    array(
+                        'field' => 'action',
+                        'sortable' => false,
+                        'align' => 'center',
+                        'halign' => 'center',
+                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
+                        // 'formatter' => 'operateFormatter',
+                        'events' => 'operateEvents',
+                    ),
+                    array(
+                        'field' => 'action2',
+                        'sortable' => false,
+                        'align' => 'center',
+                        'halign' => 'center',
+                        'title' => '<span class="glyphicon glyphicon-cog"></span> OP2.',
+                        // 'formatter' => 'operateFormatter',
+                        'events' => 'operateEvents',
                     )
             );
         }
@@ -188,6 +198,9 @@ class RyxCtlPatronDiagnosticoListViewGenerator extends RyxEntityListViewGenerato
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['pageSize']    = '25';
+        $this->entityOptions['searchAlign'] = 'right';
+        $this->entityOptions['buttonsAlign']    = 'right';
+        $this->entityOptions['toolbarAlign']    = 'right';
         // $this->entityOptions['sortName']    = 'undefined';
         if ($this->type === 'detail') {
             $this->entityOptions['showToggle']  = false;
@@ -195,6 +208,11 @@ class RyxCtlPatronDiagnosticoListViewGenerator extends RyxEntityListViewGenerato
             $this->entityOptions['pageSize']    = '5';
         }
         // $this->entityOptions['height']      = '1268';
+
+        $this->entityOptions['contextMenu']         = '#example2-context-menu';
+        $this->entityOptions['contextMenuButton']   = '.example2-button';
+        // $this->entityOptions['contextMenuTrigger']  = 'both';
+        $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
         ////////
     }
 

@@ -18,6 +18,8 @@ class ImgDiagnosticoAdmin extends Admin {
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         $collection->add('nota');
         $collection->add('addPendingToWorkList', null, [], [], ['expose' => true]);
         // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
@@ -26,9 +28,6 @@ class ImgDiagnosticoAdmin extends Admin {
         $collection->add('editarDiagnostico', null, [], ['_method' => 'POST'], ['expose' => true]);
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('approveTranscribedDiagnosis', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }

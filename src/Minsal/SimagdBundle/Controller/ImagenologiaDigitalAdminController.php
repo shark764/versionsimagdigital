@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -19,7 +19,7 @@ use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxLecturaRad
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxCtlProyeccionRadiologicaListViewGenerator;
 use Minsal\SimagdBundle\Generator\AgendaGenerator\AgendaGenerator;
 
-class ImagenologiaDigitalAdminController extends Controller
+class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     /**
      * Redirigir inmediatamente hacia la busqueda de paciente
@@ -41,7 +41,7 @@ class ImagenologiaDigitalAdminController extends Controller
      */
     public function busquedaPacienteAction()
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }

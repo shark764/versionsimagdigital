@@ -43,7 +43,7 @@ class Formatter /*implements ListViewGeneratorInterface*/
      */
     public function booleanFormatter($value = false)
     {
-        $return = '<span class="label label-' . (!$value ? 'danger' : 'primary-v4') . '">' . (!$value ? 'NO' : 'SÍ') . '</span>';
+        $return = '<span class="label label-' . (!$value ? 'emergency'/*'danger'*/ : 'primary-v4') . '">' . (!$value ? 'NO' : 'SÍ') . '</span>';
         return $return;
     }
 

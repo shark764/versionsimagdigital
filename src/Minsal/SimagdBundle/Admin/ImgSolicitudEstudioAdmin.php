@@ -18,13 +18,15 @@ use Minsal\SeguimientoBundle\Entity\SecSignosVitales;
 use Minsal\SeguimientoBundle\Entity\SecSolicitudestudios;
 use Minsal\SeguimientoBundle\Entity\SecDetallesolicitudestudios;
 
-class ImgSolicitudEstudioAdmin extends Admin
+class ImgSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_solicitud_estudio';
     protected $baseRoutePattern = 'rayos-x-solicitud-estudio';
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         $collection->add('citar');
         $collection->add('requiereCita', null, [], [], ['expose' => true]);
         $collection->add('solicitarDiag');
@@ -36,10 +38,6 @@ class ImgSolicitudEstudioAdmin extends Admin
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('cambiarPrioridadAtencionSolicitud', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('obtenerPrioridadesAtencion', null, [], [], ['expose' => true]);
-        $collection->add('create', 'crear', [], [], ['expose' => true]);
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
-        $collection->add('show', 'consultar', [], [], ['expose' => true]);
         $collection->add('agregarIndicacionesRadiologo', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('pendingPatients', null, [], [], ['expose' => true]);
         $collection->add('crearSolicitudEstudioFormatoRapido', null, [], ['_method' => 'POST'], ['expose' => true]);
