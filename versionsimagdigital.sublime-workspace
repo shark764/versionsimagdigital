@@ -43,10 +43,10 @@
 			}
 		},
 		{
-			"file": "src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxSolicitudEstudioListViewGenerator.php",
+			"file": "src/Minsal/SimagdBundle/Resources/public/css/simagd-table.css",
 			"settings":
 			{
-				"buffer_size": 9153,
+				"buffer_size": 14229,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -653,7 +653,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 10765.0,
+						"translation.y": 1249.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -661,29 +661,29 @@
 				},
 				{
 					"buffer": 3,
-					"file": "src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxSolicitudEstudioListViewGenerator.php",
+					"file": "src/Minsal/SimagdBundle/Resources/public/css/simagd-table.css",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9153,
+						"buffer_size": 14229,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								5382,
+								5382
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2645.0,
+						"translation.y": 1901.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
