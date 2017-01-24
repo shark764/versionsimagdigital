@@ -174,7 +174,7 @@ class RyxDiagnosticoRadiologicoListViewGenerator extends RyxEntityListViewGenera
                         'field' => 'radiologo',
                         'sortable' => true,
                         'title' => 'Radiólogo',
-                        'class' => 'bstable-column-darkblue',
+                        'class' => 'bstable-column-radiology',
                     ),
                     array(
                         'field' => 'fecha_lectura',
