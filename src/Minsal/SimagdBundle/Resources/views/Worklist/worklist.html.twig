@@ -282,6 +282,20 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">EQUIPO</label>
+                                <div class="col-xs-2 col-lg-2 col-md-2 col-sm-2 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
+                                    <select id="_exam_worklist_x_ray_equipment" name="_exam_worklist_x_ray_equipment" class="form-control select2-select" >
+                                        <option value=""></option>
+                                        {#<optgroup label="Servicio de Diagnóstico por imagen">#}
+                                            {#{% for modalidad in modalidades %}
+                                                <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
+                                            {% endfor %}#}
+                                        {#</optgroup>#}
+                                    </select>
+                                </div>
+                            </div>
+
                         </form>
                         <!-- END --| FORM -->
 

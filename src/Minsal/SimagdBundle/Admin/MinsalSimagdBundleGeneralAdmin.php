@@ -150,14 +150,14 @@ class MinsalSimagdBundleGeneralAdmin extends Admin
         }
     }
 
-    public function getFormTheme()
-    {
-        return array_merge(
-            parent::getFormTheme(),
-            array('MinsalSimagdBundle:Form:simagd_form_admin_fields.html.twig'),
-            array('MinsalSimagdBundle:Form:simagd_doctrine_orm_form_admin_fields.html.twig')
-       );
-    }
+    // public function getFormTheme()
+    // {
+    //     return array_merge(
+    //         parent::getFormTheme(),
+    //         array('MinsalSimagdBundle:Form:simagd_form_admin_fields.html.twig'),
+    //         array('MinsalSimagdBundle:Form:simagd_doctrine_orm_form_admin_fields.html.twig')
+    //    );
+    // }
 
     public function prePersist($entity)
     {

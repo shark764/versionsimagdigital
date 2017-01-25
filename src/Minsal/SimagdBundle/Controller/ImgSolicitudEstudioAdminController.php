@@ -373,16 +373,16 @@ class ImgSolicitudEstudioAdminController extends MinsalSimagdBundleGeneralAdminC
         }
 
         /** Crear/Actualizar y mostrar registro */
-        if ((null !== $this->get('request')->get('btn_create_and_show')) ||
-                                (null !== $this->get('request')->get('btn_edit_and_show'))) {
-    		$url = $this->admin->generateObjectUrl('show', $object);
-        }
+      //   if ((null !== $this->get('request')->get('btn_create_and_show')) ||
+      //                           (null !== $this->get('request')->get('btn_edit_and_show'))) {
+    		// $url = $this->admin->generateObjectUrl('show', $object);
+      //   }
 
         /** Crear/Actualizar y mostrar registro */
-        if ((null !== $this->get('request')->get('btn_create_and_request')) ||
-                                (null !== $this->get('request')->get('btn_edit_and_request'))) {
-    		$url = $this->admin->generateObjectUrl('show', $object);
-        }
+      //   if ((null !== $this->get('request')->get('btn_create_and_request')) ||
+      //                           (null !== $this->get('request')->get('btn_edit_and_request'))) {
+    		// $url = $this->admin->generateObjectUrl('show', $object);
+      //   }
 
         if (!$url) {
             $url = $this->admin->generateObjectUrl('edit', $object);

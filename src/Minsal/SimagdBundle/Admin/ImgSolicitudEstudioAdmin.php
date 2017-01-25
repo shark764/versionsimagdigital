@@ -1268,7 +1268,12 @@ class ImgSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
 
     public function getNewInstance()
     {
-        $instance = parent::getNewInstance();
+        // $instance = parent::getNewInstance();
+        $instance = $this->getModelManager()->getModelInstance($this->getClass());
+        foreach ($this->getExtensions() as $extension)
+        {
+            $extension->alterNewInstance($this, $instance);
+        }
         
         /*
          * ADD FORM FOR MAMOGRAFY STUDY
