@@ -10,6 +10,6 @@
     <field name="nombreEstado" type="string" column="nombre_estado" nullable="false"/>
     <field name="codigo" type="string" column="codigo" nullable="false"/>
     <field name="estiloPresentacion" type="string" column="estilo_presentacion" nullable="true"/>
-    <field name="porcentajeAvance" type="smallint" column="porcentaje_avance" nullable="false"/>
+    <field name="porcentajeAvance" type="smallint" column="porcentaje_avance" nullable="true"/>
   </entity>
 </doctrine-mapping>

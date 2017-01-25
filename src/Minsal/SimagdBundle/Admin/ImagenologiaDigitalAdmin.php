@@ -37,6 +37,7 @@ class ImagenologiaDigitalAdmin extends MinsalSimagdBundleGeneralAdmin
         $collection->add('requestDashboard', 'solicitudes', [], [], ['expose' => true]);
         $collection->add('resultsDashboard', 'resultados', [], [], ['expose' => true]);
         $collection->add('catalogsDashboard', 'catalogos', [], [], ['expose' => true]);
+        $collection->add('agendaDashboard', 'agenda', [], [], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         /*
          * getJsonFiltersForBsTables
@@ -77,6 +78,9 @@ class ImagenologiaDigitalAdmin extends MinsalSimagdBundleGeneralAdmin
                 break;
             case 'catalogs_dashboard':
                 return 'MinsalSimagdBundle:Dashboard:catalogs_dashboard.html.twig';
+                break;
+            case 'agenda_dashboard':
+                return 'MinsalSimagdBundle:Dashboard:agenda_dashboard.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

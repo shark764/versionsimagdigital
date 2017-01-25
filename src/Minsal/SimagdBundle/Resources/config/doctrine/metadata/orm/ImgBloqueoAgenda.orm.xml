@@ -22,7 +22,7 @@
     <field name="horaFin" type="time" column="hora_fin" nullable="false"/>
     <field name="color" type="string" column="color" length="15" nullable="true"/>
     <field name="fechaUltimaEdicion" type="datetime" column="fecha_ultima_edicion" nullable="true"/>
-    <field name="superposicion" type="boolean" column="superposicion" nullable="true"/>
+    <field name="superposicion" type="boolean" column="superposicion" nullable="false"/>
     <many-to-one field="idUserMod" target-entity="FosUserUser">
       <join-columns>
         <join-column name="id_user_mod" referenced-column-name="id"/>
