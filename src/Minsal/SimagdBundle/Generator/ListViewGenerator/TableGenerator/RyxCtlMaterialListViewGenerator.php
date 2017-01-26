@@ -31,6 +31,33 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
+     * The related Admin class
+     *
+     * @var \Sonata\AdminBundle\Admin\AdminInterface
+     */
+    protected $admin;
+
+    /**
+     * Sets the Admin associated with this Controller.
+     *
+     * @param AdminInterface $admin A AdminInterface instance
+     */
+    public function setAdmin(AdminInterface $admin = null)
+    {
+        $this->admin = $admin;
+    }
+
+    /**
+     * return the Admin associated
+     *
+     * @return AdminInterface instance
+     */
+    protected function getAdmin()
+    {
+        return $this->admin;
+    }
+
+    /**
      * Sets the array.
      *
      * @param array $columns An array instance
@@ -132,7 +159,7 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
             );
         }
     }
-    
+
     /**
      * Sets the array.
      *
@@ -142,7 +169,7 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
      */
     public function defineActions()
     {
-        $actions =array();
+        $actions = array();
         $securityContext = $this->container->get('security.context');
 
         $actions[] ="one";
