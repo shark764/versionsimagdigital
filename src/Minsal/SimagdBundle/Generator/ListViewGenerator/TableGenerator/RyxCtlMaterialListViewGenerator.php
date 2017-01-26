@@ -132,6 +132,7 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
             );
         }
     }
+    
     /**
      * Sets the array.
      *
@@ -141,7 +142,12 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
      */
     public function defineActions()
     {
-        
+        $actions =array();
+        $securityContext = $this->container->get('security.context');
+
+        $actions[] ="one";
+        $actions[] ="two";
+        $actions[] ="three";
     }
 
     /**
