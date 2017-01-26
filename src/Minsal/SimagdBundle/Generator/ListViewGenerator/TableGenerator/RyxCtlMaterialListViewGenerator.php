@@ -163,7 +163,7 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
     /**
      * Sets the array.
      *
-     * @param array $columns An array instance
+     * @param array $actions An array instance
      *
      * @api
      */
@@ -172,9 +172,9 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
         $actions = array();
         $securityContext = $this->container->get('security.context');
 
-        $actions[] ="one";
-        $actions[] ="two";
-        $actions[] ="three";
+        $actions[] = "one";
+        $actions[] = "two";
+        $actions[] = "three";
     }
 
     /**
