@@ -147,6 +147,10 @@ class ImgCtlProyeccionAdminController extends Controller
         foreach ($resultados as $key => $resultado) {
 //            $resultado = new \Minsal\SimagdBundle\Entity\ImgCtlProyeccion();
 
+            $resultados[$key]['expl_id']  = '___' . $resultado['expl_id'];
+
+            $resultados[$key]['exm_sexo']  = strtoupper($resultado['exm_sexo']);
+
             $resultados[$key]['expl_fechaHoraReg']  = $resultado['expl_fechaHoraReg']->format('Y-m-d H:i:s A');
             $resultados[$key]['expl_fechaHoraMod']  = $resultado['expl_fechaHoraMod'] ? $resultado['expl_fechaHoraMod']->format('Y-m-d H:i:s A') : '';
             
