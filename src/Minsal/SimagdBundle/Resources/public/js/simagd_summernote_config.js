@@ -1,11 +1,38 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
 (function ($) {
-    
+
+    var StartSpeechRecognition = function (context) {
+        var ui = $.summernote.ui;
+
+        // create button
+        var button = ui.button({
+            contents: '<i class="fa fa-microphone"/>',
+            tooltip: 'Reconocimiento por voz',
+            click: function (e) {
+                // e.preventDefault();
+                var $this = jQuery(this);
+                jQuery.extend(true,
+                        field_speechRecognition,
+                        {
+                            editor: $this.attr('id')
+                        }
+                ); // set value for $editor
+                jQuery(document).trigger('myevt:summernote:speechrecognition', [e, $this, $this.attr('id'), jQuery(this).attr('id')]);
+                // invoke insertText method with 'hello' on editor module.
+                context.invoke('editor.foreColor', 'red');
+                // context.invoke('editor.insertText', ' speechrecognition ');
+                window.console.log($this.attr('id'), jQuery(this).attr('id'));
+            }
+        });
+
+        return button.render();   // return button as jquery object
+    }
+
     /** text-editor options for summernote */
     var $snOptions 		= {
         height: 	115,        // set editor height
@@ -15,6 +42,9 @@
         focus: 	true,       // set focus to editable area after initializing summernote
         // toolbar
         toolbar: 	null,       // set toolbar without options
+        buttons: {
+            startspeech: StartSpeechRecognition
+        }
     };
 
     var $default_onInit     = {
@@ -27,7 +57,7 @@
         onInit      : function() {
                         // Add "speech" button
                         var $this               = jQuery(this);
-                        var btn_toolbar_speech  = '<button id="sn_start_speechrecognition' + $this.attr('id') + '" type="button" class="btn btn-element-v2 btn-outline btn-sm btn-small sn_start_speechrecognition" title="Iniciar transcripción por voz" data-event="speech" tabindex="-1"><i class="fa fa-microphone"></i></button>';            
+                        var btn_toolbar_speech  = '<button id="sn_start_speechrecognition' + $this.attr('id') + '" type="button" class="btn btn-element-v2 btn-outline btn-sm btn-small sn_start_speechrecognition" title="Iniciar transcripción por voz" data-event="speech" tabindex="-1"><i class="fa fa-microphone"></i></button>';
                         var filegroup_speech    = '<div class="note-file btn-group">' + btn_toolbar_speech + '</div>';
                         jQuery(filegroup_speech).appendTo($this.next('.note-editor').find('.note-toolbar'));
                         // Button tooltips
@@ -60,7 +90,8 @@
             ['height', ['height']],
             ['insert', ['link', 'picture', 'hr']],
             ['view', ['fullscreen', 'codeview']],
-            ['help', ['help']]
+            ['help', ['help']],
+            ['speechrecognition', ['startspeech']]
         ]
     };
 
@@ -93,7 +124,7 @@
     {
 	var $data_notempty      = jQuery(this).data('summernote-notempty'),
             $data_name          = jQuery(this).attr('name');
-        
+
 	/** text-editor CREATE */
 	jQuery(this).summernote(
 	    jQuery.extend(true,
@@ -112,7 +143,7 @@
 	    console.log($data_name, 'data-summernote-notempty', $data_notempty);
         });
 	jQuery(this).summernote('code', 'Sin editar...');
-	
+
 	/** enable FORMVALIDATION */
 	var $data_validators    = jQuery(this).data('summernote-validators');
 	if ($data_validators === true || $data_validators === 'true') {
@@ -135,10 +166,10 @@
 			    .formValidation('enableFieldValidators', $data_name, false);
 	    console.log($data_name, 'remove from fv');
 	}
-	
+
 	/** text-editor DESTROY */
 	jQuery(this).summernote('reset').summernote('destroy');
-	
+
 	/** redefine RESIZE event for WINDOW */
 	var $window 	= jQuery(window);
 	$window.off('resize').on('resize', function () {
@@ -156,7 +187,7 @@
 }(jQuery));
 
 jQuery(document).ready(function() {
-    
+
     /*
      * destroy CKEDITOR INSTANCES
      */
@@ -169,7 +200,7 @@ jQuery(document).ready(function() {
     /*
      * instances are destroyed after ready
      */
-    
+
     /*
      * set contenteditable TRUE for SUMMERNOTE instances on display tab content
      */
@@ -187,5 +218,5 @@ jQuery(document).ready(function() {
                                 console.log(jQuery(this).attr('name'), 'shown.bs.tab', 'DON\'T DISPLAY ALWAYS, JUST WHEN IS TAB WITH SUMMERNOTES');
                             });
     });
-    
+
 });

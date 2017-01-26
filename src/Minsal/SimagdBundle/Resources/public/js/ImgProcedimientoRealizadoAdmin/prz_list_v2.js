@@ -8,14 +8,16 @@ function procedimientoRealizado_actionFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="show-procedimiento-realizado-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar examen detallado"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
-		    '<i class="glyphicon glyphicon-info-sign"></i>',
-		'</a>',
+    		'<a   class="show-procedimiento-realizado-action btn-link btn-link-primary-v4 " href="javascript:void(0)" title="Mostrar examen detallado"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+    		    // '<i class="glyphicon glyphicon-info-sign"></i>',
+                'Ver',
+    		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="edit-procedimiento-realizado-action btn btn-primary-v4 btn-outline btn-xs " href="' + row.prz_editUrl + '" target="_blank" title="Editar registro de examen"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
-		    '<i class="glyphicon glyphicon-repeat"></i>',
-		'</a>',
+    		'<a   class="edit-procedimiento-realizado-action btn-link btn-link-emergency " href="' + row.prz_editUrl + '" target="_blank" title="Editar registro de examen"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+    		    // '<i class="glyphicon glyphicon-repeat"></i>',
+                'Editar',
+    		'</a>',
 	    '</div>',
 	'</div>'
     ].join('');
@@ -30,25 +32,25 @@ window.procedimientoRealizado_actionEvents = {
 };
 
 jQuery(document).ready(function() {
-    
+
     jQuery('li.list-table-link-navbar').find("a:not([disabled])").off('click').on('click', function (e) {
         var $target_divContainer_bsTable = jQuery(this).data('divtabletarget');
 	var $target = $('#' + $target_divContainer_bsTable);
-	
+
 	/** Hide popovers */
 	$('.fc-event, .fc-bgevent, [data-toggle="popover"]').popover('hide');
-	
+
  	/** Tablas bstable */
         var $target_bsTable                 = $target.find('table[data-toggle="table"]');               // --| get bstable
         var $target_bsTable_url             = $target_bsTable.bootstrapTable('getOptions').url;         // --| get Url
         var $target_bsTable_backupUrl       = $target_bsTable.bootstrapTable('getOptions').backupUrl;   // --| get backupUrl
-        
+
         if (typeof $target_bsTable_url === "undefined" || $target_bsTable_url === null || $target_bsTable_url === "")
         {
             $target_bsTable_url             = jQuery.trim($target.data('refresh-url'));
         }
 	console.log(jQuery.trim($target.data('refresh-url')), jQuery.trim($target_bsTable_backupUrl), jQuery.trim($target_bsTable_url));
-        
+
         /*
          * refresh bootstrap table with new filters from BSTABLE_FILTER_COLLECTION.BSTABLE_COLLECTION.param
          */
@@ -56,17 +58,17 @@ jQuery(document).ready(function() {
                 .bootstrapTable('refresh', {
                             url: $target_bsTable_url
                         });
-	
+
  	/** fullCalendar */
 	$target.find('#calendar:not([disabled])').fullCalendar('refetchEvents');
-	
+
         $('.' + $pattern_bstable_container).hide();
         $target.show();
         $('li.list-table-link-navbar').removeClass('active')
                 .parents("li.list-table-link-navbar-parent").removeClass('active');
         jQuery(this).parents("li").addClass("active");
     });
-    
+
 });
 
 function tecnologoAsignadoFormatter(value, row, index) {

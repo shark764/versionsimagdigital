@@ -24,9 +24,9 @@ function pendienteTranscripcion_actionFormatter(value, row, index) {
 window.pendienteTranscripcion_actionEvents = {
     'click .agregar-pendiente-transcribir-action': function (e, value, row, index) {
         $.ajax({
-            type: 'post',
+            type: 'POST',
             dataType: 'json',
-            url: Routing.generate('simagd_diagnostico_agregarPendiente'),
+            url: Routing.generate('simagd_diagnostico_addPendingToWorkList'),
             data: { __lct: row.lct_id },
             success: function(response) {
 			console.log('Elemento ingresado en lista personal satisfactoriamente');
@@ -233,9 +233,9 @@ jQuery(document).ready(function() {
 
         // Use Ajax to submit form data
         $.ajax({
-                type: 'post',
+                type: 'POST',
                 dataType: 'json',
-                url: Routing.generate('simagd_sin_transcribir_asignarElementoListaTrabajo'),
+                url: Routing.generate('simagd_sin_transcribir_addToWorkList'),
                 data: $pndTWorklist_params,
                 success: function(response) {
                             console.log('Registros han sido asignados a Transcriptor satisfactoriamente');

@@ -147,7 +147,7 @@ jQuery(document).ready(function() {
 	    }
 	});
 	$.ajax({
-	    type: 'post',
+	    type: 'POST',
 	    dataType: 'json',
 	    url: Routing.generate('simagd_solicitud_estudio_complementario_cambiarPrioridadAtencionSolicitud'),
             data: {
@@ -270,7 +270,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate(url),
 		    data: $form.formParams(),

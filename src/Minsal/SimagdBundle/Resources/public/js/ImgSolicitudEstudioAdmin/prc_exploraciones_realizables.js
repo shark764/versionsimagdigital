@@ -50,7 +50,7 @@ jQuery(document).ready(function() {
                     /*
                      * enable options that matching data
                      */
-                    $.each(data.resultados, function(i, r) {
+                    $.each(data.results, function(i, r) {
                         $fieldDiagnostician.find('option[value=' + this.value + ']').prop('disabled', false);
 			if (jQuery.isEmptyObject(field_stdiag_val) === false && parseInt(field_stdiag_val, 10) === this.value)
 			{

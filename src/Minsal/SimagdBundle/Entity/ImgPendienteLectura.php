@@ -103,7 +103,8 @@ class ImgPendienteLectura
      */
     private $idAsignaRadiologo;
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->idEstudio . ' :: ' . $this->idEstablecimiento;
     }
 

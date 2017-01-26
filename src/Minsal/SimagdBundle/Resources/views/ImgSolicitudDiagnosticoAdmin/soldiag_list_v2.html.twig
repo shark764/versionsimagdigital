@@ -6,8 +6,8 @@
     {{ parent() }}
     
     {# Bootstrap #}
-    {#<link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-3.3.7-dist/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
-    <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css') }}" type="text/css" rel="stylesheet" />#}
+    {#<link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-3.3.7/dist/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/minsalsimagd/plugin/bootstrap-3.3.7/dist/css/bootstrap-theme.min.css') }}" type="text/css" rel="stylesheet" />#}
     
     {# Twitter Typeahead #}
     <link href="{{ asset('bundles/minsalsimagd/css/typeahead.css') }}" type="text/css" rel="stylesheet" />
@@ -21,7 +21,7 @@
     {{ parent() }}
     
     {# Bootstrap #}
-    {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-3.3.7-dist/js/bootstrap.min.js') }}" ></script>#}
+    {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-3.3.7/dist/js/bootstrap.min.js') }}" ></script>#}
 
     {# jquery-formparams #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/jquery.formparams.min.js') }}" ></script>
@@ -43,7 +43,7 @@
             
     <table class="table table-condensed" id="table-lista-solicitudes-diagnostico"
            data-toggle="table"
-           data-url="{{ path('simagd_solicitud_diagnostico_listarSolicitudesDiagnostico') }}"
+           data-url="{{ path('simagd_solicitud_diagnostico_generateData') }}"
            data-cache="false"
            data-show-refresh="true"
            data-show-toggle="true"

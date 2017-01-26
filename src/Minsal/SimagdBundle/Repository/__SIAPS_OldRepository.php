@@ -3,7 +3,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * AND open the template in the editor.
  */
 
 namespace Minsal\SimagdBundle\Repository;
@@ -64,4 +64,5 @@ class __SIAPS_OldRepository extends EntityRepository
         
         return $query;
     }
+
 }

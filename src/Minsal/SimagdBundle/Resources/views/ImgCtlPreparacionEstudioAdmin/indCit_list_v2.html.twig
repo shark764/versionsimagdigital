@@ -61,11 +61,11 @@
     {{ parent() }}
 
     {% if _INDCIT_ALLOW_LIST == true %}
-	<div id="div-resultado-indicaciones-cita" class="menu-listas-indicaciones-cita" data-refresh-url="{{ path('simagd_preparacion_estudio_listarIndicacionesCita') }}">
+	<div id="div-resultado-indicaciones-cita" class="menu-listas-indicaciones-cita" data-refresh-url="{{ path('simagd_preparacion_estudio_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-indicaciones-cita"
 		  data-toggle="table"
 		  data-id-field="indCit_id"
-		  data-url="{{ path('simagd_preparacion_estudio_listarIndicacionesCita') }}"
+		  data-url="{{ path('simagd_preparacion_estudio_generateData') }}"
 		  data-cache="false"
 		  data-show-refresh="true"
 		  data-show-toggle="true"

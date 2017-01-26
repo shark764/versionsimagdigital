@@ -76,12 +76,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'pacs' } %}
         <!-- END --| toolbar for table-lista-pacs-establecimiento -->
         
-	<div id="div-resultado-pacs-establecimiento" class="menu-listas-conexiones-pacs" data-refresh-url="{{ path('simagd_pacs_listarPacsEstablecimiento') }}">
+	<div id="div-resultado-pacs-establecimiento" class="menu-listas-conexiones-pacs" data-refresh-url="{{ path('simagd_pacs_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-pacs-establecimiento"
 		    data-toggle="table"
 		    data-id-field="pacs_id"
-		    data-url="{% if _PACS_ALLOW_CREATE == false and _PACS_ALLOW_EDIT == false %}{{ path('simagd_pacs_listarPacsEstablecimiento') }}{% endif %}"
-		    data-backup-url="simagd_pacs_listarPacsEstablecimiento"
+		    data-url="{% if _PACS_ALLOW_CREATE == false and _PACS_ALLOW_EDIT == false %}{{ path('simagd_pacs_generateData') }}{% endif %}"
+		    data-backup-url="simagd_pacs_generateData"
 		    data-toolbar="#bs_pacs_toolbar"
 		    data-cache="false"
 		    data-show-refresh="true"

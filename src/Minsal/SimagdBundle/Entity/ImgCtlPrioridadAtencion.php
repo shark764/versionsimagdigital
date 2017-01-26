@@ -51,7 +51,8 @@ class ImgCtlPrioridadAtencion
     private $estiloPresentacion = 'success-v2';
 
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
     }
 

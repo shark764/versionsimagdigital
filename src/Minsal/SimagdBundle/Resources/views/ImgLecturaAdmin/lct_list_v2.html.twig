@@ -74,7 +74,7 @@
             /*
              * get sources from remote
              */
-            var $getJSON_url            = 'simagd_patron_diagnostico_listarPatronesDiagnostico';  // --| url to get the sources
+            var $getJSON_url            = 'simagd_patron_diagnostico_generateData';  // --| url to get the sources
             $.getJSON(Routing.generate($getJSON_url), {
                 filters: JSON.stringify([]),
             })
@@ -254,12 +254,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'lct' } %}
         <!-- END --| toolbar for table-lista-lecturas -->
         
-	<div id="div-resultado-lecturas-realizadas" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_lectura_listarLecturas') }}">
+	<div id="div-resultado-lecturas-realizadas" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_lectura_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-lecturas"
 		  data-toggle="table"
 		  data-id-field="lct_id"
-		  data-url="{{ path('simagd_lectura_listarLecturas') }}"
-		  data-backup-url="simagd_lectura_listarLecturas"
+		  data-url="{{ path('simagd_lectura_generateData') }}"
+		  data-backup-url="simagd_lectura_generateData"
                   data-toolbar="#bs_lct_toolbar"
 		  data-cache="false"
 		  data-show-refresh="true"
@@ -309,12 +309,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'diag' } %}
         <!-- END --| toolbar for table-lista-diagnosticos -->
         
-	<div id="div-resultado-diagnosticos-transcritos" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_diagnostico_listarDiagnosticos') }}">
+	<div id="div-resultado-diagnosticos-transcritos" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_diagnostico_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-diagnosticos"
 		  data-toggle="table"
 		  data-id-field="diag_id"
 		  data-url=""
-                  data-backup-url="simagd_diagnostico_listarDiagnosticos"
+                  data-backup-url="simagd_diagnostico_generateData"
                   data-toolbar="#bs_diag_toolbar"
 		  data-cache="false"
 		  data-show-refresh="true"
@@ -361,12 +361,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'notdiag' } %}
         <!-- END --| toolbar for table-lista-notas-diagnosticos -->
         
-	<div id="div-resultado-notas-diagnostico" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_nota_listarNotasDiagnostico') }}">
+	<div id="div-resultado-notas-diagnostico" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_nota_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-notas-diagnostico"
 		  data-toggle="table"
 		  data-id-field="notdiag_id"
 		  data-url=""
-                  data-backup-url="simagd_nota_listarNotasDiagnostico"
+                  data-backup-url="simagd_nota_generateData"
                   data-toolbar="#bs_notdiag_toolbar"
 		  data-cache="false"
 		  data-show-refresh="true"
@@ -445,12 +445,12 @@
 
         </div> <!-- END --| toolbar for table-lista-lecturas-pendientes -->
 
-	<div id="div-resultado-lecturas-pendientes" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_sin_lectura_listarPendientesLectura') }}">
+	<div id="div-resultado-lecturas-pendientes" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_sin_lectura_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-pendientes-lectura"
 		    data-toggle="table"
 		    data-id-field="pndL_id"
-		    data-url="{{ path('simagd_sin_lectura_listarPendientesLectura') }}"
-		    data-backup-url="simagd_sin_lectura_listarPendientesLectura"
+		    data-url="{{ path('simagd_sin_lectura_generateData') }}"
+		    data-backup-url="simagd_sin_lectura_generateData"
                     data-toolbar="#bs_pndL_toolbar"
 		    data-cache="false"
 		    data-show-refresh="true"
@@ -493,12 +493,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'pndLPr' } %}
         <!-- END --| toolbar for table-lista-lecturas -->
 
-	<div id="div-resultado-lecturas-personal-pendientes" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_mi_lista_sin_lectura_listarPendientesLectura') }}">
+	<div id="div-resultado-lecturas-personal-pendientes" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_mi_lista_sin_lectura_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-personal-pendientes-lectura"
 		    data-toggle="table"
 		    data-id-field="pndL_id"
 		    data-url=""
-                    data-backup-url="simagd_mi_lista_sin_lectura_listarPendientesLectura"
+                    data-backup-url="simagd_mi_lista_sin_lectura_generateData"
 		    data-toolbar="#bs_pndLPr_toolbar"
 		    data-cache="false"
 		    data-show-refresh="true"
@@ -569,12 +569,12 @@
 
         </div> <!-- END --| toolbar for table-lista-transcripciones-pendientes -->
 
-	<div id="div-resultado-transcripciones-pendientes" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_sin_transcribir_listarPendientesTranscripcion') }}">
+	<div id="div-resultado-transcripciones-pendientes" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_sin_transcribir_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-pendientes-transcripcion"
 		  data-toggle="table"
 		  data-id-field="pndT_id"
-		  data-url="{{ path('simagd_sin_transcribir_listarPendientesTranscripcion') }}"
-		  data-backup-url="simagd_sin_transcribir_listarPendientesTranscripcion"
+		  data-url="{{ path('simagd_sin_transcribir_generateData') }}"
+		  data-backup-url="simagd_sin_transcribir_generateData"
 		  data-toolbar="#bs_pndT_toolbar"
 		  data-cache="false"
 		  data-show-refresh="true"
@@ -619,12 +619,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'pndTPr' } %}
         <!-- END --| toolbar for table-lista-lecturas -->
 
-	<div id="div-resultado-transcripciones-personal-pendientes" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_mi_lista_sin_transcribir_listarPendientesTranscripcion') }}">
+	<div id="div-resultado-transcripciones-personal-pendientes" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_mi_lista_sin_transcribir_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-personal-pendientes-transcripcion"
 		  data-toggle="table"
 		  data-id-field="pndT_id"
 		  data-url=""
-                  data-backup-url="simagd_mi_lista_sin_transcribir_listarPendientesTranscripcion"
+                  data-backup-url="simagd_mi_lista_sin_transcribir_generateData"
 		  data-toolbar="#bs_pndTPr_toolbar"
 		  data-cache="false"
 		  data-show-refresh="true"

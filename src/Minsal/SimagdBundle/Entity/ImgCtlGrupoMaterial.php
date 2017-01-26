@@ -50,7 +50,8 @@ class ImgCtlGrupoMaterial
     private $grupoSubgrupos;
 
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
     }
 

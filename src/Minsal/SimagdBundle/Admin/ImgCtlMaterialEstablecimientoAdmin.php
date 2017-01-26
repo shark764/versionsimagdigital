@@ -12,26 +12,26 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ImgCtlMaterialEstablecimientoAdmin extends Admin
+class ImgCtlMaterialEstablecimientoAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_material_local';            //SUSTITUIR METODO GET NEW INSTANCE CON EL ESTABLECIMIENTO YA SETEADO
+    protected $baseRouteName    = 'simagd_material_local';            //SUSTITUIR METODO GET NEW INSTANCE CON EL ESTABLECIMIENTO YA SETEADO
     protected $baseRoutePattern = 'rayos-x-material-local';
-    
+
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('delete');
+        parent::configureRoutes($collection);
+        
+        // $collection->remove('delete');
         $collection->add('agregarMaterialEnLocal', null, [], [], ['expose' => true]);
         $collection->add('crearMaterialLocal', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarMaterialLocal', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('listarMaterialesLocales', null, [], [], ['expose' => true]);
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('obtenerMaterialesNoAgregados', null, [], [], ['expose' => true]);
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('getNonAggregatedMaterials', null, [], [], ['expose' => true]);
         $collection->add('habilitarMaterial', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
-    
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -42,13 +42,6 @@ class ImgCtlMaterialEstablecimientoAdmin extends Admin
             ->add('cantidadDisponible')
             ->add('descripcion')
         ;
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
 
     /**
@@ -63,22 +56,16 @@ class ImgCtlMaterialEstablecimientoAdmin extends Admin
         ;
     }
 
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
-
     public function prePersist($material) {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $material->setIdUserReg($user);
         $material->setFechaHoraReg(new \DateTime('now'));
     }
-    
+
     public function preUpdate($material) {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $material->setIdUserMod($user);
         $material->setFechaHoraMod(new \DateTime('now'));
     }
+
 }

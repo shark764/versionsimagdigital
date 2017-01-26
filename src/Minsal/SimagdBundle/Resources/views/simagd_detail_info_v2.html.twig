@@ -31,7 +31,7 @@
                 </div>
             {% endif %}
             {% if _PRC_ALLOW_LIST_AND_VIEW == true %}
-                <div class="tab-pane fade" id="preinscripcionInfo" data-refresh-url="{{ path('simagd_solicitud_estudio_listarSolicitudesEstudioSummary') }}" >
+                <div class="tab-pane fade" id="preinscripcionInfo" data-refresh-url="{{ path('simagd_solicitud_estudio_generateDataSummary') }}" >
                     {% include 'MinsalSimagdBundle:show_entity_block:prc_bloque_informacion_v2.html.twig' %}
                 </div>
             {% endif %}

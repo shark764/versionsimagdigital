@@ -237,7 +237,8 @@ class ImgCita
     private $citaExamenPendienteRealizar;
 
 
-    public function __toString() {
+    public function __toString()
+    {
         return 'Cita de: ' . $this->idSolicitudEstudio . ' :: ' . $this->idEstadoCita;
     }
 

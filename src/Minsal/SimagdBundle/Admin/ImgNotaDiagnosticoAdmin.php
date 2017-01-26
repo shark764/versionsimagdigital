@@ -11,36 +11,20 @@ use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class ImgNotaDiagnosticoAdmin extends Admin
+class ImgNotaDiagnosticoAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_nota';
+    protected $baseRouteName    = 'simagd_nota';
     protected $baseRoutePattern = 'rayos-x-nota';
     
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
-        $collection->add('listarNotasDiagnostico', null, [], [], ['expose' => true]);
-        $collection->remove('delete');
+        // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
+        // $collection->remove('delete');
         $collection->add('crearNota', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarNota', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
-    }
-    
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
 
     /**
@@ -150,13 +134,6 @@ class ImgNotaDiagnosticoAdmin extends Admin
             ->end()
         ;
     }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
     
     public function prePersist($nota) {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
@@ -190,8 +167,9 @@ class ImgNotaDiagnosticoAdmin extends Admin
                         ->end();
         }
     }
-    
-    public function getNewInstance() {
+
+    public function getNewInstance()
+    {
         $instance = parent::getNewInstance();
         
         $sessionUser = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
@@ -223,8 +201,9 @@ class ImgNotaDiagnosticoAdmin extends Admin
         
         return $instance;
     }
-    
-    public function createQuery($context = 'list') {
+
+    public function createQuery($context = 'list')
+    {
         $query = parent::createQuery($context);
         
         $estabLocal = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()
@@ -237,8 +216,9 @@ class ImgNotaDiagnosticoAdmin extends Admin
         
         return $query;
     }
-    
-    public function getTemplate($name) {
+
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'edit':
                 return 'MinsalSimagdBundle:ImgNotaDiagnosticoAdmin:notdiag_edit.html.twig';
@@ -254,5 +234,5 @@ class ImgNotaDiagnosticoAdmin extends Admin
                 break;
         }
     }
-    
+
 }

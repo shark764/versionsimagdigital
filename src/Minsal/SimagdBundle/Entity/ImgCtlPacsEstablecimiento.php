@@ -100,6 +100,13 @@ class ImgCtlPacsEstablecimiento
     private $fechaHoraMod;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="principal", type="boolean", nullable=false)
+     */
+    private $principal = false;
+
+    /**
      * @var \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      *
      * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlEstablecimiento")
@@ -140,7 +147,8 @@ class ImgCtlPacsEstablecimiento
     private $idUserReg;
 
 
-    public function __toString() {
+    public function __toString()
+    {
         return 'Conexión PACS: ' . $this->nombreConexion . ' : ' . $this->ip ;
     }
 
@@ -407,6 +415,29 @@ class ImgCtlPacsEstablecimiento
     public function getFechaHoraMod()
     {
         return $this->fechaHoraMod;
+    }
+
+    /**
+     * Set principal
+     *
+     * @param boolean $principal
+     * @return ImgCtlPacsEstablecimiento
+     */
+    public function setPrincipal($principal)
+    {
+        $this->principal = $principal;
+
+        return $this;
+    }
+
+    /**
+     * Get principal
+     *
+     * @return boolean 
+     */
+    public function getPrincipal()
+    {
+        return $this->principal;
     }
 
     /**

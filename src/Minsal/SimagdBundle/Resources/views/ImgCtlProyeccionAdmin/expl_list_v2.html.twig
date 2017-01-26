@@ -136,12 +136,12 @@
 
         </div> <!-- END --| toolbar for table-lista-proyecciones -->
         
-	<div id="div-resultado-proyecciones" class="menu-listas-proyecciones" data-refresh-url="{{ path('simagd_proyeccion_listarProyecciones') }}">
+	<div id="div-resultado-proyecciones" class="menu-listas-proyecciones" data-refresh-url="{{ path('simagd_proyeccion_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-proyecciones"
 		  data-toggle="table"
 		  data-id-field="expl_id"
-		  data-url="{{ path('simagd_proyeccion_listarProyecciones') }}"
-                  data-backup-url="simagd_proyeccion_listarProyecciones"
+		  data-url="{{ path('simagd_proyeccion_generateData') }}"
+                  data-backup-url="simagd_proyeccion_generateData"
                   data-toolbar="#bs_expl_toolbar"
 		  {#data-toolbar-align="right"#}
 		  data-cache="false"
@@ -211,12 +211,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'explrz' } %}
         <!-- END --| toolbar for table-lista-proyecciones-locales -->
         
-	<div id="div-resultado-proyecciones-locales" style="display: none;" class="menu-listas-proyecciones" data-refresh-url="{{ path('simagd_proyeccion_establecimiento_listarProyeccionesLocales') }}">
+	<div id="div-resultado-proyecciones-locales" style="display: none;" class="menu-listas-proyecciones" data-refresh-url="{{ path('simagd_proyeccion_establecimiento_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-proyecciones-locales"
 		  data-toggle="table"
 		  data-id-field="explrz_id"
 		  data-url=""
-                  data-backup-url="simagd_proyeccion_establecimiento_listarProyeccionesLocales"
+                  data-backup-url="simagd_proyeccion_establecimiento_generateData"
                   data-toolbar="#bs_explrz_toolbar"
 		  data-cache="false"
 		  data-show-refresh="true"

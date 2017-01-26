@@ -227,7 +227,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate(url),
 		    data: $form.formParams(),
@@ -309,9 +309,9 @@ jQuery(document).ready(function() {
 	var $form = jQuery('#diagFiltrarDatosForm');
 	
 	$.ajax({
-		type: 'post',
+		type: 'POST',
 		dataType: 'json',
-		url: Routing.generate('simagd_diagnostico_listarDiagnosticos'),
+		url: Routing.generate('simagd_diagnostico_generateData'),
 		data: $form.formParams(),
 		success: function(response) {
 			    console.log(response);

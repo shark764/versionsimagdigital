@@ -2,26 +2,26 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 
-class ImgCtlPreparacionEstudioAdminController extends Controller
+class ImgCtlPreparacionEstudioAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     public function listAction()
     {
-	//Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
         $em = $this->getDoctrine()->getManager();
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+        $securityContext 	= $this->container->get('security.context');
+        $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $tiposEmpleado = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
@@ -42,12 +42,12 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
                    ));
     }
 
-    public function listarIndicacionesCitaAction()
+    public function generateDataAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+        $securityContext 	= $this->container->get('security.context');
+        $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $resultados = $em->getRepository('MinsalSimagdBundle:ImgCtlPreparacionEstudio')->obtenerPreparacionEstudiosV2($estabLocal->getId(), $BS_FILTERS_DECODE);
@@ -55,8 +55,11 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
 	$isUser_allowShow = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
 	$isUser_allowEdit = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
 
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgCtlPreparacionEstudio();
+        $formatter = new Formatter();
+
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgCtlPreparacionEstudio();
 
             $resultados[$key]['indCit_fechaHoraReg'] = $resultado['indCit_fechaHoraReg']->format('Y-m-d H:i:s A');
             $resultados[$key]['indCit_fechaHoraMod'] = $resultado['indCit_fechaHoraMod'] ? $resultado['indCit_fechaHoraMod']->format('Y-m-d H:i:s A') : '';
@@ -66,9 +69,7 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
             $resultados[$key]['allowEdit'] = $isUser_allowEdit;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($resultados));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function crearIndicacionCitaAction(Request $request)
@@ -77,7 +78,7 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
 
         //Nueva instancia
         $indicacionesCita = $this->admin->getNewInstance();
-//        $indicacionesCita = new ImgCtlPreparacionEstudio();
+        // $indicacionesCita = new ImgCtlPreparacionEstudio();
 
         $empleado 		= $request->request->get('formIndCitIdEmpleado');
         $modalidad 		= $request->request->get('formIndCitIdAreaServicioDiagnosticoAplica');
@@ -85,8 +86,8 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
         $recomendaciones 	= $request->request->get('formIndCitRecomendaciones');
         $observaciones 		= $request->request->get('formIndCitObservaciones');
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+        $securityContext 	= $this->container->get('security.context');
+        $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $em = $this->getDoctrine()->getManager();
@@ -112,9 +113,7 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function editarIndicacionCitaAction(Request $request)
@@ -153,9 +152,7 @@ class ImgCtlPreparacionEstudioAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
 }

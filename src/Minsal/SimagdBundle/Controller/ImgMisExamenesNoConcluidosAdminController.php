@@ -2,24 +2,26 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 
-class ImgMisExamenesNoConcluidosAdminController extends Controller
+class ImgMisExamenesNoConcluidosAdminController extends MinsalSimagdBundleGeneralAdminController
 {
-    public function realizarAction() {
+    public function realizarAction()
+    {
         $id = $this->get('request')->get($this->admin->getIdParameter());
         
         $this->addFlash('sonata_flash_success', 'Registro extraido de mi lista de exámenes no concluidos.');
         return $this->redirect($this->generateUrl('simagd_sin_realizar_realizar', array('id' => $id)));
     }
     
-    public function listAction() {
-	//Acceso denegado
+    public function listAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -27,7 +29,7 @@ class ImgMisExamenesNoConcluidosAdminController extends Controller
         return $this->render($this->admin->getTemplate('list'));
     }
     
-    public function listarPendientesRealizarAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
         
@@ -40,7 +42,7 @@ class ImgMisExamenesNoConcluidosAdminController extends Controller
 	$sessionUser                       = $securityContext->getToken()->getUser();
         $estabLocal                         = $sessionUser->getIdEstablecimiento();
 
-        $resultados                         = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')->obtenerPendientesRealizarPersonalV2($estabLocal->getId(), $sessionUser->getId(), $BS_FILTERS_DECODE);
+        $resultados                         = $em->getRepository('MinsalSimagdBundle:ImgPendienteRealizacion')->assignedWorkList($estabLocal->getId(), $sessionUser->getId(), $BS_FILTERS_DECODE);
         
         $isUser_allowRealizar               = ($this->admin->getRoutes()->has('realizar') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_EDIT')) ||
@@ -48,9 +50,12 @@ class ImgMisExamenesNoConcluidosAdminController extends Controller
 	$isUser_allowActualizarAlmacenado   = ($this->admin->getRoutes()->has('actualizarEstudioAlmacenado') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_EDIT')) ||
                     $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
-        
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgPendienteRealizacion;
+
+        $formatter = new Formatter();
+
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgPendienteRealizacion;
 
             $resultados[$key]['pndR_fechaIngresoLista']             = $resultado['pndR_fechaIngresoLista']->format('Y-m-d H:i:s A');
             
@@ -77,9 +82,9 @@ class ImgMisExamenesNoConcluidosAdminController extends Controller
             $resultados[$key]['allowActualizarAlmacenado']          = false !== $isUser_allowActualizarAlmacenado && 'ALM' !== $resultado['prz_codEstado'];
         }
         
-        $response   = new Response();
+        $response = new Response();
         $response->setContent(json_encode($resultados));
         return $response;
     }
-    
+
 }

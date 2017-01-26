@@ -76,7 +76,8 @@ class ImgPendienteTranscripcion
      */
     private $idAsignaTranscriptor;
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->idLectura . ' :: ' . $this->idEstablecimiento;
     }
 

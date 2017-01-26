@@ -1,6 +1,8 @@
 <?php
+
 namespace Minsal\SimagdBundle\Controller;
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -9,14 +11,15 @@ use Minsal\SimagdBundle\Entity\ImgSolicitudEstudio;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sonata\AdminBundle\Exception\ModelManagerException;
 
-class GeneracionReporteImagenologiaAdminController extends Controller
+class GeneracionReporteImagenologiaAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     /**
      * Redirigir inmediatamente hacia la generación de reportes
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function listAction() {
-	//Acceso denegado
+    public function listAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -28,8 +31,9 @@ class GeneracionReporteImagenologiaAdminController extends Controller
      * 
      * @return type
      */
-    public function resultadoGeneracionReporteAction() {
-	//Acceso denegado
+    public function resultadoGeneracionReporteAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -70,7 +74,8 @@ class GeneracionReporteImagenologiaAdminController extends Controller
      * 
      * @return type
      */
-    public function generarReporteImagenologicoAction()  {
+    public function generarReporteImagenologicoAction()
+    {
         /** Captura de parámetros generales */
         $report_format = $this->get('request')->query->get('report_format');
         $report_selector = $this->get('request')->query->get('report_selector');
@@ -222,4 +227,5 @@ class GeneracionReporteImagenologiaAdminController extends Controller
 //        var_dump($report_params);
         return $jasperReport->buildReport();
     }
+
 }

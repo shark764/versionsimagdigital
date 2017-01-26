@@ -43,8 +43,16 @@ class ImgCtlEstadoSolicitud
      */
     private $estiloPresentacion = 'primary-v2';
 
-    
-    public function __toString() {
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="porcentaje_avance", type="smallint", nullable=false)
+     */
+    private $porcentajeAvance = '0';
+
+
+    public function __toString()
+    {
         return $this->nombreEstado ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombreEstado), 'utf-8') : '';
     }
 
@@ -53,7 +61,7 @@ class ImgCtlEstadoSolicitud
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -76,7 +84,7 @@ class ImgCtlEstadoSolicitud
     /**
      * Get nombreEstado
      *
-     * @return string 
+     * @return string
      */
     public function getNombreEstado()
     {
@@ -99,7 +107,7 @@ class ImgCtlEstadoSolicitud
     /**
      * Get codigo
      *
-     * @return string 
+     * @return string
      */
     public function getCodigo()
     {
@@ -122,10 +130,33 @@ class ImgCtlEstadoSolicitud
     /**
      * Get estiloPresentacion
      *
-     * @return string 
+     * @return string
      */
     public function getEstiloPresentacion()
     {
         return $this->estiloPresentacion;
+    }
+
+    /**
+     * Set porcentajeAvance
+     *
+     * @param integer $porcentajeAvance
+     * @return ImgCtlEstadoSolicitud
+     */
+    public function setPorcentajeAvance($porcentajeAvance)
+    {
+        $this->porcentajeAvance = $porcentajeAvance;
+
+        return $this;
+    }
+
+    /**
+     * Get porcentajeAvance
+     *
+     * @return integer
+     */
+    public function getPorcentajeAvance()
+    {
+        return $this->porcentajeAvance;
     }
 }

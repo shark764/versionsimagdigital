@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -18,8 +18,41 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 use Minsal\SimagdBundle\Entity\ImgCita;
 use Doctrine\ORM\EntityRepository;
 
-class ImgBloqueoAgendaAdminController extends Controller
+use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxBloqueoAgendaListViewGenerator;
+
+class ImgBloqueoAgendaAdminController extends MinsalSimagdBundleGeneralAdminController
 {
+    /**
+     * TABLE GENERATOR
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function generateTableAction(Request $request)
+    {
+        $request->isXmlHttpRequest();
+        $__REQUEST__type = $request->request->get('type', 'list');
+
+        // $em = $this->getDoctrine()->getManager();
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxBloqueoAgendaListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass(),
+                $__REQUEST__type
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+
+        return $this->renderJson(array(
+            'result'    => 'ok',
+            'options'   => $options
+        ));
+    }
+    
     public function nuevoBloqueoAction(Request $request)
     {
         $request->isXmlHttpRequest();
@@ -40,7 +73,7 @@ class ImgBloqueoAgendaAdminController extends Controller
         $nuevoBloqueo   = $this->admin->getNewInstance();
         
         //Cambio de estado de registro
-        $em             = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
         $nuevoBloqueo->setTitulo($titulo);
         $nuevoBloqueo->setDescripcion($descripcion);
@@ -73,8 +106,8 @@ class ImgBloqueoAgendaAdminController extends Controller
         $response = new Response();
         $response->setContent(json_encode(
                 array('id' => $nuevoBloqueo->getId(),
-//                    'description' => $this->crearDescripcionEvento($nuevoBloqueo),
-//                    'url' => $this->admin->generateUrl('show', array('id' => $nuevoBloqueo->getId()))
+                   // 'description' => $this->crearDescripcionEvento($nuevoBloqueo),
+                   // 'url' => $this->admin->generateUrl('show', array('id' => $nuevoBloqueo->getId()))
                 )));
         return $response;
     }
@@ -101,7 +134,7 @@ class ImgBloqueoAgendaAdminController extends Controller
         $editBloqueo    = $this->admin->getObject($id);
         
         //Cambio de estado de registro
-        $em             = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
         $editBloqueo->setTitulo($titulo);
         $editBloqueo->setDescripcion($descripcion);
@@ -135,60 +168,95 @@ class ImgBloqueoAgendaAdminController extends Controller
             $status = 'failed';
         }
         
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
     
-    public function listarBloqueosAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
         
         $BS_FILTERS             = $this->get('request')->query->get('filters');
         $BS_FILTERS_DECODE      = json_decode($BS_FILTERS, true);
+
+        $__REQUEST__type    = $this->get('request')->query->get('type', 'list');
         
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+        $securityContext 	= $this->container->get('security.context');
+        $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
         
-        $resultados             = $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')->obtenerBloqueosAgendaV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
         
         $isUser_allowShow       = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit       = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('actualizarBloqueo')) ? TRUE : FALSE;
         $isUser_allowRemove     = ($this->admin->isGranted('DELETE') && $this->admin->getRoutes()->has('removerBloqueo')) ? TRUE : FALSE;
-        
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgBloqueoAgenda();
-            
-            $resultados[$key]['blAgd_fechaCreacion']        = $resultado['blAgd_fechaCreacion']->format('Y-m-d H:i:s A');
-            $resultados[$key]['blAgd_fechaUltimaEdicion']   = $resultado['blAgd_fechaUltimaEdicion'] ? $resultado['blAgd_fechaUltimaEdicion']->format('Y-m-d H:i:s A') : '';
 
-            $resultados[$key]['blAgd_fechaInicio']	= $resultado['blAgd_fechaInicio']->format('Y-m-d');
-            $resultados[$key]['blAgd_fechaFin']		= $resultado['blAgd_fechaFin']->format('Y-m-d');
-            $resultados[$key]['blAgd_horaInicio']	= $resultado['blAgd_horaInicio']->format('H:i:s A');
-            $resultados[$key]['blAgd_horaFin']      	= $resultado['blAgd_horaFin']->format('H:i:s A');
+        $formatter = new Formatter();
+
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgBloqueoAgenda();
+
+            if ($__REQUEST__type === 'detail')
+            {
+                $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
+                        // '<div class="box-body">' .
+                        '<div class="box-body" ondblclick="_fn_show_object_detail(this, \'' . $slug . '\', ' . $r['id'] . '); return false;">' .
+                            // '<div class="container">' .
+                            // '<div class=" col-lg-12 col-md-12 col-sm-12">' .
+                                '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3></div></div>' .
+                                '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 14px;">' . $r['numero_expediente'] . '</span></div></div><p></p>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['origen'] . '</div><div class="col-lg-6 col-md-6 col-sm-6 "><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" >' . /*<span class="glyphicon glyphicon-check"></span>*/ 'Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['area_atencion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['atencion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['medico'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['modalidad'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['triage'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROGRESO:</strong></div><div class="col-lg-6 col-md-6 col-sm-6 data-box-row">' . $r['estado'] . '</div></div>' .
+                                // '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row">' . $r['progreso'] . '</div></div>' .
+                                '<p></p><div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"> <div class="progress"> <div class="progress-bar progress-bar-striped active progress-bar-danger" role="progressbar" aria-valuenow="' . $r['progreso'] . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $r['progreso'] . '%;"> ' . $r['progreso'] . '% Completado </div> </div> </div></div>' .
+                                // '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>RADIÓLOGO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['radiologo'] . '</div></div>' .
+                            // '</div>' .
+                        '</div>' .
+                    '</div>';
+                continue;
+            }
+
+            $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
+                    '<div class="btn-group" role="group">' .
+                        '<a class=" example2-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                            // 'OP.' .
+                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
+                        '</a>' .
+                    '</div>' .
+                '</div>';
+
+            $results[$key][$key]['blAgd_fechaCreacion']        = $r['blAgd_fechaCreacion']->format('Y-m-d H:i:s A');
+            $results[$key]['blAgd_fechaUltimaEdicion']   = $r['blAgd_fechaUltimaEdicion'] ? $r['blAgd_fechaUltimaEdicion']->format('Y-m-d H:i:s A') : '';
+
+            $results[$key]['blAgd_fechaInicio']	= $r['blAgd_fechaInicio']->format('Y-m-d');
+            $results[$key]['blAgd_fechaFin']		= $r['blAgd_fechaFin']->format('Y-m-d');
+            $results[$key]['blAgd_horaInicio']	= $r['blAgd_horaInicio']->format('H:i:s A');
+            $results[$key]['blAgd_horaFin']      	= $r['blAgd_horaFin']->format('H:i:s A');
             
-            $resultados[$key]['allowShow']	= $isUser_allowShow;
+            $results[$key]['allowShow']	= $isUser_allowShow;
             
-            $resultados[$key]['allowEdit']	= $isUser_allowEdit;
+            $results[$key]['allowEdit']	= $isUser_allowEdit;
             
-            $resultados[$key]['allowRemove']	= $isUser_allowRemove;
+            $results[$key]['allowRemove']	= $isUser_allowRemove;
             
-            $resultados[$key]['blAgd_bloqueoExclusionesBloqueo']	= $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')->obtenerExclusionesBloqueo($resultado['blAgd_id']);
+            $results[$key]['blAgd_bloqueoExclusionesBloqueo']	= $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')->obtenerExclusionesBloqueo($r['blAgd_id']);
         }
         
-        $response = new Response();
-        $response->setContent(json_encode($resultados));
-        return $response;
+        return $this->renderJson($results);
     }
     
     public function removerBloqueoAction(Request $request)
     {
         $request->isXmlHttpRequest();
 	
-        $id             = $request->request->get('id');
+        $id = $request->request->get('id');
         
         //Objeto
         $removeBloqueo  = $this->admin->getObject($id);
@@ -200,26 +268,24 @@ class ImgBloqueoAgendaAdminController extends Controller
             $status = 'failed';
         }
         
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function excluirRadiologoBloqueoAction(Request $request)
     {
         $request->isXmlHttpRequest();
         
-	$status = 'OK';
+        $status = 'OK';
         
         $id                 = $request->request->get('formBlAgdExclRadxIdBloqueoAgenda');
         $object_blAgd       = $this->admin->getObject($id);     // get object
         $request_radiologos = $request->request->get('formBlAgdExclRadxIdRadiologoExcluido');	// array []
         
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
 //         $object_blAgd       = new \Minsal\SimagdBundle\Entity\ImgBloqueoAgenda();
         

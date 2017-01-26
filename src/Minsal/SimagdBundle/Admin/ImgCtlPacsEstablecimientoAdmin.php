@@ -11,34 +11,20 @@ use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class ImgCtlPacsEstablecimientoAdmin extends Admin
+class ImgCtlPacsEstablecimientoAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_pacs';
+    protected $baseRouteName    = 'simagd_pacs';
     protected $baseRoutePattern = 'rayos-x-pacs-establecimiento';
-    
+
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('delete');
-        $collection->add('listarPacsEstablecimiento', null, [], [], ['expose' => true]);
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        parent::configureRoutes($collection);
+        
+        // $collection->remove('delete');
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('habilitarPacs', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
-    }
-    
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
 
     /**
@@ -54,7 +40,7 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
                 ->with('Configuraciones', array('class' => 'col-md-12', 'description' => ''))->end()
             // ->end()
         ;
-        
+
         $formMapper
             // ->tab('Datos de conexión')
                 ->with('Parámetros de conexión')
@@ -197,11 +183,11 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
                                                                 'group_by' => 'idTipoEstablecimiento',
                                                                 'attr' => array('style' => 'min-width: 100%; max-width: 100%;',
 										  'data-apply-formatter' => 'std',
-										  
+
 										  'data-fv-notempty' => 'true',
 										  'data-fv-notempty-message' => 'Seleccione un elemento',
 								)
-                    )) 
+                    ))
                     ->add('idMotor', null, array(
                                                                 'label' => 'Gestor de Base de Datos',
                                                                 'required' => true,
@@ -241,13 +227,6 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
         ;
     }
 
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
-    
     public function validate(ErrorElement $errorElement, $ctlPacs)
     {
         $errorElement
@@ -257,7 +236,7 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
             ->with('nombreConexion') //Puerto
                 ->assertNotBlank(array('message' => 'Ingrese un nombre para la Conexión'))
             ->end();
-        
+
 //        $claveOriginal = $ctlPacs->getClave();
 //        $claveConfirm = $this->getForm()->get('confirmacion')->getData();
 //        if ($claveOriginal && $claveConfirm && ($claveOriginal != $claveConfirm) ) {
@@ -294,7 +273,7 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
                 ->findOneBy('MinsalSiapsBundle:CtlEstablecimiento', array('configurado' => true)));*/
 //ATRIBUTOS DE LA AUDITORIA
 //         $pacs->setIdUserReg($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser());
-        
+
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $pacs->setIdUserReg($user);
         $pacs->setFechaHoraReg(new \DateTime('now'));
@@ -307,31 +286,32 @@ class ImgCtlPacsEstablecimientoAdmin extends Admin
        // if ($empleado->getNumeroJuntaVigilancia() != '') {
          //   $empleado->setCodigoFarmacia($empleado->getNumeroJuntaVigilancia());
        // }
-       
+
     }
-    
+
     public function preUpdate($pacs) {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $pacs->setIdUserMod($user);
         $pacs->setFechaHoraMod(new \DateTime('now'));
     }
-    
-    public function getNewInstance() {
+
+    public function getNewInstance()
+    {
         $instance = parent::getNewInstance();
-        
+
         $sessionUser = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
 
         $instance->setHost('localhost');
-        
+
         //Establecimiento local por defecto
 	$estabLocal = $sessionUser->getIdEstablecimiento();
         $instance->setIdEstablecimiento($estabLocal);
-        
+
         //Motor de BD por defecto (PostgreSQL)
         $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlMotorBd');
         $motorReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlMotorBd', '2');
         $instance->setIdMotor($motorReference);
-        
+
         return $instance;
     }
 

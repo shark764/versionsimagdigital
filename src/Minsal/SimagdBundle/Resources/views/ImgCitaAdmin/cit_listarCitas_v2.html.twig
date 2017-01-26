@@ -47,12 +47,12 @@
 
     </div> <!-- END --| toolbar table-lista-citas -->
 
-    <div id="div-resultado-citas-programadas" style="display: none;" class="menu-vistas-agenda" data-refresh-url="{{ path('simagd_cita_listarCitasProgramadas') }}">
+    <div id="div-resultado-citas-programadas" style="display: none;" class="menu-vistas-agenda" data-refresh-url="{{ path('simagd_cita_generateData') }}">
     	<table class="table table-condensed" id="table-lista-citas"
     		data-toggle="table"
     		data-id-field="cit_id"
     		data-url=""
-            data-backup-url="simagd_cita_listarCitasProgramadas"
+            data-backup-url="simagd_cita_generateData"
             data-toolbar="#bs_cit_toolbar"
     		data-cache="false"
     		data-show-refresh="true"

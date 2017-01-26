@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -12,14 +12,22 @@ use Minsal\SimagdBundle\Entity\ImgSolicitudEstudio;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sonata\AdminBundle\Exception\ModelManagerException;
 
-class ImagenologiaDigitalAdminController extends Controller
+use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxExamenPendienteRealizacionListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxSolicitudEstudioListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxLecturaRadiologicaListViewGenerator;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxCtlProyeccionRadiologicaListViewGenerator;
+use Minsal\SimagdBundle\Generator\AgendaGenerator\AgendaGenerator;
+
+class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     /**
      * Redirigir inmediatamente hacia la busqueda de paciente
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function listAction() {
-	//Acceso denegado
+    public function listAction()
+    {
+	   //Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -33,7 +41,7 @@ class ImagenologiaDigitalAdminController extends Controller
      */
     public function busquedaPacienteAction()
     {
-	//Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -45,10 +53,10 @@ class ImagenologiaDigitalAdminController extends Controller
 
         $id_expRequest      = $this->get('request')->query->get('__exp');
 
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+    	$securityContext 	= $this->container->get('security.context');
+    	$sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $default_areaAtn        = 2;
@@ -95,7 +103,7 @@ class ImagenologiaDigitalAdminController extends Controller
         $atenciones             = $em->getRepository('MinsalSiapsBundle:CtlAtencion')->findAll();
 
         $expRequest         = $em->getRepository('MinsalSiapsBundle:MntExpediente')->find($id_expRequest ? $id_expRequest : '-1');
-        
+
         $collection_tiposEmpleado  = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
         $collection_radiologos     = $em->getRepository('MinsalSiapsBundle:MntEmpleado')->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(4, 5))->getQuery()->getResult();
         $collection_prioridades    = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2();
@@ -103,13 +111,13 @@ class ImagenologiaDigitalAdminController extends Controller
         $collection_examenes       = $em->getRepository('MinsalSiapsBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
         $collection_proyecciones   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
         $collection_sexos          = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
-        
+
         /*
          * GROUP_DEPENDENT_ENTITIES
          */
         $GROUP_DEPENDENT_ENTITIES   = array();
         try {
-            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesAgrupadasV2($estabLocal->getId());
+            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->getRadiologicalProceduresGrouped($estabLocal->getId());
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -129,8 +137,8 @@ class ImagenologiaDigitalAdminController extends Controller
                         'medicos'               => $medicos,
                         'tiposEstab'            => $tiposEstab,
                         'establecimientos'      => $establecimientos,
-			'radiologos'            => $radiologos,
-			'default_empLogged'     => $sessionUser->getIdEmpleado(),
+            			'radiologos'            => $radiologos,
+            			'default_empLogged'     => $sessionUser->getIdEmpleado(),
                         'defaultEstab'          => $estabLocal,
                         'prioridades'           => $prioridades,
                         'modalidades'           => $modalidades,
@@ -172,19 +180,19 @@ class ImagenologiaDigitalAdminController extends Controller
         $BS_FILTERS             = $this->get('request')->query->get('filters');
         $BS_FILTERS_DECODE      = json_decode($BS_FILTERS, true);
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+    	$securityContext 	= $this->container->get('security.context');
+    	$sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         /*
-	* NUM. de Expediente en búsqueda mínima.
-	*/
+    	* NUM. de Expediente en búsqueda mínima.
+    	*/
         $min_numeroExp          = $this->get('request')->query->get('min_numeroExp') ? $this->get('request')->query->get('min_numeroExp') : null;
         /*
         * NUM. de Expediente en búsqueda mínima.
         */
 
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $resultados             = null;
 
@@ -223,21 +231,21 @@ class ImagenologiaDigitalAdminController extends Controller
             }
 
 	    $resultados     = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
-				    ->obtenerPacientesV2($estabLocal->getId(), $numeroExp, $criteria, $fechaNacimiento, $dui, $limiteResultados, $BS_FILTERS_DECODE);
-	} else {
-	    /** ********* Obtención de resultados de búsqueda Mínima *** */
-	    /**
-	    *NUM Expediente como criterio
-	    */
-	    $resultados     = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
-			  ->obtenerPacientesV2($estabLocal->getId(), null, array(), null, null, 100, $min_numeroExp, $BS_FILTERS_DECODE);
-	}
+				    ->getPatients($estabLocal->getId(), $numeroExp, $criteria, $fechaNacimiento, $dui, $limiteResultados, $BS_FILTERS_DECODE);
+    	} else {
+    	    /** ********* Obtención de resultados de búsqueda Mínima *** */
+    	    /**
+    	    *NUM Expediente como criterio
+    	    */
+    	    $resultados     = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+    			  ->getPatients($estabLocal->getId(), null, array(), null, null, 100, $min_numeroExp, $BS_FILTERS_DECODE);
+    	}
 
-	$allowPreinscribir  = ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_CREATE') ||
+    	$allowPreinscribir  = ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_CREATE') ||
                     $securityContext->isGranted('ROLE_ADMIN')) ? TRUE : FALSE;
 
         foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SiapsBundle\Entity\MntExpediente();
+           // $resultado = new \Minsal\SiapsBundle\Entity\MntExpediente();
 
             $resultados[$key]['pct_fechaNacimiento']    = $resultado['pct_fechaNacimiento'] ? $resultado['pct_fechaNacimiento']->format('Y-m-d') : '';
             $resultados[$key]['pct_horaNacimiento']     = $resultado['pct_horaNacimiento'] ? $resultado['pct_horaNacimiento']->format('H:i:s A') : '';
@@ -248,9 +256,7 @@ class ImagenologiaDigitalAdminController extends Controller
             $resultados[$key]['allowPreinscribir']      = $allowPreinscribir;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($resultados));
-        return $response;
+        return $this->renderJson($results);
     }
 
     /**
@@ -286,15 +292,15 @@ class ImagenologiaDigitalAdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //Expediente local e información del paciente
-	$entityExp = $em->getRepository('MinsalSiapsBundle:MntExpediente')->find($idExpediente);
+    	$entityExp = $em->getRepository('MinsalSiapsBundle:MntExpediente')->find($idExpediente);
 
-	$preinscripcionesPctReg = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
-					->obtenerPreinscripcionesEstabPorPaciente($idExpediente, $idEstablecimiento);
-	$citasPctReg = $em->getRepository('MinsalSimagdBundle:ImgCita')
-					->obtenerCitasEstabPorPaciente($idExpediente, $idEstablecimiento);
-	$procedimientosRealizadosPctReg = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')
-					->obtenerExamenesRealizadosEstabPorPaciente($idExpediente, $idEstablecimiento);
-	$diagnosticosPctReg = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')
+    	$preinscripcionesPctReg = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+    					->obtenerPreinscripcionesEstabPorPaciente($idExpediente, $idEstablecimiento);
+    	$citasPctReg = $em->getRepository('MinsalSimagdBundle:ImgCita')
+    					->obtenerCitasEstabPorPaciente($idExpediente, $idEstablecimiento);
+    	$procedimientosRealizadosPctReg = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')
+    					->obtenerExamenesRealizadosEstabPorPaciente($idExpediente, $idEstablecimiento);
+    	$diagnosticosPctReg = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')
 					->obtenerDiagnosticosEstabPorPaciente($idExpediente, $idEstablecimiento);
 
         return $this->render($this->admin->getTemplate('historialImagenologiaPaciente'),
@@ -312,8 +318,8 @@ class ImagenologiaDigitalAdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+    	$securityContext 	= $this->container->get('security.context');
+    	$sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $expediente = $this->get('request')->query->get('__exp');
@@ -323,7 +329,7 @@ class ImagenologiaDigitalAdminController extends Controller
 
         $resultados = array();
         foreach ($solicitudes as $solicitud)  {
-//            $solicitud = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudio();
+           // $solicitud = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudio();
 
             $resultado['id'] = $solicitud->getId();
             $resultado['origen'] = $solicitud->getIdAtenAreaModEstab()->getIdEstablecimiento()->getNombre();
@@ -339,17 +345,15 @@ class ImagenologiaDigitalAdminController extends Controller
             $resultados[] = $resultado;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($resultados));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function listarCitasPacienteAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+    	$securityContext 	= $this->container->get('security.context');
+    	$sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $expediente = $this->get('request')->query->get('__exp');
@@ -359,7 +363,7 @@ class ImagenologiaDigitalAdminController extends Controller
 
         $resultados = array();
         foreach ($citas as $cita)  {
-//            $cita = new \Minsal\SimagdBundle\Entity\ImgCita();
+           // $cita = new \Minsal\SimagdBundle\Entity\ImgCita();
 
             $solicitud = $cita->getIdSolicitudEstudio();
 
@@ -383,17 +387,15 @@ class ImagenologiaDigitalAdminController extends Controller
             $resultados[] = $resultado;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($resultados));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function listarExamenesPacienteAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+    	$securityContext 	= $this->container->get('security.context');
+    	$sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $expediente = $this->get('request')->query->get('__exp');
@@ -403,7 +405,7 @@ class ImagenologiaDigitalAdminController extends Controller
 
         $resultados = array();
         foreach ($examenes as $examen)  {
-//            $examen = new \Minsal\SimagdBundle\Entity\ImgProcedimientoRealizado();
+           // $examen = new \Minsal\SimagdBundle\Entity\ImgProcedimientoRealizado();
 
             $resultado['id'] = $examen->getId();
             $resultado['origen'] = $examen->getIdSolicitudEstudio()->getIdAtenAreaModEstab()->getIdEstablecimiento()->getNombre();
@@ -420,17 +422,15 @@ class ImagenologiaDigitalAdminController extends Controller
             $resultados[] = $resultado;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($resultados));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function listarDiagnosticosPacienteAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+    	$securityContext 	= $this->container->get('security.context');
+    	$sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $expediente = $this->get('request')->query->get('__exp');
@@ -440,7 +440,7 @@ class ImagenologiaDigitalAdminController extends Controller
 
         $resultados = array();
         foreach ($diagnosticos as $diagnostico)  {
-//            $diagnostico = new \Minsal\SimagdBundle\Entity\ImgDiagnostico();
+           // $diagnostico = new \Minsal\SimagdBundle\Entity\ImgDiagnostico();
 
             $examen = $diagnostico->getIdLectura()->getIdEstudio()->getIdProcedimientoRealizado();
             $solicitud = $examen->getIdSolicitudEstudio();
@@ -463,9 +463,7 @@ class ImagenologiaDigitalAdminController extends Controller
             $resultados[] = $resultado;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($resultados));
-        return $response;
+        return $this->renderJson($results);
     }
 
     /**
@@ -476,14 +474,14 @@ class ImagenologiaDigitalAdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-//	$securityContext 	= $this->container->get('security.context');
-//	$sessionUser 		= $securityContext->getToken()->getUser();
-//        $estabLocal 		= $sessionUser->getIdEstablecimiento();
+    	// $securityContext 	= $this->container->get('security.context');
+    	// $sessionUser 		= $securityContext->getToken()->getUser();
+        // $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $expediente = $this->get('request')->query->get('__exp');
 
         //Expediente local e información del paciente
-	$entityExp = $em->getRepository('MinsalSiapsBundle:MntExpediente')->find($expediente);
+	   $entityExp = $em->getRepository('MinsalSiapsBundle:MntExpediente')->find($expediente);
 
         return $this->render($this->admin->getTemplate('listarDatosPaciente'),
 			array(
@@ -499,15 +497,15 @@ class ImagenologiaDigitalAdminController extends Controller
     {
         $request->isXmlHttpRequest();
 
-	$status             = 'OK';
+        $status             = 'OK';
 
         $BS_SOURCES         = $this->get('request')->query->get('sources');
         $BS_SOURCES_DECODE  = json_decode($BS_SOURCES, true);
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
         $resultados         = array();
@@ -651,7 +649,7 @@ class ImagenologiaDigitalAdminController extends Controller
         {
             try {
                 $resultados['expl']         = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')
-                                                    ->obtenerProyeccionesScalarV2();
+                                                    ->scalarData();
             } catch (Exception $e) {
                 $status                     = 'failed';
             }
@@ -660,13 +658,13 @@ class ImagenologiaDigitalAdminController extends Controller
         {
             try {
                 $resultados['mtrl']         = $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')
-                                                    ->obtenerMaterialesScalarV2();
+                                                    ->scalarData();
             } catch (Exception $e) {
                 $status                     = 'failed';
             }
         }
 
-        $response           = new Response();
+        $response = new Response();
         $response->setContent(json_encode(
                 array(
                     'status'    => $status,
@@ -683,15 +681,15 @@ class ImagenologiaDigitalAdminController extends Controller
     {
         $request->isXmlHttpRequest();
 
-	$status             = 'OK';
+        $status             = 'OK';
 
         $BS_SOURCES         = $this->get('request')->query->get('sources');
         $BS_SOURCES_DECODE  = json_decode($BS_SOURCES, true);
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
         $resultados         = array();
@@ -699,7 +697,7 @@ class ImagenologiaDigitalAdminController extends Controller
         if (in_array('m_expl', $BS_SOURCES_DECODE))
         {
             try {
-                $resultados['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesAgrupadasV2($estabLocal->getId());
+                $resultados['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->getRadiologicalProceduresGrouped($estabLocal->getId());
             } catch (Exception $e) {
                 $status                 = 'failed';
             }
@@ -721,7 +719,7 @@ class ImagenologiaDigitalAdminController extends Controller
             }
         }
 
-        $response           = new Response();
+        $response = new Response();
         $response->setContent(json_encode(
                 array(
                     'status'    => $status,
@@ -730,25 +728,25 @@ class ImagenologiaDigitalAdminController extends Controller
        ));
         return $response;
     }
-    
+
     public function asignarNuevoExpedienteAction(Request $request)
     {
         $request->isXmlHttpRequest();
-        
-	$status     = 'OK';
-        
+
+        $status = 'OK';
+
         /*
          * request
          */
         $id_expLocal    = $request->request->get('__tt_newRecord');
         $prc_rows  = $request->request->get('__ar_rowsAffected');
-        
-        $em         = $this->getDoctrine()->getManager();
-        
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+
+    	$securityContext    = $this->container->get('security.context');
+    	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
-        
+
         //Actualizar registros
         try {
             $result = $em->getRepository('MinsalSimagdBundle:ImgExpedienteFicticio')
@@ -756,10 +754,238 @@ class ImagenologiaDigitalAdminController extends Controller
         } catch (Exception $e) {
             $status = 'failed';
         }
-        
-        $response   = new Response();
-        $response->setContent(json_encode(array('update' => $status)));
-        return $response;
+
+        return $this->renderJson(array('update' => $status));
+    }
+
+    /**
+     * return the Response object associated to the create action
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return Response
+     */
+    public function worklistAction()
+    {
+        // the key used to lookup the template
+        $templateKey = 'worklist';
+
+        $securityContext = $this->container->get('security.context');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
+        $estabLocal         = $sessionUser->getIdEstablecimiento();
+
+        $tiposEmpleado = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
+        $radiologos = $em->getRepository('MinsalSiapsBundle:MntEmpleado')
+                                        ->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(4, 5))
+                                                ->getQuery()->getResult();
+        $modalidades = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
+
+        // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
+        //     return new RedirectResponse($this->generateUrl('simagd_solicitud_estudio_accessDenied'));
+        // }
+
+        // $this->get('request')->request->set('__menurequest__', true);
+        // $this->admin->setMenuMode(true);
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // $em = $this->getDoctrine()->getManager();
+
+        // $COLLECTION_modalities_ = $em->getRepository('MinsalLaboratorioBundle:CtlAreaServicioDiagnostico')->findBy(array('idAtencion' => self::___XRAY_CLINICAL_SERVICE___));
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxExamenPendienteRealizacionListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass()
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+
+        return $this->render($this->admin->getTemplate($templateKey), array(
+            'action'        => 'worklist',
+            'csrf_token'    => $this->getCsrfToken('sonata.batch'),
+            'tiposEmpleado' => $tiposEmpleado,
+            'radiologos'    => $radiologos,
+            'modalidades'   => $modalidades,
+            'DEFAULT_TABLE_OPTIONS' => $options,
+        ));
+    }
+
+    /**
+     * return the Response object associated to the create action
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return Response
+     */
+    public function requestDashboardAction()
+    {
+        // the key used to lookup the template
+        $templateKey = 'request_dashboard';
+
+        $securityContext = $this->container->get('security.context');
+
+        // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
+        //     return new RedirectResponse($this->generateUrl('simagd_solicitud_estudio_accessDenied'));
+        // }
+
+        // $this->get('request')->request->set('__menurequest__', true);
+        // $this->admin->setMenuMode(true);
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // $em = $this->getDoctrine()->getManager();
+
+        // $COLLECTION_modalities_ = $em->getRepository('MinsalLaboratorioBundle:CtlAreaServicioDiagnostico')->findBy(array('idAtencion' => self::___XRAY_CLINICAL_SERVICE___));
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxSolicitudEstudioListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass()
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+
+        return $this->render($this->admin->getTemplate($templateKey), array(
+            'action'        => 'request_dashboard',
+            'csrf_token'    => $this->getCsrfToken('sonata.batch'),
+            'DEFAULT_TABLE_OPTIONS' => $options,
+        ));
+    }
+
+    /**
+     * return the Response object associated to the create action
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return Response
+     */
+    public function resultsDashboardAction()
+    {
+        // the key used to lookup the template
+        $templateKey = 'results_dashboard';
+
+        $securityContext = $this->container->get('security.context');
+
+        // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
+        //     return new RedirectResponse($this->generateUrl('simagd_solicitud_estudio_accessDenied'));
+        // }
+
+        // $this->get('request')->request->set('__menurequest__', true);
+        // $this->admin->setMenuMode(true);
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // $em = $this->getDoctrine()->getManager();
+
+        // $COLLECTION_modalities_ = $em->getRepository('MinsalLaboratorioBundle:CtlAreaServicioDiagnostico')->findBy(array('idAtencion' => self::___XRAY_CLINICAL_SERVICE___));
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxLecturaRadiologicaListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass()
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+
+        return $this->render($this->admin->getTemplate($templateKey), array(
+            'action'        => 'results_dashboard',
+            'csrf_token'    => $this->getCsrfToken('sonata.batch'),
+            'DEFAULT_TABLE_OPTIONS' => $options,
+        ));
+    }
+
+    /**
+     * return the Response object associated to the create action
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return Response
+     */
+    public function catalogsDashboardAction()
+    {
+        // the key used to lookup the template
+        $templateKey = 'catalogs_dashboard';
+
+        $securityContext = $this->container->get('security.context');
+
+        // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
+        //     return new RedirectResponse($this->generateUrl('simagd_solicitud_estudio_accessDenied'));
+        // }
+
+        // $this->get('request')->request->set('__menurequest__', true);
+        // $this->admin->setMenuMode(true);
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // $em = $this->getDoctrine()->getManager();
+
+        // $COLLECTION_modalities_ = $em->getRepository('MinsalLaboratorioBundle:CtlAreaServicioDiagnostico')->findBy(array('idAtencion' => self::___XRAY_CLINICAL_SERVICE___));
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxCtlProyeccionRadiologicaListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass()
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+
+        return $this->render($this->admin->getTemplate($templateKey), array(
+            'action'        => 'catalogs_dashboard',
+            'csrf_token'    => $this->getCsrfToken('sonata.batch'),
+            'DEFAULT_TABLE_OPTIONS' => $options,
+        ));
+    }
+
+    /**
+     * return the Response object associated to the create action
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return Response
+     */
+    public function agendaDashboardAction()
+    {
+        // the key used to lookup the template
+        $templateKey = 'agenda_dashboard';
+
+        $securityContext = $this->container->get('security.context');
+
+        // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
+        //     return new RedirectResponse($this->generateUrl('simagd_solicitud_estudio_accessDenied'));
+        // }
+
+        // $this->get('request')->request->set('__menurequest__', true);
+        // $this->admin->setMenuMode(true);
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // $em = $this->getDoctrine()->getManager();
+
+        // $COLLECTION_modalities_ = $em->getRepository('MinsalLaboratorioBundle:CtlAreaServicioDiagnostico')->findBy(array('idAtencion' => self::___XRAY_CLINICAL_SERVICE___));
+
+        //////// --| builder entity
+        $AGENDA_GENERATOR_ = new AgendaGenerator(
+            $this->container,
+            $this->admin->getRouteGenerator(),
+            $this->admin->getClass()
+        );
+        //////// --|
+        $options = $AGENDA_GENERATOR_->getOptions();
+
+        return $this->render($this->admin->getTemplate($templateKey), array(
+            'action'        => 'agenda_dashboard',
+            'csrf_token'    => $this->getCsrfToken('sonata.batch'),
+            'FC_OPTIONS'    => $options,
+        ));
     }
 
 }

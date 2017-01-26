@@ -11,18 +11,17 @@ use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class ImgCtlConfiguracionAgendaAdmin extends Admin
+class ImgCtlConfiguracionAgendaAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_configuracion_agenda';
+    protected $baseRouteName    = 'simagd_configuracion_agenda';
     protected $baseRoutePattern = 'rayos-x-configuracion-agenda';
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('delete');
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
+        parent::configureRoutes($collection);
+        
+        // $collection->remove('delete');
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
     }
 
     /**
@@ -41,13 +40,6 @@ class ImgCtlConfiguracionAgendaAdmin extends Admin
             ->add('maximoCitasHora', null, array('label' => 'Máximo por hora'))
             ->add('maximoCitasMedico', null, array('label' => 'Máximo por tecnólogo'))
         ;
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
 
     /**
@@ -102,13 +94,6 @@ class ImgCtlConfiguracionAgendaAdmin extends Admin
         ;
     }
 
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
-
     public function validate(ErrorElement $errorElement, $paramCita) {
         $errorElement
             ->with('maximoCitasDia')
@@ -153,7 +138,8 @@ class ImgCtlConfiguracionAgendaAdmin extends Admin
         $paramCita->setIdUserMod($user);
     }
 
-    public function createQuery($context = 'list') {
+    public function createQuery($context = 'list')
+    {
         $query = parent::createQuery($context);
 
         $estabLocal = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()
@@ -166,7 +152,8 @@ class ImgCtlConfiguracionAgendaAdmin extends Admin
         return $query;
     }
 
-    public function getTemplate($name) {
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'edit':
                 return 'MinsalSimagdBundle:ImgCtlConfiguracionAgendaAdmin:prmCit_edit.html.twig';
@@ -182,4 +169,5 @@ class ImgCtlConfiguracionAgendaAdmin extends Admin
                 break;
         }
     }
+
 }

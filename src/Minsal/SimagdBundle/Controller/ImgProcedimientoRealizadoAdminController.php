@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -21,8 +21,41 @@ use Doctrine\ORM\EntityRepository;
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
-class ImgProcedimientoRealizadoAdminController extends Controller
+use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
+use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxProcedimientoRadiologicoRealizadoListViewGenerator;
+
+class ImgProcedimientoRealizadoAdminController extends MinsalSimagdBundleGeneralAdminController
 {
+    /**
+     * TABLE GENERATOR
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function generateTableAction(Request $request)
+    {
+        $request->isXmlHttpRequest();
+        $__REQUEST__type = $request->request->get('type', 'list');
+
+        // $em = $this->getDoctrine()->getManager();
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxProcedimientoRadiologicoRealizadoListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass(),
+                $__REQUEST__type
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+
+        return $this->renderJson(array(
+            'result'    => 'ok',
+            'options'   => $options
+        ));
+    }
+
     /**
      * Create action
      *
@@ -30,7 +63,7 @@ class ImgProcedimientoRealizadoAdminController extends Controller
      */
     public function createAction()
     {
-	//Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('CREATE')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -74,11 +107,11 @@ class ImgProcedimientoRealizadoAdminController extends Controller
 
 //        return parent::createAction();
 
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //validar parámetros
 //        if ($idExpRequest || $idHsClRequest) {
@@ -99,7 +132,7 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         }
 
         $object = $this->admin->getNewInstance();
-        
+
         /*
          * **********************************************************************
          * --| CUSTOM CODE
@@ -222,16 +255,16 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         }
 
         /** Crear/Actualizar y mostrar registro */
-        if ((null !== $this->get('request')->get('btn_create_and_show')) ||
-                                (null !== $this->get('request')->get('btn_edit_and_show'))) {
-    		$url = $this->admin->generateObjectUrl('show', $object);
-        }
+      //   if ((null !== $this->get('request')->get('btn_create_and_show')) ||
+      //                           (null !== $this->get('request')->get('btn_edit_and_show'))) {
+    		// $url = $this->admin->generateObjectUrl('show', $object);
+      //   }
 
         /** Crear/Actualizar y mostrar registro */
-        if ((null !== $this->get('request')->get('btn_create_and_diagnosticate')) ||
-                                (null !== $this->get('request')->get('btn_edit_and_diagnosticate'))) {
-    		$url = $this->admin->generateObjectUrl('diagnostico', $object);
-        }
+      //   if ((null !== $this->get('request')->get('btn_create_and_diagnosticate')) ||
+      //                           (null !== $this->get('request')->get('btn_edit_and_diagnosticate'))) {
+    		// $url = $this->admin->generateObjectUrl('diagnostico', $object);
+      //   }
 
         if (!$url) {
             $url = $this->admin->generateObjectUrl('edit', $object);
@@ -240,7 +273,7 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         return new RedirectResponse($url);
     }
 
-    public function agregarPendienteAction()
+    public function addPendingToWorkListAction()
     {
         //Get parameter from Preinscripcion, Cita, Solcmpl, pndR
         if (!$this->get('request')->request->get('__prc')) {
@@ -260,20 +293,18 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         $realizado          = $this->admin->getNewInstance();
 
         //Cambio de estado de registro
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $estadoReference    = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlEstadoProcedimientoRealizado', '1'); //Inicial
         $realizado->setIdEstadoProcedimientoRealizado($estadoReference);
 
         //Crear registro
         try {
-            $realizado      = $this->admin->create($realizado);
+            /*$realizado      = */$this->admin->create($realizado);
         } catch (Exception $e) {
-            $status         = 'failed';
+            $status = 'failed';
         }
 
-        $response           = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function mostrarInformacionModalAction($idSolicitudEstudioPadre, $idCitaProgramada, $id)
@@ -337,8 +368,9 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         ));
     }
 
-    public function editAction($id = null) {
-	//Acceso denegado
+    public function editAction($id = null)
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('EDIT')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -346,13 +378,13 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         /** request object id */
         $id             = $this->get('request')->get($this->admin->getIdParameter());
 
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
-	//No existe el registro
+        // No existe el registro
         if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgProcedimientoRealizado', 'prz')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
@@ -444,21 +476,22 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         ));
     }
 
-    public function showAction($id = null) {
-	//Acceso denegado
+    public function showAction($id = null)
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
         $em = $this->getDoctrine()->getManager();
 
-	//No existe el registro
+        // No existe el registro
         if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgProcedimientoRealizado', 'prz')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
-	//No puede acceder al registro
-	$sessionUser = $this->container->get('security.context')->getToken()->getUser();
+        // No puede acceder al registro
+        $sessionUser = $this->container->get('security.context')->getToken()->getUser();
         if (false === $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -466,16 +499,17 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         return parent::showAction($id);
     }
 
-    public function listAction() {
-	//Acceso denegado
+    public function listAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
-	$securityContext 	= $this->container->get('security.context');
-	$sessionUser 		= $securityContext->getToken()->getUser();
+        $securityContext 	= $this->container->get('security.context');
+        $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
         $default_areaAtn        = 2;
@@ -526,7 +560,7 @@ class ImgProcedimientoRealizadoAdminController extends Controller
          */
         $GROUP_DEPENDENT_ENTITIES   = array();
         try {
-            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesAgrupadasV2($estabLocal->getId());
+            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->getRadiologicalProceduresGrouped($estabLocal->getId());
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -566,73 +600,112 @@ class ImgProcedimientoRealizadoAdminController extends Controller
                     ));
     }
 
-    public function listarProcedimientosRealizadosAction(Request $request)
+    public function generateDataAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
         $BS_FILTERS         = $this->get('request')->query->get('filters');
         $BS_FILTERS_DECODE  = json_decode($BS_FILTERS, true);
 
-        $em                 = $this->getDoctrine()->getManager();
+        $__REQUEST__type = $this->get('request')->query->get('type', 'list');
 
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $resultados         = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')->obtenerProcedimientosRealizadosV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
 
-	$isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
-	$isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
+        $isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
+        $isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
 
-        foreach ($resultados as $key => $resultado) {
-//            $resultado = new \Minsal\SimagdBundle\Entity\ImgProcedimientoRealizado();
+        $formatter = new Formatter();
 
-            $resultados[$key]['prz_fechaRegistro']            = $resultado['prz_fechaRegistro']->format('Y-m-d H:i:s A');
-            $resultados[$key]['prz_fechaAtendido']                  = $resultado['prz_fechaAtendido'] ? $resultado['prz_fechaAtendido']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['prz_fechaRealizado']                 = $resultado['prz_fechaRealizado'] ? $resultado['prz_fechaRealizado']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['prz_fechaProcesado']                 = $resultado['prz_fechaProcesado'] ? $resultado['prz_fechaProcesado']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['prz_fechaAlmacenado']                = $resultado['prz_fechaAlmacenado'] ? $resultado['prz_fechaAlmacenado']->format('Y-m-d H:i:s A') : '';
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgProcedimientoRealizado();
 
-            $resultados[$key]['prc_fechaCreacion']    = $resultado['prc_fechaCreacion'] ? $resultado['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['prc_fechaProximaConsulta']           = $resultado['prc_fechaProximaConsulta'] ? $resultado['prc_fechaProximaConsulta']->format('Y-m-d') : '';
+            if ($__REQUEST__type === 'detail')
+            {
+                $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
+                        '<div class="box-body" ondblclick="_fn_show_object_detail(this, \'undiagnosed_studies\', ' . $r['id'] . '); return false;">' .
+                            // '<div class="container">' .
+                            // '<div class=" col-lg-12 col-md-12 col-sm-12">' .
+                                '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3></div></div>' .
+                                '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 14px;">' . $r['numero_expediente'] . '</span></div></div><p></p>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['origen'] . '</div><div class="col-lg-6 col-md-6 col-sm-6 "><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" >' . /*<span class="glyphicon glyphicon-check"></span>*/ 'Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['area_atencion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['atencion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['medico'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['modalidad'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['triage'] . '</div></div>' .
+                                // '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>RADIÓLOGO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['radiologo'] . '</div></div>' .
+                            // '</div>' .
+                        '</div>' .
+                    '</div>';
+                continue;
+            }
 
-            $resultados[$key]['cit_fechaCreacion']              = $resultado['cit_fechaCreacion'] ? $resultado['cit_fechaCreacion']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['cit_fechaConfirmacion']          = $resultado['cit_fechaConfirmacion'] ? $resultado['cit_fechaConfirmacion']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['cit_fechaReprogramacion']        = $resultado['cit_fechaReprogramacion'] ? $resultado['cit_fechaReprogramacion']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['cit_fechaHoraInicio']                = $resultado['cit_fechaHoraInicio'] ? $resultado['cit_fechaHoraInicio']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['cit_fechaHoraFin']                   = $resultado['cit_fechaHoraFin'] ? $resultado['cit_fechaHoraFin']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
+            //         '<div class="btn-group" role="group">' .
+            //             '<a class=" worklist-show-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Ver detalle..." >' .
+            //             // '<a class=" worklist-show-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Ver detalle..." >' .
+            //                 // 'Ver' .
+            //                 '<i class="glyphicon glyphicon-chevron-down"></i>' .
+            //             '</a>' .
+            //         '</div>' .
+            //         '<div class="btn-group" role="group">' .
+            //             '<a class=" worklist-save-form-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Abrir formulario..." >' .
+            //             // '<a class=" worklist-save-form-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Abrir formulario..." >' .
+            //                 // 'Formulario' .
+            //                 '<i class="glyphicon glyphicon-edit"></i>' .
+            //             '</a>' .
+            //         '</div>' .
+            //         '<div class="btn-group" role="group">' .
+            //             '<a class=" worklist-save-and-pacs-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Guardar y asociar..." >' .
+            //             // '<a class=" worklist-save-and-pacs-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Guardar y asociar..." >' .
+            //                 // 'Guardar y asociar' .
+            //                 // '<i class="glyphicon glyphicon-check"></i>' .
+            //                 '<i class="glyphicon glyphicon-link"></i>' .
+            //             '</a>' .
+            //         '</div>' .
+            //         // '<span class="bs-btn-separator-toolbar"></span>' .
+            //         '<div class="btn-group" role="group">' .
+            //             '<a class=" worklist-save-action btn-link btn-link-emergency " href="javascript:void(0)" title="Guardar sin asociar..." >' .
+            //             // '<a class=" worklist-save-action btn btn-emergency btn-outline btn-xs " href="javascript:void(0)" title="Guardar sin asociar..." >' .
+            //                 // 'Guardar' .
+            //                 '<i class="glyphicon glyphicon-check"></i>' .
+            //             '</a>' .
+            //         '</div>' .
+            //     '</div>';
+            $results[$key]['action'] = '<div class="btn-group btn-group-xs"> <button type="button" class="btn btn-link btn-link-emergency dropdown-toggle material-btn-list-op" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" color: #e45315; cursor: context-menu; "> <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
 
-            $resultados[$key]['solcmpl_fechaSolicitud']             = $resultado['solcmpl_fechaSolicitud'] ? $resultado['solcmpl_fechaSolicitud']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['prz_fechaRegistro']            = $r['prz_fechaRegistro']->format('Y-m-d H:i:s A');
+            $results[$key]['prz_fechaAtendido']                  = $r['prz_fechaAtendido'] ? $r['prz_fechaAtendido']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['prz_fechaRealizado']                 = $r['prz_fechaRealizado'] ? $r['prz_fechaRealizado']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['prz_fechaProcesado']                 = $r['prz_fechaProcesado'] ? $r['prz_fechaProcesado']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['prz_fechaAlmacenado']                = $r['prz_fechaAlmacenado'] ? $r['prz_fechaAlmacenado']->format('Y-m-d H:i:s A') : '';
 
-            $resultados[$key]['prz_editUrl']                        = $this->generateUrl('simagd_realizado_edit', array('id' => $resultado['prz_id']));
+            $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion'] ? $r['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['prc_fechaProximaConsulta']           = $r['prc_fechaProximaConsulta'] ? $r['prc_fechaProximaConsulta']->format('Y-m-d') : '';
 
-            $resultados[$key]['allowShow']                          = $isUser_allowShow;
+            $results[$key]['cit_fechaCreacion']              = $r['cit_fechaCreacion'] ? $r['cit_fechaCreacion']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['cit_fechaConfirmacion']          = $r['cit_fechaConfirmacion'] ? $r['cit_fechaConfirmacion']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['cit_fechaReprogramacion']        = $r['cit_fechaReprogramacion'] ? $r['cit_fechaReprogramacion']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['cit_fechaHoraInicio']                = $r['cit_fechaHoraInicio'] ? $r['cit_fechaHoraInicio']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['cit_fechaHoraFin']                   = $r['cit_fechaHoraFin'] ? $r['cit_fechaHoraFin']->format('Y-m-d H:i:s A') : '';
 
-            $resultados[$key]['allowEdit']                          = $isUser_allowEdit;
+            $results[$key]['solcmpl_fechaSolicitud']             = $r['solcmpl_fechaSolicitud'] ? $r['solcmpl_fechaSolicitud']->format('Y-m-d H:i:s A') : '';
+
+            $results[$key]['prz_editUrl']                        = $this->generateUrl('simagd_realizado_edit', array('id' => $r['prz_id']));
+
+            $results[$key]['allowShow']                          = $isUser_allowShow;
+
+            $results[$key]['allowEdit']                          = $isUser_allowEdit;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($resultados));
-        return $response;
-    }
-
-    public function getObjectVarsAsArrayAction(Request $request)
-    {
-        $request->isXmlHttpRequest();
-
-        //Get parameter from object
-        $id = $request->request->get('id');
-
-        //Objeto
-        $object = $this->admin->getObject($id);
-
-        $response = new Response();
-        $response->setContent(json_encode(
-                array('id' => $object->getId(),
-                        'object' => $object->getObjectVarsAsArray()
-//                        'url' => $this->admin->generateUrl('show', array('id' => $object->getId()))
-                )));
-        return $response;
+        return $this->renderJson($results);
     }
 
     /**
@@ -640,13 +713,13 @@ class ImgProcedimientoRealizadoAdminController extends Controller
      */
     public function diagnosticoAction($id = null)
     {
-        $id                 = $this->get('request')->get($this->admin->getIdParameter());
+        $id = $this->get('request')->get($this->admin->getIdParameter());
         //contiene estudio almacenado en PACS
 	//producto de este procedimiento realizado al paciente
-        $object             = $this->admin->getObject($id);
+        $object = $this->admin->getObject($id);
 
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
         if (!$object) {
@@ -688,7 +761,7 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         //Nueva instancia
         $realizado          = $this->admin->getNewInstance();
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //Cambio de estado de registro
         $statusAlmc         = $em->getRepository('MinsalSimagdBundle:ImgCtlEstadoProcedimientoRealizado')->findOneBy(array('codigo' => 'ALM'));
@@ -708,12 +781,10 @@ class ImgProcedimientoRealizadoAdminController extends Controller
             throw new \Exception('AQUÍ SE DEBE CAMBIAR LA VARIABLE STATUS, PARA PODER MOSTRAR EL ALERT CORRECTO "No se asoció ningún estudio al Expediente"');
             /*$realizado      = */$this->admin->create($realizado);
         } catch (Exception $e) {
-            $status         = 'failed';
+            $status = 'failed';
         }
 
-        $response           = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function actualizarEstudioAlmacenadoAction()
@@ -739,7 +810,7 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         //Nueva instancia
         $realizado          = $this->admin->getObject($id);
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //Cambio de estado de registro
         $statusAlmc         = $em->getRepository('MinsalSimagdBundle:ImgCtlEstadoProcedimientoRealizado')->findOneBy(array('codigo' => 'ALM'));
@@ -749,23 +820,21 @@ class ImgProcedimientoRealizadoAdminController extends Controller
         try {
             /*$realizado      = */$this->admin->update($realizado);
         } catch (Exception $e) {
-            $status         = 'failed';
+            $status = 'failed';
         }
 
-        $response           = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function enlazarEstudio($new_przObject = null)
     {
         $new_przObject = new ImgProcedimientoRealizado();
-	$securityContext    = $this->container->get('security.context');
-	$sessionUser        = $securityContext->getToken()->getUser();
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
-        
-        $em                 = $this->getDoctrine()->getManager();
-        
+
+        $em = $this->getDoctrine()->getManager();
+
         $new_studyObject    = new \Minsal\SimagdBundle\Entity\ImgEstudioPaciente();
         $new_studyObject->setFechaEstudio(new \DateTime('now'));
         $new_studyObject->setIdProcedimientoRealizado($new_przObject);

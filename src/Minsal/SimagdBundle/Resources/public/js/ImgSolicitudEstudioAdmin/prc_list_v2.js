@@ -61,7 +61,7 @@ window.actionSolEstudioEvents = {
     },
     'click .sin-cita-solicitud-action': function (e, value, row, index) {
         $.ajax({
-            type: 'post',
+            type: 'POST',
             dataType: 'json',
             url: Routing.generate('simagd_solicitud_estudio_requiereCita'),
             data: { id: row.prc_id },
@@ -331,7 +331,7 @@ jQuery(document).ready(function() {
 	    }
 	});
 	$.ajax({
-	    type: 'post',
+	    type: 'POST',
 	    dataType: 'json',
 	    url: Routing.generate('simagd_solicitud_estudio_cambiarPrioridadAtencionSolicitud'),
             data: {
@@ -642,7 +642,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate(url),
 		    data: $form.formParams(),

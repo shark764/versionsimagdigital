@@ -114,24 +114,24 @@
     <img id="id12e56" src="{{ dcm_url|raw }}" class="img-circle" title="Estudio del paciente" alt="No es una imagen" style="width: 164px; height: 164px;">
     
     <div class="media">
-	<div class="media-left">
-	    <a   href="#">
-		<img class="media-object" data-src="..." data-src="holder.js/64x64" alt="64x64" src="{{ dcm2_url|raw }}" data-holder-rendered="true" style="width: 64px; height: 64px;" alt="Generic placeholder image">
-	    </a>
-	</div>
-	<div class="media-body">
-	    <h4 class="media-heading">Media heading</h4>
-	    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-	    <div class="media">
-		<a   class="media-left" href="#">
-		    <img class="media-object" data-src="..." data-src="holder.js/64x64" alt="64x64" src="{{ dcm2_url|raw }}" data-holder-rendered="true" style="width: 64px; height: 64px;" alt="Generic placeholder image">
-		</a>
-		<div class="media-body">
-		    <h4 class="media-heading">Nested media heading</h4>
-		    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+		<div class="media-left">
+		    <a   href="#">
+			<img class="media-object" data-src="..." data-src="holder.js/64x64" alt="64x64" src="{{ dcm2_url|raw }}" data-holder-rendered="true" style="width: 64px; height: 64px;" alt="Generic placeholder image">
+		    </a>
 		</div>
-	    </div>
-	</div>
+		<div class="media-body">
+		    <h4 class="media-heading">Media heading</h4>
+		    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+		    <div class="media">
+				<a   class="media-left" href="#">
+				    <img class="media-object" data-src="..." data-src="holder.js/64x64" alt="64x64" src="{{ dcm2_url|raw }}" data-holder-rendered="true" style="width: 64px; height: 64px;" alt="Generic placeholder image">
+				</a>
+				<div class="media-body">
+				    <h4 class="media-heading">Nested media heading</h4>
+				    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+				</div>
+		    </div>
+		</div>
     </div>
     
     <br/>
@@ -433,8 +433,8 @@
 		
 	    </li>
 	</ul>
-    </div>
-    <!--  --><!--  --><!--  --><!--  --><!--  -->#}
+    </div> #}
+    <!--  --><!--  --><!--  --><!--  --><!--  -->{# #}
     
     <div id="container_form_busquedaEstudio" style="display: none;">
 
@@ -753,8 +753,8 @@
         <table class="table table-condensed" id="table-resultado-busqueda"
 		data-toggle="table"
 		data-id-field="est_id"
-		data-url="{#{{ path('simagd_estudio_resultadosBusquedaEstudio') }}#}"
-                data-backup-url="simagd_estudio_resultadosBusquedaEstudio"
+		data-url="{#{{ path('simagd_estudio_generateData') }}#}"
+                data-backup-url="simagd_estudio_generateData"
                 data-toolbar="#bs_est_toolbar"
 		data-cache="false"
 		data-show-refresh="true"

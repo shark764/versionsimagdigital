@@ -3,7 +3,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : 09-03-2014, 03:16:13 PM
     Author     : farid
 */
@@ -13,7 +13,7 @@ http://codepen.io/lukepeters/pen/bfFur
 http://wptheming.com/downloads/simpletable.zip
 http://wptheming.com/downloads/simpletable/*/
 
-.box-simagd .box-body table { 
+.box-simagd .box-body table {
     table-layout: fixed;
     width: 100%;
 /*     overflow: hidden; */
@@ -45,7 +45,7 @@ table.simagd-search-table tr.sonata-ba-list-field-header {
     text-align: center;
 }
 
-/* 
+/*
  * Loading Efect in button
  */
 .glyphicon-refresh-animate {
@@ -139,9 +139,62 @@ table .bstable-heading-primary-v3 {
     background-color: #f5f2d4;
     opacity: 1;
     filter: alpha(opacity=100);
-/*     color: #3f5e6e !important; */
-    color: #151e23 !important;
+     /*color: #3f5e6e !important; */
+    color: #151e23;
 }
+
+.bootstrap-table .table>tbody>tr>td.bstable-column-emergency {
+    /*background-color: rgba(255, 99, 71, 0.2);*/
+    background-color: rgba(255, 127, 80, 0.3);
+    filter: alpha(opacity=100);
+     /*color: #3f5e6e !important; */
+    color: #333;
+}
+.bootstrap-table .table>tbody>tr>td.bstable-column-darkblue {
+    /*background-color: rgba(82, 102, 89, 0.3);*/
+    background-color: rgba(230, 230, 250, 1);
+    filter: alpha(opacity=100);
+     /*color: #3f5e6e !important; */
+    color: #333;
+}
+.bootstrap-table .table>tbody>tr>td.bstable-column-medicine {
+    /*background-color: rgba(32, 178, 170, 0.15);*/
+    background-color: rgba(143, 188, 143, 0.22);
+    filter: alpha(opacity=100);
+     /*color: #3f5e6e !important; */
+    color: #333;
+}
+.bootstrap-table .table>tbody>tr>td.bstable-column-darkmedicine {
+    background-color: rgba(83, 134, 139, 0.24);
+    filter: alpha(opacity=100);
+     /*color: #3f5e6e !important; */
+    color: #333;
+}
+.bootstrap-table .table>tbody>tr>td.bstable-column-lightpacs {
+    background-color: rgba(104, 131, 139, 0.28);
+    filter: alpha(opacity=100);
+     /*color: #3f5e6e !important; */
+    color: #333;
+}
+.bootstrap-table .table>tbody>tr>td.bstable-column-skyblue {
+    background-color: rgba(141, 182, 205, 0.32);
+    filter: alpha(opacity=100);
+     /*color: #3f5e6e !important; */
+    color: #333;
+}
+.bootstrap-table .table>tbody>tr>td.bstable-column-skygray {
+    background-color: rgba(74, 112, 139, 0.22);
+    filter: alpha(opacity=100);
+     /*color: #3f5e6e !important; */
+    color: #333;
+}
+.bootstrap-table .table>tbody>tr>td.bstable-column-radiology {
+    background-color: rgba(70,130,180, 0.24);
+    filter: alpha(opacity=100);
+     /*color: #3f5e6e !important; */
+    color: #333;
+}
+
 
 .content-header .bootstrap-table .table>thead>tr>th,
 .content-header .bootstrap-table .table>tbody>tr>th,
@@ -230,13 +283,13 @@ span.bstable-toolbar-span-label {
 {
     /*background-color: #ffffff !important;*/
     /*padding: 0.25em !important;*/
-    
+
     /*
      border-top: 1px solid red;
      border-bottom: 1px solid red;
      *
      */
-    
+
     border-top: 1px solid red/*#16677d*/;
     border-bottom: 1px solid red/*#16677d*/;
 }
@@ -301,4 +354,12 @@ span.bstable-toolbar-span-label {
 .pull-leftt.search,
 .pull-right.search {
     width: 39.50%;
+}
+
+
+
+.bstable_detailview_display > tr > th,
+.bstable_detailview_display > thead > tr > th,
+.bstable_detailview_display > tbody > tr > th {
+    text-align: right;
 }

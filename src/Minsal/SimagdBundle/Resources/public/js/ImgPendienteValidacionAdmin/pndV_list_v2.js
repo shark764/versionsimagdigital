@@ -136,7 +136,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate(url),
 		    data: $form.formParams(),
@@ -253,9 +253,9 @@ jQuery(document).ready(function() {
 	e.preventDefault();
 
 	$.ajax({
-	    type: 'post',
+	    type: 'POST',
 	    dataType: 'json',
-	    url: Routing.generate('simagd_diagnostico_aprobarDiagnostico'),
+	    url: Routing.generate('simagd_diagnostico_approveTranscribedDiagnosis'),
 	    data: { id: $current_diagRowForm.diag_id },
 	    success: function(response) {
 			console.log('Diagnóstico aprobado satisfactoriamente');
@@ -457,9 +457,9 @@ jQuery(document).ready(function() {
 
         // Use Ajax to submit form data
         $.ajax({
-                type: 'post',
+                type: 'POST',
                 dataType: 'json',
-                url: Routing.generate('simagd_sin_validar_asignarElementoListaTrabajo'),
+                url: Routing.generate('simagd_sin_validar_addToWorkList'),
                 data: $pndVWorklist_params,
                 success: function(response) {
                             console.log('Registros han sido asignados a Radiólogo satisfactoriamente');

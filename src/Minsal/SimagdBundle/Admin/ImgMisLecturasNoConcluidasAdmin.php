@@ -11,50 +11,21 @@ use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class ImgMisLecturasNoConcluidasAdmin extends Admin
+class ImgMisLecturasNoConcluidasAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_mi_lista_sin_lectura';
+    protected $baseRouteName    = 'simagd_mi_lista_sin_lectura';
     protected $baseRoutePattern = 'rayos-x-mi-lista-sin-lectura';
     
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
-        $collection->clearExcept(array('list'));
+        // $collection->clearExcept(array('list'));
         $collection->add('leer');
-        $collection->add('listarPendientesLectura', null, [], [], ['expose' => true]);
-    }
-    
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
 
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
+    public function createQuery($context = 'list')
     {
-    }
-
-    /**
-     * @param FormMapper $formMapper
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
-    
-    public function createQuery($context = 'list') {
         $query = parent::createQuery($context);
         
         /** SubQuery */
@@ -81,7 +52,8 @@ class ImgMisLecturasNoConcluidasAdmin extends Admin
         return $query;
     }
 
-    public function getTemplate($name) {
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'list':
                 return 'MinsalSimagdBundle:ImgPendienteLecturaAdmin:pndL_personal_list_v2.html.twig';
@@ -91,5 +63,5 @@ class ImgMisLecturasNoConcluidasAdmin extends Admin
                 break;
         }
     }
-    
+
 }

@@ -1,0 +1,91 @@
+{% autoescape false %}
+
+	<script type="text/javascript">
+        ////////////////////////////////////////////////////////////////
+        //////// clear form
+        ////////////////////////////////////////////////////////////////
+        var clearForm = function(el) {
+            $form = jQuery(el).closest('form');
+            $form.data('formValidation').resetForm();
+            $form.get(0).reset();
+            $form
+                .find('select')
+                    .each(function () {
+                        var $select2    = jQuery(this);
+                        $select2.select2('val', $select2.find(':selected').val());
+                    });
+        }
+        ////////////////////////////////////////////////////////////////
+
+        jQuery.extend(true,
+                window.Admin,
+                {
+                    setup_select2: function(subject) {
+                        if (window.SONATA_CONFIG && window.SONATA_CONFIG.USE_SELECT2 && window.Select2) {
+
+                            jQuery('select:not([data-sonata-select2="false"])', subject).each(function() {
+                                var select = $(this);
+
+                                var allowClearEnabled = false;
+
+                                if (select.find('option[value=""]').length) {
+                                    allowClearEnabled = true;
+                                }
+
+                                if (select.attr('data-sonata-select2-allow-clear')==='true') {
+                                    allowClearEnabled = true;
+                                } else if (select.attr('data-sonata-select2-allow-clear')==='false') {
+                                    allowClearEnabled = false;
+                                }
+
+                                __select2_options__ = {
+                                    width: 'resolve',
+                                    minimumResultsForSearch: 10,
+                                    // dropdownAutoWidth : true,
+                                    allowClear: allowClearEnabled
+                                };
+
+                                //////// escapeMarkup
+                                if (select.attr('data-sonata-select2-escape-markup')==='true') {
+                                    jQuery.extend(true,
+                                        __select2_options__,
+                                        {
+                                            escapeMarkup: function(markup) {
+                                                return markup;
+                                            }
+                                        }
+                                    );
+                                }
+                                ////////
+
+                                //////// width
+                                // if (select.attr('data-sonata-select2-limit-width')==='true') {
+                                //     jQuery.extend(true,
+                                //         __select2_options__,
+                                //         {
+                                //             width: '75%'
+                                //         }
+                                //     );
+                                // }
+                                ////////
+
+                                //////// initialize with custom options
+                                select.select2(__select2_options__);
+                                ////////
+
+                                var popover = select.data('popover');
+
+                                if (undefined !== popover) {
+                                    select
+                                        .select2('container')
+                                        .popover(popover.options)
+                                    ;
+                                }
+                            });
+                        }
+                    }
+                }
+        ); // set value for filter
+    </script>
+
+{% endautoescape %}

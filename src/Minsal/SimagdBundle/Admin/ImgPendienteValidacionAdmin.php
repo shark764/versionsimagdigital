@@ -11,20 +11,18 @@ use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class ImgPendienteValidacionAdmin extends Admin
+class ImgPendienteValidacionAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_sin_validar';
+    protected $baseRouteName    = 'simagd_sin_validar';
     protected $baseRoutePattern = 'rayos-x-sin-validar';
     
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
-        $collection->clearExcept(array('list'));
+        // $collection->clearExcept(array('list'));
         $collection->add('validar');
-        $collection->add('listarPendientesValidacion', null, [], [], ['expose' => true]);
-        $collection->add('asignarElementoListaTrabajo', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('addToWorkList', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
     
     /**
@@ -75,28 +73,8 @@ class ImgPendienteValidacionAdmin extends Admin
         ;
     }
 
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
+    public function createQuery($context = 'list')
     {
-    }
-
-    /**
-     * @param FormMapper $formMapper
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
-    
-    public function createQuery($context = 'list') {
         $query = parent::createQuery($context);
         
         $sessionUser = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
@@ -116,7 +94,8 @@ class ImgPendienteValidacionAdmin extends Admin
         return $query;
     }
 
-    public function getTemplate($name) {
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'list':
                 return 'MinsalSimagdBundle:ImgPendienteValidacionAdmin:pndV_list_v2.html.twig';
@@ -126,5 +105,5 @@ class ImgPendienteValidacionAdmin extends Admin
                 break;
         }
     }
-    
+
 }

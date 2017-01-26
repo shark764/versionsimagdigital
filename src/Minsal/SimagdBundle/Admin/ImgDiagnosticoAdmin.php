@@ -13,29 +13,30 @@ use Sonata\AdminBundle\Route\RouteCollection;
 
 class ImgDiagnosticoAdmin extends Admin {
 
-    protected $baseRouteName = 'simagd_diagnostico';
+    protected $baseRouteName    = 'simagd_diagnostico';
     protected $baseRoutePattern = 'rayos-x-diagnostico';
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         $collection->add('nota');
-        $collection->add('agregarPendiente', null, [], [], ['expose' => true]);
-        $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
-        $collection->add('listarDiagnosticos', null, [], [], ['expose' => true]);
-        $collection->remove('delete');
+        $collection->add('addPendingToWorkList', null, [], [], ['expose' => true]);
+        // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
+        // $collection->remove('delete');
         $collection->add('transcribirDiagnostico', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarDiagnostico', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('aprobarDiagnostico', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('approveTranscribedDiagnosis', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
 
     /**
      * @param DatagridMapper $datagridMapper
      */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
         $estabLocal = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()
                         ->getUser()->getIdEstablecimiento()->getId();
 
@@ -84,13 +85,6 @@ class ImgDiagnosticoAdmin extends Admin {
 //            ->add('fechaAprobado', null, array('label' => 'Aprobado en'))//http://validity.thatscaptaintoyou.com/
             ->add('idLectura.correlativo', null, array('label' => 'Correlativo'))
         ;
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
 
     /**
@@ -233,13 +227,6 @@ class ImgDiagnosticoAdmin extends Admin {
             ->end()
         ;
     }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
     
     public function prePersist($diagnostico) {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
@@ -334,8 +321,9 @@ class ImgDiagnosticoAdmin extends Admin {
                 ->end();
         }
     }
-    
-    public function getNewInstance() {
+
+    public function getNewInstance()
+    {
         $instance = parent::getNewInstance(); //estab proveniente de idEstabDiagnosticante || pendL
         
         $sessionUser = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
@@ -361,8 +349,9 @@ class ImgDiagnosticoAdmin extends Admin {
         
         return $instance;
     }
-    
-    public function createQuery($context = 'list') {
+
+    public function createQuery($context = 'list')
+    {
         $query = parent::createQuery($context);
         
         $estabLocal = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()
@@ -374,8 +363,9 @@ class ImgDiagnosticoAdmin extends Admin {
         
         return $query;
     }
-    
-    public function getTemplate($name) {
+
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'edit':
                 return 'MinsalSimagdBundle:ImgDiagnosticoAdmin:diag_edit.html.twig';
@@ -391,4 +381,5 @@ class ImgDiagnosticoAdmin extends Admin {
                 break;
         }
     }
+
 }

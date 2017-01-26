@@ -2,14 +2,14 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 
-class ImgDatoAutocomplementoAdminController extends Controller
+class ImgDatoAutocomplementoAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     public function getObjectVarsAsArrayAction(Request $request)
     {
@@ -25,7 +25,7 @@ class ImgDatoAutocomplementoAdminController extends Controller
         $response->setContent(json_encode(
                 array('id' => $object->getId(),
                         'object' => $object->getObjectVarsAsArray()
-//                        'url' => $this->admin->generateUrl('show', array('id' => $object->getId()))
+                        // 'url' => $this->admin->generateUrl('show', array('id' => $object->getId()))
                 )));
         return $response;
     }

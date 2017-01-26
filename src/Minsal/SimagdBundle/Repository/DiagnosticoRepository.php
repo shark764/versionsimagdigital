@@ -25,10 +25,10 @@ class DiagnosticoRepository extends EntityRepository
                             ->setParameter('id_prc', $idSolicitudEstudio);
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult();
     }
-    
+
     public function obtenerDiagnosticosEstabPorPaciente($idExpediente, $id_estab)
     {
         $query = $this->getEntityManager()
@@ -41,18 +41,18 @@ class DiagnosticoRepository extends EntityRepository
                             ->setParameter('id_exp', $idExpediente)
                             ->andWhere('lct.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
-                            ->orderBy('diag.fechaTranscrito', 'desc');
-        $query->distinct();
-        
+                            ->orderBy('diag.fechaTranscrito', 'DESC')
+                            ->distinct();
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerDiagnosticoOrSolicitud($idSolicitudEstudio )
     {
         /** Diagnóstico registrado */
         $queryDiag = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('diag.id as diagId')
+                            ->select('diag.id AS diagId')
                             ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
                             ->innerJoin('diag.idLectura', 'lct')
                             ->innerJoin('lct.idEstudio', 'est')
@@ -62,28 +62,28 @@ class DiagnosticoRepository extends EntityRepository
 
         $queryDiag->distinct();
         $queryDiag->setMaxResults(1);
-        
+
         $diag = $queryDiag->getQuery()->getOneOrNullResult();
         if ($diag ) { return array($diag['diagId'], 'diag'); }
-        
+
         /** Solicitud existente */
         $querySoldiag = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('soldiag.id as soldiagId')
+                            ->select('soldiag.id AS soldiagId')
                             ->from('MinsalSimagdBundle:ImgSolicitudDiagnostico', 'soldiag')
                             ->where('soldiag.idSolicitudEstudio = :id_prc')
                             ->setParameter('id_prc', $idSolicitudEstudio);
 
         $querySoldiag->distinct();
         $querySoldiag->setMaxResults(1);
-        
+
         $soldiag = $querySoldiag->getQuery()->getOneOrNullResult();
         if ($soldiag ) { return array($soldiag['soldiagId'], 'soldiag'); }
-        
+
         /** Estudio existente */
         $queryEst = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('est.id as estId')
+                            ->select('est.id AS estId')
                             ->from('MinsalSimagdBundle:ImgEstudioPaciente', 'est')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
                             ->where('prz.idSolicitudEstudio = :id_prc')
@@ -91,18 +91,18 @@ class DiagnosticoRepository extends EntityRepository
 
         $queryEst->distinct();
         $queryEst->setMaxResults(1);
-        
+
         $est = $queryEst->getQuery()->getOneOrNullResult();
         if ($est ) { return array($est['estId'], 'est'); }
-        
+
         return null;
     }
-    
+
     public function obtenerAccesoDiagnostico($id, $idUser)
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('diag.id as diagId')
+                            ->select('diag.id AS diagId')
                             ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
                             ->innerJoin('diag.idLectura', 'lct')
                             ->where('diag.id = :id_diag')
@@ -119,15 +119,15 @@ class DiagnosticoRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function obtenerAccesoEstab($id, $idEstab)
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('diag.id as diagId')
+                            ->select('diag.id AS diagId')
                             ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
                             ->innerJoin('diag.idLectura', 'lct')
                             ->where('diag.id = :id_diag')
@@ -137,10 +137,10 @@ class DiagnosticoRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function obtenerDiagnosticos($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
@@ -150,14 +150,14 @@ class DiagnosticoRepository extends EntityRepository
                             ->innerJoin('diag.idLectura', 'lct')
                             ->where('lct.idEstablecimiento = :id_est_diag')
                             ->setParameter('id_est_diag', $id_estab)
-                            ->orderBy('diag.id', 'desc')
-                            ->addOrderBy('diag.fechaAprobado', 'desc')
-                            ->addOrderBy('diag.fechaTranscrito', 'desc');
-        $query->distinct();
-        
+                            ->orderBy('diag.id', 'DESC')
+                            ->addOrderBy('diag.fechaAprobado', 'DESC')
+                            ->addOrderBy('diag.fechaTranscrito', 'DESC')
+                            ->distinct();
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerPendientesTranscripcion($id_estab, $bs_filters = array())
     {
         /** SubQuery */
@@ -167,7 +167,7 @@ class DiagnosticoRepository extends EntityRepository
                             ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
 //                            ->where('diag.idEstadoDiagnostico NOT IN ( 3, 5, 6 )')
                             ->andWhere('diag.idLectura = pndT.idLectura');
-                
+
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -175,16 +175,16 @@ class DiagnosticoRepository extends EntityRepository
                             ->from('MinsalSimagdBundle:ImgPendienteTranscripcion', 'pndT')
                             ->where('pndT.idEstablecimiento = :id_est_diag')
                             ->setParameter('id_est_diag', $id_estab)
-                            ->orderBy('pndT.fechaIngresoLista', 'asc')
-                            ->addOrderBy('pndT.id', 'desc');
-        
+                            ->orderBy('pndT.fechaIngresoLista', 'ASC')
+                            ->addOrderBy('pndT.id', 'DESC');
+
         $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())));
-                
+
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerPendientesTranscripcionPersonal($id_estab, $sessionUser, $bs_filters = array())
     {
         /** SubQuery */
@@ -197,7 +197,7 @@ class DiagnosticoRepository extends EntityRepository
 //                             ->andWhere('diag.idEstadoDiagnostico NOT IN ( 3, 5, 6 )')
                             ->andWhere('statusdiag.codigo NOT IN (:status_diag_cod)')
                             ->andWhere('diag.idLectura = pndT.idLectura');
-                
+
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -205,18 +205,18 @@ class DiagnosticoRepository extends EntityRepository
                             ->from('MinsalSimagdBundle:ImgPendienteTranscripcion', 'pndT')
                             ->where('pndT.idEstablecimiento = :id_est_diag')
                             ->setParameter('id_est_diag', $id_estab)
-                            ->orderBy('pndT.fechaIngresoLista', 'asc')
-                            ->addOrderBy('pndT.id', 'desc');
-        
+                            ->orderBy('pndT.fechaIngresoLista', 'ASC')
+                            ->addOrderBy('pndT.id', 'DESC');
+
         $query->andWhere($query->expr()->exists($subQuery->getDql()))
                             ->setParameter('id_user', $sessionUser->getId())
                             ->setParameter('status_diag_cod', array('TRC', 'CRG', 'APR'));
-                
+
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerPendientesValidacion($id_estab, $sessionUser, $bs_filters = array())
     {
         $query = $this->getEntityManager()
@@ -227,8 +227,8 @@ class DiagnosticoRepository extends EntityRepository
                             ->innerJoin('diag.idLectura', 'lct')
                             ->where('pndV.idEstablecimiento = :id_est_diag')
                             ->setParameter('id_est_diag', $id_estab)
-                            ->orderBy('pndV.fechaIngresoLista', 'asc')
-                            ->addOrderBy('pndV.id', 'desc');
+                            ->orderBy('pndV.fechaIngresoLista', 'ASC')
+                            ->addOrderBy('pndV.id', 'DESC');
 
         $query->andWhere($query->expr()->orx(
                             $query->expr()->eq('lct.idUserReg', ':id_user'),
@@ -236,13 +236,13 @@ class DiagnosticoRepository extends EntityRepository
                         ))
                             ->setParameter('id_user', $sessionUser->getId())
                             ->setParameter('id_diag_val', $sessionUser->getIdEmpleado()->getId());
-                            
+
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
 
-    public function obtenerDiagnosticosV2($id_estab, $bs_filters = array())
+    public function data($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('diag')
@@ -252,21 +252,24 @@ class DiagnosticoRepository extends EntityRepository
                             ->addSelect('ptrAsc')
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
-                            ->addSelect('statusdiag.id as diag_id_estado, statusdiag.nombreEstado as diag_estado, statusdiag.codigo as diag_codEstado')
-                            ->addSelect('prc.fechaCreacion as prc_fechaCreacion, est.id as est_id, est.fechaEstudio as est_fechaEstudio, est.url as est_url, prz.fechaAlmacenado as prz_fechaAlmacenado')
-                            ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
-                            ->addSelect('stdroot.nombre as prc_origen, stdroot.id as prc_id_origen, ar.nombre as prc_areaAtencion, ar.id as prc_id_areaAtencion, atn.nombre as prc_atencion, atn.id as prc_id_atencion')
-                            ->addSelect('concat(coalesce(empdiag.apellido, \'\'), \', \', coalesce(empdiag.nombre, \'\')) as diag_transcriptor, empdiag.id as diag_id_transcriptor, tpEmp.tipo as diag_tipoEmpleado')
-                            ->addSelect('concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) as prc_solicitante')
-                            ->addSelect('concat(coalesce(emplct.apellido, \'\'), \', \', coalesce(emplct.nombre, \'\')) as lct_radiologo, emplct.id as lct_id_radiologo')
-                            ->addSelect('case when (lctVal.id is not null) then concat(coalesce(lctVal.apellido, \'\'), \', \', coalesce(lctVal.nombre, \'\')) else \'\' end as lct_radiologoVal, lctVal.id as lct_id_radiologoVal')
-                            ->addSelect('case when (radVal.id is not null) then concat(coalesce(radVal.apellido, \'\'), \', \', coalesce(radVal.nombre, \'\')) else \'\' end as diag_radiologoVal, radVal.id as diag_id_radiologoVal')
-                            ->addSelect('stdref.nombre as prc_referido, stdref.id as prc_id_referido, stdiag.nombre as prc_diagnosticante, stdiag.id as prc_id_diagnosticante, stdlct.nombre as diag_solicitado, stdlct.id as diag_id_solicitado')
-                            ->addSelect('m.nombrearea as prc_modalidad, m.id as prc_id_modalidad, prAtn.nombre as prc_prioridadAtencion, prAtn.codigo as prc_codigoPrioridad, frCt.nombre as prc_formaContacto, ctPct.parentesco as prc_contactoPaciente')
-                            ->addSelect('usrRg.username as diag_usernameUserReg, usrRg.id as diag_id_userReg, usrMd.username as diag_usernameUserMod, usrMd.id as diag_id_userMod, lctUsrRg.id as lct_id_usrRg')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as diag_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as diag_nombreUserMod')
-                            ->addSelect('case when (tcnlprz.id is not null) then concat(coalesce(tcnlprz.apellido, \'\'), \', \', coalesce(tcnlprz.nombre, \'\')) else \'\' end as prz_tecnologo')
+
+                            ->addSelect('diag.id AS id, stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea AS modalidad, prAtn.nombre AS triage, CONCAT(COALESCE(emplct.apellido, \'\'), \', \', COALESCE(emplct.nombre, \'\')) AS radiologo, statusdiag.nombreEstado AS estado, diag.conclusion AS conclusion, CONCAT(COALESCE(empdiag.apellido, \'\'), \', \', COALESCE(empdiag.nombre, \'\')) AS transcriptor, diag.fechaTranscrito AS fecha_transcrito, diag.fechaAprobado AS fecha_aprobado, diag.fechaRegistro AS fecha_diagnostico, CASE WHEN (tcnlprz.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) ELSE \'\' END AS tecnologo')
+
+                            ->addSelect('statusdiag.id AS diag_id_estado, statusdiag.nombreEstado AS diag_estado, statusdiag.codigo AS diag_codEstado')
+                            ->addSelect('prc.fechaCreacion AS prc_fechaCreacion, est.id AS est_id, est.fechaEstudio AS est_fechaEstudio, est.url AS est_url, prz.fechaAlmacenado AS prz_fechaAlmacenado')
+                            ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS prc_paciente')
+                            ->addSelect('stdroot.nombre AS prc_origen, stdroot.id AS prc_id_origen, ar.nombre AS prc_areaAtencion, ar.id AS prc_id_areaAtencion, atn.nombre AS prc_atencion, atn.id AS prc_id_atencion')
+                            ->addSelect('CONCAT(COALESCE(empdiag.apellido, \'\'), \', \', COALESCE(empdiag.nombre, \'\')) AS diag_transcriptor, empdiag.id AS diag_id_transcriptor, tpEmp.tipo AS diag_tipoEmpleado')
+                            ->addSelect('CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) AS prc_solicitante')
+                            ->addSelect('CONCAT(COALESCE(emplct.apellido, \'\'), \', \', COALESCE(emplct.nombre, \'\')) AS lct_radiologo, emplct.id AS lct_id_radiologo')
+                            ->addSelect('CASE WHEN (lctVal.id IS NOT NULL) THEN CONCAT(COALESCE(lctVal.apellido, \'\'), \', \', COALESCE(lctVal.nombre, \'\')) ELSE \'\' END AS lct_radiologoVal, lctVal.id AS lct_id_radiologoVal')
+                            ->addSelect('CASE WHEN (radVal.id IS NOT NULL) THEN CONCAT(COALESCE(radVal.apellido, \'\'), \', \', COALESCE(radVal.nombre, \'\')) ELSE \'\' END AS diag_radiologoVal, radVal.id AS diag_id_radiologoVal')
+                            ->addSelect('stdref.nombre AS prc_referido, stdref.id AS prc_id_referido, stdiag.nombre AS prc_diagnosticante, stdiag.id AS prc_id_diagnosticante, stdlct.nombre AS diag_solicitado, stdlct.id AS diag_id_solicitado')
+                            ->addSelect('m.nombrearea AS prc_modalidad, m.id AS prc_id_modalidad, prAtn.nombre AS prc_prioridadAtencion, prAtn.codigo AS prc_codigoPrioridad, frCt.nombre AS prc_formaContacto, ctPct.parentesco AS prc_contactoPaciente')
+                            ->addSelect('usrRg.username AS diag_usernameUserReg, usrRg.id AS diag_id_userReg, usrMd.username AS diag_usernameUserMod, usrMd.id AS diag_id_userMod, lctUsrRg.id AS lct_id_usrRg')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS diag_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS diag_nombreUserMod')
+                            ->addSelect('CASE WHEN (tcnlprz.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) ELSE \'\' END AS prz_tecnologo')
                             ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
                             ->innerJoin('diag.idLectura', 'lct')
                             ->innerJoin('diag.idEstadoDiagnostico', 'statusdiag')
@@ -303,297 +306,11 @@ class DiagnosticoRepository extends EntityRepository
                             ->leftJoin('empdiag.idTipoEmpleado', 'tpEmp')
                             ->where('lct.idEstablecimiento = :id_est_lct')
                             ->setParameter('id_est_lct', $id_estab)
-                            ->orderBy('diag.id', 'desc')
-                            ->addOrderBy('diag.fechaAprobado', 'desc')
-                            ->addOrderBy('diag.fechaTranscrito', 'desc')
+                            ->orderBy('diag.id', 'DESC')
+                            ->addOrderBy('diag.fechaAprobado', 'DESC')
+                            ->addOrderBy('diag.fechaTranscrito', 'DESC')
                             ->distinct();
-        
-        $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
-                                    \Doctrine\ORM\Query\Expr\Join::WITH,
-                                            $query->expr()->andx(
-                                                $query->expr()->eq('pct.id', 'explocal.idPaciente'),
-                                                $query->expr()->eq('explocal.idEstablecimiento', ':id_est_explocal')
-                                            )
-                            )
-                            ->setParameter('id_est_explocal', $id_estab);
-        
-        /*
-         * --| add filters from BSTABLE_FILTER to query
-         */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
-        $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
-        if ($apply_filters !== false)
-        {
-            $query->andWhere($apply_filters);
-        }
-        /*
-         * |-- END filters from BSTABLE_FILTER to query
-         */
 
-        return $query->getQuery()->getScalarResult();
-    }
-    
-    public function obtenerPendientesTranscripcionV2($id_estab, $bs_filters = array())
-    {
-        /** SubQuery */
-        $subQuery = $this->getEntityManager()
-                        ->createQueryBuilder()
-                            ->select('diag')
-                            ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
-//                            ->where('diag.idEstadoDiagnostico NOT IN ( 3, 5, 6 )')
-                            ->andWhere('diag.idLectura = pndT.idLectura');
-                
-        /** Query */
-        $query = $this->getEntityManager()
-                        ->createQueryBuilder('pndT')
-                            ->select('pndT')
-                            ->addSelect('lct')
-                            ->addSelect('ptrAsc')
-                            ->addSelect('explocal')->addSelect('unknExp')
-                            ->addSelect('prAtn')
-                            ->addSelect('statuslct.id as lct_id_estado, statuslct.nombreEstado as lct_estado, tipoR.id as lct_id_tipoResultado, tipoR.nombreTipo as lct_tipoResultado, tipoR.indeterminado as lct_indeterminado')
-                            ->addSelect('prc.fechaCreacion as prc_fechaCreacion, est.id as est_id, est.fechaEstudio as est_fechaEstudio, est.url as est_url, prz.fechaAlmacenado as prz_fechaAlmacenado')
-                            ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
-                            ->addSelect('stdroot.nombre as prc_origen, stdroot.id as prc_id_origen, ar.nombre as prc_areaAtencion, ar.id as prc_id_areaAtencion, atn.nombre as prc_atencion, atn.id as prc_id_atencion')
-                            ->addSelect('concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) as prc_solicitante')
-                            ->addSelect('concat(coalesce(emplct.apellido, \'\'), \', \', coalesce(emplct.nombre, \'\')) as lct_radiologo, emplct.id as lct_id_radiologo, tpEmp.tipo as lct_tipoEmpleado')
-                            ->addSelect('case when (lctVal.id is not null) then concat(coalesce(lctVal.apellido, \'\'), \', \', coalesce(lctVal.nombre, \'\')) else \'\' end as lct_radiologoVal, lctVal.id as lct_id_radiologoVal')
-                            ->addSelect('case when (lctSol.id is not null) then concat(coalesce(lctSol.apellido, \'\'), \', \', coalesce(lctSol.nombre, \'\')) else \'\' end as lct_radiologoSol, lctSol.id as lct_id_radiologoSol')
-                            ->addSelect('stdref.nombre as prc_referido, stdref.id as prc_id_referido, stdiag.nombre as prc_diagnosticante, stdiag.id as prc_id_diagnosticante, stdlct.nombre as lct_solicitado, stdlct.id as lct_id_solicitado')
-                            ->addSelect('m.nombrearea as prc_modalidad, m.id as prc_id_modalidad, prAtn.nombre as prc_prioridadAtencion, prAtn.codigo as prc_codigoPrioridad, frCt.nombre as prc_formaContacto, ctPct.parentesco as prc_contactoPaciente')
-                            ->addSelect('usrRg.username as lct_usernameUserReg, usrRg.id as lct_id_userReg')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as lct_nombreUserReg')
-                            ->addSelect('case when (tcnlprz.id is not null) then concat(coalesce(tcnlprz.apellido, \'\'), \', \', coalesce(tcnlprz.nombre, \'\')) else \'\' end as prz_tecnologo')
-                            ->from('MinsalSimagdBundle:ImgPendienteTranscripcion', 'pndT')
-                            ->innerJoin('pndT.idLectura', 'lct')
-                            ->innerJoin('lct.idEstadoLectura', 'statuslct')
-                            ->innerJoin('lct.idTipoResultado', 'tipoR')
-                            ->innerJoin('lct.idEmpleado', 'emplct')
-                            ->leftJoin('lct.idRadiologoDesignadoAprobacion', 'lctVal')
-                            ->leftJoin('lct.idRadiologoSolicita', 'lctSol')
-                            ->leftJoin('lct.idEstudio', 'est')
-                            ->leftJoin('lct.idPatronAsociado', 'ptrAsc')
-                            ->leftJoin('est.idProcedimientoRealizado', 'prz')
-                            ->leftJoin('prz.idSolicitudEstudio', 'prc')
-                            ->leftJoin('prz.idTecnologoRealiza', 'tcnlprz')
-                            ->innerJoin('lct.idUserReg', 'usrRg')
-                            ->leftJoin('prc.idAtenAreaModEstab', 'aams')
-                            ->innerJoin('prc.idEmpleado', 'empprc')
-                            ->leftJoin('prc.idExpediente', 'exp')
-                            ->leftJoin('prc.idAreaServicioDiagnostico', 'm')
-                            ->leftJoin('prc.idEstablecimientoReferido', 'stdref')
-                            ->leftJoin('prc.idEstablecimientoDiagnosticante', 'stdiag')
-                            ->leftJoin('lct.idEstablecimiento', 'stdlct')
-                            ->leftJoin('prc.idPrioridadAtencion', 'prAtn')
-                            ->leftJoin('prc.idFormaContacto', 'frCt')
-                            ->leftJoin('prc.idContactoPaciente', 'ctPct')
-                            ->leftJoin('aams.idAtencion', 'atn')
-                            ->leftJoin('aams.idAreaModEstab', 'ams')
-                            ->leftJoin('aams.idEstablecimiento', 'stdroot')
-                            ->leftJoin('ams.idAreaAtencion', 'ar')
-                            ->leftJoin('exp.idPaciente', 'pct')
-                            ->innerJoin('usrRg.idEmpleado', 'usrRgEmp')
-                            ->leftJoin('emplct.idTipoEmpleado', 'tpEmp')
-                            ->where('pndT.idEstablecimiento = :id_est_diag')
-                            ->setParameter('id_est_diag', $id_estab)
-                            ->orderBy('pndT.fechaIngresoLista', 'asc')
-                            ->addOrderBy('pndT.id', 'desc');
-        
-        $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
-                                    \Doctrine\ORM\Query\Expr\Join::WITH,
-                                            $query->expr()->andx(
-                                                $query->expr()->eq('pct.id', 'explocal.idPaciente'),
-                                                $query->expr()->eq('explocal.idEstablecimiento', ':id_est_explocal')
-                                            )
-                            )
-                            ->setParameter('id_est_explocal', $id_estab);
-        
-        $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())))
-                            ->distinct();
-        
-        /*
-         * --| add filters from BSTABLE_FILTER to query
-         */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
-        $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
-        if ($apply_filters !== false)
-        {
-            $query->andWhere($apply_filters);
-        }
-        /*
-         * |-- END filters from BSTABLE_FILTER to query
-         */
-
-        return $query->getQuery()->getScalarResult();
-    }
-    
-    public function obtenerPendientesTranscripcionPersonalV2($id_estab, $sessionUser, $bs_filters = array())
-    {
-        /** Query */
-        $query = $this->getEntityManager()
-                        ->createQueryBuilder('pndT')
-                            ->select('pndT')
-                            ->addSelect('lct')
-                            ->addSelect('diag')
-                            ->addSelect('ptrApl')
-                            ->addSelect('ptrAsc')
-                            ->addSelect('explocal')->addSelect('unknExp')
-                            ->addSelect('prAtn')
-                            ->addSelect('statuslct.id as lct_id_estado, statuslct.nombreEstado as lct_estado, tipoR.id as lct_id_tipoResultado, tipoR.nombreTipo as lct_tipoResultado, tipoR.indeterminado as lct_indeterminado, statusdiag.id as diag_id_estado, statusdiag.nombreEstado as diag_estado')
-                            ->addSelect('prc.fechaCreacion as prc_fechaCreacion, est.id as est_id, est.fechaEstudio as est_fechaEstudio, est.url as est_url, prz.fechaAlmacenado as prz_fechaAlmacenado')
-                            ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
-                            ->addSelect('stdroot.nombre as prc_origen, stdroot.id as prc_id_origen, ar.nombre as prc_areaAtencion, ar.id as prc_id_areaAtencion, atn.nombre as prc_atencion, atn.id as prc_id_atencion')
-                            ->addSelect('concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) as prc_solicitante')
-                            ->addSelect('concat(coalesce(emplct.apellido, \'\'), \', \', coalesce(emplct.nombre, \'\')) as lct_radiologo, emplct.id as lct_id_radiologo, tpEmp.tipo as lct_tipoEmpleado')
-                            ->addSelect('concat(coalesce(empDiag.apellido, \'\'), \', \', coalesce(empDiag.nombre, \'\')) as diag_transcriptor, empDiag.id as diag_id_transcriptor')
-                            ->addSelect('case when (lctVal.id is not null) then concat(coalesce(lctVal.apellido, \'\'), \', \', coalesce(lctVal.nombre, \'\')) else \'\' end as lct_radiologoVal, lctVal.id as lct_id_radiologoVal')
-                            ->addSelect('case when (lctSol.id is not null) then concat(coalesce(lctSol.apellido, \'\'), \', \', coalesce(lctSol.nombre, \'\')) else \'\' end as lct_radiologoSol, lctSol.id as lct_id_radiologoSol')
-                            ->addSelect('stdref.nombre as prc_referido, stdref.id as prc_id_referido, stdiag.nombre as prc_diagnosticante, stdiag.id as prc_id_diagnosticante, stdlct.nombre as lct_solicitado, stdlct.id as lct_id_solicitado')
-                            ->addSelect('m.nombrearea as prc_modalidad, m.id as prc_id_modalidad, prAtn.nombre as prc_prioridadAtencion, prAtn.codigo as prc_codigoPrioridad, frCt.nombre as prc_formaContacto, ctPct.parentesco as prc_contactoPaciente')
-                            ->addSelect('usrRg.username as lct_usernameUserReg, usrRg.id as lct_id_userReg')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as lct_nombreUserReg')
-                            ->addSelect('case when (tcnlprz.id is not null) then concat(coalesce(tcnlprz.apellido, \'\'), \', \', coalesce(tcnlprz.nombre, \'\')) else \'\' end as prz_tecnologo')
-                            ->from('MinsalSimagdBundle:ImgPendienteTranscripcion', 'pndT')
-                            ->innerJoin('pndT.idLectura', 'lct')
-                            ->innerJoin('MinsalSimagdBundle:ImgDiagnostico', 'diag',
-                                    \Doctrine\ORM\Query\Expr\Join::WITH,
-                                    'lct.id = diag.idLectura')
-                            ->innerJoin('diag.idEstadoDiagnostico', 'statusdiag')
-                            ->innerJoin('lct.idEstadoLectura', 'statuslct')
-                            ->innerJoin('lct.idTipoResultado', 'tipoR')
-                            ->innerJoin('lct.idEmpleado', 'emplct')
-                            ->innerJoin('diag.idEmpleado', 'empDiag')
-                            ->leftJoin('lct.idPatronAsociado', 'ptrAsc')
-                            ->leftJoin('diag.idPatronAplicado', 'ptrApl')
-                            ->leftJoin('lct.idRadiologoDesignadoAprobacion', 'lctVal')
-                            ->leftJoin('lct.idRadiologoSolicita', 'lctSol')
-                            ->leftJoin('lct.idEstudio', 'est')
-                            ->leftJoin('est.idProcedimientoRealizado', 'prz')
-                            ->leftJoin('prz.idSolicitudEstudio', 'prc')
-                            ->leftJoin('prz.idTecnologoRealiza', 'tcnlprz')
-                            ->innerJoin('lct.idUserReg', 'usrRg')
-                            ->innerJoin('diag.idUserReg', 'diagUsrRg')
-                            ->leftJoin('diag.idUserMod', 'diagUsrMd')
-                            ->leftJoin('prc.idAtenAreaModEstab', 'aams')
-                            ->innerJoin('prc.idEmpleado', 'empprc')
-                            ->leftJoin('prc.idExpediente', 'exp')
-                            ->leftJoin('prc.idAreaServicioDiagnostico', 'm')
-                            ->leftJoin('prc.idEstablecimientoReferido', 'stdref')
-                            ->leftJoin('prc.idEstablecimientoDiagnosticante', 'stdiag')
-                            ->leftJoin('lct.idEstablecimiento', 'stdlct')
-                            ->leftJoin('prc.idPrioridadAtencion', 'prAtn')
-                            ->leftJoin('prc.idFormaContacto', 'frCt')
-                            ->leftJoin('prc.idContactoPaciente', 'ctPct')
-                            ->leftJoin('aams.idAtencion', 'atn')
-                            ->leftJoin('aams.idAreaModEstab', 'ams')
-                            ->leftJoin('aams.idEstablecimiento', 'stdroot')
-                            ->leftJoin('ams.idAreaAtencion', 'ar')
-                            ->leftJoin('exp.idPaciente', 'pct')
-                            ->innerJoin('usrRg.idEmpleado', 'usrRgEmp')
-                            ->innerJoin('diagUsrRg.idEmpleado', 'diagUsrRgEmp')
-                            ->leftJoin('diagUsrMd.idEmpleado', 'diagUsrMdEmp')
-                            ->leftJoin('empDiag.idTipoEmpleado', 'tpEmp')
-                            ->where('pndT.idEstablecimiento = :id_est_diag')
-                            ->setParameter('id_est_diag', $id_estab)
-                            ->andWhere('diag.idUserReg = :id_user')
-                            ->setParameter('id_user', $sessionUser)
-                            ->andWhere('statusdiag.codigo NOT IN (:status_diag_cod)')
-                            ->setParameter('status_diag_cod', array('TRC', 'CRG', 'APR'))
-                            ->orderBy('pndT.fechaIngresoLista', 'asc')
-                            ->addOrderBy('pndT.id', 'desc')
-                            ->distinct();
-        
-        $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
-                                    \Doctrine\ORM\Query\Expr\Join::WITH,
-                                            $query->expr()->andx(
-                                                $query->expr()->eq('pct.id', 'explocal.idPaciente'),
-                                                $query->expr()->eq('explocal.idEstablecimiento', ':id_est_explocal')
-                                            )
-                            )
-                            ->setParameter('id_est_explocal', $id_estab);
-        
-        /*
-         * --| add filters from BSTABLE_FILTER to query
-         */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
-        $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
-        if ($apply_filters !== false)
-        {
-            $query->andWhere($apply_filters);
-        }
-        /*
-         * |-- END filters from BSTABLE_FILTER to query
-         */
-
-        return $query->getQuery()->getScalarResult();
-    }
-    
-    public function obtenerPendientesValidacionV2($id_estab, $sessionUser, $bs_filters = array())
-    {
-        $query = $this->getEntityManager()
-                        ->createQueryBuilder()
-                            ->select('pndV')
-                            ->addSelect('diag')
-                            ->addSelect('lct')
-                            ->addSelect('ptrApl')
-                            ->addSelect('ptrAsc')
-                            ->addSelect('explocal')->addSelect('unknExp')
-                            ->addSelect('prAtn')
-                            ->addSelect('statusdiag.id as diag_id_estado, statusdiag.nombreEstado as diag_estado, statusdiag.codigo as diag_codEstado')
-                            ->addSelect('prc.fechaCreacion as prc_fechaCreacion, est.id as est_id, est.fechaEstudio as est_fechaEstudio, est.url as est_url, prz.fechaAlmacenado as prz_fechaAlmacenado')
-                            ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
-                            ->addSelect('stdroot.nombre as prc_origen, stdroot.id as prc_id_origen, ar.nombre as prc_areaAtencion, ar.id as prc_id_areaAtencion, atn.nombre as prc_atencion, atn.id as prc_id_atencion')
-                            ->addSelect('concat(coalesce(empdiag.apellido, \'\'), \', \', coalesce(empdiag.nombre, \'\')) as diag_transcriptor, empdiag.id as diag_id_transcriptor, tpEmp.tipo as diag_tipoEmpleado')
-                            ->addSelect('concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) as prc_solicitante')
-                            ->addSelect('concat(coalesce(emplct.apellido, \'\'), \', \', coalesce(emplct.nombre, \'\')) as lct_radiologo, emplct.id as lct_id_radiologo')
-                            ->addSelect('case when (lctVal.id is not null) then concat(coalesce(lctVal.apellido, \'\'), \', \', coalesce(lctVal.nombre, \'\')) else \'\' end as lct_radiologoVal, lctVal.id as lct_id_radiologoVal')
-                            ->addSelect('case when (radVal.id is not null) then concat(coalesce(radVal.apellido, \'\'), \', \', coalesce(radVal.nombre, \'\')) else \'\' end as diag_radiologoVal, radVal.id as diag_id_radiologoVal')
-                            ->addSelect('stdref.nombre as prc_referido, stdref.id as prc_id_referido, stdiag.nombre as prc_diagnosticante, stdiag.id as prc_id_diagnosticante, stdlct.nombre as diag_solicitado, stdlct.id as diag_id_solicitado')
-                            ->addSelect('m.nombrearea as prc_modalidad, m.id as prc_id_modalidad, prAtn.nombre as prc_prioridadAtencion, prAtn.codigo as prc_codigoPrioridad, frCt.nombre as prc_formaContacto, ctPct.parentesco as prc_contactoPaciente')
-                            ->addSelect('usrRg.username as diag_usernameUserReg, usrRg.id as diag_id_userReg, usrMd.username as diag_usernameUserMod, usrMd.id as diag_id_userMod, lctUsrRg.id as lct_id_usrRg')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as diag_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as diag_nombreUserMod')
-                            ->addSelect('case when (tcnlprz.id is not null) then concat(coalesce(tcnlprz.apellido, \'\'), \', \', coalesce(tcnlprz.nombre, \'\')) else \'\' end as prz_tecnologo')
-                            ->from('MinsalSimagdBundle:ImgPendienteValidacion', 'pndV')
-                            ->innerJoin('pndV.idDiagnostico', 'diag')
-                            ->innerJoin('diag.idLectura', 'lct')
-                            ->leftJoin('diag.idEstadoDiagnostico', 'statusdiag')
-                            ->leftJoin('diag.idRadiologoAprueba', 'radVal')
-                            ->leftJoin('lct.idEmpleado', 'emplct')
-                            ->leftJoin('lct.idPatronAsociado', 'ptrAsc')
-                            ->leftJoin('diag.idPatronAplicado', 'ptrApl')
-                            ->leftJoin('lct.idRadiologoDesignadoAprobacion', 'lctVal')
-                            ->leftJoin('lct.idEstudio', 'est')
-                            ->leftJoin('est.idProcedimientoRealizado', 'prz')
-                            ->leftJoin('prz.idSolicitudEstudio', 'prc')
-                            ->leftJoin('prz.idTecnologoRealiza', 'tcnlprz')
-                            ->innerJoin('diag.idEmpleado', 'empdiag')
-                            ->innerJoin('diag.idUserReg', 'usrRg')
-                            ->leftJoin('diag.idUserMod', 'usrMd')
-                            ->innerJoin('lct.idUserReg', 'lctUsrRg')
-                            ->leftJoin('prc.idAtenAreaModEstab', 'aams')
-                            ->innerJoin('prc.idEmpleado', 'empprc')
-                            ->leftJoin('prc.idExpediente', 'exp')
-                            ->leftJoin('prc.idAreaServicioDiagnostico', 'm')
-                            ->leftJoin('prc.idEstablecimientoReferido', 'stdref')
-                            ->leftJoin('prc.idEstablecimientoDiagnosticante', 'stdiag')
-                            ->leftJoin('lct.idEstablecimiento', 'stdlct')
-                            ->leftJoin('prc.idPrioridadAtencion', 'prAtn')
-                            ->leftJoin('prc.idFormaContacto', 'frCt')
-                            ->leftJoin('prc.idContactoPaciente', 'ctPct')
-                            ->leftJoin('aams.idAtencion', 'atn')
-                            ->leftJoin('aams.idAreaModEstab', 'ams')
-                            ->leftJoin('aams.idEstablecimiento', 'stdroot')
-                            ->leftJoin('ams.idAreaAtencion', 'ar')
-                            ->leftJoin('exp.idPaciente', 'pct')
-                            ->innerJoin('usrRg.idEmpleado', 'usrRgEmp')
-                            ->leftJoin('usrMd.idEmpleado', 'usrMdEmp')
-                            ->leftJoin('empdiag.idTipoEmpleado', 'tpEmp')
-                            ->where('pndV.idEstablecimiento = :id_est_diag')
-                            ->setParameter('id_est_diag', $id_estab)
-                            ->orderBy('pndV.fechaIngresoLista', 'asc')
-                            ->addOrderBy('pndV.id', 'desc');
-        
         $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                             $query->expr()->andx(
@@ -603,14 +320,6 @@ class DiagnosticoRepository extends EntityRepository
                             )
                             ->setParameter('id_est_explocal', $id_estab);
 
-        $query->andWhere($query->expr()->orx(
-                            $query->expr()->eq('lct.idUserReg', ':id_user'),
-                            $query->expr()->eq('lct.idRadiologoDesignadoAprobacion', ':id_diag_val')
-                        ))
-                            ->setParameter('id_user', $sessionUser->getId())
-                            ->setParameter('id_diag_val', $sessionUser->getIdEmpleado()->getId())
-                            ->distinct();
-        
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -631,15 +340,15 @@ class DiagnosticoRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('count(diag.id) as numDiag')
+                            ->select('COUNT(diag.id) AS numDiag')
                             ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
                             ->where('diag.idLectura = :id_lct')
                             ->setParameter('id_lct', $id_lct);
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult();
     }
-    
+
 }

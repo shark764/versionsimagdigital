@@ -307,9 +307,9 @@ jQuery(document).ready(function() {
 
         // Use Ajax to submit form data
         $.ajax({
-                type: 'post',
+                type: 'POST',
                 dataType: 'json',
-                url: Routing.generate('simagd_proyeccion_asignarElementoListaLocal'),
+                url: Routing.generate('simagd_proyeccion_addToLocalCatalogue'),
                 data: $pryXLocalList_params,
                 success: function(response) {
                             console.log('Registros han sido agregadps a lista local satisfactoriamente');

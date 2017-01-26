@@ -90,7 +90,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate(url),
 		    data: $form.formParams(),
@@ -196,7 +196,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate('simagd_proyeccion_establecimiento_agregarProyeccionEnLocal'),
 		    data: $form.formParams(),

@@ -49,7 +49,8 @@ class ImgDatoAutocomplemento
      */
     private $idAreaServicioDiagnostico;
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->dato ? $this->dato : '';
     }
 

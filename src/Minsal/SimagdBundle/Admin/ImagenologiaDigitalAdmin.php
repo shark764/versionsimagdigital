@@ -9,13 +9,15 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class ImagenologiaDigitalAdmin extends Admin
+class ImagenologiaDigitalAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_imagenologia_digital';
+    protected $baseRouteName    = 'simagd_imagenologia_digital';
     protected $baseRoutePattern = 'rayos-x-imagenologia-digital';
-    
+
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         $collection->clear();
         $collection->add('list', 'inicio');
         $collection->add('busquedaPaciente', 'busqueda-paciente');
@@ -31,14 +33,21 @@ class ImagenologiaDigitalAdmin extends Admin
         $collection->add('listarExamenesPaciente', null, [], [], ['expose' => true]);
         $collection->add('listarDiagnosticosPaciente', null, [], [], ['expose' => true]);
         $collection->add('asignarNuevoExpediente', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('worklist', 'lista-de-trabajo', [], [], ['expose' => true]);
+        $collection->add('requestDashboard', 'solicitudes', [], [], ['expose' => true]);
+        $collection->add('resultsDashboard', 'resultados', [], [], ['expose' => true]);
+        $collection->add('catalogsDashboard', 'catalogos', [], [], ['expose' => true]);
+        $collection->add('agendaDashboard', 'agenda', [], [], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         /*
          * getJsonFiltersForBsTables
          */
         $collection->add('getJsonFiltersForBsTables', null, [], [], ['expose' => true]);
         $collection->add('getJsonGroupDependentEntities', null, [], [], ['expose' => true]);
     }
-    
-    public function getTemplate($name) {
+
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'busquedaPaciente':
                 return 'MinsalSimagdBundle:ImagenologiaDigitalAdmin:simagd_busquedaPaciente.html.twig';
@@ -58,41 +67,25 @@ class ImagenologiaDigitalAdmin extends Admin
             case 'listarDatosPaciente':
                 return 'MinsalSimagdBundle:ImagenologiaDigitalAdmin:simagd_listarDatosPaciente.html.twig';
                 break;
+            case 'worklist':
+                return 'MinsalSimagdBundle:Worklist:worklist.html.twig';
+                break;
+            case 'request_dashboard':
+                return 'MinsalSimagdBundle:Dashboard:request_dashboard.html.twig';
+                break;
+            case 'results_dashboard':
+                return 'MinsalSimagdBundle:Dashboard:results_dashboard.html.twig';
+                break;
+            case 'catalogs_dashboard':
+                return 'MinsalSimagdBundle:Dashboard:catalogs_dashboard.html.twig';
+                break;
+            case 'agenda_dashboard':
+                return 'MinsalSimagdBundle:Dashboard:agenda_dashboard.html.twig';
+                break;
             default:
                 return parent::getTemplate($name);
                 break;
         }
     }
-    
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        
-    }
 
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
-        
-    }
-
-    /**
-     * @param FormMapper $formMapper
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        
-    }
 }

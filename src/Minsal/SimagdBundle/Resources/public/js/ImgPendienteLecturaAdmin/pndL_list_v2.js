@@ -25,9 +25,9 @@ function pendienteLectura_actionFormatter(value, row, index) {
 window.pendienteLectura_actionEvents = {
     'click .agregar-pendiente-lectura-action': function (e, value, row, index) {
         $.ajax({
-            type: 'post',
+            type: 'POST',
             dataType: 'json',
-            url: Routing.generate('simagd_lectura_agregarPendiente'),
+            url: Routing.generate('simagd_lectura_addPendingToWorkList'),
             data: {
 		    __est: row.est_id,
 		    __xrad: row.pndL_anexadoPorRadiologo,
@@ -163,9 +163,9 @@ jQuery(document).ready(function() {
 
         // Use Ajax to submit form data
         $.ajax({
-                type: 'post',
+                type: 'POST',
                 dataType: 'json',
-                url: Routing.generate('simagd_sin_lectura_asignarElementoListaTrabajo'),
+                url: Routing.generate('simagd_sin_lectura_addToWorkList'),
                 data: $pndLWorklist_params,
                 success: function(response) {
                             console.log('Registros han sido asignados a Radiólogo satisfactoriamente');

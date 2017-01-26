@@ -18,11 +18,11 @@ class PreparacionEstudioRepository extends EntityRepository
                         ->createQueryBuilder('indCit')
                             ->select('indCit')
                             ->addSelect('m')
-                            ->addSelect('IDENTITY(m.idAtencion) as m_id_atencion')
-                            ->addSelect('concat(coalesce(emp.apellido, \'\'), \', \', coalesce(emp.nombre, \'\')) as indCit_empleado, emp.id as indCit_id_empleado, tpEmp.tipo as indCit_tipoEmpleado')
-                            ->addSelect('usrRg.username as indCit_usernameUserReg, usrRg.id as indCit_id_userReg, usrMd.username as indCit_usernameUserMod, usrMd.id as indCit_id_userMod')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as indCit_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as indCit_nombreUserMod')
+                            ->addSelect('IDENTITY(m.idAtencion) AS m_id_atencion')
+                            ->addSelect('CONCAT(COALESCE(emp.apellido, \'\'), \', \', COALESCE(emp.nombre, \'\')) AS indCit_empleado, emp.id AS indCit_id_empleado, tpEmp.tipo AS indCit_tipoEmpleado')
+                            ->addSelect('usrRg.username AS indCit_usernameUserReg, usrRg.id AS indCit_id_userReg, usrMd.username AS indCit_usernameUserMod, usrMd.id AS indCit_id_userMod')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS indCit_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS indCit_nombreUserMod')
                             ->from('MinsalSimagdBundle:ImgCtlPreparacionEstudio', 'indCit')
                             ->innerJoin('indCit.idAreaServicioDiagnosticoAplica', 'm')
                             ->innerJoin('indCit.idEmpleadoRegistra', 'emp')
@@ -33,8 +33,8 @@ class PreparacionEstudioRepository extends EntityRepository
                             ->leftJoin('usrMd.idEmpleado', 'usrMdEmp')
                             ->where('indCit.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
-                            ->orderBy('m.id', 'desc')
-                            ->addOrderBy('indCit.id', 'desc')
+                            ->orderBy('m.id', 'DESC')
+                            ->addOrderBy('indCit.id', 'DESC')
                             ->distinct();
         
         /*
@@ -52,4 +52,5 @@ class PreparacionEstudioRepository extends EntityRepository
 
         return $query->getQuery()->getScalarResult();
     }
+
 }

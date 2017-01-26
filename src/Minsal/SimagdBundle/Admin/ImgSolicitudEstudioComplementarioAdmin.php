@@ -12,24 +12,23 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ImgSolicitudEstudioComplementarioAdmin extends Admin
+class ImgSolicitudEstudioComplementarioAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_solicitud_estudio_complementario';
+    protected $baseRouteName    = 'simagd_solicitud_estudio_complementario';
     protected $baseRoutePattern = 'rayos-x-solicitud-estudio-complementario';
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
-        $collection->add('listarSolicitudesEstudioComplementario', null, [], [], ['expose' => true]);
-        $collection->remove('delete');
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        parent::configureRoutes($collection);
+        
+        // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
+        // $collection->remove('delete');
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('cambiarPrioridadAtencionSolicitud', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
-        $collection->add('show', 'consultar', [], [], ['expose' => true]);
         $collection->add('crearSolicitudEstudioComplementarioFastFormat', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarSolicitudEstudioComplementarioFastFormat', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
 
     public function getTemplate($name)
@@ -48,20 +47,6 @@ class ImgSolicitudEstudioComplementarioAdmin extends Admin
                 return parent::getTemplate($name);
                 break;
         }
-    }
-
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
 
     /**
@@ -215,13 +200,6 @@ class ImgSolicitudEstudioComplementarioAdmin extends Admin
         ;
     }
 
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
-
     public function getNewInstance()
     {
         $instance = parent::getNewInstance();
@@ -301,4 +279,5 @@ class ImgSolicitudEstudioComplementarioAdmin extends Admin
 	}
 
     }
+
 }

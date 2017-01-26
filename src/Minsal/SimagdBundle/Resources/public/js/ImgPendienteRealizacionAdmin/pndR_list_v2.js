@@ -32,9 +32,9 @@ function pendienteRealizar_actionFormatter(value, row, index) {
 window.pendienteRealizar_actionEvents = {
     'click .registrar-pendiente-realizar-action': function (e, value, row, index) {
         $.ajax({
-            type: 'post',
+            type: 'POST',
             dataType: 'json',
-            url: Routing.generate('simagd_realizado_agregarPendiente'),
+            url: Routing.generate('simagd_realizado_addPendingToWorkList'),
             data: {
 		__prc: row.prc_id,
 		__cit: row.cit_id,
@@ -55,7 +55,7 @@ window.pendienteRealizar_actionEvents = {
     },
     'click .almacenar-pendiente-realizar-action': function (e, value, row, index) {
         $.ajax({
-            type: 'post',
+            type: 'POST',
             dataType: 'json',
             url: Routing.generate('simagd_realizado_registrarEstudioAlmacenado'),
             data: {
@@ -323,7 +323,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate(url),
 		    data: $form.formParams(),

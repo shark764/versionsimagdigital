@@ -35,10 +35,10 @@ window.actionEvents = {
             jQuery(this).data('refresh-parameter', row.exp_id);
         });
         
-//        jQuery('#table-lista-preinscripciones-paciente').bootstrapTable('refresh', { url: Routing.generate('simagd_imagenologia_digital_listarSolicitudesEstudioPaciente', { expediente: row.exp_id }) });
+//        jQuery('#table-lista-preinscripciones-paciente').bootstrapTable('refresh', { url: Routing.generate('simagd_imagenologia_digital_generateDataPaciente', { expediente: row.exp_id }) });
 //        jQuery('#table-lista-citas-paciente').bootstrapTable('refresh', { url: Routing.generate('simagd_imagenologia_digital_listarCitasPaciente', { expediente: row.exp_id }) });
 //        jQuery('#table-lista-estudios-paciente').bootstrapTable('refresh', { url: Routing.generate('simagd_imagenologia_digital_listarExamenesPaciente', { expediente: row.exp_id }) });
-//        jQuery('#table-lista-diagnosticos-paciente').bootstrapTable('refresh', { url: Routing.generate('simagd_imagenologia_digital_listarDiagnosticosPaciente', { expediente: row.exp_id }) });
+//        jQuery('#table-lista-diagnosticos-paciente').bootstrapTable('refresh', { url: Routing.generate('simagd_imagenologia_digital_generateDataPaciente', { expediente: row.exp_id }) });
         
         $("div[id='div-resultado-informacion-paciente']").empty()
                 .load(Routing.generate('simagd_imagenologia_digital_listarDatosPaciente', { expediente: row.exp_id }));

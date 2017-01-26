@@ -65,9 +65,9 @@ jQuery.fn.loadPacientesSinCita = function() {
     };
 
     $.ajax({
-        type: 'post',
+        type: 'POST',
         dataType: 'json',
-        url: Routing.generate('simagd_cita_cargarPacientesSinCita'),
+        url: Routing.generate('simagd_cita_loadPendingPatients'),
         data: {
             filters: JSON.stringify($patient_filters_sendToServer)
         },
@@ -158,7 +158,7 @@ jQuery.fn.loadPacientesSinCita = function() {
 						      }
 						  });
 						  $.ajax({
-						      type: 'post',
+						      type: 'POST',
 						      dataType: 'json',
 						      url: Routing.generate('simagd_solicitud_estudio_cambiarPrioridadAtencionSolicitud'),
 						      data: {
@@ -227,7 +227,7 @@ jQuery.fn.loadPacientesSinCita = function() {
 
 					  jQuery(this).parent().find('div.popover .sin-cita-solicitud-action').on('click', function(e) {
 					      $.ajax({
-						  type: 'post',
+						  type: 'POST',
 						  dataType: 'json',
 						  url: Routing.generate('simagd_solicitud_estudio_requiereCita'),
 						  data: { id: $prc_object_data.prc_id },
@@ -403,7 +403,7 @@ jQuery(document).ready(function() {
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-            url: Routing.generate('simagd_estudio_obtenerExpedientesEstab') + '?query=%QUERY',
+            url: Routing.generate('simagd_estudio_getPatients') + '?query=%QUERY',
             wildcard: '%QUERY'
         },
     }); // --| suggestion class, bloodhound mode
@@ -593,7 +593,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate('simagd_solicitud_estudio_agregarIndicacionesRadiologo'),
 		    data: $form.formParams(),

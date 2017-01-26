@@ -23,12 +23,12 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->setParameter('id_exp', $idExpediente)
                             ->andWhere('aams.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
-                            ->orderBy('prc.fechaCreacion', 'desc');
-        $query->distinct();
-        
+                            ->orderBy('prc.fechaCreacion', 'DESC')
+                            ->distinct();
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerAreasAtencion($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
@@ -40,12 +40,12 @@ class SolicitudEstudioRepository extends EntityRepository
                                     'ar.id = ams.idAreaAtencion')
                             ->where('ams.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
-                            ->orderBy('ar.nombre');
-        $query->distinct();
-        
+                            ->orderBy('ar.nombre')
+                            ->distinct();
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerAtenciones($id_estab, $idAreaAtencion)
     {
         $query = $this->getEntityManager()
@@ -60,12 +60,12 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->setParameter('id_est', $id_estab)
                             ->andWhere('ams.idAreaAtencion = :id_ar_atn')
                             ->setParameter('id_ar_atn', $idAreaAtencion)
-                            ->orderBy('atn.nombre');
-        $query->distinct();
-        
+                            ->orderBy('atn.nombre')
+                            ->distinct();
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerEmpleados($id_estab, $idAtencion, $idAreaAtencion = '-1')
     {
         $query = $this->getEntityManager()
@@ -86,12 +86,12 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->andWhere('emp.idTipoEmpleado IN (1, 2, 4)')//REVISAR COINCIDENCIAS ENTRE DEFAULT, Y AJAX PARA TODOS LOS CASOS.... EJ: IN()
                             ->orderBy('emp.idTipoEmpleado')
                             ->addOrderBy('emp.apellido')
-                            ->addOrderBy('emp.nombre');
-        $query->distinct();
-        
+                            ->addOrderBy('emp.nombre')
+                            ->distinct();
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerAtencionAreaEstab($id_estab, $idAreaAtencion, $idAtencion)
     {
         $query = $this->getEntityManager()
@@ -106,20 +106,20 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->andWhere('aams.idAtencion = :id_atn')
                             ->setParameter('id_atn', $idAtencion)
                             ->orderBy('aams.idAreaModEstab')
-                            ->addOrderBy('aams.id');
-        $query->distinct();
-        $query->setMaxResults(1);
-        
+                            ->addOrderBy('aams.id')
+                            ->distinct()
+                            ->setMaxResults(1);
+
         return $query->getQuery()->getOneOrNullResult();
     }
-    
+
     public function obtenerPacientes($id_estab, $numeroExp, $criteria, $fechaNacimiento, $dui, $limiteResultados)
     {
         /** Ningún parámetro fué enviado */
         if(count($criteria) < 1 && !$numeroExp && !$fechaNacimiento && !$dui) {
             $limiteResultados = 0;
         }
-        
+
         /** Consulta de pacientes */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -131,42 +131,42 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->orderBy('exp.numero')
                             ->addOrderBy('pct.primerApellido')
                             ->addOrderBy('pct.primerNombre');
-        
+
         /** Número de expediente enviado */
         if($numeroExp) {
             $query->andWhere($query->expr()->like('LOWER(exp.numero)', ':num_exp'))
                             ->setParameter('num_exp', '%' . strtolower($numeroExp) . '%');
         }
-        
+
         /** Número de identificación */
         if($dui) {
             $query->andWhere('pct.numeroDocIdePaciente = :dui')
                             ->setParameter('dui', $dui);
         }
-        
+
         /** Fecha de nacimiento */
         if($fechaNacimiento) {
             $query->andWhere('pct.fechaNacimiento = :fechaNacimiento')
                             ->setParameter('fechaNacimiento', $fechaNacimiento);
         }
-        
+
         /** Coincidencias en campos de texto */
         if(count($criteria) > 0) {
             $andX = $query->expr()->andX();
 
             foreach($criteria as $key => $value) {
-                $andX->add($query->expr()->like('LOWER(pct.' . $key . ')', ':' . $key));                
+                $andX->add($query->expr()->like('LOWER(pct.' . $key . ')', ':' . $key));
                 $query->setParameter($key, '%' . strtolower($value) . '%');
             }
             $query->andWhere($andX);
         }
-        
-        $query->distinct();
-        $query->setMaxResults($limiteResultados);
-        
+
+        $query->distinct()
+                            ->setMaxResults($limiteResultados);
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function existeRegistroPorId($id, $entity = null, $cod = null)
     {
         if (!($entity && $cod)) { return false; }
@@ -174,22 +174,21 @@ class SolicitudEstudioRepository extends EntityRepository
         /** Diagnóstico registrado */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select($cod . '.id as regId')
+                            ->select($cod . '.id AS regId')
                             ->from('MinsalSimagdBundle:' . $entity, $cod)
                             ->where($cod . '.id = :id_reg')
-                            ->setParameter('id_reg', $id);
+                            ->setParameter('id_reg', $id)
+                            ->distinct()
+                            ->setMaxResults(1);
 
-        $query->distinct();
-        $query->setMaxResults(1);
-        
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function obtenerAccesoEstab($id, $idEstab)
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prc.id as prcId')
+                            ->select('prc.id AS prcId')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
                             ->where('prc.id = :id_prc')
@@ -204,35 +203,34 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->setParameter('id_est_diag', $idEstab)
                             ->setParameter('id_est', $idEstab);
 
-        $query->distinct();
-        $query->setMaxResults(1);
-        
+        $query->distinct()
+                            ->setMaxResults(1);
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function obtenerAccesoEstabEdit($id, $idEstab, $alias = 'aams', $estabUsed = 'idEstablecimiento')
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prc.id as prcId')
+                            ->select('prc.id AS prcId')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
                             ->where('prc.id = :id_prc')
                             ->setParameter('id_prc', $id)
                             ->andWhere($alias . '.' . $estabUsed . ' = :id_est')
-                            ->setParameter('id_est', $idEstab);
+                            ->setParameter('id_est', $idEstab)
+                            ->distinct()
+                            ->setMaxResults(1);
 
-        $query->distinct();
-        $query->setMaxResults(1);
-        
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function obtenerAccesoPreinscripcion($id, $idUser)
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prc.id as prcId')
+                            ->select('prc.id AS prcId')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->where('prc.id = :id_prc')
                             ->setParameter('id_prc', $id);
@@ -244,71 +242,68 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->setParameter('id_user_prc_reg', $idUser)
                             ->setParameter('id_user_prc_mod', $idUser);
 
-        $query->distinct();
-        $query->setMaxResults(1);
-        
+        $query->distinct()
+                            ->setMaxResults(1);
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function existeRegistroPorPreinscripcion($idPrc = '-1', $alias = 'cit', $entity = 'ImgCita') //acepta soldiag, prz y prc
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select($alias . '.id as regId')
+                            ->select($alias . '.id AS regId')
                             ->from('MinsalSimagdBundle:' . $entity, $alias)
                             ->where($alias . '.idSolicitudEstudio = :id_prc')
-                            ->setParameter('id_prc', $idPrc);
+                            ->setParameter('id_prc', $idPrc)
+                            ->distinct()
+                            ->setMaxResults(1);
 
-        $query->distinct();
-        $query->setMaxResults(1);
-        
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function existeLecturaPorPreinscripcion($idPrc = '-1')
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('lct.id as lctId')
+                            ->select('lct.id AS lctId')
                             ->from('MinsalSimagdBundle:ImgLectura', 'lct')
                             ->innerJoin('lct.idEstudio', 'est')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
                             ->where('prz.idSolicitudEstudio = :id_prc')
-                            ->setParameter('id_prc', $idPrc);
+                            ->setParameter('id_prc', $idPrc)
+                            ->distinct()
+                            ->setMaxResults(1);
 
-        $query->distinct();
-        $query->setMaxResults(1);
-        
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function estudioPreinscritoFueAlmacenado($idPrc = '-1')
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('est.id as estId')
+                            ->select('est.id AS estId')
                             ->from('MinsalSimagdBundle:ImgEstudioPaciente', 'est')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
                             ->where('prz.idSolicitudEstudio = :id_prc')
                             ->setParameter('id_prc', $idPrc)
-                            ->andWhere('prz.idEstadoProcedimientoRealizado IN (5, 6, 7, 8, 9)');
+                            ->andWhere('prz.idEstadoProcedimientoRealizado IN (5, 6, 7, 8, 9)')
+                            ->distinct()
+                            ->setMaxResults(1);
 
-        $query->distinct();
-        $query->setMaxResults(1);
-        
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function bloquearTrasladoPaciente($idPrc = '-1')
     {
         return ($this->existeRegistroPorPreinscripcion($idPrc) || $this->existeRegistroPorPreinscripcion($idPrc, 'prz', 'ImgProcedimientoRealizado'));
     }
-    
+
     public function bloquearEstudioSolicitado($idPrc = '-1')
     {
         return ($this->existeRegistroPorPreinscripcion($idPrc) || $this->existeRegistroPorPreinscripcion($idPrc, 'prz', 'ImgProcedimientoRealizado'));
     }
-    
+
     public function existePreinscripcionPorModalidadPendiente($idAreaServicioDiagnostico, $idPaciente)
     {
         /** SubQuery */
@@ -317,11 +312,11 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->select('prz')
                             ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz')
                             ->where('prc.id = prz.idSolicitudEstudio');
-                
+
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prc.id as prcId')
+                            ->select('prc.id AS prcId')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idExpediente', 'exp')
                             ->where('prc.idAreaServicioDiagnostico = :id_mod')
@@ -329,54 +324,53 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->andWhere('exp.idPaciente = :id_pct')
                             ->setParameter('id_pct', $idPaciente);
 
-        $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())));
+        $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())))
+                            ->distinct()
+                            ->setMaxResults(1);
 
-        $query->distinct();
-        $query->setMaxResults(1);
-        
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function existePreinscripcionPorHistoriaClinica($idAreaServicioDiagnostico, $idHistoriaClinica)
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prc.id as prcId')
+                            ->select('prc.id AS prcId')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idSolicitudestudios', 'solest')
                             ->where('prc.idAreaServicioDiagnostico = :id_mod')
                             ->setParameter('id_mod', $idAreaServicioDiagnostico)
                             ->andWhere('solest.idHistorialClinico = :id_hcl')
-                            ->setParameter('id_hcl', $idHistoriaClinica);
+                            ->setParameter('id_hcl', $idHistoriaClinica)
+                            ->distinct()
+                            ->setMaxResults(1);
 
-        $query->distinct();
-        $query->setMaxResults(1);
-        
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
-    
+
     public function obtenerInformacionContactoReciente($idPaciente)
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prc.id as prcId, IDENTITY(prc.idContactoPaciente) as idCtPct, prc.nombreContacto as nmCt, IDENTITY(prc.idFormaContacto) as idFrmCt, prc.contacto as cnt')
+                            ->select('prc.id AS prcId, IDENTITY(prc.idContactoPaciente) AS idCtPct, prc.nombreContacto AS nmCt, IDENTITY(prc.idFormaContacto) AS idFrmCt, prc.contacto AS cnt')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idExpediente', 'exp')
                             ->where('exp.idPaciente = :id_pct')
                             ->setParameter('id_pct', $idPaciente)
-                            ->orderBy('prc.id', 'desc');
+                            ->orderBy('prc.id', 'DESC');
 
         $query->andWhere($query->expr()->andx(
                             $query->expr()->isNotNull('prc.idContactoPaciente'),
                             $query->expr()->isNotNull('prc.idFormaContacto')
                         ));
 
-        $query->distinct();
-        $query->setMaxResults(1);
-        
+        $query->distinct()
+                            ->setMaxResults(1);
+
         return $query->getQuery()->getOneOrNullResult();
     }
-//     http://stackoverflow.com/questions/19185587/left-join-on-condition-and-other-condition-syntax-in-doctrine
+    
+    // http://stackoverflow.com/questions/19185587/left-join-on-condition-and-other-condition-syntax-in-doctrine
     public function obtenerPreinscripcionesNoCitadas($id_estab, $idModl = null, $numeroExp = null)
     {
         /** SubQuery */
@@ -385,7 +379,7 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->select('cit')
                             ->from('MinsalSimagdBundle:ImgCita', 'cit')
                             ->where('prc.id = cit.idSolicitudEstudio');
-                
+
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -401,47 +395,43 @@ class SolicitudEstudioRepository extends EntityRepository
             $query->andWhere('prc.idAreaServicioDiagnostico = :id_mod')
                             ->setParameter('id_mod', $idModl);
         }
-        
+
         /** Número de expediente enviado */
         if($numeroExp) {
             $query->andWhere($query->expr()->like('LOWER(exp.numero)', ':num_exp'))
                             ->setParameter('num_exp', '%' . strtolower($numeroExp) . '%');
         }
 
-        $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())));
-        
-        $query->orderBy('prc.id', 'desc');
-                
-        $query->distinct();
-        
+        $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())))
+                            ->orderBy('prc.id', 'DESC')
+                            ->distinct();
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function obtenerSolicitudesEstudio($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prc')
-                            ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc');
+                            ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
+                            ->innerJoin('prc.idAtenAreaModEstab', 'aams');
         
-        $query->innerJoin('prc.idAtenAreaModEstab', 'aams')
-                            ->andWhere($query->expr()->orx(
+        $query->andWhere($query->expr()->orx(
                                 $query->expr()->eq('prc.idEstablecimientoReferido', ':id_est_ref'),
                                 $query->expr()->eq('prc.idEstablecimientoDiagnosticante', ':id_est_diag'),
                                 $query->expr()->eq('aams.idEstablecimiento', ':id_est')
                             ))
                             ->setParameter('id_est_ref', $id_estab)
                             ->setParameter('id_est_diag', $id_estab)
-                            ->setParameter('id_est', $id_estab);
-        
-        $query->orderBy('prc.id', 'desc');
-                
-        $query->distinct();
-        
+                            ->setParameter('id_est', $id_estab)
+                            ->orderBy('prc.id', 'DESC')
+                            ->distinct();
+
         return $query->getQuery()->getResult();
     }
-    
-    public function obtenerSolicitudesEstudioV2($id_estab, $bs_filters = array())
+
+    public function data($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('prc')
@@ -450,15 +440,18 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->addSelect('explocal')
                             ->addSelect('unknExp')
                             ->addSelect('prAtn')
-                            ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
-                            ->addSelect('stdroot.nombre as prc_origen, stdroot.id as prc_id_origen, ar.nombre as prc_areaAtencion, ar.id as prc_id_areaAtencion, atn.nombre as prc_atencion, atn.id as prc_id_atencion')
-                            ->addSelect('concat(coalesce(empprc.apellido, \'\'), \', \', coalesce(empprc.nombre, \'\')) as prc_empleado, empprc.id as prc_id_empleado, tpEmp.tipo as prc_tipoEmpleado')
-                            ->addSelect('stdref.nombre as prc_referido, stdref.id as prc_id_referido, stdiag.nombre as prc_diagnosticante, stdiag.id as prc_id_diagnosticante')
-                            ->addSelect('m.nombrearea as prc_modalidad, m.id as prc_id_modalidad, prAtn.nombre as prc_prioridadAtencion, prAtn.id as prc_id_prioridad, prAtn.codigo as prc_codigoPrioridad, frCt.nombre as prc_formaContacto, ctPct.parentesco as prc_contactoPaciente')
-                            ->addSelect('usrRg.username as prc_usernameUserReg, usrRg.id as prc_id_userReg, usrMd.username as prc_usernameUserMod, usrMd.id as prc_id_userMod')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as prc_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as prc_nombreUserMod')
-                            ->addSelect('case when (radXInd.id is not null) then concat(coalesce(radXInd.apellido, \'\'), \', \', coalesce(radXInd.nombre, \'\')) else \'\' end as prc_radXInd, radXInd.id as prc_id_radXInd')
+
+                            ->addSelect('prc.id AS id, stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea AS modalidad, prAtn.nombre AS triage, prc.fechaCreacion AS fecha_solicitud, statusSc.nombreEstado AS estado, COALESCE(statusSc.porcentajeAvance, 0) AS progreso')
+
+                            ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS prc_paciente')
+                            ->addSelect('stdroot.nombre AS prc_origen, stdroot.id AS prc_id_origen, ar.nombre AS prc_areaAtencion, ar.id AS prc_id_areaAtencion, atn.nombre AS prc_atencion, atn.id AS prc_id_atencion')
+                            ->addSelect('CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) AS prc_empleado, empprc.id AS prc_id_empleado, tpEmp.tipo AS prc_tipoEmpleado')
+                            ->addSelect('stdref.nombre AS prc_referido, stdref.id AS prc_id_referido, stdiag.nombre AS prc_diagnosticante, stdiag.id AS prc_id_diagnosticante')
+                            ->addSelect('m.nombrearea AS prc_modalidad, m.id AS prc_id_modalidad, prAtn.nombre AS prc_prioridadAtencion, prAtn.id AS prc_id_prioridad, prAtn.codigo AS prc_codigoPrioridad, frCt.nombre AS prc_formaContacto, ctPct.parentesco AS prc_contactoPaciente')
+                            ->addSelect('usrRg.username AS prc_usernameUserReg, usrRg.id AS prc_id_userReg, usrMd.username AS prc_usernameUserMod, usrMd.id AS prc_id_userMod')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS prc_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS prc_nombreUserMod')
+                            ->addSelect('CASE WHEN (radXInd.id IS NOT NULL) THEN CONCAT(COALESCE(radXInd.apellido, \'\'), \', \', COALESCE(radXInd.nombre, \'\')) ELSE \'\' END AS prc_radXInd, radXInd.id AS prc_id_radXInd')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idEmpleado', 'empprc')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
@@ -484,7 +477,7 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->leftJoin('empprc.idTipoEmpleado', 'tpEmp')
                             ->leftJoin('prc.idEstadoSolicitud', 'statusSc')
                             ->leftJoin('prc.idRadiologoAgregaIndicaciones', 'radXInd');
-        
+
         $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')
                             ->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
@@ -494,7 +487,7 @@ class SolicitudEstudioRepository extends EntityRepository
                                             )
                             )
                             ->setParameter('id_est_explocal', $id_estab);
-        
+
          $query->andWhere($query->expr()->orx(
                                 $query->expr()->eq('prc.idEstablecimientoReferido', ':id_est_ref'),
                                 $query->expr()->eq('prc.idEstablecimientoDiagnosticante', ':id_est_diag'),
@@ -503,10 +496,10 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->setParameter('id_est_ref', $id_estab)
                             ->setParameter('id_est_diag', $id_estab)
                             ->setParameter('id_est', $id_estab);
-        
-        $query->orderBy('prc.id', 'desc')
+
+        $query->orderBy('prc.id', 'DESC')
                             ->distinct();
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -519,24 +512,24 @@ class SolicitudEstudioRepository extends EntityRepository
         /*
          * |-- END filters from BSTABLE_FILTER to query
          */
-        
+
         return $query->getQuery()->getScalarResult();
     }
-    
-    public function obtenerPacientesV2($idEstab, $numeroExp, $criteria, $fechaNacimiento, $dui, $limiteR, $min_numeroExp = null, $bs_filters = array())
+
+    public function getPatients($idEstab, $numeroExp, $criteria, $fechaNacimiento, $dui, $limiteR, $min_numeroExp = null, $bs_filters = array())
     {
         /** Ningún parámetro fué enviado */
         if(count($criteria) < 1 && !$numeroExp && !$fechaNacimiento && !$dui && !$min_numeroExp) {
             $limiteR = 0;
         }
-        
+
         /** Consulta de pacientes */
         $query = $this->getEntityManager()
                         ->createQueryBuilder('exp')
                             ->select('exp')
                             ->addSelect('pct')
-                            ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as pct_nombreCompleto')
-                            ->addSelect('sex.nombre as pct_sexo, pctOcp.nombre as pct_ocupacion, pctEstCv.nombre as pct_estadoCivil, pctNcl.nacionalidad as pct_nacionalidad')
+                            ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS pct_nombreCompleto')
+                            ->addSelect('sex.nombre AS pct_sexo, pctOcp.nombre AS pct_ocupacion, pctEstCv.nombre AS pct_estadoCivil, pctNcl.nacionalidad AS pct_nacionalidad')
                             ->from('MinsalSiapsBundle:MntExpediente', 'exp')
                             ->innerJoin('exp.idPaciente', 'pct')
                             ->innerJoin('pct.idSexo', 'sex')
@@ -548,45 +541,45 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->orderBy('exp.numero')
                             ->addOrderBy('pct.primerApellido')
                             ->addOrderBy('pct.primerNombre');
-        
+
         /** Número de expediente enviado */
         if($numeroExp) {
             $query->andWhere($query->expr()->like('LOWER(exp.numero)', ':num_exp'))
                             ->setParameter('num_exp', '%' . strtolower($numeroExp) . '%');
         }
-        
+
         /** Número de identificación */
         if($dui) {
             $query->andWhere('pct.numeroDocIdePaciente = :dui')
                             ->setParameter('dui', $dui);
         }
-        
+
         /** Fecha de nacimiento */
         if($fechaNacimiento) {
             $query->andWhere('pct.fechaNacimiento = :fechaNacimiento')
                             ->setParameter('fechaNacimiento', $fechaNacimiento);
         }
-        
+
         /** Coincidencias en campos de texto */
         if(count($criteria) > 0) {
             $andX = $query->expr()->andX();
 
             foreach($criteria as $key => $value) {
-                $andX->add($query->expr()->like('LOWER(pct.' . $key . ')', ':' . $key));                
+                $andX->add($query->expr()->like('LOWER(pct.' . $key . ')', ':' . $key));
                 $query->setParameter($key, '%' . strtolower($value) . '%');
             }
             $query->andWhere($andX);
         }
-        
+
         /** NUM de Expediente enviado - Min Search */
         if($min_numeroExp) {
             $query->andWhere($query->expr()->like('LOWER(exp.numero)', ':num_exp'))
                             ->setParameter('num_exp', '%' . strtolower($min_numeroExp) . '%');
         }
-        
-        $query->distinct();
-        $query->setMaxResults($limiteR);
-        
+
+        $query->distinct()
+                            ->setMaxResults($limiteR);
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -599,12 +592,12 @@ class SolicitudEstudioRepository extends EntityRepository
         /*
          * |-- END filters from BSTABLE_FILTER to query
          */
-        
+
         return $query->getQuery()->getScalarResult();
     }
 
 //     http://stackoverflow.com/questions/19185587/left-join-on-condition-and-other-condition-syntax-in-doctrine
-    public function obtenerPreinscripcionesNoCitadasV2($id_estab, $bs_filters = array())
+    public function getPendingPatients($id_estab, $bs_filters = array())
     {
         /** SubQuery */
         $subQuery = $this->getEntityManager()
@@ -621,15 +614,18 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->addSelect('statusSc')
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
-                            ->addSelect('concat(pct.primerApellido, \' \', coalesce(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', coalesce(pct.segundoNombre, \'\')) as prc_paciente')
-                            ->addSelect('stdroot.nombre as prc_origen, stdroot.id as prc_id_origen, ar.nombre as prc_areaAtencion, ar.id as prc_id_areaAtencion, atn.nombre as prc_atencion, atn.id as prc_id_atencion')
-                            ->addSelect('concat(coalesce(emp.apellido, \'\'), \', \', coalesce(emp.nombre, \'\')) as prc_empleado, emp.id as prc_id_empleado, tpEmp.tipo as prc_tipoEmpleado')
-                            ->addSelect('stdref.nombre as prc_referido, stdref.id as prc_id_referido, stdiag.nombre as prc_diagnosticante, stdiag.id as prc_id_diagnosticante')
-                            ->addSelect('m.nombrearea as prc_modalidad, m.id as prc_id_modalidad, prAtn.nombre as prc_prioridadAtencion, prAtn.id as prc_id_prioridad, prAtn.codigo as prc_codigoPrioridad, frCt.nombre as prc_formaContacto, ctPct.parentesco as prc_contactoPaciente')
-                            ->addSelect('usrRg.username as prc_usernameUserReg, usrRg.id as prc_id_userReg, usrMd.username as prc_usernameUserMod, usrMd.id as prc_id_userMod')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as prc_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as prc_nombreUserMod')
-                            ->addSelect('case when (radXInd.id is not null) then concat(coalesce(radXInd.apellido, \'\'), \', \', coalesce(radXInd.nombre, \'\')) else \'\' end as prc_radXInd, radXInd.id as prc_id_radXInd')
+
+                            ->addSelect('prc.id AS id, stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (emp.id IS NOT NULL) THEN CONCAT(COALESCE(emp.apellido, \'\'), \', \', COALESCE(emp.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea AS modalidad, prAtn.nombre AS triage, prc.fechaCreacion AS fecha_solicitud, statusSc.nombreEstado AS estado, COALESCE(statusSc.porcentajeAvance, 0) AS progreso')
+
+                            ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS prc_paciente')
+                            ->addSelect('stdroot.nombre AS prc_origen, stdroot.id AS prc_id_origen, ar.nombre AS prc_areaAtencion, ar.id AS prc_id_areaAtencion, atn.nombre AS prc_atencion, atn.id AS prc_id_atencion')
+                            ->addSelect('CONCAT(COALESCE(emp.apellido, \'\'), \', \', COALESCE(emp.nombre, \'\')) AS prc_empleado, emp.id AS prc_id_empleado, tpEmp.tipo AS prc_tipoEmpleado')
+                            ->addSelect('stdref.nombre AS prc_referido, stdref.id AS prc_id_referido, stdiag.nombre AS prc_diagnosticante, stdiag.id AS prc_id_diagnosticante')
+                            ->addSelect('m.nombrearea AS prc_modalidad, m.id AS prc_id_modalidad, prAtn.nombre AS prc_prioridadAtencion, prAtn.id AS prc_id_prioridad, prAtn.codigo AS prc_codigoPrioridad, frCt.nombre AS prc_formaContacto, ctPct.parentesco AS prc_contactoPaciente')
+                            ->addSelect('usrRg.username AS prc_usernameUserReg, usrRg.id AS prc_id_userReg, usrMd.username AS prc_usernameUserMod, usrMd.id AS prc_id_userMod')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS prc_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS prc_nombreUserMod')
+                            ->addSelect('CASE WHEN (radXInd.id IS NOT NULL) THEN CONCAT(COALESCE(radXInd.apellido, \'\'), \', \', COALESCE(radXInd.nombre, \'\')) ELSE \'\' END AS prc_radXInd, radXInd.id AS prc_id_radXInd')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idEmpleado', 'emp')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
@@ -655,7 +651,7 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->where('prc.idEstablecimientoReferido = :id_std_ref')
                             ->setParameter('id_std_ref', $id_estab)
                             ->andWhere('prc.requiereCita = TRUE');
-        
+
         $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')
                             ->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
@@ -665,7 +661,7 @@ class SolicitudEstudioRepository extends EntityRepository
                                             )
                             )
                             ->setParameter('id_est_explocal', $id_estab);
-        
+
         if(is_array($bs_filters) && array_key_exists('xparam', $bs_filters))
         {
             if (is_array($bs_filters['xparam']))
@@ -691,12 +687,11 @@ class SolicitudEstudioRepository extends EntityRepository
             }
         }
 
-        $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())));
-
-        $query->orderBy('prAtn.id', 'asc')
-                            ->addOrderBy('prc.id', 'desc')
+        $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())))
+                            ->orderBy('prAtn.id', 'ASC')
+                            ->addOrderBy('prc.id', 'DESC')
                             ->distinct();
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -717,22 +712,22 @@ class SolicitudEstudioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prc.id as prcId, prc.tallaPaciente as talla')
-                            ->addSelect('case when prc.pesoActualKg is not null then prc.pesoActualKg else prc.pesoActualLb / 2.20462262 end as pesoKg')
-                            ->addSelect('case when prc.pesoActualLb is not null then prc.pesoActualLb else prc.pesoActualKg * 2.20462262 end as pesoLb')
+                            ->select('prc.id AS prcId, prc.tallaPaciente AS talla')
+                            ->addSelect('CASE WHEN prc.pesoActualKg IS NOT NULL THEN prc.pesoActualKg ELSE prc.pesoActualLb / 2.20462262 END AS pesoKg')
+                            ->addSelect('CASE WHEN prc.pesoActualLb IS NOT NULL THEN prc.pesoActualLb ELSE prc.pesoActualKg * 2.20462262 END AS pesoLb')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idExpediente', 'exp')
                             ->where('exp.idPaciente = :id_pct')
                             ->setParameter('id_pct', $idPaciente)
-                            ->orderBy('prc.id', 'desc');
+                            ->orderBy('prc.id', 'DESC');
 
         $query->andWhere($query->expr()->orx(
                             $query->expr()->isNotNull('prc.pesoActualKg'),
                             $query->expr()->isNotNull('prc.pesoActualLb')
                         ));
 
-        $query->distinct();
-        $query->setMaxResults(1);
+        $query->distinct()
+                        ->setMaxResults(1);
 
         return $query->getQuery()->getOneOrNullResult();
     }
@@ -741,7 +736,7 @@ class SolicitudEstudioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('ar.id as id_ar, atn.id as id_atn')
+                            ->select('ar.id AS id_ar, atn.id AS id_atn')
                             ->from('MinsalSiapsBundle:CtlAreaAtencion', 'ar')
                             ->innerJoin('MinsalSiapsBundle:MntAreaModEstab', 'ams',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
@@ -756,8 +751,8 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->setParameter('id_est', $id_estabLocal)
                             ->groupBy('ar.id')
                             ->addGroupBy('atn.id')
-                            ->orderBy('ar.id', 'desc')
-                            ->addOrderBy('atn.id', 'desc')
+                            ->orderBy('ar.id', 'DESC')
+                            ->addOrderBy('atn.id', 'DESC')
                             ->distinct();
 
         return $return == 'query' ?
@@ -770,7 +765,7 @@ class SolicitudEstudioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('ar.id as id_ar, atn.id as id_atn, emp.id as id_emp')
+                            ->select('ar.id AS id_ar, atn.id AS id_atn, emp.id AS id_emp')
                             ->from('MinsalSiapsBundle:MntEmpleado', 'emp')
                             ->innerJoin('MinsalSiapsBundle:MntEmpleadoEspecialidadEstab', 'ees',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
@@ -790,8 +785,8 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->groupBy('ar.id')
                             ->addGroupBy('atn.id')
                             ->addGroupBy('emp.id')
-                            ->orderBy('ar.id', 'desc')
-                            ->addOrderBy('atn.id', 'desc')
+                            ->orderBy('ar.id', 'DESC')
+                            ->addOrderBy('atn.id', 'DESC')
                             ->distinct();
 
         return $return == 'query' ?
@@ -799,7 +794,7 @@ class SolicitudEstudioRepository extends EntityRepository
 		: $query->getQuery()->getResult()
 	    );
     }
-    
+
     /**
      * Método perteneciente a módulo <simagd>
      * @param type $idEstablecimiento
@@ -810,14 +805,14 @@ class SolicitudEstudioRepository extends EntityRepository
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('ar.id as id, ar.nombre as text')
+                            ->select('ar.id AS id, ar.nombre AS text')
                             ->from('MinsalSiapsBundle:CtlAreaAtencion', 'ar')
                             ->orderBy('ar.nombre')
                             ->distinct();
-        
+
         return $query->getQuery()->getScalarResult();
     }
-        
+
     /**
      * Método perteneciente a módulo <simagd>
      * @param type $idEstablecimiento
@@ -828,14 +823,14 @@ class SolicitudEstudioRepository extends EntityRepository
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('atn.id as id, atn.nombre as text')
+                            ->select('atn.id AS id, atn.nombre AS text')
                             ->from('MinsalSiapsBundle:CtlAtencion', 'atn')
                             ->orderBy('atn.nombre')
                             ->distinct();
-        
+
         return $query->getQuery()->getScalarResult();
     }
-        
+
     /**
      * Método perteneciente a módulo <simagd>
      * @param type $idEstablecimiento
@@ -846,16 +841,15 @@ class SolicitudEstudioRepository extends EntityRepository
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('stdsol.id as id, stdsol.nombre as text, IDENTITY(stdsol.idTipoEstablecimiento) as tipo')
+                            ->select('stdsol.id AS id, stdsol.nombre AS text, IDENTITY(stdsol.idTipoEstablecimiento) AS tipo')
                             ->from('MinsalSiapsBundle:CtlEstablecimiento', 'stdsol')
                             ->orderBy('stdsol.idTipoEstablecimiento')
-                            ->addOrderBy('stdsol.nombre');
-                
-        $query->distinct();
-        
+                            ->addOrderBy('stdsol.nombre')
+                            ->distinct();
+
         return $query->getQuery()->getScalarResult();
     }
-    
+
     /*
      * --| FILTERS for bootstrapTables
      */
@@ -1037,21 +1031,20 @@ class SolicitudEstudioRepository extends EntityRepository
                     }
                 }
             }
-            
+
             return $andX;
         }
 
         return false;
     }
-    
-}
 
+}
 //select 	l.id 	   as l_id, 	      l.id_establecimiento      as l_id,
-//		    xE.id	 as xE_id, 	xE.numero 			as xE_numero,  
-//		    x.id 	 as x_id, 	x.numero 			as x_numero, 	x.id_establecimiento 	as x_establecimiento 
-//from img_lectura l 
-//	left join img_estudio_paciente e on e.id = l.id_estudio 
-//	left join mnt_expediente xE on xE.id = e.id_expediente 
-//	left join mnt_paciente p on p.id = xE.id_paciente 
-//	left join mnt_expediente x on (p.id = x.id_paciente and x.id_establecimiento = 30) 
+//		    xE.id	 as xE_id, 	xE.numero 			as xE_numero,
+//		    x.id 	 as x_id, 	x.numero 			as x_numero, 	x.id_establecimiento 	as x_establecimiento
+//from img_lectura l
+//	left join img_estudio_paciente e on e.id = l.id_estudio
+//	left join mnt_expediente xE on xE.id = e.id_expediente
+//	left join mnt_paciente p on p.id = xE.id_paciente
+//	left join mnt_expediente x on (p.id = x.id_paciente AND x.id_establecimiento = 30)
 //where l.id_establecimiento != 30;

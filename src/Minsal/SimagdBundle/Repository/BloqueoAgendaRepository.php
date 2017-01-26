@@ -12,19 +12,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class BloqueoAgendaRepository extends EntityRepository
 {
-    public function obtenerBloqueosAgendaCalendario($id_estab, $start, $end, $idAreaServicioDiagnostico = null, $idTecnologo = null )
+    public function getCalendarLocks($id_estab, $start, $end, $idAreaServicioDiagnostico = null, $idTecnologo = null)
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('blAgd')
                             ->select('blAgd')
-                            ->addSelect('concat(\'bl_\', blAgd.id) as id, blAgd.diaCompleto as allDay, blAgd.color as color, blAgd.descripcion as description, \'background\' as rendering, blAgd.titulo as title')
-//                            ->addSelect('concat(\'bl_\', blAgd.id) as id, blAgd.diaCompleto as allDay, blAgd.color as color, blAgd.descripcion as description, \'background\' as rendering, concat(blAgd.titulo, \' (\', blAgd.fechaInicio, \' a \', blAgd.fechaFin, \', \', blAgd.horaInicio, \' a \', blAgd.horaFin, \') \') as title')
-                            ->addSelect('concat(coalesce(empblAgd.apellido, \'\'), \', \', coalesce(empblAgd.nombre, \'\')) as blAgd_empleado, empblAgd.id as blAgd_id_empleado, tpEmp.tipo as blAgd_tipoEmpleado')
-                            ->addSelect('stdblAgd.nombre as blAgd_establecimiento, stdblAgd.id as blAgd_id_establecimiento, m.nombrearea as blAgd_modalidad, m.id as blAgd_id_area_servicio_diagnostico')
-                            ->addSelect('usrRg.username as blAgd_usernameUserReg, usrRg.id as blAgd_id_userReg, usrMd.username as blAgd_usernameUserMod, usrMd.id as blAgd_id_userMod')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as blAgd_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as blAgd_nombreUserMod')
-                            ->addSelect('case when (radx.id is not null) then concat(coalesce(radx.apellido, \'\'), \', \', coalesce(radx.nombre, \'\')) else \'\' end as blAgd_radiologo, radx.id as blAgd_id_radiologo')
+                            ->addSelect('CONCAT(\'bl_\', blAgd.id) AS id, blAgd.diaCompleto AS allDay, blAgd.color AS color, blAgd.descripcion AS description, \'background\' AS rendering, blAgd.titulo AS title, blAgd.superposicion AS overlap')
+//                            ->addSelect('CONCAT(\'bl_\', blAgd.id) AS id, blAgd.diaCompleto AS allDay, blAgd.color AS color, blAgd.descripcion AS description, \'background\' AS rendering, CONCAT(blAgd.titulo, \' (\', blAgd.fechaInicio, \' a \', blAgd.fechaFin, \', \', blAgd.horaInicio, \' a \', blAgd.horaFin, \') \') AS title')
+                            ->addSelect('CONCAT(COALESCE(empblAgd.apellido, \'\'), \', \', COALESCE(empblAgd.nombre, \'\')) AS blAgd_empleado, empblAgd.id AS blAgd_id_empleado, tpEmp.tipo AS blAgd_tipoEmpleado')
+                            ->addSelect('stdblAgd.nombre AS blAgd_establecimiento, stdblAgd.id AS blAgd_id_establecimiento, m.nombrearea AS blAgd_modalidad, m.id AS blAgd_id_area_servicio_diagnostico')
+                            ->addSelect('usrRg.username AS blAgd_usernameUserReg, usrRg.id AS blAgd_id_userReg, usrMd.username AS blAgd_usernameUserMod, usrMd.id AS blAgd_id_userMod')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS blAgd_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS blAgd_nombreUserMod')
+                            ->addSelect('CASE WHEN (radx.id IS NOT NULL) THEN CONCAT(COALESCE(radx.apellido, \'\'), \', \', COALESCE(radx.nombre, \'\')) ELSE \'\' END AS blAgd_radiologo, radx.id AS blAgd_id_radiologo')
                             ->from('MinsalSimagdBundle:ImgBloqueoAgenda', 'blAgd')
                             ->innerJoin('blAgd.idEmpleadoRegistra', 'empblAgd')
                             ->innerJoin('blAgd.idEstablecimiento', 'stdblAgd')
@@ -38,13 +38,13 @@ class BloqueoAgendaRepository extends EntityRepository
                             ->where('blAgd.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab);
         
-        if ($start && $end)
-        {
-            $query->andWhere('blAgd.fechaInicio >= :cal_start_date')
-                            ->andWhere('blAgd.fechaFin <= :cal_end_date')
-                            ->setParameter('cal_start_date', \DateTime::createFromFormat('Y-m-d', $start)->setTime(0, 0))
-                            ->setParameter('cal_end_date', \DateTime::createFromFormat('Y-m-d', $end)->setTime(0, 0));
-        }
+        // if ($start && $end)
+        // {
+        //     $query->andWhere('blAgd.fechaInicio >= :cal_start_date')
+        //                     ->andWhere('blAgd.fechaFin <= :cal_end_date')
+        //                     ->setParameter('cal_start_date', \DateTime::createFromFormat('Y-m-d', $start)->setTime(0, 0))
+        //                     ->setParameter('cal_end_date', \DateTime::createFromFormat('Y-m-d', $end)->setTime(0, 0));
+        // }
         
         $query->andWhere($query->expr()->orx(
                                 $query->expr()->eq('blAgd.idAreaServicioDiagnostico', ':id_mod'),
@@ -57,23 +57,23 @@ class BloqueoAgendaRepository extends EntityRepository
                                 $query->expr()->isNull('blAgd.idRadiologoBloqueo')
                             ))
                             ->setParameter('id_tcnl', $idTecnologo)
-                            ->orderBy('blAgd.id', 'desc')
+                            ->orderBy('blAgd.id', 'DESC')
                             ->distinct();
         
         return $query->getQuery()->getScalarResult();
     }
     
-    public function obtenerBloqueosAgendaV2($id_estab, $bs_filters = array())
+    public function data($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('blAgd')
                             ->select('blAgd')
-                            ->addSelect('concat(coalesce(empblAgd.apellido, \'\'), \', \', coalesce(empblAgd.nombre, \'\')) as blAgd_empleado, empblAgd.id as blAgd_id_empleado, tpEmp.tipo as blAgd_tipoEmpleado')
-                            ->addSelect('stdblAgd.nombre as blAgd_establecimiento, stdblAgd.id as blAgd_id_establecimiento, m.nombrearea as blAgd_modalidad, m.id as blAgd_id_area_servicio_diagnostico')
-                            ->addSelect('usrRg.username as blAgd_usernameUserReg, usrRg.id as blAgd_id_userReg, usrMd.username as blAgd_usernameUserMod, usrMd.id as blAgd_id_userMod')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as blAgd_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as blAgd_nombreUserMod')
-                            ->addSelect('case when (radx.id is not null) then concat(coalesce(radx.apellido, \'\'), \', \', coalesce(radx.nombre, \'\')) else \'\' end as blAgd_radiologo, radx.id as blAgd_id_radiologo')
+                            ->addSelect('CONCAT(COALESCE(empblAgd.apellido, \'\'), \', \', COALESCE(empblAgd.nombre, \'\')) AS blAgd_empleado, empblAgd.id AS blAgd_id_empleado, tpEmp.tipo AS blAgd_tipoEmpleado')
+                            ->addSelect('stdblAgd.nombre AS blAgd_establecimiento, stdblAgd.id AS blAgd_id_establecimiento, m.nombrearea AS blAgd_modalidad, m.id AS blAgd_id_area_servicio_diagnostico')
+                            ->addSelect('usrRg.username AS blAgd_usernameUserReg, usrRg.id AS blAgd_id_userReg, usrMd.username AS blAgd_usernameUserMod, usrMd.id AS blAgd_id_userMod')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS blAgd_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS blAgd_nombreUserMod')
+                            ->addSelect('CASE WHEN (radx.id IS NOT NULL) THEN CONCAT(COALESCE(radx.apellido, \'\'), \', \', COALESCE(radx.nombre, \'\')) ELSE \'\' END AS blAgd_radiologo, radx.id AS blAgd_id_radiologo')
                             ->from('MinsalSimagdBundle:ImgBloqueoAgenda', 'blAgd')
                             ->innerJoin('blAgd.idEmpleadoRegistra', 'empblAgd')
                             ->leftJoin('blAgd.idRadiologoBloqueo', 'radx')
@@ -87,7 +87,7 @@ class BloqueoAgendaRepository extends EntityRepository
                             ->where('blAgd.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab);
         
-        $query->orderBy('blAgd.id', 'desc')
+        $query->orderBy('blAgd.id', 'DESC')
                             ->distinct();
         
         /*
@@ -111,13 +111,14 @@ class BloqueoAgendaRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder('exclBlAgd')
                             ->select('exclBlAgd')
-                            ->addSelect('IDENTITY(exclBlAgd.idRadiologoExcluido) as exclBlAgd_id_radiologo')
+                            ->addSelect('IDENTITY(exclBlAgd.idRadiologoExcluido) AS exclBlAgd_id_radiologo')
                             ->from('MinsalSimagdBundle:ImgExclusionBloqueo', 'exclBlAgd')
                             ->where('exclBlAgd.idBloqueoAgenda = :id_blAgd')
                             ->setParameter('id_blAgd', $id_blAgd)
-                            ->orderBy('exclBlAgd.idRadiologoExcluido', 'asc')
+                            ->orderBy('exclBlAgd.idRadiologoExcluido', 'ASC')
                             ->distinct();
 
         return $query->getQuery()->getScalarResult();
     }
+    
 }

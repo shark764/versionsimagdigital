@@ -1,0 +1,212 @@
+{% autoescape false %}
+
+	<script type="text/javascript">
+        var _fn_show_object_detail = function(el, slug, id) {
+            window.alert(slug + '\n' + id);
+        }
+
+        var generate = function(el, slug/*, type = 'list'*/) {
+			////////
+			var form_worklist = jQuery('#_exam_worklist_form');
+			form_worklist.find('select').prop('disabled', slug !== 'unrealized_procedures');
+            ////////
+
+            ////////
+            var $table = jQuery('#ryx_target_bstable');
+            ////////
+            $table.bootstrapTable('showLoading');
+
+            $url = null;
+			switch (slug) {
+				case 'unrealized_procedures':
+					$url = 'simagd_sin_realizar_generateTable';
+					break;
+				case 'undiagnosed_studies':
+					$url = 'simagd_sin_lectura_generateTable';
+					break;
+				case 'non_transcribed_results':
+					$url = 'simagd_sin_transcribir_generateTable';
+					break;
+				case 'non_validated_results':
+					$url = 'simagd_sin_validar_generateTable';
+					break;
+				default:
+					break;
+			}
+
+            var type = jQuery('input[name=_worklist_display_type]:checked').val();
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: Routing.generate($url),
+                data: {
+                    _xml_http_request: true,
+                    id: 'id',
+                    slug: slug,
+                    type: type
+                },
+                success: function(response) {
+                    ////////
+                    $.each(response.options, function(i, opt) {
+                        if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
+                            var namespaces = opt.split('.');
+                            var func = namespaces.pop();
+                            var context = window;
+                            for(var x = 0; x < namespaces.length; x++) {
+                                context = context[namespaces[x]];
+                            }
+                            response.options[i] = context[func];  // set function
+                        }
+                    });
+                    ////////
+
+                    $table
+                        .bootstrapTable('destroy')
+                        .bootstrapTable(response.options);
+                    // $table.bootstrapTable('refreshOptions', response.options);
+
+                    // $('#ryx_target_bstable').scrollTop(25000);
+                },
+                error: function(err) {
+                    console.log(err.error, err.responseText);
+                }
+            });
+        }
+
+        jQuery(document).ready(function() {
+            /*
+             *
+             * @type type
+             * Get Table definition
+             */
+             // generate(null, 'unrealized_procedures');
+             // jQuery('#')
+
+            //////
+            var $table = jQuery('#ryx_target_bstable');
+            ////////
+            // $table.bootstrapTable('showLoading');
+
+            ////////
+            var DEFAULT_TABLE_OPTIONS = JSON.parse('{{ DEFAULT_TABLE_OPTIONS|json_encode|e('js')|raw }}');
+            $.each(DEFAULT_TABLE_OPTIONS, function(i, opt) {
+                if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
+                    var namespaces = opt.split('.');
+                    var func = namespaces.pop();
+                    var context = window;
+                    for(var x = 0; x < namespaces.length; x++) {
+                        context = context[namespaces[x]];
+                    }
+                    DEFAULT_TABLE_OPTIONS[i] = context[func];  // set function
+                }
+            });
+            ////////
+
+            $table
+                .bootstrapTable('destroy')
+                .bootstrapTable(DEFAULT_TABLE_OPTIONS);
+
+
+            //////////////////////////////////////////////////////////////////////////
+            //////// change content type - worklist
+            //////////////////////////////////////////////////////////////////////////
+            var __DOM__worklistDisplayType = jQuery('input[name=_worklist_display_type]');
+
+            __DOM__worklistDisplayType.on('ifChecked', function(e) {
+
+                        jQuery('#_worklist_display_items li.active').find('a').triggerHandler('click');
+
+            });
+            //////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////
+
+
+			// jQuery('#_switch_display').iCheck('destroy').bootstrapSwitch();
+
+        });
+
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__FUNCTIONS_CALL__ = {};   // --| build data collection
+
+            /*
+             * Collection of functions / fc options
+             */
+            __FUNCTIONS_CALL__.functions = {
+                onContextMenuItem: function(row, $el) {
+                    if($el.data('item') == 'show') {
+                        // alert('Show: ' + JSON.stringify(row));
+                        var url = Routing.generate('simagd_lectura_show', {id: row.id});
+                        window.location.href = url; // simulate link click
+                    } else if($el.data('item') == 'edit') {
+                        // alert('Edit: ' + row.itemid + ' ' + row.name + ' ' + row.price);
+                        var url = Routing.generate('simagd_lectura_edit', {id: row.id});
+                        window.location.href = url; // simulate link click
+                    } else if($el.data('item') == 'delete') {
+                        // alert('Delete: ' + row.itemid + ' ' + row.name + ' ' + row.price);
+                        var url = Routing.generate('simagd_lectura_delete', {id: row.id});
+                        window.location.href = url; // simulate link click
+                    }
+                },
+            };  // --| build function object
+
+        }(jQuery));
+
+        // var destroy = function(el) {
+        //     if (jQuery(el).attr('id') !== "undefined" && (jQuery(el).attr('id') === "pry2" || jQuery(el).attr('id') === "pry4")) {
+        //         var $table = jQuery('#ryx_target_bstable');
+        //         $table.bootstrapTable('destroy');
+        //     }
+        // }
+
+        // function patientFormatResult(el) {
+        //     var markup = '<div class="row-fluid">' +
+        //                         // '<div class="span2"><img src="' + el.owner.avatar_url + '" /></div>' +
+        //                         '<div class="span10">' +
+        //                         '<div class="row-fluid">' +
+        //                         '<div class="span6">' + el.full_name + '</div>' +
+        //                         // '<div class="span3"><i class="fa fa-code-fork"></i> ' + el.forks_count + '</div>' +
+        //                         // '<div class="span3"><i class="fa fa-star"></i> ' + el.stargazers_count + '</div>' +
+        //                     '</div>';
+
+        //     // if (el.description) {
+        //     //     markup += '<div>' + el.description + '</div>';
+        //     // }
+
+        //     markup += '</div></div>';
+
+        //     return markup;
+        // }
+
+        // function patientFormatSelection(el) {
+        //     return el.full_name;
+        // }
+
+        // function displaySelection(data)
+        // {
+        //     var jt = [];
+        //     if (!data.t || !parseInt(data.t, 10)) {
+        //         jt.push('<div class="jumbotron">');
+        //     }
+        //     else {
+        //         jt.push('<div class="jumbotron" style="background-color: #ebc5b9;">');
+        //     }
+        //     jt.push('<div class="container">', '<h2><strong><span class="text-primary-v4">', data.item.full_name, '</span></strong></h2>');
+        //     if (!data.t || !parseInt(data.t, 10)) {
+        //         jt.push('<strong><span class="badge badge-primary-v4" style="font-size: 25px;">', data.item.numero, '</span></strong>');
+        //     }
+        //     else {
+        //         jt.push('<strong><span class="badge badge-emergency" style="font-size: 25px;">', data.item.numero, '</span></strong>');
+        //     }
+        //     jt.push('<p><a class="btn btn-primary-v4 " role="button">Crear solicitud</a></p>');
+        //     jt.push('</div>', '</div>');
+        //     return jt.join('');
+        // }
+    </script>
+
+{% endautoescape %}

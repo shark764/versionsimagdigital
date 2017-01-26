@@ -14,36 +14,22 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Minsal\SimagdBundle\Entity\ImgDiagnostico;
 
-class ImgLecturaAdmin extends Admin
+class ImgLecturaAdmin extends MinsalSimagdBundleGeneralAdmin
 {
     protected $baseRouteName    = 'simagd_lectura';
     protected $baseRoutePattern = 'rayos-x-lectura';
-    
+
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('delete');
-        $collection->add('agregarPendiente', null, [], [], ['expose' => true]);
-        $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
-        $collection->add('proximaConsulta', null, [], [], ['expose' => true]);
-        $collection->add('listarLecturas', null, [], [], ['expose' => true]);
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
-    }
-    
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
+        parent::configureRoutes($collection);
+        
+        // $collection->remove('delete');
+        $collection->add('addPendingToWorkList', null, [], [], ['expose' => true]);
+        // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
+        // $collection->add('proximaConsulta', null, [], [], ['expose' => true]);
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
+        $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
 
     /**
@@ -52,11 +38,11 @@ class ImgLecturaAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $subject = $this->getSubject();
-        
+
         $securityContext = $this->getConfigurationPool()->getContainer()->get('security.context');
-        
+
         $sessionUser = $securityContext->getToken()->getUser();
-        
+
         $formMapper
 //             ->tab('Interpretación', array('class' => 'tab-lectura-rx', 'tab_icon' => 'glyphicon glyphicon-adjust'))
                 ->with('Datos generales', array('class' => 'lct-with-lectura-generales col-md-12', 'description' => ''))->end()
@@ -68,27 +54,27 @@ class ImgLecturaAdmin extends Admin
                 ->with('Diagnóstico radiológico', array('class' => 'col-md-12 add-dropdown-menu-diagnosis', 'description' => ''))->end()
 //             ->end()
         ;
-        
+
         $estabLocal = $sessionUser->getIdEstablecimiento()->getId();
 
         $setLockEstado = false;
-        
+
         $lctId = null;
 
         if ($this->id($subject)) {
             $setLockEstado = $this->getConfigurationPool()->getContainer()->get('doctrine')
                                             ->getRepository('MinsalSimagdBundle:ImgLectura')
                                                         ->lecturaFueTranscrita($subject->getId());
-            
+
             $lctId = $this->id($subject);
 
         }
-        
+
         $pctId = null;
         if ($subject->getIdEstudio()) {
             $pctId = $subject->getIdEstudio()->getIdExpediente()->getIdPaciente()->getId();
         }
-        
+
         $formMapper
 //             ->tab('Interpretación')
                 ->with('Datos generales')
@@ -108,7 +94,7 @@ class ImgLecturaAdmin extends Admin
 									'data-apply-formatter-mode' => 'enabled',
                                                                         'data-add-form-group-col' => 'true',
                                                                         'data-add-form-group-col-class' => 'col-lg-6 col-md-6 col-sm-6',
-									
+
 									'data-fv-notempty' => 'true',
 									'data-fv-notempty-message' => 'Seleccione un elemento',
 							)
@@ -124,7 +110,7 @@ class ImgLecturaAdmin extends Admin
                                                         'attr' => array('style' => 'min-width: 100%; max-width: 100%;',
                                                                         'data-add-form-group-col' => 'true',
                                                                         'data-add-form-group-col-class' => 'col-lg-6 col-md-6 col-sm-6',
-                                                                        
+
 									'data-fv-notempty' => 'true',
 									'data-fv-notempty-message' => 'Seleccione un elemento',
 							)
@@ -140,7 +126,7 @@ class ImgLecturaAdmin extends Admin
 									'data-select2-formatter' => 'interpretationStatus',
                                                                         'data-add-form-group-col' => 'true',
                                                                         'data-add-form-group-col-class' => 'col-lg-6 col-md-6 col-sm-6',
-                                                                        
+
 									'data-fv-notempty' => 'true',
 									'data-fv-notempty-message' => 'Seleccione un elemento',
 							)
@@ -163,7 +149,7 @@ class ImgLecturaAdmin extends Admin
 									'data-apply-formatter-mode' => 'enabled',
                                                                         'data-add-form-group-col' => 'true',
                                                                         'data-add-form-group-col-class' => 'col-lg-6 col-md-6 col-sm-6',
-									
+
 									/*'data-fv-notempty' => 'true',
 									'data-fv-notempty-message' => 'Seleccione un elemento',*/
 							)
@@ -180,7 +166,7 @@ class ImgLecturaAdmin extends Admin
 									'data-fv-stringlength-min' => '2',
 									'data-fv-stringlength-max' => '10',
 									'data-fv-stringlength-message' => '2 caracteres mínimo',
-									
+
 									'data-fv-regexp' => 'true',
 									'data-fv-regexp-regexp' => '^[a-zA-Z0-9_-]+$',
 									'data-fv-regexp-message' => 'Texto contiene caracteres no permitidos',
@@ -191,7 +177,7 @@ class ImgLecturaAdmin extends Admin
 							'required' => false,
 							'empty_value' => '',
                                                         'query_builder' => function(EntityRepository $er) use ($estabLocal) {
-                                                                                return $er->obtenerPatronesDiagnosticoUtilizablesV2($estabLocal);
+                                                                                return $er->getUsableDiagnosticPatterns($estabLocal);
                                                                             },
                                                         'group_by' => 'idAreaServicioDiagnostico',
                                                         'attr' => array('style' => 'min-width: 100%; max-width: 100%;',
@@ -201,46 +187,46 @@ class ImgLecturaAdmin extends Admin
 							)
                     ))
                     ->add('indicaciones', 'textarea', array(
-                                                        'label' => 'Indicaciones',                                                
+                                                        'label' => 'Indicaciones',
                                                         'required' => false,
 //                                                        'help' => '255 carácteres hábiles',
-                                                        'attr' => array('rows' => '1', 
-                                                                        'style' => 'resize:none', 
+                                                        'attr' => array('rows' => '1',
+                                                                        'style' => 'resize:none',
                                                                         'maxlength' => '255',
                                                                         'placeholder' => 'Digite indicaciones para la transcripción',
                                                                         'data-add-form-group-col' => 'true',
                                                                         'data-add-form-group-col-class' => 'col-lg-8 col-md-8 col-sm-8',
-									
+
 									'data-fv-stringlength' => 'true',
 									'data-fv-stringlength-min' => '15',
 									'data-fv-stringlength-max' => '255',
 									'data-fv-stringlength-message' => '15 caracteres mínimo',
-									
+
 									'data-fv-regexp' => 'true',
 									'data-fv-regexp-regexp' => '^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$',
 									'data-fv-regexp-message' => 'Texto contiene caracteres no permitidos',
 							)
                     ))
                     ->add('observaciones', 'textarea', array(
-                                                        'label' => 'Observaciones',                                                
+                                                        'label' => 'Observaciones',
                                                         'required' => false,
 //                                                        'help' => '255 carácteres hábiles',
-                                                        'attr' => array('rows' => '1', 
-                                                                        'style' => 'resize:none', 
+                                                        'attr' => array('rows' => '1',
+                                                                        'style' => 'resize:none',
                                                                         'maxlength' => '255',
                                                                         'placeholder' => 'Digite sus observaciones, utilice este campo en caso de rechazo de lectura',
                                                                         'data-add-form-group-col' => 'true',
                                                                         'data-add-form-group-col-class' => 'col-lg-8 col-md-8 col-sm-8',
-									
+
 									'data-fv-stringlength' => 'true',
 									'data-fv-stringlength-min' => '15',
 									'data-fv-stringlength-max' => '255',
 									'data-fv-stringlength-message' => '15 caracteres mínimo',
-									
+
 									'data-fv-regexp' => 'true',
 									'data-fv-regexp-regexp' => '^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$',
 									'data-fv-regexp-message' => 'Texto contiene caracteres no permitidos',
-									
+
 									'data-fv-callback' => 'true',
 									'data-fv-callback-message' => 'Necesita llenar este campo',
 									'data-fv-callback-callback' => 'checkEstadoLectura',
@@ -258,7 +244,7 @@ class ImgLecturaAdmin extends Admin
                                                         'multiple' => true,
                                                         'class' => 'MinsalSimagdBundle:ImgEstudioPaciente',
                                                         'query_builder' => function(EntityRepository $er) use ($estabLocal, $lctId, $pctId) {
-                                                                                return $er->obtenerEstudiosSinLectura($estabLocal, $lctId, $pctId);
+                                                                                return $er->getStudiesWithoutRadiologicalDiagnosis($estabLocal, $lctId, $pctId);
                                                                             },
 //                                                        'help' => 'Estado en que se registra',
 //                                                        'attr' => array('style' => 'min-width: 100%; max-width: 100%;')
@@ -283,7 +269,7 @@ class ImgLecturaAdmin extends Admin
 							'empty_value' => '',
                                                         'class' => 'MinsalSimagdBundle:ImgCtlPatronDiagnostico',
                                                         'query_builder' => function(EntityRepository $er) use ($estabLocal) {
-                                                                                return $er->obtenerPatronesDiagnosticoUtilizablesV2($estabLocal);
+                                                                                return $er->getUsableDiagnosticPatterns($estabLocal);
                                                                             },
 //                                                         'property' => 'nombre',
                                                         'group_by' => 'idAreaServicioDiagnostico',
@@ -303,7 +289,7 @@ class ImgLecturaAdmin extends Admin
 // 									'placeholder' => 'Hallazgos encontrados en el estudio',
 									'data-mapped-form' => 'diag',
 									'class' => 'summernote',
-									
+
 									/*'data-fv-stringlength' => 'true',
 									'data-fv-stringlength-min' => '15',
 									'data-fv-stringlength-message' => '15 caracteres mínimo',*/
@@ -318,7 +304,7 @@ class ImgLecturaAdmin extends Admin
 // 									'placeholder' => 'Conclusión del diagnóstico radiológico del estudio',
 									'data-mapped-form' => 'diag',
 									'class' => 'summernote'
-									
+
 									/*'data-fv-stringlength' => 'true',
 									'data-fv-stringlength-min' => '15',
 									'data-fv-stringlength-message' => '15 caracteres mínimo',*/
@@ -334,7 +320,26 @@ class ImgLecturaAdmin extends Admin
 // 									'placeholder' => 'Recomendaciones al paciente y al médico referente',
 									'data-mapped-form' => 'diag',
 									'class' => 'summernote'
-									
+
+									/*'data-fv-stringlength' => 'true',
+									'data-fv-stringlength-min' => '15',
+									'data-fv-stringlength-max' => '255',
+									'data-fv-stringlength-message' => '15 caracteres mínimo',*/
+							)
+                    ))
+                    ->add('diagnostico', 'textarea', array(
+							'label' => false,
+							'mapped' => false,
+							'required' => false,
+							'attr' => array('rows' => '25',
+// 									'maxlength' => '255',
+									'style' => 'resize:none',
+// 									'placeholder' => 'Recomendaciones al paciente y al médico referente',
+									'data-mapped-form' => 'diag',
+									'class' => 'summernote',
+                                    'data-add-form-group-col' => 'true',
+                                    'data-add-form-group-col-class' => 'col-lg-12 col-md-12 col-sm-12',
+
 									/*'data-fv-stringlength' => 'true',
 									'data-fv-stringlength-min' => '15',
 									'data-fv-stringlength-max' => '255',
@@ -352,10 +357,10 @@ class ImgLecturaAdmin extends Admin
 									'data-select2-formatter' => 'diagnosticStatus',
                                                                         'data-add-form-group-col' => 'true',
                                                                         'data-add-form-group-col-class' => 'col-lg-8 col-md-8 col-sm-8',
-                                                                        
+
 									'data-mapped-form' => 'diag',
 									'data-add-validation' => 'formValidation',
-									
+
 									'data-fv-notempty' => 'true',
 									'data-fv-notempty-message' => 'Seleccione un elemento',
 							)
@@ -372,12 +377,12 @@ class ImgLecturaAdmin extends Admin
 									'data-add-validation' => 'formValidation',
                                                                         'data-add-form-group-col' => 'true',
                                                                         'data-add-form-group-col-class' => 'col-lg-8 col-md-8 col-sm-8',
-									
+
 									'data-fv-stringlength' => 'true',
 									'data-fv-stringlength-min' => '15',
 									'data-fv-stringlength-max' => '255',
 									'data-fv-stringlength-message' => '15 caracteres mínimo',
-									
+
 									'data-fv-regexp' => 'true',
 									'data-fv-regexp-regexp' => '^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$',
 									'data-fv-regexp-message' => 'Texto contiene caracteres no permitidos',
@@ -395,12 +400,12 @@ class ImgLecturaAdmin extends Admin
 									'data-add-validation' => 'formValidation',
                                                                         'data-add-form-group-col' => 'true',
                                                                         'data-add-form-group-col-class' => 'col-lg-8 col-md-8 col-sm-8',
-									
+
 									'data-fv-stringlength' => 'true',
 									'data-fv-stringlength-min' => '15',
 									'data-fv-stringlength-max' => '255',
 									'data-fv-stringlength-message' => '15 caracteres mínimo',
-									
+
 									'data-fv-regexp' => 'true',
 									'data-fv-regexp-regexp' => '^[a-zA-ZüÜñÑáéíóúÁÉÍÓÚ0-9¿!¡;,:\.\?#@()_-\s]+$',
 									'data-fv-regexp-message' => 'Texto contiene caracteres no permitidos',
@@ -411,26 +416,19 @@ class ImgLecturaAdmin extends Admin
         ;
     }
 
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
-    
     public function prePersist($lectura)
     {
         $securityContext = $this->getConfigurationPool()->getContainer()->get('security.context');
         $sessionUser = $securityContext->getToken()->getUser();
         $estabLocal = $sessionUser->getIdEstablecimiento();
-        
+
         $lectura->setIdUserReg($sessionUser);
         $lectura->setFechaLectura(new \DateTime('now'));
 
         if ( in_array($lectura->getIdEstadoLectura()->getCodigo(), array('LDO'))) {
 	    if (!$lectura->getCorrelativo()) {
 		$lectura->setCorrelativo($this->generarCorrelativoInterpretacion($lectura ));
-	    
+
 		if ($lectura->getCorrelativo()) {
 		    $messageReg = 'Código generado para etiquetar grabación: <br/>' . $lectura->getCorrelativo();
 		    $this->getRequest()->getSession()->getFlashBag()->add("warning", $messageReg);
@@ -438,7 +436,7 @@ class ImgLecturaAdmin extends Admin
 	    }
         }
         if ($lectura->getCorrelativo()) { $lectura->setCorrelativo(strtoupper($lectura->getCorrelativo())); }
-        
+
         if ($lectura->getIdEstudio()) {
 	    $exists = false;
 	    $estudioS = $lectura->getIdEstudio();
@@ -452,7 +450,7 @@ class ImgLecturaAdmin extends Admin
 		$lectura->setIdEstudio(NULL);
 	    }
         }
-        
+
         if (!$lectura->getIdEstudio()) {
 	    $setted = false;
             foreach ($lectura->getEstudiosLectura() as $estudioL) {
@@ -481,22 +479,22 @@ class ImgLecturaAdmin extends Admin
 		    }
 		}
 	    }
-	    
+
 	    /** Expediente local */
-	    $expLocal = $this->getModelManager()->findOneBy('MinsalSiapsBundle:MntExpediente', 
+	    $expLocal = $this->getModelManager()->findOneBy('MinsalSiapsBundle:MntExpediente',
 				array(
 				    'idPaciente' => $lectura->getIdEstudio()->getIdExpediente()->getIdPaciente()->getId(),
 				    'idEstablecimiento' => $estabLocal->getId()
 				));
 	    $lectura->setIdExpediente($expLocal);
 	}
-        
+
         if (!$lectura->getIdRadiologoDesignadoAprobacion()) {
 	    if ( in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('MED', 'TRY'))) {
 		$lectura->setIdRadiologoDesignadoAprobacion($sessionUser->getIdEmpleado());
 	    }
         }
-        
+
         /** Diagnóstico incrustado */
         if ($this->hasSubject())
         {
@@ -504,12 +502,12 @@ class ImgLecturaAdmin extends Admin
 	    {
 		/** ImgDiagnostico */
 		$diagMapped = new ImgDiagnostico();
-		
+
 		$diagMapped->setIdLectura($lectura);
 		$diagMapped->setIdUserReg($sessionUser);
 		$diagMapped->setFechaRegistro(new \DateTime('now'));
 		$diagMapped->setFechaTranscrito(new \DateTime('now'));
-		
+
 		if (in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ACL', 'MED', 'TRY')))
 		{
 		    $diagMapped->setIdEmpleado($sessionUser->getIdEmpleado());
@@ -520,33 +518,33 @@ class ImgLecturaAdmin extends Admin
 		{
 		    $diagMapped->setIdPatronAplicado($lectura->getIdPatronAsociado());
 		}
-		
+
 		$diagMapped->setIdEstadoDiagnostico($this->getForm()->get('idEstadoDiagnostico')->getData());
 		$diagMapped->setHallazgos($this->getForm()->get('hallazgos')->getData());
 		$diagMapped->setConclusion($this->getForm()->get('conclusion')->getData());
 		$diagMapped->setRecomendaciones($this->getForm()->get('recomendaciones')->getData());
 		$diagMapped->setIncidencias($this->getForm()->get('incidencias')->getData());
 		$diagMapped->setIncidencias($this->getForm()->get('observaciones')->getData());
-		
+
 		if ($diagMapped->getIdEstadoDiagnostico() && in_array($diagMapped->getIdEstadoDiagnostico()->getCodigo(), array('APR')))
 		{
 		    $diagMapped->setFechaAprobado(new \DateTime('now'));
 		    $diagMapped->setIdRadiologoAprueba($sessionUser->getIdEmpleado());
 		}
-		
+
 		/** Asignar transcripción inmediata */
 		$lectura->addLecturaDiagnostico($diagMapped);
 	    }
         }
         /** --Fin Diagnóstico */
     }
-    
+
     public function preUpdate($lectura)
     {
         $securityContext = $this->getConfigurationPool()->getContainer()->get('security.context');
         $sessionUser = $securityContext->getToken()->getUser();
         $estabLocal = $sessionUser->getIdEstablecimiento();
-        
+
         $em = $this->getModelManager()->getEntityManager($this->getClass());
         $lecturaOriginal = $em->getUnitOfWork()->getOriginalEntityData($lectura);
         $estadoOriginal = $lecturaOriginal['idEstadoLectura']->getCodigo();
@@ -555,16 +553,16 @@ class ImgLecturaAdmin extends Admin
 
 	if ( ($estadoLectura != $estadoOriginal) && in_array($estadoLectura, array('LDO'))
 				&& !$lectura->getCorrelativo()) {
-        
+
 	    $lectura->setCorrelativo($this->generarCorrelativoInterpretacion($lectura ));
-        
+
 	    if ($lectura->getCorrelativo()) {
 		$messageReg = 'Código generado para etiquetar grabación: <br/>' . $lectura->getCorrelativo();
 		$this->getRequest()->getSession()->getFlashBag()->add("warning", $messageReg);
 	    }
         }
         if ($lectura->getCorrelativo()) { $lectura->setCorrelativo(strtoupper($lectura->getCorrelativo())); }
-        
+
         if ($lectura->getIdEstudio()) {
 	    $exists = false;
 	    $estudioS = $lectura->getIdEstudio();
@@ -578,7 +576,7 @@ class ImgLecturaAdmin extends Admin
 		$lectura->setIdEstudio(NULL);
 	    }
         }
-        
+
         if (!$lectura->getIdEstudio()) {
 	    $setted = false;
             foreach ($lectura->getEstudiosLectura() as $estudioL) {
@@ -608,13 +606,13 @@ class ImgLecturaAdmin extends Admin
 		}
 	    }
 	}
-        
+
         if (!$lectura->getIdRadiologoDesignadoAprobacion()) {
 	    if ( in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('MED', 'TRY'))) {
 		$lectura->setIdRadiologoDesignadoAprobacion($sessionUser->getIdEmpleado());
 	    }
         }
-        
+
         /** Editar diagnóstico incrustado */
         if ($this->hasSubject())
         {
@@ -631,36 +629,36 @@ class ImgLecturaAdmin extends Admin
 		    {
 			$diagMapped->setIdPatronAplicado($lectura->getIdPatronAsociado());
 		    }
-		    
+
 		    $statusOld	= $diagMapped->getIdEstadoDiagnostico();
 		    $statusNew	= $this->getForm()->get('idEstadoDiagnostico')->getData();
-		    
+
 		    if ($statusNew && in_array($statusNew->getCodigo(), array('APR')) && $statusOld->getCodigo() != $statusNew->getCodigo())
 		    {
 			$diagMapped->setFechaAprobado(new \DateTime('now'));
 			$diagMapped->setIdRadiologoAprueba($sessionUser->getIdEmpleado());
 		    }
 		    $diagMapped->setIdEstadoDiagnostico($statusNew);
-		    
+
 		    $diagMapped->setHallazgos($this->getForm()->get('hallazgos')->getData());
 		    $diagMapped->setConclusion($this->getForm()->get('conclusion')->getData());
 		    $diagMapped->setRecomendaciones($this->getForm()->get('recomendaciones')->getData());
 		    $diagMapped->setIncidencias($this->getForm()->get('incidencias')->getData());
 		    $diagMapped->setIncidencias($this->getForm()->get('observaciones')->getData());
-		    
+
 		    $count_diagMapped++;
 		}
-		
+
 		if ($count_diagMapped === 0)
 		{
 		    /** ImgDiagnostico */
 		    $diagMapped = new ImgDiagnostico();
-		    
+
 		    $diagMapped->setIdLectura($lectura);
 		    $diagMapped->setIdUserReg($sessionUser);
 		    $diagMapped->setFechaRegistro(new \DateTime('now'));
 		    $diagMapped->setFechaTranscrito(new \DateTime('now'));
-		    
+
 		    if (in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ACL', 'MED', 'TRY')))
 		    {
 			$diagMapped->setIdEmpleado($sessionUser->getIdEmpleado());
@@ -671,20 +669,20 @@ class ImgLecturaAdmin extends Admin
 		    {
 			$diagMapped->setIdPatronAplicado($lectura->getIdPatronAsociado());
 		    }
-		    
+
 		    $diagMapped->setIdEstadoDiagnostico($this->getForm()->get('idEstadoDiagnostico')->getData());
 		    $diagMapped->setHallazgos($this->getForm()->get('hallazgos')->getData());
 		    $diagMapped->setConclusion($this->getForm()->get('conclusion')->getData());
 		    $diagMapped->setRecomendaciones($this->getForm()->get('recomendaciones')->getData());
 		    $diagMapped->setIncidencias($this->getForm()->get('incidencias')->getData());
 		    $diagMapped->setIncidencias($this->getForm()->get('observaciones')->getData());
-		    
+
 		    if ($diagMapped->getIdEstadoDiagnostico() && in_array($diagMapped->getIdEstadoDiagnostico()->getCodigo(), array('APR')))
 		    {
 			$diagMapped->setFechaAprobado(new \DateTime('now'));
 			$diagMapped->setIdRadiologoAprueba($sessionUser->getIdEmpleado());
 		    }
-		    
+
 		    /** Asignar transcripción inmediata */
 		    $lectura->addLecturaDiagnostico($diagMapped);
 		}
@@ -707,7 +705,7 @@ class ImgLecturaAdmin extends Admin
                 ->assertNotNull(array('message' => 'No ha seleccionado ningún elemento de la lista'))
                 ->assertNotBlank(array('message' => '¿En qué estado se encuentra el registro de la lectura radiológica?'))
             ->end();
-        
+
         //Estudio del paciente
         if (!$lectura->getIdEstudio()) {
             $errorElement->with('observaciones')
@@ -720,7 +718,7 @@ class ImgLecturaAdmin extends Admin
                             ->addViolation('La lectura no puede registrarse en este establecimiento, verifique que exista el estudio')
                         ->end();
         }
-        
+
         if ($lectura->getIdEstadoLectura() && in_array($lectura->getIdEstadoLectura()->getCodigo(), array('DCT', 'RZD'))) {
             $errorElement
                 ->with('observaciones') //Causa de rechazo
@@ -739,29 +737,30 @@ class ImgLecturaAdmin extends Admin
 	    }
 	}
     }
-    
-    public function getNewInstance() {
+
+    public function getNewInstance()
+    {
         $instance = parent::getNewInstance();
 //        $instance = new \Minsal\SimagdBundle\Entity\ImgLectura();
-        
+
         //Estado inicial de la lectura
         $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlEstadoLectura');
         $estadoReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlEstadoLectura', '2');
         $instance->setIdEstadoLectura($estadoReference);
-        
+
         //Tipo de Resultado
         $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlTipoResultado');
         $tipoResultReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlTipoResultado', '1');
         $instance->setIdTipoResultado($tipoResultReference);
-        
+
         $sessionUser = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
-        
+
         if ( in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('MED', 'TRY'))) {
 	    $instance->setIdEmpleado($sessionUser->getIdEmpleado());
             /** Aprobación de lectura radiológica */
 	    $instance->setIdRadiologoDesignadoAprobacion($sessionUser->getIdEmpleado());
 	}
-        
+
         //Establecimiento al que se solicitó el diagnóstico
         // ---> debe venir desde la preinscripción, o desde la solicitud.... debe ser el q aparece en la lista de trabajo
         $estabLocal = $sessionUser->getIdEstablecimiento();
@@ -769,7 +768,7 @@ class ImgLecturaAdmin extends Admin
 //        $em = $this->getModelManager()->getEntityManager('Minsal\SiapsBundle\Entity\CtlEstablecimiento');
 //        $estabReference = $em->getReference('Minsal\SiapsBundle\Entity\CtlEstablecimiento', $estabLocal);
         $instance->setIdEstablecimiento($estabLocal);
-        
+
         //Estudio padre
         if ($this->hasRequest()) {
             $estudio 		= $this->getRequest()->get('__est', null);
@@ -786,25 +785,25 @@ class ImgLecturaAdmin extends Admin
 		    $estudioPdrReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgEstudioPaciente', $estudioPdr);
 		    $instance->setIdEstudio($estudioPdrReference);
 		    $instance->addEstudiosLectura($estudioPdrReference);
-		    
+
 		    $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgEstudioPaciente');
 		    $estudioReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgEstudioPaciente', $estudio);
 		    $instance->addEstudiosLectura($estudioReference);
 		}
             }
-            
+
             //Lectura solicitada por radiólogo
             $solicitudPorRadiologo = $this->getRequest()->get('__xrad', false);
             if ($solicitudPorRadiologo !== false) {
                 $instance->setSolicitadaPorRadiologo(TRUE);
-            
+
 		$radiologoAnexa = $this->getRequest()->get('__xradAnx', null);
 		if ($radiologoAnexa !== null) {
 		    $em = $this->getModelManager()->getEntityManager('Minsal\SiapsBundle\Entity\MntEmpleado');
 		    $radAnxReference = $em->getReference('Minsal\SiapsBundle\Entity\MntEmpleado', $radiologoAnexa);
 		    $instance->setIdRadiologoSolicita($radAnxReference);
 		}
-                
+
 		if (!$instance->getIdRadiologoSolicita()) {
 		    if ( in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('MED', 'TRY'))) {
 			/** Solicitud de lectura radiológica por radiólogo y no por médico */
@@ -813,37 +812,38 @@ class ImgLecturaAdmin extends Admin
                 }
             }
         }
-        
+
         return $instance;
     }
-    
-    public function createQuery($context = 'list') {
+
+    public function createQuery($context = 'list')
+    {
         $query = parent::createQuery($context);
-        
+
         $estabLocal = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()
                                     ->getUser()->getIdEstablecimiento()->getId();
-        
+
         $query->andWhere(
                             $query->expr()->eq($query->getRootAlias() . '.idEstablecimiento', ':id_est_diag')
                         )
                         ->setParameter('id_est_diag', $estabLocal);
-        
+
         return $query;
     }
-    
+
     public function generarCorrelativoInterpretacion($lectura)
     {
 	$estabLocal = $lectura->getIdEstablecimiento();
-	
+
 	$modalidadSolicitada = $lectura->getIdEstudio()->getIdProcedimientoRealizado()
 								->getIdSolicitudEstudio()->getIdAreaServicioDiagnostico();
-	
-        
+
+
         $codigoModalidad = $modalidadSolicitada->getImgCodigo() ? substr($modalidadSolicitada->getImgCodigo(), 0, 2 ) : 'NA';
-	
+
 	$mayor = $this->getConfigurationPool()->getContainer()->get('doctrine')
                                 ->getRepository($this->getClass() )
-						->obtenerUltimoCorrelativo($estabLocal->getId(), $modalidadSolicitada->getId());
+						->getLatestCorrelative($estabLocal->getId(), $modalidadSolicitada->getId());
 
 	//Substraer los ultimos 6 digitos, parse Int y sumar 1
 	$valor = $mayor ? substr($mayor['maxCod'], -8 ) : '0';
@@ -853,10 +853,10 @@ class ImgLecturaAdmin extends Admin
 // 	$correlativo = 'AA';	//Código prefijo
 	$correlativo = $codigoModalidad;
 	$correlativo .= str_pad( (string) $intValor, 8, '0', STR_PAD_LEFT);
-	
+
         return strtoupper($correlativo);
     }
-    
+
     public function getTemplate($name)
     {
         switch ($name) {
@@ -866,15 +866,15 @@ class ImgLecturaAdmin extends Admin
             case 'list':
                 return 'MinsalSimagdBundle:ImgLecturaAdmin:lct_list_v2.html.twig';
                 break;
-            case 'show':
-                return 'MinsalSimagdBundle:ImgLecturaAdmin:lct_show.html.twig';
+            // case 'show':
+            //     return 'MinsalSimagdBundle:ImgLecturaAdmin:lct_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);
                 break;
         }
     }
-    
+
     public function getFormTheme()
     {
         return array_merge(
@@ -883,5 +883,5 @@ class ImgLecturaAdmin extends Admin
             array('MinsalSimagdBundle:ImgLecturaAdmin:lct_estudiosLectura_theme.html.twig')
        );
     }
-    
+
 }

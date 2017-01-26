@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class MaterialRepository extends EntityRepository
 {
-    public function obtenerMaterialesNoAgregados($id_estab, $bs_filters = array())
+    public function getNonAggregatedMaterials($id_estab, $bs_filters = array())
     {
         /** SubQuery */
         $subQuery = $this->getEntityManager()
@@ -21,7 +21,7 @@ class MaterialRepository extends EntityRepository
                             ->from('MinsalSimagdBundle:ImgCtlMaterialEstablecimiento', 'mtrLc')
                             ->where('mtrl.id = mtrLc.idMaterial')
                             ->andWhere('mtrLc.idEstablecimiento = :id_est');
-                
+
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -30,15 +30,15 @@ class MaterialRepository extends EntityRepository
 
         $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())))
                             ->setParameter('id_est', $id_estab);
-        
+
         $query->orderBy('mtrl.nombre');
-                
+
         $query->distinct();
-        
+
         return $query->getQuery()->getScalarResult();
     }
-    
-    public function obtenerMaterialesUtilizables($id_estab, $bs_filters = array())
+
+    public function getUsableMaterials($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -51,12 +51,12 @@ class MaterialRepository extends EntityRepository
                             ->setParameter('id_est', $id_estab)
 			    ->andWhere('mtrLc.habilitado = TRUE')
 			    ->andWhere('mtrLc.cantidadDisponible > 0');
-        
+
         $query->distinct();
-        
+
         return $query;
     }
-    
+
     public function obtenerMaterialesLocales($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
@@ -66,14 +66,14 @@ class MaterialRepository extends EntityRepository
                             ->innerJoin('mtrLc.idMaterial', 'mtrl')
                             ->where('mtrLc.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
-                            ->orderBy('mtrl.nombre', 'desc')
+                            ->orderBy('mtrl.nombre', 'DESC')
                             ->addOrderBy('mtrLc.cantidadDisponible'); //INTENTAR HACER EL OUTGROUP DEL SELECT
-        
+
         $query->distinct();
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     public function existeMaterialEnLocal($id_estab, $idMaterial)
     {
         /** SubQuery */
@@ -83,11 +83,11 @@ class MaterialRepository extends EntityRepository
                             ->from('MinsalSimagdBundle:ImgCtlMaterialEstablecimiento', 'mtrLc')
                             ->where('mtrl.id = mtrLc.idMaterial')
                             ->andWhere('mtrLc.idEstablecimiento = :id_est');
-                
+
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('mtrl.id as mtrlId')
+                            ->select('mtrl.id AS mtrlId')
                             ->from('MinsalSimagdBundle:ImgCtlMaterial', 'mtrl')
                             ->where('mtrl.id = :id_mtrl')
                             ->setParameter('id_mtrl', $idMaterial);
@@ -97,23 +97,23 @@ class MaterialRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
 
-    public function __obtenerMaterialesV2()
+    public function __data()
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('mtrl')
                             ->select('mtrl')
                             ->from('MinsalSimagdBundle:ImgCtlMaterial', 'mtrl')
-                            ->orderBy('mtrl.id', 'desc')
+                            ->orderBy('mtrl.id', 'DESC')
                             ->distinct();
 
         return $query->getQuery()->getScalarResult();
     }
 
-    public function __obtenerMaterialesLocalesV2($id_estab, $bs_filters = array())
+    public function __localData($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('mtrLc')
@@ -123,18 +123,18 @@ class MaterialRepository extends EntityRepository
                             ->innerJoin('mtrLc.idMaterial', 'mtrl')
                             ->where('mtrLc.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
-                            ->orderBy('mtrLc.id', 'desc')
+                            ->orderBy('mtrLc.id', 'DESC')
                             ->distinct();
 
         return $query->getQuery()->getScalarResult();
     }
-    
+
     public function existeMaterialEnLocalV2($id_estab, $idMaterial)
     {
         /** Query */
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('mtrLc.id as mtrLcId')
+                            ->select('mtrLc.id AS mtrLcId')
                             ->from('MinsalSimagdBundle:ImgCtlMaterialEstablecimiento', 'mtrLc')
                             ->where('mtrLc.idMaterial = :id_mtrl')
                             ->setParameter('id_mtrl', $idMaterial)
@@ -143,26 +143,31 @@ class MaterialRepository extends EntityRepository
 
         $query->distinct();
         $query->setMaxResults(1);
-        
+
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
 
-    public function obtenerMaterialesV2($bs_filters = array())
+    public function data($bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('mtrl')
                             ->select('mtrl')
-                            ->addSelect('usrRg.username as mtrl_usernameUserReg, usrRg.id as mtrl_id_userReg, usrMd.username as mtrl_usernameUserMod, usrMd.id as mtrl_id_userMod')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as mtrl_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as mtrl_nombreUserMod')
+
+                            ->addSelect('mtrl.id AS id, mtrl.nombre AS nombre, mtrl.codigo AS codigo, sgm.nombre AS subgrupo, sgm.codigo AS codigo_subgrupo, gm.nombre AS grupo, gm.codigo AS codigo_grupo, mtrl.descripcion as descripcion, mtrl.fechaHoraReg AS fecha_registro, mtrl.fechaHoraMod AS fecha_edicion')
+
+                            ->addSelect('usrRg.username AS mtrl_usernameUserReg, usrRg.id AS mtrl_id_userReg, usrMd.username AS mtrl_usernameUserMod, usrMd.id AS mtrl_id_userMod')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS mtrl_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS mtrl_nombreUserMod')
                             ->from('MinsalSimagdBundle:ImgCtlMaterial', 'mtrl')
+                            ->innerJoin('mtrl.idSubgrupoMaterial', 'sgm')
+                            ->innerJoin('sgm.idGrupoMaterial', 'gm')
                             ->innerJoin('mtrl.idUserReg', 'usrRg')
                             ->leftJoin('mtrl.idUserMod', 'usrMd')
                             ->innerJoin('usrRg.idEmpleado', 'usrRgEmp')
                             ->leftJoin('usrMd.idEmpleado', 'usrMdEmp')
-                            ->orderBy('mtrl.id', 'desc')
+                            ->orderBy('mtrl.id', 'DESC')
                             ->distinct();
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -175,23 +180,29 @@ class MaterialRepository extends EntityRepository
         /*
          * |-- END filters from BSTABLE_FILTER to query
          */
+        // $query->setMaxResults(10);
 
         return $query->getQuery()->getScalarResult();
     }
 
-    public function obtenerMaterialesLocalesV2($id_estab, $bs_filters = array())
+    public function localData($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('mtrLc')
                             ->select('mtrLc')
                             ->addSelect('mtrl')
-                            ->addSelect('stdmtrl.nombre as mtrLc_establecimiento, stdmtrl.id as mtrLc_id_establecimiento')
-                            ->addSelect('usrRg.username as mtrLc_usernameUserReg, usrRg.id as mtrLc_id_userReg, usrMd.username as mtrLc_usernameUserMod, usrMd.id as mtrLc_id_userMod, usrRgMtrl.username as mtrl_usernameUserReg, usrRgMtrl.id as mtrl_id_userReg')
-                            ->addSelect('concat(coalesce(usrRgEmp.apellido, \'\'), \', \', coalesce(usrRgEmp.nombre, \'\')) as mtrLc_nombreUserReg')
-                            ->addSelect('case when (usrMd.username is not null) then concat(coalesce(usrMdEmp.apellido, \'\'), \', \', coalesce(usrMdEmp.nombre, \'\')) else \'\' end as mtrLc_nombreUserMod')
-                            ->addSelect('concat(coalesce(usrRgMtrlEmp.apellido, \'\'), \', \', coalesce(usrRgMtrlEmp.nombre, \'\')) as mtrl_nombreUserReg')
+
+                            ->addSelect('mtrLc.id AS id, mtrl.nombre AS nombre, mtrl.codigo AS codigo, sgm.nombre AS subgrupo, sgm.codigo AS codigo_subgrupo, gm.nombre AS grupo, gm.codigo AS codigo_grupo, mtrl.descripcion as descripcion, mtrl.fechaHoraReg AS fecha_registro, mtrl.fechaHoraMod AS fecha_edicion, mtrLc.habilitado AS habilitado, mtrLc.fechaHoraReg AS fecha_registro_local, mtrLc.fechaHoraMod AS fecha_edicion_local')
+
+                            ->addSelect('stdmtrl.nombre AS mtrLc_establecimiento, stdmtrl.id AS mtrLc_id_establecimiento')
+                            ->addSelect('usrRg.username AS mtrLc_usernameUserReg, usrRg.id AS mtrLc_id_userReg, usrMd.username AS mtrLc_usernameUserMod, usrMd.id AS mtrLc_id_userMod, usrRgMtrl.username AS mtrl_usernameUserReg, usrRgMtrl.id AS mtrl_id_userReg')
+                            ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS mtrLc_nombreUserReg')
+                            ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS mtrLc_nombreUserMod')
+                            ->addSelect('CONCAT(COALESCE(usrRgMtrlEmp.apellido, \'\'), \', \', COALESCE(usrRgMtrlEmp.nombre, \'\')) AS mtrl_nombreUserReg')
                             ->from('MinsalSimagdBundle:ImgCtlMaterialEstablecimiento', 'mtrLc')
                             ->innerJoin('mtrLc.idMaterial', 'mtrl')
+                            ->innerJoin('mtrl.idSubgrupoMaterial', 'sgm')
+                            ->innerJoin('sgm.idGrupoMaterial', 'gm')
                             ->innerJoin('mtrLc.idEstablecimiento', 'stdmtrl')
                             ->innerJoin('mtrLc.idUserReg', 'usrRg')
                             ->leftJoin('mtrLc.idUserMod', 'usrMd')
@@ -201,9 +212,9 @@ class MaterialRepository extends EntityRepository
                             ->innerJoin('usrRgMtrl.idEmpleado', 'usrRgMtrlEmp')
                             ->where('mtrLc.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
-                            ->orderBy('mtrLc.id', 'desc')
+                            ->orderBy('mtrLc.id', 'DESC')
                             ->distinct();
-        
+
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
@@ -220,18 +231,18 @@ class MaterialRepository extends EntityRepository
         return $query->getQuery()->getScalarResult();
     }
 
-    public function obtenerMaterialesScalarV2($return = 'scalar')
+    public function scalarData($return = 'scalar')
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('mtrl')
                             ->select('mtrl')
                             ->from('MinsalSimagdBundle:ImgCtlMaterial', 'mtrl')
-                            ->orderBy('mtrl.id', 'desc')
+                            ->orderBy('mtrl.id', 'DESC')
                             ->distinct();
 
 	if($return == 'scalar')
 	{
-	    $query->addSelect('mtrl.id as id, mtrl.nombre as text, mtrl.codigo as cod');
+	    $query->addSelect('mtrl.id AS id, mtrl.nombre AS text, mtrl.codigo AS cod');
 	}
 
         return $return == 'query' ?
@@ -239,5 +250,5 @@ class MaterialRepository extends EntityRepository
 		: $query->getQuery()->getResult()
 	    );
     }
-    
+
 }

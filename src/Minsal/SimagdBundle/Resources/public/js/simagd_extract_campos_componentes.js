@@ -10,7 +10,7 @@
         
         if (idCampoCompuesto) {
             $.ajax({
-		type: 'post',
+		type: 'POST',
 		dataType: 'json',
 		url: Routing.generate(ruta),
                 data: {

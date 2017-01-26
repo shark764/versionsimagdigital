@@ -1,0 +1,249 @@
+{% autoescape false %}
+
+	<script type="text/javascript">
+        var _fn_show_object_detail = function(el, slug, id) {
+            window.alert(slug + '\n' + id);
+        }
+
+        var generate = function(el, slug, emrg/* = 0, type = 'list'*/) {
+			if (emrg === undefined) {
+		        emrg = 0;
+		    }
+            ////////
+            var $table = jQuery('#ryx_target_bstable');
+            ////////
+            $table.bootstrapTable('showLoading');
+
+            $url = null;
+			switch (slug) {
+				case 'events_calendar_and_exams':
+					$url = 'simagd_cita_generateCalendar';
+					break;
+				case 'scheduled_appointments_for_exams':
+					$url = 'simagd_cita_generateTable';
+					break;
+				case 'blocked_days_and_festivities':
+					$url = 'simagd_bloqueo_agenda_generateTable';
+					break;
+				default:
+					break;
+			}
+
+            // if (slug === 'scheduled_appointments_for_exams') {
+            //     emrg
+            // }
+
+            var type = jQuery('input[name=_agenda_dashboard_display_type]:checked').val();
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: Routing.generate($url),
+                data: {
+                    _xml_http_request: true,
+                    id: 'id',
+                    slug: slug,
+                    type: type,
+                    emrg: emrg,
+                },
+                success: function(response) {
+                    if (slug === 'events_calendar_and_exams') {
+                        var $el_fc_calendar = jQuery('#calendar');   //  --| calendar DOM element
+                        var fc_options = response.options;
+                        $.each(fc_options, function(i, opt) {
+                            if (typeof opt === 'string' && opt.indexOf('__FULL_CAL__.functions') !== -1) {
+                                var namespaces = opt.split('.');
+                                var func = namespaces.pop();
+                                var context = window;
+                                for(var x = 0; x < namespaces.length; x++) {
+                                    context = context[namespaces[x]];
+                                }
+                                fc_options[i] = context[func];  // set function
+                            }
+                        });
+                        $el_fc_calendar
+                            .filter(':not([disabled]):visible')
+                            .fullCalendar(fc_options);
+                        console.log('%cfullCalendar is successfully initiated', 'background: #183f52; color: #eee');
+                    } else {
+                        $table
+                            .bootstrapTable('destroy')
+                            .bootstrapTable(response.options);
+                        // $table.bootstrapTable('refreshOptions', response.options);
+                    }
+
+                    // $('#ryx_target_bstable').scrollTop(25000);
+                },
+                error: function(err) {
+                    console.log(err.error, err.responseText);
+                }
+            });
+        }
+
+        {#jQuery(document).ready(function() {
+            /*
+             *
+             * @type type
+             * Get Table definition
+             */
+             // generate(null, 'events_calendar_and_exams');
+             // jQuery('#')
+
+            //////
+            var $table = jQuery('#ryx_target_bstable');
+            ////////
+            // $table.bootstrapTable('showLoading');
+            $table
+                .bootstrapTable('destroy')
+                .bootstrapTable(JSON.parse('{{ DEFAULT_TABLE_OPTIONS|json_encode|e('js')|raw }}'));
+
+
+            //////////////////////////////////////////////////////////////////////////
+            //////// change content type - worklist
+            //////////////////////////////////////////////////////////////////////////
+            var __DOM__worklistDisplayType = jQuery('input[name=_agenda_dashboard_display_type]');
+
+            __DOM__worklistDisplayType.on('ifChecked', function(e) {
+
+                        jQuery('#_agenda_dashboard_display_items li.active').find('a').triggerHandler('click');
+
+            });
+            //////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////
+
+
+			// jQuery('#_switch_display').iCheck('destroy').bootstrapSwitch();
+
+        });#}
+
+        // var destroy = function(el) {
+        //     if (jQuery(el).attr('id') !== "undefined" && (jQuery(el).attr('id') === "pry2" || jQuery(el).attr('id') === "pry4")) {
+        //         var $table = jQuery('#ryx_target_bstable');
+        //         $table.bootstrapTable('destroy');
+        //     }
+        // }
+
+        // function patientFormatResult(el) {
+        //     var markup = '<div class="row-fluid">' +
+        //                         // '<div class="span2"><img src="' + el.owner.avatar_url + '" /></div>' +
+        //                         '<div class="span10">' +
+        //                         '<div class="row-fluid">' +
+        //                         '<div class="span6">' + el.full_name + '</div>' +
+        //                         // '<div class="span3"><i class="fa fa-code-fork"></i> ' + el.forks_count + '</div>' +
+        //                         // '<div class="span3"><i class="fa fa-star"></i> ' + el.stargazers_count + '</div>' +
+        //                     '</div>';
+
+        //     // if (el.description) {
+        //     //     markup += '<div>' + el.description + '</div>';
+        //     // }
+
+        //     markup += '</div></div>';
+
+        //     return markup;
+        // }
+
+        // function patientFormatSelection(el) {
+        //     return el.full_name;
+        // }
+
+        // function displaySelection(data)
+        // {
+        //     var jt = [];
+        //     if (!data.t || !parseInt(data.t, 10)) {
+        //         jt.push('<div class="jumbotron">');
+        //     }
+        //     else {
+        //         jt.push('<div class="jumbotron" style="background-color: #ebc5b9;">');
+        //     }
+        //     jt.push('<div class="container">', '<h2><strong><span class="text-primary-v4">', data.item.full_name, '</span></strong></h2>');
+        //     if (!data.t || !parseInt(data.t, 10)) {
+        //         jt.push('<strong><span class="badge badge-primary-v4" style="font-size: 25px;">', data.item.numero, '</span></strong>');
+        //     }
+        //     else {
+        //         jt.push('<strong><span class="badge badge-emergency" style="font-size: 25px;">', data.item.numero, '</span></strong>');
+        //     }
+        //     jt.push('<p><a class="btn btn-primary-v4 " role="button">Crear solicitud</a></p>');
+        //     jt.push('</div>', '</div>');
+        //     return jt.join('');
+        // }
+        
+        jQuery(function () {
+            jQuery('#_fc_goto_dtpicker').datetimepicker({
+                locale: 'es',
+                format: 'YYYY-MM-DD',
+                showTodayButton: true,
+                showClear: true,
+                showClose: true,
+                ignoreReadonly: true,
+                inline: true,
+                sideBySide: true,
+            }).on('dp.change dp.show', function(e) {
+                var goto_date = (typeof e.date !== 'undefined' && e.date !== null && e.date !== false) ? e.date : moment();
+                var $el_fc_calendar = jQuery('#calendar');   //  --| calendar DOM element
+                $el_fc_calendar
+                    .filter(':not([disabled]):visible')
+                    .fullCalendar('gotoDate', goto_date);
+                jQuery('#_fc_goto_openlink').hide();
+            }).on('dp.hide', function(e) {
+                jQuery('#_fc_goto_openlink').show();
+            });
+        });
+
+        fc_goto_calendarDate = function(el) {
+            jQuery('#_fc_goto_dtpicker').data('DateTimePicker').show();
+        }
+
+        jQuery(document).ready(function() {
+            var $el_fc_calendar = jQuery('#calendar');   //  --| calendar DOM element
+            var fc_options = JSON.parse('{{ FC_OPTIONS|json_encode|e('js')|raw }}');
+            $.each(fc_options, function(i, opt) {
+                if (typeof opt === 'string' && opt.indexOf('__FULL_CAL__.functions') !== -1) {
+                    var namespaces = opt.split('.');
+                    var func = namespaces.pop();
+                    var context = window;
+                    for(var x = 0; x < namespaces.length; x++) {
+                        context = context[namespaces[x]];
+                    }
+                    fc_options[i] = context[func];  // set function
+                }
+            });
+            $el_fc_calendar
+                .filter(':not([disabled]):visible')
+                .fullCalendar(fc_options);
+            console.log('%cfullCalendar is successfully initiated', 'background: #183f52; color: #eee');
+
+            // $.ajax({
+            //     type: 'POST',
+            //     dataType: 'json',
+            //     url: Routing.generate('simagd_cita_generateCalendar'),
+            //     data: {_xml_http_request: true},
+            //     success: function(result) {
+            //         ////////
+            //         // var $options = applyFunctionsFromServer(result.options);
+            //         $.each(result.options, function(i, opt) {
+            //             if (typeof opt === 'string' && opt.indexOf('__FULL_CAL__.functions') !== -1) {
+            //                 var namespaces = opt.split('.');
+            //                 var func = namespaces.pop();
+            //                 var context = window;
+            //                 for(var x = 0; x < namespaces.length; x++) {
+            //                     context = context[namespaces[x]];
+            //                 }
+            //                 result.options[i] = context[func];  // set function
+            //             }
+            //         });
+            //
+            //         var $el_fc_calendar = jQuery('#calendar');   //  --| calendar DOM element
+            //         $el_fc_calendar
+            //             .filter(':not([disabled]):visible')
+            //             .fullCalendar(result.options);
+            //         console.log('%cfullCalendar is successfully initiated', 'background: #183f52; color: #eee');
+            //         ////////
+            //     },
+            //     error: function(e) {
+            //         window.console.log(e.error, e.responseText);
+            //     }
+            // });
+        });
+    </script>
+
+{% endautoescape %}

@@ -85,10 +85,10 @@ window.actionEvents = {
 	console.log(row);
 	actionEstudioSetterObjectModalData(row.est_id, row, {});
         jQuery('#estudioFullData-showModalContainer').modal();
-//         jQuery('#table-lista-preinscripciones-paciente').bootstrapTable('refresh', { url: Routing.generate('simagd_imagenologia_digital_listarSolicitudesEstudioPaciente', { expediente: row.id }) });
+//         jQuery('#table-lista-preinscripciones-paciente').bootstrapTable('refresh', { url: Routing.generate('simagd_imagenologia_digital_generateDataPaciente', { expediente: row.id }) });
 //         jQuery('#table-lista-citas-paciente').bootstrapTable('refresh', { url: Routing.generate('simagd_imagenologia_digital_listarCitasPaciente', { expediente: row.id }) });
 //         jQuery('#table-lista-estudios-paciente').bootstrapTable('refresh', { url: Routing.generate('simagd_imagenologia_digital_listarExamenesPaciente', { expediente: row.id }) });
-//         jQuery('#table-lista-diagnosticos-paciente').bootstrapTable('refresh', { url: Routing.generate('simagd_imagenologia_digital_listarDiagnosticosPaciente', { expediente: row.id }) });
+//         jQuery('#table-lista-diagnosticos-paciente').bootstrapTable('refresh', { url: Routing.generate('simagd_imagenologia_digital_generateDataPaciente', { expediente: row.id }) });
 //         
 //         $("div[id='div-resultado-informacion-paciente']").empty()
 //                 .load(Routing.generate('simagd_imagenologia_digital_listarDatosPaciente', { expediente: row.id }));
@@ -99,9 +99,9 @@ window.actionEvents = {
     },
     'click .anexar-lista-lectura-estudio-action': function (e, value, row, index) {
         $.ajax({
-            type: 'post',
+            type: 'POST',
             dataType: 'json',
-            url: Routing.generate('simagd_sin_lectura_anexarEstudioEnListaSinLectura'),
+            url: Routing.generate('simagd_sin_lectura_addToUndiagnosedStudiesList'),
             data: {
                 __est: row.est_id,
                 __estPdr: row.estPdr_id
@@ -264,7 +264,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate(url),
 		    data: $form.formParams(),
