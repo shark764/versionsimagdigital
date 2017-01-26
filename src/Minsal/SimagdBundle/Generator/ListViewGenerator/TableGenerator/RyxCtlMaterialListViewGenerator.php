@@ -132,6 +132,17 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
             );
         }
     }
+    /**
+     * Sets the array.
+     *
+     * @param array $columns An array instance
+     *
+     * @api
+     */
+    public function defineActions()
+    {
+        
+    }
 
     /**
      * {@inheritdoc}
