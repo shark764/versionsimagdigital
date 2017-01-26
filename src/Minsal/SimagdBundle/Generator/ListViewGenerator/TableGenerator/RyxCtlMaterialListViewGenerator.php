@@ -38,6 +38,11 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
     protected $admin;
 
     /**
+     * @var array
+     */
+    protected $actions = array();
+
+    /**
      * Sets the Admin associated with this Controller.
      *
      * @param AdminInterface $admin A AdminInterface instance
@@ -55,6 +60,26 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
     protected function getAdmin()
     {
         return $this->admin;
+    }
+
+    /**
+     * Sets the array.
+     *
+     * @param array $actions An array instance
+     *
+     * @api
+     */
+    public function setActions(array $actions)
+    {
+        $this->actions = $actions;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 
     /**
@@ -172,9 +197,23 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
         $actions = array();
         $securityContext = $this->container->get('security.context');
 
-        $actions[] = "one";
-        $actions[] = "two";
-        $actions[] = "three";
+        if (!(is_array($this->data) && count($this->data) > 0)) {
+            return;
+        }
+
+        $actions['show']    = $this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show');
+        $actions['edit']    = $this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit');
+        $actions['delete']  = $this->admin->isGranted('DELETE') && $this->admin->getRoutes()->has('delete');
+
+        $this->actions = array(
+            'show' => array(),
+            'edit' => array(),
+            'delete' => array(),
+        );
+        // POR CADA ELEMENTO DE LA DATA, SE AÑADIRÁ
+        // UN ACTION (ARRAY), ESTE MÉTODO SE CONSULTARÁ SOLO SI 
+        // SON CUSTOM, SI SON GENÉRICOS, SERA EL MISMO PARA TODOS
+        // SOLO LLAMARÁN AL MÉTODO Y SE RETORNARÁ EL BOOL
     }
 
     /**

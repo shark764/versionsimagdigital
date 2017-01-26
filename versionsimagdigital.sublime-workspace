@@ -61,6 +61,15 @@
 			}
 		},
 		{
+			"file": "src/Minsal/SimagdBundle/Controller/ImgCtlProyeccionAdminController.php",
+			"settings":
+			{
+				"buffer_size": 18089,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "src/Minsal/SimagdBundle/Controller/ImgProcedimientoRealizadoAdminController.php",
 			"settings":
 			{
@@ -96,15 +105,6 @@
 			}
 		},
 		{
-			"file": "/home/consul08/NetBeansProjects/minsalsiaps/src/Minsal/SeguimientoBundle/Resources/views/SecHistorialClinico/consultar_historial.html.twig",
-			"settings":
-			{
-				"buffer_size": 10636,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "src/Minsal/SimagdBundle/Resources/views/Dashboard/results_dashboard.html.twig",
 			"settings":
 			{
@@ -127,15 +127,6 @@
 			"settings":
 			{
 				"buffer_size": 8754,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/consul08/NetBeansProjects/minsalsiaps/src/Minsal/SimagdBundle/Resources/views/Dashboard/request_dashboard.html.twig",
-			"settings":
-			{
-				"buffer_size": 61497,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -200,6 +191,9 @@
 	},
 	"file_history":
 	[
+		"/home/dtic/NetBeansProjects/versionsimagdigital/my_wiki.sql",
+		"/home/consul08/NetBeansProjects/minsalsiaps/src/Minsal/SimagdBundle/Resources/views/Dashboard/request_dashboard.html.twig",
+		"/home/consul08/NetBeansProjects/minsalsiaps/src/Minsal/SeguimientoBundle/Resources/views/SecHistorialClinico/consultar_historial.html.twig",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/css/simagd-table.css",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/css/simagd-form-styles.css",
 		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/css/simagd-extend-bootstrap3_minsalsiaps.css",
@@ -324,14 +318,11 @@
 		"/home/consul08/NetBeansProjects/minsalsiaps/src/Minsal/SimagdBundle/Resources/config/doctrine/metadata/orm/RyxCitaEstudio.orm.xml",
 		"/home/consul08/NetBeansProjects/minsalsiaps/src/Minsal/SimagdBundle/Resources/config/doctrine/metadata/orm/RyxBloqueoAgenda.orm.xml",
 		"/home/consul08/NetBeansProjects/minsalsiaps/src/Minsal/SimagdBundle/Resources/config/doctrine/metadata/orm/RyxAreaServicioDiagnosticoBloqueoAgenda.orm.xml",
-		"/home/consul08/NetBeansProjects/minsalsiaps/src/Minsal/SimagdBundle/Resources/config/doctrine/metadata/orm/MntPacienteReferido.orm.xml",
-		"/home/consul08/NetBeansProjects/minsalsiaps/src/Minsal/SimagdBundle/Resources/config/doctrine/metadata/orm/MntExpedienteReferido.orm.xml",
-		"/home/consul08/NetBeansProjects/minsalsiaps/src/Minsal/SimagdBundle/Resources/config/doctrine/metadata/orm/MntDatoReferencia.orm.xml",
-		"/home/consul08/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlProyeccionRadiologicaListViewGenerator.php"
+		"/home/consul08/NetBeansProjects/minsalsiaps/src/Minsal/SimagdBundle/Resources/config/doctrine/metadata/orm/MntPacienteReferido.orm.xml"
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 21.0
 	},
 	"find_in_files":
 	{
@@ -633,7 +624,7 @@
 	"groups":
 	[
 		{
-			"selected": 16,
+			"selected": 5,
 			"sheets":
 			[
 				{
@@ -649,21 +640,21 @@
 						"selection":
 						[
 							[
-								20153,
-								20153
+								3303,
+								3303
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3292.0,
+						"translation.y": 1914.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -679,8 +670,8 @@
 						"selection":
 						[
 							[
-								83527,
-								83527
+								5239,
+								5239
 							]
 						],
 						"settings":
@@ -690,10 +681,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 19045.0,
+						"translation.y": 1261.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -720,10 +711,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1677.0,
+						"translation.y": 403.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -750,10 +741,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3568.0,
+						"translation.y": 201.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -780,14 +771,44 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4482.0,
+						"translation.y": 257.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 5,
+					"file": "src/Minsal/SimagdBundle/Controller/ImgCtlProyeccionAdminController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18089,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								17243,
+								17243
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4440.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
 					"file": "src/Minsal/SimagdBundle/Controller/ImgProcedimientoRealizadoAdminController.php",
 					"semi_transient": false,
 					"settings":
@@ -810,14 +831,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2907.0,
+						"translation.y": 203.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "src/Minsal/SimagdBundle/Resources/public/js/ImgLecturaAdmin/lct_diag_editor.js",
 					"semi_transient": false,
 					"settings":
@@ -840,14 +861,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5074.0,
+						"translation.y": 4607.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "src/Minsal/SimagdBundle/Resources/public/js/simagd_summernote_config.js",
 					"semi_transient": false,
 					"settings":
@@ -869,15 +890,15 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": -0.0,
+						"translation.x": 0.0,
 						"translation.y": 273.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
 					"file": "src/Minsal/SimagdBundle/Resources/public/js/simagd_webkitSpeechRecognition.js",
 					"semi_transient": false,
 					"settings":
@@ -903,37 +924,7 @@
 						"translation.y": 1794.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "/home/consul08/NetBeansProjects/minsalsiaps/src/Minsal/SeguimientoBundle/Resources/views/SecHistorialClinico/consultar_historial.html.twig",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10636,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6199,
-								6199
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 317.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
@@ -960,10 +951,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3685.0,
+						"translation.y": 318.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
@@ -990,10 +981,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1826.0,
+						"translation.y": 39.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
@@ -1023,41 +1014,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
 					"buffer": 13,
-					"file": "/home/consul08/NetBeansProjects/minsalsiaps/src/Minsal/SimagdBundle/Resources/views/Dashboard/request_dashboard.html.twig",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 61497,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								38615,
-								38615
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 7142.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
 					"file": "src/Minsal/SimagdBundle/Resources/views/General/worklist_script.html.twig",
 					"semi_transient": false,
 					"settings":
@@ -1080,14 +1041,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1599.0,
+						"translation.y": 260.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 14,
 					"file": "src/Minsal/SimagdBundle/Resources/views/General/request_dashboard_script.html.twig",
 					"semi_transient": false,
 					"settings":
@@ -1113,11 +1074,11 @@
 						"translation.y": 195.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
+					"buffer": 15,
 					"file": "src/Minsal/SimagdBundle/Resources/views/Dashboard/request_dashboard.html.twig",
 					"semi_transient": false,
 					"settings":
@@ -1143,7 +1104,7 @@
 						"translation.y": 2909.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 15,
 					"type": "text"
 				}
 			]
@@ -1151,7 +1112,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 22.0
+		"height": 21.0
 	},
 	"input":
 	{
@@ -1188,7 +1149,7 @@
 	"project": "versionsimagdigital.sublime-project",
 	"replace":
 	{
-		"height": 62.0
+		"height": 38.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1223,9 +1184,9 @@
 	{
 	},
 	"show_minimap": true,
-	"show_open_files": false,
+	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 150.0,
 	"status_bar_visible": true,
 	"template_settings":

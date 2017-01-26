@@ -340,7 +340,7 @@ class ImgCtlProyeccionAdminController extends MinsalSimagdBundleGeneralAdminCont
     {
         $request->isXmlHttpRequest();
 
-	$status = 'OK';
+        $status = 'OK';
 
         /*
          * request
