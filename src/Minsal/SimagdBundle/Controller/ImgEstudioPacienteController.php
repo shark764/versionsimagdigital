@@ -11,7 +11,8 @@ class ImgEstudioPacienteController extends Controller {
     /**
      * @Route("/buscar/estudio", name="buscar_estudio", options={"expose"=true})
      */
-    public function buscarEstudioAction() {
+    public function buscarEstudioAction()
+    {
         $em = $this->getDoctrine()->getManager();
         //establecimiento donde se realizara la busqueda
         $estabLocal = $this->container->get('security.context')->getToken()->getUser()->getIdEstablecimiento()->getId();
@@ -56,7 +57,7 @@ class ImgEstudioPacienteController extends Controller {
 	prc.fecha_creacion as sepreinscribio, 
 	expl.nombre as exploracion, 
 	exm.descripcion as examen, 
-	m.nombrearea as modalidad, 
+	m.nombrearea AS modalidad, 
 	emp.nombre || ' ' || emp.apellido as preinscribio,
 	tcnl.nombre || ' ' || tcnl.apellido as realizo, 
 	atn.nombre as servicioclinico, 
@@ -109,7 +110,7 @@ from img_estudio_paciente est
 	prc.fecha_creacion as sepreinscribio, 
 	expl.nombre as exploracion, 
 	exm.descripcion as examen, 
-	m.nombrearea as modalidad, 
+	m.nombrearea AS modalidad, 
 	emp.nombre || ' ' || emp.apellido as preinscribio,
 	tcnl.nombre || ' ' || tcnl.apellido as realizo, 
 	atn.nombre as servicioclinico, 
@@ -161,7 +162,7 @@ from img_estudio_paciente est
 	prc.fecha_creacion as sepreinscribio, 
 	expl.nombre as exploracion, 
 	exm.descripcion as examen, 
-	m.nombrearea as modalidad, 
+	m.nombrearea AS modalidad, 
 	emp.nombre || ' ' || emp.apellido as preinscribio,
 	tcnl.nombre || ' ' || tcnl.apellido as realizo, 
 	atn.nombre as servicioclinico, 
@@ -213,7 +214,7 @@ from img_estudio_paciente est
 	prc.fecha_creacion as sepreinscribio, 
 	expl.nombre as exploracion, 
 	exm.descripcion as examen, 
-	m.nombrearea as modalidad, 
+	m.nombrearea AS modalidad, 
 	emp.nombre || ' ' || emp.apellido as preinscribio,
 	tcnl.nombre || ' ' || tcnl.apellido as realizo, 
 	atn.nombre as servicioclinico, 
@@ -262,7 +263,7 @@ from img_estudio_paciente est
 	prc.fecha_creacion as sepreinscribio, 
 	expl.nombre as exploracion, 
 	exm.descripcion as examen, 
-	m.nombrearea as modalidad, 
+	m.nombrearea AS modalidad, 
 	emp.nombre || ' ' || emp.apellido as preinscribio,
 	tcnl.nombre || ' ' || tcnl.apellido as realizo, 
 	atn.nombre as servicioclinico, 
@@ -366,25 +367,6 @@ from img_estudio_paciente est
                "records":"' . $numfilas . '", 
                "rows":' . $datos . '}';
         return new Response($jsonresponse);
-    }
-    
-    public function getObjectVarsAsArrayAction(Request $request)
-    {
-        $request->isXmlHttpRequest();
-	
-        //Get parameter from object
-        $id = $request->request->get('id');
-        
-        //Objeto
-        $object = $this->admin->getObject($id);
-        
-        $response = new Response();
-        $response->setContent(json_encode(
-                array('id' => $object->getId(),
-                        'object' => $object->getObjectVarsAsArray()
-                        // 'url' => $this->admin->generateUrl('show', array('id' => $object->getId()))
-                )));
-        return $response;
     }
    
 }

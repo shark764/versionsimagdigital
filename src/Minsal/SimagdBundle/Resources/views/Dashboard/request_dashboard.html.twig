@@ -118,6 +118,7 @@
     {# bootstrap-table #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-table-master/dist/bootstrap-table.min.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-table-master/dist/locale/bootstrap-table-es-CR.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-table-contextmenu-master/dist/bootstrap-table-contextmenu.min.js') }}" ></script>
     {# data format for bootstrap-table #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_data_bsTable_formatter.js') }}" ></script>
     {# filters for bootstrap-table #}
@@ -211,24 +212,41 @@
         {#</div>#} <!-- end row block -->
 
         <div class="tab-pane fade in active" id="tab_list__" style="min-height: 768px;" >
+
             <!--
             //////////////////////////////////////////////////////////////
             //////// TABLE
             //////////////////////////////////////////////////////////////
              -->
             <!-- table for any result -->
-            <div class="{#col-lg-12 col-md-12 col-sm-12#} {#col-lg-9 col-md-9 col-sm-9#} ">
+            <div class="col-lg-12 col-md-12 col-sm-12 {#col-lg-9 col-md-9 col-sm-9#} ">
                 <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
                     <thead>
                     </thead>
                 </table>
             </div>
             <!-- end table -->
+
+
+            <!-- context-menu -->
+            <ul id="example2-context-menu" class="dropdown-menu highlight-success-dropdown-menu">
+                <li class="dropdown-header">MENÚ</li>
+                <li data-item="show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>
+                <li data-item="edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>
+                <li class="divider"></li>
+                <li data-item="delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>
+                <li class="divider"></li>
+                <li data-item="edit"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>
+            </ul>
+            <!-- end context-menu -->
+
+
             <!--
             //////////////////////////////////////////////////////////////
             //////// END --| TABLE
             //////////////////////////////////////////////////////////////
              -->
+
         </div>
 
     </div>

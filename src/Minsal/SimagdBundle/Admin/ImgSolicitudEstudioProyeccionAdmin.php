@@ -9,24 +9,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Doctrine\ORM\EntityRepository;
 
-class ImgSolicitudEstudioProyeccionAdmin extends Admin
+class ImgSolicitudEstudioProyeccionAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_solicitud_estudio_proyeccion';
+    protected $baseRouteName    = 'simagd_solicitud_estudio_proyeccion';
     protected $baseRoutePattern = 'rayos-x-proyecciones-solicitadas';
-
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
-    }
 
     /**
      * @param FormMapper $formMapper
@@ -111,10 +97,4 @@ class ImgSolicitudEstudioProyeccionAdmin extends Admin
         ;
     }
 
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
 }

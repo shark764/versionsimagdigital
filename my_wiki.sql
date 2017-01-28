@@ -1,3 +1,7 @@
+# MERGE CONFLICTS -- LIST
+git diff --name-only --diff-filter=U
+
+
 #GIT
 https://github.com/salexanderpc/tesisImg.git
 

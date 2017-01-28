@@ -78,7 +78,8 @@ class ImgExpedienteFicticio
     private $idUserReg;
 
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->nombreFicticio . ' - ' . $this->numero;
     }
 

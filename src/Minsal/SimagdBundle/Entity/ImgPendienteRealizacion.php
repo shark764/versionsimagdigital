@@ -123,7 +123,8 @@ class ImgPendienteRealizacion
      */
     private $idAsignaExaminante;
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->idSolicitudEstudio . ' :: ' . $this->idEstablecimiento;
     }
 

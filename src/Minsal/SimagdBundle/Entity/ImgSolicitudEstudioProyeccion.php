@@ -64,7 +64,8 @@ class ImgSolicitudEstudioProyeccion
     private $idSolicitudEstudio;
 
 
-    public function __toString() {
+    public function __toString()
+    {
         return '' . $this->idProyeccionSolicitada;
     }
 

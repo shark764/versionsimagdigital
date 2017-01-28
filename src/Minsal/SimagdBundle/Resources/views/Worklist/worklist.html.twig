@@ -118,6 +118,7 @@
     {# bootstrap-table #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-table-master/dist/bootstrap-table.min.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-table-master/dist/locale/bootstrap-table-es-CR.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-table-contextmenu-master/dist/bootstrap-table-contextmenu.min.js') }}" ></script>
     {# data format for bootstrap-table #}
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_data_bsTable_formatter.js') }}" ></script>
     {# filters for bootstrap-table #}
@@ -281,6 +282,20 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">EQUIPO</label>
+                                <div class="col-xs-2 col-lg-2 col-md-2 col-sm-2 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
+                                    <select id="_exam_worklist_x_ray_equipment" name="_exam_worklist_x_ray_equipment" class="form-control select2-select" >
+                                        <option value=""></option>
+                                        {#<optgroup label="Servicio de Diagnóstico por imagen">#}
+                                            {#{% for modalidad in modalidades %}
+                                                <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
+                                            {% endfor %}#}
+                                        {#</optgroup>#}
+                                    </select>
+                                </div>
+                            </div>
+
                         </form>
                         <!-- END --| FORM -->
 
@@ -290,24 +305,47 @@
         {#</div>#} <!-- END --| WORKLIST elements -->
 
         <div class="tab-pane fade in active" id="tab_list__" style="min-height: 768px;" >
+
             <!--
             //////////////////////////////////////////////////////////////
             //////// TABLE
             //////////////////////////////////////////////////////////////
              -->
             <!-- table for any result -->
-            <div class="{#col-lg-12 col-md-12 col-sm-12#} {#col-lg-9 col-md-9 col-sm-9#} ">
+            <div class="col-lg-12 col-md-12 col-sm-12 {#col-lg-9 col-md-9 col-sm-9#} ">
                 <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
                     <thead>
                     </thead>
                 </table>
             </div>
             <!-- end table -->
+
+
+            <!-- context-menu -->
+            <ul id="example2-context-menu" class="dropdown-menu highlight-success-dropdown-menu">
+                <li class="dropdown-header">MENÚ</li>
+                <li data-item="show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>
+                <li data-item="edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>
+                <li class="divider"></li>
+                <li data-item="delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">LISTA DE TRABAJO</li>
+                <li data-item="show"><a><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>
+                <li data-item="edit"><a><span class="glyphicon glyphicon-link"></span>Guardar y enlazar a PACS</a></li>
+                <li class="divider"></li>
+                <li data-item="show"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio</a></li>
+                <li class="divider"></li>
+                <li data-item="edit"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>
+            </ul>
+            <!-- end context-menu -->
+
+
             <!--
             //////////////////////////////////////////////////////////////
             //////// END --| TABLE
             //////////////////////////////////////////////////////////////
              -->
+
         </div>
 
     </div>

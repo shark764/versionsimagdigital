@@ -26,8 +26,8 @@ class ProyeccionRepository extends EntityRepository
                             ->andWhere('m.idAtencion = :id_atn')
                             ->setParameter('id_atn', $idAtencion)
                             ->andWhere('mr.imgHabilitado = TRUE')
-                            ->orderBy('m.nombrearea');
-        $query->distinct();
+                            ->orderBy('m.nombrearea')
+                            ->distinct();
 
         return $query->getQuery()->getResult();
     }
@@ -84,8 +84,8 @@ class ProyeccionRepository extends EntityRepository
                             ->andWhere('exm.idAtencion = :id_atn')
                             ->setParameter('id_atn', $idAtencion)
                             ->andWhere('mr.imgHabilitado = TRUE')
-                            ->orderBy('exm.descripcion');
-        $query->distinct();
+                            ->orderBy('exm.descripcion')
+                            ->distinct();
 
         return $query->getQuery()->getResult();
     }
@@ -150,7 +150,7 @@ class ProyeccionRepository extends EntityRepository
         if ($unique ) { $query->distinct(); }
 
         $ids = array();
-        foreach($query->getQuery()->getScalarResult() AS $resultado) {
+        foreach($query->getQuery()->getScalarResult() as $resultado) {
             $ids[] = $resultado['id'];
         }
 
@@ -254,17 +254,17 @@ class ProyeccionRepository extends EntityRepository
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
 
-    public function obtenerProyeccionesV2($bs_filters = array())
+    public function data($bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('expl')
                             ->select('expl')
                             ->addSelect('exm')
 
-                            ->addSelect('expl.id AS id, expl.nombre AS nombre, expl.codigo as codigo, exm.descripcion as examen, exm.idestandar as codigo_examen, expl.descripcion as descripcion, expl.fechaHoraReg as fecha_registro, expl.fechaHoraMod as fecha_edicion')
+                            ->addSelect('expl.id AS id, expl.nombre AS nombre, expl.codigo AS codigo, exm.descripcion AS examen, exm.idestandar as codigo_examen, expl.descripcion as descripcion, expl.fechaHoraReg AS fecha_registro, expl.fechaHoraMod AS fecha_edicion')
 
                             ->addSelect('IDENTITY(exm.idAtencion) AS exm_id_atencion')
-                            ->addSelect('usrRg.username as expl_usernameUserReg, usrRg.id AS expl_id_userReg, usrMd.username as expl_usernameUserMod, usrMd.id AS expl_id_userMod')
+                            ->addSelect('usrRg.username AS expl_usernameUserReg, usrRg.id AS expl_id_userReg, usrMd.username AS expl_usernameUserMod, usrMd.id AS expl_id_userMod')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS expl_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS expl_nombreUserMod')
                             ->addSelect('CASE WHEN (sex.id IS NOT NULL) THEN sex.nombre ELSE \'Todos los sexos\' END AS exm_sexo')
@@ -275,8 +275,8 @@ class ProyeccionRepository extends EntityRepository
                             ->leftJoin('expl.idUserMod', 'usrMd')
                             ->innerJoin('usrRg.idEmpleado', 'usrRgEmp')
                             ->leftJoin('usrMd.idEmpleado', 'usrMdEmp')
-                            ->orderBy('exm.id', 'desc')
-                            ->addOrderBy('expl.id', 'desc')
+                            ->orderBy('exm.id', 'DESC')
+                            ->addOrderBy('expl.id', 'DESC')
                             ->distinct();
 
         /*
@@ -312,14 +312,14 @@ class ProyeccionRepository extends EntityRepository
                                     'expl.id = prcExpl.idProyeccionSolicitada')
                             ->where('prcExpl.idSolicitudEstudio = :id_solest')
                             ->setParameter('id_solest', $idSolicitud)
-                            ->orderBy('exm.id', 'desc')
-                            ->addOrderBy('expl.id', 'desc')
+                            ->orderBy('exm.id', 'DESC')
+                            ->addOrderBy('expl.id', 'DESC')
                             ->distinct();
 
         return $query->getQuery()->getScalarResult();
     }
 
-    public function obtenerProyeccionesLocalesV2($id_estab, $bs_filters = array())
+    public function localData($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('explrz')
@@ -329,10 +329,10 @@ class ProyeccionRepository extends EntityRepository
                             ->addSelect('exm')
                             ->addSelect('m')
 
-                            ->addSelect('explrz.id AS id, expl.nombre AS nombre, expl.codigo as codigo, exm.descripcion as examen, exm.idestandar as codigo_examen, m.nombrearea as modalidad, m.idarea as codigo_modalidad, expl.descripcion as descripcion, expl.fechaHoraReg as fecha_registro, expl.fechaHoraMod as fecha_edicion, explrz.fechaHoraReg as fecha_registro_local, explrz.fechaHoraMod as fecha_edicion_local, explrz.habilitado as habilitado')
+                            ->addSelect('explrz.id AS id, expl.nombre AS nombre, expl.codigo AS codigo, exm.descripcion AS examen, exm.idestandar as codigo_examen, m.nombrearea AS modalidad, m.idarea as codigo_modalidad, expl.descripcion as descripcion, expl.fechaHoraReg AS fecha_registro, expl.fechaHoraMod AS fecha_edicion, explrz.fechaHoraReg AS fecha_registro_local, explrz.fechaHoraMod AS fecha_edicion_local, explrz.habilitado AS habilitado')
 
                             ->addSelect('IDENTITY(exm.idAtencion) AS exm_id_atencion, IDENTITY(m.idAtencion) AS m_id_atencion')
-                            ->addSelect('usrRg.username as explrz_usernameUserReg, usrRg.id AS explrz_id_userReg, usrMd.username as explrz_usernameUserMod, usrMd.id AS explrz_id_userMod')
+                            ->addSelect('usrRg.username AS explrz_usernameUserReg, usrRg.id AS explrz_id_userReg, usrMd.username AS explrz_usernameUserMod, usrMd.id AS explrz_id_userMod')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS explrz_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS explrz_nombreUserMod')
                             ->addSelect('CASE WHEN (sex.id IS NOT NULL) THEN sex.nombre ELSE \'Todos los sexos\' END AS exm_sexo')
@@ -348,9 +348,9 @@ class ProyeccionRepository extends EntityRepository
                             ->leftJoin('usrMd.idEmpleado', 'usrMdEmp')
                             ->where('mr.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
-                            ->orderBy('m.id', 'desc')
-                            ->addOrderBy('exm.id', 'desc')
-                            ->addOrderBy('expl.id', 'desc')
+                            ->orderBy('m.id', 'DESC')
+                            ->addOrderBy('exm.id', 'DESC')
+                            ->addOrderBy('expl.id', 'DESC')
                             ->distinct();
 
         /*
@@ -388,7 +388,7 @@ class ProyeccionRepository extends EntityRepository
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
 
-    public function obtenerProyeccionesScalarV2($return = 'scalar')
+    public function scalarData($return = 'scalar')
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('expl')
@@ -396,13 +396,13 @@ class ProyeccionRepository extends EntityRepository
                             ->addSelect('exm')
                             ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
                             ->innerJoin('expl.idExamenServicioDiagnostico', 'exm')
-                            ->orderBy('exm.id', 'desc')
-                            ->addOrderBy('expl.id', 'desc')
+                            ->orderBy('exm.id', 'DESC')
+                            ->addOrderBy('expl.id', 'DESC')
                             ->distinct();
 
     	if($return == 'scalar')
     	{
-    	    $query->addSelect('expl.id AS id, expl.nombre AS text, expl.codigo as cod, IDENTITY(expl.idExamenServicioDiagnostico) AS exmGroup');
+    	    $query->addSelect('expl.id AS id, expl.nombre AS text, expl.codigo AS cod, IDENTITY(expl.idExamenServicioDiagnostico) AS exmGroup');
     	}
 
         return $return == 'query' ?
@@ -411,7 +411,7 @@ class ProyeccionRepository extends EntityRepository
 	    );
     }
 
-    public function obtenerProyeccionesAgrupadasV2($id_estabLocal, $id_atencion = '97', $return = 'scalar')
+    public function getRadiologicalProceduresGrouped($id_estabLocal, $id_atencion = '97', $return = 'scalar')
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -430,8 +430,8 @@ class ProyeccionRepository extends EntityRepository
                             ->andWhere('explrz.habilitado = TRUE')
                             ->groupBy('m.id')
                             ->addGroupBy('expl.id')
-                            ->orderBy('m.id', 'desc')
-                            ->addOrderBy('expl.id', 'desc')
+                            ->orderBy('m.id', 'DESC')
+                            ->addOrderBy('expl.id', 'DESC')
                             ->distinct();
 
         return $return == 'query' ?
@@ -457,8 +457,8 @@ class ProyeccionRepository extends EntityRepository
                                     'expl.id = solcmplExpl.idProyeccionSolicitada')
                             ->where('solcmplExpl.idSolicitudEstudioComplementario = :id_solcmpl')
                             ->setParameter('id_solcmpl', $id_solcmpl)
-                            ->orderBy('exm.id', 'desc')
-                            ->addOrderBy('expl.id', 'desc')
+                            ->orderBy('exm.id', 'DESC')
+                            ->addOrderBy('expl.id', 'DESC')
                             ->distinct();
 
         return $query->getQuery()->getScalarResult();

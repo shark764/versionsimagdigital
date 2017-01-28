@@ -27,7 +27,7 @@ window.pendienteLectura_actionEvents = {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: Routing.generate('simagd_lectura_agregarPendiente'),
+            url: Routing.generate('simagd_lectura_addPendingToWorkList'),
             data: {
 		    __est: row.est_id,
 		    __xrad: row.pndL_anexadoPorRadiologo,

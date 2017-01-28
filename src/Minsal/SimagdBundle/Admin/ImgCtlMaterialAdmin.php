@@ -14,51 +14,22 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Minsal\SimagdBundle\Entity\ImgCtlMaterialEstablecimiento;
 
-class ImgCtlMaterialAdmin extends Admin
+class ImgCtlMaterialAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_material';            //SUSTITUIR METODO GET NEW INSTANCE CON EL ESTABLECIMIENTO YA SETEADO
+    protected $baseRouteName    = 'simagd_material';            //SUSTITUIR METODO GET NEW INSTANCE CON EL ESTABLECIMIENTO YA SETEADO
     protected $baseRoutePattern = 'rayos-x-material';
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('delete');
+        parent::configureRoutes($collection);
+        
+        // $collection->remove('delete');
         $collection->add('agregarEnMiCatalogo', null, [], [], ['expose' => true]);
         $collection->add('crearMaterial', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarMaterial', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
-    }
-
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
-    }
-
-    /**
-     * @param FormMapper $formMapper
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
     }
 
     public function prePersist($material) {
@@ -79,7 +50,8 @@ class ImgCtlMaterialAdmin extends Admin
 	}
     }
 
-    public function getTemplate($name) {
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'edit':
                 return 'MinsalSimagdBundle:ImgCtlMaterialAdmin:mtrl_edit.html.twig';
@@ -95,4 +67,5 @@ class ImgCtlMaterialAdmin extends Admin
                 break;
         }
     }
+
 }

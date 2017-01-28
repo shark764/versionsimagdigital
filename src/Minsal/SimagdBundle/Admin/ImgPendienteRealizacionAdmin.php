@@ -11,16 +11,13 @@ use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class ImgPendienteRealizacionAdmin extends Admin
+class ImgPendienteRealizacionAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_sin_realizar';
+    protected $baseRouteName    = 'simagd_sin_realizar';
     protected $baseRoutePattern = 'rayos-x-sin-realizar';
     
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
         $collection->add('show', 'consultar');
         // $collection->clearExcept(array('list'));
         $collection->add('realizar');
@@ -30,36 +27,9 @@ class ImgPendienteRealizacionAdmin extends Admin
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
-    
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
 
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
+    public function createQuery($context = 'list')
     {
-    }
-
-    /**
-     * @param FormMapper $formMapper
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-    }
-    
-    public function createQuery($context = 'list') {
         $query = parent::createQuery($context);
         
         /** SubQuery */
@@ -84,7 +54,8 @@ class ImgPendienteRealizacionAdmin extends Admin
         return $query;
     }
 
-    public function getTemplate($name) {
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'list':
                 return 'MinsalSimagdBundle:ImgPendienteRealizacionAdmin:pndR_list_v2.html.twig';
@@ -102,8 +73,9 @@ class ImgPendienteRealizacionAdmin extends Admin
     public function preUpdate($pndRealizar) {
         $pndRealizar->setFechaIngresoLista(new \DateTime('now'));
     }
-    
-    public function getNewInstance() {
+
+    public function getNewInstance()
+    {
         $instance = parent::getNewInstance();
         
         $securityContext = $this->getConfigurationPool()->getContainer()->get('security.context');
@@ -115,5 +87,5 @@ class ImgPendienteRealizacionAdmin extends Admin
         
         return $instance;
     }
-    
+
 }

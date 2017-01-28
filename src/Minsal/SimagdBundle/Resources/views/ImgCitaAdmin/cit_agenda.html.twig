@@ -177,6 +177,100 @@
 
     {{ parent() }}
 
+
+
+    {#<div class="col-lg-8 col-md-8 col-sm-8 col-xs-offset-2 ">#}
+    {#<div class="col-lg-6 col-md-6 col-sm-6 ">#}
+    <div class="{#col-lg-9 col-md-9 col-sm-9#} col-lg-10 col-md-10 col-sm-10 ">
+        {#<div class="row">#} <!-- row block -->
+            <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
+                <div class="box-body">
+
+                    <!-- WORKLIST MENU -->
+                    <div class="col-lg-10 col-md-10 col-sm-10 nav-pills-darkblue ">
+                        <ul class="nav nav-pills nav-justified" id="_agenda_dashboard_display_items">
+                            <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'events_calendar_and_exams'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-calendar"></span> AGENDA</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'scheduled_appointments_for_exams', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-tags"></span> CITAS PROGRAMADAS</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'blocked_days_and_festivities'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-comment"></span> BLOQUEOS Y FEST.</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- DISPLAY TYPE -->
+                    <ul class="list-unstyled list-inline input-sm " id="_agenda_dashboard_display_type" style="margin-top: 3px; margin-bottom: 6px;">
+                        <li>
+                            <label class="">
+                                <input type="radio" checked="checked" value="list" name="_agenda_dashboard_display_type" id="_agenda_dashboard_display_type_0">
+                                <span style="margin-left: 5px;"> Lista</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="">
+                                <input type="radio" {#checked="checked"#} value="detail" name="_agenda_dashboard_display_type" id="_agenda_dashboard_display_type_1">
+                                <span style="margin-left: 5px;"> Detalle</span>
+                            </label>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        {#</div>#} <!-- end row block -->
+
+        <div class="tab-pane fade in active" id="tab_list__" style="min-height: 768px;" >
+            <!--
+            //////////////////////////////////////////////////////////////
+            //////// TABLE
+            //////////////////////////////////////////////////////////////
+             -->
+            <!-- table for any result -->
+            <div class="{#col-lg-12 col-md-12 col-sm-12#} {#col-lg-9 col-md-9 col-sm-9#} ">
+                <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
+                    <thead>
+                    </thead>
+                </table>
+            </div>
+            <!-- end table -->
+            <!--
+            //////////////////////////////////////////////////////////////
+            //////// END --| TABLE
+            //////////////////////////////////////////////////////////////
+             -->
+        </div>
+
+    </div>
+
+    <div class="{#col-lg-3 col-md-3 col-sm-3#} col-lg-2 col-md-2 col-sm-2 ">
+
+        <!-- vertical pills -->
+        <div class="{#col-lg-3 col-md-3 col-sm-3#} nav-pills-medicine ">
+            <ul class="nav nav-pills nav-stacked {#nav-justified#} " id="_stacked_agenda_dashboard_display_items">
+                <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'events_calendar_and_exams'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-calendar"></span> AGENDA</a></li>
+                <li><a href="javascript:void(0)" onclick="generate(this, 'scheduled_appointments_for_exams', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-tags"></span> CITAS PROGRAMADAS</a></li>
+                <li><a href="javascript:void(0)" onclick="generate(this, 'blocked_days_and_festivities'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-comment"></span> BLOQUEOS Y FEST.</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!--
+    //////////////////////////////////////////////////////////////
+    //////// SCRIPT FUNCTIONS
+    //////////////////////////////////////////////////////////////
+     -->
+    {#<script type="text/javascript">
+    </script>#}
+    {% include 'MinsalSimagdBundle:General:agenda_dashboard_script.html.twig' %}
+    <!--
+    //////////////////////////////////////////////////////////////
+    //////// END --| SCRIPT FUNCTIONS
+    //////////////////////////////////////////////////////////////
+     -->
+
+    {% include 'MinsalSimagdBundle:CRUD:simagd_edit_orm_modal.html.twig' ignore missing with {'id': 'patient_modal_search_'} %}
+
+
+
+
+
     <div id="div-resultado-agenda-rx" class="menu-vistas-agenda" {% if _CIT_ALLOW_CREATE == false %} style="visibility: hidden;" {% endif %} >
 
 	<div class="row outer">

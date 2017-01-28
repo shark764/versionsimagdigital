@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -13,9 +13,10 @@ use Minsal\SimagdBundle\Entity\ImgPendienteLectura; // --| Lista de trabajo
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxLecturaRadiologicaListViewGenerator;
 
-class ImgLecturaAdminController extends Controller
+class ImgLecturaAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     /**
      * TABLE GENERATOR
@@ -29,7 +30,7 @@ class ImgLecturaAdminController extends Controller
         $request->isXmlHttpRequest();
         $__REQUEST__type = $request->request->get('type', 'list');
 
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
 
         //////// --| builder entity
         $ENTITY_LIST_VIEW_GENERATOR_ = new RyxLecturaRadiologicaListViewGenerator(
@@ -97,7 +98,7 @@ class ImgLecturaAdminController extends Controller
         return new RedirectResponse($url);
     }
     
-    public function agregarPendienteAction()
+    public function addPendingToWorkListAction()
     {
         //Get parameter from estudio
         if (!$this->get('request')->request->get('__est')) {
@@ -117,7 +118,7 @@ class ImgLecturaAdminController extends Controller
     	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
     	$estudioPdr         = $this->get('request')->query->get('__estPdr');
     	if ($estudioPdr) {
@@ -139,7 +140,7 @@ class ImgLecturaAdminController extends Controller
     			$status = 'failed';
     		    }
 
-    		    $response           = new Response();
+    		    $response = new Response();
     		    $response->setContent(json_encode(array()));
     		    return $response;
     		}
@@ -157,12 +158,10 @@ class ImgLecturaAdminController extends Controller
         try {
             /*$lectura        = */$this->admin->create($lectura);
         } catch (Exception $e) {
-            $status         = 'failed';
+            $status = 'failed';
         }
         
-        $response           = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
     
     /**
@@ -172,7 +171,7 @@ class ImgLecturaAdminController extends Controller
      */
     public function createAction()
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('CREATE')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -200,7 +199,7 @@ class ImgLecturaAdminController extends Controller
     	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
 
         // //validar parámetro
@@ -330,7 +329,7 @@ class ImgLecturaAdminController extends Controller
         /*
          * Patrones para diagnóstico
          */
-        $query_diagnostic_pattern_list  = $em->getRepository('MinsalSimagdBundle:ImgCtlPatronDiagnostico')->obtenerPatronesDiagnosticoUtilizablesV2($estabLocal->getId())->getQuery();
+        $query_diagnostic_pattern_list  = $em->getRepository('MinsalSimagdBundle:ImgCtlPatronDiagnostico')->getUsableDiagnosticPatterns($estabLocal->getId())->getQuery();
         $DIAGNOSTIC_PATTERN_LIST    = $query_diagnostic_pattern_list->getScalarResult();
         /*
          * Fin --- Patrones para diagnóstico
@@ -341,7 +340,7 @@ class ImgLecturaAdminController extends Controller
          */
         $GROUP_DEPENDENT_ENTITIES   = array();
         try {
-            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesAgrupadasV2($estabLocal->getId());
+            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->getRadiologicalProceduresGrouped($estabLocal->getId());
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -444,7 +443,7 @@ class ImgLecturaAdminController extends Controller
      */
     public function editAction($id = null)
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('EDIT')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -460,10 +459,10 @@ class ImgLecturaAdminController extends Controller
     	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         /** request object id */
-        $id                 = $this->get('request')->get($this->admin->getIdParameter());
+        $id = $this->get('request')->get($this->admin->getIdParameter());
 
         //No existe el registro
         if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgLectura', 'lct')) {
@@ -590,7 +589,7 @@ class ImgLecturaAdminController extends Controller
         /*
          * Patrones para diagnóstico
          */
-        $query_diagnostic_pattern_list  = $em->getRepository('MinsalSimagdBundle:ImgCtlPatronDiagnostico')->obtenerPatronesDiagnosticoUtilizablesV2($estabLocal->getId())->getQuery();
+        $query_diagnostic_pattern_list  = $em->getRepository('MinsalSimagdBundle:ImgCtlPatronDiagnostico')->getUsableDiagnosticPatterns($estabLocal->getId())->getQuery();
         $DIAGNOSTIC_PATTERN_LIST    = $query_diagnostic_pattern_list->getScalarResult();
         /*
          * Fin --- Patrones para diagnóstico
@@ -601,7 +600,7 @@ class ImgLecturaAdminController extends Controller
          */
         $GROUP_DEPENDENT_ENTITIES   = array();
         try {
-            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesAgrupadasV2($estabLocal->getId());
+            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->getRadiologicalProceduresGrouped($estabLocal->getId());
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -628,35 +627,37 @@ class ImgLecturaAdminController extends Controller
         ));
     }
     
-    public function showAction($id = NULL) {
-        //Acceso denegado
+    public function showAction($id = NULL)
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
         
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
 
-        //No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgLectura', 'lct')) {
-            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
-        }
+        // //No existe el registro
+        // if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgLectura', 'lct')) {
+        //     return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
+        // }
 
-        //No puede acceder al registro
-        $sessionUser = $this->container->get('security.context')->getToken()->getUser();
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgLectura')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
-            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
-        }
+        // //No puede acceder al registro
+        // $sessionUser = $this->container->get('security.context')->getToken()->getUser();
+        // if (false === $em->getRepository('MinsalSimagdBundle:ImgLectura')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
+        //     return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
+        // }
         
         return parent::showAction($id);
     }
     
-    public function listAction() {
-        //Acceso denegado
+    public function listAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
         
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
     	$securityContext        = $this->container->get('security.context');
     	$sessionUser           = $securityContext->getToken()->getUser();
@@ -693,7 +694,7 @@ class ImgLecturaAdminController extends Controller
         // $pacientes              = $em->getRepository('MinsalSiapsBundle:MntPaciente')->findAll();
 
         /** Patrones para diagnóstico */
-        $query_diagnostic_pattern_list  = $em->getRepository('MinsalSimagdBundle:ImgCtlPatronDiagnostico')->obtenerPatronesDiagnosticoUtilizablesV2($estabLocal->getId())->getQuery();
+        $query_diagnostic_pattern_list  = $em->getRepository('MinsalSimagdBundle:ImgCtlPatronDiagnostico')->getUsableDiagnosticPatterns($estabLocal->getId())->getQuery();
         $patronesDiag   = $query_diagnostic_pattern_list->getResult();
         $DIAGNOSTIC_PATTERN_LIST    = $query_diagnostic_pattern_list->getScalarResult();
         /** Fin --- Patrones para diagnóstico */
@@ -732,19 +733,21 @@ class ImgLecturaAdminController extends Controller
 
         $__REQUEST__type = $this->get('request')->query->get('type', 'list');
         
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
     	$securityContext    = $this->container->get('security.context');
     	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
-        $results         = $em->getRepository('MinsalSimagdBundle:ImgLectura')->obtenerLecturasV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgLectura')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
 
     	$isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
     	$isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
         $isUser_allowTranscribir   = ($this->admin->getRoutes()->has('edit') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_EDIT')) ||
                     $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
+
+        $formatter = new Formatter();
 
         foreach ($results as $key => $r)
         {
@@ -773,33 +776,9 @@ class ImgLecturaAdminController extends Controller
 
             $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
                     '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-show-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Ver detalle..." >' .
-                        // '<a class=" worklist-show-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Ver detalle..." >' .
-                            // 'Ver' .
-                            '<i class="glyphicon glyphicon-chevron-down"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-form-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Abrir formulario..." >' .
-                        // '<a class=" worklist-save-form-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Abrir formulario..." >' .
-                            // 'Formulario' .
-                            '<i class="glyphicon glyphicon-edit"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-and-pacs-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                        // '<a class=" worklist-save-and-pacs-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                            // 'Guardar y asociar' .
-                            // '<i class="glyphicon glyphicon-check"></i>' .
-                            '<i class="glyphicon glyphicon-link"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    // '<span class="bs-btn-separator-toolbar"></span>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-action btn-link btn-link-emergency " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                        // '<a class=" worklist-save-action btn btn-emergency btn-outline btn-xs " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                            // 'Guardar' .
-                            '<i class="glyphicon glyphicon-check"></i>' .
+                        '<a class=" example2-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                            // 'OP.' .
+                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
                     '</div>' .
                 '</div>';
@@ -820,27 +799,25 @@ class ImgLecturaAdminController extends Controller
             $results[$key]['allowTranscribir']   = ($countDiag['numDiag'] === 0 && false !== $isUser_allowTranscribir && in_array($r['lct_codEstado'], array('LDO'))) ? TRUE : FALSE;
         }
         
-        $response = new Response();
-        $response->setContent(json_encode($results));
-        return $response;
+        return $this->renderJson($results);
     }
     
     public function getObjectVarsAsArrayAction(Request $request)
     {
         $request->isXmlHttpRequest();
         
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
     	$securityContext    = $this->container->get('security.context');
     	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 	
         //Get parameter from object
-        $id                 = $request->request->get('id');
+        $id = $request->request->get('id');
         $pct                = $request->request->get('pct');
         
         //Objeto
-        $object             = $this->admin->getObject($id);
+        $object = $this->admin->getObject($id);
 
         //Expediente local e información del paciente
         $expediente         = $em->getRepository('MinsalSiapsBundle:MntExpediente')->getObjectVarsAsArray($estabLocal->getId(), $pct);
@@ -852,7 +829,7 @@ class ImgLecturaAdminController extends Controller
          * Caso especial LCT y PRZ que necesitan los estudios, tambien se necesita getSimpleObjectPropertiesAsArray de los estudios incrustados.
          */
         
-        $response           = new Response();
+        $response = new Response();
         $response->setContent(json_encode(
                 array('id' => $object->getId(),
                         'object' => $object->getObjectPropertiesAsArray(),

@@ -10,9 +10,9 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class BusquedaDiagnosticoAdmin extends Admin
+class BusquedaDiagnosticoAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_busqueda_diagnostico';
+    protected $baseRouteName    = 'simagd_busqueda_diagnostico';
     protected $baseRoutePattern = 'rayos-x-busqueda-diagnostico';
 
     protected $datagridValues = array(
@@ -29,12 +29,9 @@ class BusquedaDiagnosticoAdmin extends Admin
     
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('create', 'crear');
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
-        $collection->clearExcept(array('show', 'list'));
+        // $collection->clearExcept(array('show', 'list'));
         $collection->add('nota');
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
     }
     
     /**
@@ -114,8 +111,9 @@ class BusquedaDiagnosticoAdmin extends Admin
             ->end()
         ;
     }
-    
-    public function getTemplate($name) {
+
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'list':
                 return 'MinsalSimagdBundle::simagd_base_list.html.twig';
@@ -128,4 +126,5 @@ class BusquedaDiagnosticoAdmin extends Admin
                 break;
         }
     }
+
 }

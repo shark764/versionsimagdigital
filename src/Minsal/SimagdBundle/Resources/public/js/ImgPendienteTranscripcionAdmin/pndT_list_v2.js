@@ -26,7 +26,7 @@ window.pendienteTranscripcion_actionEvents = {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: Routing.generate('simagd_diagnostico_agregarPendiente'),
+            url: Routing.generate('simagd_diagnostico_addPendingToWorkList'),
             data: { __lct: row.lct_id },
             success: function(response) {
 			console.log('Elemento ingresado en lista personal satisfactoriamente');

@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -14,9 +14,10 @@ use Sonata\AdminBundle\Exception\ModelManagerException;
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxSolicitudEstudioListViewGenerator;
 
-class ImgSolicitudEstudioAdminController extends Controller
+class ImgSolicitudEstudioAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     /**
      * TABLE GENERATOR
@@ -31,7 +32,7 @@ class ImgSolicitudEstudioAdminController extends Controller
         $__REQUEST__type = $request->request->get('type', 'list');
         $__REQUEST__emrg = $request->request->get('emrg', 0);
 
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
 
         //////// --| builder entity
         $ENTITY_LIST_VIEW_GENERATOR_ = new RyxSolicitudEstudioListViewGenerator(
@@ -78,7 +79,7 @@ class ImgSolicitudEstudioAdminController extends Controller
             $selector       = $this->get('request')->query->get('selector');
         }
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $entities           = null;
         $encodeR            = array();
 
@@ -88,7 +89,7 @@ class ImgSolicitudEstudioAdminController extends Controller
                 try {
                     $entities   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerModalidadesRealizables($paramFilter, $paramFilterB);
                 } catch (Exception $e) {
-                    $status 	= 'failed';
+                    $status = 'failed';
                 }
                 break;
             case "atn":
@@ -96,7 +97,7 @@ class ImgSolicitudEstudioAdminController extends Controller
                 try {
 		    $entities   = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerAtenciones($estabLocal->getId(), $paramFilter);
                 } catch (Exception $e) {
-                    $status 	= 'failed';
+                    $status = 'failed';
                 }
                 break;
             case "emp":
@@ -104,7 +105,7 @@ class ImgSolicitudEstudioAdminController extends Controller
                 try {
                     $entities   = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerEmpleados($estabLocal->getId(), $paramFilter, $paramFilterB);
                 } catch (Exception $e) {
-                    $status 	= 'failed';
+                    $status = 'failed';
                 }
                 //Retornar nuevo aams
                 $aamsId         = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerAtencionAreaEstab($estabLocal->getId(), $paramFilterB, $paramFilter);
@@ -123,7 +124,7 @@ class ImgSolicitudEstudioAdminController extends Controller
                     $entities       = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')
                                                 ->obtenerProyeccionesRealizables($paramFilterBJson['idReferido'], $paramFilter, $idSexo, $paramFilterBJson['idAtencion']);
                 } catch (Exception $e) {
-                    $status         = 'failed';
+                    $status = 'failed';
                 }
                 break;
             case "stdiag":
@@ -131,7 +132,7 @@ class ImgSolicitudEstudioAdminController extends Controller
                 try {
                     $entities   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerEstabDiagnosticantes($paramFilter, $paramFilterB);
                 } catch (Exception $e) {
-                    $status 	= 'failed';
+                    $status = 'failed';
                 }
                 break;
             case "explnrz":
@@ -142,22 +143,25 @@ class ImgSolicitudEstudioAdminController extends Controller
                 break;
         }
 
-        $resultados         = array();
+        $results = array();
         foreach ($entities as $entity)  {
-            $resultado['value'] = $entity->getId();
-            $resultado['text']  = $entity->__toString();
-            $resultados[]       = $resultado;
+            $r['value'] = $entity->getId();
+            $r['text']  = $entity->__toString();
+            $results[]  = $r;
         }
 
-        $encodeR['resultados']  = $resultados;
+        $encodeR['results'] = $results;
         /*
          * status request
          */
-        $encodeR['status']      = $status;
+        $encodeR['status']  = $status;
 
-        $response               = new Response();
-        $response->setContent(json_encode($encodeR));
-        return $response;
+        return $this->renderJson($encodeR);
+
+        // return $this->renderJson(array(
+        //     'status'    => $status,
+        //     'results'   => $results
+        // ));
     }
 
     /**
@@ -169,7 +173,7 @@ class ImgSolicitudEstudioAdminController extends Controller
      */
     public function createAction()
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('CREATE')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -192,7 +196,7 @@ class ImgSolicitudEstudioAdminController extends Controller
     	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //validar parámetros
         if ($idExpRequest || $idHsClRequest) {
@@ -369,16 +373,16 @@ class ImgSolicitudEstudioAdminController extends Controller
         }
 
         /** Crear/Actualizar y mostrar registro */
-        if ((null !== $this->get('request')->get('btn_create_and_show')) ||
-                                (null !== $this->get('request')->get('btn_edit_and_show'))) {
-    		$url = $this->admin->generateObjectUrl('show', $object);
-        }
+      //   if ((null !== $this->get('request')->get('btn_create_and_show')) ||
+      //                           (null !== $this->get('request')->get('btn_edit_and_show'))) {
+    		// $url = $this->admin->generateObjectUrl('show', $object);
+      //   }
 
         /** Crear/Actualizar y mostrar registro */
-        if ((null !== $this->get('request')->get('btn_create_and_request')) ||
-                                (null !== $this->get('request')->get('btn_edit_and_request'))) {
-    		$url = $this->admin->generateObjectUrl('show', $object);
-        }
+      //   if ((null !== $this->get('request')->get('btn_create_and_request')) ||
+      //                           (null !== $this->get('request')->get('btn_edit_and_request'))) {
+    		// $url = $this->admin->generateObjectUrl('show', $object);
+      //   }
 
         if (!$url) {
             $url = $this->admin->generateObjectUrl('edit', $object);
@@ -391,19 +395,17 @@ class ImgSolicitudEstudioAdminController extends Controller
     {
         $request->isXmlHttpRequest();
 
-        $id             = $request->request->get('id');
+        $id = $request->request->get('id');
         $preinscripcion = $this->admin->getObject($id);
         if (!$preinscripcion) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
-        $em             = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         if ($em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorPreinscripcion($id, 'cit', 'ImgCita')) {
-            $status     = 'notAllowed';
-            $response   = new Response();
-            $response->setContent(json_encode(array()));
-            return $response;
+            $status = 'notAllowed';
+            return $this->renderJson(array());
         }
 
         //Desmarcar para programación de cita
@@ -416,9 +418,7 @@ class ImgSolicitudEstudioAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     /**
@@ -433,38 +433,38 @@ class ImgSolicitudEstudioAdminController extends Controller
      */
     public function editAction($id = null)
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('EDIT')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         /** request object id */
-        $id                 = $this->get('request')->get($this->admin->getIdParameter());
+        $id = $this->get('request')->get($this->admin->getIdParameter());
 
         //No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgSolicitudEstudio', 'prc')) {
-            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
-        }
+  //       if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgSolicitudEstudio', 'prc')) {
+  //           return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
+  //       }
 
     	$securityContext    = $this->container->get('security.context');
     	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        //No puede acceder al registro
-        if (!((in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) && $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
-                ->obtenerAccesoEstabEdit($id, $estabLocal->getId(), 'prc', 'idEstablecimientoReferido')) ||
-		($this->admin->isGranted('CREATE') && $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
-                                ->obtenerAccesoEstabEdit($id, $estabLocal->getId())))) {
-            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
-        }
+  //       //No puede acceder al registro
+  //       if (!((in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) && $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+  //               ->obtenerAccesoEstabEdit($id, $estabLocal->getId(), 'prc', 'idEstablecimientoReferido')) ||
+		// ($this->admin->isGranted('CREATE') && $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+  //                               ->obtenerAccesoEstabEdit($id, $estabLocal->getId())))) {
+  //           return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
+  //       }
 
-        //No está autorizado a editar el registro
-        if (!($em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerAccesoPreinscripcion($id, $sessionUser->getId()) ||
-                $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) {
-            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
-        }
+  //       //No está autorizado a editar el registro
+  //       if (!($em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerAccesoPreinscripcion($id, $sessionUser->getId()) ||
+  //               $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) {
+  //           return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
+  //       }
 
         // the key used to lookup the template
         $templateKey = 'edit';
@@ -551,8 +551,9 @@ class ImgSolicitudEstudioAdminController extends Controller
         ));
     }
 
-    public function show2Action($id = null) {
-        //Acceso denegado
+    public function show2Action($id = null)
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -573,13 +574,14 @@ class ImgSolicitudEstudioAdminController extends Controller
         return parent::showAction($id);
     }
 
-    public function listAction() {
-        //Acceso denegado
+    public function listAction()
+    {
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
     	$securityContext 	= $this->container->get('security.context');
     	$sessionUser 		= $securityContext->getToken()->getUser();
@@ -641,7 +643,7 @@ class ImgSolicitudEstudioAdminController extends Controller
          */
         $GROUP_DEPENDENT_ENTITIES   = array();
         try {
-            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesAgrupadasV2($estabLocal->getId());
+            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->getRadiologicalProceduresGrouped($estabLocal->getId());
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -661,8 +663,8 @@ class ImgSolicitudEstudioAdminController extends Controller
                         'medicos'               => $medicos,
                         'tiposEstab'            => $tiposEstab,
                         'establecimientos'      => $establecimientos,
-			'radiologos'            => $radiologos,
-			'default_empLogged'     => $sessionUser->getIdEmpleado(),
+            			'radiologos'            => $radiologos,
+            			'default_empLogged'     => $sessionUser->getIdEmpleado(),
                         'defaultEstab'          => $estabLocal,
                         'prioridades'           => $prioridades,
                         'modalidades'           => $modalidades,
@@ -702,13 +704,13 @@ class ImgSolicitudEstudioAdminController extends Controller
         $__REQUEST__type = $this->get('request')->query->get('type', 'list');
         $__REQUEST__emrg = $this->get('request')->query->get('emrg', 0);
 
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
     	$securityContext 	= $this->container->get('security.context');
     	$sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
-        $results 		= $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerSolicitudesEstudioV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
 
     	$isUser_allowShow       = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
     	$isUser_allowEdit       = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
@@ -719,6 +721,8 @@ class ImgSolicitudEstudioAdminController extends Controller
         if ($__REQUEST__emrg === 1) {
             $slug = 'emergency_study_request';
         }
+
+        $formatter = new Formatter();
 
         foreach ($results as $key => $r)
         {
@@ -732,6 +736,7 @@ class ImgSolicitudEstudioAdminController extends Controller
                             // '<div class="container">' .
                             // '<div class=" col-lg-12 col-md-12 col-sm-12">' .
                                 '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3></div></div>' .
+                                // '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-primary-v4 badge-inverse" style=""><h3>' . $r['paciente'] . '</h3></span></div></div>' .
                                 '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 14px;">' . $r['numero_expediente'] . '</span></div></div><p></p>' .
                                 '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['origen'] . '</div><div class="col-lg-6 col-md-6 col-sm-6 "><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" >' . /*<span class="glyphicon glyphicon-check"></span>*/ 'Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div></div>' .
                                 '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['area_atencion'] . '</div></div>' .
@@ -751,33 +756,9 @@ class ImgSolicitudEstudioAdminController extends Controller
 
             $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
                     '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-show-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Ver detalle..." >' .
-                        // '<a class=" worklist-show-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Ver detalle..." >' .
-                            // 'Ver' .
-                            '<i class="glyphicon glyphicon-chevron-down"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-form-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Abrir formulario..." >' .
-                        // '<a class=" worklist-save-form-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Abrir formulario..." >' .
-                            // 'Formulario' .
-                            '<i class="glyphicon glyphicon-edit"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-and-pacs-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                        // '<a class=" worklist-save-and-pacs-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                            // 'Guardar y asociar' .
-                            // '<i class="glyphicon glyphicon-check"></i>' .
-                            '<i class="glyphicon glyphicon-link"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    // '<span class="bs-btn-separator-toolbar"></span>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-action btn-link btn-link-emergency " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                        // '<a class=" worklist-save-action btn btn-emergency btn-outline btn-xs " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                            // 'Guardar' .
-                            '<i class="glyphicon glyphicon-check"></i>' .
+                        '<a class=" example2-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                            // 'OP.' .
+                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
                     '</div>' .
                 '</div>';
@@ -820,21 +801,19 @@ class ImgSolicitudEstudioAdminController extends Controller
             $results[$key]['prc_solicitudEstudioProyeccion']     = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($results));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function cambiarPrioridadAtencionSolicitudAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
-        $id                 = $request->request->get('id');
+        $id = $request->request->get('id');
         $preinscripcion     = $this->admin->getObject($id);
 
         $prioridadNv        = $request->request->get('formPrcEditIdPrioridadAtencion');
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //Cambio de prioridad requerida
         $prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion', $prioridadNv);
@@ -847,9 +826,7 @@ class ImgSolicitudEstudioAdminController extends Controller
             $status = 'failed';
         }
 
-        $response           = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function agregarIndicacionesRadiologoAction(Request $request)
@@ -862,7 +839,7 @@ class ImgSolicitudEstudioAdminController extends Controller
         $radiologo          = $request->request->get('formIndRadxPrcIdRadiologo');
         $indicaciones       = $request->request->get('formIndRadxPrcIndicaciones');
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //Radiólogo que agrega nuevas indicaciones
     	$radiologo_ref      = $em->getReference('Minsal\SiapsBundle\Entity\MntEmpleado', $radiologo);
@@ -878,20 +855,16 @@ class ImgSolicitudEstudioAdminController extends Controller
             $status = 'failed';
         }
 
-        $response           = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function obtenerPrioridadesAtencionAction()
     {
-        $em         = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
-        $resultados = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2('scalar');
+        $results = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2('scalar');
 
-        $response   = new Response();
-        $response->setContent(json_encode($resultados));
-        return $response;
+        return $this->renderJson($results);
     }
 
     /**
@@ -899,17 +872,17 @@ class ImgSolicitudEstudioAdminController extends Controller
      */
     public function showAction($id = null)
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('VIEW')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
-        $id                 = $this->get('request')->get($this->admin->getIdParameter());
+        $id = $this->get('request')->get($this->admin->getIdParameter());
 
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //contiene solicitud de estudio anterior
         //brinda facilidad para crear nueva solicitud a partir de anterior
-        $object             = $this->admin->getObject($id);
+        $object = $this->admin->getObject($id);
 
     	$securityContext    = $this->container->get('security.context');
     	$sessionUser        = $securityContext->getToken()->getUser();
@@ -958,64 +931,107 @@ class ImgSolicitudEstudioAdminController extends Controller
         }
         $BS_FILTERS_DECODE      = json_decode($BS_FILTERS, true);
 
-        $em                     = $this->getDoctrine()->getManager();
+        $__REQUEST__type = $this->get('request')->query->get('type', 'list');
+        $__REQUEST__emrg = $this->get('request')->query->get('emrg', 0);
+
+        $em = $this->getDoctrine()->getManager();
 
     	$securityContext 	= $this->container->get('security.context');
     	$sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
-        $resultados             = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerPreinscripcionesNoCitadasV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->getPendingPatients($estabLocal->getId(), $BS_FILTERS_DECODE);
 
     	$isUser_allowShow       = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
     	$isUser_allowEdit       = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
     	$allowChangePriority    = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('cambiarPrioridadAtencionSolicitud')) ? TRUE : FALSE;
     	$isUser_allowIndRadx    = (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN')) && $this->admin->getRoutes()->has('agregarIndicacionesRadiologo')) ? TRUE : FALSE;
 
-        foreach ($resultados as $key => $resultado) {
-            // $resultado = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudio();
+        $slug = 'study_request';
+        if ($__REQUEST__emrg === 1) {
+            $slug = 'emergency_study_request';
+        }
 
-            $resultados[$key]['prc_editUrl']                        = $this->generateUrl('simagd_solicitud_estudio_edit', array('id' => $resultado['prc_id']));
-            $resultados[$key]['prc_fechaCreacion']    = $resultado['prc_fechaCreacion']->format('Y-m-d H:i:s A');
-            $resultados[$key]['prc_fechaProximaConsulta']           = $resultado['prc_fechaProximaConsulta']->format('Y-m-d');
+        $formatter = new Formatter();
 
-            $resultados[$key]['allowShow']                          = $isUser_allowShow;
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudio();
 
-            $resultados[$key]['allowEdit']                          = (false !== $isUser_allowEdit &&
-                    ((in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) && $estabLocal->getId() == $resultado['prc_id_referido']) ||
-                    ($estabLocal->getId() == $resultado['prc_id_origen'] && $this->admin->isGranted('CREATE'))) &&
-                    ($resultado['prc_id_userReg'] == $sessionUser->getId() || ($resultado['prc_id_userMod'] == $sessionUser->getId()) ||
-			($resultado['prc_id_empleado'] == $sessionUser->getIdEmpleado()->getId()) ||
+            if ($__REQUEST__type === 'detail')
+            {
+                $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
+                        // '<div class="box-body">' .
+                        '<div class="box-body" ondblclick="_fn_show_object_detail(this, \'' . $slug . '\', ' . $r['id'] . '); return false;">' .
+                            // '<div class="container">' .
+                            // '<div class=" col-lg-12 col-md-12 col-sm-12">' .
+                                '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3></div></div>' .
+                                '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 14px;">' . $r['numero_expediente'] . '</span></div></div><p></p>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['origen'] . '</div><div class="col-lg-6 col-md-6 col-sm-6 "><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" >' . /*<span class="glyphicon glyphicon-check"></span>*/ 'Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['area_atencion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['atencion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['medico'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['modalidad'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['triage'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROGRESO:</strong></div><div class="col-lg-6 col-md-6 col-sm-6 data-box-row">' . $r['estado'] . '</div></div>' .
+                                // '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row">' . $r['progreso'] . '</div></div>' .
+                                '<p></p><div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"> <div class="progress"> <div class="progress-bar progress-bar-striped active progress-bar-danger" role="progressbar" aria-valuenow="' . $r['progreso'] . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $r['progreso'] . '%;"> ' . $r['progreso'] . '% Completado </div> </div> </div></div>' .
+                                // '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>RADIÓLOGO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['radiologo'] . '</div></div>' .
+                            // '</div>' .
+                        '</div>' .
+                    '</div>';
+                continue;
+            }
+
+            $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
+                    '<div class="btn-group" role="group">' .
+                        '<a class=" example2-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                            // 'OP.' .
+                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
+                        '</a>' .
+                    '</div>' .
+                '</div>';
+
+            $results[$key]['prc_editUrl']                        = $this->generateUrl('simagd_solicitud_estudio_edit', array('id' => $r['prc_id']));
+            $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion']->format('Y-m-d H:i:s A');
+            $results[$key]['prc_fechaProximaConsulta']           = $r['prc_fechaProximaConsulta']->format('Y-m-d');
+
+            $results[$key]['allowShow']                          = $isUser_allowShow;
+
+            $results[$key]['allowEdit']                          = (false !== $isUser_allowEdit &&
+                    ((in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) && $estabLocal->getId() == $r['prc_id_referido']) ||
+                    ($estabLocal->getId() == $r['prc_id_origen'] && $this->admin->isGranted('CREATE'))) &&
+                    ($r['prc_id_userReg'] == $sessionUser->getId() || ($r['prc_id_userMod'] == $sessionUser->getId()) ||
+			($r['prc_id_empleado'] == $sessionUser->getIdEmpleado()->getId()) ||
                         $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
 
-            $resultados[$key]['allowSinCita']                       = ($resultado['prc_requiereCita'] && $this->admin->getRoutes()->has('requiereCita') &&
-                    (in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) || $securityContext->isGranted('ROLE_ADMIN')) && ($estabLocal->getId() == $resultado['prc_id_referido']) &&
+            $results[$key]['allowSinCita']                       = ($r['prc_requiereCita'] && $this->admin->getRoutes()->has('requiereCita') &&
+                    (in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) || $securityContext->isGranted('ROLE_ADMIN')) && ($estabLocal->getId() == $r['prc_id_referido']) &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_EDIT') &&
                         $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_EDIT')) || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
 
-            $resultados[$key]['allowChangePriority']                = (false !== $allowChangePriority &&
-                    ((in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) && $estabLocal->getId() == $resultado['prc_id_referido']) ||
-                    ($estabLocal->getId() == $resultado['prc_id_origen'] && $this->admin->isGranted('CREATE'))) &&
-                    ($resultado['prc_id_userReg'] == $sessionUser->getId() || ($resultado['prc_id_userMod'] == $sessionUser->getId()) ||
+            $results[$key]['allowChangePriority']                = (false !== $allowChangePriority &&
+                    ((in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) && $estabLocal->getId() == $r['prc_id_referido']) ||
+                    ($estabLocal->getId() == $r['prc_id_origen'] && $this->admin->isGranted('CREATE'))) &&
+                    ($r['prc_id_userReg'] == $sessionUser->getId() || ($r['prc_id_userMod'] == $sessionUser->getId()) ||
                         $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
 
-            $resultados[$key]['allowIndRadx']                       = $isUser_allowIndRadx;
+            $results[$key]['allowIndRadx']                       = $isUser_allowIndRadx;
 
             /** Solicitar Diagnóstico */
-            $resultadoEst                                           = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')
-                                                                            ->obtenerEstudioSinSolicitudDiagV2($resultado['prc_id']);
-            $resultados[$key]['est']                                = $resultadoEst;
+            $rEst                                           = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')
+                                                                            ->obtenerEstudioSinSolicitudDiagV2($r['prc_id']);
+            $results[$key]['est']                                = $rEst;
 
-            $resultados[$key]['allowSolDiag']                       = (count($resultadoEst) >= 1 && !$resultado['prc_requiereDiagnostico'] && $this->admin->getRoutes()->has('solicitarDiag') && ($estabLocal->getId() == $resultado['prc_id_origen']) &&
-                    ($resultado['prc_id_userReg'] == $sessionUser->getId() || ($resultado['prc_id_userMod'] == $sessionUser->getId()) || $securityContext->isGranted('ROLE_ADMIN')) &&
+            $results[$key]['allowSolDiag']                       = (count($rEst) >= 1 && !$r['prc_requiereDiagnostico'] && $this->admin->getRoutes()->has('solicitarDiag') && ($estabLocal->getId() == $r['prc_id_origen']) &&
+                    ($r['prc_id_userReg'] == $sessionUser->getId() || ($r['prc_id_userMod'] == $sessionUser->getId()) || $securityContext->isGranted('ROLE_ADMIN')) &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_DIAGNOSTICO_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_DIAGNOSTICO_EDIT') &&
                         $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_VIEW')) || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
 
-            $resultados[$key]['prc_solicitudEstudioProyeccion']     = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($resultado['prc_id']);
+            $results[$key]['prc_solicitudEstudioProyeccion']     = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($resultados));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function crearSolicitudEstudioFormatoRapidoAction(Request $request)

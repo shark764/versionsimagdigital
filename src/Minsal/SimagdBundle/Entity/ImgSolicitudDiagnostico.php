@@ -118,7 +118,8 @@ class ImgSolicitudDiagnostico
     private $idUserReg;
 
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->idSolicitudEstudio . ' :: ' . $this->idEstudio;
     }
 

@@ -23,8 +23,8 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->setParameter('id_exp', $idExpediente)
                             ->andWhere('aams.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
-                            ->orderBy('prc.fechaCreacion', 'desc');
-        $query->distinct();
+                            ->orderBy('prc.fechaCreacion', 'DESC')
+                            ->distinct();
 
         return $query->getQuery()->getResult();
     }
@@ -40,8 +40,8 @@ class SolicitudEstudioRepository extends EntityRepository
                                     'ar.id = ams.idAreaAtencion')
                             ->where('ams.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
-                            ->orderBy('ar.nombre');
-        $query->distinct();
+                            ->orderBy('ar.nombre')
+                            ->distinct();
 
         return $query->getQuery()->getResult();
     }
@@ -60,8 +60,8 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->setParameter('id_est', $id_estab)
                             ->andWhere('ams.idAreaAtencion = :id_ar_atn')
                             ->setParameter('id_ar_atn', $idAreaAtencion)
-                            ->orderBy('atn.nombre');
-        $query->distinct();
+                            ->orderBy('atn.nombre')
+                            ->distinct();
 
         return $query->getQuery()->getResult();
     }
@@ -86,8 +86,8 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->andWhere('emp.idTipoEmpleado IN (1, 2, 4)')//REVISAR COINCIDENCIAS ENTRE DEFAULT, Y AJAX PARA TODOS LOS CASOS.... EJ: IN()
                             ->orderBy('emp.idTipoEmpleado')
                             ->addOrderBy('emp.apellido')
-                            ->addOrderBy('emp.nombre');
-        $query->distinct();
+                            ->addOrderBy('emp.nombre')
+                            ->distinct();
 
         return $query->getQuery()->getResult();
     }
@@ -106,9 +106,9 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->andWhere('aams.idAtencion = :id_atn')
                             ->setParameter('id_atn', $idAtencion)
                             ->orderBy('aams.idAreaModEstab')
-                            ->addOrderBy('aams.id');
-        $query->distinct();
-        $query->setMaxResults(1);
+                            ->addOrderBy('aams.id')
+                            ->distinct()
+                            ->setMaxResults(1);
 
         return $query->getQuery()->getOneOrNullResult();
     }
@@ -161,8 +161,8 @@ class SolicitudEstudioRepository extends EntityRepository
             $query->andWhere($andX);
         }
 
-        $query->distinct();
-        $query->setMaxResults($limiteResultados);
+        $query->distinct()
+                            ->setMaxResults($limiteResultados);
 
         return $query->getQuery()->getResult();
     }
@@ -177,10 +177,9 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->select($cod . '.id AS regId')
                             ->from('MinsalSimagdBundle:' . $entity, $cod)
                             ->where($cod . '.id = :id_reg')
-                            ->setParameter('id_reg', $id);
-
-        $query->distinct();
-        $query->setMaxResults(1);
+                            ->setParameter('id_reg', $id)
+                            ->distinct()
+                            ->setMaxResults(1);
 
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
@@ -204,8 +203,8 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->setParameter('id_est_diag', $idEstab)
                             ->setParameter('id_est', $idEstab);
 
-        $query->distinct();
-        $query->setMaxResults(1);
+        $query->distinct()
+                            ->setMaxResults(1);
 
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
@@ -220,10 +219,9 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->where('prc.id = :id_prc')
                             ->setParameter('id_prc', $id)
                             ->andWhere($alias . '.' . $estabUsed . ' = :id_est')
-                            ->setParameter('id_est', $idEstab);
-
-        $query->distinct();
-        $query->setMaxResults(1);
+                            ->setParameter('id_est', $idEstab)
+                            ->distinct()
+                            ->setMaxResults(1);
 
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
@@ -244,8 +242,8 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->setParameter('id_user_prc_reg', $idUser)
                             ->setParameter('id_user_prc_mod', $idUser);
 
-        $query->distinct();
-        $query->setMaxResults(1);
+        $query->distinct()
+                            ->setMaxResults(1);
 
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
@@ -257,10 +255,9 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->select($alias . '.id AS regId')
                             ->from('MinsalSimagdBundle:' . $entity, $alias)
                             ->where($alias . '.idSolicitudEstudio = :id_prc')
-                            ->setParameter('id_prc', $idPrc);
-
-        $query->distinct();
-        $query->setMaxResults(1);
+                            ->setParameter('id_prc', $idPrc)
+                            ->distinct()
+                            ->setMaxResults(1);
 
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
@@ -274,10 +271,9 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->innerJoin('lct.idEstudio', 'est')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
                             ->where('prz.idSolicitudEstudio = :id_prc')
-                            ->setParameter('id_prc', $idPrc);
-
-        $query->distinct();
-        $query->setMaxResults(1);
+                            ->setParameter('id_prc', $idPrc)
+                            ->distinct()
+                            ->setMaxResults(1);
 
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
@@ -291,10 +287,9 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
                             ->where('prz.idSolicitudEstudio = :id_prc')
                             ->setParameter('id_prc', $idPrc)
-                            ->andWhere('prz.idEstadoProcedimientoRealizado IN (5, 6, 7, 8, 9)');
-
-        $query->distinct();
-        $query->setMaxResults(1);
+                            ->andWhere('prz.idEstadoProcedimientoRealizado IN (5, 6, 7, 8, 9)')
+                            ->distinct()
+                            ->setMaxResults(1);
 
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
@@ -329,10 +324,9 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->andWhere('exp.idPaciente = :id_pct')
                             ->setParameter('id_pct', $idPaciente);
 
-        $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())));
-
-        $query->distinct();
-        $query->setMaxResults(1);
+        $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())))
+                            ->distinct()
+                            ->setMaxResults(1);
 
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
@@ -347,10 +341,9 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->where('prc.idAreaServicioDiagnostico = :id_mod')
                             ->setParameter('id_mod', $idAreaServicioDiagnostico)
                             ->andWhere('solest.idHistorialClinico = :id_hcl')
-                            ->setParameter('id_hcl', $idHistoriaClinica);
-
-        $query->distinct();
-        $query->setMaxResults(1);
+                            ->setParameter('id_hcl', $idHistoriaClinica)
+                            ->distinct()
+                            ->setMaxResults(1);
 
         return $query->getQuery()->getOneOrNullResult() ? true : false;
     }
@@ -364,19 +357,20 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->innerJoin('prc.idExpediente', 'exp')
                             ->where('exp.idPaciente = :id_pct')
                             ->setParameter('id_pct', $idPaciente)
-                            ->orderBy('prc.id', 'desc');
+                            ->orderBy('prc.id', 'DESC');
 
         $query->andWhere($query->expr()->andx(
                             $query->expr()->isNotNull('prc.idContactoPaciente'),
                             $query->expr()->isNotNull('prc.idFormaContacto')
                         ));
 
-        $query->distinct();
-        $query->setMaxResults(1);
+        $query->distinct()
+                            ->setMaxResults(1);
 
         return $query->getQuery()->getOneOrNullResult();
     }
-//     http://stackoverflow.com/questions/19185587/left-join-on-condition-and-other-condition-syntax-in-doctrine
+    
+    // http://stackoverflow.com/questions/19185587/left-join-on-condition-and-other-condition-syntax-in-doctrine
     public function obtenerPreinscripcionesNoCitadas($id_estab, $idModl = null, $numeroExp = null)
     {
         /** SubQuery */
@@ -408,11 +402,9 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->setParameter('num_exp', '%' . strtolower($numeroExp) . '%');
         }
 
-        $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())));
-
-        $query->orderBy('prc.id', 'desc');
-
-        $query->distinct();
+        $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())))
+                            ->orderBy('prc.id', 'DESC')
+                            ->distinct();
 
         return $query->getQuery()->getResult();
     }
@@ -422,26 +414,24 @@ class SolicitudEstudioRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prc')
-                            ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc');
-
-        $query->innerJoin('prc.idAtenAreaModEstab', 'aams')
-                            ->andWhere($query->expr()->orx(
+                            ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
+                            ->innerJoin('prc.idAtenAreaModEstab', 'aams');
+        
+        $query->andWhere($query->expr()->orx(
                                 $query->expr()->eq('prc.idEstablecimientoReferido', ':id_est_ref'),
                                 $query->expr()->eq('prc.idEstablecimientoDiagnosticante', ':id_est_diag'),
                                 $query->expr()->eq('aams.idEstablecimiento', ':id_est')
                             ))
                             ->setParameter('id_est_ref', $id_estab)
                             ->setParameter('id_est_diag', $id_estab)
-                            ->setParameter('id_est', $id_estab);
-
-        $query->orderBy('prc.id', 'desc');
-
-        $query->distinct();
+                            ->setParameter('id_est', $id_estab)
+                            ->orderBy('prc.id', 'DESC')
+                            ->distinct();
 
         return $query->getQuery()->getResult();
     }
 
-    public function obtenerSolicitudesEstudioV2($id_estab, $bs_filters = array())
+    public function data($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('prc')
@@ -451,7 +441,7 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->addSelect('unknExp')
                             ->addSelect('prAtn')
 
-                            ->addSelect('prc.id AS id, stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea as modalidad, prAtn.nombre AS triage, prc.fechaCreacion as fecha_solicitud, statusSc.nombreEstado as estado, COALESCE(statusSc.porcentajeAvance, 0) AS progreso')
+                            ->addSelect('prc.id AS id, stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea AS modalidad, prAtn.nombre AS triage, prc.fechaCreacion AS fecha_solicitud, statusSc.nombreEstado AS estado, COALESCE(statusSc.porcentajeAvance, 0) AS progreso')
 
                             ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS prc_paciente')
                             ->addSelect('stdroot.nombre AS prc_origen, stdroot.id AS prc_id_origen, ar.nombre AS prc_areaAtencion, ar.id AS prc_id_areaAtencion, atn.nombre AS prc_atencion, atn.id AS prc_id_atencion')
@@ -507,7 +497,7 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->setParameter('id_est_diag', $id_estab)
                             ->setParameter('id_est', $id_estab);
 
-        $query->orderBy('prc.id', 'desc')
+        $query->orderBy('prc.id', 'DESC')
                             ->distinct();
 
         /*
@@ -526,7 +516,7 @@ class SolicitudEstudioRepository extends EntityRepository
         return $query->getQuery()->getScalarResult();
     }
 
-    public function obtenerPacientesV2($idEstab, $numeroExp, $criteria, $fechaNacimiento, $dui, $limiteR, $min_numeroExp = null, $bs_filters = array())
+    public function getPatients($idEstab, $numeroExp, $criteria, $fechaNacimiento, $dui, $limiteR, $min_numeroExp = null, $bs_filters = array())
     {
         /** Ningún parámetro fué enviado */
         if(count($criteria) < 1 && !$numeroExp && !$fechaNacimiento && !$dui && !$min_numeroExp) {
@@ -587,8 +577,8 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->setParameter('num_exp', '%' . strtolower($min_numeroExp) . '%');
         }
 
-        $query->distinct();
-        $query->setMaxResults($limiteR);
+        $query->distinct()
+                            ->setMaxResults($limiteR);
 
         /*
          * --| add filters from BSTABLE_FILTER to query
@@ -607,7 +597,7 @@ class SolicitudEstudioRepository extends EntityRepository
     }
 
 //     http://stackoverflow.com/questions/19185587/left-join-on-condition-and-other-condition-syntax-in-doctrine
-    public function obtenerPreinscripcionesNoCitadasV2($id_estab, $bs_filters = array())
+    public function getPendingPatients($id_estab, $bs_filters = array())
     {
         /** SubQuery */
         $subQuery = $this->getEntityManager()
@@ -624,6 +614,9 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->addSelect('statusSc')
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
+
+                            ->addSelect('prc.id AS id, stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (emp.id IS NOT NULL) THEN CONCAT(COALESCE(emp.apellido, \'\'), \', \', COALESCE(emp.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea AS modalidad, prAtn.nombre AS triage, prc.fechaCreacion AS fecha_solicitud, statusSc.nombreEstado AS estado, COALESCE(statusSc.porcentajeAvance, 0) AS progreso')
+
                             ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS prc_paciente')
                             ->addSelect('stdroot.nombre AS prc_origen, stdroot.id AS prc_id_origen, ar.nombre AS prc_areaAtencion, ar.id AS prc_id_areaAtencion, atn.nombre AS prc_atencion, atn.id AS prc_id_atencion')
                             ->addSelect('CONCAT(COALESCE(emp.apellido, \'\'), \', \', COALESCE(emp.nombre, \'\')) AS prc_empleado, emp.id AS prc_id_empleado, tpEmp.tipo AS prc_tipoEmpleado')
@@ -694,10 +687,9 @@ class SolicitudEstudioRepository extends EntityRepository
             }
         }
 
-        $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())));
-
-        $query->orderBy('prAtn.id', 'asc')
-                            ->addOrderBy('prc.id', 'desc')
+        $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())))
+                            ->orderBy('prAtn.id', 'ASC')
+                            ->addOrderBy('prc.id', 'DESC')
                             ->distinct();
 
         /*
@@ -720,22 +712,22 @@ class SolicitudEstudioRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
-                            ->select('prc.id AS prcId, prc.tallaPaciente as talla')
+                            ->select('prc.id AS prcId, prc.tallaPaciente AS talla')
                             ->addSelect('CASE WHEN prc.pesoActualKg IS NOT NULL THEN prc.pesoActualKg ELSE prc.pesoActualLb / 2.20462262 END AS pesoKg')
                             ->addSelect('CASE WHEN prc.pesoActualLb IS NOT NULL THEN prc.pesoActualLb ELSE prc.pesoActualKg * 2.20462262 END AS pesoLb')
                             ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idExpediente', 'exp')
                             ->where('exp.idPaciente = :id_pct')
                             ->setParameter('id_pct', $idPaciente)
-                            ->orderBy('prc.id', 'desc');
+                            ->orderBy('prc.id', 'DESC');
 
         $query->andWhere($query->expr()->orx(
                             $query->expr()->isNotNull('prc.pesoActualKg'),
                             $query->expr()->isNotNull('prc.pesoActualLb')
                         ));
 
-        $query->distinct();
-        $query->setMaxResults(1);
+        $query->distinct()
+                        ->setMaxResults(1);
 
         return $query->getQuery()->getOneOrNullResult();
     }
@@ -759,8 +751,8 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->setParameter('id_est', $id_estabLocal)
                             ->groupBy('ar.id')
                             ->addGroupBy('atn.id')
-                            ->orderBy('ar.id', 'desc')
-                            ->addOrderBy('atn.id', 'desc')
+                            ->orderBy('ar.id', 'DESC')
+                            ->addOrderBy('atn.id', 'DESC')
                             ->distinct();
 
         return $return == 'query' ?
@@ -793,8 +785,8 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->groupBy('ar.id')
                             ->addGroupBy('atn.id')
                             ->addGroupBy('emp.id')
-                            ->orderBy('ar.id', 'desc')
-                            ->addOrderBy('atn.id', 'desc')
+                            ->orderBy('ar.id', 'DESC')
+                            ->addOrderBy('atn.id', 'DESC')
                             ->distinct();
 
         return $return == 'query' ?
@@ -852,9 +844,8 @@ class SolicitudEstudioRepository extends EntityRepository
                             ->select('stdsol.id AS id, stdsol.nombre AS text, IDENTITY(stdsol.idTipoEstablecimiento) AS tipo')
                             ->from('MinsalSiapsBundle:CtlEstablecimiento', 'stdsol')
                             ->orderBy('stdsol.idTipoEstablecimiento')
-                            ->addOrderBy('stdsol.nombre');
-
-        $query->distinct();
+                            ->addOrderBy('stdsol.nombre')
+                            ->distinct();
 
         return $query->getQuery()->getScalarResult();
     }
@@ -1048,7 +1039,6 @@ class SolicitudEstudioRepository extends EntityRepository
     }
 
 }
-
 //select 	l.id 	   as l_id, 	      l.id_establecimiento      as l_id,
 //		    xE.id	 as xE_id, 	xE.numero 			as xE_numero,
 //		    x.id 	 as x_id, 	x.numero 			as x_numero, 	x.id_establecimiento 	as x_establecimiento
@@ -1056,5 +1046,5 @@ class SolicitudEstudioRepository extends EntityRepository
 //	left join img_estudio_paciente e on e.id = l.id_estudio
 //	left join mnt_expediente xE on xE.id = e.id_expediente
 //	left join mnt_paciente p on p.id = xE.id_paciente
-//	left join mnt_expediente x on (p.id = x.id_paciente and x.id_establecimiento = 30)
+//	left join mnt_expediente x on (p.id = x.id_paciente AND x.id_establecimiento = 30)
 //where l.id_establecimiento != 30;

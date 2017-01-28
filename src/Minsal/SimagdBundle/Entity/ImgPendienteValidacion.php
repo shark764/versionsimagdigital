@@ -76,7 +76,8 @@ class ImgPendienteValidacion
      */
     private $idRadiologoAsignado;
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->idDiagnostico . ' :: ' . $this->idEstablecimiento;
     }
 

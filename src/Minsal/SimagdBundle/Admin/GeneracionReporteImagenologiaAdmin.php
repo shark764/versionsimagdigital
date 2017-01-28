@@ -9,9 +9,9 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class GeneracionReporteImagenologiaAdmin extends Admin
+class GeneracionReporteImagenologiaAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_generacion_reporte';
+    protected $baseRouteName    = 'simagd_generacion_reporte';
     protected $baseRoutePattern = 'rayos-x-imagenologia-reportes';
     
     protected function configureRoutes(RouteCollection $collection) {
@@ -20,8 +20,9 @@ class GeneracionReporteImagenologiaAdmin extends Admin
         $collection->add('generarReporteImagenologico', 'reporte', [], [], ['expose' => true]);
         $collection->add('resultadoGeneracionReporte', 'generar-reporte', [], [], ['expose' => true]);
     }
-    
-    public function getTemplate($name) {
+
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'resultadoGeneracionReporte':
                 return 'MinsalSimagdBundle:GeneracionReporteImagenologiaAdmin:simagd_generarReporte.html.twig';
@@ -31,36 +32,5 @@ class GeneracionReporteImagenologiaAdmin extends Admin
                 break;
         }
     }
-    
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        
-    }
 
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
-        
-    }
-
-    /**
-     * @param FormMapper $formMapper
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        
-    }
 }

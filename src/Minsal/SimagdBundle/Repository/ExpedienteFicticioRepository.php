@@ -60,8 +60,8 @@ class ExpedienteFicticioRepository extends EntityRepository
          */
         $p = $q->execute();
     }
-}
 
+}
 /*
  * *********************************************************************************************
  * SELECT max(substring(numero from (length(numero)-1))) from img_expediente_ficticio;

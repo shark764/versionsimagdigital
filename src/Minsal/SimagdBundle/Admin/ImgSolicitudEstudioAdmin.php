@@ -18,48 +18,32 @@ use Minsal\SeguimientoBundle\Entity\SecSignosVitales;
 use Minsal\SeguimientoBundle\Entity\SecSolicitudestudios;
 use Minsal\SeguimientoBundle\Entity\SecDetallesolicitudestudios;
 
-class ImgSolicitudEstudioAdmin extends Admin
+class ImgSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_solicitud_estudio';
+    protected $baseRouteName    = 'simagd_solicitud_estudio';
     protected $baseRoutePattern = 'rayos-x-solicitud-estudio';
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         $collection->add('citar');
         $collection->add('requiereCita', null, [], [], ['expose' => true]);
         $collection->add('solicitarDiag');
         $collection->add('valorCampoCompuesto', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('extractCamposComponentes', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('cargarDatosPorFiltro', null, [], [], ['expose' => true]);
-        $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
-        $collection->remove('delete');
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
+        // $collection->remove('delete');
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('cambiarPrioridadAtencionSolicitud', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('obtenerPrioridadesAtencion', null, [], [], ['expose' => true]);
-        $collection->add('create', 'crear', [], [], ['expose' => true]);
-        $collection->add('edit', 'editar');
-        $collection->add('list', 'lista');
-        $collection->add('show', 'consultar', [], [], ['expose' => true]);
         $collection->add('agregarIndicacionesRadiologo', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('pendingPatients', null, [], [], ['expose' => true]);
         $collection->add('crearSolicitudEstudioFormatoRapido', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('editarSolicitudEstudioFormatoRapido', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
-    }
-
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
 
     /**
@@ -1284,7 +1268,12 @@ class ImgSolicitudEstudioAdmin extends Admin
 
     public function getNewInstance()
     {
-        $instance = parent::getNewInstance();
+        // $instance = parent::getNewInstance();
+        $instance = $this->getModelManager()->getModelInstance($this->getClass());
+        foreach ($this->getExtensions() as $extension)
+        {
+            $extension->alterNewInstance($this, $instance);
+        }
         
         /*
          * ADD FORM FOR MAMOGRAFY STUDY
@@ -1415,7 +1404,8 @@ class ImgSolicitudEstudioAdmin extends Admin
         return $instance;
     }
 
-    public function createQuery($context = 'list') {
+    public function createQuery($context = 'list')
+    {
         $query = parent::createQuery($context);
 
         $estabLocal = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()

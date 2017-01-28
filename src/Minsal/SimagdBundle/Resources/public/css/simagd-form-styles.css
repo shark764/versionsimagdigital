@@ -902,6 +902,10 @@ label.label_form_sm {
     background-color: #16677d !important;
     color: #f9f9f9 !important;
 }
+.dropdown-menu.highlight-success-dropdown-menu > li > a:hover {
+    background-color: #16677d;
+    color: #f9f9f9;
+}
 
 .input-group-btn:first-child>.btn,
 .input-group-btn:first-child>.btn-group {

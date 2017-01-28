@@ -99,7 +99,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/ImgCitaAdminController.php",
 			"settings":
 			{
-				"buffer_size": 49287,
+				"buffer_size": 45861,
 				"line_ending": "Unix"
 			}
 		},
@@ -107,7 +107,7 @@
 			"file": "src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_agenda.html.twig",
 			"settings":
 			{
-				"buffer_size": 35821,
+				"buffer_size": 40835,
 				"line_ending": "Unix"
 			}
 		},
@@ -115,7 +115,7 @@
 			"file": "src/Minsal/SimagdBundle/Resources/public/js/ImgCitaAdmin/cit_agenda.js",
 			"settings":
 			{
-				"buffer_size": 36366,
+				"buffer_size": 36337,
 				"line_ending": "Unix"
 			}
 		},
@@ -155,7 +155,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/ImgCtlMaterialAdminController.php",
 			"settings":
 			{
-				"buffer_size": 16993,
+				"buffer_size": 12579,
 				"line_ending": "Unix"
 			}
 		},
@@ -163,7 +163,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/ImgCtlMaterialEstablecimientoAdminController.php",
 			"settings":
 			{
-				"buffer_size": 16928,
+				"buffer_size": 16394,
 				"line_ending": "Unix"
 			}
 		},
@@ -171,7 +171,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/ImgCtlPacsEstablecimientoAdminController.php",
 			"settings":
 			{
-				"buffer_size": 14651,
+				"buffer_size": 10137,
 				"line_ending": "Unix"
 			}
 		},
@@ -179,7 +179,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/ImgCtlPatronDiagnosticoAdminController.php",
 			"settings":
 			{
-				"buffer_size": 21108,
+				"buffer_size": 19782,
 				"line_ending": "Unix"
 			}
 		},
@@ -187,7 +187,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/ImgCtlProyeccionAdminController.php",
 			"settings":
 			{
-				"buffer_size": 22510,
+				"buffer_size": 18089,
 				"line_ending": "Unix"
 			}
 		},
@@ -195,7 +195,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/ImgCtlProyeccionEstablecimientoAdminController.php",
 			"settings":
 			{
-				"buffer_size": 23655,
+				"buffer_size": 20639,
 				"line_ending": "Unix"
 			}
 		},
@@ -203,7 +203,7 @@
 			"file": "src/Minsal/SimagdBundle/Resources/views/Dashboard/catalogs_dashboard.html.twig",
 			"settings":
 			{
-				"buffer_size": 15858,
+				"buffer_size": 16575,
 				"line_ending": "Unix"
 			}
 		},
@@ -211,7 +211,7 @@
 			"file": "src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlPatronDiagnosticoListViewGenerator.php",
 			"settings":
 			{
-				"buffer_size": 7063,
+				"buffer_size": 8059,
 				"line_ending": "Unix"
 			}
 		},
@@ -219,7 +219,7 @@
 			"file": "src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCitaProgramadaListViewGenerator.php",
 			"settings":
 			{
-				"buffer_size": 9122,
+				"buffer_size": 9510,
 				"line_ending": "Unix"
 			}
 		},
@@ -227,7 +227,7 @@
 			"file": "src/Minsal/SimagdBundle/Resources/views/Dashboard/results_dashboard.html.twig",
 			"settings":
 			{
-				"buffer_size": 16033,
+				"buffer_size": 16962,
 				"line_ending": "Unix"
 			}
 		},
@@ -235,7 +235,7 @@
 			"file": "src/Minsal/SimagdBundle/Resources/views/General/catalogs_dashboard_script.html.twig",
 			"settings":
 			{
-				"buffer_size": 5953,
+				"buffer_size": 8754,
 				"line_ending": "Unix"
 			}
 		}
@@ -607,7 +607,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 49287,
+						"buffer_size": 45861,
 						"regions":
 						{
 						},
@@ -637,7 +637,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 35821,
+						"buffer_size": 40835,
 						"regions":
 						{
 						},
@@ -667,7 +667,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 36366,
+						"buffer_size": 36337,
 						"regions":
 						{
 						},
@@ -820,7 +820,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16993,
+						"buffer_size": 12579,
 						"regions":
 						{
 						},
@@ -850,7 +850,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16928,
+						"buffer_size": 16394,
 						"regions":
 						{
 						},
@@ -880,7 +880,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14651,
+						"buffer_size": 10137,
 						"regions":
 						{
 						},
@@ -910,7 +910,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 21108,
+						"buffer_size": 19782,
 						"regions":
 						{
 						},
@@ -940,7 +940,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 22510,
+						"buffer_size": 18089,
 						"regions":
 						{
 						},
@@ -970,7 +970,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 23655,
+						"buffer_size": 20639,
 						"regions":
 						{
 						},
@@ -1006,7 +1006,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15858,
+						"buffer_size": 16575,
 						"regions":
 						{
 						},
@@ -1036,7 +1036,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7063,
+						"buffer_size": 8059,
 						"regions":
 						{
 						},
@@ -1066,7 +1066,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9122,
+						"buffer_size": 9510,
 						"regions":
 						{
 						},
@@ -1084,7 +1084,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2749.0,
+						"translation.y": 2463.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1096,7 +1096,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16033,
+						"buffer_size": 16962,
 						"regions":
 						{
 						},
@@ -1126,7 +1126,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5953,
+						"buffer_size": 8754,
 						"regions":
 						{
 						},

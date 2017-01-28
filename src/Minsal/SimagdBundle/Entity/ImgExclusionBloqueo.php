@@ -43,7 +43,8 @@ class ImgExclusionBloqueo
     private $idRadiologoExcluido;
 
 
-    public function __toString() {
+    public function __toString()
+    {
         return '' . $this->$idBloqueoAgenda . ' :: ' . $this->$idRadiologoExcluido;
     }
 

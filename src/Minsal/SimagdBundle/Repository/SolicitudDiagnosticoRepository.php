@@ -96,15 +96,15 @@ class SolicitudDiagnosticoRepository extends EntityRepository
                             ->setParameter('id_est_sol', $id_estab)
                             ->setParameter('id_est', $id_estab);
         
-        $query->orderBy('soldiag.fechaCreacion', 'desc')
-                            ->addOrderBy('soldiag.id', 'desc');
+        $query->orderBy('soldiag.fechaCreacion', 'DESC')
+                            ->addOrderBy('soldiag.id', 'DESC');
                 
         $query->distinct();
         
         return $query->getQuery()->getResult();
     }
 
-    public function obtenerSolicitudesDiagnosticoV2($id_estab, $bs_filters = array())
+    public function data($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('soldiag')
@@ -112,15 +112,15 @@ class SolicitudDiagnosticoRepository extends EntityRepository
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
 
-                            ->addSelect('soldiag.id AS id, stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (empsoldiag.id IS NOT NULL) THEN CONCAT(COALESCE(empsoldiag.apellido, \'\'), \', \', COALESCE(empsoldiag.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea as modalidad, prAtn.nombre AS triage, soldiag.fechaCreacion as fecha_solicitud')
+                            ->addSelect('soldiag.id AS id, stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (empsoldiag.id IS NOT NULL) THEN CONCAT(COALESCE(empsoldiag.apellido, \'\'), \', \', COALESCE(empsoldiag.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea AS modalidad, prAtn.nombre AS triage, soldiag.fechaCreacion AS fecha_solicitud, CASE WHEN (tcnlprz.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) ELSE \'\' END AS tecnologo')
 
-                            ->addSelect('prc.fechaCreacion AS prc_fechaCreacion, est.id AS est_id, est.fechaEstudio as est_fechaEstudio, est.url as est_url, prz.fechaAlmacenado AS prz_fechaAlmacenado, prz.fechaNacimientoIndeterminada AS prz_fechaNacimientoIndeterminada')
+                            ->addSelect('prc.fechaCreacion AS prc_fechaCreacion, est.id AS est_id, est.fechaEstudio AS est_fechaEstudio, est.url AS est_url, prz.fechaAlmacenado AS prz_fechaAlmacenado, prz.fechaNacimientoIndeterminada AS prz_fechaNacimientoIndeterminada')
                             ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS prc_paciente')
                             ->addSelect('stdroot.nombre AS prc_origen, stdroot.id AS prc_id_origen, ar.nombre AS prc_areaAtencion, ar.id AS prc_id_areaAtencion, atn.nombre AS prc_atencion, atn.id AS prc_id_atencion')
-                            ->addSelect('CONCAT(COALESCE(empsoldiag.apellido, \'\'), \', \', COALESCE(empsoldiag.nombre, \'\')) AS soldiag_solicitante, empsoldiag.id AS soldiag_id_solicitante, tpEmp.tipo as soldiag_tipoEmpleado')
+                            ->addSelect('CONCAT(COALESCE(empsoldiag.apellido, \'\'), \', \', COALESCE(empsoldiag.nombre, \'\')) AS soldiag_solicitante, empsoldiag.id AS soldiag_id_solicitante, tpEmp.tipo AS soldiag_tipoEmpleado')
                             ->addSelect('stdref.nombre AS prc_referido, stdref.id AS prc_id_referido, stdiag.nombre AS prc_diagnosticante, stdiag.id AS prc_id_diagnosticante, stdsol.nombre AS soldiag_solicitado, stdsol.id AS soldiag_id_solicitado')
                             ->addSelect('m.nombrearea AS prc_modalidad, m.id AS prc_id_modalidad, prAtn.nombre AS prc_prioridadAtencion, prAtn.codigo AS prc_codigoPrioridad, frCt.nombre AS prc_formaContacto, ctPct.parentesco AS prc_contactoPaciente')
-                            ->addSelect('usrRg.username as soldiag_usernameUserReg, usrRg.id AS soldiag_id_userReg')
+                            ->addSelect('usrRg.username AS soldiag_usernameUserReg, usrRg.id AS soldiag_id_userReg')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS soldiag_nombreUserReg')
                             ->addSelect('CASE WHEN (tcnlprz.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) ELSE \'\' END AS prz_tecnologo')
                             ->from('MinsalSimagdBundle:ImgSolicitudDiagnostico', 'soldiag')
@@ -163,8 +163,8 @@ class SolicitudDiagnosticoRepository extends EntityRepository
                             ->setParameter('id_est_sol', $id_estab)
                             ->setParameter('id_est', $id_estab);
 
-        $query->orderBy('soldiag.fechaCreacion', 'desc')
-                            ->addOrderBy('soldiag.id', 'desc')
+        $query->orderBy('soldiag.fechaCreacion', 'DESC')
+                            ->addOrderBy('soldiag.id', 'DESC')
                             ->distinct();
         
         /*
@@ -182,4 +182,5 @@ class SolicitudDiagnosticoRepository extends EntityRepository
 
         return $query->getQuery()->getScalarResult();
     }
+
 }

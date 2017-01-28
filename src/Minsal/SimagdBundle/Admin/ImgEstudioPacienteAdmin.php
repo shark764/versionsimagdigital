@@ -8,15 +8,15 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
-class ImgEstudioPacienteAdmin extends Admin
+class ImgEstudioPacienteAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_estudio';
+    protected $baseRouteName    = 'simagd_estudio';
     protected $baseRoutePattern = 'rayos-x-estudios';
     
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->clearExcept(array('show', 'list'));
-        $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+        // $collection->clearExcept(array('show', 'list'));
+        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('download', null, [], [], ['expose' => true]);
         $collection->add('getPatients', null, [], [], ['expose' => true]);
         $collection->add('create', 'crear');
@@ -24,20 +24,6 @@ class ImgEstudioPacienteAdmin extends Admin
         $collection->add('list', 'busqueda-estudio', [], [], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
-    }
-    
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
     }
    
     /**
@@ -53,8 +39,9 @@ class ImgEstudioPacienteAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
     }
-    
-    public function getTemplate($name) {
+
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'list':
                 return 'MinsalSimagdBundle:ImgEstudioPacienteAdmin:est_busquedaEstudio_v2.html.twig';

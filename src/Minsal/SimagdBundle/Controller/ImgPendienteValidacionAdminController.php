@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -10,11 +10,43 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 use Minsal\SimagdBundle\Entity\ImgPendienteValidacion;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxDiagnosticoPendienteValidacionListViewGenerator;
 
-class ImgPendienteValidacionAdminController extends Controller
+class ImgPendienteValidacionAdminController extends MinsalSimagdBundleGeneralAdminController
 {
-    public function validarAction() {
+    /**
+     * TABLE GENERATOR
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function generateTableAction(Request $request)
+    {
+        $request->isXmlHttpRequest();
+        $__REQUEST__type = $request->request->get('type', 'list');
+
+        // $em = $this->getDoctrine()->getManager();
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxDiagnosticoPendienteValidacionListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass(),
+                $__REQUEST__type
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+
+        return $this->renderJson(array(
+            'result'    => 'ok',
+            'options'   => $options
+        ));
+    }
+
+    public function validarAction()
+    {
         $id = $this->get('request')->get($this->admin->getIdParameter());
         $object = $this->admin->getObject($id);
         if (!$object) {
@@ -27,7 +59,8 @@ class ImgPendienteValidacionAdminController extends Controller
         return $this->redirect($this->generateUrl('simagd_diagnostico_edit', array('id' => $object->getIdDiagnostico()->getId())));
     }
 
-    public function listAction() {
+    public function listAction()
+    {
 	   //Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
@@ -45,21 +78,23 @@ class ImgPendienteValidacionAdminController extends Controller
 
         $__REQUEST__type = $this->get('request')->query->get('type', 'list');
 
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
     	$securityContext        = $this->container->get('security.context');
     	$sessionUser           = $securityContext->getToken()->getUser();
         $estabLocal             = $sessionUser->getIdEstablecimiento();
 
-        $results             = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->obtenerPendientesValidacionV2($estabLocal->getId(), $sessionUser/*->getId()*/, $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgPendienteValidacion')->designatedWorkList($estabLocal->getId(), $sessionUser/*->getId()*/, $BS_FILTERS_DECODE);
 
         $isUser_allowValidate   = ($this->admin->getRoutes()->has('validar') &&
                     ((($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_EDIT')) &&
                     ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_EDIT'))) || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
 
+        $formatter = new Formatter();
+
         foreach ($results as $key => $r)
         {
-            //    $r = new \Minsal\SimagdBundle\Entity\ImgPendienteValidacion();
+            // $r = new \Minsal\SimagdBundle\Entity\ImgPendienteValidacion();
 
             if ($__REQUEST__type === 'detail')
             {
@@ -85,33 +120,9 @@ class ImgPendienteValidacionAdminController extends Controller
 
             $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
                     '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-show-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Ver detalle..." >' .
-                        // '<a class=" worklist-show-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Ver detalle..." >' .
-                            // 'Ver' .
-                            '<i class="glyphicon glyphicon-chevron-down"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-form-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Abrir formulario..." >' .
-                        // '<a class=" worklist-save-form-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Abrir formulario..." >' .
-                            // 'Formulario' .
-                            '<i class="glyphicon glyphicon-edit"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-and-pacs-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                        // '<a class=" worklist-save-and-pacs-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                            // 'Guardar y asociar' .
-                            // '<i class="glyphicon glyphicon-check"></i>' .
-                            '<i class="glyphicon glyphicon-link"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    // '<span class="bs-btn-separator-toolbar"></span>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-action btn-link btn-link-emergency " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                        // '<a class=" worklist-save-action btn btn-emergency btn-outline btn-xs " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                            // 'Guardar' .
-                            '<i class="glyphicon glyphicon-check"></i>' .
+                        '<a class=" example2-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                            // 'OP.' .
+                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
                     '</div>' .
                 '</div>';
@@ -125,16 +136,14 @@ class ImgPendienteValidacionAdminController extends Controller
             $results[$key]['allowValidate']                      = $isUser_allowValidate;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($results));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function addToWorkListAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
-	   $status     = 'OK';
+        $status = 'OK';
 
         /*
          * request
@@ -142,7 +151,7 @@ class ImgPendienteValidacionAdminController extends Controller
         $id_radX    = $request->request->get('__radx');
         $pndV_rows  = $request->request->get('__ar_rowsAffected');
 
-        $em         = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
     	$securityContext    = $this->container->get('security.context');
     	$sessionUser        = $securityContext->getToken()->getUser();
@@ -156,39 +165,7 @@ class ImgPendienteValidacionAdminController extends Controller
             $status = 'failed';
         }
 
-        $response   = new Response();
-        $response->setContent(json_encode(array('update' => $status)));
-        return $response;
-    }
-
-    /**
-     * TABLE GENERATOR
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function generateTableAction(Request $request)
-    {
-        $request->isXmlHttpRequest();
-        $__REQUEST__type = $request->request->get('type', 'list');
-
-        $em = $this->getDoctrine()->getManager();
-
-        //////// --| builder entity
-        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxDiagnosticoPendienteValidacionListViewGenerator(
-                $this->container,
-                $this->admin->getRouteGenerator(),
-                $this->admin->getClass(),
-                $__REQUEST__type
-        );
-        //////// --|
-        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
-
-        return $this->renderJson(array(
-            'result'    => 'ok',
-            'options'   => $options
-        ));
+        return $this->renderJson(array('update' => $status));
     }
 
 }

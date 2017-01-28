@@ -15,7 +15,7 @@ class PacsEstablecimientoRepository extends EntityRepository
     /* Funcion que retorna los datos para realizar
        la conexion al PACS de acuerdo al establecimiento
        que realizo la prueba */
-    public function obtenerDatosConexion($id_estab, $bs_filters = array())
+    public function getConnectionData($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
@@ -31,17 +31,17 @@ class PacsEstablecimientoRepository extends EntityRepository
         return $query->getQuery()->getResult();
     }
 
-    public function obtenerPacsV2($bs_filters = array())
+    public function data($bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('pacs')
                             ->select('pacs')
                             ->addSelect('mtrBd')
 
-                            ->addSelect('pacs.id AS id, pacs.nombreConexion as conexion, pacs.habilitado as habilitado, pacs.ip as ip, pacs.usuario as usuario, pacs.puerto as puerto, pacs.host as host, pacs.duracionEstudio as duracion_estudio, pacs.nombreBaseDatos as base_datos, pacs.fechaHoraReg as fecha_registro, pacs.fechaHoraMod as fecha_edicion, mtrBd.nombre AS motor')
+                            ->addSelect('pacs.id AS id, pacs.nombreConexion AS conexion, pacs.habilitado AS habilitado, pacs.ip AS ip, pacs.usuario AS usuario, pacs.puerto AS puerto, pacs.host AS host, pacs.duracionEstudio AS duracion_estudio, pacs.nombreBaseDatos AS base_datos, pacs.fechaHoraReg AS fecha_registro, pacs.fechaHoraMod AS fecha_edicion, mtrBd.nombre AS motor')
 
                             ->addSelect('stdpacs.nombre AS pacs_establecimiento, stdpacs.id AS pacs_id_establecimiento')
-                            ->addSelect('usrRg.username as pacs_usernameUserReg, usrRg.id AS pacs_id_userReg, usrMd.username as pacs_usernameUserMod, usrMd.id AS pacs_id_userMod')
+                            ->addSelect('usrRg.username AS pacs_usernameUserReg, usrRg.id AS pacs_id_userReg, usrMd.username AS pacs_usernameUserMod, usrMd.id AS pacs_id_userMod')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS pacs_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS pacs_nombreUserMod')
                             ->from('MinsalSimagdBundle:ImgCtlPacsEstablecimiento', 'pacs')
@@ -51,8 +51,8 @@ class PacsEstablecimientoRepository extends EntityRepository
                             ->leftJoin('pacs.idUserMod', 'usrMd')
                             ->innerJoin('usrRg.idEmpleado', 'usrRgEmp')
                             ->leftJoin('usrMd.idEmpleado', 'usrMdEmp')
-                            ->orderBy('mtrBd.id', 'desc')
-                            ->addOrderBy('pacs.id', 'desc')
+                            ->orderBy('mtrBd.id', 'DESC')
+                            ->addOrderBy('pacs.id', 'DESC')
                             ->distinct();
 
         /*
@@ -80,10 +80,11 @@ class PacsEstablecimientoRepository extends EntityRepository
                             ->where('pacs.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
                             ->andWhere('pacs.habilitado = TRUE')
-                            ->orderBy('pacs.id', 'desc')
+                            ->orderBy('pacs.id', 'DESC')
                             ->distinct()
                             ->setMaxResults(1);
 
         return $query->getQuery()->getOneOrNullResult();
     }
+    
 }

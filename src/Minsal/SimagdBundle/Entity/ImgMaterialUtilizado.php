@@ -56,7 +56,8 @@ class ImgMaterialUtilizado
      */
     private $idMaterial;
 
-    public function __toString() {
+    public function __toString()
+    {
         return '' . $this->idMaterial;
     }
 

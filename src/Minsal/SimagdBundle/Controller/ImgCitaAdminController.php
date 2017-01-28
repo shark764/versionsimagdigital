@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -25,7 +25,7 @@ use Minsal\SimagdBundle\Generator\AgendaGenerator\AgendaGenerator;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxRyxCitaProgramadaListViewGenerator;
 
-class ImgCitaAdminController extends Controller
+class ImgCitaAdminController extends MinsalSimagdBundleGeneralAdminController
 {
     /**
      * TABLE GENERATOR
@@ -39,7 +39,7 @@ class ImgCitaAdminController extends Controller
         $request->isXmlHttpRequest();
         $__REQUEST__type = $request->request->get('type', 'list');
 
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
 
         //////// --| builder entity
         $ENTITY_LIST_VIEW_GENERATOR_ = new RyxRyxCitaProgramadaListViewGenerator(
@@ -93,7 +93,7 @@ class ImgCitaAdminController extends Controller
         ));
     }
 
-    public function obtenerEventosCalendarioAction(Request $request)
+    public function getEventsAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -106,13 +106,15 @@ class ImgCitaAdminController extends Controller
         $numeroExp      = $request->request->get('numeroExp');
         $start          = $request->request->get('start');
         $end            = $request->request->get('end');
+
+        //////////////////////////////////////////////////////////////////////
         $view           = $request->request->get('view');
         $type           = $request->request->get('type');
+        //////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////////////////////
         if ($type === 'summary' && $view === 'month')
         {
-
             //////////////////////////////////////////////////////////////////////
             //////// range
             //////////////////////////////////////////////////////////////////////
@@ -129,6 +131,7 @@ class ImgCitaAdminController extends Controller
                 'modality'      => intval($idAreaServicioDiagnostico),
                 'technologist'  => $idTecnologo,
             );
+
             $results = $em->getRepository('MinsalSimagdBundle:ImgCita')->events($p);
 
             foreach ($results as $k => $r)
@@ -155,31 +158,34 @@ class ImgCitaAdminController extends Controller
             return $this->renderJson($results);
         }
 
-        $resultados     = $em->getRepository('MinsalSimagdBundle:ImgCita')
-                                        ->obtenerEventosReservadosCalendario($estabLocal, $start, $end, $idAreaServicioDiagnostico, $idTecnologo, $numeroExp);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgCita')
+                                        ->pendingEvents($estabLocal, $start, $end, $idAreaServicioDiagnostico, $idTecnologo, $numeroExp);
 
-        foreach ($resultados as $key => $resultado) {
-            // $resultado = new \Minsal\SimagdBundle\Entity\ImgCita();
+        $formatter = new Formatter();
 
-            $resultados[$key]['tooltip_title']  = ($resultado['explocal_numero'] ? '<span class="label label-primary-v4" style="margin-left: 5px; padding: .4em .6em;"><span class="badge badge-primary-v4">' . $resultado['explocal_numero'] . '</span></span> &nbsp;' : '') . $resultado['title'];
+        foreach ($results as $key => $r)
+        {
+            // $r = new \Minsal\SimagdBundle\Entity\ImgCita();
 
-            $resultados[$key]['start']  = $resultado['cit_fechaHoraInicio']->format('Y-m-d\TH:i:s');
-            $resultados[$key]['end']    = $resultado['cit_fechaHoraFin']->format('Y-m-d\TH:i:s');
+            $results[$key]['tooltip_title']  = ($r['explocal_numero'] ? '<span class="label label-primary-v4" style="margin-left: 5px; padding: .4em .6em;"><span class="badge badge-primary-v4">' . $r['explocal_numero'] . '</span></span> &nbsp;' : '') . $r['title'];
 
-            $resultados[$key]['cit_fechaCreacion']          = $resultado['cit_fechaCreacion']->format('Y-m-d H:i:s A');
-            $resultados[$key]['cit_fechaHoraInicio']            = $resultado['cit_fechaHoraInicio']->format('Y-m-d H:i:s A');
-            $resultados[$key]['cit_fechaHoraFin']               = $resultado['cit_fechaHoraFin']->format('Y-m-d H:i:s A');
-            $resultados[$key]['cit_fechaHoraInicioAnterior']    = $resultado['cit_fechaHoraInicioAnterior'] ? $resultado['cit_fechaHoraInicioAnterior']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['cit_fechaHoraFinAnterior']       = $resultado['cit_fechaHoraFinAnterior'] ? $resultado['cit_fechaHoraFinAnterior']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['cit_fechaConfirmacion']      = $resultado['cit_fechaConfirmacion'] ? $resultado['cit_fechaConfirmacion']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['cit_fechaReprogramacion']    = $resultado['cit_fechaReprogramacion'] ? $resultado['cit_fechaReprogramacion']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['start']  = $r['cit_fechaHoraInicio']->format('Y-m-d\TH:i:s');
+            $results[$key]['end']    = $r['cit_fechaHoraFin']->format('Y-m-d\TH:i:s');
 
-            $resultados[$key]['prc_fechaCreacion']    = $resultado['prc_fechaCreacion'] ? $resultado['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
-            $resultados[$key]['prc_fechaProximaConsulta']           = $resultado['prc_fechaProximaConsulta'] ? $resultado['prc_fechaProximaConsulta']->format('Y-m-d') : '';
+            $results[$key]['cit_fechaCreacion']          = $r['cit_fechaCreacion']->format('Y-m-d H:i:s A');
+            $results[$key]['cit_fechaHoraInicio']            = $r['cit_fechaHoraInicio']->format('Y-m-d H:i:s A');
+            $results[$key]['cit_fechaHoraFin']               = $r['cit_fechaHoraFin']->format('Y-m-d H:i:s A');
+            $results[$key]['cit_fechaHoraInicioAnterior']    = $r['cit_fechaHoraInicioAnterior'] ? $r['cit_fechaHoraInicioAnterior']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['cit_fechaHoraFinAnterior']       = $r['cit_fechaHoraFinAnterior'] ? $r['cit_fechaHoraFinAnterior']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['cit_fechaConfirmacion']      = $r['cit_fechaConfirmacion'] ? $r['cit_fechaConfirmacion']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['cit_fechaReprogramacion']    = $r['cit_fechaReprogramacion'] ? $r['cit_fechaReprogramacion']->format('Y-m-d H:i:s A') : '';
 
-            $resultados[$key]['prc_solicitudEstudioProyeccion']  = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($resultado['prc_id']);
+            $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion'] ? $r['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['prc_fechaProximaConsulta']           = $r['prc_fechaProximaConsulta'] ? $r['prc_fechaProximaConsulta']->format('Y-m-d') : '';
 
-            $resultados[$key]['url']    = $this->admin->generateUrl('show', array('id' => $resultado['cit_id']));
+            $results[$key]['prc_solicitudEstudioProyeccion']  = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
+
+            $results[$key]['url']    = $this->admin->generateUrl('show', array('id' => $r['cit_id']));
         }
 
         /* Creación de evento falso */
@@ -198,50 +204,52 @@ class ImgCitaAdminController extends Controller
         $falseEvent['description']              = NULL;
         $falseEvent['prxConsulta']              = (new \DateTime('now'))->format('Y-m-d');
         $falseEvent['range']  = $this->createDateRangeArray($start, $end);
-        $resultados[]                           = $falseEvent;
+        $results[]                           = $falseEvent;
 
         /* Agregar bloqueos */
-        $resultados     = $this->generateData($estabLocal, $start, $end, $resultados, $idAreaServicioDiagnostico, $idTecnologo);
+        $results = $this->addCalendarLocks($estabLocal, $start, $end, $results, $idAreaServicioDiagnostico, $idTecnologo);
+        // $this->addCalendarLocks($estabLocal, $start, $end, $results, $idAreaServicioDiagnostico, $idTecnologo);
 
-        $response       = new Response();
-        $response->setContent(json_encode($resultados));
-        return $response;
+        return $this->renderJson($results);
     }
 
-    public function generateData($idEstablecimiento, $start, $end, $eventos = array(), $idAreaServicioDiagnostico = null, $idTecnologo = null)
+    public function addCalendarLocks($idEstablecimiento, $start, $end, $results = array(), $idAreaServicioDiagnostico = null, $idTecnologo = null)
     {
-        $em         = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
-        $resultados = $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')
+        $events = $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')
                                 ->getCalendarLocks($idEstablecimiento, $start, $end, $idAreaServicioDiagnostico, $idTecnologo);
+        // var_dump($events);
 
-        foreach ($resultados as $key => $resultado) {
-            $resultados[$key]['overlap']                    = false;
+        foreach ($events as $key => $r)
+        {
+            // $events[$key]['overlap']                    = false;
 
-            $resultados[$key]['blAgd_fechaCreacion']        = $resultado['blAgd_fechaCreacion']->format('Y-m-d H:i:s A');
-            $resultados[$key]['blAgd_fechaUltimaEdicion']   = $resultado['blAgd_fechaUltimaEdicion'] ? $resultado['blAgd_fechaUltimaEdicion']->format('Y-m-d H:i:s A') : '';
+            $events[$key]['blAgd_fechaCreacion']        = $r['blAgd_fechaCreacion']->format('Y-m-d H:i:s A');
+            $events[$key]['blAgd_fechaUltimaEdicion']   = $r['blAgd_fechaUltimaEdicion'] ? $r['blAgd_fechaUltimaEdicion']->format('Y-m-d H:i:s A') : '';
 
-            $resultados[$key]['blAgd_fechaInicio']          = $resultado['blAgd_fechaInicio']->format('Y-m-d');
-            $resultados[$key]['blAgd_fechaFin']             = $resultado['blAgd_fechaFin']->format('Y-m-d');
-            $resultados[$key]['blAgd_horaInicio']           = $resultado['blAgd_horaInicio']->format('H:i:s A');
-            $resultados[$key]['blAgd_horaFin']              = $resultado['blAgd_horaFin']->format('H:i:s A');
+            $events[$key]['blAgd_fechaInicio']          = $r['blAgd_fechaInicio']->format('Y-m-d');
+            $events[$key]['blAgd_fechaFin']             = $r['blAgd_fechaFin']->format('Y-m-d');
+            $events[$key]['blAgd_horaInicio']           = $r['blAgd_horaInicio']->format('H:i:s A');
+            $events[$key]['blAgd_horaFin']              = $r['blAgd_horaFin']->format('H:i:s A');
 
-            $resultados[$key]['blAgd_bloqueoExclusionesBloqueo']	= $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')->obtenerExclusionesBloqueo($resultado['blAgd_id']);
+            $events[$key]['blAgd_bloqueoExclusionesBloqueo']	= $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')->obtenerExclusionesBloqueo($r['blAgd_id']);
 
-            $iv     = $resultado['blAgd_fechaInicio']->diff($resultado['blAgd_fechaFin'])->days;
+            $iv     = $r['blAgd_fechaInicio']->diff($r['blAgd_fechaFin'])->days;
             $i      = 0;
 
-            while ($i <= $iv) {
-                $cloneIni = clone $resultado['blAgd_fechaInicio'];
+            while ($i <= $iv)
+            {
+                $cloneIni = clone $r['blAgd_fechaInicio'];
 
                 $ini                        = \DateTime::createFromFormat('Y-m-d H:i',
-                                                    $cloneIni->add(new DateInterval('P' . $i . 'D'))->format('Y-m-d') . ' ' . $resultado['blAgd_horaInicio']->format('H:i'));
-                $resultados[$key]['start']  = $ini->format('Y-m-d\TH:i:s');
+                                                    $cloneIni->add(new DateInterval('P' . $i . 'D'))->format('Y-m-d') . ' ' . $r['blAgd_horaInicio']->format('H:i'));
+                $events[$key]['start']  = $ini->format('Y-m-d\TH:i:s');
 
                 $fin                        = \DateTime::createFromFormat('Y-m-d H:i',
-                                                    $cloneIni->format('Y-m-d') . ' ' . $resultado['blAgd_horaFin']->format('H:i'));
-                $resultados[$key]['end']    = $fin->format('Y-m-d\TH:i:s');
-                $eventos[]                  = $resultados[$key];
+                                                    $cloneIni->format('Y-m-d') . ' ' . $r['blAgd_horaFin']->format('H:i'));
+                $events[$key]['end']    = $fin->format('Y-m-d\TH:i:s');
+                $results[]                  = $events[$key];
 
                 $i++;
             }
@@ -257,9 +265,9 @@ class ImgCitaAdminController extends Controller
         $falseEvent['rendering']    = 'background';
         $falseEvent['start']        = (new \DateTime('now'))->format('Y-m-d\TH:i:s');
         $falseEvent['end']          = (new \DateTime('now'))->format('Y-m-d\TH:i:s');
-        $eventos[]                  = $falseEvent;
+        $results[]                  = $falseEvent;
 
-        return $eventos;
+        return $results;
     }
 
 
@@ -291,49 +299,6 @@ class ImgCitaAdminController extends Controller
         return $this->render('MinsalSimagdBundle:ImgCitaAdmin:cit_espacios_reservados.html.twig', array('reservasCita' => $reservas, 'paramCitacion' => $paramCitacion));
     }
 
-    /**
-     * Redirect the user depend on this choice
-     *
-     * @param object $object
-     *
-     * @return RedirectResponse
-     */
-    protected function redirectTo($object)
-    {
-        $url = false;
-
-        if (null !== $this->get('request')->get('btn_update_and_list')) {
-            $url = $this->admin->generateUrl('list');
-        }
-        if (null !== $this->get('request')->get('btn_create_and_list')) {
-            $url = $this->admin->generateUrl('list');
-        }
-
-        if (null !== $this->get('request')->get('btn_create_and_create')) {
-            $params = array();
-            if ($this->admin->hasActiveSubClass()) {
-                $params['subclass'] = $this->get('request')->get('subclass');
-            }
-            $url = $this->admin->generateUrl('create', $params);
-        }
-
-        if ($this->getRestMethod() == 'DELETE') {
-            $url = $this->admin->generateUrl('list');
-        }
-
-        /** Crear/Actualizar y mostrar registro */
-        if ((null !== $this->get('request')->get('btn_create_and_show')) ||
-                                (null !== $this->get('request')->get('btn_edit_and_show'))) {
-    		$url = $this->admin->generateObjectUrl('show', $object);
-        }
-
-        if (!$url) {
-            $url = $this->admin->generateObjectUrl('edit', $object);
-        }
-
-        return new RedirectResponse($url);
-    }
-
     public function confirmarCitaAction(Request $request)
     {
         $request->isXmlHttpRequest();
@@ -345,7 +310,7 @@ class ImgCitaAdminController extends Controller
         $cita = $this->admin->getObject($id);
 
         //Cambio de estado de cita
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $estadoReference    = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlEstadoCita', '2');
         $cita->setIdEstadoCita($estadoReference);
         //Fecha de confirmación
@@ -361,9 +326,7 @@ class ImgCitaAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function cancelarCitaAction(Request $request)
@@ -404,9 +367,7 @@ class ImgCitaAdminController extends Controller
             $status = 'failed';
         }
 
-        $response = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function editAction($id = null)
@@ -462,7 +423,7 @@ class ImgCitaAdminController extends Controller
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
     	$securityContext 	= $this->container->get('security.context');
     	$sessionUser 		= $securityContext->getToken()->getUser();
@@ -518,7 +479,7 @@ class ImgCitaAdminController extends Controller
          */
         // $GROUP_DEPENDENT_ENTITIES   = array();
         // try {
-        //     $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesAgrupadasV2($estabLocal->getId());
+        //     $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->getRadiologicalProceduresGrouped($estabLocal->getId());
         // } catch (Exception $e) {
         //     $status = 'failed';
         // }
@@ -616,7 +577,7 @@ class ImgCitaAdminController extends Controller
 
         $userPrg    = $cita->getIdUserPrg();
 
-        $response   = new Response();
+        $response = new Response();
         $response->setContent(
 	    json_encode($status == 'OK' ?
 		array(
@@ -644,7 +605,7 @@ class ImgCitaAdminController extends Controller
     {
         $request->isXmlHttpRequest();
 
-        $status     = 'OK';
+        $status = 'OK';
 
         // $title = $request->request->get('title');
         $id         = $request->request->get('id');
@@ -667,7 +628,7 @@ class ImgCitaAdminController extends Controller
 
         $userRePrg  = $cita->getIdUserReprg();
 
-        $response   = new Response();
+        $response = new Response();
         $response->setContent(
 	    json_encode($status == 'OK' ?
     		array(
@@ -709,7 +670,7 @@ class ImgCitaAdminController extends Controller
         $cita->setIncidencias($incidencias);
         $cita->setObservaciones($observaciones);
 
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //Cambio de estado de cita
         $estadoReference        = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlEstadoCita', $idEstado);
@@ -732,7 +693,7 @@ class ImgCitaAdminController extends Controller
             $status = 'failed';
         }
 
-        $response   = new Response();
+        $response = new Response();
         $response->setContent(json_encode(array()));
         return $response;
     }
@@ -748,13 +709,20 @@ class ImgCitaAdminController extends Controller
         }
         $BS_FILTERS_DECODE      = json_decode($BS_FILTERS, true);
 
-        $em                     = $this->getDoctrine()->getManager();
+        $__REQUEST__type    = $this->get('request')->query->get('type', 'list');
+        $__REQUEST__emrg    = $this->get('request')->query->get('emrg', 0);
+        $__REQUEST__foreign = $this->get('request')->query->get('foreign', 0);
+        $__REQUEST__record  = $this->get('request')->query->get('record', NULL);
+
+        $em = $this->getDoctrine()->getManager();
 
         $securityContext 	= $this->container->get('security.context');
         $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
-        $results             = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerPreinscripcionesNoCitadasV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->getPendingPatients($estabLocal->getId(), $BS_FILTERS_DECODE);
+
+        $formatter = new Formatter();
 
         foreach ($results as $key => $r)
         {
@@ -771,9 +739,7 @@ class ImgCitaAdminController extends Controller
             $results[$key]['prc_solicitudEstudioProyeccion']      = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($results));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function generateDataAction(Request $request)
@@ -787,13 +753,13 @@ class ImgCitaAdminController extends Controller
         $__REQUEST__emrg    = $this->get('request')->query->get('emrg', 0);
         $__REQUEST__foreign = $this->get('request')->query->get('foreign', 0);
 
-        $em                     = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
     	$securityContext	= $this->container->get('security.context');
     	$sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
-        $results             = $em->getRepository('MinsalSimagdBundle:ImgCita')->obtenerCitasProgramadasV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgCita')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
 
         $isUser_allowShow 	= ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit 	= ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('editarCita')) ? TRUE : FALSE;
@@ -839,33 +805,9 @@ class ImgCitaAdminController extends Controller
 
             $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
                     '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-show-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Ver detalle..." >' .
-                        // '<a class=" worklist-show-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Ver detalle..." >' .
-                            // 'Ver' .
-                            '<i class="glyphicon glyphicon-chevron-down"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-form-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Abrir formulario..." >' .
-                        // '<a class=" worklist-save-form-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Abrir formulario..." >' .
-                            // 'Formulario' .
-                            '<i class="glyphicon glyphicon-edit"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-and-pacs-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                        // '<a class=" worklist-save-and-pacs-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                            // 'Guardar y asociar' .
-                            // '<i class="glyphicon glyphicon-check"></i>' .
-                            '<i class="glyphicon glyphicon-link"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    // '<span class="bs-btn-separator-toolbar"></span>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-action btn-link btn-link-emergency " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                        // '<a class=" worklist-save-action btn btn-emergency btn-outline btn-xs " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                            // 'Guardar' .
-                            '<i class="glyphicon glyphicon-check"></i>' .
+                        '<a class=" example2-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                            // 'OP.' .
+                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
                     '</div>' .
                 '</div>';
@@ -894,12 +836,10 @@ class ImgCitaAdminController extends Controller
             $results[$key]['allowIndRadx'] 	= $isUser_allowIndRadx;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($results));
-        return $response;
+        return $this->renderJson($results);
     }
 
-    public function imprimirComprobanteAction(Request $request)
+    public function printAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
@@ -913,7 +853,7 @@ class ImgCitaAdminController extends Controller
         $id                 = $this->get('request')->query->get('id');
 
         //Objeto
-        $object             = $this->admin->getObject($id);
+        $object = $this->admin->getObject($id);
 
         $solicitud          = $object->getIdSolicitudEstudio();
 
@@ -928,7 +868,7 @@ class ImgCitaAdminController extends Controller
                                                             'idAreaServicioDiagnosticoAplica' => $solicitud->getIdAreaServicioDiagnostico()->getId()
                                                         ));
 
-        return $this->render($this->admin->getTemplate('imprimirComprobante'), array(
+        return $this->render($this->admin->getTemplate('print'), array(
             'action'        => 'print',
             'object'        => $object,
             'expediente'    => $expediente,

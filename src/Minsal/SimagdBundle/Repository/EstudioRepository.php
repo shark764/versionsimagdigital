@@ -59,7 +59,7 @@ class EstudioRepository extends EntityRepository
      * @param type $id_estab
      * @return type
      */
-    public function obtenerEstudiosSinLectura($id_estab, $idLectura = null, $idPaciente = null)
+    public function getStudiesWithoutRadiologicalDiagnosis($id_estab, $idLectura = null, $idPaciente = null)
     {
         /** SubQuery */
         $subQuery = $this->getEntityManager()
@@ -166,10 +166,10 @@ class EstudioRepository extends EntityRepository
 	    }
         }
 
-        $query->orderBy('prz.idSolicitudEstudioComplementario', 'desc')
-                            ->addOrderBy('prz.idSolicitudEstudio', 'desc')
-                            ->addOrderBy('est.fechaEstudio', 'desc')
-                            ->addOrderBy('prz.id', 'desc');
+        $query->orderBy('prz.idSolicitudEstudioComplementario', 'DESC')
+                            ->addOrderBy('prz.idSolicitudEstudio', 'DESC')
+                            ->addOrderBy('est.fechaEstudio', 'DESC')
+                            ->addOrderBy('prz.id', 'DESC');
 
         $query->distinct();
 
@@ -292,7 +292,7 @@ class EstudioRepository extends EntityRepository
         return $query->getQuery()->getOneOrNullResult();
     }
 
-    public function obtenerEstudiosPacienteV2($idStdPacs, $fechaDesde, $fechaHasta, $criteria, $limiteR, $bs_filters = array())
+    public function data($idStdPacs, $fechaDesde, $fechaHasta, $criteria, $limiteR, $bs_filters = array())
     {
         /** Ningún parámetro fué enviado */
         if(count($criteria) < 1 &&
@@ -313,6 +313,9 @@ class EstudioRepository extends EntityRepository
                             ->addSelect('pct')
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
+
+                            ->addSelect('est.id AS id, stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea AS modalidad, prAtn.nombre AS triage, est.fechaEstudio AS fecha_estudio')
+
                             ->addSelect('statusprz.id AS prz_id_estado, statusprz.nombreEstado AS prz_estado, statusprz.codigo AS prz_codEstado')
                             ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS est_paciente')
                             ->addSelect('m.nombrearea AS prc_modalidad, m.id AS prc_id_modalidad, prAtn.nombre AS prc_prioridadAtencion, prAtn.id AS prc_id_prioridad, prAtn.codigo AS prc_codigoPrioridad')
@@ -321,7 +324,7 @@ class EstudioRepository extends EntityRepository
                             ->addSelect('CASE WHEN (empcmpl.id IS NOT NULL) THEN CONCAT(COALESCE(empcmpl.apellido, \'\'), \', \', COALESCE(empcmpl.nombre, \'\')) ELSE \'\' END AS solcmpl_solicitante')
                             ->addSelect('CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) AS prz_tecnologo, tcnlprz.id AS prz_id_tecnologo')
                             ->addSelect('stdest.nombre AS est_almacenado, stdest.id AS est_id_almacenado')
-                            ->addSelect('mcmpl.nombrearea as solcmpl_modalidad, mcmpl.id AS solcmpl_id_modalidad, prAtnCmpl.nombre AS solcmpl_prioridadAtencion, prAtnCmpl.id AS solcmpl_id_prioridad, prAtnCmpl.codigo as solcmpl_codigoPrioridad')
+                            ->addSelect('mcmpl.nombrearea AS solcmpl_modalidad, mcmpl.id AS solcmpl_id_modalidad, prAtnCmpl.nombre AS solcmpl_prioridadAtencion, prAtnCmpl.id AS solcmpl_id_prioridad, prAtnCmpl.codigo AS solcmpl_codigoPrioridad')
                             ->from('MinsalSimagdBundle:ImgEstudioPaciente', 'est')
                             ->innerJoin('est.idEstablecimiento', 'stdest')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
@@ -352,8 +355,8 @@ class EstudioRepository extends EntityRepository
 
                             ->where('est.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $idStdPacs)
-                            ->orderBy('est.fechaEstudio', 'desc')
-                            ->addOrderBy('explocal.numero', 'desc');
+                            ->orderBy('est.fechaEstudio', 'DESC')
+                            ->addOrderBy('explocal.numero', 'DESC');
 
         $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
@@ -462,7 +465,7 @@ class EstudioRepository extends EntityRepository
 //                             ->andWhere('est.idEstablecimiento = :id_est')
 //                             ->setParameter('id_est', $std_id)
                             ->andWhere('prz.idSolicitudEstudioComplementario IS NULL')
-                            ->orderBy('est.fechaEstudio', 'desc');
+                            ->orderBy('est.fechaEstudio', 'DESC');
 
 	$query->andWhere($query->expr()->andx(
 				$query->expr()->not($query->expr()->exists($subQuery->getDql())),
@@ -477,7 +480,7 @@ class EstudioRepository extends EntityRepository
         return $query->getQuery()->getScalarResult();
     }
 
-    public function getPatientsV2($id_estab, $numeroExp)
+    public function getPatients($id_estab, $numeroExp)
     {
         /** Consulta de pacientes */
         $query = $this->getEntityManager()
@@ -502,7 +505,6 @@ class EstudioRepository extends EntityRepository
     }
 
 }
-
 //if ( exists (   select "id"
 //                from "img_solicitud_diagnostico"
 //                where "id_estudio" = old.id_estudio )

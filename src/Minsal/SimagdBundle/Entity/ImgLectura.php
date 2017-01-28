@@ -219,7 +219,8 @@ class ImgLectura
      */
     private $lecturaLecturaEstudios;
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->correlativo . ' :: ' . $this->idEstudio . ' :: ' . $this->idEstadoLectura;
     }
 

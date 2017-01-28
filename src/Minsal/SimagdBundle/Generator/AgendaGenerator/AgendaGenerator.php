@@ -110,7 +110,7 @@ class AgendaGenerator
         $this->routeGenerator   = $routeGenerator;
         $this->entityManager    = $this->container->get('doctrine')->getManager();
 
-        // $this->options['events']['url'] = $this->routeGenerator->generate('simagd_cita_obtenerEventosCalendario');
+        // $this->options['events']['url'] = $this->routeGenerator->generate('simagd_cita_getEvents');
     }
 
     /**

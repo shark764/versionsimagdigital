@@ -55,15 +55,15 @@ class NotaDiagnosticoRepository extends EntityRepository
                             ->innerJoin('notdiag.idDiagnostico', 'diag')
                             ->where('notdiag.idEstablecimiento = :id_est_diag')
                             ->setParameter('id_est_diag', $id_estab)
-                            ->orderBy('notdiag.fechaEmision', 'desc')
-                            ->addOrderBy('diag.fechaAprobado', 'desc')
-                            ->addOrderBy('notdiag.id', 'desc');
-        $query->distinct();
+                            ->orderBy('notdiag.fechaEmision', 'DESC')
+                            ->addOrderBy('diag.fechaAprobado', 'DESC')
+                            ->addOrderBy('notdiag.id', 'DESC')
+                            ->distinct();
         
         return $query->getQuery()->getResult();
     }
 
-    public function obtenerNotasDiagnosticoV2($id_estab, $bs_filters = array())
+    public function data($id_estab, $bs_filters = array())
     {
         $query = $this->getEntityManager()
                         ->createQueryBuilder('notdiag')
@@ -73,13 +73,13 @@ class NotaDiagnosticoRepository extends EntityRepository
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
 
-                            ->addSelect('notdiag.id AS id, stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea as modalidad, prAtn.nombre AS triage, CONCAT(COALESCE(emplct.apellido, \'\'), \', \', COALESCE(emplct.nombre, \'\')) AS radiologo, statusdiag.nombreEstado as estado, diag.conclusion as conclusion, CONCAT(COALESCE(empdiag.apellido, \'\'), \', \', COALESCE(empdiag.nombre, \'\')) AS transcriptor, diag.fechaTranscrito as fecha_transcrito, diag.fechaAprobado as fecha_aprobado, diag.fechaRegistro as fecha_diagnostico, CONCAT(COALESCE(empnotdiag.apellido, \'\'), \', \', COALESCE(empnotdiag.nombre, \'\')) AS medico_opinion, notdiag.fechaEmision as fecha_registro')
+                            ->addSelect('notdiag.id AS id, stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea AS modalidad, prAtn.nombre AS triage, CONCAT(COALESCE(emplct.apellido, \'\'), \', \', COALESCE(emplct.nombre, \'\')) AS radiologo, statusdiag.nombreEstado AS estado, diag.conclusion AS conclusion, CONCAT(COALESCE(empdiag.apellido, \'\'), \', \', COALESCE(empdiag.nombre, \'\')) AS transcriptor, diag.fechaTranscrito AS fecha_transcrito, diag.fechaAprobado AS fecha_aprobado, diag.fechaRegistro AS fecha_diagnostico, CONCAT(COALESCE(empnotdiag.apellido, \'\'), \', \', COALESCE(empnotdiag.nombre, \'\')) AS medico_opinion, notdiag.fechaEmision AS fecha_registro')
 
-                            ->addSelect('statusdiag.id AS diag_id_estado, statusdiag.nombreEstado as diag_estado, statusdiag.codigo as diag_codEstado, tipoN.nombreTipo as notdiag_tipoNota, tipoN.codigo as notdiag_codTipo, tipoN.id AS notdiag_id_tipoNota')
-                            ->addSelect('prc.fechaCreacion AS prc_fechaCreacion, est.id AS est_id, est.fechaEstudio as est_fechaEstudio, est.url as est_url, prz.fechaAlmacenado AS prz_fechaAlmacenado')
+                            ->addSelect('statusdiag.id AS diag_id_estado, statusdiag.nombreEstado AS diag_estado, statusdiag.codigo AS diag_codEstado, tipoN.nombreTipo AS notdiag_tipoNota, tipoN.codigo AS notdiag_codTipo, tipoN.id AS notdiag_id_tipoNota')
+                            ->addSelect('prc.fechaCreacion AS prc_fechaCreacion, est.id AS est_id, est.fechaEstudio AS est_fechaEstudio, est.url AS est_url, prz.fechaAlmacenado AS prz_fechaAlmacenado')
                             ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS prc_paciente')
                             ->addSelect('stdroot.nombre AS prc_origen, stdroot.id AS prc_id_origen, ar.nombre AS prc_areaAtencion, ar.id AS prc_id_areaAtencion, atn.nombre AS prc_atencion, atn.id AS prc_id_atencion')
-                            ->addSelect('CONCAT(COALESCE(empnotdiag.apellido, \'\'), \', \', COALESCE(empnotdiag.nombre, \'\')) AS notdiag_emisorNota, empnotdiag.id AS notdiag_id_emisorNota, tpEmp.tipo as notdiag_tipoEmpleado')
+                            ->addSelect('CONCAT(COALESCE(empnotdiag.apellido, \'\'), \', \', COALESCE(empnotdiag.nombre, \'\')) AS notdiag_emisorNota, empnotdiag.id AS notdiag_id_emisorNota, tpEmp.tipo AS notdiag_tipoEmpleado')
                             ->addSelect('CONCAT(COALESCE(empdiag.apellido, \'\'), \', \', COALESCE(empdiag.nombre, \'\')) AS diag_transcriptor, empdiag.id AS diag_id_transcriptor')
                             ->addSelect('CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) AS prc_solicitante')
                             ->addSelect('CONCAT(COALESCE(emplct.apellido, \'\'), \', \', COALESCE(emplct.nombre, \'\')) AS lct_radiologo, emplct.id AS lct_id_radiologo')
@@ -87,7 +87,7 @@ class NotaDiagnosticoRepository extends EntityRepository
                             ->addSelect('CASE WHEN (radVal.id IS NOT NULL) THEN CONCAT(COALESCE(radVal.apellido, \'\'), \', \', COALESCE(radVal.nombre, \'\')) ELSE \'\' END AS diag_radiologoVal, radVal.id AS diag_id_radiologoVal')
                             ->addSelect('stdref.nombre AS prc_referido, stdref.id AS prc_id_referido, stdiag.nombre AS prc_diagnosticante, stdiag.id AS prc_id_diagnosticante, stdlct.nombre AS lct_diagnosticante, stdlct.id AS lct_id_diagnosticante, stdnotdiag.nombre AS notdiag_stdEmisor, stdnotdiag.id AS notdiag_id_stdEmisor')
                             ->addSelect('m.nombrearea AS prc_modalidad, m.id AS prc_id_modalidad, prAtn.nombre AS prc_prioridadAtencion, prAtn.codigo AS prc_codigoPrioridad, frCt.nombre AS prc_formaContacto, ctPct.parentesco AS prc_contactoPaciente')
-                            ->addSelect('usrRg.username as notdiag_usernameUserReg, usrRg.id AS notdiag_id_userReg')
+                            ->addSelect('usrRg.username AS notdiag_usernameUserReg, usrRg.id AS notdiag_id_userReg')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS notdiag_nombreUserReg')
                             ->addSelect('CASE WHEN (tcnlprz.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) ELSE \'\' END AS prz_tecnologo')
                             ->from('MinsalSimagdBundle:ImgNotaDiagnostico', 'notdiag')
@@ -126,9 +126,9 @@ class NotaDiagnosticoRepository extends EntityRepository
                             ->leftJoin('empnotdiag.idTipoEmpleado', 'tpEmp')
                             ->where('notdiag.idEstablecimiento = :id_est_diag')
                             ->setParameter('id_est_diag', $id_estab)
-                            ->orderBy('notdiag.fechaEmision', 'desc')
-                            ->addOrderBy('diag.fechaAprobado', 'desc')
-                            ->addOrderBy('notdiag.id', 'desc')
+                            ->orderBy('notdiag.fechaEmision', 'DESC')
+                            ->addOrderBy('diag.fechaAprobado', 'DESC')
+                            ->addOrderBy('notdiag.id', 'DESC')
                             ->distinct();
         
         $query->leftJoin('prc.idExpedienteFicticio', 'unknExp')->leftJoin('MinsalSiapsBundle:MntExpediente', 'explocal',
@@ -155,4 +155,5 @@ class NotaDiagnosticoRepository extends EntityRepository
 
         return $query->getQuery()->getScalarResult();
     }
+
 }

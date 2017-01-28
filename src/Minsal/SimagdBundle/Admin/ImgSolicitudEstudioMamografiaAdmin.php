@@ -8,9 +8,9 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class ImgSolicitudEstudioMamografiaAdmin extends Admin
+class ImgSolicitudEstudioMamografiaAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName = 'simagd_solicitud_estudio_mamografia';
+    protected $baseRouteName    = 'simagd_solicitud_estudio_mamografia';
     protected $baseRoutePattern = 'rayos-x-solicitud-estudio-mamografia';
     
     /**

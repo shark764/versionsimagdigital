@@ -14,6 +14,10 @@ and open the template in the editor.
     margin-right: 1%;
 }
 
+.dropdown-menu.highlight-success-dropdown-menu {
+  font-size: 12px;
+}
+
 .table.table-black-head>thead>tr>th,
 .table.table-black-head>thead>tr>td {
   /*background-color: #333;*/

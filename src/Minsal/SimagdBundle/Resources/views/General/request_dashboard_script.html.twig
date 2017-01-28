@@ -48,6 +48,20 @@
                     emrg: emrg,
                 },
                 success: function(response) {
+                    ////////
+                    $.each(response.options, function(i, opt) {
+                        if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
+                            var namespaces = opt.split('.');
+                            var func = namespaces.pop();
+                            var context = window;
+                            for(var x = 0; x < namespaces.length; x++) {
+                                context = context[namespaces[x]];
+                            }
+                            response.options[i] = context[func];  // set function
+                        }
+                    });
+                    ////////
+
                     $table
                         .bootstrapTable('destroy')
                         .bootstrapTable(response.options);
@@ -74,9 +88,25 @@
             var $table = jQuery('#ryx_target_bstable');
             ////////
             // $table.bootstrapTable('showLoading');
+
+            ////////
+            var DEFAULT_TABLE_OPTIONS = JSON.parse('{{ DEFAULT_TABLE_OPTIONS|json_encode|e('js')|raw }}');
+            $.each(DEFAULT_TABLE_OPTIONS, function(i, opt) {
+                if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
+                    var namespaces = opt.split('.');
+                    var func = namespaces.pop();
+                    var context = window;
+                    for(var x = 0; x < namespaces.length; x++) {
+                        context = context[namespaces[x]];
+                    }
+                    DEFAULT_TABLE_OPTIONS[i] = context[func];  // set function
+                }
+            });
+            ////////
+
             $table
                 .bootstrapTable('destroy')
-                .bootstrapTable(JSON.parse('{{ DEFAULT_TABLE_OPTIONS|json_encode|e('js')|raw }}'));
+                .bootstrapTable(DEFAULT_TABLE_OPTIONS);
 
 
             //////////////////////////////////////////////////////////////////////////
@@ -96,6 +126,37 @@
 			// jQuery('#_switch_display').iCheck('destroy').bootstrapSwitch();
 
         });
+
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__FUNCTIONS_CALL__ = {};   // --| build data collection
+
+            /*
+             * Collection of functions / fc options
+             */
+            __FUNCTIONS_CALL__.functions = {
+                onContextMenuItem: function(row, $el) {
+                    if($el.data('item') == 'show') {
+                        // alert('Show: ' + JSON.stringify(row));
+                        var url = Routing.generate('simagd_solicitud_estudio_show', {id: row.id});
+                        window.location.href = url; // simulate link click
+                    } else if($el.data('item') == 'edit') {
+                        // alert('Edit: ' + row.itemid + ' ' + row.name + ' ' + row.price);
+                        var url = Routing.generate('simagd_solicitud_estudio_edit', {id: row.id});
+                        window.location.href = url; // simulate link click
+                    } else if($el.data('item') == 'delete') {
+                        // alert('Delete: ' + row.itemid + ' ' + row.name + ' ' + row.price);
+                        var url = Routing.generate('simagd_solicitud_estudio_delete', {id: row.id});
+                        window.location.href = url; // simulate link click
+                    }
+                },
+            };  // --| build function object
+
+        }(jQuery));
 
         // var destroy = function(el) {
         //     if (jQuery(el).attr('id') !== "undefined" && (jQuery(el).attr('id') === "pry2" || jQuery(el).attr('id') === "pry4")) {

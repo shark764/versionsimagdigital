@@ -2,7 +2,7 @@
 
 namespace Minsal\SimagdBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Minsal\SimagdBundle\Controller\MinsalSimagdBundleGeneralAdminController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -10,13 +10,45 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 use Minsal\SimagdBundle\Entity\ImgPendienteLectura;
 
+use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxEstudioPendienteLecturaListViewGenerator;
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
-class ImgPendienteLecturaAdminController extends Controller
+class ImgPendienteLecturaAdminController extends MinsalSimagdBundleGeneralAdminController
 {
-    public function leerAction() {
+    /**
+     * TABLE GENERATOR
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function generateTableAction(Request $request)
+    {
+        $request->isXmlHttpRequest();
+        $__REQUEST__type = $request->request->get('type', 'list');
+
+        // $em = $this->getDoctrine()->getManager();
+
+        //////// --| builder entity
+        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxEstudioPendienteLecturaListViewGenerator(
+                $this->container,
+                $this->admin->getRouteGenerator(),
+                $this->admin->getClass(),
+                $__REQUEST__type
+        );
+        //////// --|
+        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
+
+        return $this->renderJson(array(
+            'result'    => 'ok',
+            'options'   => $options
+        ));
+    }
+
+    public function leerAction()
+    {
         $id = $this->get('request')->get($this->admin->getIdParameter());
         $object = $this->admin->getObject($id);
         if (!$object) {
@@ -52,17 +84,17 @@ class ImgPendienteLecturaAdminController extends Controller
 
         $estudio = $pndL->getIdEstudio()->getId();
 
-        return $this->redirect($this->generateUrl('simagd_lectura_agregarPendiente', array('__est' => $estudio)));
+        return $this->redirect($this->generateUrl('simagd_lectura_addPendingToWorkList', array('__est' => $estudio)));
     }
 
     public function listAction()
     {
-        //Acceso denegado
+        // Acceso denegado
         if (false === $this->admin->isGranted('LIST')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
-        $em                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
     	$securityContext    = $this->container->get('security.context');
     	$sessionUser        = $securityContext->getToken()->getUser();
@@ -84,7 +116,7 @@ class ImgPendienteLecturaAdminController extends Controller
 
         /** Patrones para diagnóstico */
         $patronesDiag       = $em->getRepository('MinsalSimagdBundle:ImgCtlPatronDiagnostico')
-                                    ->obtenerPatronesDiagnosticoUtilizablesV2($estabLocal->getId())
+                                    ->getUsableDiagnosticPatterns($estabLocal->getId())
                                     ->getQuery()->getResult();
         /** Fin --- Patrones para diagnóstico */
 
@@ -117,7 +149,7 @@ class ImgPendienteLecturaAdminController extends Controller
     	$sessionUser               = $securityContext->getToken()->getUser();
         $estabLocal                 = $sessionUser->getIdEstablecimiento();
 
-        $results                 = $em->getRepository('MinsalSimagdBundle:ImgLectura')->obtenerPendientesLecturaV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgPendienteLectura')->getWorkList($estabLocal->getId(), $BS_FILTERS_DECODE);
 
         $isUser_allowInterpretar    = ($this->admin->getRoutes()->has('leer') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_EDIT')) ||
@@ -126,6 +158,8 @@ class ImgPendienteLecturaAdminController extends Controller
         $isUser_allowRegInicial     = ($this->admin->getRoutes()->has('registrarEnMiLista') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_EDIT')) ||
                     $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
+
+        $formatter = new Formatter();
 
         foreach ($results as $key => $r)
         {
@@ -154,33 +188,9 @@ class ImgPendienteLecturaAdminController extends Controller
 
             $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
                     '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-show-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Ver detalle..." >' .
-                        // '<a class=" worklist-show-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Ver detalle..." >' .
-                            // 'Ver' .
-                            '<i class="glyphicon glyphicon-chevron-down"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-form-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Abrir formulario..." >' .
-                        // '<a class=" worklist-save-form-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Abrir formulario..." >' .
-                            // 'Formulario' .
-                            '<i class="glyphicon glyphicon-edit"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-and-pacs-action btn-link btn-link-black-thrash " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                        // '<a class=" worklist-save-and-pacs-action btn btn-black-thrash btn-outline btn-xs " href="javascript:void(0)" title="Guardar y asociar..." >' .
-                            // 'Guardar y asociar' .
-                            // '<i class="glyphicon glyphicon-check"></i>' .
-                            '<i class="glyphicon glyphicon-link"></i>' .
-                        '</a>' .
-                    '</div>' .
-                    // '<span class="bs-btn-separator-toolbar"></span>' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" worklist-save-action btn-link btn-link-emergency " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                        // '<a class=" worklist-save-action btn btn-emergency btn-outline btn-xs " href="javascript:void(0)" title="Guardar sin asociar..." >' .
-                            // 'Guardar' .
-                            '<i class="glyphicon glyphicon-check"></i>' .
+                        '<a class=" example2-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                            // 'OP.' .
+                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
                     '</div>' .
                 '</div>';
@@ -214,9 +224,7 @@ class ImgPendienteLecturaAdminController extends Controller
             $results[$key]['allowRegInicial']                    = $isUser_allowRegInicial;
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($results));
-        return $response;
+        return $this->renderJson($results);
     }
 
     public function addToUndiagnosedStudiesListAction(Request $request)
@@ -243,16 +251,14 @@ class ImgPendienteLecturaAdminController extends Controller
             $status     = 'failed';
         }
 
-        $response       = new Response();
-        $response->setContent(json_encode(array()));
-        return $response;
+        return $this->renderJson(array());
     }
 
     public function addToWorkListAction(Request $request)
     {
         $request->isXmlHttpRequest();
 
-        $status     = 'OK';
+        $status = 'OK';
 
         /*
          * request
@@ -260,7 +266,7 @@ class ImgPendienteLecturaAdminController extends Controller
         $id_radX    = $request->request->get('__radx');
         $pndL_rows  = $request->request->get('__ar_rowsAffected');
 
-        $em         = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
     	$securityContext    = $this->container->get('security.context');
     	$sessionUser        = $securityContext->getToken()->getUser();
@@ -279,39 +285,7 @@ class ImgPendienteLecturaAdminController extends Controller
             $status = 'failed';
         }
 
-        $response   = new Response();
-        $response->setContent(json_encode(array('update' => $status)));
-        return $response;
-    }
-
-    /**
-     * TABLE GENERATOR
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function generateTableAction(Request $request)
-    {
-        $request->isXmlHttpRequest();
-        $__REQUEST__type = $request->request->get('type', 'list');
-
-        $em = $this->getDoctrine()->getManager();
-
-        //////// --| builder entity
-        $ENTITY_LIST_VIEW_GENERATOR_ = new RyxEstudioPendienteLecturaListViewGenerator(
-                $this->container,
-                $this->admin->getRouteGenerator(),
-                $this->admin->getClass(),
-                $__REQUEST__type
-        );
-        //////// --|
-        $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
-
-        return $this->renderJson(array(
-            'result'    => 'ok',
-            'options'   => $options
-        ));
+        return $this->renderJson(array('update' => $status));
     }
 
 }
