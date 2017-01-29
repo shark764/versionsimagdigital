@@ -134,7 +134,15 @@ class ImgCtlPatronDiagnosticoAdminController extends MinsalSimagdBundleGeneralAd
 
             $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
                     '<div class="btn-group" role="group">' .
-                        '<a class=" example2-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                        '<a class=" unrealizedproceduresworklist-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                            // 'OP.' .
+                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
+                        '</a>' .
+                    '</div>' .
+                '</div>';
+            $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
+                    '<div class="btn-group" role="group">' .
+                        '<a class=" unrealizedproceduresworklist-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
                             // 'OP.' .
                             '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
@@ -143,14 +151,14 @@ class ImgCtlPatronDiagnosticoAdminController extends MinsalSimagdBundleGeneralAd
 
             $results[$key]['action2'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
                     '<div class="btn-group" role="group">' .
-                        '<a class=" example2-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                        '<a class=" unrealizedproceduresworklist-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
                             // 'OP.' .
                             '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
                     '</div>' .
                 '</div>';
 
-            // $results[$key]['action'] = '<div class="btn-group btn-group-xs"> <button type="button" class="btn btn-default dropdown-toggle example2-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
+            // $results[$key]['action'] = '<div class="btn-group btn-group-xs"> <button type="button" class="btn btn-default dropdown-toggle unrealizedproceduresworklist-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
 
             // $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="..."> <div class="btn-group btn-group-xs" role="group"> <button type="button" class="btn-link btn-link-black-thrash dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
 

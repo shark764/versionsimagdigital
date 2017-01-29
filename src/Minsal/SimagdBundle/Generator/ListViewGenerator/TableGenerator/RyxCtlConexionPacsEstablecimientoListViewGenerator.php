@@ -127,13 +127,13 @@ class RyxCtlConexionPacsEstablecimientoListViewGenerator extends RyxEntityListVi
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
-                        'field' => 'action',
+                        'field' => 'context_menu',
                         'sortable' => false,
                         'align' => 'center',
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        'events' => 'operateEvents',
+                        // 'events' => 'operateEvents',
                     )
             );
         }
@@ -193,8 +193,8 @@ class RyxCtlConexionPacsEstablecimientoListViewGenerator extends RyxEntityListVi
         }
         // $this->entityOptions['height']      = '1268';
 
-        $this->entityOptions['contextMenu']         = '#example2-context-menu';
-        $this->entityOptions['contextMenuButton']   = '.example2-button';
+        $this->entityOptions['contextMenu']         = '#unrealizedproceduresworklist-context-menu';
+        $this->entityOptions['contextMenuButton']   = '.unrealizedproceduresworklist-button';
         // $this->entityOptions['contextMenuTrigger']  = 'both';
         $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
         ////////

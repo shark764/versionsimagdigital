@@ -224,7 +224,7 @@
 
                             <div class="form-group">
                                 <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">MODALIDAD</label>
-                                <div class="col-xs-2 col-lg-2 col-md-2 col-sm-2 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
+                                <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
                                     <select id="_exam_worklist_modality" name="_exam_worklist_modality" class="form-control select2-select" >
                                         <option value=""></option>
                                         {#<optgroup label="Servicio de Diagnóstico por imagen">#}
@@ -237,7 +237,7 @@
                             {#</div>
                             <div class="form-group">#}
                                 <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">SALA</label>
-                                <div class="col-xs-2 col-lg-2 col-md-2 col-sm-2 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
+                                <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
                                     <select id="_exam_worklist_hospital_room" name="_exam_worklist_hospital_room" class="form-control select2-select" >
                                         <option value=""></option>
                                         {#<optgroup label="Servicio de Diagnóstico por imagen">#}
@@ -249,8 +249,22 @@
                                 </div>
                             {#</div>
                             <div class="form-group">#}
+                                <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">EQUIPO</label>
+                                <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
+                                    <select id="_exam_worklist_x_ray_equipment" name="_exam_worklist_x_ray_equipment" class="form-control select2-select" >
+                                        <option value=""></option>
+                                        {#<optgroup label="Servicio de Diagnóstico por imagen">#}
+                                            {#{% for modalidad in modalidades %}
+                                                <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
+                                            {% endfor %}#}
+                                        {#</optgroup>#}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">TECNÓLOGO</label>
-                                <div class="col-xs-2 col-lg-2 col-md-2 col-sm-2 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
+                                <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
                                     <select id="_exam_worklist_radiologist" name="_exam_worklist_radiologist" class="form-control select2-select" >
                                         <option value=""></option>
                                         {% for tipo in tiposEmpleado if tipo.codigo == 'TRY' or tipo.codigo == 'MRY' %}
@@ -268,7 +282,7 @@
                             {#</div>
                             <div class="form-group">#}
                                 <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">PACS</label>
-                                <div class="col-xs-2 col-lg-2 col-md-2 col-sm-2 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
+                                <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
                                     <select id="_exam_worklist_hospital_pacs" name="_exam_worklist_hospital_pacs" class="form-control select2-select" >
                                         <option value=""></option>
                                         {#{% for hospital in hospitales %}
@@ -278,20 +292,6 @@
                                             {% endfor %}
                                             </optgroup>
                                         {% endfor %}#}
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">EQUIPO</label>
-                                <div class="col-xs-2 col-lg-2 col-md-2 col-sm-2 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
-                                    <select id="_exam_worklist_x_ray_equipment" name="_exam_worklist_x_ray_equipment" class="form-control select2-select" >
-                                        <option value=""></option>
-                                        {#<optgroup label="Servicio de Diagnóstico por imagen">#}
-                                            {#{% for modalidad in modalidades %}
-                                                <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
-                                            {% endfor %}#}
-                                        {#</optgroup>#}
                                     </select>
                                 </div>
                             </div>
@@ -322,20 +322,82 @@
 
 
             <!-- context-menu -->
-            <ul id="example2-context-menu" class="dropdown-menu highlight-success-dropdown-menu">
+            <!-- EXAMS WORKLIST - CONTEXT MENU -->
+            <ul id="unrealizedproceduresworklist-context-menu" class="dropdown-menu highlight-success-dropdown-menu">
                 <li class="dropdown-header">MENÚ</li>
-                <li data-item="show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>
-                <li data-item="edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>
+                <li data-item="unrealizedproceduresworklist_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>
+                <li data-item="unrealizedproceduresworklist_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>
                 <li class="divider"></li>
-                <li data-item="delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>
+                <li data-item="unrealizedproceduresworklist_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">LISTA DE TRABAJO</li>
-                <li data-item="show"><a><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>
-                <li data-item="edit"><a><span class="glyphicon glyphicon-link"></span>Guardar y enlazar a PACS</a></li>
+                <li data-item="unrealizedproceduresworklist_save"><a><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>
+                <li data-item="unrealizedproceduresworklist_saveandsearchinpacs"><a><span class="glyphicon glyphicon-link"></span>Guardar y enlazar a PACS</a></li>
+                <li data-item="unrealizedproceduresworklist_goto"><a><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>
                 <li class="divider"></li>
-                <li data-item="show"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio</a></li>
+                {#<li data-item="unrealizedproceduresworklist_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>
+                <li class="divider"></li>#}
+                <li data-item="unrealizedproceduresworklist_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>
+            </ul>
+            <!-- end context-menu -->
+
+            <!-- context-menu -->
+            <!-- STUDY DIAGNOSIS WORKLIST - CONTEXT MENU -->
+            <ul id="undiagnosedstudiesworklist-context-menu" class="dropdown-menu highlight-success-dropdown-menu">
+                <li class="dropdown-header">MENÚ</li>
+                <li data-item="undiagnosedstudiesworklist_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>
+                <li data-item="undiagnosedstudiesworklist_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>
                 <li class="divider"></li>
-                <li data-item="edit"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>
+                <li data-item="undiagnosedstudiesworklist_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">LISTA DE TRABAJO</li>
+                <li data-item="undiagnosedstudiesworklist_save"><a><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>
+                <li data-item="undiagnosedstudiesworklist_saveandclose"><a><span class="glyphicon glyphicon-link"></span>Guardar (lectura finalizada)</a></li>
+                <li data-item="undiagnosedstudiesworklist_goto"><a><span class="glyphicon glyphicon-adjust"></span>Acceder</a></li>
+                <li class="divider"></li>
+                <li data-item="undiagnosedstudiesworklist_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>
+                <li class="divider"></li>
+                <li data-item="undiagnosedstudiesworklist_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>
+            </ul>
+            <!-- end context-menu -->
+
+            <!-- context-menu -->
+            <!-- WRITE DIAGNOSIS WORKLIST - CONTEXT MENU -->
+            <ul id="nontranscribedresultsworklist-context-menu" class="dropdown-menu highlight-success-dropdown-menu">
+                <li class="dropdown-header">MENÚ</li>
+                <li data-item="nontranscribedresultsworklist_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>
+                <li data-item="nontranscribedresultsworklist_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>
+                <li class="divider"></li>
+                <li data-item="nontranscribedresultsworklist_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">LISTA DE TRABAJO</li>
+                <li data-item="nontranscribedresultsworklist_save"><a><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>
+                <li data-item="nontranscribedresultsworklist_saveandclose"><a><span class="glyphicon glyphicon-link"></span>Guardar (transcripción finalizada)</a></li>
+                <li data-item="nontranscribedresultsworklist_goto"><a><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>
+                <li class="divider"></li>
+                <li data-item="nontranscribedresultsworklist_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>
+                <li class="divider"></li>
+                <li data-item="nontranscribedresultsworklist_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>
+            </ul>
+            <!-- end context-menu -->
+
+            <!-- context-menu -->
+            <!-- CHECK DIAGNOSIS WORKLIST - CONTEXT MENU -->
+            <ul id="nonvalidatedresultsworklist-context-menu" class="dropdown-menu highlight-success-dropdown-menu">
+                <li class="dropdown-header">MENÚ</li>
+                <li data-item="nonvalidatedresultsworklist_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>
+                <li data-item="nonvalidatedresultsworklist_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>
+                <li class="divider"></li>
+                <li data-item="nonvalidatedresultsworklist_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">LISTA DE TRABAJO</li>
+                <li data-item="nonvalidatedresultsworklist_approve"><a><span class="glyphicon glyphicon-ok-sign"></span>Aprobar</a></li>
+                <li data-item="nonvalidatedresultsworklist_reprobate"><a><span class="glyphicon glyphicon-remove-sign"></span>Impugnar</a></li>
+                <li data-item="nonvalidatedresultsworklist_goto"><a><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>
+                <li class="divider"></li>
+                <li data-item="nonvalidatedresultsworklist_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>
+                <li class="divider"></li>
+                <li data-item="nonvalidatedresultsworklist_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>
             </ul>
             <!-- end context-menu -->
 

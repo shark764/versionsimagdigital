@@ -127,7 +127,7 @@ class ImgCtlMaterialEstablecimientoAdminController extends MinsalSimagdBundleGen
             //         '</div>' .
             //     '</div>';
 
-            $results[$key]['action'] = '<div class="btn-group btn-group-xs"> <button type="button" class="btn btn-default dropdown-toggle example2-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
+            $results[$key]['action'] = '<div class="btn-group btn-group-xs"> <button type="button" class="btn btn-default dropdown-toggle unrealizedproceduresworklist-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
 
             $results[$key]['habilitado'] = $formatter->booleanFormatter($r['habilitado']);
 
