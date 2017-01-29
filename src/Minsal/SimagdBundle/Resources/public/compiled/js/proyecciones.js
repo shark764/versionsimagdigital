@@ -115,7 +115,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate(url),
 		    data: $form.formParams(),
@@ -221,7 +221,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate('simagd_proyeccion_establecimiento_agregarProyeccionEnLocal'),
 		    data: $form.formParams(),
@@ -270,7 +270,7 @@ jQuery(document).ready(function() {
 
         jQuery('#formExplTitle').text('Registrar Proyección');
         jQuery('#formExplLabel').removeClass('label-element-v2')
-		.addClass('label-primary-v2').text('Formulario para registro');
+		.addClass('label-primary-v4').text('Formulario para registro');
         
         $("input[id='formExplNombre']").val('');
         $("input[id='formExplCodigo']").val('');
@@ -387,15 +387,15 @@ function actionFormatter (value, row, index)
 //     return [
 // 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 // 	    '<div class="btn-group" role="group">',
-// 		'<a   class="show-exploracion-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+// 		'<a   class="show-exploracion-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
 // 		    '<i class="glyphicon glyphicon-info-sign"></i> &nbsp;Ver',
 // 		'</a>',
-// 		'<a   class="edit-exploracion-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Editar registro de proyección"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+// 		'<a   class="edit-exploracion-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Editar registro de proyección"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
 // 		    '<i class="glyphicon glyphicon-repeat"></i> &nbsp;Editar',
 // 		'</a>',
 // 	    '</div>',
 // 	    '<div class="btn-group" role="group">',
-// 		'<a   class="catalogo-exploracion-action btn btn-success-v2 btn-outline btn-xs" href="javascript:void(0)" title="Agregar proyección en Catálogo local"' + (row.allowAgregarLc === false ? ' disabled="disabled"' : '') + '>',
+// 		'<a   class="catalogo-exploracion-action btn btn-success-v3 btn-outline btn-xs" href="javascript:void(0)" title="Agregar proyección en Catálogo local"' + (row.allowAgregarLc === false ? ' disabled="disabled"' : '') + '>',
 // 		    '<i class="glyphicon glyphicon-list-alt"></i> &nbsp;Catálogo',
 // 		'</a>',
 // 	    '</div>',
@@ -416,7 +416,7 @@ function actionFormatter (value, row, index)
     if (row.allowShow !== false)
     {
 	$arr_result.push(
-	    '<a   class="show-exploracion-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada">',
+	    '<a   class="show-exploracion-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada">',
 		'<i class="glyphicon glyphicon-info-sign"></i> &nbsp;Ver',
 	    '</a>'
 	);
@@ -425,7 +425,7 @@ function actionFormatter (value, row, index)
     if (row.allowEdit !== false)
     {
 	$arr_result.push(
-	    '<a   class="edit-exploracion-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Editar registro de proyección">',
+	    '<a   class="edit-exploracion-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Editar registro de proyección">',
 		'<i class="glyphicon glyphicon-repeat"></i> &nbsp;Editar',
 	    '</a>'
 	);
@@ -442,7 +442,7 @@ function actionFormatter (value, row, index)
     {
 	$arr_result.push(
 	    '<div class="btn-group" role="group">',
-		'<a   class="catalogo-exploracion-action btn btn-success-v2 btn-outline btn-xs" href="javascript:void(0)" title="Agregar proyección en Catálogo local">',
+		'<a   class="catalogo-exploracion-action btn btn-success-v3 btn-outline btn-xs" href="javascript:void(0)" title="Agregar proyección en Catálogo local">',
 		    '<i class="glyphicon glyphicon-list-alt"></i> &nbsp;Catálogo',
 		'</a>',
 	    '</div>'
@@ -492,7 +492,7 @@ window.actionEvents = {
         jQuery('#btn_editar_expl').show();
         
         jQuery('#formExplTitle').text('Editar Proyección');
-        jQuery('#formExplLabel').removeClass('label-primary-v2')
+        jQuery('#formExplLabel').removeClass('label-primary-v4')
 		.addClass('label-element-v2').text('Formulario para edición');
         
         $("input[id='formExplId']").val(row.expl_id);
@@ -676,7 +676,7 @@ jQuery(document).ready(function() {
 
         // Use Ajax to submit form data
         $.ajax({
-                type: 'post',
+                type: 'POST',
                 dataType: 'json',
                 url: Routing.generate('simagd_proyeccion_addToLocalCatalogue'),
                 data: $pryXLocalList_params,
@@ -745,7 +745,7 @@ jQuery(document).ready(function() {
 	
 	if (fieldAreaServicioApoyoVal) {
             $.ajax({
-		type: 'post',
+		type: 'POST',
 		dataType: 'json',
 		url: Routing.generate('simagd_solicitud_estudio_cargarDatosPorFiltro'),
                 data: {
@@ -793,7 +793,7 @@ jQuery(document).ready(function() {
 	
 	if (fieldAreaServicioApoyoVal && fieldExamenServicioApoyoVal) {
             $.ajax({
-		type: 'post',
+		type: 'POST',
 		dataType: 'json',
 		url: Routing.generate('simagd_solicitud_estudio_cargarDatosPorFiltro'),
                 data: {
@@ -867,12 +867,12 @@ function actionLocalesFormatter(value, row, index) {
     return [
 	'<div class="btn-toolbar" role="toolbar" aria-label="...">',
 	    '<div class="btn-group" role="group">',
-		'<a   class="show-exploracion-local-action btn btn-primary-v2 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="show-exploracion-local-action btn btn-primary-v4 btn-outline btn-xs" href="javascript:void(0)" title="Mostrar proyección detallada"' + (row.allowShow === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-info-sign"></i>',
 		'</a>',
 	    '</div>',
 	    '<div class="btn-group" role="group">',
-		'<a   class="edit-exploracion-local-action btn btn-primary-v2 btn-outline btn-xs " href="javascript:void(0)" title="Editar registro de proyección"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
+		'<a   class="edit-exploracion-local-action btn btn-primary-v4 btn-outline btn-xs " href="javascript:void(0)" title="Editar registro de proyección"' + (row.allowEdit === false ? ' disabled="disabled"' : '') + '>',
 		    '<i class="glyphicon glyphicon-repeat"></i>',
 		'</a>',
 	    '</div>',
@@ -891,7 +891,7 @@ window.actionLocalesEvents = {
         jQuery('#btn_editar_explrz').show();
         
         jQuery('#formExplrzTitle').text('Editar Proyección local');
-        jQuery('#formExplrzLabel').removeClass('label-primary-v2')
+        jQuery('#formExplrzLabel').removeClass('label-primary-v4')
 		.addClass('label-element-v2').text('Formulario para edición');
         
         $("input[id='formExplrzId']").val(row.explrz_id);
@@ -935,7 +935,7 @@ window.actionLocalesEvents = {
 
 function habilitadaFormatter(value, row, index) {
     return [
-        '<span class=\'label label-' + (row.explrz_habilitado === false ? 'danger' : 'success-v2') + '\'>',
+        '<span class=\'label label-' + (row.explrz_habilitado === false ? 'danger' : 'success-v3') + '\'>',
         (row.explrz_habilitado === false ? 'no' : 'sí'),
         '</span>'
     ].join('');
@@ -1002,7 +1002,7 @@ jQuery(document).ready(function() {
 	    $chkHbl = false;
 	}
 	$.ajax({
-	    type: 'post',
+	    type: 'POST',
 	    dataType: 'json',
 	    url: Routing.generate('simagd_proyeccion_establecimiento_habilitarLocal'),
             data: {
@@ -1105,7 +1105,7 @@ jQuery(document).ready(function() {
 
             // Use Ajax to submit form data
             $.ajax({
-		    type: 'post',
+		    type: 'POST',
 		    dataType: 'json',
 		    url: Routing.generate(url),
 		    data: $form.formParams(),
@@ -1166,7 +1166,7 @@ jQuery(document).ready(function() {
 
         jQuery('#formExplrzTitle').text('Registrar Proyección en local');
         jQuery('#formExplrzLabel').removeClass('label-element-v2')
-		.addClass('label-primary-v2').text('Formulario para registro');
+		.addClass('label-primary-v4').text('Formulario para registro');
 	
         $("select[id='formExplrzIdAreaServicioDiagnostico']").select2('val', '');
         $("select[id='formExplrzIdExamenServicioDiagnostico']").select2('val', '');

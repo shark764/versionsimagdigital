@@ -144,7 +144,7 @@ function simagdPacienteFormatter(value, row, index) {
 function simagdAreaAtencionFormatter(value, row, index) {
     var $style = row.prc_id_areaAtencion === 2 || row.prc_id_areaAtencion === '2' ?
                         'danger' : ( row.prc_id_areaAtencion === 3 || row.prc_id_areaAtencion === '3' ?
-                                        'success-v2' : 'primary-v2' );
+                                        'success-v3' : 'primary-v4' );
     
     var $return     = [
         '<span class=\'label label-' + $style + '\'>',
@@ -208,11 +208,11 @@ function simagdEstadoDiagnosticoFormatter(value, row, index) {
     
     if (jQuery.trim(row.diag_codEstado) === 'APR') {
         $return     = [
-            '<span class="text-primary-v2">',
-                $return,
-                '  ',
+            '<span class="text-primary-v4">',
                 '<i class="glyphicon glyphicon-ok-sign">',
                 '</i>',
+                '  ',
+                $return,
             '</span>'
         ].join('');
     } else if (jQuery.trim(row.diag_codEstado) === 'IMP') {
@@ -226,7 +226,7 @@ function simagdEstadoDiagnosticoFormatter(value, row, index) {
         ].join('');
     } else if (jQuery.trim(row.diag_codEstado) === 'CRG') {
         $return     = [
-            '<span class="text-success-v2">',
+            '<span class="text-success-v3">',
                 $return,
                 '  ',
                 '<i class="glyphicon glyphicon-exclamation-sign">',
@@ -243,11 +243,11 @@ function simagdEstadoLecturaFormatter(value, row, index) {
     
     if (jQuery.trim(row.lct_codEstado) === 'LDO') {
         $return     = [
-            '<span class="text-primary-v2">',
-                $return,
-                '  ',
+            '<span class="text-primary-v4">',
                 '<i class="glyphicon glyphicon-ok-sign">',
                 '</i>',
+                '  ',
+                $return,
             '</span>'
         ].join('');
     }
@@ -259,7 +259,7 @@ function simagdTipoEstudioFormatter(value, row, index) {
     var ___isCmpl = !jQuery.isEmptyObject(row.solcmpl_id);
     
     return [
-        '<span class="label label-' + (___isCmpl === false ? 'primary-v2' : 'success-v2') + '">',
+        '<span class="label label-' + (___isCmpl === false ? 'primary-v4' : 'success-v3') + '">',
         (___isCmpl === false ? 'Solicitado' : 'Adicional'),
         '</span>'
     ].join('');
@@ -271,11 +271,11 @@ function simagdEstadoEstudioFormatter(value, row, index) {
     
     if (jQuery.trim(row.prz_codEstado) === 'ALM') {
         $return     = [
-            '<span class="text-' + (___isCmpl === false ? 'primary-v2' : 'success-v2') + '">',
-                $return,
-                '  ',
+            '<span class="text-' + (___isCmpl === false ? 'primary-v4' : 'success-v3') + '">',
                 '<i class="glyphicon glyphicon-ok-sign">',
                 '</i>',
+                '  ',
+                $return,
             '</span>'
         ].join('');
     }
@@ -338,11 +338,11 @@ function simagdEstadoCitaFormatter(value, row, index) {
     
     if (jQuery.trim(row.cit_codEstado) === 'CNF') {
         $return     = [
-            '<span class="text-primary-v2">',
-                $return,
-                '  ',
+            '<span class="text-primary-v4">',
                 '<i class="glyphicon glyphicon-ok-sign">',
                 '</i>',
+                '  ',
+                $return,
             '</span>'
         ].join('');
     } else if (jQuery.trim(row.cit_codEstado) === 'ANL') {
@@ -378,7 +378,7 @@ function simagdEstadoCitaFormatter(value, row, index) {
 }
 
 function simagdPrioridadAtencionFormatter(value, row, index) {
-    var $pr_defaultClass    = jQuery.isEmptyObject(row.prAtn_estiloPresentacion) === false ? row.prAtn_estiloPresentacion : 'primary-v2';
+    var $pr_defaultClass    = jQuery.isEmptyObject(row.prAtn_estiloPresentacion) === false ? row.prAtn_estiloPresentacion : 'primary-v4';
     
     return [
         '<span class=\'label label-' + $pr_defaultClass + '\'>',
@@ -388,13 +388,13 @@ function simagdPrioridadAtencionFormatter(value, row, index) {
 }
 
 function simagdTipoNotaFormatter(value, row, index) {
-    var $tipoN_class = 'primary-v2';
+    var $tipoN_class = 'primary-v4';
     
     switch (row.notdiag_codTipo) {
         case 'ACR':
         case 'FVR':
         default:
-            $tipoN_class = 'primary-v2';
+            $tipoN_class = 'primary-v4';
             break;
         case 'ICM':
         case 'AGR':
@@ -418,18 +418,18 @@ function simagdTipoNotaFormatter(value, row, index) {
 }
 
 function estadoSolicitudFormatter(value, row, index) {
-    var $statusSc_class = 'primary-v2';
+    var $statusSc_class = 'primary-v4';
     
     switch (row.statusSc_codigo) {
         case 'SCR':
         case 'CIT':
         case 'CCN':
         default:
-            $statusSc_class = 'primary-v2';
+            $statusSc_class = 'primary-v4';
             break;
         case 'PRZ':
         case 'EAP':
-            $statusSc_class = 'success-v2';
+            $statusSc_class = 'success-v3';
             break;
         case 'EIR':
         case 'LTR':
@@ -462,7 +462,7 @@ function estadoSolicitudFormatter(value, row, index) {
 
 function simagdPacienteDesconocidoFormatter(value, row, index) {
     var $text   = row.prc_pacienteDesconocido === false ? 'no' : 'sí';
-    var $style  = row.prc_pacienteDesconocido === false ? 'primary-v2' : 'warning';
+    var $style  = row.prc_pacienteDesconocido === false ? 'primary-v4' : 'warning';
     
     var $return = [
         '<span class=\'label label-' + $style + '\'>',
@@ -475,7 +475,7 @@ function simagdPacienteDesconocidoFormatter(value, row, index) {
 
 function simagdPacienteReferidoFormatter(value, row, index) {
     var $text   = row.prc_referirPaciente === false ? 'no' : 'sí';
-    var $style  = row.prc_referirPaciente === false ? 'primary-v2' : 'info';
+    var $style  = row.prc_referirPaciente === false ? 'primary-v4' : 'info';
     
     var $return = [
         '<span class=\'label label-' + $style + '\'>',
@@ -488,7 +488,7 @@ function simagdPacienteReferidoFormatter(value, row, index) {
 
 function simagdRequiereDiagnosticoFormatter(value, row, index) {
     var $text   = row.prc_requiereDiagnostico === false ? 'no' : 'sí';
-    var $style  = row.prc_requiereDiagnostico === false ? 'warning' : 'success-v2';
+    var $style  = row.prc_requiereDiagnostico === false ? 'warning' : 'success-v3';
     
     var $return = [
         '<span class=\'label label-' + $style + '\'>',
@@ -501,7 +501,7 @@ function simagdRequiereDiagnosticoFormatter(value, row, index) {
 
 function simagdPacienteAmbulatorioFormatter(value, row, index) {
     var $text   = row.prc_pacienteAmbulatorio === false ? 'no' : 'sí';
-    var $style  = row.prc_pacienteAmbulatorio === false ? 'primary-v2' : 'info';
+    var $style  = row.prc_pacienteAmbulatorio === false ? 'primary-v4' : 'info';
     
     var $return = [
         '<span class=\'label label-' + $style + '\'>',
@@ -514,7 +514,7 @@ function simagdPacienteAmbulatorioFormatter(value, row, index) {
 
 function simagdRequiereCitaFormatter(value, row, index) {
     var $text   = row.prc_requiereCita === false ? 'no' : 'sí';
-    var $style  = row.prc_requiereCita === false ? 'success-v2' : 'primary-v2';
+    var $style  = row.prc_requiereCita === false ? 'success-v3' : 'primary-v4';
     
     var $return = [
         '<span class=\'label label-' + $style + '\'>',
@@ -647,7 +647,7 @@ function simagdSolicitudEstudioProyeccionFormatter(value, row, index) {
                 .end()
                 .append(function(i, html) {
                     return ['<li class="toolbar_menu_footer_block_button">',
-                                '<button type="button"    class="btn btn-primary-v2 btn-outline btn-block btn_block_toolbar_filter_send">',
+                                '<button type="button"    class="btn btn-primary-v4 btn-outline btn-block btn_block_toolbar_filter_send">',
                                     '<span class="glyphicon glyphicon-repeat">',
                                     '</span>',
                                 '</button>',
@@ -1514,7 +1514,7 @@ jQuery(document).ready(function() {
          */
         $(document).find('.modal.in').modal('layout');
         
-	console.log('%cresetView', 'background: #31708f; color: #fff');
+	console.log('%cresetView', 'background: #183f52; color: #fff');
     });
     
     jQuery('li.list-table-link-navbar').find("a:not([disabled])").click(function(e) {
@@ -1616,8 +1616,8 @@ jQuery(document).ready(function() {
     /** set icheck */
     $(document).find('form.simagd-form-custom-class')
         .find('input:checkbox, input:radio').iCheck({
-            checkboxClass: 'icheckbox_minimal-blue',
-            radioClass: 'iradio_minimal-blue',
+            checkboxClass: 'icheckbox_minimal'/*-blue'*/,
+            radioClass: 'iradio_minimal'/*-blue'*/,
     });
         
     /** set select2 */
@@ -1693,7 +1693,7 @@ jQuery(document).ready(function() {
     $(".simagd-show-view-row").find('td').addClass("col-md-9");
     
     /** div remove success style, add primary */
-    $("div.box.box-success").removeClass('box-success').addClass("box-primary-v2");
+    $("div.box.box-success").removeClass('box-success').addClass("box-primary-v4");
 
     /** modal body height */
     $(document).on('show', ".simagd-full-form-container", function() {
@@ -1764,7 +1764,7 @@ jQuery(document).ready(function() {
      */
     jQuery('#simagd_entity_full_admin_form').find(':input[data-add-input-addon="true"]').each(function () {
         var $this           = jQuery(this);
-        var $addonClass     = 'info-v2';
+        var $addonClass     = 'primary-v4';
         var $dataAttr_Class = $this.data('add-input-addon-class');
         if (typeof $dataAttr_Class !== "undefined" && $dataAttr_Class !== null && $dataAttr_Class !== "")
         {
@@ -2232,7 +2232,7 @@ function ___actionSolicitudEstudioComplementarioSetterObjectModalData(solcmplId,
                 var estudioUrl = jQuery.trim($solcmplObject.est_url) || 'javascript:void(0)';/* Validar que exista idEstudio isEmptyObject */
                 var allowDownload = allow_userOverData.allowDownloadEstudio === false ? ' disabled="disabled"' : '';
                 console.log($solcmplObject.est_id, estudioUrl, allowDownload);
-                return '<a   title="Recuperar estudio de servidor PACS" target="_blank" class="btn btn-primary-v2 btn-outline btn-sm" href="'
+                return '<a   title="Recuperar estudio de servidor PACS" target="_blank" class="btn btn-primary-v4 btn-outline btn-sm" href="'
                             + estudioUrl + '"' + allowDownload + '> <i class="fa fa-eye"></i> Recuperar</a>';
             });
 }
@@ -2391,21 +2391,21 @@ function ___actionCitaSetterObjectModalData(citId, $citObject, allow_userOverDat
            );
     $citContent.find("[data-render-info='necesitaAutorizacion']")
 	    .html(function() {
-                var labelColor = $citObject.cit_necesitaAutorizacion === false ? 'primary-v2' : 'warning';
+                var labelColor = $citObject.cit_necesitaAutorizacion === false ? 'primary-v4' : 'warning';
                 var labelText = $citObject.cit_necesitaAutorizacion === false ? 'no' : 'sí';
                 console.log($citObject.cit_necesitaAutorizacion, labelColor, labelText);
                 return '<span class="label label-' + labelColor + '">' + labelText + '</span>';
             });
     $citContent.find("[data-render-info='reprogramada']")
 	    .html(function() {
-                var labelColor = $citObject.cit_reprogramada === false ? 'primary-v2' : 'warning';
+                var labelColor = $citObject.cit_reprogramada === false ? 'primary-v4' : 'warning';
                 var labelText = $citObject.cit_reprogramada === false ? 'no' : 'sí';
                 console.log($citObject.cit_reprogramada, labelColor, labelText);
                 return '<span class="label label-' + labelColor + '">' + labelText + '</span>';
             });
     $citContent.find("[data-render-info='citaAutorizada']")
 	    .html(function() {
-                var labelColor = $citObject.cit_citaAutorizada === false ? 'warning' : 'success-v2';
+                var labelColor = $citObject.cit_citaAutorizada === false ? 'warning' : 'success-v3';
                 var labelText = $citObject.cit_citaAutorizada === false ? 'no' : 'sí';
                 console.log($citObject.cit_citaAutorizada, labelColor, labelText);
                 return '<span class="label label-' + labelColor + '">' + labelText + '</span>';
@@ -2436,7 +2436,7 @@ function ___actionCitaSetterObjectModalData(citId, $citObject, allow_userOverDat
            );
     $citContent.find("[data-render-info='diaCompleto']")
 	    .html(function() {
-                var labelColor = $citObject.cit_diaCompleto === false ? 'success-v2' : 'warning';
+                var labelColor = $citObject.cit_diaCompleto === false ? 'success-v3' : 'warning';
                 var labelText = $citObject.cit_diaCompleto === false ? 'no' : 'sí';
                 console.log($citObject.cit_diaCompleto, labelColor, labelText);
                 return '<span class="label label-' + labelColor + '">' + labelText + '</span>';
@@ -2546,7 +2546,7 @@ function ___actionSolicitudDiagnosticoSetterObjectModalData(soldiagId, $soldiagO
                 var estudioUrl = jQuery.trim($soldiagObject.est_url) || 'javascript:void(0)';/* Validar que exista idEstudio isEmptyObject */
                 var allowDownload = allow_userOverData.allowDownloadEstudio === false ? ' disabled="disabled"' : '';
                 console.log($soldiagObject.est_id, estudioUrl, allowDownload);
-                return '<a   title="Recuperar estudio de servidor PACS" target="_blank" class="btn btn-primary-v2 btn-outline btn-sm" href="'
+                return '<a   title="Recuperar estudio de servidor PACS" target="_blank" class="btn btn-primary-v4 btn-outline btn-sm" href="'
                             + estudioUrl + '"' + allowDownload + '> <i class="fa fa-eye"></i> Recuperar</a>';
             });
 }
@@ -2612,7 +2612,7 @@ function ___actionBloqueoAgendaSetterObjectModalData(blAgdId, $blAgdObject, allo
 	    .html(simagdTimeFormatter($blAgdObject.blAgd_horaFin, $blAgdObject, $blAgdObject.blAgd_id));
     $blAgdContent.find("[data-render-info='diaCompleto']")
 	    .html(function() {
-                var labelColor = $blAgdObject.blAgd_diaCompleto === false ? 'success-v2' : 'warning';
+                var labelColor = $blAgdObject.blAgd_diaCompleto === false ? 'success-v3' : 'warning';
                 var labelText = $blAgdObject.blAgd_diaCompleto === false ? 'no' : 'sí';
                 console.log($blAgdObject.blAgd_diaCompleto, labelColor, labelText);
                 return '<span class="label label-' + labelColor + '">' + labelText + '</span>';
@@ -2870,7 +2870,7 @@ jQuery(document).ready(function() {
                 '<span style="float: left; min-width: 295px;">',
                     $arrText[0],
                 '</span>',
-                '<span class="label label-primary-v2" style="float: left; margin-left: 5px; margin-top: 2px; font-weight: normal;">',
+                '<span class="label label-primary-v4" style="float: left; margin-left: 5px; margin-top: 2px; font-weight: normal;">',
                     $arrText[1],
                 '</span>',
             '</div>'
@@ -2907,7 +2907,7 @@ jQuery(document).ready(function() {
             $dateStatus_icon      = 'glyphicon-tags';           // custom define class
         if (state.id === '2' || state.id === 2)
         {
-            $dateStatus_class     = 'primary-v2',               // custom define class
+            $dateStatus_class     = 'primary-v4',               // custom define class
             $dateStatus_icon      = 'glyphicon-ok-sign';        // custom define class
         }
         if (state.id === '5' || state.id === 5)
@@ -2957,7 +2957,7 @@ jQuery(document).ready(function() {
             return state.text; // is not the final status
         }
 
-        var $studyStatus_class     = 'primary-v2'; // custom define class
+        var $studyStatus_class     = 'primary-v4'; // custom define class
 
         return [
             '<span class=\'text-' + $studyStatus_class + '\'>',
@@ -2995,7 +2995,7 @@ jQuery(document).ready(function() {
             return state.text; // is not the final status
         }
 
-        var $interpretationStatus_class     = 'primary-v2'; // custom define class
+        var $interpretationStatus_class     = 'primary-v4'; // custom define class
 
         return [
             '<span class=\'text-' + $interpretationStatus_class + '\'>',
@@ -3033,7 +3033,7 @@ jQuery(document).ready(function() {
             return state.text; // is not the final status
         }
 
-        var $diagnosticStatus_class     = 'primary-v2',                 // custom define class
+        var $diagnosticStatus_class     = 'primary-v4',                 // custom define class
             $diagnosticStatus_icon      = 'glyphicon-ok-sign';          // custom define class
         if (state.id === '4' || state.id === 4)
         {
@@ -3042,7 +3042,7 @@ jQuery(document).ready(function() {
         }
         if (state.id === '5' || state.id === 5)
         {
-            $diagnosticStatus_class     = 'success-v2',                 // custom define class
+            $diagnosticStatus_class     = 'success-v3',                 // custom define class
             $diagnosticStatus_icon      = 'glyphicon-exclamation-sign'; // custom define class
         }
 
