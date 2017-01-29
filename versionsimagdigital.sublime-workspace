@@ -211,7 +211,7 @@
 			"file": "src/Minsal/SimagdBundle/Resources/views/Worklist/worklist.html.twig",
 			"settings":
 			{
-				"buffer_size": 30149,
+				"buffer_size": 30153,
 				"line_ending": "Unix"
 			}
 		},
@@ -256,9 +256,9 @@
 	},
 	"file_history":
 	[
+		"/home/farid/NetBeansProjects/versionsimagdigital/app/config/parameters.yml",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/catalogs_dashboard_script.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/catalogs_dashboard.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/app/config/parameters.yml",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/results_dashboard.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/request_dashboard.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCitaProgramadaListViewGenerator.php",
@@ -1040,15 +1040,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 30149,
+						"buffer_size": 30153,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								22133,
-								22133
+								0,
+								0
 							]
 						],
 						"settings":
