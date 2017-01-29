@@ -240,7 +240,7 @@ class RyxDiagnosticoPendienteValidacionListViewGenerator extends RyxEntityListVi
         $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_sin_validar_generateData', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
-        $this->entityOptions['pageSize']    = '25';
+        $this->entityOptions['pageSize']    = '50';
         if ($this->type === 'detail') {
             $this->entityOptions['showToggle']  = false;
             $this->entityOptions['showColumns'] = false;
