@@ -263,8 +263,8 @@ class RyxDiagnosticoRadiologicoListViewGenerator extends RyxEntityListViewGenera
         }
         // $this->entityOptions['height']      = '1268';
 
-        $this->entityOptions['contextMenu']         = '#unrealizedproceduresworklist-context-menu';
-        $this->entityOptions['contextMenuButton']   = '.unrealizedproceduresworklist-button';
+        $this->entityOptions['contextMenu']         = '#transcribeddiagnosis-context-menu';
+        $this->entityOptions['contextMenuButton']   = '.transcribeddiagnosis-button';
         // $this->entityOptions['contextMenuTrigger']  = 'both';
         $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
         ////////

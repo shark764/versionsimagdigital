@@ -153,7 +153,7 @@ jQuery(document).ready(function() {
             var $form = $(e.target),
                 fv    = $form.data('formValidation');
 		
-	    var url   = $action_notdiag == 'edit' ? 'simagd_nota_editarNota' : 'simagd_nota_crearNota';
+	    var url   = $action_notdiag == 'edit' ? 'simagd_segunda_opinion_medica_editarNota' : 'simagd_segunda_opinion_medica_crearNota';
 	
 	    /** before serializing form data */
 	    $form.find('.summernote').each(function() {

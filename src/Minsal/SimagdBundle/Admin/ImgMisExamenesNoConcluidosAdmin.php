@@ -18,6 +18,8 @@ class ImgMisExamenesNoConcluidosAdmin extends MinsalSimagdBundleGeneralAdmin
     
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->clearExcept(array('list'));
         $collection->add('realizar');
         $collection->add('actualizarEstudioAlmacenado', null, [], [], ['expose' => true]);

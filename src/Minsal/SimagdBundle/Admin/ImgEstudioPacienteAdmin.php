@@ -15,6 +15,8 @@ class ImgEstudioPacienteAdmin extends MinsalSimagdBundleGeneralAdmin
     
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->clearExcept(array('show', 'list'));
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('download', null, [], [], ['expose' => true]);

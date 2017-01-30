@@ -29,6 +29,8 @@ class BusquedaDiagnosticoAdmin extends MinsalSimagdBundleGeneralAdmin
     
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->clearExcept(array('show', 'list'));
         $collection->add('nota');
         // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);

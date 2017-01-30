@@ -361,12 +361,12 @@
         {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'notdiag' } %}
         <!-- END --| toolbar for table-lista-notas-diagnosticos -->
         
-	<div id="div-resultado-notas-diagnostico" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_nota_generateData') }}">
+	<div id="div-resultado-notas-diagnostico" style="display: none;" class="menu-listas-resultados-radiologicos" data-refresh-url="{{ path('simagd_segunda_opinion_medica_generateData') }}">
 	    <table class="table table-condensed" id="table-lista-notas-diagnostico"
 		  data-toggle="table"
 		  data-id-field="notdiag_id"
 		  data-url=""
-                  data-backup-url="simagd_nota_generateData"
+                  data-backup-url="simagd_segunda_opinion_medica_generateData"
                   data-toolbar="#bs_notdiag_toolbar"
 		  data-cache="false"
 		  data-show-refresh="true"

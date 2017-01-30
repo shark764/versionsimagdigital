@@ -124,6 +124,8 @@ class MinsalSimagdBundleGeneralAdmin extends Admin
 
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->remove('delete');
         $collection->add('delete', 'borrar', [], [], ['expose' => true]);
         $collection->add('create', 'crear', [], [], ['expose' => true]);

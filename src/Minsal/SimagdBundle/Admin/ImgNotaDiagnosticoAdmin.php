@@ -13,11 +13,13 @@ use Sonata\AdminBundle\Route\RouteCollection;
 
 class ImgNotaDiagnosticoAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName    = 'simagd_nota';
+    protected $baseRouteName    = 'simagd_segunda_opinion_medica';
     protected $baseRoutePattern = 'rayos-x-nota';
     
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->add('mostrarInformacionModal', null, [], [], ['expose' => true]);
         // $collection->remove('delete');
         $collection->add('crearNota', null, [], ['_method' => 'POST'], ['expose' => true]);

@@ -239,8 +239,8 @@ class RyxSolicitudEstudioComplementarioListViewGenerator extends RyxEntityListVi
         }
         // $this->entityOptions['height']      = '1268';
 
-        $this->entityOptions['contextMenu']         = '#unrealizedproceduresworklist-context-menu';
-        $this->entityOptions['contextMenuButton']   = '.unrealizedproceduresworklist-button';
+        $this->entityOptions['contextMenu']         = '#furtherstudyrequest-context-menu';
+        $this->entityOptions['contextMenuButton']   = '.furtherstudyrequest-button';
         // $this->entityOptions['contextMenuTrigger']  = 'both';
         $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
         ////////

@@ -18,6 +18,8 @@ class ImgMisTranscripcionesNoConcluidasAdmin extends MinsalSimagdBundleGeneralAd
     
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->clearExcept(array('list'));
         $collection->add('transcribir');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);

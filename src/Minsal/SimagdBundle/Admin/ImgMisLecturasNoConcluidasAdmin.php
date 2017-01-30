@@ -18,6 +18,8 @@ class ImgMisLecturasNoConcluidasAdmin extends MinsalSimagdBundleGeneralAdmin
     
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->clearExcept(array('list'));
         $collection->add('leer');
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);

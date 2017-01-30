@@ -15,7 +15,7 @@ class BusquedaDiagnosticoAdminController extends MinsalSimagdBundleGeneralAdminC
     {
         $id = $this->get('request')->get($this->admin->getIdParameter());
         
-        return $this->redirect($this->generateUrl('simagd_nota_create', array('diagnostico' => $id)));
+        return $this->redirect($this->generateUrl('simagd_segunda_opinion_medica_create', array('diagnostico' => $id)));
     }
     
     public function showAction($id = null)

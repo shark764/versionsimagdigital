@@ -18,6 +18,8 @@ class ImgPendienteValidacionAdmin extends MinsalSimagdBundleGeneralAdmin
     
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->clearExcept(array('list'));
         $collection->add('validar');
         $collection->add('addToWorkList', null, [], ['_method' => 'POST'], ['expose' => true]);

@@ -18,6 +18,8 @@ class ImgBloqueoAgendaAdmin extends MinsalSimagdBundleGeneralAdmin
     
     protected function configureRoutes(RouteCollection $collection)
     {
+        parent::configureRoutes($collection);
+        
         // $collection->clearExcept(array('show', 'list'));
         // $collection->add('generateData', null, [], [], ['expose' => true]);
         $collection->add('nuevoBloqueo', null, [], ['_method' => 'POST'], ['expose' => true]);
