@@ -211,15 +211,7 @@
 			"file": "src/Minsal/SimagdBundle/Resources/views/Worklist/worklist.html.twig",
 			"settings":
 			{
-				"buffer_size": 30153,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Minsal/SimagdBundle/Resources/views/General/worklist_script.html.twig",
-			"settings":
-			{
-				"buffer_size": 19970,
+				"buffer_size": 30169,
 				"line_ending": "Unix"
 			}
 		}
@@ -415,6 +407,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"JSON.",
 			"nonvalidatedresultsworklist",
 			"example2-context-menu",
 			"</span>Recuperar estudio</a></li>",
@@ -602,7 +595,7 @@
 						"translation.y": 1833.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
@@ -632,7 +625,7 @@
 						"translation.y": 219479.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -662,7 +655,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
@@ -691,7 +684,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
@@ -721,7 +714,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
@@ -751,7 +744,7 @@
 						"translation.y": 2613.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
@@ -779,7 +772,7 @@
 						"translation.y": 1108.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
@@ -809,7 +802,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 11,
 					"type": "text"
 				}
 			]
@@ -845,7 +838,7 @@
 						"translation.y": 33839.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -875,7 +868,7 @@
 						"translation.y": 559.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -905,7 +898,7 @@
 						"translation.y": 507.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -935,7 +928,7 @@
 						"translation.y": 416.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -965,7 +958,7 @@
 						"translation.y": 2067.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -995,7 +988,7 @@
 						"translation.y": 2041.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -1031,7 +1024,7 @@
 						"translation.y": 763.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1040,15 +1033,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 30153,
+						"buffer_size": 30169,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								25736,
+								25736
 							]
 						],
 						"settings":
@@ -1058,40 +1051,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4510.0,
+						"translation.y": 4668.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 16,
-					"file": "src/Minsal/SimagdBundle/Resources/views/General/worklist_script.html.twig",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19970,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5226,
-								5226
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1744.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
 					"type": "text"
 				}
 			]

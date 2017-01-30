@@ -143,209 +143,173 @@
             __FUNCTIONS_CALL__.functions = {
                 onContextMenuItem: function(row, $el) {
                     /////////////////////////////////////////////////////
-                    //////// EXAMS WORKLIST - CONTEXT MENU
+                    //////// RADIOLOGICAL RESULT - CONTEXT MENU
                     /////////////////////////////////////////////////////
                     if($el.data('item') === 'radiologicalresult_show')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_show', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicalresult_edit')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_edit', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicalresult_delete')
                     {
-                        window.alert('item', $el.data('item'));
-                        var url = Routing.generate('simagd_lectura_delete', {id: row.id});
-                        window.location.href = url; // simulate link click
-                    }
-                    else if($el.data('item') === 'radiologicalresult_save')
-                    {
-                        window.alert('item', $el.data('item'));
-                        var url = Routing.generate('simagd_lectura_delete', {id: row.id});
-                        window.location.href = url; // simulate link click
-                    }
-                    else if($el.data('item') === 'radiologicalresult_saveandsearchinpacs')
-                    {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_delete', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicalresult_goto')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_delete', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicalresult_studydownload')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_delete', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicalresult_create')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_delete', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
 
                     /////////////////////////////////////////////////////
-                    //////// STUDY DIAGNOSIS WORKLIST - CONTEXT MENU
+                    //////// TRANSCRIBED DIAGNOSIS - CONTEXT MENU
                     /////////////////////////////////////////////////////
                     else if($el.data('item') === 'transcribeddiagnosis_show')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_show', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'transcribeddiagnosis_edit')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_edit', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'transcribeddiagnosis_delete')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_delete', {id: row.id});
-                        window.location.href = url; // simulate link click
-                    }
-                    else if($el.data('item') === 'transcribeddiagnosis_save')
-                    {
-                        window.alert('item', $el.data('item'));
-                        var url = Routing.generate('simagd_lectura_show', {id: row.id});
-                        window.location.href = url; // simulate link click
-                    }
-                    else if($el.data('item') === 'transcribeddiagnosis_saveandclose')
-                    {
-                        window.alert('item', $el.data('item'));
-                        var url = Routing.generate('simagd_lectura_edit', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'transcribeddiagnosis_goto')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
+                        var url = Routing.generate('simagd_lectura_show', {id: row.id});
+                        window.location.href = url; // simulate link click
+                    }
+                    else if($el.data('item') === 'transcribeddiagnosis_approve')
+                    {
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
+                        var url = Routing.generate('simagd_lectura_edit', {id: row.id});
+                        window.location.href = url; // simulate link click
+                    }
+                    else if($el.data('item') === 'transcribeddiagnosis_reprobate')
+                    {
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_delete', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'transcribeddiagnosis_studydownload')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_delete', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'transcribeddiagnosis_create')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_delete', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
 
                     /////////////////////////////////////////////////////
-                    //////// WRITE DIAGNOSIS WORKLIST - CONTEXT MENU
+                    //////// SECOND MEDICAL OPINIONS - CONTEXT MENU
                     /////////////////////////////////////////////////////
                     else if($el.data('item') === 'secondmedicalopinions_show')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_show', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'secondmedicalopinions_edit')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_edit', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'secondmedicalopinions_delete')
                     {
-                        window.alert('item', $el.data('item'));
-                        var url = Routing.generate('simagd_lectura_delete', {id: row.id});
-                        window.location.href = url; // simulate link click
-                    }
-                    else if($el.data('item') === 'secondmedicalopinions_save')
-                    {
-                        window.alert('item', $el.data('item'));
-                        var url = Routing.generate('simagd_lectura_show', {id: row.id});
-                        window.location.href = url; // simulate link click
-                    }
-                    else if($el.data('item') === 'secondmedicalopinions_saveandclose')
-                    {
-                        window.alert('item', $el.data('item'));
-                        var url = Routing.generate('simagd_lectura_edit', {id: row.id});
-                        window.location.href = url; // simulate link click
-                    }
-                    else if($el.data('item') === 'secondmedicalopinions_goto')
-                    {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_delete', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'secondmedicalopinions_studydownload')
                     {
-                        window.alert('item', $el.data('item'));
-                        var url = Routing.generate('simagd_lectura_delete', {id: row.id});
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
+                        var url = Routing.generate('simagd_lectura_show', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'secondmedicalopinions_create')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
+                        var url = Routing.generate('simagd_lectura_edit', {id: row.id});
+                        window.location.href = url; // simulate link click
+                    }
+                    else if($el.data('item') === 'secondmedicalopinions_addtothis')
+                    {
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_delete', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
 
                     /////////////////////////////////////////////////////
-                    //////// CHECK DIAGNOSIS WORKLIST - CONTEXT MENU
+                    //////// FURTHER STUDY REQUEST - CONTEXT MENU
                     /////////////////////////////////////////////////////
                     else if($el.data('item') === 'furtherstudyrequest_show')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_show', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'furtherstudyrequest_edit')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_edit', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'furtherstudyrequest_delete')
                     {
-                        window.alert('item', $el.data('item'));
-                        var url = Routing.generate('simagd_lectura_delete', {id: row.id});
-                        window.location.href = url; // simulate link click
-                    }
-                    else if($el.data('item') === 'furtherstudyrequest_approve')
-                    {
-                        window.alert('item', $el.data('item'));
-                        var url = Routing.generate('simagd_lectura_show', {id: row.id});
-                        window.location.href = url; // simulate link click
-                    }
-                    else if($el.data('item') === 'furtherstudyrequest_reprobate')
-                    {
-                        window.alert('item', $el.data('item'));
-                        var url = Routing.generate('simagd_lectura_edit', {id: row.id});
-                        window.location.href = url; // simulate link click
-                    }
-                    else if($el.data('item') === 'furtherstudyrequest_goto')
-                    {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_delete', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'furtherstudyrequest_studydownload')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_show', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'furtherstudyrequest_create')
                     {
-                        window.alert('item', $el.data('item'));
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
+                        var url = Routing.generate('simagd_lectura_edit', {id: row.id});
+                        window.location.href = url; // simulate link click
+                    }
+                    else if($el.data('item') === 'furtherstudyrequest_addtothis')
+                    {
+                        window.alert('item is: ' + '\n' + JSON.stringify($el) + '\n' + $el.data('item'));
                         var url = Routing.generate('simagd_lectura_edit', {id: row.id});
                         window.location.href = url; // simulate link click
                     }
