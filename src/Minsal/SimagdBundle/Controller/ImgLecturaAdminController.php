@@ -741,11 +741,11 @@ class ImgLecturaAdminController extends MinsalSimagdBundleGeneralAdminController
         
         $results = $em->getRepository('MinsalSimagdBundle:ImgLectura')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
 
-    	$isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
-    	$isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
-        $isUser_allowTranscribir   = ($this->admin->getRoutes()->has('edit') &&
-                    (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_EDIT')) ||
-                    $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
+    	// $isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
+    	// $isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
+        // $isUser_allowTranscribir   = ($this->admin->getRoutes()->has('edit') &&
+                    // (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_EDIT')) ||
+                    // $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
 
         $formatter = new Formatter();
 
@@ -757,18 +757,15 @@ class ImgLecturaAdminController extends MinsalSimagdBundleGeneralAdminController
             {
                 $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
                         '<div class="box-body" ondblclick="_fn_show_object_detail(this, \'undiagnosed_studies\', ' . $r['id'] . '); return false;">' .
-                            // '<div class="container">' .
-                            // '<div class=" col-lg-12 col-md-12 col-sm-12">' .
-                                '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3></div></div>' .
-                                '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 14px;">' . $r['numero_expediente'] . '</span></div></div><p></p>' .
-                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['origen'] . '</div><div class="col-lg-6 col-md-6 col-sm-6 "><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" >' . /*<span class="glyphicon glyphicon-check"></span>*/ 'Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div></div>' .
-                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['area_atencion'] . '</div></div>' .
-                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['atencion'] . '</div></div>' .
-                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['medico'] . '</div></div>' .
-                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['modalidad'] . '</div></div>' .
-                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['triage'] . '</div></div>' .
-                                '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>RADIÓLOGO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['radiologo'] . '</div></div>' .
-                            // '</div>' .
+                            '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3></div></div>' .
+                            '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 14px;">' . $r['numero_expediente'] . '</span></div></div><p></p>' .
+                            '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['origen'] . '</div><div class="col-lg-6 col-md-6 col-sm-6 "><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" >' . /*<span class="glyphicon glyphicon-check"></span>*/ 'Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div></div>' .
+                            '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['area_atencion'] . '</div></div>' .
+                            '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['atencion'] . '</div></div>' .
+                            '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['medico'] . '</div></div>' .
+                            '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['modalidad'] . '</div></div>' .
+                            '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['triage'] . '</div></div>' .
+                            '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>RADIÓLOGO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['radiologo'] . '</div></div>' .
                         '</div>' .
                     '</div>';
                 continue;
@@ -791,20 +788,20 @@ class ImgLecturaAdminController extends MinsalSimagdBundleGeneralAdminController
                     '</div>' .
                 '</div>';
 
-            $results[$key]['lct_fechaLectura']   = $r['lct_fechaLectura']->format('Y-m-d H:i:s A');
-            $results[$key]['est_fechaEstudio']   = $r['est_fechaEstudio'] ? $r['est_fechaEstudio']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['lct_fechaLectura']   = $r['lct_fechaLectura']->format('Y-m-d H:i:s A');
+            // $results[$key]['est_fechaEstudio']   = $r['est_fechaEstudio'] ? $r['est_fechaEstudio']->format('Y-m-d H:i:s A') : '';
             
             $results[$key]['lct_editUrl']        = $this->generateUrl('simagd_lectura_edit', array('id' => $r['lct_id']));
             
-            $results[$key]['allowShow']          = $isUser_allowShow;
+            // $results[$key]['allowShow']          = $isUser_allowShow;
             
-            $results[$key]['allowEdit']          = (false !== $isUser_allowEdit &&
-                    ($r['lct_id_userReg'] == $sessionUser->getId() || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
+            // $results[$key]['allowEdit']          = (false !== $isUser_allowEdit &&
+                    // ($r['lct_id_userReg'] == $sessionUser->getId() || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
 		    
-    	    /** Transcribir por radiólogo/transcriptor */
-    	    $countDiag                              = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->countDiagnosticoTranscritoParaLectura($r['lct_id']);
+    	    // /** Transcribir por radiólogo/transcriptor */
+    	    // $countDiag                              = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->countDiagnosticoTranscritoParaLectura($r['lct_id']);
             
-            $results[$key]['allowTranscribir']   = ($countDiag['numDiag'] === 0 && false !== $isUser_allowTranscribir && in_array($r['lct_codEstado'], array('LDO'))) ? TRUE : FALSE;
+            // $results[$key]['allowTranscribir']   = ($countDiag['numDiag'] === 0 && false !== $isUser_allowTranscribir && in_array($r['lct_codEstado'], array('LDO'))) ? TRUE : FALSE;
         }
         
         return $this->renderJson($results);
