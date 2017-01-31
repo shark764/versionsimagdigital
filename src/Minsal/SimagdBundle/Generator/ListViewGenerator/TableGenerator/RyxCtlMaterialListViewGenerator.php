@@ -270,8 +270,8 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
         }
         // $this->entityOptions['height']      = '1268';
 
-        $this->entityOptions['contextMenu']         = '#unrealizedproceduresworklist-context-menu';
-        $this->entityOptions['contextMenuButton']   = '.unrealizedproceduresworklist-button';
+        $this->entityOptions['contextMenu']         = '#materials-context-menu';
+        $this->entityOptions['contextMenuButton']   = '.materials-button';
         // $this->entityOptions['contextMenuTrigger']  = 'both';
         $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
         ////////
