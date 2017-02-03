@@ -127,6 +127,18 @@
 
 			// jQuery('#_switch_display').iCheck('destroy').bootstrapSwitch();
 
+
+            //////////////////////////////////////////////////////////////////////////
+            //////// ONDBLCLICKROW - EVENT
+            //////////////////////////////////////////////////////////////////////////
+            $table.on('dbl-click-row.bs.table', function (e, row, $element, field) {
+                window.console.log(e, row, $element, field);
+                var url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
+                // window.location.href = url; // simulate link click
+            });
+            //////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////
+
         });
 
         (function ($) {
