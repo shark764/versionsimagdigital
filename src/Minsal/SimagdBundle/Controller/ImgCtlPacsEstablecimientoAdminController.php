@@ -85,8 +85,8 @@ class ImgCtlPacsEstablecimientoAdminController extends MinsalSimagdBundleGeneral
     {
         $request->isXmlHttpRequest();
 
-        $BS_FILTERS             = $this->get('request')->query->get('filters');
-        $BS_FILTERS_DECODE      = json_decode($BS_FILTERS, true);
+        $BS_FILTERS         = $this->get('request')->query->get('filters');
+        $BS_FILTERS_DECODE  = json_decode($BS_FILTERS, true);
 
         $__REQUEST__type = $this->get('request')->query->get('type', 'list');
 

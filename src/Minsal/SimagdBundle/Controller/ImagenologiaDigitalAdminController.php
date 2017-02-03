@@ -177,8 +177,8 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
     {
         $request->isXmlHttpRequest();
 
-        $BS_FILTERS             = $this->get('request')->query->get('filters');
-        $BS_FILTERS_DECODE      = json_decode($BS_FILTERS, true);
+        $BS_FILTERS         = $this->get('request')->query->get('filters');
+        $BS_FILTERS_DECODE  = json_decode($BS_FILTERS, true);
 
     	$securityContext 	= $this->container->get('security.context');
     	$sessionUser 		= $securityContext->getToken()->getUser();
