@@ -99,7 +99,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/ImgCitaAdminController.php",
 			"settings":
 			{
-				"buffer_size": 46035,
+				"buffer_size": 46027,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -178,7 +178,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/ImgCtlPacsEstablecimientoAdminController.php",
 			"settings":
 			{
-				"buffer_size": 10277,
+				"buffer_size": 10269,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -196,7 +196,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/ImgCtlProyeccionAdminController.php",
 			"settings":
 			{
-				"buffer_size": 18010,
+				"buffer_size": 18002,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -285,6 +285,9 @@
 	},
 	"file_history":
 	[
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlProyeccionRadiologicaListViewGenerator.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxEntityListViewGenerator.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/CRUD/base_list.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgCitaAdmin/cit_pendingPatients_v2.js",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgCitaAdmin/cit_pendientesCita.js",
@@ -302,7 +305,6 @@
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlMaterialListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlPatronDiagnosticoListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlProyeccionEstablecimientoListViewGenerator.php",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlProyeccionRadiologicaListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxDiagnosticoPendienteValidacionListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxDiagnosticoRadiologicoListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxDiagnosticoSegundaOpinionMedicaListViewGenerator.php",
@@ -410,9 +412,7 @@
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgPendienteLecturaAdmin/pndL_list_v2.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgPendienteLecturaAdmin/pndL_personal_list_v2.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgPendienteRealizacionAdmin/pndR_list_v2.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgPendienteRealizacionAdmin/pndR_personal_list_v2.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgPendienteTranscripcionAdmin/pndT_list_v2.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgPendienteTranscripcionAdmin/pndT_personal_list_v2.html.twig"
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgPendienteRealizacionAdmin/pndR_personal_list_v2.html.twig"
 	],
 	"find":
 	{
@@ -644,7 +644,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 46035,
+						"buffer_size": 46027,
 						"regions":
 						{
 						},
@@ -917,7 +917,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10277,
+						"buffer_size": 10269,
 						"regions":
 						{
 						},
@@ -977,7 +977,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 18010,
+						"buffer_size": 18002,
 						"regions":
 						{
 						},
@@ -1080,8 +1080,8 @@
 						"selection":
 						[
 							[
-								3911,
-								3911
+								881,
+								881
 							]
 						],
 						"settings":
