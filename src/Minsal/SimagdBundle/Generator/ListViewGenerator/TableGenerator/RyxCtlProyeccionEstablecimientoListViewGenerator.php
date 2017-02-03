@@ -72,7 +72,7 @@ class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListView
                     array(
                         'field' => 'codigo_modalidad',
                         'sortable' => true,
-                        'title' => 'Código (Modalidad)',
+                        'title' => 'Cód. (Modalidad)',
                     ),
                     array(
                         'field' => 'modalidad',
@@ -87,7 +87,7 @@ class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListView
                     array(
                         'field' => 'examen',
                         'sortable' => true,
-                        'title' => 'Examen / Grupo',
+                        'title' => 'Exam. / Gpo.',
                     ),
                     array(
                         'field' => 'codigo',
@@ -97,7 +97,7 @@ class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListView
                     array(
                         'field' => 'nombre',
                         'sortable' => true,
-                        'title' => 'Proyección',
+                        'title' => 'Proyec.',
                     ),
                     array(
                         'field' => 'fecha_registro',

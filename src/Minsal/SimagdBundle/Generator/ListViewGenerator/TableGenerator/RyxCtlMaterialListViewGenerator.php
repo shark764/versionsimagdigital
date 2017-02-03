@@ -154,7 +154,7 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
                     array(
                         'field' => 'descripcion',
                         'sortable' => false,
-                        'title' => 'Descripción',
+                        'title' => 'Descrip.',
                         'class' => 'justify-table-large-row',
                         // 'formatter' => 'simagdDescriptionAdvanceFormatter',
                     ),

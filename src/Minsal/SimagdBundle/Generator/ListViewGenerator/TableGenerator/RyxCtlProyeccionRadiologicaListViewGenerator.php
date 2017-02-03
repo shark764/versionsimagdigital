@@ -70,24 +70,34 @@ class RyxCtlProyeccionRadiologicaListViewGenerator extends RyxEntityListViewGene
                         // 'switchable' => false,
                     ),
                     array(
+                        'field' => 'codigo_modalidad',
+                        'sortable' => true,
+                        'title' => 'Cód. (Modalidad)',
+                    ),
+                    array(
+                        'field' => 'modalidad',
+                        'sortable' => true,
+                        'title' => 'Modalidad',
+                    ),
+                    array(
                         'field' => 'codigo_examen',
                         'sortable' => true,
-                        'title' => 'Código (Examen)',
+                        'title' => 'Cód. (Exam.)',
                     ),
                     array(
                         'field' => 'examen',
                         'sortable' => true,
-                        'title' => 'Examen / Grupo',
+                        'title' => 'Exam. / Gpo.',
                     ),
                     array(
                         'field' => 'codigo',
                         'sortable' => true,
-                        'title' => 'Código (Proyección)',
+                        'title' => 'Cód. (Proyec.)',
                     ),
                     array(
                         'field' => 'nombre',
                         'sortable' => true,
-                        'title' => 'Proyección',
+                        'title' => 'Proyec.',
                     ),
                     array(
                         'field' => 'localizacion',
@@ -111,7 +121,7 @@ class RyxCtlProyeccionRadiologicaListViewGenerator extends RyxEntityListViewGene
                     array(
                         'field' => 'descripcion',
                         'sortable' => false,
-                        'title' => 'Descripción',
+                        'title' => 'Descrip.',
                         'visible' => false,
                         'class' => 'justify-table-large-row',
                         // 'formatter' => 'simagdDescriptionAdvanceFormatter',
