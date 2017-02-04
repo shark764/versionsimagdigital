@@ -14,6 +14,15 @@ and open the template in the editor.
     margin-right: 1%;
 }
 
+td .dropdown-menu {
+  text-align: left;
+  /*z-index: 1000;*/
+  /*overflow: visible;*/
+}
+.dropdown-menu > li > a {
+  cursor: pointer;
+}
+
 .dropdown-menu.highlight-success-dropdown-menu {
   font-size: 12px;
 }

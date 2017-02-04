@@ -129,6 +129,16 @@ class ImgCtlMaterialAdminController extends MinsalSimagdBundleGeneralAdminContro
                             // 'OP.' .
                             '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
+                        '<ul id="materials-context-menu" class="dropdown-menu highlight-success-dropdown-menu">' .
+                            '<li class="dropdown-header">MENÚ</li>' .
+                            '<li data-item="materials_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="materials_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="materials_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="materials_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="materials_addtolocal"><a><span class="glyphicon glyphicon-plus-sign"></span>Agregar a oferta de servicios</a></li>' .
+                        '</ul>' .
                     '</div>' .
                 '</div>';
             $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .

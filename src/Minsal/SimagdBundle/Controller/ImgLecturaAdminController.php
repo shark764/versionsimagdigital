@@ -791,6 +791,21 @@ class ImgLecturaAdminController extends MinsalSimagdBundleGeneralAdminController
                             // 'OP.' .
                             '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
+                        '<ul id="radiologicalresult-context-menu" class="dropdown-menu highlight-success-dropdown-menu">' .
+                            '<li class="dropdown-header">MENÚ</li>' .
+                            '<li data-item="radiologicalresult_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="radiologicalresult_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="radiologicalresult_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li class="dropdown-header">LISTA DE TRABAJO</li>' .
+                            '<li data-item="radiologicalresult_goto"><a><span class="glyphicon glyphicon-list-alt"></span>Ver lista de trabajo...</a></li>' .
+                            '<li data-item="radiologicalresult_checktranscript"><a><span class="glyphicon glyphicon-list-alt"></span>Revisar progreso de transcripción...</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="radiologicalresult_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="radiologicalresult_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                        '</ul>' .
                     '</div>' .
                 '</div>';
             $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .

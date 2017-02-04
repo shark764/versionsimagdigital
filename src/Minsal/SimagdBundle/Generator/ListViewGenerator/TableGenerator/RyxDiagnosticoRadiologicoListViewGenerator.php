@@ -196,8 +196,17 @@ class RyxDiagnosticoRadiologicoListViewGenerator extends RyxEntityListViewGenera
                         'class' => 'justify-table-large-row',
                         // 'formatter' => 'simagdDescriptionAdvanceFormatter',
                     ),
+                    // array(
+                    //     'field' => 'context_menu',
+                    //     'sortable' => false,
+                    //     'align' => 'center',
+                    //     'halign' => 'center',
+                    //     'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
+                    //     // 'formatter' => 'operateFormatter',
+                    //     // 'events' => 'operateEvents',
+                    // ),
                     array(
-                        'field' => 'context_menu',
+                        'field' => 'action',
                         'sortable' => false,
                         'align' => 'center',
                         'halign' => 'center',
@@ -263,10 +272,10 @@ class RyxDiagnosticoRadiologicoListViewGenerator extends RyxEntityListViewGenera
         }
         // $this->entityOptions['height']      = '1268';
 
-        $this->entityOptions['contextMenu']         = '#transcribeddiagnosis-context-menu';
-        $this->entityOptions['contextMenuButton']   = '.transcribeddiagnosis-button';
+        // $this->entityOptions['contextMenu']         = '#transcribeddiagnosis-context-menu';
+        // $this->entityOptions['contextMenuButton']   = '.transcribeddiagnosis-button';
         // $this->entityOptions['contextMenuTrigger']  = 'both';
-        $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
+        // $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
         ////////
     }
 

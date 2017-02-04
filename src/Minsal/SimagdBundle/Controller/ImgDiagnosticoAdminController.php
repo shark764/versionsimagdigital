@@ -307,6 +307,22 @@ class ImgDiagnosticoAdminController extends MinsalSimagdBundleGeneralAdminContro
                             // 'OP.' .
                             '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
+                        '<ul id="transcribeddiagnosis-context-menu" class="dropdown-menu highlight-success-dropdown-menu">' .
+                            '<li class="dropdown-header">MENÚ</li>' .
+                            '<li data-item="transcribeddiagnosis_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="transcribeddiagnosis_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="transcribeddiagnosis_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li class="dropdown-header">LISTA DE TRABAJO</li>' .
+                            '<li data-item="transcribeddiagnosis_goto"><a><span class="glyphicon glyphicon-list-alt"></span>Ver lista de trabajo...</a></li>' .
+                            '<li data-item="transcribeddiagnosis_approve"><a><span class="glyphicon glyphicon-ok-sign"></span>Aprobar</a></li>' .
+                            '<li data-item="transcribeddiagnosis_reprobate"><a><span class="glyphicon glyphicon-remove-sign"></span>Impugnar</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="transcribeddiagnosis_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="transcribeddiagnosis_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                        '</ul>' .
                     '</div>' .
                 '</div>';
             $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
