@@ -256,6 +256,46 @@ and open the template in the editor.
 .box.box-drop-outside-shadow.box-dark-theme {
   background-color: #eee;
 }
+/*
+ * *************************************************************************************************************************************************
+ * *************************************************************************************************************************************************
+ * box shadow outside MEDICINE
+ * *************************************************************************************************************************************************
+ * *************************************************************************************************************************************************
+ */
+.box.box-drop-outside-medicine {
+  /*-moz-box-shadow: 0 0 5px 5px rgba(3, 45, 51, 0.53);
+  -webkit-box-shadow: 0 0 5px 5px rgba(3, 45, 51, 0.53);
+  box-shadow: 0 0 5px 5px rgba(3, 45, 51, 0.53);*/
+  -moz-box-shadow: 0 0 5px 5px rgba(6, 35, 39, 0.53);
+  -webkit-box-shadow: 0 0 5px 5px rgba(6, 35, 39, 0.53);
+  box-shadow: 0 0 5px 5px rgba(6, 35, 39, 0.53);
+}
+.box.box-drop-outside-medicine .box-header {
+}
+.box.box-drop-outside-medicine.box-dark-theme {
+  background-color: #eee;
+}
+.box.box-shadow-medicine {
+  border-top-color: #1a6975;
+}
+/*
+ * *************************************************************************************************************************************************
+ * *************************************************************************************************************************************************
+ * box shadow outside PRIMARY-V4
+ * *************************************************************************************************************************************************
+ * *************************************************************************************************************************************************
+ */
+.box.box-drop-outside-primary-v4 {
+  -moz-box-shadow: 0 0 5px 5px rgba(51, 72, 82, 0.68);
+  -webkit-box-shadow: 0 0 5px 5px rgba(51, 72, 82, 0.68);
+  box-shadow: 0 0 5px 5px rgba(51, 72, 82, 0.68);
+}
+.box.box-drop-outside-primary-v4 .box-header {
+}
+.box.box-drop-outside-primary-v4.box-dark-theme {
+  background-color: #eee;
+}
 
 
 /*
@@ -491,11 +531,11 @@ a.anchor-success-v3 {
 
 .badge.badge-success-v3 {
     color: #16677d;
-    background-color: white !important;
+    background-color: white;
 }
 
 .badge.badge-success-v3.badge-inverse {
-    color: white !important;
+    color: white;
     background-color: #16677d;
 }
 

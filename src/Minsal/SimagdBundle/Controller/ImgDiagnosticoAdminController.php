@@ -268,6 +268,8 @@ class ImgDiagnosticoAdminController extends MinsalSimagdBundleGeneralAdminContro
         {
             // $r = new \Minsal\SimagdBundle\Entity\ImgDiagnostico();
 
+            $results[$key]['menu_code'] = 'transcribeddiagnosis';
+
             if ($__REQUEST__type === 'detail')
             {
                 $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .

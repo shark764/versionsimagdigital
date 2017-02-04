@@ -82,6 +82,8 @@ class ImgSolicitudEstudioComplementarioAdminController extends MinsalSimagdBundl
         {
             // $r = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioComplementario();
 
+            $results[$key]['menu_code'] = 'furtherstudyrequest';
+
             if ($__REQUEST__type === 'detail')
             {
                 $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .

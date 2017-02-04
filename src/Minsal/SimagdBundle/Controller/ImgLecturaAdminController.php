@@ -753,6 +753,8 @@ class ImgLecturaAdminController extends MinsalSimagdBundleGeneralAdminController
         {
             // $r = new \Minsal\SimagdBundle\Entity\ImgLectura();
 
+            $results[$key]['menu_code'] = 'radiologicalresult';
+
             if ($__REQUEST__type === 'detail')
             {
                 $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .

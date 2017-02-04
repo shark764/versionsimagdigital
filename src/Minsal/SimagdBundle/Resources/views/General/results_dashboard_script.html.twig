@@ -132,8 +132,24 @@
             //////// ONDBLCLICKROW - EVENT
             //////////////////////////////////////////////////////////////////////////
             $table.on('dbl-click-row.bs.table', function (e, row, $element, field) {
-                window.console.log(e, row, $element, field);
-                var url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
+                var url = null;
+                if(row.menu_code === 'radiologicalresult')
+                {
+                    url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
+                }
+                else if(row.menu_code === 'transcribeddiagnosis')
+                {
+                    url = Routing.generate('simagd_diagnostico_show', {id: row.id, mode: 'standard', worklist: true, worklist_id: row.id});
+                }
+                else if(row.menu_code === 'secondmedicalopinions')
+                {
+                    url = Routing.generate('simagd_segunda_opinion_medica_show', {id: row.id, mode: 'standard'});
+                }
+                else if(row.menu_code === 'furtherstudyrequest')
+                {
+                    url = Routing.generate('simagd_solicitud_estudio_complementario_show', {id: row.id, mode: 'standard'});
+                }
+                window.console.log('e', e, '\nrow', row, '\n$element', $element, '\nfield', field, '\nurl', url);
                 // window.location.href = url; // simulate link click
             });
             //////////////////////////////////////////////////////////////////////////

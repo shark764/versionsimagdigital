@@ -222,6 +222,8 @@ class ImgNotaDiagnosticoAdminController extends MinsalSimagdBundleGeneralAdminCo
         {
             // $r = new \Minsal\SimagdBundle\Entity\ImgNotaDiagnostico();
 
+            $results[$key]['menu_code'] = 'secondmedicalopinions';
+
             if ($__REQUEST__type === 'detail')
             {
                 $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
