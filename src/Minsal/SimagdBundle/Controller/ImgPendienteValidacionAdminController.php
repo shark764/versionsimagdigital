@@ -151,14 +151,14 @@ class ImgPendienteValidacionAdminController extends MinsalSimagdBundleGeneralAdm
                         '</ul>' .
                     '</div>' .
                 '</div>';
-            $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" nonvalidatedresultsworklist-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
-                            // 'OP.' .
-                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
-                        '</a>' .
-                    '</div>' .
-                '</div>';
+            // $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
+            //         '<div class="btn-group" role="group">' .
+            //             '<a class=" nonvalidatedresultsworklist-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+            //                 // 'OP.' .
+            //                 '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
+            //             '</a>' .
+            //         '</div>' .
+            //     '</div>';
 
             $results[$key]['diag_fechaTranscrito']    = $r['diag_fechaTranscrito'] ? $r['diag_fechaTranscrito']->format('Y-m-d H:i:s A') : '';
             $results[$key]['diag_fechaCorregido']     = $r['diag_fechaCorregido'] ? $r['diag_fechaCorregido']->format('Y-m-d H:i:s A') : '';

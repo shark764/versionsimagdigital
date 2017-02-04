@@ -226,14 +226,14 @@ class ImgBloqueoAgendaAdminController extends MinsalSimagdBundleGeneralAdminCont
                         '</a>' .
                     '</div>' .
                 '</div>';
-            $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
-                    '<div class="btn-group" role="group">' .
-                        '<a class=" unrealizedproceduresworklist-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
-                            // 'OP.' .
-                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
-                        '</a>' .
-                    '</div>' .
-                '</div>';
+            // $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
+            //         '<div class="btn-group" role="group">' .
+            //             '<a class=" unrealizedproceduresworklist-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+            //                 // 'OP.' .
+            //                 '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
+            //             '</a>' .
+            //         '</div>' .
+            //     '</div>';
 
             $results[$key][$key]['blAgd_fechaCreacion']        = $r['blAgd_fechaCreacion']->format('Y-m-d H:i:s A');
             $results[$key]['blAgd_fechaUltimaEdicion']   = $r['blAgd_fechaUltimaEdicion'] ? $r['blAgd_fechaUltimaEdicion']->format('Y-m-d H:i:s A') : '';
