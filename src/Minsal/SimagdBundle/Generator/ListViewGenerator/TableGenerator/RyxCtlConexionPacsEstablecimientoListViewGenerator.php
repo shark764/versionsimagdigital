@@ -126,8 +126,17 @@ class RyxCtlConexionPacsEstablecimientoListViewGenerator extends RyxEntityListVi
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
+                    // array(
+                    //     'field' => 'context_menu',
+                    //     'sortable' => false,
+                    //     'align' => 'center',
+                    //     'halign' => 'center',
+                    //     'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
+                    //     // 'formatter' => 'operateFormatter',
+                    //     // 'events' => 'operateEvents',
+                    // ),
                     array(
-                        'field' => 'context_menu',
+                        'field' => 'action',
                         'sortable' => false,
                         'align' => 'center',
                         'halign' => 'center',
@@ -193,10 +202,10 @@ class RyxCtlConexionPacsEstablecimientoListViewGenerator extends RyxEntityListVi
         }
         // $this->entityOptions['height']      = '1268';
 
-        $this->entityOptions['contextMenu']         = '#pacsserverconnections-context-menu';
-        $this->entityOptions['contextMenuButton']   = '.pacsserverconnections-button';
+        // $this->entityOptions['contextMenu']         = '#pacsserverconnections-context-menu';
+        // $this->entityOptions['contextMenuButton']   = '.pacsserverconnections-button';
         // $this->entityOptions['contextMenuTrigger']  = 'both';
-        $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
+        // $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
         ////////
     }
 

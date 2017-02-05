@@ -142,8 +142,17 @@ class RyxCtlMaterialEstablecimientoListViewGenerator extends RyxEntityListViewGe
                         // 'visible' => false,
                         // 'formatter' => 'habilitadoFormatter',
                     ),
+                    // array(
+                    //     'field' => 'context_menu',
+                    //     'sortable' => false,
+                    //     'align' => 'center',
+                    //     'halign' => 'center',
+                    //     'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
+                    //     // 'formatter' => 'operateFormatter',
+                    //     // 'events' => 'operateEvents',
+                    // ),
                     array(
-                        'field' => 'context_menu',
+                        'field' => 'action',
                         'sortable' => false,
                         'align' => 'center',
                         'halign' => 'center',
@@ -209,10 +218,10 @@ class RyxCtlMaterialEstablecimientoListViewGenerator extends RyxEntityListViewGe
         }
         // $this->entityOptions['height']      = '1268';
 
-        $this->entityOptions['contextMenu']         = '#localmaterials-context-menu';
-        $this->entityOptions['contextMenuButton']   = '.localmaterials-button';
+        // $this->entityOptions['contextMenu']         = '#localmaterials-context-menu';
+        // $this->entityOptions['contextMenuButton']   = '.localmaterials-button';
         // $this->entityOptions['contextMenuTrigger']  = 'both';
-        $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
+        // $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
         ////////
     }
 

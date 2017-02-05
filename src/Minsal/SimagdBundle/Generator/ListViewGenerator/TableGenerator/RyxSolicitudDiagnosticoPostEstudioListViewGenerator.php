@@ -172,8 +172,17 @@ class RyxSolicitudDiagnosticoPostEstudioListViewGenerator extends RyxEntityListV
                         // 'visible' => false,
                         // 'switchable' => false,
                     ),
+                    // array(
+                    //     'field' => 'context_menu',
+                    //     'sortable' => false,
+                    //     'align' => 'center',
+                    //     'halign' => 'center',
+                    //     'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
+                    //     // 'formatter' => 'operateFormatter',
+                    //     // 'events' => 'operateEvents',
+                    // ),
                     array(
-                        'field' => 'context_menu',
+                        'field' => 'action',
                         'sortable' => false,
                         'align' => 'center',
                         'halign' => 'center',
@@ -239,10 +248,10 @@ class RyxSolicitudDiagnosticoPostEstudioListViewGenerator extends RyxEntityListV
         }
         // $this->entityOptions['height']      = '1268';
 
-        $this->entityOptions['contextMenu']         = '#diagnosticrequest-context-menu';
-        $this->entityOptions['contextMenuButton']   = '.diagnosticrequest-button';
+        // $this->entityOptions['contextMenu']         = '#diagnosticrequest-context-menu';
+        // $this->entityOptions['contextMenuButton']   = '.diagnosticrequest-button';
         // $this->entityOptions['contextMenuTrigger']  = 'both';
-        $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
+        // $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
         ////////
     }
 

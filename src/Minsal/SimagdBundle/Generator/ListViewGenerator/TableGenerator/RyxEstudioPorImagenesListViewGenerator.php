@@ -149,8 +149,17 @@ class RyxEstudioPorImagenesListViewGenerator extends RyxEntityListViewGenerator
                         'visible' => true,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
+                    // array(
+                    //     'field' => 'context_menu',
+                    //     'sortable' => false,
+                    //     'align' => 'center',
+                    //     'halign' => 'center',
+                    //     'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
+                    //     // 'formatter' => 'operateFormatter',
+                    //     // 'events' => 'operateEvents',
+                    // ),
                     array(
-                        'field' => 'context_menu',
+                        'field' => 'action',
                         'sortable' => false,
                         'align' => 'center',
                         'halign' => 'center',
@@ -215,10 +224,10 @@ class RyxEstudioPorImagenesListViewGenerator extends RyxEntityListViewGenerator
         }
         // $this->entityOptions['height']      = '1268';
 
-        $this->entityOptions['contextMenu']         = '#unrealizedproceduresworklist-context-menu';
-        $this->entityOptions['contextMenuButton']   = '.unrealizedproceduresworklist-button';
+        // $this->entityOptions['contextMenu']         = '#unrealizedproceduresworklist-context-menu';
+        // $this->entityOptions['contextMenuButton']   = '.unrealizedproceduresworklist-button';
         // $this->entityOptions['contextMenuTrigger']  = 'both';
-        $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
+        // $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
         ////////
     }
 
