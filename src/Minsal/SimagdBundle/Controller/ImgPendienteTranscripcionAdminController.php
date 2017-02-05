@@ -186,6 +186,22 @@ class ImgPendienteTranscripcionAdminController extends MinsalSimagdBundleGeneral
                             // 'OP.' .
                             '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
+                        '<ul id="nontranscribedresultsworklist-context-menu" class="dropdown-menu highlight-success-dropdown-menu">' .
+                            '<li class="dropdown-header">MENÚ</li>' .
+                            '<li data-item="nontranscribedresultsworklist_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="nontranscribedresultsworklist_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li class="dropdown-header">LISTA DE TRABAJO</li>' .
+                            '<li data-item="nontranscribedresultsworklist_save"><a><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_saveandclose"><a><span class="glyphicon glyphicon-floppy-saved"></span>Guardar (transcripción finalizada)</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_goto"><a><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="nontranscribedresultsworklist_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="nontranscribedresultsworklist_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                        '</ul>' .
                     '</div>' .
                 '</div>';
             $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .

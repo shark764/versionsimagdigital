@@ -755,6 +755,22 @@ class ImgSolicitudEstudioAdminController extends MinsalSimagdBundleGeneralAdminC
                             // 'OP.' .
                             '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
+                        '<ul id="studyrequest-context-menu" class="dropdown-menu highlight-success-dropdown-menu">' .
+                            '<li class="dropdown-header">MENÚ</li>' .
+                            '<li data-item="studyrequest_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="studyrequest_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="studyrequest_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li class="dropdown-header">HISTORIA CLÍNICA</li>' .
+                            '<li data-item="studyrequest_checkmedicalhistory"><a><span class="glyphicon glyphicon-list-alt"></span>Ver historia clínica...</a></li>' .
+                            '<li data-item="studyrequest_showallrequest"><a><span class="glyphicon glyphicon-list-alt"></span>Solicitudes del paciente...</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="studyrequest_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="studyrequest_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="studyrequest_createtothispatient"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear para este paciente</a></li>' .
+                        '</ul>' .
                     '</div>' .
                 '</div>';
             $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .

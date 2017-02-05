@@ -16,6 +16,8 @@ and open the template in the editor.
 
 td .dropdown-menu {
   text-align: left;
+  /*z-index: 1000;*/
+  /*overflow: visible;*/
 }
 .dropdown-menu > li > a {
   cursor: pointer;
