@@ -793,18 +793,18 @@ class ImgLecturaAdminController extends MinsalSimagdBundleGeneralAdminController
                         '</a>' .
                         '<ul id="radiologicalresult-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="radiologicalresult_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="radiologicalresult_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="radiologicalresult_show"><a class=" radiologicalresult_show_action "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="radiologicalresult_edit"><a class=" radiologicalresult_edit_action "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="radiologicalresult_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="radiologicalresult_delete"><a class=" radiologicalresult_delete_action "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
                             '<li class="dropdown-header">LISTA DE TRABAJO</li>' .
-                            '<li data-item="radiologicalresult_goto"><a><span class="glyphicon glyphicon-list-alt"></span>Ver lista de trabajo...</a></li>' .
-                            '<li data-item="radiologicalresult_checktranscript"><a><span class="glyphicon glyphicon-list-alt"></span>Revisar progreso de transcripción...</a></li>' .
+                            '<li data-item="radiologicalresult_goto"><a class=" radiologicalresult_goto_action "><span class="glyphicon glyphicon-list-alt"></span>Ver lista de trabajo...</a></li>' .
+                            '<li data-item="radiologicalresult_checktranscript"><a class=" radiologicalresult_checktranscript_action "><span class="glyphicon glyphicon-list-alt"></span>Revisar progreso de transcripción...</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="radiologicalresult_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li data-item="radiologicalresult_studydownload"><a class=" radiologicalresult_studydownload_action "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="radiologicalresult_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="radiologicalresult_create"><a class=" radiologicalresult_create_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';

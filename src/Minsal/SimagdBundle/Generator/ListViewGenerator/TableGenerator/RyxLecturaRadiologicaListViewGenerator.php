@@ -179,7 +179,7 @@ class RyxLecturaRadiologicaListViewGenerator extends RyxEntityListViewGenerator
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        // 'events' => 'operateEvents',
+                        'events' => '__RESULTS_MENU_ACTIONEVENTS__',
                     )
             );
         }
