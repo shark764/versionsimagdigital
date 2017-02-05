@@ -791,7 +791,7 @@ class ImgLecturaAdminController extends MinsalSimagdBundleGeneralAdminController
                             // 'OP.' .
                             '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
-                        '<ul id="radiologicalresult-context-menu" class="dropdown-menu highlight-success-dropdown-menu">' .
+                        '<ul id="radiologicalresult-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
                             '<li data-item="radiologicalresult_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
                             '<li data-item="radiologicalresult_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .

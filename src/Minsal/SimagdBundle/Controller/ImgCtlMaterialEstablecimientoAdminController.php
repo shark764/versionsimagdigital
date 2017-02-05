@@ -94,7 +94,7 @@ class ImgCtlMaterialEstablecimientoAdminController extends MinsalSimagdBundleGen
                             // 'OP.' .
                             '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
                         '</a>' .
-                        '<ul id="localmaterials-context-menu" class="dropdown-menu highlight-success-dropdown-menu">' .
+                        '<ul id="localmaterials-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
                             '<li data-item="localmaterials_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
                             '<li data-item="localmaterials_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
