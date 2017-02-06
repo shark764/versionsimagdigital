@@ -184,7 +184,7 @@ class RyxEstudioPendienteLecturaListViewGenerator extends RyxEntityListViewGener
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        // 'events' => 'operateEvents',
+                        'events' => '__UNDIAGNOSEDSTUDIESWORKLIST_MENU_ACTIONEVENTS__',
                     )
             );
         }

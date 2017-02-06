@@ -158,13 +158,13 @@ class ImgCtlProyeccionAdminController extends MinsalSimagdBundleGeneralAdminCont
                         '</a>' .
                         '<ul id="radiologicalexaminations-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="radiologicalexaminations_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="radiologicalexaminations_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="radiologicalexaminations_show"><a class=" radiologicalexaminations_show_action "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="radiologicalexaminations_edit"><a class=" radiologicalexaminations_edit_action "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="radiologicalexaminations_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="radiologicalexaminations_delete"><a class=" radiologicalexaminations_delete_action "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="radiologicalexaminations_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
-                            '<li data-item="radiologicalexaminations_addtolocal"><a><span class="glyphicon glyphicon-plus-sign"></span>Agregar a oferta de servicios</a></li>' .
+                            '<li data-item="radiologicalexaminations_create"><a class=" radiologicalexaminations_create_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="radiologicalexaminations_addtolocal"><a class=" radiologicalexaminations_addtolocal_action "><span class="glyphicon glyphicon-plus-sign"></span>Agregar a oferta de servicios</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';

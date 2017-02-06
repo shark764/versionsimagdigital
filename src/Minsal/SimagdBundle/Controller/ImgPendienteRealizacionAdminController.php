@@ -259,19 +259,19 @@ class ImgPendienteRealizacionAdminController extends MinsalSimagdBundleGeneralAd
                         '</a>' .
                         '<ul id="unrealizedproceduresworklist-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="unrealizedproceduresworklist_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="unrealizedproceduresworklist_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="unrealizedproceduresworklist_show"><a class=" unrealizedproceduresworklist_show "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="unrealizedproceduresworklist_edit"><a class=" unrealizedproceduresworklist_edit "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="unrealizedproceduresworklist_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="unrealizedproceduresworklist_delete"><a class=" unrealizedproceduresworklist_delete "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
                             '<li class="dropdown-header">LISTA DE TRABAJO</li>' .
-                            '<li data-item="unrealizedproceduresworklist_save"><a><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>' .
-                            '<li data-item="unrealizedproceduresworklist_saveandsearchinpacs"><a><span class="glyphicon glyphicon-link"></span>Guardar y enlazar a PACS</a></li>' .
-                            '<li data-item="unrealizedproceduresworklist_goto"><a><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>' .
+                            '<li data-item="unrealizedproceduresworklist_save"><a class=" unrealizedproceduresworklist_save "><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>' .
+                            '<li data-item="unrealizedproceduresworklist_saveandsearchinpacs"><a class=" unrealizedproceduresworklist_saveandsearchinpacs "><span class="glyphicon glyphicon-link"></span>Guardar y enlazar a PACS</a></li>' .
+                            '<li data-item="unrealizedproceduresworklist_goto"><a class=" unrealizedproceduresworklist_goto "><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>' .
                             '<li class="divider"></li>' .
-                            // '<li data-item="unrealizedproceduresworklist_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            // '<li data-item="unrealizedproceduresworklist_studydownload"><a class=" unrealizedproceduresworklist_studydownload "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
                             // '<li class="divider"></li>' .
-                            '<li data-item="unrealizedproceduresworklist_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="unrealizedproceduresworklist_create"><a class=" unrealizedproceduresworklist_create "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';

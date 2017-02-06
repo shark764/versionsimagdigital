@@ -142,7 +142,7 @@ class RyxCtlConexionPacsEstablecimientoListViewGenerator extends RyxEntityListVi
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        // 'events' => 'operateEvents',
+                        'events' => '__PACSSERVERCONNECTIONS_MENU_ACTIONEVENTS__',
                     )
             );
         }

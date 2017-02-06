@@ -145,12 +145,12 @@ class ImgCtlProyeccionEstablecimientoAdminController extends MinsalSimagdBundleG
                         '</a>' .
                         '<ul id="localradiologicalexaminations-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="localradiologicalexaminations_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="localradiologicalexaminations_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="localradiologicalexaminations_show"><a class=" localradiologicalexaminations_show_action "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="localradiologicalexaminations_edit"><a class=" localradiologicalexaminations_edit_action "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="localradiologicalexaminations_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="localradiologicalexaminations_delete"><a class=" localradiologicalexaminations_delete_action "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="localradiologicalexaminations_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="localradiologicalexaminations_create"><a class=" localradiologicalexaminations_create_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';

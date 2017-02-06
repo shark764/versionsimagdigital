@@ -142,7 +142,7 @@ class RyxCtlProyeccionRadiologicaListViewGenerator extends RyxEntityListViewGene
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        // 'events' => 'operateEvents',
+                        'events' => '__RADIOLOGICALEXAMINATIONS_MENU_ACTIONEVENTS__',
                     )
             );
         }

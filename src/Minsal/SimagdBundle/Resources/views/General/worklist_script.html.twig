@@ -126,6 +126,222 @@
 
         });
 
+        /////////////////////////////////////////////////////
+        //////// EXAMS WORKLIST - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__UNREALIZEDPROCEDURESWORKLIST_MENU_ACTIONEVENTS__ = {
+                'click .unrealizedproceduresworklist_show_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .unrealizedproceduresworklist_edit_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_edit', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .unrealizedproceduresworklist_delete_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .unrealizedproceduresworklist_save_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'undiagnosed_studies', lct_id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .unrealizedproceduresworklist_saveandsearchinpacs_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'transcribed_diagnosis', lct_id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .unrealizedproceduresworklist_goto_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .unrealizedproceduresworklist_studydownload_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .unrealizedproceduresworklist_create_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+
+        /////////////////////////////////////////////////////
+        //////// STUDY DIAGNOSIS WORKLIST - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__UNDIAGNOSEDSTUDIESWORKLIST_MENU_ACTIONEVENTS__ = {
+                'click .undiagnosedstudiesworklist_show_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .undiagnosedstudiesworklist_edit_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_edit', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .undiagnosedstudiesworklist_delete_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .undiagnosedstudiesworklist_save_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'undiagnosed_studies', lct_id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .undiagnosedstudiesworklist_saveandclose_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'transcribed_diagnosis', lct_id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .undiagnosedstudiesworklist_goto_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .undiagnosedstudiesworklist_studydownload_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .undiagnosedstudiesworklist_create_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+
+        /////////////////////////////////////////////////////
+        //////// WRITE DIAGNOSIS WORKLIST - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__NONTRANSCRIBEDRESULTSWORKLIST_MENU_ACTIONEVENTS__ = {
+                'click .nontranscribedresultsworklist_show_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nontranscribedresultsworklist_edit_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_edit', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nontranscribedresultsworklist_delete_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nontranscribedresultsworklist_save_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'undiagnosed_studies', lct_id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nontranscribedresultsworklist_saveandclose_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'transcribed_diagnosis', lct_id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nontranscribedresultsworklist_goto_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nontranscribedresultsworklist_studydownload_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nontranscribedresultsworklist_create_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+
+        /////////////////////////////////////////////////////
+        //////// CHECK DIAGNOSIS WORKLIST - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__NONVALIDATEDRESULTSWORKLIST_MENU_ACTIONEVENTS__ = {
+                'click .nonvalidatedresultsworklist_show_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nonvalidatedresultsworklist_edit_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_edit', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nonvalidatedresultsworklist_delete_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nonvalidatedresultsworklist_approve_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'undiagnosed_studies', lct_id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nonvalidatedresultsworklist_reprobate_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'transcribed_diagnosis', lct_id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nonvalidatedresultsworklist_goto_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nonvalidatedresultsworklist_studydownload_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nonvalidatedresultsworklist_create_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+
         (function ($) {
             /*
              *

@@ -188,7 +188,7 @@ class RyxSolicitudEstudioListViewGenerator extends RyxEntityListViewGenerator
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        // 'events' => 'operateEvents',
+                        'events' => '__STUDYREQUEST_MENU_ACTIONEVENTS__',
                     )
             );
         }

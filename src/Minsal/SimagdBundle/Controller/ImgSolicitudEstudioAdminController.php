@@ -772,19 +772,19 @@ class ImgSolicitudEstudioAdminController extends MinsalSimagdBundleGeneralAdminC
                         '</a>' .
                         '<ul id="studyrequest-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="studyrequest_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="studyrequest_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="studyrequest_show"><a class=" studyrequest_show_action "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="studyrequest_edit"><a class=" studyrequest_edit_action "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="studyrequest_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="studyrequest_delete"><a class=" studyrequest_delete_action "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
                             '<li class="dropdown-header">HISTORIA CLÍNICA</li>' .
-                            '<li data-item="studyrequest_checkmedicalhistory"><a><span class="glyphicon glyphicon-list-alt"></span>Ver historia clínica...</a></li>' .
-                            '<li data-item="studyrequest_showallrequest"><a><span class="glyphicon glyphicon-list-alt"></span>Solicitudes del paciente...</a></li>' .
+                            '<li data-item="studyrequest_checkmedicalhistory"><a class=" studyrequest_checkmedicalhistory_action "><span class="glyphicon glyphicon-list-alt"></span>Ver historia clínica...</a></li>' .
+                            '<li data-item="studyrequest_showallrequest"><a class=" studyrequest_showallrequest_action "><span class="glyphicon glyphicon-list-alt"></span>Solicitudes del paciente...</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="studyrequest_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li data-item="studyrequest_studydownload"><a class=" studyrequest_studydownload_action "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="studyrequest_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
-                            '<li data-item="studyrequest_createtothispatient"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear para este paciente</a></li>' .
+                            '<li data-item="studyrequest_create"><a class=" studyrequest_create_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="studyrequest_createtothispatient"><a class=" studyrequest_createtothispatient_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear para este paciente</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';

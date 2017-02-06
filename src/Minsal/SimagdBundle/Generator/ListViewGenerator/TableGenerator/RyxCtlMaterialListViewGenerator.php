@@ -188,7 +188,7 @@ class RyxCtlMaterialListViewGenerator extends RyxEntityListViewGenerator
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        // 'events' => 'operateEvents',
+                        'events' => '__MATERIALS_MENU_ACTIONEVENTS__',
                     )
             );
         }

@@ -201,18 +201,18 @@ class ImgPendienteTranscripcionAdminController extends MinsalSimagdBundleGeneral
                         '<ul id="nontranscribedresultsworklist-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
                             '<li data-item="nontranscribedresultsworklist_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="nontranscribedresultsworklist_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_edit"><a class=" nontranscribedresultsworklist_edit "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="nontranscribedresultsworklist_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_delete"><a class=" nontranscribedresultsworklist_delete "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
                             '<li class="dropdown-header">LISTA DE TRABAJO</li>' .
-                            '<li data-item="nontranscribedresultsworklist_save"><a><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>' .
-                            '<li data-item="nontranscribedresultsworklist_saveandclose"><a><span class="glyphicon glyphicon-floppy-saved"></span>Guardar (transcripción finalizada)</a></li>' .
-                            '<li data-item="nontranscribedresultsworklist_goto"><a><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_save"><a class=" nontranscribedresultsworklist_save "><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_saveandclose"><a class=" nontranscribedresultsworklist_saveandclose "><span class="glyphicon glyphicon-floppy-saved"></span>Guardar (transcripción finalizada)</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_goto"><a class=" nontranscribedresultsworklist_goto "><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="nontranscribedresultsworklist_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_studydownload"><a class=" nontranscribedresultsworklist_studydownload "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="nontranscribedresultsworklist_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_create"><a class=" nontranscribedresultsworklist_create "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';

@@ -263,15 +263,15 @@ class ImgNotaDiagnosticoAdminController extends MinsalSimagdBundleGeneralAdminCo
                         '</a>' .
                         '<ul id="secondmedicalopinions-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="secondmedicalopinions_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="secondmedicalopinions_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="secondmedicalopinions_show"><a class=" secondmedicalopinions_show_action "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="secondmedicalopinions_edit"><a class=" secondmedicalopinions_edit_action "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="secondmedicalopinions_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="secondmedicalopinions_delete"><a class=" secondmedicalopinions_delete_action "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="secondmedicalopinions_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li data-item="secondmedicalopinions_studydownload"><a class=" secondmedicalopinions_studydownload_action "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="secondmedicalopinions_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
-                            '<li data-item="secondmedicalopinions_addtothis"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear para este diagnóstico</a></li>' .
+                            '<li data-item="secondmedicalopinions_create"><a class=" secondmedicalopinions_create_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="secondmedicalopinions_addtothis"><a class=" secondmedicalopinions_addtothis_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear para este diagnóstico</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';

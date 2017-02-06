@@ -109,15 +109,15 @@ class ImgSolicitudEstudioComplementarioAdminController extends MinsalSimagdBundl
                         '</a>' .
                         '<ul id="furtherstudyrequest-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="furtherstudyrequest_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="furtherstudyrequest_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="furtherstudyrequest_show"><a class=" furtherstudyrequest_show_action "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="furtherstudyrequest_edit"><a class=" furtherstudyrequest_edit_action "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="furtherstudyrequest_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="furtherstudyrequest_delete"><a class=" furtherstudyrequest_delete_action "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="furtherstudyrequest_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li data-item="furtherstudyrequest_studydownload"><a class=" furtherstudyrequest_studydownload_action "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="furtherstudyrequest_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
-                            '<li data-item="furtherstudyrequest_addtothis"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear para este estudio</a></li>' .
+                            '<li data-item="furtherstudyrequest_create"><a class=" furtherstudyrequest_create_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="furtherstudyrequest_addtothis"><a class=" furtherstudyrequest_addtothis_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear para este estudio</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';

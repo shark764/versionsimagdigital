@@ -179,7 +179,7 @@ class RyxDiagnosticoSegundaOpinionMedicaListViewGenerator extends RyxEntityListV
                     array(
                         'field' => 'fecha_lectura',
                         'sortable' => true,
-                        'title' => 'Fecha (Lectura)',
+                        'title' => 'Fecha (Lctr.)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
@@ -212,7 +212,7 @@ class RyxDiagnosticoSegundaOpinionMedicaListViewGenerator extends RyxEntityListV
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        // 'events' => 'operateEvents',
+                        'events' => '__SECONDMEDICALOPINIONS_MENU_ACTIONEVENTS__',
                     )
             );
         }

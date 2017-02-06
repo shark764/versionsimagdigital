@@ -629,15 +629,30 @@ class ImgProcedimientoRealizadoAdminController extends MinsalSimagdBundleGeneral
             if ($__REQUEST__type === 'detail')
             {
                 $results[$key]['detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
-                        '<div class="box-body" ondblclick="_fn_show_object_detail(this, \'undiagnosed_studies\', ' . $r['id'] . '); return false;">' .
-                            '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3></div></div>' .
-                            '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 14px;">' . $r['numero_expediente'] . '</span></div></div><p></p>' .
-                            '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['origen'] . '</div><div class="col-lg-6 col-md-6 col-sm-6 "><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" >' . /*<span class="glyphicon glyphicon-check"></span>*/ 'Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div></div>' .
-                            '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['area_atencion'] . '</div></div>' .
-                            '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['atencion'] . '</div></div>' .
-                            '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['medico'] . '</div></div>' .
-                            '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['modalidad'] . '</div></div>' .
-                            '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">' . $r['triage'] . '</div></div>' .
+                        '<div class="box-body" ondblclick="_fn_show_object_detail(this, \'unrealized_procedures\', ' . $r['id'] . '); return false;">' .
+                            '<div class="row">' .
+                                '<div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3>' .
+                                    // '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3></div></div>' .
+                                    '<div class="row"><div class="col-lg-12 col-md-12 col-sm-12 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 14px;">' . $r['numero_expediente'] . '</span></div></div><p></p>' .
+                                    '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['origen'] . '</div></div>' .
+                                    '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['area_atencion'] . '</div></div>' .
+                                    '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['atencion'] . '</div></div>' .
+                                    '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['medico'] . '</div></div>' .
+                                    '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['modalidad'] . '</div></div>' .
+                                    '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['triage'] . '</div></div>' .
+                                    '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TÉC. / LIC. / RDLG.:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['tecnologo'] . '</div></div>' .
+                                '</div>' .
+                                '<div class="col-lg-6 col-md-6 col-sm-6 data-box-row">' .
+                                    '<div class="row" style="margin-top: 20px; "><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['atencion'] . '</div></div>' .
+                                    '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['medico'] . '</div></div>' .
+                                    '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['modalidad'] . '</div></div>' .
+                                    '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['triage'] . '</div></div>' .
+                                    '<div class=" " style="margin-top: 10px; margin-bottom: 10px;"><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" > Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div>' .
+                                    '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['modalidad'] . '</div></div>' .
+                                    '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['triage'] . '</div></div>' .
+                                    '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TÉC. / LIC. / RDLG.:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['tecnologo'] . '</div></div>' .
+                                '</div>' .
+                            '</div>' .
                         '</div>' .
                     '</div>';
                 continue;
@@ -677,28 +692,59 @@ class ImgProcedimientoRealizadoAdminController extends MinsalSimagdBundleGeneral
             //     '</div>';
             $results[$key]['action'] = '<div class="btn-group btn-group-xs"> <button type="button" class="btn btn-link btn-link-emergency dropdown-toggle material-btn-list-op" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" color: #e45315; cursor: context-menu; "> <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> </div>';
 
-            $results[$key]['prz_fechaRegistro']            = $r['prz_fechaRegistro']->format('Y-m-d H:i:s A');
-            $results[$key]['prz_fechaAtendido']                  = $r['prz_fechaAtendido'] ? $r['prz_fechaAtendido']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['prz_fechaRealizado']                 = $r['prz_fechaRealizado'] ? $r['prz_fechaRealizado']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['prz_fechaProcesado']                 = $r['prz_fechaProcesado'] ? $r['prz_fechaProcesado']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['prz_fechaAlmacenado']                = $r['prz_fechaAlmacenado'] ? $r['prz_fechaAlmacenado']->format('Y-m-d H:i:s A') : '';
+            $results[$key]['action'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
+                    '<div class="btn-group" role="group">' .
+                        '<a class=" xrayproceduresperformed-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+                            // 'OP.' .
+                            '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
+                        '</a>' .
+                        '<ul id="xrayproceduresperformed-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
+                            '<li class="dropdown-header">MENÚ</li>' .
+                            '<li data-item="xrayproceduresperformed_show"><a class=" xrayproceduresperformed_show "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="xrayproceduresperformed_edit"><a class=" xrayproceduresperformed_edit "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="xrayproceduresperformed_delete"><a class=" xrayproceduresperformed_delete "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li class="dropdown-header">LISTA DE TRABAJO</li>' .
+                            '<li data-item="xrayproceduresperformed_saveandsearchinpacs"><a class=" xrayproceduresperformed_saveandsearchinpacs "><span class="glyphicon glyphicon-link"></span>Guardar y enlazar a PACS</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="xrayproceduresperformed_studydownload"><a class=" xrayproceduresperformed_studydownload "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li class="divider"></li>' .
+                            '<li data-item="xrayproceduresperformed_create"><a class=" xrayproceduresperformed_create "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                        '</ul>' .
+                    '</div>' .
+                '</div>';
+            // $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
+            //         '<div class="btn-group" role="group">' .
+            //             '<a class=" xrayproceduresperformed-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
+            //                 // 'OP.' .
+            //                 '<span class="glyphicon glyphicon-cog"></span><span class="caret"></span> <span class="sr-only">Operaciones</span>' .
+            //             '</a>' .
+            //         '</div>' .
+            //     '</div>';
 
-            $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion'] ? $r['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['prc_fechaProximaConsulta']           = $r['prc_fechaProximaConsulta'] ? $r['prc_fechaProximaConsulta']->format('Y-m-d') : '';
+            // $results[$key]['prz_fechaRegistro']            = $r['prz_fechaRegistro']->format('Y-m-d H:i:s A');
+            // $results[$key]['prz_fechaAtendido']                  = $r['prz_fechaAtendido'] ? $r['prz_fechaAtendido']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['prz_fechaRealizado']                 = $r['prz_fechaRealizado'] ? $r['prz_fechaRealizado']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['prz_fechaProcesado']                 = $r['prz_fechaProcesado'] ? $r['prz_fechaProcesado']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['prz_fechaAlmacenado']                = $r['prz_fechaAlmacenado'] ? $r['prz_fechaAlmacenado']->format('Y-m-d H:i:s A') : '';
 
-            $results[$key]['cit_fechaCreacion']              = $r['cit_fechaCreacion'] ? $r['cit_fechaCreacion']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['cit_fechaConfirmacion']          = $r['cit_fechaConfirmacion'] ? $r['cit_fechaConfirmacion']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['cit_fechaReprogramacion']        = $r['cit_fechaReprogramacion'] ? $r['cit_fechaReprogramacion']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['cit_fechaHoraInicio']                = $r['cit_fechaHoraInicio'] ? $r['cit_fechaHoraInicio']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['cit_fechaHoraFin']                   = $r['cit_fechaHoraFin'] ? $r['cit_fechaHoraFin']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion'] ? $r['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['prc_fechaProximaConsulta']           = $r['prc_fechaProximaConsulta'] ? $r['prc_fechaProximaConsulta']->format('Y-m-d') : '';
 
-            $results[$key]['solcmpl_fechaSolicitud']             = $r['solcmpl_fechaSolicitud'] ? $r['solcmpl_fechaSolicitud']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['cit_fechaCreacion']              = $r['cit_fechaCreacion'] ? $r['cit_fechaCreacion']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['cit_fechaConfirmacion']          = $r['cit_fechaConfirmacion'] ? $r['cit_fechaConfirmacion']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['cit_fechaReprogramacion']        = $r['cit_fechaReprogramacion'] ? $r['cit_fechaReprogramacion']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['cit_fechaHoraInicio']                = $r['cit_fechaHoraInicio'] ? $r['cit_fechaHoraInicio']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['cit_fechaHoraFin']                   = $r['cit_fechaHoraFin'] ? $r['cit_fechaHoraFin']->format('Y-m-d H:i:s A') : '';
 
-            $results[$key]['prz_editUrl']                        = $this->generateUrl('simagd_realizado_edit', array('id' => $r['prz_id']));
+            // $results[$key]['solcmpl_fechaSolicitud']             = $r['solcmpl_fechaSolicitud'] ? $r['solcmpl_fechaSolicitud']->format('Y-m-d H:i:s A') : '';
 
-            $results[$key]['allowShow']                          = $isUser_allowShow;
+            // $results[$key]['prz_editUrl']                        = $this->generateUrl('simagd_realizado_edit', array('id' => $r['prz_id']));
 
-            $results[$key]['allowEdit']                          = $isUser_allowEdit;
+            // $results[$key]['allowShow']                          = $isUser_allowShow;
+
+            // $results[$key]['allowEdit']                          = $isUser_allowEdit;
         }
 
         return $this->renderJson($results);

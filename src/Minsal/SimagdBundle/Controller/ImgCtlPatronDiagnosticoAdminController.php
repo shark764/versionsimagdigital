@@ -135,12 +135,12 @@ class ImgCtlPatronDiagnosticoAdminController extends MinsalSimagdBundleGeneralAd
                         '</a>' .
                         '<ul id="radiologicaldiagnosticpatterns-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="radiologicaldiagnosticpatterns_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="radiologicaldiagnosticpatterns_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="radiologicaldiagnosticpatterns_show"><a class=" radiologicaldiagnosticpatterns_show_action "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="radiologicaldiagnosticpatterns_edit"><a class=" radiologicaldiagnosticpatterns_edit_action "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="radiologicaldiagnosticpatterns_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="radiologicaldiagnosticpatterns_delete"><a class=" radiologicaldiagnosticpatterns_delete_action "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="radiologicaldiagnosticpatterns_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="radiologicaldiagnosticpatterns_create"><a class=" radiologicaldiagnosticpatterns_create_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';

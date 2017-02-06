@@ -131,13 +131,13 @@ class ImgCtlMaterialAdminController extends MinsalSimagdBundleGeneralAdminContro
                         '</a>' .
                         '<ul id="materials-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="materials_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="materials_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="materials_show"><a class=" materials_show_action "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="materials_edit"><a class=" materials_edit_action "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="materials_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="materials_delete"><a class=" materials_delete_action "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="materials_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
-                            '<li data-item="materials_addtolocal"><a><span class="glyphicon glyphicon-plus-sign"></span>Agregar a oferta de servicios</a></li>' .
+                            '<li data-item="materials_create"><a class=" materials_create_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="materials_addtolocal"><a class=" materials_addtolocal_action "><span class="glyphicon glyphicon-plus-sign"></span>Agregar a oferta de servicios</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';

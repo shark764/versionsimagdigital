@@ -165,7 +165,7 @@ class RyxEstudioPorImagenesListViewGenerator extends RyxEntityListViewGenerator
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        // 'events' => 'operateEvents',
+                        'events' => '__RADIOLOGICAL_STUDY_MENU_ACTIONEVENTS__',
                     )
             );
         }
@@ -224,8 +224,8 @@ class RyxEstudioPorImagenesListViewGenerator extends RyxEntityListViewGenerator
         }
         // $this->entityOptions['height']      = '1268';
 
-        // $this->entityOptions['contextMenu']         = '#unrealizedproceduresworklist-context-menu';
-        // $this->entityOptions['contextMenuButton']   = '.unrealizedproceduresworklist-button';
+        // $this->entityOptions['contextMenu']         = '#radiologicalstudy-context-menu';
+        // $this->entityOptions['contextMenuButton']   = '.radiologicalstudy-button';
         // $this->entityOptions['contextMenuTrigger']  = 'both';
         // $this->entityOptions['onContextMenuItem']   = '__FUNCTIONS_CALL__.functions.onContextMenuItem';
         ////////

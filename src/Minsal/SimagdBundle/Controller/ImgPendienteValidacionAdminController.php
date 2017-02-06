@@ -135,19 +135,19 @@ class ImgPendienteValidacionAdminController extends MinsalSimagdBundleGeneralAdm
                         '</a>' .
                         '<ul id="nonvalidatedresultsworklist-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="nonvalidatedresultsworklist_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="nonvalidatedresultsworklist_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_show"><a class=" nonvalidatedresultsworklist_show "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_edit"><a class=" nonvalidatedresultsworklist_edit "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="nonvalidatedresultsworklist_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_delete"><a class=" nonvalidatedresultsworklist_delete "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
                             '<li class="dropdown-header">LISTA DE TRABAJO</li>' .
-                            '<li data-item="nonvalidatedresultsworklist_approve"><a><span class="glyphicon glyphicon-ok-sign"></span>Aprobar</a></li>' .
-                            '<li data-item="nonvalidatedresultsworklist_reprobate"><a><span class="glyphicon glyphicon-remove-sign"></span>Impugnar</a></li>' .
-                            '<li data-item="nonvalidatedresultsworklist_goto"><a><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_approve"><a class=" nonvalidatedresultsworklist_approve "><span class="glyphicon glyphicon-ok-sign"></span>Aprobar</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_reprobate"><a class=" nonvalidatedresultsworklist_reprobate "><span class="glyphicon glyphicon-remove-sign"></span>Impugnar</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_goto"><a class=" nonvalidatedresultsworklist_goto "><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="nonvalidatedresultsworklist_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_studydownload"><a class=" nonvalidatedresultsworklist_studydownload "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="nonvalidatedresultsworklist_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_create"><a class=" nonvalidatedresultsworklist_create "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';

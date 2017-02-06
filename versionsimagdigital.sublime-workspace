@@ -157,56 +157,19 @@
 			}
 		},
 		{
-			"file": "src/Minsal/SimagdBundle/Controller/ImgCtlMaterialAdminController.php",
+			"file": "src/Minsal/SimagdBundle/Resources/views/General/results_dashboard_script.html.twig",
 			"settings":
 			{
-				"buffer_size": 13562,
+				"buffer_size": 33975,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Minsal/SimagdBundle/Controller/ImgCtlMaterialEstablecimientoAdminController.php",
+			"file": "src/Minsal/SimagdBundle/Resources/views/General/worklist_script.html.twig",
 			"settings":
 			{
-				"buffer_size": 15039,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Minsal/SimagdBundle/Controller/ImgCtlPacsEstablecimientoAdminController.php",
-			"settings":
-			{
-				"buffer_size": 11428,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Minsal/SimagdBundle/Controller/ImgCtlPatronDiagnosticoAdminController.php",
-			"settings":
-			{
-				"buffer_size": 19821,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Minsal/SimagdBundle/Controller/ImgCtlProyeccionAdminController.php",
-			"settings":
-			{
-				"buffer_size": 19192,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Minsal/SimagdBundle/Controller/ImgCtlProyeccionEstablecimientoAdminController.php",
-			"settings":
-			{
-				"buffer_size": 19384,
-				"encoding": "UTF-8",
+				"buffer_size": 35149,
 				"line_ending": "Unix"
 			}
 		},
@@ -214,25 +177,7 @@
 			"file": "src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxLecturaRadiologicaListViewGenerator.php",
 			"settings":
 			{
-				"buffer_size": 9804,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Minsal/SimagdBundle/Controller/ImgLecturaAdminController.php",
-			"settings":
-			{
-				"buffer_size": 46706,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Minsal/SimagdBundle/Resources/views/General/results_dashboard_script.html.twig",
-			"settings":
-			{
-				"buffer_size": 24744,
+				"buffer_size": 9813,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -270,19 +215,42 @@
 	},
 	"file_history":
 	[
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/catalogs_dashboard_script.html.twig",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/agenda_dashboard_script.html.twig",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/request_dashboard_script.html.twig",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlMaterialListViewGenerator.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/worklist_script.html.twig",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgProcedimientoRealizadoAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Repository/PendienteLecturaRepository.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Repository/LecturaRepository.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Repository/ProcedimientoRealizadoRepository.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxEstudioPendienteLecturaListViewGenerator.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxProcedimientoRadiologicoRealizadoListViewGenerator.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxExamenPendienteRealizacionListViewGenerator.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgPendienteRealizacionAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgPendienteLecturaAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgLecturaAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgPendienteTranscripcionAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgPendienteValidacionAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgSolicitudDiagnosticoAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgSolicitudEstudioAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgSolicitudEstudioComplementarioAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgCtlMaterialAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgCtlMaterialEstablecimientoAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgCtlPacsEstablecimientoAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgCtlPatronDiagnosticoAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgCtlProyeccionAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgCtlProyeccionEstablecimientoAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgNotaDiagnosticoAdminController.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgDiagnosticoAdminController.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgEstudioPacienteAdmin/est_lista_estudios.js",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgLecturaAdmin/lct_list_v2.js",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/agenda_dashboard.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Worklist/worklist.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/css/simagd-extend-bootstrap3_minsalsiaps.css",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgPendienteTranscripcionAdminController.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/css/simagd-styles.css",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/css/simagd-form-styles.css",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/CRUD/base_list.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgLecturaAdminController.php",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgNotaDiagnosticoAdminController.php",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgDiagnosticoAdminController.php",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgSolicitudEstudioComplementarioAdminController.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/general_form_script.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgSolicitudEstudioComplementarioAdmin/solcmpl_list_v2.js",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlProyeccionRadiologicaListViewGenerator.php",
@@ -296,17 +264,14 @@
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/request_dashboard.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/catalogs_dashboard.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/app/config/parameters.yml",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/catalogs_dashboard_script.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCitaProgramadaListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlConexionPacsEstablecimientoListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlMaterialEstablecimientoListViewGenerator.php",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlMaterialListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlPatronDiagnosticoListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlProyeccionEstablecimientoListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxDiagnosticoPendienteValidacionListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxDiagnosticoRadiologicoListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxDiagnosticoSegundaOpinionMedicaListViewGenerator.php",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxEstudioPendienteLecturaListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxEstudioPorImagenesListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxSolicitudEstudioComplementarioListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxLecturaPendienteTranscripcionListViewGenerator.php",
@@ -317,9 +282,7 @@
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/Formatter/Formatter.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/RyxCtlProyeccionRadiologicaListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/RyxCtlMaterialListViewGenerator.php",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgPendienteLecturaAdminController.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgBloqueoAgendaAdminController.php",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgPendienteRealizacionAdminController.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/app/config/bundles/sonata_cache.yml",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgCtlPreparacionEstudioAdminController.php",
 		"/home/farid/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
@@ -379,25 +342,7 @@
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/simagd_select2_custom_formatter.js",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/simagd_setterObject_modalData.js",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/GeneracionReporteImagenologiaAdmin/simagd_generar_reportes.js",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImagenologiaDigitalAdmin/simagd_busqueda_paciente.js",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImagenologiaDigitalAdmin/simagd_lista_pacientes.js",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgBloqueoAgendaAdmin/blAgd_crearBloqueo.js",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgLecturaAdmin/lct_form_config.js",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/simagd_list_view_config_v2.js",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/simagd_webkitSpeechRecognition.js",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller/ImgCitaAdminController.php",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_agenda.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImagenologiaDigitalAdmin/simagd_busquedaPaciente.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImagenologiaDigitalAdmin/simagd_resultado_busquedaPaciente.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgBloqueoAgendaAdmin/blAgd_listarBloqueos.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_listarCitas_v2.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCitaAdmin/cit_listarPacientesSinCita_v2.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlMaterialAdmin/mtrl_list_v2.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlPacsEstablecimientoAdmin/pacs_list_v2.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlPatronDiagnosticoAdmin/ptrDiag_list_v2.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlPreparacionEstudioAdmin/indCit_list_v2.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlProyeccionAdmin/expl_list_v2.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlProyeccionEstablecimientoAdmin/explrz_list_v2.html.twig"
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImagenologiaDigitalAdmin/simagd_busqueda_paciente.js"
 	],
 	"find":
 	{
@@ -408,6 +353,7 @@
 		"height": 217.0,
 		"where_history":
 		[
+			"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/",
 			"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Controller",
 			"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/css",
 			"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/",
@@ -431,6 +377,36 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"emergencystudyrequest",
+			"studyrequest",
+			"radiologicalresult",
+			"pacsserverconnections",
+			"materials",
+			"localradiologicalexaminations",
+			".radiologicalexaminations",
+			"unrealizedproceduresworklist",
+			"nontranscribedresultsworklist",
+			"unrealizedproceduresworklist",
+			"radiologicalresult",
+			"undiagnosedstudiesworklist",
+			"unrealizedproceduresworklist",
+			"undiagnosedstudiesworklist",
+			"\"><span class=\"glyphicon",
+			"<a data-item=\"",
+			"\"><span class=\"glyphicon",
+			"<a data-item=\"",
+			"\"><span class=\"glyphicon",
+			"<a data-item=\"",
+			"<a>",
+			"simagd_segunda_opinion_medica_",
+			"secondmedicalopinions",
+			"simagd_imagenologia_digital_",
+			"simagd_sin_transcribir_",
+			"simagd_diagnostico_",
+			"transcribeddiagnosis",
+			"radiologicalresult",
+			"__RESULTS_MENU_ACTIONEVENTS__",
+			"radiologicalresult",
 			"\n                        // window.location.href = url; // simulate link click",
 			"row, index);\n                        var url = Routing.generate(",
 			"style=\"right: 0; left: auto;\"",
@@ -528,8 +504,7 @@
 			"$id_mod",
 			"$idEstablecimiento",
 			"$idEstablecimiento)",
-			"$idEstablecimiento,",
-			".code("
+			"$idEstablecimiento,"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -537,6 +512,34 @@
 		"regex": false,
 		"replace_history":
 		[
+			"diagnosticrequest",
+			"emergencystudyrequest",
+			"studyrequest",
+			"radiologicaldiagnosticpatterns",
+			"pacsserverconnections",
+			"localmaterials",
+			"materials",
+			".localradiologicalexaminations",
+			"radiologicalexaminations",
+			"nonvalidatedresultsworklist",
+			"nontranscribedresultsworklist",
+			"undiagnosedstudiesworklist",
+			"unrealizedproceduresworklist",
+			"xrayproceduresperformed",
+			" \"><span class=\"glyphicon",
+			"<a class=\" ",
+			" \"><span class=\"glyphicon",
+			"<a class=\" ",
+			" \"><span class=\"glyphicon",
+			"<a class=\" ",
+			"<a class=\" radiologicalresult_show_action \">",
+			"simagd_solicitud_estudio_complementario_",
+			"furtherstudyrequest",
+			"simagd_segunda_opinion_medica_",
+			"secondmedicalopinions",
+			"transcribeddiagnosis",
+			"__RADIOLOGICALRESULT_MENU_ACTIONEVENTS__",
+			"transcribeddiagnosis",
 			"\n                    // window.location.href = url; // simulate link click",
 			"row, index);\n                    var url = Routing.generate(",
 			"'] . '<",
@@ -659,7 +662,7 @@
 						"translation.y": 1833.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -686,10 +689,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 219479.0,
+						"translation.y": 224042.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -719,7 +722,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
@@ -748,7 +751,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
@@ -778,7 +781,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -808,7 +811,7 @@
 						"translation.y": 2613.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -836,7 +839,7 @@
 						"translation.y": 1108.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -866,30 +869,30 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 8,
-					"file": "src/Minsal/SimagdBundle/Controller/ImgCtlMaterialAdminController.php",
+					"file": "src/Minsal/SimagdBundle/Resources/views/General/results_dashboard_script.html.twig",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 13562,
+						"buffer_size": 33975,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								13308,
+								13308
 							]
 						],
 						"settings":
@@ -899,243 +902,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 33719.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "src/Minsal/SimagdBundle/Controller/ImgCtlMaterialEstablecimientoAdminController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15039,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 559.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "src/Minsal/SimagdBundle/Controller/ImgCtlPacsEstablecimientoAdminController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 11428,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 507.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "src/Minsal/SimagdBundle/Controller/ImgCtlPatronDiagnosticoAdminController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19821,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 416.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "src/Minsal/SimagdBundle/Controller/ImgCtlProyeccionAdminController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19192,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2067.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "src/Minsal/SimagdBundle/Controller/ImgCtlProyeccionEstablecimientoAdminController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19384,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2041.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 2,
-			"sheets":
-			[
-				{
-					"buffer": 14,
-					"file": "src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxLecturaRadiologicaListViewGenerator.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9804,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7757,
-								7757
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2041.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"file": "src/Minsal/SimagdBundle/Controller/ImgLecturaAdminController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 46706,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								41366,
-								41366
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 10607.0,
+						"translation.y": 1920.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
-					"file": "src/Minsal/SimagdBundle/Resources/views/General/results_dashboard_script.html.twig",
+					"buffer": 9,
+					"file": "src/Minsal/SimagdBundle/Resources/views/General/worklist_script.html.twig",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 24744,
+						"buffer_size": 35149,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6855,
-								6855
+								8456,
+								8456
 							]
 						],
 						"settings":
@@ -1145,10 +932,40 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2090.0,
+						"translation.y": 1521.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxLecturaRadiologicaListViewGenerator.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9813,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7790,
+								7790
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2015.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1156,7 +973,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 21.0
 	},
 	"input":
 	{
@@ -1177,19 +994,12 @@
 				0,
 				2,
 				1
-			],
-			[
-				2,
-				0,
-				3,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.03125,
-			0.0625,
+			0.0367647058824,
 			1.0
 		],
 		"rows":
@@ -1207,7 +1017,7 @@
 	"project": "versionsimagdigital.sublime-project",
 	"replace":
 	{
-		"height": 78.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1237,7 +1047,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 2,
+	"selected_group": 1,
 	"settings":
 	{
 	},

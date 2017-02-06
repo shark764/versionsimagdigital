@@ -146,7 +146,7 @@ class RyxCtlPatronDiagnosticoListViewGenerator extends RyxEntityListViewGenerato
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        // 'events' => 'operateEvents',
+                        'events' => '__RADIOLOGICALDIAGNOSTICPATTERNS_MENU_ACTIONEVENTS__',
                     ),
                     array(
                         'field' => 'action2',

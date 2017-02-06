@@ -151,7 +151,7 @@ class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListView
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        // 'events' => 'operateEvents',
+                        'events' => '__LOCALRADIOLOGICALEXAMINATIONS_MENU_ACTIONEVENTS__',
                     )
             );
         }

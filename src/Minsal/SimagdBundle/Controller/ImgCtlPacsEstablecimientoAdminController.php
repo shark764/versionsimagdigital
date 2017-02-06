@@ -134,13 +134,13 @@ class ImgCtlPacsEstablecimientoAdminController extends MinsalSimagdBundleGeneral
                         '</a>' .
                         '<ul id="pacsserverconnections-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="pacsserverconnections_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="pacsserverconnections_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="pacsserverconnections_show"><a class=" pacsserverconnections_show_action "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="pacsserverconnections_edit"><a class=" pacsserverconnections_edit_action "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="pacsserverconnections_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="pacsserverconnections_delete"><a class=" pacsserverconnections_delete_action "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="pacsserverconnections_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
-                            '<li data-item="pacsserverconnections_testconnection"><a><span class="glyphicon glyphicon-signal"></span>Probar conexión</a></li>' .
+                            '<li data-item="pacsserverconnections_create"><a class=" pacsserverconnections_create_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="pacsserverconnections_testconnection"><a class=" pacsserverconnections_testconnection_action "><span class="glyphicon glyphicon-signal"></span>Probar conexión</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';

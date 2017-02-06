@@ -159,7 +159,7 @@ class RyxLecturaRadiologicaListViewGenerator extends RyxEntityListViewGenerator
                     array(
                         'field' => 'fecha_lectura',
                         'sortable' => true,
-                        'title' => 'Fecha (Lectura)',
+                        'title' => 'Fecha (Lctr.)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
@@ -179,7 +179,7 @@ class RyxLecturaRadiologicaListViewGenerator extends RyxEntityListViewGenerator
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        'events' => '__RESULTS_MENU_ACTIONEVENTS__',
+                        'events' => '__RADIOLOGICALRESULT_MENU_ACTIONEVENTS__',
                     )
             );
         }

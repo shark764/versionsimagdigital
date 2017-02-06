@@ -167,7 +167,7 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        // 'events' => 'operateEvents',
+                        'events' => '__UNREALIZEDPROCEDURESWORKLIST_MENU_ACTIONEVENTS__',
                     )
             );
         }

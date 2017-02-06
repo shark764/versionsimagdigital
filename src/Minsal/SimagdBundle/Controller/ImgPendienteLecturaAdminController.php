@@ -203,19 +203,19 @@ class ImgPendienteLecturaAdminController extends MinsalSimagdBundleGeneralAdminC
                         '</a>' .
                         '<ul id="undiagnosedstudiesworklist-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="undiagnosedstudiesworklist_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="undiagnosedstudiesworklist_edit"><a><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_show"><a class=" undiagnosedstudiesworklist_show "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_edit"><a class=" undiagnosedstudiesworklist_edit "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="undiagnosedstudiesworklist_delete"><a><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_delete"><a class=" undiagnosedstudiesworklist_delete "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
                             '<li class="dropdown-header">LISTA DE TRABAJO</li>' .
-                            '<li data-item="undiagnosedstudiesworklist_save"><a><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>' .
-                            '<li data-item="undiagnosedstudiesworklist_saveandclose"><a><span class="glyphicon glyphicon-floppy-saved"></span>Guardar (lectura finalizada)</a></li>' .
-                            '<li data-item="undiagnosedstudiesworklist_goto"><a><span class="glyphicon glyphicon-adjust"></span>Acceder</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_save"><a class=" undiagnosedstudiesworklist_save "><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_saveandclose"><a class=" undiagnosedstudiesworklist_saveandclose "><span class="glyphicon glyphicon-floppy-saved"></span>Guardar (lectura finalizada)</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_goto"><a class=" undiagnosedstudiesworklist_goto "><span class="glyphicon glyphicon-adjust"></span>Acceder</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="undiagnosedstudiesworklist_studydownload"><a><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_studydownload"><a class=" undiagnosedstudiesworklist_studydownload "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="undiagnosedstudiesworklist_create"><a><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_create"><a class=" undiagnosedstudiesworklist_create "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';

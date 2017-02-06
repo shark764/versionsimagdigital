@@ -188,7 +188,7 @@ class RyxSolicitudDiagnosticoPostEstudioListViewGenerator extends RyxEntityListV
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        // 'events' => 'operateEvents',
+                        'events' => '__DIAGNOSTICREQUEST_MENU_ACTIONEVENTS__',
                     )
             );
         }

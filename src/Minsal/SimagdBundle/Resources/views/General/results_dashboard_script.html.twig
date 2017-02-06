@@ -157,13 +157,16 @@
 
         });
 
+        /////////////////////////////////////////////////////
+        //////// RADIOLOGICAL RESULT - CONTEXT MENU
+        /////////////////////////////////////////////////////
         (function ($) {
             /*
              *
              * @type Array
              * Global variables for plugin
              */
-            window.__RESULTS_MENU_ACTIONEVENTS__ = {
+            window.__RADIOLOGICALRESULT_MENU_ACTIONEVENTS__ = {
                 'click .radiologicalresult_show_action': function (e, value, row, index) {
                     window.console.log(e, value, row, index);
                     var url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
@@ -197,6 +200,149 @@
                 'click .radiologicalresult_create_action': function (e, value, row, index) {
                     window.console.log(e, value, row, index);
                     var url = Routing.generate('simagd_lectura_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+
+        /////////////////////////////////////////////////////
+        //////// TRANSCRIBED DIAGNOSIS - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__TRANSCRIBEDDIAGNOSIS_MENU_ACTIONEVENTS__ = {
+                'click .transcribeddiagnosis_show_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_diagnostico_show', {id: row.id, mode: 'standard', worklist: true, worklist_id: row.id});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .transcribeddiagnosis_edit_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_diagnostico_edit', {id: row.id, mode: 'standard', worklist: true, worklist_id: row.id});
+                    var url = Routing.generate('simagd_lectura_edit', {id: row.lct_id, mode: 'standard', worklist: true, worklist_id: row.id});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .transcribeddiagnosis_delete_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_sin_transcribir_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .transcribeddiagnosis_goto_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'transcribed_diagnosis', id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .transcribeddiagnosis_approve_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_diagnostico_approve', {id: row.id, approve: true, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .transcribeddiagnosis_reprobate_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_diagnostico_approve', {id: row.id, approve: false, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .transcribeddiagnosis_studydownload_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .transcribeddiagnosis_create_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_sin_transcribir_create', {lct_id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+
+        /////////////////////////////////////////////////////
+        //////// SECOND MEDICAL OPINIONS - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__SECONDMEDICALOPINIONS_MENU_ACTIONEVENTS__ = {
+                'click .secondmedicalopinions_show_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_segunda_opinion_medica_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .secondmedicalopinions_edit_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_segunda_opinion_medica_edit', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .secondmedicalopinions_delete_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_segunda_opinion_medica_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .secondmedicalopinions_studydownload_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .secondmedicalopinions_create_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_segunda_opinion_medica_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .secondmedicalopinions_addtothis_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_segunda_opinion_medica_create', {id: row.id, preview: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+
+        /////////////////////////////////////////////////////
+        //////// FURTHER STUDY REQUEST - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__FURTHERSTUDYREQUEST_MENU_ACTIONEVENTS__ = {
+                'click .furtherstudyrequest_show_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_solicitud_estudio_complementario_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .furtherstudyrequest_edit_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_solicitud_estudio_complementario_edit', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .furtherstudyrequest_delete_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_solicitud_estudio_complementario_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .furtherstudyrequest_studydownload_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .furtherstudyrequest_create_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_solicitud_estudio_complementario_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .furtherstudyrequest_addtothis_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_solicitud_estudio_complementario_create', {id: row.id, preview: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
             };   // --| build data collection

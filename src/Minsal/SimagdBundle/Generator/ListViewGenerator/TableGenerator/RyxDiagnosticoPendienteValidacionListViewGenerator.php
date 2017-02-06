@@ -198,7 +198,7 @@ class RyxDiagnosticoPendienteValidacionListViewGenerator extends RyxEntityListVi
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        // 'events' => 'operateEvents',
+                        'events' => '__NONVALIDATEDRESULTSWORKLIST_MENU_ACTIONEVENTS__',
                     )
             );
         }
