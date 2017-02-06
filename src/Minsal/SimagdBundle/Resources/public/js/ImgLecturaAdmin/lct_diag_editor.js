@@ -181,7 +181,7 @@ jQuery(document).ready(function() {
     }
     $("select[id='" + $token + "_idPatronAsociado2'], select[id='" + $token + "_idPatronAplicado2']")
 	    .select2({
-			placeholder: '',
+			placeholder: 'click para seleccionar...',
 			allowClear: true,
 			dropdownAutoWidth : true,
 			formatResult: patternDiagFormat,

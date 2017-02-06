@@ -700,17 +700,17 @@ class ImgProcedimientoRealizadoAdminController extends MinsalSimagdBundleGeneral
                         '</a>' .
                         '<ul id="xrayproceduresperformed-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="xrayproceduresperformed_show"><a class=" xrayproceduresperformed_show "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="xrayproceduresperformed_edit"><a class=" xrayproceduresperformed_edit "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="xrayproceduresperformed_show"><a class=" xrayproceduresperformed_show_action "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="xrayproceduresperformed_edit"><a class=" xrayproceduresperformed_edit_action "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="xrayproceduresperformed_delete"><a class=" xrayproceduresperformed_delete "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="xrayproceduresperformed_delete"><a class=" xrayproceduresperformed_delete_action "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
                             '<li class="dropdown-header">LISTA DE TRABAJO</li>' .
-                            '<li data-item="xrayproceduresperformed_saveandsearchinpacs"><a class=" xrayproceduresperformed_saveandsearchinpacs "><span class="glyphicon glyphicon-link"></span>Guardar y enlazar a PACS</a></li>' .
+                            '<li data-item="xrayproceduresperformed_saveandsearchinpacs"><a class=" xrayproceduresperformed_saveandsearchinpacs_action "><span class="glyphicon glyphicon-link"></span>Guardar y enlazar a PACS</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="xrayproceduresperformed_studydownload"><a class=" xrayproceduresperformed_studydownload "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li data-item="xrayproceduresperformed_studydownload"><a class=" xrayproceduresperformed_studydownload_action "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="xrayproceduresperformed_create"><a class=" xrayproceduresperformed_create "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="xrayproceduresperformed_create"><a class=" xrayproceduresperformed_create_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';

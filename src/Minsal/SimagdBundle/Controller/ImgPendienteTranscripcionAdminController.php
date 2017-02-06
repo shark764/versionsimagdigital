@@ -135,12 +135,12 @@ class ImgPendienteTranscripcionAdminController extends MinsalSimagdBundleGeneral
     {
         $request->isXmlHttpRequest();
 
-        $BS_FILTERS                 = $this->get('request')->query->get('filters');
-        $BS_FILTERS_DECODE          = json_decode($BS_FILTERS, true);
+        $BS_FILTERS         = $this->get('request')->query->get('filters');
+        $BS_FILTERS_DECODE  = json_decode($BS_FILTERS, true);
 
         $__REQUEST__type = $this->get('request')->query->get('type', 'list');
 
-        $em                         = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
     	$securityContext            = $this->container->get('security.context');
     	$sessionUser               = $securityContext->getToken()->getUser();
@@ -201,18 +201,18 @@ class ImgPendienteTranscripcionAdminController extends MinsalSimagdBundleGeneral
                         '<ul id="nontranscribedresultsworklist-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
                             '<li data-item="nontranscribedresultsworklist_show"><a><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="nontranscribedresultsworklist_edit"><a class=" nontranscribedresultsworklist_edit "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_edit"><a href="javascript:void(0)" class=" nontranscribedresultsworklist_edit_action "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="nontranscribedresultsworklist_delete"><a class=" nontranscribedresultsworklist_delete "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_delete"><a href="javascript:void(0)" class=" nontranscribedresultsworklist_delete_action "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
                             '<li class="dropdown-header">LISTA DE TRABAJO</li>' .
-                            '<li data-item="nontranscribedresultsworklist_save"><a class=" nontranscribedresultsworklist_save "><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>' .
-                            '<li data-item="nontranscribedresultsworklist_saveandclose"><a class=" nontranscribedresultsworklist_saveandclose "><span class="glyphicon glyphicon-floppy-saved"></span>Guardar (transcripción finalizada)</a></li>' .
-                            '<li data-item="nontranscribedresultsworklist_goto"><a class=" nontranscribedresultsworklist_goto "><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_save"><a href="javascript:void(0)" class=" nontranscribedresultsworklist_save_action "><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_saveandclose"><a href="javascript:void(0)" class=" nontranscribedresultsworklist_saveandclose_action "><span class="glyphicon glyphicon-floppy-saved"></span>Guardar (transcripción finalizada)</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_goto"><a href="javascript:void(0)" class=" nontranscribedresultsworklist_goto_action "><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="nontranscribedresultsworklist_studydownload"><a class=" nontranscribedresultsworklist_studydownload "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_studydownload"><a href="javascript:void(0)" class=" nontranscribedresultsworklist_studydownload_action "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="nontranscribedresultsworklist_create"><a class=" nontranscribedresultsworklist_create "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="nontranscribedresultsworklist_create"><a href="javascript:void(0)" class=" nontranscribedresultsworklist_create_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';
@@ -225,12 +225,20 @@ class ImgPendienteTranscripcionAdminController extends MinsalSimagdBundleGeneral
             //         '</div>' .
             //     '</div>';
 
-            $results[$key]['lct_fechaLectura']       = $r['lct_fechaLectura']->format('Y-m-d H:i:s A');
-            $results[$key]['pndT_fechaIngresoLista'] = $r['pndT_fechaIngresoLista']->format('Y-m-d H:i:s A');
+            // $results[$key]['lct_fechaLectura']       = $r['lct_fechaLectura']->format('Y-m-d H:i:s A');
+            // $results[$key]['pndT_fechaIngresoLista'] = $r['pndT_fechaIngresoLista']->format('Y-m-d H:i:s A');
 
-            $results[$key]['allowTranscribir']       = $isUser_allowTranscribir;
+            // $results[$key]['allowTranscribir']       = $isUser_allowTranscribir;
 
-            $results[$key]['allowRegInicial']        = $isUser_allowRegInicial;
+            // $results[$key]['allowRegInicial']        = $isUser_allowRegInicial;
+            
+            $results[$key]['show_url']      = $this->generateUrl('simagd_sin_transcribir_show', array('id' => $r['id'], 'mode' => 'standard'));
+            $results[$key]['edit_url']      = $this->generateUrl('simagd_sin_transcribir_edit', array('id' => $r['id'], 'mode' => 'standard'));
+            $results[$key]['delete_url']    = $this->generateUrl('simagd_sin_transcribir_delete', array('id' => $r['id'], 'mode' => 'ajax', 'confirmation' => false));
+            $results[$key]['save_url']      = $this->generateUrl('simagd_sin_transcribir_save', array('id' => $r['id'], 'mode' => 'ajax', 'confirmation' => false));
+            $results[$key]['saveandclose_url']  = $this->generateUrl('simagd_sin_transcribir_saveandclose', array('id' => $r['id'], 'mode' => 'ajax', 'confirmation' => false));
+            $results[$key]['goto_url']      = $this->generateUrl('simagd_diagnostico_edit', array('id' => $r['diag_id'], 'worklist_id' => $r['id'], 'mode' => 'standard'));
+            $results[$key]['create_url']    = $this->generateUrl('simagd_sin_transcribir_create', array('id' => $r['id'], 'mode' => 'standard'));
         }
 
         return $this->renderJson($results);

@@ -331,7 +331,7 @@ jQuery(document).ready(function() {
 		' </span>';
     }
     $fieldPatronApl.select2({
-	    placeholder: '',
+	    placeholder: 'click para seleccionar...',
 	    allowClear: true,
 	    dropdownAutoWidth : true,
 	    formatResult: patternDiagFormat,

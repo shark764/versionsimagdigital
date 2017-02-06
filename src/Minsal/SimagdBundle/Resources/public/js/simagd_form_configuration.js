@@ -21,7 +21,7 @@ jQuery(document).ready(function() {
     /** set select2 */
     $(document).find('select').each(function () {
         jQuery(this).select2({
-            placeholder: '',
+            placeholder: 'click para seleccionar...',
             allowClear: true,
             dropdownAutoWidth : true
         });

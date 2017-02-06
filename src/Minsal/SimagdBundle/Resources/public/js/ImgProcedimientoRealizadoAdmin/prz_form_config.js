@@ -134,7 +134,7 @@ jQuery(document).ready(function() {
 
     $.fn.addConfigSelect2 = function() {
 	this.select2({
-	    placeholder: '',
+	    placeholder: 'click para seleccionar...',
 	    allowClear: true,
 	    width: '225px',
 	    dropdownAutoWidth : true

@@ -308,7 +308,7 @@
 		$options	= jQuery.extend({}, $default, {
 		    source: $source,
 		    select2: {
-			placeholder: '',
+			placeholder: 'click para seleccionar...',
 			allowClear: true,
 			escape: false,
 			dropdownAutoWidth : true,

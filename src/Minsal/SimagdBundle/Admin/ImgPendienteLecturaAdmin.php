@@ -25,6 +25,8 @@ class ImgPendienteLecturaAdmin extends MinsalSimagdBundleGeneralAdmin
         $collection->add('registrarEnMiLista', null, [], [], ['expose' => true]);
         $collection->add('addToUndiagnosedStudiesList', null, [], ['_method' => 'POST'], ['expose' => true]);
         $collection->add('addToWorkList', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('save', 'guardar', [], [], ['expose' => true]);
+        $collection->add('saveandclose', 'guardar-finalizar', [], [], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }

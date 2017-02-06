@@ -1,0 +1,46 @@
+{% autoescape false %}
+
+	<script type="text/javascript">
+
+        /////////////////////////////////////////////////////
+        //////// RADIOLOGICAL EXAMINATIONS - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__RADIOLOGICALEXAMINATIONS_MENU_ACTIONEVENTS__ = {
+                'click .radiologicalexaminations_show_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_proyeccion_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .radiologicalexaminations_edit_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_proyeccion_edit', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .radiologicalexaminations_delete_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_proyeccion_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .radiologicalexaminations_create_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_proyeccion_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .radiologicalexaminations_addtolocal_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_proyeccion_create', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+        
+    </script>
+
+{% endautoescape %}

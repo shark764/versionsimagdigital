@@ -550,7 +550,7 @@ class ImgCitaAdminController extends MinsalSimagdBundleGeneralAdminController
         $cita                       = $this->admin->getNewInstance();
 
         //Cambio de estado de registro
-        $em                         = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         //solicitud
         $preinscripcionReference    = $em->getReference('Minsal\SimagdBundle\Entity\ImgSolicitudEstudio', $solicitud);

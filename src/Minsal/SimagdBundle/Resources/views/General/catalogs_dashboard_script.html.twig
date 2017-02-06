@@ -57,17 +57,17 @@
                 },
                 success: function(response) {
                     ////////
-                    $.each(response.options, function(i, opt) {
-                        if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
-                            var namespaces = opt.split('.');
-                            var func = namespaces.pop();
-                            var context = window;
-                            for(var x = 0; x < namespaces.length; x++) {
-                                context = context[namespaces[x]];
-                            }
-                            response.options[i] = context[func];  // set function
-                        }
-                    });
+                    // $.each(response.options, function(i, opt) {
+                    //     if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
+                    //         var namespaces = opt.split('.');
+                    //         var func = namespaces.pop();
+                    //         var context = window;
+                    //         for(var x = 0; x < namespaces.length; x++) {
+                    //             context = context[namespaces[x]];
+                    //         }
+                    //         response.options[i] = context[func];  // set function
+                    //     }
+                    // });
                     ////////
 
                     $table
@@ -99,17 +99,17 @@
 
             ////////
             var DEFAULT_TABLE_OPTIONS = JSON.parse('{{ DEFAULT_TABLE_OPTIONS|json_encode|e('js')|raw }}');
-            $.each(DEFAULT_TABLE_OPTIONS, function(i, opt) {
-                if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
-                    var namespaces = opt.split('.');
-                    var func = namespaces.pop();
-                    var context = window;
-                    for(var x = 0; x < namespaces.length; x++) {
-                        context = context[namespaces[x]];
-                    }
-                    DEFAULT_TABLE_OPTIONS[i] = context[func];  // set function
-                }
-            });
+            // $.each(DEFAULT_TABLE_OPTIONS, function(i, opt) {
+            //     if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
+            //         var namespaces = opt.split('.');
+            //         var func = namespaces.pop();
+            //         var context = window;
+            //         for(var x = 0; x < namespaces.length; x++) {
+            //             context = context[namespaces[x]];
+            //         }
+            //         DEFAULT_TABLE_OPTIONS[i] = context[func];  // set function
+            //     }
+            // });
             ////////
 
             $table
@@ -135,225 +135,6 @@
 
         });
 
-        /////////////////////////////////////////////////////
-        //////// RADIOLOGICAL EXAMINATIONS - CONTEXT MENU
-        /////////////////////////////////////////////////////
-        (function ($) {
-            /*
-             *
-             * @type Array
-             * Global variables for plugin
-             */
-            window.__RADIOLOGICALEXAMINATIONS_MENU_ACTIONEVENTS__ = {
-                'click .radiologicalexaminations_show_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_proyeccion_show', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .radiologicalexaminations_edit_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_proyeccion_edit', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .radiologicalexaminations_delete_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_proyeccion_delete', {id: row.id, confirmation: false});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .radiologicalexaminations_create_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_proyeccion_create', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .radiologicalexaminations_addtolocal_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_proyeccion_create', {id: row.id, confirmation: false});
-                    // window.location.href = url; // simulate link click
-                },
-            };   // --| build data collection
-
-        }(jQuery));
-
-        /////////////////////////////////////////////////////
-        //////// LOCAL RADIOLOGICAL EXAMINATIONS - CONTEXT MENU
-        /////////////////////////////////////////////////////
-        (function ($) {
-            /*
-             *
-             * @type Array
-             * Global variables for plugin
-             */
-            window.__LOCALRADIOLOGICALEXAMINATIONS_MENU_ACTIONEVENTS__ = {
-                'click .localradiologicalexaminations_show_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_proyeccion_establecimiento_show', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .localradiologicalexaminations_edit_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_proyeccion_establecimiento_edit', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .localradiologicalexaminations_delete_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_proyeccion_establecimiento_delete', {id: row.id, confirmation: false});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .localradiologicalexaminations_create_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_proyeccion_establecimiento_create', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-            };   // --| build data collection
-
-        }(jQuery));
-
-        /////////////////////////////////////////////////////
-        //////// MATERIALS - CONTEXT MENU
-        /////////////////////////////////////////////////////
-        (function ($) {
-            /*
-             *
-             * @type Array
-             * Global variables for plugin
-             */
-            window.__MATERIALS_MENU_ACTIONEVENTS__ = {
-                'click .materials_show_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_material_show', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .materials_edit_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_material_edit', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .materials_delete_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_material_delete', {id: row.id, confirmation: false});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .materials_create_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_material_create', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .materials_addtolocal_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_material_create', {id: row.id, confirmation: false});
-                    // window.location.href = url; // simulate link click
-                },
-            };   // --| build data collection
-
-        }(jQuery));
-
-        /////////////////////////////////////////////////////
-        //////// LOCAL MATERIALS - CONTEXT MENU
-        /////////////////////////////////////////////////////
-        (function ($) {
-            /*
-             *
-             * @type Array
-             * Global variables for plugin
-             */
-            window.__LOCALMATERIALS_MENU_ACTIONEVENTS__ = {
-                'click .localmaterials_show_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_material_local_show', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .localmaterials_edit_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_material_local_edit', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .localmaterials_delete_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_material_local_delete', {id: row.id, confirmation: false});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .localmaterials_create_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_material_local_create', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-            };   // --| build data collection
-
-        }(jQuery));
-
-        /////////////////////////////////////////////////////
-        //////// PACS SERVER CONNECTIONS - CONTEXT MENU
-        /////////////////////////////////////////////////////
-        (function ($) {
-            /*
-             *
-             * @type Array
-             * Global variables for plugin
-             */
-            window.__PACSSERVERCONNECTIONS_MENU_ACTIONEVENTS__ = {
-                'click .pacsserverconnections_show_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_pacs_show', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .pacsserverconnections_edit_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_pacs_edit', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .pacsserverconnections_delete_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_pacs_delete', {id: row.id, confirmation: false});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .pacsserverconnections_create_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_pacs_create', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .pacsserverconnections_testconnection_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_pacs_testconnection', {id: row.id, confirmation: false});
-                    // window.location.href = url; // simulate link click
-                },
-            };   // --| build data collection
-
-        }(jQuery));
-
-        /////////////////////////////////////////////////////
-        //////// RADIOLOGICAL DIAGNOSTIC PATTERNS - CONTEXT MENU
-        /////////////////////////////////////////////////////
-        (function ($) {
-            /*
-             *
-             * @type Array
-             * Global variables for plugin
-             */
-            window.__RADIOLOGICALDIAGNOSTICPATTERNS_MENU_ACTIONEVENTS__ = {
-                'click .radiologicaldiagnosticpatterns_show_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_patron_diagnostico_show', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .radiologicaldiagnosticpatterns_edit_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_patron_diagnostico_edit', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .radiologicaldiagnosticpatterns_delete_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_patron_diagnostico_delete', {id: row.id, confirmation: false});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .radiologicaldiagnosticpatterns_create_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_patron_diagnostico_create', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-            };   // --| build data collection
-
-        }(jQuery));
-
         (function ($) {
             /*
              *
@@ -372,33 +153,23 @@
                     /////////////////////////////////////////////////////
                     if($el.data('item') === 'radiologicalexaminations_show')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_proyeccion_show', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicalexaminations_edit')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_proyeccion_edit', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicalexaminations_delete')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_proyeccion_delete', {id: row.id, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicalexaminations_create')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_proyeccion_create', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicalexaminations_addtolocal')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_proyeccion_create', {id: row.id, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
 
                     /////////////////////////////////////////////////////
@@ -406,27 +177,19 @@
                     /////////////////////////////////////////////////////
                     else if($el.data('item') === 'localradiologicalexaminations_show')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_proyeccion_establecimiento_show', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'localradiologicalexaminations_edit')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_proyeccion_establecimiento_edit', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'localradiologicalexaminations_delete')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_proyeccion_establecimiento_delete', {id: row.id, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'localradiologicalexaminations_create')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_proyeccion_establecimiento_create', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
 
                     /////////////////////////////////////////////////////
@@ -434,33 +197,23 @@
                     /////////////////////////////////////////////////////
                     else if($el.data('item') === 'materials_show')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_material_show', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'materials_edit')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_material_edit', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'materials_delete')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_material_delete', {id: row.id, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'materials_create')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_material_create', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'materials_addtolocal')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_material_create', {id: row.id, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
 
                     /////////////////////////////////////////////////////
@@ -468,27 +221,19 @@
                     /////////////////////////////////////////////////////
                     else if($el.data('item') === 'localmaterials_show')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_material_local_show', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'localmaterials_edit')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_material_local_edit', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'localmaterials_delete')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_material_local_delete', {id: row.id, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'localmaterials_create')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_material_local_create', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
 
                     /////////////////////////////////////////////////////
@@ -496,33 +241,23 @@
                     /////////////////////////////////////////////////////
                     else if($el.data('item') === 'pacsserverconnections_show')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_pacs_show', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'pacsserverconnections_edit')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_pacs_edit', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'pacsserverconnections_delete')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_pacs_delete', {id: row.id, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'pacsserverconnections_create')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_pacs_edit', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'pacsserverconnections_testconnection')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_pacs_testconnection', {id: row.id, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
 
                     /////////////////////////////////////////////////////
@@ -530,27 +265,19 @@
                     /////////////////////////////////////////////////////
                     else if($el.data('item') === 'radiologicaldiagnosticpatterns_show')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_patron_diagnostico_show', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicaldiagnosticpatterns_edit')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_patron_diagnostico_edit', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicaldiagnosticpatterns_delete')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_patron_diagnostico_delete', {id: row.id, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicaldiagnosticpatterns_create')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_patron_diagnostico_create', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     // end
                 },

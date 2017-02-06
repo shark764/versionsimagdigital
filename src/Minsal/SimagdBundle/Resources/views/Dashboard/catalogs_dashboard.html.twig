@@ -187,13 +187,19 @@
     {#<script type="text/javascript">
     </script>#}
     {% include 'MinsalSimagdBundle:General:catalogs_dashboard_script.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgCtlProyeccionAdmin:expl_actionEvents.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgCtlProyeccionEstablecimientoAdmin:explrz_actionEvents.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgCtlMaterialAdmin:mtrl_actionEvents.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgCtlMaterialEstablecimientoAdmin:mtrLc_actionEvents.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgCtlPacsEstablecimientoAdmin:pacs_actionEvents.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgCtlPatronDiagnosticoAdmin:ptrDiag_actionEvents.html.twig' %}
     <!--
     //////////////////////////////////////////////////////////////
     //////// END --| SCRIPT FUNCTIONS
     //////////////////////////////////////////////////////////////
      -->
 
-    {% include 'MinsalSimagdBundle:CRUD:simagd_edit_orm_modal.html.twig' ignore missing with {'id': 'patient_modal_search_'} %}
+    {#{% include 'MinsalSimagdBundle:CRUD:simagd_edit_orm_modal.html.twig' ignore missing with {'id': 'patient_modal_search_'} %}#}
 
 {% endblock %}
 

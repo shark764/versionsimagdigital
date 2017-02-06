@@ -1099,7 +1099,7 @@ class ImgSolicitudEstudioAdminController extends MinsalSimagdBundleGeneralAdminC
     	$sessionUser               = $securityContext->getToken()->getUser();
         $estabLocal                 = $sessionUser->getIdEstablecimiento();
 
-        $em                         = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         // $new_studyRequest = new ImgSolicitudEstudio();
 
@@ -1210,7 +1210,7 @@ class ImgSolicitudEstudioAdminController extends MinsalSimagdBundleGeneralAdminC
     	$sessionUser               = $securityContext->getToken()->getUser();
         $estabLocal                 = $sessionUser->getIdEstablecimiento();
 
-        $em                         = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         // $edit_studyRequest          = new ImgSolicitudEstudio();
 

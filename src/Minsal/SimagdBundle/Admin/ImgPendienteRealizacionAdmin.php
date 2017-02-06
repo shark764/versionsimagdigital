@@ -24,6 +24,8 @@ class ImgPendienteRealizacionAdmin extends MinsalSimagdBundleGeneralAdmin
         $collection->add('registrarEnMiLista', null, [], [], ['expose' => true]);
         $collection->add('registrarEstudioAlmacenado', null, [], [], ['expose' => true]);
         $collection->add('addEmergency', null, [], ['_method' => 'POST'], ['expose' => true]);
+        $collection->add('save', 'guardar', [], [], ['expose' => true]);
+        $collection->add('saveandsearchinpacs', 'guardar-buscar-pacs', [], [], ['expose' => true]);
         $collection->add('generateTable', 'generar-tabla', [], [], ['expose' => true]);
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }

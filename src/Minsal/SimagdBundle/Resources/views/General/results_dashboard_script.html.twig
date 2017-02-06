@@ -51,17 +51,17 @@
                 },
                 success: function(response) {
                     ////////
-                    $.each(response.options, function(i, opt) {
-                        if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
-                            var namespaces = opt.split('.');
-                            var func = namespaces.pop();
-                            var context = window;
-                            for(var x = 0; x < namespaces.length; x++) {
-                                context = context[namespaces[x]];
-                            }
-                            response.options[i] = context[func];  // set function
-                        }
-                    });
+                    // $.each(response.options, function(i, opt) {
+                    //     if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
+                    //         var namespaces = opt.split('.');
+                    //         var func = namespaces.pop();
+                    //         var context = window;
+                    //         for(var x = 0; x < namespaces.length; x++) {
+                    //             context = context[namespaces[x]];
+                    //         }
+                    //         response.options[i] = context[func];  // set function
+                    //     }
+                    // });
                     ////////
 
                     $table
@@ -93,17 +93,17 @@
 
             ////////
             var DEFAULT_TABLE_OPTIONS = JSON.parse('{{ DEFAULT_TABLE_OPTIONS|json_encode|e('js')|raw }}');
-            $.each(DEFAULT_TABLE_OPTIONS, function(i, opt) {
-                if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
-                    var namespaces = opt.split('.');
-                    var func = namespaces.pop();
-                    var context = window;
-                    for(var x = 0; x < namespaces.length; x++) {
-                        context = context[namespaces[x]];
-                    }
-                    DEFAULT_TABLE_OPTIONS[i] = context[func];  // set function
-                }
-            });
+            // $.each(DEFAULT_TABLE_OPTIONS, function(i, opt) {
+            //     if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
+            //         var namespaces = opt.split('.');
+            //         var func = namespaces.pop();
+            //         var context = window;
+            //         for(var x = 0; x < namespaces.length; x++) {
+            //             context = context[namespaces[x]];
+            //         }
+            //         DEFAULT_TABLE_OPTIONS[i] = context[func];  // set function
+            //     }
+            // });
             ////////
 
             $table
@@ -200,61 +200,6 @@
                 'click .radiologicalresult_create_action': function (e, value, row, index) {
                     window.console.log(e, value, row, index);
                     var url = Routing.generate('simagd_lectura_create', {id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-            };   // --| build data collection
-
-        }(jQuery));
-
-        /////////////////////////////////////////////////////
-        //////// TRANSCRIBED DIAGNOSIS - CONTEXT MENU
-        /////////////////////////////////////////////////////
-        (function ($) {
-            /*
-             *
-             * @type Array
-             * Global variables for plugin
-             */
-            window.__TRANSCRIBEDDIAGNOSIS_MENU_ACTIONEVENTS__ = {
-                'click .transcribeddiagnosis_show_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_diagnostico_show', {id: row.id, mode: 'standard', worklist: true, worklist_id: row.id});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .transcribeddiagnosis_edit_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_diagnostico_edit', {id: row.id, mode: 'standard', worklist: true, worklist_id: row.id});
-                    var url = Routing.generate('simagd_lectura_edit', {id: row.lct_id, mode: 'standard', worklist: true, worklist_id: row.id});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .transcribeddiagnosis_delete_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_sin_transcribir_delete', {id: row.id, confirmation: false});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .transcribeddiagnosis_goto_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'transcribed_diagnosis', id: row.id, mode: 'standard'});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .transcribeddiagnosis_approve_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_diagnostico_approve', {id: row.id, approve: true, confirmation: false});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .transcribeddiagnosis_reprobate_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_diagnostico_approve', {id: row.id, approve: false, confirmation: false});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .transcribeddiagnosis_studydownload_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
-                    // window.location.href = url; // simulate link click
-                },
-                'click .transcribeddiagnosis_create_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
-                    var url = Routing.generate('simagd_sin_transcribir_create', {lct_id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
             };   // --| build data collection
@@ -367,45 +312,31 @@
                     /////////////////////////////////////////////////////
                     if($el.data('item') === 'radiologicalresult_show')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicalresult_edit')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_lectura_edit', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicalresult_delete')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicalresult_goto')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'undiagnosed_studies', lct_id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicalresult_checktranscript')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'transcribed_diagnosis', lct_id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicalresult_studydownload')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'radiologicalresult_create')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_lectura_create', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
 
                     /////////////////////////////////////////////////////
@@ -413,52 +344,36 @@
                     /////////////////////////////////////////////////////
                     else if($el.data('item') === 'transcribeddiagnosis_show')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_diagnostico_show', {id: row.id, mode: 'standard', worklist: true, worklist_id: row.id});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'transcribeddiagnosis_edit')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_diagnostico_edit', {id: row.id, mode: 'standard', worklist: true, worklist_id: row.id});
                         var url = Routing.generate('simagd_lectura_edit', {id: row.lct_id, mode: 'standard', worklist: true, worklist_id: row.id});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'transcribeddiagnosis_delete')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_sin_transcribir_delete', {id: row.id, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'transcribeddiagnosis_goto')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'transcribed_diagnosis', id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'transcribeddiagnosis_approve')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_diagnostico_approve', {id: row.id, approve: true, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'transcribeddiagnosis_reprobate')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_diagnostico_approve', {id: row.id, approve: false, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'transcribeddiagnosis_studydownload')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'transcribeddiagnosis_create')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_sin_transcribir_create', {lct_id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
 
                     /////////////////////////////////////////////////////
@@ -466,39 +381,27 @@
                     /////////////////////////////////////////////////////
                     else if($el.data('item') === 'secondmedicalopinions_show')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_segunda_opinion_medica_show', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'secondmedicalopinions_edit')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_segunda_opinion_medica_edit', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'secondmedicalopinions_delete')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_segunda_opinion_medica_delete', {id: row.id, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'secondmedicalopinions_studydownload')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'secondmedicalopinions_create')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_segunda_opinion_medica_create', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'secondmedicalopinions_addtothis')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_segunda_opinion_medica_create', {id: row.id, preview: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
 
                     /////////////////////////////////////////////////////
@@ -506,39 +409,27 @@
                     /////////////////////////////////////////////////////
                     else if($el.data('item') === 'furtherstudyrequest_show')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_solicitud_estudio_complementario_show', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'furtherstudyrequest_edit')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_solicitud_estudio_complementario_edit', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'furtherstudyrequest_delete')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_solicitud_estudio_complementario_delete', {id: row.id, confirmation: false});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'furtherstudyrequest_studydownload')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'furtherstudyrequest_create')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_solicitud_estudio_complementario_create', {id: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     else if($el.data('item') === 'furtherstudyrequest_addtothis')
                     {
-                        window.console.log('item is: \n', $el.data('item'), '\n row.id id: \n', row.id);
                         var url = Routing.generate('simagd_solicitud_estudio_complementario_create', {id: row.id, preview: row.id, mode: 'standard'});
-                        window.location.href = url; // simulate link click
                     }
                     // end
                 },

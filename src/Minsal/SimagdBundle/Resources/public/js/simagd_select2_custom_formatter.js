@@ -82,7 +82,7 @@ jQuery(document).ready(function() {
     }
 
     $('[data-apply-formatter="std"]').select2({
-                placeholder: '',
+                placeholder: 'click para seleccionar...',
                 allowClear: true,
                 dropdownAutoWidth : true,
                 formatResult: patternStdUserLoggedFormat,
@@ -119,7 +119,7 @@ jQuery(document).ready(function() {
     }
 
     $('[data-apply-formatter="stdPacs"]').select2({
-                placeholder: '',
+                placeholder: 'click para seleccionar...',
                 allowClear: true,
                 dropdownAutoWidth : true,
                 formatResult: patternStdPacsUserLoggedFormat,
@@ -171,7 +171,7 @@ jQuery(document).ready(function() {
         ].join('\n');
     }
     $('[data-apply-formatter="patternDiag"]').select2({
-	    placeholder: '',
+	    placeholder: 'click para seleccionar...',
 	    allowClear: true,
 	    dropdownAutoWidth : true,
 	    formatResult: patternDiagFormat,

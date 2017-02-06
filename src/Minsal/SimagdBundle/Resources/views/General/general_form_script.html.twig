@@ -17,6 +17,9 @@
         }
         ////////////////////////////////////////////////////////////////
 
+        ////////////////////////////////////////////////////////////////
+        //////// select2 build
+        ////////////////////////////////////////////////////////////////
         jQuery.extend(true,
                 window.Admin,
                 {
@@ -38,11 +41,17 @@
                                     allowClearEnabled = false;
                                 }
 
-                                __select2_options__ = {
+                                var placeholder = '';
+                                if (allowClearEnabled !== false) {
+                                    placeholder = 'click para seleccionar...';
+                                }
+
+                                var __select2_options__ = {
                                     width: 'resolve',
                                     minimumResultsForSearch: 10,
                                     // dropdownAutoWidth : true,
-                                    allowClear: allowClearEnabled
+                                    allowClear: allowClearEnabled,
+                                    placeholder: placeholder,
                                 };
 
                                 //////// escapeMarkup
@@ -86,6 +95,33 @@
                     }
                 }
         ); // set value for filter
+
+        // jQuery(document).ready(function() {
+        //     ////////////////////////////////////////////////////////////////
+        //     //////// table height
+        //     ////////////////////////////////////////////////////////////////
+        //     /*
+        //      *
+        //      * @type type
+        //      * Get Table definition
+        //      */
+        //      // generate(null, 'unrealized_procedures');
+        //      // jQuery('#')
+
+        //     //////
+        //     var $table = jQuery('#ryx_target_bstable');
+
+        //     $table.on('load-success.bs.table', function (e, data) {
+        //         var pageSize = $table.bootstrapTable('getOptions').pageSize;    // --| get pageSize
+        //         if ((data.length > 0 && data.length <= 15) || pageSize <= 15) {
+        //             $table.bootstrapTable('resetView', {height: 768}).bootstrapTable('resetWidth');
+        //         }
+        //         else {
+        //             $table.bootstrapTable('resetView', {height: undefined}).bootstrapTable('resetWidth');
+        //         }
+        //     });
+
+        // });
     </script>
 
 {% endautoescape %}

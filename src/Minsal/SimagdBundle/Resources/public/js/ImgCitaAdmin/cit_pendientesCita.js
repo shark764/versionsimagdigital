@@ -141,7 +141,7 @@ jQuery.fn.loadPacientesSinCita = function() {
 					      source: $selectionsPriority,
 					      inputclass: 'input-editable-width-v2',
 					      select2: {
-						  placeholder: '',
+						  placeholder: 'click para seleccionar...',
 						  allowClear: true,
 						  escape: false,
 						  dropdownAutoWidth : true,

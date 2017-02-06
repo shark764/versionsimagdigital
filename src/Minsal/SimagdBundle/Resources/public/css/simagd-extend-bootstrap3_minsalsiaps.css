@@ -36,7 +36,9 @@ td .dropdown-menu {
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
     /*background-color: #fff0eb;*/
-    background-color: rgba(192, 192, 192, 0.21);
+    /*background-color: rgba(192, 192, 192, 0.21);*/
+    /*background-color: rgba(8, 141, 177, 0.09);*/
+    background-color: rgba(16, 204, 255, 0.08);
 }
 /*.table-darkblue-head {
   border: 0;
@@ -113,6 +115,15 @@ td .dropdown-menu {
   color: #fff;
   background-color: #333 !important;
   border-color: #222 !important;
+}
+
+.panel-black-thrash {
+  border-color: #555;
+}
+.panel-black-thrash > .panel-heading {
+  color: rgb(255, 255, 255);
+  background-color: #555;
+  border-color: #555;
 }
 
 
@@ -1759,6 +1770,15 @@ a.anchor-camry-celestial-silver-metallic {
     /*vertical-align: baseline;*/
     white-space: normal;
     border-radius: 4px;
+}
+
+.panel-emergency {
+  border-color: #d86e5e;
+}
+.panel-emergency > .panel-heading {
+  color: rgb(255, 255, 255);
+  background-color: #d86e5e;
+  border-color: #d86e5e;
 }
 
 

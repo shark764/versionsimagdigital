@@ -108,7 +108,7 @@ jQuery(document).ready(function() {
 	    emptytext: '...',
 	    defaultValue: '...',
 	    title: 'Habilitar',
-	    placeholder: '',
+	    placeholder: 'click para seleccionar...',
 	    allowClear: true,
 	    dropdownAutoWidth : true,
 	    inputclass: 'input-editable-width-v2',

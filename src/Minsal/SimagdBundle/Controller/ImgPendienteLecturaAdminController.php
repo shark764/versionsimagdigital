@@ -138,12 +138,12 @@ class ImgPendienteLecturaAdminController extends MinsalSimagdBundleGeneralAdminC
     {
         $request->isXmlHttpRequest();
 
-        $BS_FILTERS                 = $this->get('request')->query->get('filters');
-        $BS_FILTERS_DECODE          = json_decode($BS_FILTERS, true);
+        $BS_FILTERS         = $this->get('request')->query->get('filters');
+        $BS_FILTERS_DECODE  = json_decode($BS_FILTERS, true);
 
         $__REQUEST__type = $this->get('request')->query->get('type', 'list');
 
-        $em                         = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
     	$securityContext            = $this->container->get('security.context');
     	$sessionUser               = $securityContext->getToken()->getUser();
@@ -203,19 +203,19 @@ class ImgPendienteLecturaAdminController extends MinsalSimagdBundleGeneralAdminC
                         '</a>' .
                         '<ul id="undiagnosedstudiesworklist-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="undiagnosedstudiesworklist_show"><a class=" undiagnosedstudiesworklist_show "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="undiagnosedstudiesworklist_edit"><a class=" undiagnosedstudiesworklist_edit "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_show"><a href="javascript:void(0)" class=" undiagnosedstudiesworklist_show_action "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_edit"><a href="javascript:void(0)" class=" undiagnosedstudiesworklist_edit_action "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="undiagnosedstudiesworklist_delete"><a class=" undiagnosedstudiesworklist_delete "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_delete"><a href="javascript:void(0)" class=" undiagnosedstudiesworklist_delete_action "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
                             '<li class="dropdown-header">LISTA DE TRABAJO</li>' .
-                            '<li data-item="undiagnosedstudiesworklist_save"><a class=" undiagnosedstudiesworklist_save "><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>' .
-                            '<li data-item="undiagnosedstudiesworklist_saveandclose"><a class=" undiagnosedstudiesworklist_saveandclose "><span class="glyphicon glyphicon-floppy-saved"></span>Guardar (lectura finalizada)</a></li>' .
-                            '<li data-item="undiagnosedstudiesworklist_goto"><a class=" undiagnosedstudiesworklist_goto "><span class="glyphicon glyphicon-adjust"></span>Acceder</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_save"><a href="javascript:void(0)" class=" undiagnosedstudiesworklist_save_action "><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_saveandclose"><a href="javascript:void(0)" class=" undiagnosedstudiesworklist_saveandclose_action "><span class="glyphicon glyphicon-floppy-saved"></span>Guardar (lectura finalizada)</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_goto"><a href="javascript:void(0)" class=" undiagnosedstudiesworklist_goto "><span class="glyphicon glyphicon-adjust"></span>Acceder</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="undiagnosedstudiesworklist_studydownload"><a class=" undiagnosedstudiesworklist_studydownload "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_studydownload"><a href="javascript:void(0)" class=" undiagnosedstudiesworklist_studydownload_action "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="undiagnosedstudiesworklist_create"><a class=" undiagnosedstudiesworklist_create "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="undiagnosedstudiesworklist_create"><a href="javascript:void(0)" class=" undiagnosedstudiesworklist_create_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';
@@ -228,33 +228,32 @@ class ImgPendienteLecturaAdminController extends MinsalSimagdBundleGeneralAdminC
             //         '</div>' .
             //     '</div>';
 
-            $results[$key]['pndL_fechaIngresoLista']             = $r['pndL_fechaIngresoLista']->format('Y-m-d H:i:s A');
-            $results[$key]['est_fechaEstudio']                   = $r['est_fechaEstudio']->format('Y-m-d H:i:s A');
+            // $results[$key]['pndL_fechaIngresoLista']             = $r['pndL_fechaIngresoLista']->format('Y-m-d H:i:s A');
+            // $results[$key]['est_fechaEstudio']                   = $r['est_fechaEstudio']->format('Y-m-d H:i:s A');
 
-            $results[$key]['prz_fechaAtendido']                  = $r['prz_fechaAtendido'] ? $r['prz_fechaAtendido']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['prz_fechaRealizado']                 = $r['prz_fechaRealizado'] ? $r['prz_fechaRealizado']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['prz_fechaProcesado']                 = $r['prz_fechaProcesado'] ? $r['prz_fechaProcesado']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['prz_fechaAlmacenado']                = $r['prz_fechaAlmacenado'] ? $r['prz_fechaAlmacenado']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['prz_fechaAtendido']                  = $r['prz_fechaAtendido'] ? $r['prz_fechaAtendido']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['prz_fechaRealizado']                 = $r['prz_fechaRealizado'] ? $r['prz_fechaRealizado']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['prz_fechaProcesado']                 = $r['prz_fechaProcesado'] ? $r['prz_fechaProcesado']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['prz_fechaAlmacenado']                = $r['prz_fechaAlmacenado'] ? $r['prz_fechaAlmacenado']->format('Y-m-d H:i:s A') : '';
 
-            $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion'] ? $r['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['solcmpl_fechaSolicitud']             = $r['solcmpl_fechaSolicitud'] ? $r['solcmpl_fechaSolicitud']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion'] ? $r['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['solcmpl_fechaSolicitud']             = $r['solcmpl_fechaSolicitud'] ? $r['solcmpl_fechaSolicitud']->format('Y-m-d H:i:s A') : '';
 
-            $results[$key]['lct_createUrl']                      = $r['lctPdr_id'] ?
-                                                                            $this->generateUrl('simagd_lectura_edit',
-                                                                                array('id' => $r['lctPdr_id'],
-                                                                                      '__est' => $r['est_id'],
-                                                                                      '__estPdr' => $r['estPdr_id']
-                                                                                )) :
-                                                                            $this->generateUrl('simagd_lectura_create',
-                                                                                array('__est' => $r['est_id'],
-                                                                                      '__xrad' => $r['pndL_anexadoPorRadiologo'] ? TRUE : NULL,
-                                                                                      '__xradAnx' => $r['pndL_id_radiologoAnexa'],
-                                                                                      '__estPdr' => $r['estPdr_id']
-                                                                            ));
+            $results[$key]['lct_createUrl'] = $r['lctPdr_id'] ?
+                    $this->generateUrl('simagd_lectura_edit', array('id' => $r['lctPdr_id'], '__est' => $r['est_id'], '__estPdr' => $r['estPdr_id'])) :
+                        $this->generateUrl('simagd_lectura_create', array('__est' => $r['est_id'], '__xrad' => $r['pndL_anexadoPorRadiologo'] ? TRUE : NULL, '__xradAnx' => $r['pndL_id_radiologoAnexa'], '__estPdr' => $r['estPdr_id']));
+            
+            $results[$key]['show_url']      = $this->generateUrl('simagd_sin_lectura_show', array('id' => $r['id'], 'mode' => 'standard'));
+            $results[$key]['edit_url']      = $this->generateUrl('simagd_sin_lectura_edit', array('id' => $r['id'], 'mode' => 'standard'));
+            $results[$key]['delete_url']    = $this->generateUrl('simagd_sin_lectura_delete', array('id' => $r['id'], 'mode' => 'ajax', 'confirmation' => false));
+            $results[$key]['save_url']      = $this->generateUrl('simagd_sin_lectura_save', array('id' => $r['id'], 'mode' => 'ajax', 'confirmation' => false));
+            $results[$key]['saveandclose_url']  = $this->generateUrl('simagd_sin_lectura_saveandclose', array('id' => $r['id'], 'mode' => 'ajax', 'confirmation' => false));
+            $results[$key]['goto_url']      = $this->generateUrl('simagd_lectura_create', array('__est' => $r['est_id'], '__xrad' => $r['pndL_anexadoPorRadiologo'] ? true : null, '__xradAnx' => $r['pndL_id_radiologoAnexa'], '__estPdr' => $r['estPdr_id'],));
+            $results[$key]['create_url']    = $this->generateUrl('simagd_sin_lectura_create', array('id' => $r['id'], 'mode' => 'standard'));
 
-            $results[$key]['allowInterpretar']                   = $isUser_allowInterpretar;
+            // $results[$key]['allowInterpretar']                   = $isUser_allowInterpretar;
 
-            $results[$key]['allowRegInicial']                    = $isUser_allowRegInicial;
+            // $results[$key]['allowRegInicial']                    = $isUser_allowRegInicial;
         }
 
         return $this->renderJson($results);

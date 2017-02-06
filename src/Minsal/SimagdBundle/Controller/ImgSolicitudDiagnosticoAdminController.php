@@ -256,14 +256,14 @@ class ImgSolicitudDiagnosticoAdminController extends MinsalSimagdBundleGeneralAd
                         '</a>' .
                         '<ul id="diagnosticrequest-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="diagnosticrequest_show"><a class=" diagnosticrequest_show "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="diagnosticrequest_edit"><a class=" diagnosticrequest_edit "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="diagnosticrequest_show"><a class=" diagnosticrequest_show_action "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="diagnosticrequest_edit"><a class=" diagnosticrequest_edit_action "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="diagnosticrequest_delete"><a class=" diagnosticrequest_delete "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="diagnosticrequest_delete"><a class=" diagnosticrequest_delete_action "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="diagnosticrequest_studydownload"><a class=" diagnosticrequest_studydownload "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li data-item="diagnosticrequest_studydownload"><a class=" diagnosticrequest_studydownload_action "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="diagnosticrequest_create"><a class=" diagnosticrequest_create "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="diagnosticrequest_create"><a class=" diagnosticrequest_create_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
                             '<li data-item="diagnosticrequest_addtothis"><a class=" diagnosticrequest_addtothis "><span class="glyphicon glyphicon-plus-sign"></span>Crear para este diagnóstico</a></li>' .
                         '</ul>' .
                     '</div>' .

@@ -135,19 +135,19 @@ class ImgPendienteValidacionAdminController extends MinsalSimagdBundleGeneralAdm
                         '</a>' .
                         '<ul id="nonvalidatedresultsworklist-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="nonvalidatedresultsworklist_show"><a class=" nonvalidatedresultsworklist_show "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="nonvalidatedresultsworklist_edit"><a class=" nonvalidatedresultsworklist_edit "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_show"><a href="javascript:void(0)" class=" nonvalidatedresultsworklist_show_action "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_edit"><a href="javascript:void(0)" class=" nonvalidatedresultsworklist_edit_action "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="nonvalidatedresultsworklist_delete"><a class=" nonvalidatedresultsworklist_delete "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_delete"><a href="javascript:void(0)" class=" nonvalidatedresultsworklist_delete_action "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
                             '<li class="dropdown-header">LISTA DE TRABAJO</li>' .
-                            '<li data-item="nonvalidatedresultsworklist_approve"><a class=" nonvalidatedresultsworklist_approve "><span class="glyphicon glyphicon-ok-sign"></span>Aprobar</a></li>' .
-                            '<li data-item="nonvalidatedresultsworklist_reprobate"><a class=" nonvalidatedresultsworklist_reprobate "><span class="glyphicon glyphicon-remove-sign"></span>Impugnar</a></li>' .
-                            '<li data-item="nonvalidatedresultsworklist_goto"><a class=" nonvalidatedresultsworklist_goto "><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_approve"><a href="javascript:void(0)" class=" nonvalidatedresultsworklist_approve "><span class="glyphicon glyphicon-ok-sign"></span>Aprobar</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_reprobate"><a href="javascript:void(0)" class=" nonvalidatedresultsworklist_reprobate "><span class="glyphicon glyphicon-remove-sign"></span>Impugnar</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_goto"><a href="javascript:void(0)" class=" nonvalidatedresultsworklist_goto_action "><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="nonvalidatedresultsworklist_studydownload"><a class=" nonvalidatedresultsworklist_studydownload "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_studydownload"><a href="javascript:void(0)" class=" nonvalidatedresultsworklist_studydownload_action "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="nonvalidatedresultsworklist_create"><a class=" nonvalidatedresultsworklist_create "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="nonvalidatedresultsworklist_create"><a href="javascript:void(0)" class=" nonvalidatedresultsworklist_create_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';
@@ -160,13 +160,21 @@ class ImgPendienteValidacionAdminController extends MinsalSimagdBundleGeneralAdm
             //         '</div>' .
             //     '</div>';
 
-            $results[$key]['diag_fechaTranscrito']    = $r['diag_fechaTranscrito'] ? $r['diag_fechaTranscrito']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['diag_fechaCorregido']     = $r['diag_fechaCorregido'] ? $r['diag_fechaCorregido']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['diag_fechaAprobado']      = $r['diag_fechaAprobado'] ? $r['diag_fechaAprobado']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['lct_fechaLectura']                   = $r['lct_fechaLectura']->format('Y-m-d H:i:s A');
-            $results[$key]['pndV_fechaIngresoLista']             = $r['pndV_fechaIngresoLista']->format('Y-m-d H:i:s A');
+            // $results[$key]['diag_fechaTranscrito']    = $r['diag_fechaTranscrito'] ? $r['diag_fechaTranscrito']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['diag_fechaCorregido']     = $r['diag_fechaCorregido'] ? $r['diag_fechaCorregido']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['diag_fechaAprobado']      = $r['diag_fechaAprobado'] ? $r['diag_fechaAprobado']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['lct_fechaLectura']                   = $r['lct_fechaLectura']->format('Y-m-d H:i:s A');
+            // $results[$key]['pndV_fechaIngresoLista']             = $r['pndV_fechaIngresoLista']->format('Y-m-d H:i:s A');
 
-            $results[$key]['allowValidate']                      = $isUser_allowValidate;
+            // $results[$key]['allowValidate']                      = $isUser_allowValidate;
+            
+            $results[$key]['show_url']      = $this->generateUrl('simagd_sin_validar_show', array('id' => $r['id'], 'mode' => 'standard'));
+            $results[$key]['edit_url']      = $this->generateUrl('simagd_sin_validar_edit', array('id' => $r['id'], 'mode' => 'standard'));
+            $results[$key]['delete_url']    = $this->generateUrl('simagd_sin_validar_delete', array('id' => $r['id'], 'mode' => 'ajax', 'confirmation' => false));
+            $results[$key]['save_url']      = $this->generateUrl('simagd_sin_validar_save', array('id' => $r['id'], 'mode' => 'ajax', 'confirmation' => false));
+            $results[$key]['saveandclose_url']  = $this->generateUrl('simagd_sin_validar_saveandclose', array('id' => $r['id'], 'mode' => 'ajax', 'confirmation' => false));
+            $results[$key]['goto_url']      = $this->generateUrl('simagd_diagnostico_edit', array('id' => $r['diag_id'], 'worklist_id' => $r['id'], 'mode' => 'standard'));
+            $results[$key]['create_url']    = $this->generateUrl('simagd_sin_validar_create', array('id' => $r['id'], 'mode' => 'standard'));
         }
 
         return $this->renderJson($results);

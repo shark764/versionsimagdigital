@@ -25,8 +25,63 @@
 {% block content %}
     {{ parent() }}
 
-    {#<div class="col-lg-8 col-md-8 col-sm-8 col-xs-offset-2 ">#}
-    {#<div class="col-lg-6 col-md-6 col-sm-6 ">#}
+    <div class="" style="margin-left: auto; margin-right: auto;">
+        <div class=" col-lg-2 col-md-2 col-sm-2 ">
+            <div class="panel panel-primary-v4" id="">
+                <div class="panel-heading">
+                    <h3 class="panel-title"> {#<span class="glyphicon glyphicon-inbox "></span> &nbsp;#} SOLICITUDES </h3>
+                </div>
+                <div class="panel-body" >
+                </div>{# #}
+            </div>
+        </div>
+        <div class=" col-lg-2 col-md-2 col-sm-2 ">
+            <div class="panel panel-primary-v4" id="">
+                <div class="panel-heading">
+                    <h3 class="panel-title"> {#<span class="glyphicon glyphicon-time "></span> &nbsp;#} AGENDA </h3>
+                </div>
+                <div class="panel-body" >
+                </div>{# #}
+            </div>
+        </div>
+        <div class=" col-lg-2 col-md-2 col-sm-2 ">
+            <div class="panel panel-primary-v4" id="">
+                <div class="panel-heading">
+                    <h3 class="panel-title"> {#<span class="glyphicon glyphicon-eye-open "></span> &nbsp;#} EXÁMENES REALIZADOS </h3>
+                </div>
+                <div class="panel-body" >
+                </div>{# #}
+            </div>
+        </div>
+        <div class=" col-lg-2 col-md-2 col-sm-2 ">
+            <div class="panel panel-primary-v4" id="">
+                <div class="panel-heading">
+                    <h3 class="panel-title"> {#<span class="glyphicon glyphicon-adjust "></span> &nbsp;#} RESULTADOS </h3>
+                </div>
+                <div class="panel-body" >
+                </div>{# #}
+            </div>
+        </div>
+        <div class=" col-lg-2 col-md-2 col-sm-2 ">
+            <div class="panel panel-success-v3" id="">
+                <div class="panel-heading">
+                    <h3 class="panel-title"> {#<span class="glyphicon glyphicon-adjust "></span> &nbsp;#} LISTAS DE TRABAJO </h3>
+                </div>
+                <div class="panel-body" >
+                </div>{# #}
+            </div>
+        </div>
+        <div class=" col-lg-2 col-md-2 col-sm-2 ">
+            <div class="panel panel-black-thrash" id="">
+                <div class="panel-heading">
+                    <h3 class="panel-title"> {#<span class="glyphicon glyphicon-cog "></span> &nbsp;#} CATÁLOGOS </h3>
+                </div>
+                <div class="panel-body" >
+                </div>{# #}
+            </div>
+        </div>
+    </div>
+
     <div class="{#col-lg-9 col-md-9 col-sm-9#} col-lg-10 col-md-10 col-sm-10 ">
         {#<div class="row">#} <!-- row block -->
             <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
@@ -114,8 +169,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">TECNÓLOGO</label>
-                                <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
+                                {#<label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 control-label">TECNÓLOGO</label>
+                                <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 ">
                                     <select id="_exam_worklist_radiologist" name="_exam_worklist_radiologist" class="form-control select2-select" >
                                         <option value=""></option>
                                         {% for tipo in tiposEmpleado if tipo.codigo == 'TRY' or tipo.codigo == 'MRY' %}
@@ -129,7 +184,7 @@
                                             <option value="{{ radiologo.id }}" {% if radiologo.id == app.user.getIdEmpleado().getId() %} selected {% endif %}>{{ radiologo }}</option>
                                         {% endfor %}
                                     </select>
-                                </div>
+                                </div>#}
                             {#</div>
                             <div class="form-group">#}
                                 <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">PACS</label>
@@ -285,13 +340,17 @@
     {#<script type="text/javascript">
     </script>#}
     {% include 'MinsalSimagdBundle:General:worklist_script.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgPendienteRealizacionAdmin:pndR_actionEvents.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgPendienteLecturaAdmin:pndL_actionEvents.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgPendienteTranscripcionAdmin:pndT_actionEvents.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgPendienteValidacionAdmin:pndV_actionEvents.html.twig' %}
     <!--
     //////////////////////////////////////////////////////////////
     //////// END --| SCRIPT FUNCTIONS
     //////////////////////////////////////////////////////////////
      -->
 
-    {% include 'MinsalSimagdBundle:CRUD:simagd_edit_orm_modal.html.twig' ignore missing with {'id': 'patient_modal_search_'} %}
+    {#{% include 'MinsalSimagdBundle:CRUD:simagd_edit_orm_modal.html.twig' ignore missing with {'id': 'patient_modal_search_'} %}#}
 
 {% endblock %}
 

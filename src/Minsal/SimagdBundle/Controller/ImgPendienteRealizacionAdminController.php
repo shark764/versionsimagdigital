@@ -259,19 +259,19 @@ class ImgPendienteRealizacionAdminController extends MinsalSimagdBundleGeneralAd
                         '</a>' .
                         '<ul id="unrealizedproceduresworklist-context-menu" class="dropdown-menu highlight-success-dropdown-menu" style="right: 0; left: auto;" role="menu">' .
                             '<li class="dropdown-header">MENÚ</li>' .
-                            '<li data-item="unrealizedproceduresworklist_show"><a class=" unrealizedproceduresworklist_show "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
-                            '<li data-item="unrealizedproceduresworklist_edit"><a class=" unrealizedproceduresworklist_edit "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
+                            '<li data-item="unrealizedproceduresworklist_show"><a href="javascript:void(0)" class=" unrealizedproceduresworklist_show_action "><span class="glyphicon glyphicon-folder-open"></span>Consultar</a></li>' .
+                            '<li data-item="unrealizedproceduresworklist_edit"><a href="javascript:void(0)" class=" unrealizedproceduresworklist_edit_action "><span class="glyphicon glyphicon-edit"></span>Editar</a></li>' .
                             '<li class="divider"></li>' .
-                            '<li data-item="unrealizedproceduresworklist_delete"><a class=" unrealizedproceduresworklist_delete "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
+                            '<li data-item="unrealizedproceduresworklist_delete"><a href="javascript:void(0)" class=" unrealizedproceduresworklist_delete_action "><span class="glyphicon glyphicon-trash"></span>Borrar</a></li>' .
                             '<li class="divider"></li>' .
                             '<li class="dropdown-header">LISTA DE TRABAJO</li>' .
-                            '<li data-item="unrealizedproceduresworklist_save"><a class=" unrealizedproceduresworklist_save "><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>' .
-                            '<li data-item="unrealizedproceduresworklist_saveandsearchinpacs"><a class=" unrealizedproceduresworklist_saveandsearchinpacs "><span class="glyphicon glyphicon-link"></span>Guardar y enlazar a PACS</a></li>' .
-                            '<li data-item="unrealizedproceduresworklist_goto"><a class=" unrealizedproceduresworklist_goto "><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>' .
+                            '<li data-item="unrealizedproceduresworklist_save"><a href="javascript:void(0)" class=" unrealizedproceduresworklist_save_action "><span class="glyphicon glyphicon-floppy-saved"></span>Guardar</a></li>' .
+                            '<li data-item="unrealizedproceduresworklist_saveandsearchinpacs"><a href="javascript:void(0)" class=" unrealizedproceduresworklist_saveandsearchinpacs_action "><span class="glyphicon glyphicon-link"></span>Guardar y enlazar a PACS</a></li>' .
+                            '<li data-item="unrealizedproceduresworklist_goto"><a href="javascript:void(0)" class=" unrealizedproceduresworklist_goto_action "><span class="glyphicon glyphicon-edit"></span>Acceder</a></li>' .
                             '<li class="divider"></li>' .
-                            // '<li data-item="unrealizedproceduresworklist_studydownload"><a class=" unrealizedproceduresworklist_studydownload "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
+                            // '<li data-item="unrealizedproceduresworklist_studydownload"><a href="javascript:void(0)" class=" unrealizedproceduresworklist_studydownload_action "><span class="glyphicon glyphicon-eye-open"></span>Recuperar estudio(s)</a></li>' .
                             // '<li class="divider"></li>' .
-                            '<li data-item="unrealizedproceduresworklist_create"><a class=" unrealizedproceduresworklist_create "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
+                            '<li data-item="unrealizedproceduresworklist_create"><a href="javascript:void(0)" class=" unrealizedproceduresworklist_create_action "><span class="glyphicon glyphicon-plus-sign"></span>Crear nuevo</a></li>' .
                         '</ul>' .
                     '</div>' .
                 '</div>';
@@ -284,32 +284,34 @@ class ImgPendienteRealizacionAdminController extends MinsalSimagdBundleGeneralAd
             //         '</div>' .
             //     '</div>';
 
-            $results[$key]['pndR_fechaIngresoLista']             = $r['pndR_fechaIngresoLista']->format('Y-m-d H:i:s A');
+            // $results[$key]['pndR_fechaIngresoLista']             = $r['pndR_fechaIngresoLista']->format('Y-m-d H:i:s A');
 
-            $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion'] ? $r['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['prc_fechaProximaConsulta']           = $r['prc_fechaProximaConsulta'] ? $r['prc_fechaProximaConsulta']->format('Y-m-d') : '';
+            // $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion'] ? $r['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['prc_fechaProximaConsulta']           = $r['prc_fechaProximaConsulta'] ? $r['prc_fechaProximaConsulta']->format('Y-m-d') : '';
 
-            $results[$key]['cit_fechaCreacion']              = $r['cit_fechaCreacion'] ? $r['cit_fechaCreacion']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['cit_fechaConfirmacion']          = $r['cit_fechaConfirmacion'] ? $r['cit_fechaConfirmacion']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['cit_fechaReprogramacion']        = $r['cit_fechaReprogramacion'] ? $r['cit_fechaReprogramacion']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['cit_fechaHoraInicio']                = $r['cit_fechaHoraInicio'] ? $r['cit_fechaHoraInicio']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['cit_fechaHoraFin']                   = $r['cit_fechaHoraFin'] ? $r['cit_fechaHoraFin']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['cit_fechaCreacion']              = $r['cit_fechaCreacion'] ? $r['cit_fechaCreacion']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['cit_fechaConfirmacion']          = $r['cit_fechaConfirmacion'] ? $r['cit_fechaConfirmacion']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['cit_fechaReprogramacion']        = $r['cit_fechaReprogramacion'] ? $r['cit_fechaReprogramacion']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['cit_fechaHoraInicio']                = $r['cit_fechaHoraInicio'] ? $r['cit_fechaHoraInicio']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['cit_fechaHoraFin']                   = $r['cit_fechaHoraFin'] ? $r['cit_fechaHoraFin']->format('Y-m-d H:i:s A') : '';
 
-            $results[$key]['solcmpl_fechaSolicitud']             = $r['solcmpl_fechaSolicitud'] ? $r['solcmpl_fechaSolicitud']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['solcmpl_fechaSolicitud']             = $r['solcmpl_fechaSolicitud'] ? $r['solcmpl_fechaSolicitud']->format('Y-m-d H:i:s A') : '';
 
-            $results[$key]['prz_createUrl']                      = $this->generateUrl('simagd_realizado_create',
-                                                                                array('__prc' => $r['prc_id'],
-                                                                                      '__cit' => $r['cit_id'],
-                                                                                      '__cmpl' => $r['solcmpl_id'],
-                                                                                      '__pndR' => $r['pndR_id'],
-                                                                                      /** 'iniciado' => $r['prz_id'] Pueden haber varios, iniciado diferencia cuál se editará */
-                                                                                ));
+            $results[$key]['prz_createUrl'] = $this->generateUrl('simagd_realizado_create', array('__prc' => $r['prc_id'], '__cit' => $r['cit_id'], '__cmpl' => $r['solcmpl_id'], '__pndR' => $r['pndR_id'], /** 'iniciado' => $r['prz_id'] Pueden haber varios, iniciado diferencia cuál se editará */));
+            
+            $results[$key]['show_url']      = $this->generateUrl('simagd_sin_realizar_show', array('id' => $r['id'], 'mode' => 'standard'));
+            $results[$key]['edit_url']      = $this->generateUrl('simagd_sin_realizar_edit', array('id' => $r['id'], 'mode' => 'standard'));
+            $results[$key]['delete_url']    = $this->generateUrl('simagd_sin_realizar_delete', array('id' => $r['id'], 'mode' => 'ajax', 'confirmation' => false));
+            $results[$key]['save_url']      = $this->generateUrl('simagd_sin_realizar_save', array('id' => $r['id'], 'mode' => 'ajax', 'confirmation' => false));
+            $results[$key]['saveandsearchinpacs_url']   = $this->generateUrl('simagd_sin_realizar_saveandsearchinpacs', array('id' => $r['id'], 'mode' => 'ajax', 'confirmation' => false));
+            $results[$key]['goto_url']      = $this->generateUrl('simagd_realizado_create', array('__prc' => $r['prc_id'], '__cit' => $r['cit_id'], '__cmpl' => $r['solcmpl_id'], '__pndR' => $r['pndR_id'],));
+            $results[$key]['create_url']    = $this->generateUrl('simagd_sin_realizar_create', array('id' => $r['id'], 'mode' => 'standard'));
 
-            $results[$key]['allowRealizar']                      = $isUser_allowRealizar;
+            // $results[$key]['allowRealizar']                      = $isUser_allowRealizar;
 
-            $results[$key]['allowRegInicial']                    = $isUser_allowRegInicial;
+            // $results[$key]['allowRegInicial']                    = $isUser_allowRegInicial;
 
-            $results[$key]['allowRegistrarAlmacenado']           = $isUser_allowRegistrarAlmacenado;
+            // $results[$key]['allowRegistrarAlmacenado']           = $isUser_allowRegistrarAlmacenado;
         }
 
         return $this->renderJson($results);
