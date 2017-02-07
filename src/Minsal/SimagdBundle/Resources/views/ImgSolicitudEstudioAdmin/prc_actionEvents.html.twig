@@ -1,0 +1,65 @@
+{% autoescape false %}
+
+	<script type="text/javascript">
+
+        /////////////////////////////////////////////////////
+        //////// STUDY REQUEST - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__STUDYREQUEST_MENU_ACTIONEVENTS__ = {
+                'click .studyrequest_show_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_solicitud_estudio_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .studyrequest_edit_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_solicitud_estudio_edit', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .studyrequest_delete_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_solicitud_estudio_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .studyrequest_checkmedicalhistory_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_solicitud_estudio_medicalhistory', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .studyrequest_showallrequest_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var record_number = row.exp_id;
+                    if (row.is_external !== false) {
+                        record_number = row.xexp_id;
+                    }
+                    var url = Routing.generate('simagd_solicitud_estudio_patienthistory', {id: row.id, record: record_number, is_external: row.is_external, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .studyrequest_studydownload_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_solicitud_estudio_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .studyrequest_create_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_solicitud_estudio_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .studyrequest_createtothispatient_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_solicitud_estudio_create', {id: row.id, preview: row.id, record: record_number, is_external: row.is_external, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+        
+    </script>
+
+{% endautoescape %}
