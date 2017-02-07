@@ -1,0 +1,261 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle:CRUD:base_list.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {# FullCalendar #}
+    <link href="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/fullcalendar.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/fullcalendar.print.css') }}" type="text/css" rel="stylesheet" media="print" />
+
+    {# agenda #}
+    <link href="{{ asset('bundles/minsalsimagd/css/agenda.css') }}" type="text/css" rel="stylesheet" />
+    {# colorpicker #}
+    <link href="{{ asset('bundles/minsalsimagd/css/colorpicker.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {# FullCalendar #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/fullcalendar.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/locale-all.js') }}" ></script>
+
+    {# agenda #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_agenda.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_config_search.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_accionesCita.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_pendientesCita.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_pendingPatients_v2.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_agendaGenerator.js') }}" ></script>
+    {# bloqueos #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_crearBloqueo.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_generateData.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_excluirRadiologos.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_set_form_data.js') }}" ></script>
+
+    {# Scripts cit #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_queued_cit_alert.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_list_v2.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_form_config.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_set_form_data.js') }}" ></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgEstudioPacienteAdmin/est_crear_ventana_estudio.js') }}" ></script>
+{% endblock %}
+
+
+
+{% block sonata_page_content_header %} {% endblock sonata_page_content_header %}
+
+{% block sonata_breadcrumb %} {% endblock sonata_breadcrumb %}{# #}
+
+{% block actions %} {% endblock %}{# #}
+
+{% block tab_menu %} {% endblock %}{# #}
+
+
+
+{% block content %}
+    {{ parent() }}
+
+    <div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">
+        <div class="box-body">
+            <div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>$r['paciente'] </h3></div></div>
+            <div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 14px;">$r['numero_expediente'] </span></div></div><p></p>
+            <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">$r['origen'] </div><div class="col-lg-6 col-md-6 col-sm-6 "><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" > Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div></div>
+            <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">$r['area_atencion'] </div></div>
+            <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">$r['atencion'] </div></div>
+            <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">$r['medico'] </div></div>
+            <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">$r['modalidad'] </div></div>
+            <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row">$r['triage'] </div></div>
+        </div>
+    </div>
+
+    <div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>$r['paciente'] </h3>
+                    {#<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>$r['paciente'] </h3></div></div>#}
+                    <div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 14px;">$r['numero_expediente'] </span></div></div><p></p>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['origen'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['area_atencion'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['atencion'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['medico'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['modalidad'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['triage'] </div></div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 data-box-row">{#<h3>$r['paciente'] </h3>#}
+                    <div class="{#col-lg-6 col-md-6 col-sm-6#} " style="margin-top: 20px; margin-bottom: 10px;"><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" > Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['atencion'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['medico'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['modalidad'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['triage'] </div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box box-drop-outside-medicine box-shadow-medicine" style="margin-top: 5px;">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>$r['paciente'] </h3>
+                    {#<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>$r['paciente'] </h3></div></div>#}
+                    <div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-success-v3 badge-inverse" style="font-size: 14px;">$r['numero_expediente'] </span></div></div><p></p>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['origen'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['area_atencion'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['atencion'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['medico'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['modalidad'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['triage'] </div></div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 data-box-row">{#<h3>$r['paciente'] </h3>#}
+                    <div class="{#col-lg-6 col-md-6 col-sm-6#} " style="margin-top: 20px; margin-bottom: 10px;"><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-success-v3 worklist-send-pacs" href="javascript:void(0)" > Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['atencion'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['medico'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['modalidad'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['triage'] </div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box box-drop-outside-primary-v4 box-primary-v4" style="margin-top: 5px;">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>$r['paciente'] </h3>
+                    {#<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>$r['paciente'] </h3></div></div>#}
+                    <div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-primary-v4 badge-inverse" style="font-size: 14px;">$r['numero_expediente'] </span></div></div><p></p>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['origen'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['area_atencion'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['atencion'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['medico'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['modalidad'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['triage'] </div></div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 data-box-row">{#<h3>$r['paciente'] </h3>#}
+                    <div class="{#col-lg-6 col-md-6 col-sm-6#} " style="margin-top: 20px; margin-bottom: 10px;"><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" > Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['atencion'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['medico'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['modalidad'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['triage'] </div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box box-drop-outside-emergency box-emergency" style="margin-top: 5px;">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>$r['paciente'] </h3>
+                    {#<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>$r['paciente'] </h3></div></div>#}
+                    <div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 14px;">$r['numero_expediente'] </span></div></div><p></p>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['origen'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['area_atencion'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['atencion'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['medico'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['modalidad'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['triage'] </div></div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 data-box-row">{#<h3>$r['paciente'] </h3>#}
+                    <div class="{#col-lg-6 col-md-6 col-sm-6#} " style="margin-top: 20px; margin-bottom: 10px;"><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send-pacs" href="javascript:void(0)" > Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['atencion'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['medico'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['modalidad'] </div></div>
+                    <div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">$r['triage'] </div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="{#col-lg-9 col-md-9 col-sm-9#} col-lg-10 col-md-10 col-sm-10 ">
+        {#<div class="row">#} <!-- row block -->
+            <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
+                <div class="box-body">
+
+                    <!-- WORKLIST MENU -->
+                    <div class="col-lg-10 col-md-10 col-sm-10 nav-pills-darkblue ">
+                        <ul class="nav nav-pills nav-justified" id="_agenda_dashboard_display_items">
+                            <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'events_calendar_and_exams'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-calendar"></span> AGENDA</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'scheduled_appointments_for_exams', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-tags"></span> CITAS PROGRAMADAS</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'blocked_days_and_festivities'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-comment"></span> BLOQUEOS Y FEST.</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- DISPLAY TYPE -->
+                    <ul class="list-unstyled list-inline input-sm " id="_agenda_dashboard_display_type" style="margin-top: 3px; margin-bottom: 6px;">
+                        <li>
+                            <label class="">
+                                <input type="radio" checked="checked" value="list" name="_agenda_dashboard_display_type" id="_agenda_dashboard_display_type_0">
+                                <span style="margin-left: 5px;"> Lista</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="">
+                                <input type="radio" {#checked="checked"#} value="detail" name="_agenda_dashboard_display_type" id="_agenda_dashboard_display_type_1">
+                                <span style="margin-left: 5px;"> Detalle</span>
+                            </label>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        {#</div>#} <!-- end row block -->
+
+        <div class="tab-pane fade in active" id="tab_list__" style="min-height: 768px;" >
+            <!--
+            //////////////////////////////////////////////////////////////
+            //////// TABLE
+            //////////////////////////////////////////////////////////////
+             -->
+            <!-- table for any result -->
+            <div class="{#col-lg-12 col-md-12 col-sm-12#} {#col-lg-9 col-md-9 col-sm-9#} ">
+                <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
+                    <thead>
+                    </thead>
+                </table>
+            </div>
+            <!-- end table -->
+            <!--
+            //////////////////////////////////////////////////////////////
+            //////// END --| TABLE
+            //////////////////////////////////////////////////////////////
+             -->
+        </div>
+
+    </div>
+
+    <div class="{#col-lg-3 col-md-3 col-sm-3#} col-lg-2 col-md-2 col-sm-2 ">
+
+        <!-- vertical pills -->
+        <div class="{#col-lg-3 col-md-3 col-sm-3#} nav-pills-medicine ">
+            <ul class="nav nav-pills nav-stacked {#nav-justified#} " id="_stacked_agenda_dashboard_display_items">
+                <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'events_calendar_and_exams'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-calendar"></span> AGENDA</a></li>
+                <li><a href="javascript:void(0)" onclick="generate(this, 'scheduled_appointments_for_exams', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-tags"></span> CITAS PROGRAMADAS</a></li>
+                <li><a href="javascript:void(0)" onclick="generate(this, 'blocked_days_and_festivities'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-comment"></span> BLOQUEOS Y FEST.</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!--
+    //////////////////////////////////////////////////////////////
+    //////// SCRIPT FUNCTIONS
+    //////////////////////////////////////////////////////////////
+     -->
+    {#<script type="text/javascript">
+    </script>#}
+    {% include 'MinsalSimagdBundle:General:agenda_dashboard_script.html.twig' %}
+    <!--
+    //////////////////////////////////////////////////////////////
+    //////// END --| SCRIPT FUNCTIONS
+    //////////////////////////////////////////////////////////////
+     -->
+
+    {#{% include 'MinsalSimagdBundle:CRUD:simagd_edit_orm_modal.html.twig' ignore missing with {'id': 'patient_modal_search_'} %}#}
+
+{% endblock %}
+
+{% block list_table %} {% endblock %}
+
+{% block list_filters %} {% endblock %}
