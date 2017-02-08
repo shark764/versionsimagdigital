@@ -130,17 +130,19 @@ class ImgSolicitudEstudioComplementarioAdminController extends MinsalSimagdBundl
             //         '</div>' .
             //     '</div>';
 
-            $results[$key]['est_fechaEstudio']       = $r['est_fechaEstudio']->format('Y-m-d H:i:s A');
-            $results[$key]['solcmpl_fechaSolicitud'] = $r['solcmpl_fechaSolicitud']->format('Y-m-d H:i:s A');
+            // $results[$key]['est_fechaEstudio']       = $r['est_fechaEstudio']->format('Y-m-d H:i:s A');
+            // $results[$key]['solcmpl_fechaSolicitud'] = $r['solcmpl_fechaSolicitud']->format('Y-m-d H:i:s A');
             
             $results[$key]['solcmpl_editUrl']        = $this->generateUrl('simagd_solicitud_estudio_complementario_edit', array('id' => $r['solcmpl_id']));
+
+            $results[$key]['table_dbl_click_url'] = $this->generateUrl('simagd_solicitud_estudio_complementario_show', array('id' => $r['id']));
             
-            $results[$key]['allowShow']              = $isUser_allowShow;
+            // $results[$key]['allowShow']              = $isUser_allowShow;
             
-            $results[$key]['allowEdit']              = (false !== $isUser_allowEdit && ($estabLocal->getId() == $r['solcmpl_id_solicitado']) &&
-                    ($r['solcmpl_id_userReg'] == $sessionUser->getId() || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
+            // $results[$key]['allowEdit']              = (false !== $isUser_allowEdit && ($estabLocal->getId() == $r['solcmpl_id_solicitado']) &&
+            //         ($r['solcmpl_id_userReg'] == $sessionUser->getId() || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
             
-            $results[$key]['solcmpl_solicitudEstudioComplementarioProyeccion']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudioComplementario($r['solcmpl_id']);
+            // $results[$key]['solcmpl_solicitudEstudioComplementarioProyeccion']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudioComplementario($r['solcmpl_id']);
         }
         
         return $this->renderJson($results);
