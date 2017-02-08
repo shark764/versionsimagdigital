@@ -237,18 +237,20 @@
 	},
 	"file_history":
 	[
+		"/home/farid/NetBeansProjects/versionsimagdigital/app/config/parameters.yml",
+		"/media/farid/Elements/BACKUP - LAPTOP - 28 ENE 2017/HOME_FARID/NetBeansProjects/versionsimagdigital/app/config/parameters.yml",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/catalogs_dashboard.html.twig",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/results_dashboard.html.twig",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/request_dashboard.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/BOX_STYLES_dashboard.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgSolicitudEstudioComplementarioAdmin/solcmpl_actionEvents.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/request_dashboard_script.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgSolicitudDiagnosticoAdmin/soldiag_actionEvents.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgSolicitudEstudioAdmin/prc_emergency_actionEvents.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/results_dashboard.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/results_dashboard_script.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/catalogs_dashboard.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/catalogs_dashboard_script.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlMaterialEstablecimiento/mtrLc_actionEvents.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlProyeccionAdmin/expl_actionEvents.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/Dashboard/request_dashboard.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlPacsEstablecimientoAdmin/pacs_actionEvents.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/css/select2-bootstrap_minsalsiaps.css",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/general_form_script.html.twig",
@@ -313,7 +315,6 @@
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgCitaAdmin/cit_pendientesCita.js",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Admin/ImgNotaDiagnosticoAdmin.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImagenologiaDigitalAdmin/simagd_busquedaPaciente_3.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/app/config/parameters.yml",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCitaProgramadaListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlConexionPacsEstablecimientoListViewGenerator.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Generator/ListViewGenerator/TableGenerator/RyxCtlMaterialEstablecimientoListViewGenerator.php",
@@ -363,8 +364,7 @@
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgCtlProyeccionEstablecimientoAdmin/explrz_list_v2.js",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgDiagnosticoAdmin/diag_list_v2.js",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgEstudioPacienteAdmin/ImgEstudioPaciente_list.js",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgLecturaAdmin/lct_diag_editor.js",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgLecturaAdmin/lct_list.js"
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/js/ImgLecturaAdmin/lct_diag_editor.js"
 	],
 	"find":
 	{
@@ -891,7 +891,7 @@
 			]
 		},
 		{
-			"selected": 2,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -967,8 +967,8 @@
 						"selection":
 						[
 							[
-								5593,
-								5593
+								22598,
+								22598
 							]
 						],
 						"settings":
@@ -978,10 +978,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3579.0,
+						"translation.y": 5291.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1011,7 +1011,7 @@
 						"translation.y": 4009.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1038,10 +1038,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1064.0,
+						"translation.y": 752.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]

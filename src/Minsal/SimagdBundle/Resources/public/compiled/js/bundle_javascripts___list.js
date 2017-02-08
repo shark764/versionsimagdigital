@@ -852,7 +852,7 @@ function simagdSolicitudEstudioProyeccionFormatter(value, row, index) {
 		$options	= jQuery.extend({}, $default, {
 		    source: $source,
 		    select2: {
-			placeholder: '',
+			placeholder: 'click para seleccionar...',
 			allowClear: true,
 			escape: false,
 			dropdownAutoWidth : true,
@@ -1624,7 +1624,7 @@ jQuery(document).ready(function() {
     $(document).find('form.simagd-form-custom-class')
         .find('select').each(function () {
             jQuery(this).select2({
-                placeholder: '',
+                placeholder: 'click para seleccionar...',
                 allowClear: true,
                 dropdownAutoWidth : true
             });
@@ -2788,7 +2788,7 @@ jQuery(document).ready(function() {
     }
 
     $('[data-apply-formatter="std"]').select2({
-                placeholder: '',
+                placeholder: 'click para seleccionar...',
                 allowClear: true,
                 dropdownAutoWidth : true,
                 formatResult: patternStdUserLoggedFormat,
@@ -2825,7 +2825,7 @@ jQuery(document).ready(function() {
     }
 
     $('[data-apply-formatter="stdPacs"]').select2({
-                placeholder: '',
+                placeholder: 'click para seleccionar...',
                 allowClear: true,
                 dropdownAutoWidth : true,
                 formatResult: patternStdPacsUserLoggedFormat,
@@ -2877,7 +2877,7 @@ jQuery(document).ready(function() {
         ].join('\n');
     }
     $('[data-apply-formatter="patternDiag"]').select2({
-	    placeholder: '',
+	    placeholder: 'click para seleccionar...',
 	    allowClear: true,
 	    dropdownAutoWidth : true,
 	    formatResult: patternDiagFormat,

@@ -1317,6 +1317,15 @@ and open the template in the editor.
     margin-right: 1%;
 }
 
+td .dropdown-menu {
+  text-align: left;
+  /*z-index: 1000;*/
+  /*overflow: visible;*/
+}
+.dropdown-menu > li > a {
+  cursor: pointer;
+}
+
 .dropdown-menu.highlight-success-dropdown-menu {
   font-size: 12px;
 }
@@ -1330,7 +1339,9 @@ and open the template in the editor.
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
     /*background-color: #fff0eb;*/
-    background-color: rgba(192, 192, 192, 0.21);
+    /*background-color: rgba(192, 192, 192, 0.21);*/
+    /*background-color: rgba(8, 141, 177, 0.09);*/
+    background-color: rgba(16, 204, 255, 0.08);
 }
 /*.table-darkblue-head {
   border: 0;
@@ -1407,6 +1418,15 @@ and open the template in the editor.
   color: #fff;
   background-color: #333 !important;
   border-color: #222 !important;
+}
+
+.panel-black-thrash {
+  border-color: #555;
+}
+.panel-black-thrash > .panel-heading {
+  color: rgb(255, 255, 255);
+  background-color: #555;
+  border-color: #555;
 }
 
 
@@ -1557,6 +1577,66 @@ and open the template in the editor.
 .box.box-drop-outside-shadow .box-header {
 }
 .box.box-drop-outside-shadow.box-dark-theme {
+  background-color: #eee;
+}
+/*
+ * *************************************************************************************************************************************************
+ * *************************************************************************************************************************************************
+ * box shadow outside MEDICINE
+ * *************************************************************************************************************************************************
+ * *************************************************************************************************************************************************
+ */
+.box.box-drop-outside-medicine {
+  /*-moz-box-shadow: 0 0 5px 5px rgba(3, 45, 51, 0.53);
+  -webkit-box-shadow: 0 0 5px 5px rgba(3, 45, 51, 0.53);
+  box-shadow: 0 0 5px 5px rgba(3, 45, 51, 0.53);*/
+  -moz-box-shadow: 0 0 5px 5px rgba(6, 35, 39, 0.53);
+  -webkit-box-shadow: 0 0 5px 5px rgba(6, 35, 39, 0.53);
+  box-shadow: 0 0 5px 5px rgba(6, 35, 39, 0.53);
+}
+.box.box-drop-outside-medicine .box-header {
+}
+.box.box-drop-outside-medicine.box-dark-theme {
+  background-color: #eee;
+}
+.box.box-shadow-medicine {
+  border-top-color: #1a6975;
+}
+/*
+ * *************************************************************************************************************************************************
+ * *************************************************************************************************************************************************
+ * box shadow outside PRIMARY-V4
+ * *************************************************************************************************************************************************
+ * *************************************************************************************************************************************************
+ */
+.box.box-drop-outside-primary-v4 {
+  -moz-box-shadow: 0 0 5px 5px rgba(51, 72, 82, 0.68);
+  -webkit-box-shadow: 0 0 5px 5px rgba(51, 72, 82, 0.68);
+  box-shadow: 0 0 5px 5px rgba(51, 72, 82, 0.68);
+}
+.box.box-drop-outside-primary-v4 .box-header {
+}
+.box.box-drop-outside-primary-v4.box-dark-theme {
+  background-color: #eee;
+}
+/*
+ * *************************************************************************************************************************************************
+ * *************************************************************************************************************************************************
+ * box shadow outside EMERGENCY
+ * *************************************************************************************************************************************************
+ * *************************************************************************************************************************************************
+ */
+.box.box-drop-outside-emergency {
+  /*-moz-box-shadow: 0 0 5px 5px rgba(140, 82, 73, 0.79);
+  -webkit-box-shadow: 0 0 5px 5px rgba(140, 82, 73, 0.79);
+  box-shadow: 0 0 5px 5px rgba(140, 82, 73, 0.79);*/
+  -moz-box-shadow: 0 0 5px 5px rgba(140, 82, 73, 0.62);
+  -webkit-box-shadow: 0 0 5px 5px rgba(140, 82, 73, 0.62);
+  box-shadow: 0 0 5px 5px rgba(140, 82, 73, 0.62);
+}
+.box.box-drop-outside-emergency .box-header {
+}
+.box.box-drop-outside-emergency.box-dark-theme {
   background-color: #eee;
 }
 
@@ -1794,11 +1874,11 @@ a.anchor-success-v3 {
 
 .badge.badge-success-v3 {
     color: #16677d;
-    background-color: white !important;
+    background-color: white;
 }
 
 .badge.badge-success-v3.badge-inverse {
-    color: white !important;
+    color: white;
     background-color: #16677d;
 }
 
@@ -2995,6 +3075,15 @@ a.anchor-camry-celestial-silver-metallic {
     border-radius: 4px;
 }
 
+.panel-emergency {
+  border-color: #d86e5e;
+}
+.panel-emergency > .panel-heading {
+  color: rgb(255, 255, 255);
+  background-color: #d86e5e;
+  border-color: #d86e5e;
+}
+
 
 
 /*
@@ -3908,4 +3997,11 @@ and open the template in the editor.
     background-color: #555;
     background-image: none;
     border-left: 0;
+}
+
+.select2-default .select2-chosen {
+    color: #999;
+}
+.form-control .select2-choice .select2-chosen {
+    font-size: 12px;
 }
