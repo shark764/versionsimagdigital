@@ -4,44 +4,10 @@
 
 {% block stylesheets %}
     {{ parent() }}
-
-    {# FullCalendar #}
-    <link href="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/fullcalendar.min.css') }}" type="text/css" rel="stylesheet" />
-    <link href="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/fullcalendar.print.css') }}" type="text/css" rel="stylesheet" media="print" />
-
-    {# agenda #}
-    <link href="{{ asset('bundles/minsalsimagd/css/agenda.css') }}" type="text/css" rel="stylesheet" />
-    {# colorpicker #}
-    <link href="{{ asset('bundles/minsalsimagd/css/colorpicker.css') }}" type="text/css" rel="stylesheet" />
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-
-    {# FullCalendar #}
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/fullcalendar.min.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/locale-all.js') }}" ></script>
-
-    {# agenda #}
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_agenda.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_config_search.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_accionesCita.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_pendientesCita.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_pendingPatients_v2.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_agendaGenerator.js') }}" ></script>
-    {# bloqueos #}
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_crearBloqueo.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_generateData.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_excluirRadiologos.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_set_form_data.js') }}" ></script>
-
-    {# Scripts cit #}
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_queued_cit_alert.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_list_v2.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_form_config.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_set_form_data.js') }}" ></script>
-
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgEstudioPacienteAdmin/est_crear_ventana_estudio.js') }}" ></script>
 {% endblock %}
 
 
@@ -66,24 +32,25 @@
 
                     <!-- WORKLIST MENU -->
                     <div class="col-lg-10 col-md-10 col-sm-10 nav-pills-darkblue ">
-                        <ul class="nav nav-pills nav-justified" id="_agenda_dashboard_display_items">
-                            <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'events_calendar_and_exams'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-calendar"></span> AGENDA</a></li>
-                            <li><a href="javascript:void(0)" onclick="generate(this, 'scheduled_appointments_for_exams', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-tags"></span> CITAS PROGRAMADAS</a></li>
-                            <li><a href="javascript:void(0)" onclick="generate(this, 'blocked_days_and_festivities'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-comment"></span> BLOQUEOS Y FEST.</a></li>
+                        <ul class="nav nav-pills nav-justified" id="_results_dashboard_display_items">
+                            <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'radiological_result'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-adjust"></span> RESULTADOS</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'transcribed_diagnosis', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-headphones"></span> RESULTADOS (TRANSC)</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'second_medical_opinions'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-comment"></span> SEG. OPINIONES</a></li>
+                            <li><a href="javascript:void(0)" onclick="generate(this, 'further_study_request'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-inbox"></span> SOLICITUDES (ADIC.)</a></li>
                         </ul>
                     </div>
 
                     <!-- DISPLAY TYPE -->
-                    <ul class="list-unstyled list-inline input-sm " id="_agenda_dashboard_display_type" style="margin-top: 3px; margin-bottom: 6px;">
+                    <ul class="list-unstyled list-inline input-sm " id="_results_dashboard_display_type" style="margin-top: 3px; margin-bottom: 6px;">
                         <li>
                             <label class="">
-                                <input type="radio" checked="checked" value="list" name="_agenda_dashboard_display_type" id="_agenda_dashboard_display_type_0">
+                                <input type="radio" checked="checked" value="list" name="_results_dashboard_display_type" id="_results_dashboard_display_type_0">
                                 <span style="margin-left: 5px;"> Lista</span>
                             </label>
                         </li>
                         <li>
                             <label class="">
-                                <input type="radio" {#checked="checked"#} value="detail" name="_agenda_dashboard_display_type" id="_agenda_dashboard_display_type_1">
+                                <input type="radio" {#checked="checked"#} value="detail" name="_results_dashboard_display_type" id="_results_dashboard_display_type_1">
                                 <span style="margin-left: 5px;"> Detalle</span>
                             </label>
                         </li>
@@ -94,6 +61,7 @@
         {#</div>#} <!-- end row block -->
 
         <div class="tab-pane fade in active" id="tab_list__" style="min-height: 768px;" >
+
             <!--
             //////////////////////////////////////////////////////////////
             //////// TABLE
@@ -107,11 +75,14 @@
                 </table>
             </div>
             <!-- end table -->
+
+
             <!--
             //////////////////////////////////////////////////////////////
             //////// END --| TABLE
             //////////////////////////////////////////////////////////////
              -->
+
         </div>
 
     </div>
@@ -120,10 +91,11 @@
 
         <!-- vertical pills -->
         <div class="{#col-lg-3 col-md-3 col-sm-3#} nav-pills-medicine ">
-            <ul class="nav nav-pills nav-stacked {#nav-justified#} " id="_stacked_agenda_dashboard_display_items">
-                <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'events_calendar_and_exams'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-calendar"></span> AGENDA</a></li>
-                <li><a href="javascript:void(0)" onclick="generate(this, 'scheduled_appointments_for_exams', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-tags"></span> CITAS PROGRAMADAS</a></li>
-                <li><a href="javascript:void(0)" onclick="generate(this, 'blocked_days_and_festivities'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-comment"></span> BLOQUEOS Y FEST.</a></li>
+            <ul class="nav nav-pills nav-stacked {#nav-justified#} " id="_stacked_results_dashboard_display_items">
+                <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'radiological_result'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-adjust"></span> RESULTADOS</a></li>
+                <li><a href="javascript:void(0)" onclick="generate(this, 'transcribed_diagnosis', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-headphones"></span> RESULTADOS (TRANSC)</a></li>
+                <li><a href="javascript:void(0)" onclick="generate(this, 'second_medical_opinions'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-comment"></span> SEG. OPINIONES</a></li>
+                <li><a href="javascript:void(0)" onclick="generate(this, 'further_study_request'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-inbox"></span> SOLICITUDES (ADIC.)</a></li>
             </ul>
         </div>
 
@@ -134,7 +106,11 @@
     //////// SCRIPT FUNCTIONS
     //////////////////////////////////////////////////////////////
      -->
-    {% include 'MinsalSimagdBundle:General:agenda_dashboard_script.html.twig' %}
+    {% include 'MinsalSimagdBundle:General:results_dashboard_script.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgLecturaAdmin:lct_actionEvents.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgDiagnosticoAdmin:diag_actionEvents.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgNotaDiagnosticoAdmin:notdiag_actionEvents.html.twig' %}
+    {% include 'MinsalSimagdBundle:ImgSolicitudEstudioComplementarioAdmin:solcmpl_actionEvents.html.twig' %}
     <!--
     //////////////////////////////////////////////////////////////
     //////// END --| SCRIPT FUNCTIONS
