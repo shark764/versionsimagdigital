@@ -396,8 +396,12 @@ div.form-actions {
   /*color: rgb(255, 255, 255) !important;*/
   /*background-color: #2a5469 !important;*/
   /*border-color: #1b4154 !important;*/
-  background-color: #555 !important;
-  border-color: #444 !important;
+
+  /*background-color: #555 !important;*/
+  /*border-color: #444 !important;*/
+  background-color: #284858;
+  border-color: #1b4154;
+
   /*cursor: auto !important;*/
   cursor: auto;
 }

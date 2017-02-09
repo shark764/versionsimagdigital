@@ -325,6 +325,13 @@ class ImgDiagnosticoAdminController extends MinsalSimagdBundleGeneralAdminContro
                         '</ul>' .
                     '</div>' .
                 '</div>';
+
+            $results[$key]['fecha_diagnostico'] = $formatter->dateFormatter($r['fecha_diagnostico']);
+            $results[$key]['fecha_transcrito']  = $r['fecha_transcrito'] ? $formatter->dateFormatter($r['fecha_transcrito']) : null;
+            $results[$key]['fecha_aprobado']    = $r['fecha_aprobado'] ? $formatter->dateFormatter($r['fecha_aprobado']) : null;
+            // $results[$key]['fecha_registro']    = $formatter->dateFormatter($r['fecha_registro']);
+            // $results[$key]['fecha_edicion']     = $r['fecha_edicion'] ? $formatter->dateFormatter($r['fecha_edicion']) : null;
+
             // $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
             //         '<div class="btn-group" role="group">' .
             //             '<a class=" transcribeddiagnosis-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .

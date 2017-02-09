@@ -144,6 +144,10 @@ class ImgCtlPacsEstablecimientoAdminController extends MinsalSimagdBundleGeneral
                         '</ul>' .
                     '</div>' .
                 '</div>';
+
+            $results[$key]['fecha_registro']    = $formatter->dateFormatter($r['fecha_registro']);
+            $results[$key]['fecha_edicion']     = $r['fecha_edicion'] ? $formatter->dateFormatter($r['fecha_edicion']) : null;
+
             // $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
             //         '<div class="btn-group" role="group">' .
             //             '<a class=" pacsserverconnections-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
@@ -155,14 +159,14 @@ class ImgCtlPacsEstablecimientoAdminController extends MinsalSimagdBundleGeneral
 
             $results[$key]['habilitado'] = $formatter->booleanFormatter($r['habilitado']);
 
-            $results[$key]['pacs_fechaHoraReg']  = $r['pacs_fechaHoraReg']->format('Y-m-d H:i:s A');
-            $results[$key]['pacs_fechaHoraMod']  = $r['pacs_fechaHoraMod'] ? $r['pacs_fechaHoraMod']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['pacs_fechaHoraReg']  = $r['pacs_fechaHoraReg']->format('Y-m-d H:i:s A');
+            // $results[$key]['pacs_fechaHoraMod']  = $r['pacs_fechaHoraMod'] ? $r['pacs_fechaHoraMod']->format('Y-m-d H:i:s A') : '';
 
             $results[$key]['pacs_editUrl']       = $this->generateUrl('simagd_pacs_edit', array('id' => $r['pacs_id']));
 
-            $results[$key]['allowShow']          = $isUser_allowShow;
+            // $results[$key]['allowShow']          = $isUser_allowShow;
 
-            $results[$key]['allowEdit']          = (false !== $isUser_allowEdit && ($estabLocal->getId() == $r['pacs_id_establecimiento'])) ? TRUE : FALSE;
+            // $results[$key]['allowEdit']          = (false !== $isUser_allowEdit && ($estabLocal->getId() == $r['pacs_id_establecimiento'])) ? TRUE : FALSE;
         }
 
         return $this->renderJson($results);

@@ -141,6 +141,10 @@ class ImgCtlMaterialAdminController extends MinsalSimagdBundleGeneralAdminContro
                         '</ul>' .
                     '</div>' .
                 '</div>';
+
+            $results[$key]['fecha_registro']    = $formatter->dateFormatter($r['fecha_registro']);
+            $results[$key]['fecha_edicion']     = $r['fecha_edicion'] ? $formatter->dateFormatter($r['fecha_edicion']) : null;
+
             // $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
             //         '<div class="btn-group" role="group">' .
             //             '<a class=" materials-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
@@ -150,16 +154,16 @@ class ImgCtlMaterialAdminController extends MinsalSimagdBundleGeneralAdminContro
             //         '</div>' .
             //     '</div>';
 
-            $results[$key]['mtrl_fechaHoraReg']  = $r['mtrl_fechaHoraReg']->format('Y-m-d H:i:s A');
-            $results[$key]['mtrl_fechaHoraMod']  = $r['mtrl_fechaHoraMod'] ? $r['mtrl_fechaHoraMod']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['mtrl_fechaHoraReg']  = $r['mtrl_fechaHoraReg']->format('Y-m-d H:i:s A');
+            // $results[$key]['mtrl_fechaHoraMod']  = $r['mtrl_fechaHoraMod'] ? $r['mtrl_fechaHoraMod']->format('Y-m-d H:i:s A') : '';
 
-            $results[$key]['allowShow']          = $isUser_allowShow;
+            // $results[$key]['allowShow']          = $isUser_allowShow;
 
-            $results[$key]['allowEdit']          = $isUser_allowEdit;
+            // $results[$key]['allowEdit']          = $isUser_allowEdit;
 
-            $results[$key]['allowAgregarLc']     = ($this->admin->getRoutes()->has('agregarEnMiCatalogo') &&
-                    false === $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')->existeMaterialEnLocalV2($estabLocal->getId(), $r['mtrl_id']) &&
-                    ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_MATERIAL_ESTABLECIMIENTO_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
+            // $results[$key]['allowAgregarLc']     = ($this->admin->getRoutes()->has('agregarEnMiCatalogo') &&
+            //         false === $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')->existeMaterialEnLocalV2($estabLocal->getId(), $r['mtrl_id']) &&
+            //         ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_MATERIAL_ESTABLECIMIENTO_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
         }
 
         return $this->renderJson($results);

@@ -205,7 +205,9 @@ class RyxCtlPatronDiagnosticoListViewGenerator extends RyxEntityListViewGenerato
         ////////
         $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_patron_diagnostico_generateData', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
-        $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
+        // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
+        $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-xray-supreme-head';
+        $this->entityOptions['buttonsClass']   = 'primary-v4';
         $this->entityOptions['pageSize']    = '50';
         $this->entityOptions['searchAlign'] = 'right';
         $this->entityOptions['buttonsAlign']    = 'right';
