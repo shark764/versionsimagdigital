@@ -348,6 +348,8 @@ class ImgDiagnosticoAdminController extends MinsalSimagdBundleGeneralAdminContro
             
             // $results[$key]['allowNota']                          = ($this->admin->getRoutes()->has('nota') && in_array($r['diag_codEstado'], array('APR')) && (((false !== $allowUserCod) &&
             //         ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_NOTA_DIAGNOSTICO_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_NOTA_DIAGNOSTICO_EDIT'))) || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
+
+            $results[$key]['table_dbl_click_url'] = $this->generateUrl('simagd_lectura_show', array('id' => $r['lct_id']));
         }
         
         return $this->renderJson($results);

@@ -137,6 +137,12 @@ td .dropdown-menu {
 .xray-supreme {
   background-color: #284858;
 }
+.table.table-xray-supreme-head>thead>tr>th,
+.table.table-xray-supreme-head>thead>tr>td {
+  /*background-color: #333;*/
+  background-color: #284858;
+  color: #fdfdfd;
+}
 
 
 .jumbotron ul.formstyle-radio-list-inline,

@@ -194,16 +194,55 @@ class ImgPendienteRealizacionAdminController extends MinsalSimagdBundleGeneralAd
     {
         $request->isXmlHttpRequest();
 
-        $BS_FILTERS                         = $this->get('request')->query->get('filters');
-        $BS_FILTERS_DECODE                  = json_decode($BS_FILTERS, true);
+        $BS_FILTERS         = $this->get('request')->query->get('filters');
+        $BS_FILTERS_DECODE  = json_decode($BS_FILTERS, true);
 
         $__REQUEST__type = $this->get('request')->query->get('type', 'list');
 
-        $em                                 = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
-    	$securityContext                    = $this->container->get('security.context');
-    	$sessionUser                       = $securityContext->getToken()->getUser();
-        $estabLocal                         = $sessionUser->getIdEstablecimiento();
+    	$securityContext	= $this->container->get('security.context');
+    	$sessionUser		= $securityContext->getToken()->getUser();
+        $estabLocal      	= $sessionUser->getIdEstablecimiento();
+
+        if ($__REQUEST__type === 'agenda')
+        {
+            //////////////////////////////////////////////////////////////////////
+            $start  = $request->request->get('start');
+            $end    = $request->request->get('end');
+            $type   = $request->request->get('type_agenda', 'summary');
+            $view   = $request->request->get('view', 'month');
+            //////////////////////////////////////////////////////////////////////
+
+            //////////////////////////////////////////////////////////////////////
+            if ($type === 'summary' && $view === 'month')
+            {
+                $results    = $em->getRepository('MinsalSimagdBundle:ImgPendienteRealizacion')->getWorkListAgenda($estabLocal->getId(), $BS_FILTERS_DECODE);
+
+                foreach ($results as $k => $r)
+                {
+                    $date_truncated         = \DateTime::createFromFormat('Y-m-d H:i:s', $r['fecha']);
+                    $results[$k]['id']      = 'fc_ev_' . $date_truncated->format('Y-m-d');
+                    $results[$k]['title']   = $date_truncated->format('Y-m-d');
+                    $results[$k]['title_detail']    = '<div style="float: left; width: 68%; padding-top: 5px; padding-botton: 5px;">' .
+                                                            '<table class="fc-table-title-detail" style="">' .
+                                                                '<tr><th>En espera:</th><td class="col-md-2">' . $r['esp'] . '</td></tr>' .
+                                                                '<tr><th>Confirmados:</th><td class="col-md-2">' . $r['cnf'] . '</td></tr>' .
+                                                                '<tr><th>Atendidos:</th><td class="col-md-2">' . $r['atn'] . '</td></tr>' .
+                                                                '<tr><th>Reprogramados:</th><td class="col-md-2">' . $r['rpg'] . '</td></tr>' .
+                                                                '<tr><th>Cancelados:</th><td class="col-md-2">' . $r['cnl'] . '</td></tr>' .
+                                                            '</table>' .
+                                                        '</div>' .
+                                                        '<div style="float: right; margin-left: 5px; margin-right: 10px; text-align: center;">' .
+                                                            '<h6>TOTAL<br/><small>' . $r['total'] . '</small></h6>' .
+                                                        '</div>';
+                    $results[$k]['start']   = $date_truncated->format('Y-m-d\TH:i:s');
+                    $results[$k]['end']     = $date_truncated->modify('+23 hours 59 minutes')->format('Y-m-d\TH:i:s');
+                }
+
+                return $this->renderJson($results);
+            }
+        }
 
         $results = $em->getRepository('MinsalSimagdBundle:ImgPendienteRealizacion')->getWorkList($estabLocal->getId(), $BS_FILTERS_DECODE);
 

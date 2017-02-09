@@ -821,6 +821,8 @@ class ImgLecturaAdminController extends MinsalSimagdBundleGeneralAdminController
             // $results[$key]['est_fechaEstudio']   = $r['est_fechaEstudio'] ? $r['est_fechaEstudio']->format('Y-m-d H:i:s A') : '';
             
             $results[$key]['lct_editUrl']        = $this->generateUrl('simagd_lectura_edit', array('id' => $r['lct_id']));
+
+            $results[$key]['table_dbl_click_url'] = $this->generateUrl('simagd_lectura_show', array('id' => $r['id']));
             
             // $results[$key]['allowShow']          = $isUser_allowShow;
             

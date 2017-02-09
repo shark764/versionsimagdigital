@@ -284,17 +284,19 @@ class ImgNotaDiagnosticoAdminController extends MinsalSimagdBundleGeneralAdminCo
             //         '</div>' .
             //     '</div>';
 
-            $results[$key]['diag_fechaTranscrito']    = $r['diag_fechaTranscrito'] ? $r['diag_fechaTranscrito']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['diag_fechaCorregido']     = $r['diag_fechaCorregido'] ? $r['diag_fechaCorregido']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['diag_fechaAprobado']      = $r['diag_fechaAprobado'] ? $r['diag_fechaAprobado']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['diag_fechaRegistro']      = $r['diag_fechaRegistro']->format('Y-m-d H:i:s A');
-            $results[$key]['lct_fechaLectura']                   = $r['lct_fechaLectura']->format('Y-m-d H:i:s A');
-            $results[$key]['notdiag_fechaEmision']       = $r['notdiag_fechaEmision']->format('Y-m-d H:i:s A');
+            // $results[$key]['diag_fechaTranscrito']    = $r['diag_fechaTranscrito'] ? $r['diag_fechaTranscrito']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['diag_fechaCorregido']     = $r['diag_fechaCorregido'] ? $r['diag_fechaCorregido']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['diag_fechaAprobado']      = $r['diag_fechaAprobado'] ? $r['diag_fechaAprobado']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['diag_fechaRegistro']      = $r['diag_fechaRegistro']->format('Y-m-d H:i:s A');
+            // $results[$key]['lct_fechaLectura']                   = $r['lct_fechaLectura']->format('Y-m-d H:i:s A');
+            // $results[$key]['notdiag_fechaEmision']       = $r['notdiag_fechaEmision']->format('Y-m-d H:i:s A');
             
-            $results[$key]['allowShow']                          = $isUser_allowShow;
+            // $results[$key]['allowShow']                          = $isUser_allowShow;
             
-            $results[$key]['allowEdit']                          = (false !== $isUser_allowEdit &&
-                    ($r['notdiag_id_userReg'] == $sessionUser->getId() || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
+            // $results[$key]['allowEdit']                          = (false !== $isUser_allowEdit &&
+            //         ($r['notdiag_id_userReg'] == $sessionUser->getId() || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
+
+            $results[$key]['table_dbl_click_url'] = $this->generateUrl('simagd_segunda_opinion_medica_show', array('id' => $r['id']));
         }
         
         return $this->renderJson($results);

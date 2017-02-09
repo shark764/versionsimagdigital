@@ -32,10 +32,6 @@
 					break;
 			}
 
-            // if (slug === 'transcribed_diagnosis') {
-            //     emrg
-            // }
-
             var type = jQuery('input[name=_results_dashboard_display_type]:checked').val();
 
             $.ajax({
@@ -51,25 +47,10 @@
                 },
                 success: function(response) {
                     ////////
-                    // $.each(response.options, function(i, opt) {
-                    //     if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
-                    //         var namespaces = opt.split('.');
-                    //         var func = namespaces.pop();
-                    //         var context = window;
-                    //         for(var x = 0; x < namespaces.length; x++) {
-                    //             context = context[namespaces[x]];
-                    //         }
-                    //         response.options[i] = context[func];  // set function
-                    //     }
-                    // });
-                    ////////
-
                     $table
                         .bootstrapTable('destroy')
                         .bootstrapTable(response.options);
-                    // $table.bootstrapTable('refreshOptions', response.options);
-
-                    // $('#ryx_target_bstable').scrollTop(25000);
+                    ////////
                 },
                 error: function(err) {
                     console.log(err.error, err.responseText);
@@ -83,8 +64,6 @@
              * @type type
              * Get Table definition
              */
-             // generate(null, 'radiological_result');
-             // jQuery('#')
 
             //////
             var $table = jQuery('#ryx_target_bstable');
@@ -93,22 +72,11 @@
 
             ////////
             var DEFAULT_TABLE_OPTIONS = JSON.parse('{{ DEFAULT_TABLE_OPTIONS|json_encode|e('js')|raw }}');
-            // $.each(DEFAULT_TABLE_OPTIONS, function(i, opt) {
-            //     if (typeof opt === 'string' && opt.indexOf('__FUNCTIONS_CALL__.functions') !== -1) {
-            //         var namespaces = opt.split('.');
-            //         var func = namespaces.pop();
-            //         var context = window;
-            //         for(var x = 0; x < namespaces.length; x++) {
-            //             context = context[namespaces[x]];
-            //         }
-            //         DEFAULT_TABLE_OPTIONS[i] = context[func];  // set function
-            //     }
-            // });
-            ////////
 
             $table
                 .bootstrapTable('destroy')
                 .bootstrapTable(DEFAULT_TABLE_OPTIONS);
+            ////////
 
 
             //////////////////////////////////////////////////////////////////////////
@@ -124,37 +92,7 @@
             //////////////////////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////////////////////
 
-
 			// jQuery('#_switch_display').iCheck('destroy').bootstrapSwitch();
-
-
-            //////////////////////////////////////////////////////////////////////////
-            //////// ONDBLCLICKROW - EVENT
-            //////////////////////////////////////////////////////////////////////////
-            $table.on('dbl-click-row.bs.table', function (e, row, $element, field) {
-                var url = null;
-                if(row.menu_code === 'radiologicalresult')
-                {
-                    url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
-                }
-                else if(row.menu_code === 'transcribeddiagnosis')
-                {
-                    url = Routing.generate('simagd_diagnostico_show', {id: row.id, mode: 'standard', worklist: true, worklist_id: row.id});
-                }
-                else if(row.menu_code === 'secondmedicalopinions')
-                {
-                    url = Routing.generate('simagd_segunda_opinion_medica_show', {id: row.id, mode: 'standard'});
-                }
-                else if(row.menu_code === 'furtherstudyrequest')
-                {
-                    url = Routing.generate('simagd_solicitud_estudio_complementario_show', {id: row.id, mode: 'standard'});
-                }
-                window.console.log('e', e, '\nrow', row, '\n$element', $element, '\nfield', field, '\nurl', url);
-                // window.location.href = url; // simulate link click
-            });
-            //////////////////////////////////////////////////////////////////////////
-            //////////////////////////////////////////////////////////////////////////
-
         });
 
         (function ($) {
@@ -300,56 +238,6 @@
 
         }(jQuery));
 
-        // var destroy = function(el) {
-        //     if (jQuery(el).attr('id') !== "undefined" && (jQuery(el).attr('id') === "pry2" || jQuery(el).attr('id') === "pry4")) {
-        //         var $table = jQuery('#ryx_target_bstable');
-        //         $table.bootstrapTable('destroy');
-        //     }
-        // }
-
-        // function patientFormatResult(el) {
-        //     var markup = '<div class="row-fluid">' +
-        //                         // '<div class="span2"><img src="' + el.owner.avatar_url + '" /></div>' +
-        //                         '<div class="span10">' +
-        //                         '<div class="row-fluid">' +
-        //                         '<div class="span6">' + el.full_name + '</div>' +
-        //                         // '<div class="span3"><i class="fa fa-code-fork"></i> ' + el.forks_count + '</div>' +
-        //                         // '<div class="span3"><i class="fa fa-star"></i> ' + el.stargazers_count + '</div>' +
-        //                     '</div>';
-
-        //     // if (el.description) {
-        //     //     markup += '<div>' + el.description + '</div>';
-        //     // }
-
-        //     markup += '</div></div>';
-
-        //     return markup;
-        // }
-
-        // function patientFormatSelection(el) {
-        //     return el.full_name;
-        // }
-
-        // function displaySelection(data)
-        // {
-        //     var jt = [];
-        //     if (!data.t || !parseInt(data.t, 10)) {
-        //         jt.push('<div class="jumbotron">');
-        //     }
-        //     else {
-        //         jt.push('<div class="jumbotron" style="background-color: #ebc5b9;">');
-        //     }
-        //     jt.push('<div class="container">', '<h2><strong><span class="text-primary-v4">', data.item.full_name, '</span></strong></h2>');
-        //     if (!data.t || !parseInt(data.t, 10)) {
-        //         jt.push('<strong><span class="badge badge-primary-v4" style="font-size: 25px;">', data.item.numero, '</span></strong>');
-        //     }
-        //     else {
-        //         jt.push('<strong><span class="badge badge-emergency" style="font-size: 25px;">', data.item.numero, '</span></strong>');
-        //     }
-        //     jt.push('<p><a class="btn btn-primary-v4 " role="button">Crear solicitud</a></p>');
-        //     jt.push('</div>', '</div>');
-        //     return jt.join('');
-        // }
     </script>
 
 {% endautoescape %}
