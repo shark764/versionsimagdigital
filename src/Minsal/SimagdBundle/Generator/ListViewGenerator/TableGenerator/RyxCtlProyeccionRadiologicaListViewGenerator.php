@@ -201,9 +201,18 @@ class RyxCtlProyeccionRadiologicaListViewGenerator extends RyxEntityListViewGene
             $this->entityOptions['showToggle']  = false;
             $this->entityOptions['showColumns'] = false;
             $this->entityOptions['pageSize']    = '5';
-        } else {
+        } elseif ($this->type === 'list') {
             $this->entityOptions['detailView']  = true;
             $this->entityOptions['detailFormatter'] = '__FUNCTIONS_CALL__.functions.detailFormatter';
+            // $this->entityOptions['icons']   = array(
+            //         'paginationSwitchDown'  => 'glyphicon-collapse-down icon-chevron-down',
+            //         'paginationSwitchUp'    => 'glyphicon-collapse-up icon-chevron-up',
+            //         'refresh'       => 'glyphicon-repeat icon-repeat',
+            //         'toggle'        => 'glyphicon-list-alt icon-list-alt',
+            //         'columns'       => 'glyphicon-th icon-th',
+            //         'detailOpen'    => 'glyphicon-download icon-chevron-down',
+            //         'detailClose'   => 'glyphicon-upload icon-chevron-up',
+            //     );
         }
         // $this->entityOptions['height']      = '1268';
 

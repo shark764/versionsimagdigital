@@ -13,6 +13,11 @@ http://codepen.io/lukepeters/pen/bfFur
 http://wptheming.com/downloads/simpletable.zip
 http://wptheming.com/downloads/simpletable/*/
 
+
+table td a.detail-icon {
+    color: #284858;
+}
+
 .box-simagd .box-body table {
     table-layout: fixed;
     width: 100%;
