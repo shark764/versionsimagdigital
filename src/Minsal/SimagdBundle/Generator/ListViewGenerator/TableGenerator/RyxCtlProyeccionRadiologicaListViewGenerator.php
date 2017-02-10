@@ -201,6 +201,9 @@ class RyxCtlProyeccionRadiologicaListViewGenerator extends RyxEntityListViewGene
             $this->entityOptions['showToggle']  = false;
             $this->entityOptions['showColumns'] = false;
             $this->entityOptions['pageSize']    = '5';
+        } else {
+            $this->entityOptions['detailView']  = true;
+            $this->entityOptions['detailFormatter'] = '__FUNCTIONS_CALL__.functions.detailFormatter';
         }
         // $this->entityOptions['height']      = '1268';
 

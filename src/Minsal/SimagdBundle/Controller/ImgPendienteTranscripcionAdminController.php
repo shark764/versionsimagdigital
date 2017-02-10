@@ -217,8 +217,8 @@ class ImgPendienteTranscripcionAdminController extends MinsalSimagdBundleGeneral
                     '</div>' .
                 '</div>';
 
-            $results[$key]['fecha_registro']    = $formatter->dateFormatter($r['fecha_registro']);
-            $results[$key]['fecha_edicion']     = $r['fecha_edicion'] ? $formatter->dateFormatter($r['fecha_edicion']) : null;
+            $results[$key]['fecha_ingreso'] = $formatter->dateFormatter($r['fecha_ingreso']);
+            // $results[$key]['fecha_edicion'] = $r['fecha_edicion'] ? $formatter->dateFormatter($r['fecha_edicion']) : null;
 
             // $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
             //         '<div class="btn-group" role="group">' .

@@ -106,6 +106,8 @@ class ImgCtlMaterialEstablecimientoAdminController extends MinsalSimagdBundleGen
                     '</div>' .
                 '</div>';
 
+            $results[$key]['fecha_registro']        = $formatter->dateFormatter($r['fecha_registro']);
+            $results[$key]['fecha_edicion']         = $r['fecha_edicion'] ? $formatter->dateFormatter($r['fecha_edicion']) : null;
             $results[$key]['fecha_registro_local']  = $formatter->dateFormatter($r['fecha_registro_local']);
             $results[$key]['fecha_edicion_local']   = $r['fecha_edicion_local'] ? $formatter->dateFormatter($r['fecha_edicion_local']) : null;
 
