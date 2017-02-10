@@ -151,20 +151,6 @@ class RyxDiagnosticoRadiologicoListViewGenerator extends RyxEntityListViewGenera
                         'visible' => false,
                     ),
                     array(
-                        'field' => 'fecha_transcrito',
-                        'sortable' => true,
-                        'title' => 'Registrada',
-                        'visible' => false,
-                        // 'formatter' => 'simagdDateTimeFormatter',
-                    ),
-                    array(
-                        'field' => 'fecha_aprobado',
-                        'sortable' => true,
-                        'title' => 'Fecha (Aprobación)',
-                        'visible' => false,
-                        // 'formatter' => 'simagdDateTimeFormatter',
-                    ),
-                    array(
                         'field' => 'correlativo',
                         'sortable' => true,
                         'title' => 'Etiqueta',
@@ -187,6 +173,20 @@ class RyxDiagnosticoRadiologicoListViewGenerator extends RyxEntityListViewGenera
                         'field' => 'fecha_diagnostico',
                         'sortable' => true,
                         'title' => 'Fecha (Dx)',
+                        // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'fecha_transcrito',
+                        'sortable' => true,
+                        'title' => 'Fecha (Trc.)',
+                        'visible' => false,
+                        // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'fecha_aprobado',
+                        'sortable' => true,
+                        'title' => 'Fecha (Apr)',
+                        'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
@@ -262,7 +262,9 @@ class RyxDiagnosticoRadiologicoListViewGenerator extends RyxEntityListViewGenera
         ////////
         $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_diagnostico_generateData', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
-        $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
+        // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
+        $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-xray-supreme-head';
+        $this->entityOptions['buttonsClass']   = 'primary-v4';
         $this->entityOptions['pageSize']    = '50';
         // $this->entityOptions['sortName']    = 'undefined';
         if ($this->type === 'detail') {

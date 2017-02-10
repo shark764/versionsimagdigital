@@ -25,62 +25,7 @@
 {% block content %}
     {{ parent() }}
 
-    <div class="" style="margin-left: auto; margin-right: auto;">
-        <div class=" col-lg-2 col-md-2 col-sm-2 ">
-            <div class="panel panel-primary-v4" id="">
-                <div class="panel-heading">
-                    <h3 class="panel-title"> {#<span class="glyphicon glyphicon-inbox "></span> &nbsp;#} SOLICITUDES </h3>
-                </div>
-                <div class="panel-body" >
-                </div>{# #}
-            </div>
-        </div>
-        <div class=" col-lg-2 col-md-2 col-sm-2 ">
-            <div class="panel panel-primary-v4" id="">
-                <div class="panel-heading">
-                    <h3 class="panel-title"> {#<span class="glyphicon glyphicon-time "></span> &nbsp;#} AGENDA </h3>
-                </div>
-                <div class="panel-body" >
-                </div>{# #}
-            </div>
-        </div>
-        <div class=" col-lg-2 col-md-2 col-sm-2 ">
-            <div class="panel panel-primary-v4" id="">
-                <div class="panel-heading">
-                    <h3 class="panel-title"> {#<span class="glyphicon glyphicon-eye-open "></span> &nbsp;#} EXÁMENES REALIZADOS </h3>
-                </div>
-                <div class="panel-body" >
-                </div>{# #}
-            </div>
-        </div>
-        <div class=" col-lg-2 col-md-2 col-sm-2 ">
-            <div class="panel panel-primary-v4" id="">
-                <div class="panel-heading">
-                    <h3 class="panel-title"> {#<span class="glyphicon glyphicon-adjust "></span> &nbsp;#} RESULTADOS </h3>
-                </div>
-                <div class="panel-body" >
-                </div>{# #}
-            </div>
-        </div>
-        <div class=" col-lg-2 col-md-2 col-sm-2 ">
-            <div class="panel panel-success-v3" id="">
-                <div class="panel-heading">
-                    <h3 class="panel-title"> {#<span class="glyphicon glyphicon-adjust "></span> &nbsp;#} LISTAS DE TRABAJO </h3>
-                </div>
-                <div class="panel-body" >
-                </div>{# #}
-            </div>
-        </div>
-        <div class=" col-lg-2 col-md-2 col-sm-2 ">
-            <div class="panel panel-black-thrash" id="">
-                <div class="panel-heading">
-                    <h3 class="panel-title"> {#<span class="glyphicon glyphicon-cog "></span> &nbsp;#} CATÁLOGOS </h3>
-                </div>
-                <div class="panel-body" >
-                </div>{# #}
-            </div>
-        </div>
-    </div>
+    {% include 'MinsalSimagdBundle:Menu:panel_top_menu.html.twig' %} {#ignore missing with {'id': 'patient_modal_search_'}#}
 
     <div class="{#col-lg-9 col-md-9 col-sm-9#} col-lg-10 col-md-10 col-sm-10 ">
         {#<div class="row">#} <!-- row block -->
@@ -246,7 +191,7 @@
     <div class="{#col-lg-3 col-md-3 col-sm-3#} col-lg-2 col-md-2 col-sm-2 ">
 
         <!-- vertical pills -->
-        <div class="{#col-lg-3 col-md-3 col-sm-3#} nav-pills-medicine ">
+        <div class="{#col-lg-3 col-md-3 col-sm-3#} {#nav-pills-medicine#} {#nav-pills-darkblue#} nav-pills-primary-v4 ">
             <ul class="nav nav-pills nav-stacked {#nav-justified#} " id="_stacked_worklist_display_items">
                 <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-film"></span> EXAMINAR</a></li>
                 <li><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-adjust"></span> LECTURA</a></li>

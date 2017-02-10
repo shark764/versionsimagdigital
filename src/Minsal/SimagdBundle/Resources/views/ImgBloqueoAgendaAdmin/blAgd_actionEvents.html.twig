@@ -1,0 +1,41 @@
+{% autoescape false %}
+
+	<script type="text/javascript">
+
+        /////////////////////////////////////////////////////
+        //////// BLOCKED DAYS AND FESTIVITIES - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__BLOCKEDDAYSANDFESTIVITIES_MENU_ACTIONEVENTS__ = {
+                'click .blockeddaysandfestivities_show_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_bloqueo_agenda_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .blockeddaysandfestivities_edit_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_bloqueo_agenda_edit', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .blockeddaysandfestivities_delete_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_bloqueo_agenda_delete', {id: row.id, mode: 'ajax', confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .blockeddaysandfestivities_create_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_bloqueo_agenda_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+        
+    </script>
+
+{% endautoescape %}

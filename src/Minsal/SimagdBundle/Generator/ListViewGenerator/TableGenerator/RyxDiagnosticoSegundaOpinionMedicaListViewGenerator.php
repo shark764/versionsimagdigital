@@ -153,14 +153,14 @@ class RyxDiagnosticoSegundaOpinionMedicaListViewGenerator extends RyxEntityListV
                     array(
                         'field' => 'fecha_transcrito',
                         'sortable' => true,
-                        'title' => 'Registrada',
+                        'title' => 'Fecha (Trc.)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
                         'field' => 'fecha_aprobado',
                         'sortable' => true,
-                        'title' => 'Fecha (Aprobación)',
+                        'title' => 'Fecha (Apr)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
@@ -193,6 +193,20 @@ class RyxDiagnosticoSegundaOpinionMedicaListViewGenerator extends RyxEntityListV
                         'field' => 'conclusion',
                         'sortable' => false,
                         'title' => 'Resultado',
+                        'class' => 'justify-table-large-row',
+                        // 'formatter' => 'simagdDescriptionAdvanceFormatter',
+                    ),
+                    array(
+                        'field' => 'fecha_registro',
+                        'sortable' => true,
+                        'title' => 'Fecha (Reg.)',
+                        'visible' => false,
+                        // 'formatter' => 'simagdDateTimeFormatter',
+                    ),
+                    array(
+                        'field' => 'opinion',
+                        'sortable' => false,
+                        'title' => 'Opinión',
                         'class' => 'justify-table-large-row',
                         // 'formatter' => 'simagdDescriptionAdvanceFormatter',
                     ),
@@ -262,7 +276,9 @@ class RyxDiagnosticoSegundaOpinionMedicaListViewGenerator extends RyxEntityListV
         ////////
         $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_segunda_opinion_medica_generateData', array('type' => $this->type));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
-        $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
+        // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
+        $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-xray-supreme-head';
+        $this->entityOptions['buttonsClass']   = 'primary-v4';
         $this->entityOptions['pageSize']    = '50';
         // $this->entityOptions['sortName']    = 'undefined';
         if ($this->type === 'detail') {

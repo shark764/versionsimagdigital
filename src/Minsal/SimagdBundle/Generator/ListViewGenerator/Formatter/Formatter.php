@@ -54,9 +54,10 @@ class Formatter /*implements ListViewGeneratorInterface*/
      *
      * @api
      */
-    public function dateFormatter($value, $format = 'datetime', $display = 'Y-m-d H:i:s A')
+    public function dateFormatter($value, $format = 'datetime', $display = 'd/m/Y H:i:s A'/*'Y-m-d H:i:s A'*/)
     {
         $dtformat   = $format === 'date' ? 'Y-m-d' : ($format === 'time' ? 'H:i:s' : 'Y-m-d H:i:s');
+        // $dtformat   = $format === 'date' ? 'd/m/Y' : ($format === 'time' ? 'H:i:s' : 'd/m/Y H:i:s');
         $dt         = \DateTime::createFromFormat($dtformat, $value);
 
         // \DateTime::createFromFormat('Y-m-d H:i:s', $r['fecha_registro'])->format('Y-m-d H:i:s A')

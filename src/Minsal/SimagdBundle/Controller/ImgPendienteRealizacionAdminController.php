@@ -217,7 +217,18 @@ class ImgPendienteRealizacionAdminController extends MinsalSimagdBundleGeneralAd
             //////////////////////////////////////////////////////////////////////
             if ($type === 'summary' && $view === 'month')
             {
-                $results    = $em->getRepository('MinsalSimagdBundle:ImgPendienteRealizacion')->getWorkListAgenda($estabLocal->getId(), $BS_FILTERS_DECODE);
+                $p = array(
+                    'type'          => $type,
+                    'view'          => $view,
+                    'start'         => $start,
+                    'end'           => $end,
+                    'locale'        => $estabLocal->getId(),
+                    // 'record'        => $numeroExp,
+                    // 'modality'      => intval($idAreaServicioDiagnostico),
+                    // 'technologist'  => $idTecnologo,
+                );
+
+                $results = $em->getRepository('MinsalSimagdBundle:ImgPendienteRealizacion')->getWorkListSummaryAgenda($p, $BS_FILTERS_DECODE);
 
                 foreach ($results as $k => $r)
                 {
@@ -239,6 +250,25 @@ class ImgPendienteRealizacionAdminController extends MinsalSimagdBundleGeneralAd
                     $results[$k]['start']   = $date_truncated->format('Y-m-d\TH:i:s');
                     $results[$k]['end']     = $date_truncated->modify('+23 hours 59 minutes')->format('Y-m-d\TH:i:s');
                 }
+
+                return $this->renderJson($results);
+            }
+
+            //////////////////////////////////////////////////////////////////////
+            if ($type === 'summary' && ($view === 'agendaWeek' || $view === 'agendaDay'))
+            {
+                $p = array(
+                    'type'          => $type,
+                    'view'          => $view,
+                    'start'         => $start,
+                    'end'           => $end,
+                    'locale'        => $estabLocal->getId(),
+                    // 'record'        => $numeroExp,
+                    // 'modality'      => intval($idAreaServicioDiagnostico),
+                    // 'technologist'  => $idTecnologo,
+                );
+                
+                $results = $em->getRepository('MinsalSimagdBundle:ImgPendienteRealizacion')->getWorkListEventsAgenda($p, $BS_FILTERS_DECODE);
 
                 return $this->renderJson($results);
             }
@@ -314,6 +344,10 @@ class ImgPendienteRealizacionAdminController extends MinsalSimagdBundleGeneralAd
                         '</ul>' .
                     '</div>' .
                 '</div>';
+
+            $results[$key]['fecha_registro']    = $formatter->dateFormatter($r['fecha_registro']);
+            $results[$key]['fecha_edicion']     = $r['fecha_edicion'] ? $formatter->dateFormatter($r['fecha_edicion']) : null;
+
             // $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
             //         '<div class="btn-group" role="group">' .
             //             '<a class=" unrealizedproceduresworklist-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .

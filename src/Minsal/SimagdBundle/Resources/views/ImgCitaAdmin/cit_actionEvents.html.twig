@@ -1,0 +1,56 @@
+{% autoescape false %}
+
+	<script type="text/javascript">
+
+        /////////////////////////////////////////////////////
+        //////// SCHEDULED APPOINTMENTS FOR EXAMS - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__SCHEDULEDAPPOINTMENTSFOREXAMS_MENU_ACTIONEVENTS__ = {
+                'click .scheduledappointmentsforexams_show_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_cita_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .scheduledappointmentsforexams_edit_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_cita_edit', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .scheduledappointmentsforexams_delete_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_cita_delete', {id: row.id, mode: 'ajax', confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .scheduledappointmentsforexams_create_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_cita_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .scheduledappointmentsforexams_confirm_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_cita_confirm', {id: row.id, mode: 'ajax', confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .scheduledappointmentsforexams_cancel_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_cita_cancel', {id: row.id, mode: 'ajax', confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .scheduledappointmentsforexams_print_action': function (e, value, row, index) {
+                    window.console.log(e, value, row, index);
+                    var url = Routing.generate('simagd_cita_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+        
+    </script>
+
+{% endautoescape %}

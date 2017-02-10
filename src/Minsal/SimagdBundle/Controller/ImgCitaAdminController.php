@@ -806,6 +806,10 @@ class ImgCitaAdminController extends MinsalSimagdBundleGeneralAdminController
                         '</a>' .
                     '</div>' .
                 '</div>';
+
+            $results[$key]['fecha_registro']    = $formatter->dateFormatter($r['fecha_registro']);
+            $results[$key]['fecha_edicion']     = $r['fecha_edicion'] ? $formatter->dateFormatter($r['fecha_edicion']) : null;
+
             // $results[$key]['context_menu'] = '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
             //         '<div class="btn-group" role="group">' .
             //             '<a class=" unrealizedproceduresworklist-button material-btn-list-op btn-link btn-link-black-thrash dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style=" cursor: context-menu; " role="button" href="javascript:void(0)" title="Operaciones..." >' .
