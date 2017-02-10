@@ -1,37 +1,37 @@
 {% autoescape false %}
 
-	<script type="text/javascript">
+    <script type="text/javascript">
         var _fn_show_object_detail = function(el, slug, id) {
             window.alert(slug + '\n' + id);
         }
 
         var generate = function(el, slug, emrg/* = 0, type = 'list'*/) {
-			if (emrg === undefined) {
-		        emrg = 0;
-		    }
+            if (emrg === undefined) {
+                emrg = 0;
+            }
             ////////
             var $table = jQuery('#ryx_target_bstable');
             ////////
             $table.bootstrapTable('showLoading');
 
             $url = null;
-			switch (slug) {
-				case 'events_calendar_and_exams':
-					$url = 'simagd_cita_generateCalendar';
-					break;
-				case 'scheduled_appointments_for_exams':
-					$url = 'simagd_cita_generateTable';
-					break;
-				case 'blocked_days_and_festivities':
-					$url = 'simagd_bloqueo_agenda_generateTable';
-					break;
-				default:
-					break;
-			}
-
-            // if (slug === 'scheduled_appointments_for_exams') {
-            //     emrg
-            // }
+            switch (slug) {
+                case 'events_calendar_and_exams':
+                    $url = 'simagd_cita_generateCalendar';
+                    break;
+                case 'scheduled_appointments_for_exams':
+                    $url = 'simagd_cita_generateTable';
+                    break;
+                case 'blocked_days_and_festivities':
+                    $url = 'simagd_bloqueo_agenda_generateTable';
+                    break;
+                case 'study_request':
+                case 'emergency_study_request':
+                    $url = 'simagd_solicitud_estudio_generateTable';
+                    break;
+                default:
+                    break;
+            }
 
             var type = jQuery('input[name=_agenda_dashboard_display_type]:checked').val();
 
@@ -84,16 +84,19 @@
              * @type type
              * Get Table definition
              */
-             // generate(null, 'events_calendar_and_exams');
-             // jQuery('#')
 
             //////
             var $table = jQuery('#ryx_target_bstable');
             ////////
             // $table.bootstrapTable('showLoading');
+
+            ////////
+            var DEFAULT_TABLE_OPTIONS = JSON.parse('{{ DEFAULT_TABLE_OPTIONS|json_encode|e('js')|raw }}');
+
             $table
                 .bootstrapTable('destroy')
-                .bootstrapTable(JSON.parse('{{ DEFAULT_TABLE_OPTIONS|json_encode|e('js')|raw }}'));
+                .bootstrapTable(DEFAULT_TABLE_OPTIONS);
+            ////////
 
 
             //////////////////////////////////////////////////////////////////////////
@@ -109,61 +112,11 @@
             //////////////////////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////////////////////
 
-			// jQuery('#_switch_display').iCheck('destroy').bootstrapSwitch();
+            // jQuery('#_switch_display').iCheck('destroy').bootstrapSwitch();
         });#}
-
-        // var destroy = function(el) {
-        //     if (jQuery(el).attr('id') !== "undefined" && (jQuery(el).attr('id') === "pry2" || jQuery(el).attr('id') === "pry4")) {
-        //         var $table = jQuery('#ryx_target_bstable');
-        //         $table.bootstrapTable('destroy');
-        //     }
-        // }
-
-        // function patientFormatResult(el) {
-        //     var markup = '<div class="row-fluid">' +
-        //                         // '<div class="span2"><img src="' + el.owner.avatar_url + '" /></div>' +
-        //                         '<div class="span10">' +
-        //                         '<div class="row-fluid">' +
-        //                         '<div class="span6">' + el.full_name + '</div>' +
-        //                         // '<div class="span3"><i class="fa fa-code-fork"></i> ' + el.forks_count + '</div>' +
-        //                         // '<div class="span3"><i class="fa fa-star"></i> ' + el.stargazers_count + '</div>' +
-        //                     '</div>';
-
-        //     // if (el.description) {
-        //     //     markup += '<div>' + el.description + '</div>';
-        //     // }
-
-        //     markup += '</div></div>';
-
-        //     return markup;
-        // }
-
-        // function patientFormatSelection(el) {
-        //     return el.full_name;
-        // }
-
-        // function displaySelection(data)
-        // {
-        //     var jt = [];
-        //     if (!data.t || !parseInt(data.t, 10)) {
-        //         jt.push('<div class="jumbotron">');
-        //     }
-        //     else {
-        //         jt.push('<div class="jumbotron" style="background-color: #ebc5b9;">');
-        //     }
-        //     jt.push('<div class="container">', '<h2><strong><span class="text-primary-v4">', data.item.full_name, '</span></strong></h2>');
-        //     if (!data.t || !parseInt(data.t, 10)) {
-        //         jt.push('<strong><span class="badge badge-primary-v4" style="font-size: 25px;">', data.item.numero, '</span></strong>');
-        //     }
-        //     else {
-        //         jt.push('<strong><span class="badge badge-emergency" style="font-size: 25px;">', data.item.numero, '</span></strong>');
-        //     }
-        //     jt.push('<p><a class="btn btn-primary-v4 " role="button">Crear solicitud</a></p>');
-        //     jt.push('</div>', '</div>');
-        //     return jt.join('');
-        // }
         
-        jQuery(function () {
+        (function ($) {
+
             jQuery('#_fc_goto_dtpicker').datetimepicker({
                 locale: 'es',
                 format: 'YYYY-MM-DD',
@@ -183,7 +136,8 @@
             }).on('dp.hide', function(e) {
                 jQuery('#_fc_goto_openlink').show();
             });
-        });
+
+        }(jQuery));
 
         fc_goto_calendarDate = function(el) {
             jQuery('#_fc_goto_dtpicker').data('DateTimePicker').show();
@@ -240,6 +194,7 @@
             //     }
             // });
         });
+
     </script>
 
 {% endautoescape %}
