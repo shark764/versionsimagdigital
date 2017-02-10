@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ImgCtlCategoriaRespuestaMamografia
  *
  * @ORM\Table(name="img_ctl_categoria_respuesta_mamografia", uniqueConstraints={@ORM\UniqueConstraint(name="idx_codigo_categoria_resultado_mamografia", columns={"codigo"})}, indexes={@ORM\Index(name="IDX_9EA9B9353B0C60A0", columns={"id_categoria_padre"})})
- * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\CategoriaRespuestaMamografiaRepository")
+ * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxCtlCategoriaRespuestaMamografiaRepository")
  */
 class ImgCtlCategoriaRespuestaMamografia
 {

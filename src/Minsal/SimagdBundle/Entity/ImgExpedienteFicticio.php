@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ImgExpedienteFicticio
  *
  * @ORM\Table(name="img_expediente_ficticio", uniqueConstraints={@ORM\UniqueConstraint(name="idx_numero_expediente_ficticio", columns={"id_establecimiento", "numero"})}, indexes={@ORM\Index(name="IDX_521FC2EF7DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_521FC2EFD8A5832B", columns={"id_user_reg"})})
- * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\ExpedienteFicticioRepository")
+ * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxExpedienteFicticioRepository")
  */
 class ImgExpedienteFicticio
 {

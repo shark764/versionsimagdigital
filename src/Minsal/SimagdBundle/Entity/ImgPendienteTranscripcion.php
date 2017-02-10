@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ImgPendienteTranscripcion
  *
  * @ORM\Table(name="img_pendiente_transcripcion", indexes={@ORM\Index(name="IDX_A5021FE27DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_A5021FE218971421", columns={"id_lectura"}), @ORM\Index(name="IDX_A5021FE2CC6E65C8", columns={"id_transcriptor_asignado"}), @ORM\Index(name="IDX_A5021FE2408A6B12", columns={"id_asigna_transcriptor"})})
- * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\PendienteTranscripcionRepository")
+ * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxLecturaPendienteTranscripcionRepository")
  */
 class ImgPendienteTranscripcion
 {

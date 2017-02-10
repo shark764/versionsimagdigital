@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ImgCtlMaterial
  *
  * @ORM\Table(name="img_ctl_material", uniqueConstraints={@ORM\UniqueConstraint(name="idx_codigo_material", columns={"codigo"})}, indexes={@ORM\Index(name="IDX_1FC06762A599A5B7", columns={"id_subgrupo_material"}), @ORM\Index(name="IDX_1FC06762AC39DE56", columns={"id_user_mod"}), @ORM\Index(name="IDX_1FC06762D8A5832B", columns={"id_user_reg"})})
- * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\MaterialRepository")
+ * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxCtlMaterialRepository")
  */
 class ImgCtlMaterial
 {

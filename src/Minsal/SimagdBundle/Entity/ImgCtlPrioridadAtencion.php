@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ImgCtlPrioridadAtencion
  *
  * @ORM\Table(name="img_ctl_prioridad_atencion", uniqueConstraints={@ORM\UniqueConstraint(name="idx_codigo_prioridad_atencion", columns={"codigo"})})
- * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\PrioridadAtencionRepository")
+ * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxCtlPrioridadAtencionPacienteRepository")
  */
 class ImgCtlPrioridadAtencion
 {

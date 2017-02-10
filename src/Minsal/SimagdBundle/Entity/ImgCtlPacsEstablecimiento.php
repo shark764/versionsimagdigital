@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ImgCtlPacsEstablecimiento
  *
  * @ORM\Table(name="img_ctl_pacs_establecimiento", uniqueConstraints={@ORM\UniqueConstraint(name="idx_nombre_conexion_pacs", columns={"nombre_conexion"})}, indexes={@ORM\Index(name="IDX_83F55087DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_83F550825D64570", columns={"id_motor"}), @ORM\Index(name="IDX_83F5508AC39DE56", columns={"id_user_mod"}), @ORM\Index(name="IDX_83F5508D8A5832B", columns={"id_user_reg"})})
- * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\PacsEstablecimientoRepository")
+ * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxCtlConexionPacsEstablecimientoRepository")
  */
 class ImgCtlPacsEstablecimiento
 {

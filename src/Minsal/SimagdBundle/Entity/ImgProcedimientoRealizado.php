@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ImgProcedimientoRealizado
  *
  * @ORM\Table(name="img_procedimiento_realizado", indexes={@ORM\Index(name="IDX_863F6B935BBAAD2F", columns={"id_cita_programada"}), @ORM\Index(name="IDX_863F6B93DD66500E", columns={"id_tecnologo_realiza"}), @ORM\Index(name="IDX_863F6B937DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_863F6B93282A2E1B", columns={"id_estado_procedimiento_realizado"}), @ORM\Index(name="IDX_863F6B9360C0CAA5", columns={"id_registra_emergencia"}), @ORM\Index(name="IDX_863F6B93F0951F8F", columns={"id_solicitud_estudio_complementario"}), @ORM\Index(name="IDX_863F6B936AAA01BF", columns={"id_solicitud_estudio"}), @ORM\Index(name="IDX_863F6B93AC39DE56", columns={"id_user_mod"}), @ORM\Index(name="IDX_863F6B93D8A5832B", columns={"id_user_reg"})})
- * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\ProcedimientoRealizadoRepository")
+ * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxProcedimientoRadiologicoRealizadoRepository")
  */
 class ImgProcedimientoRealizado
 {

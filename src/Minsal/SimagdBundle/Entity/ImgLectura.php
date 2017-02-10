@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ImgLectura
  *
  * @ORM\Table(name="img_lectura", indexes={@ORM\Index(name="IDX_8B65F9B9890253C7", columns={"id_empleado"}), @ORM\Index(name="IDX_8B65F9B97DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_8B65F9B9D93DAF86", columns={"id_estado_lectura"}), @ORM\Index(name="IDX_8B65F9B96196B359", columns={"id_estudio"}), @ORM\Index(name="IDX_8B65F9B933CCFAF2", columns={"id_expediente_ficticio"}), @ORM\Index(name="IDX_8B65F9B9701624C4", columns={"id_expediente"}), @ORM\Index(name="IDX_8B65F9B9F80B40A", columns={"id_patron_asociado"}), @ORM\Index(name="IDX_8B65F9B963643B18", columns={"id_radiologo_designado_aprobacion"}), @ORM\Index(name="IDX_8B65F9B94E924116", columns={"id_radiologo_solicita"}), @ORM\Index(name="IDX_8B65F9B9526C8D52", columns={"id_solicitud_diagnostico"}), @ORM\Index(name="IDX_8B65F9B9D426DB54", columns={"id_tipo_resultado"}), @ORM\Index(name="IDX_8B65F9B9CC6E65C8", columns={"id_transcriptor_asignado"}), @ORM\Index(name="IDX_8B65F9B9D8A5832B", columns={"id_user_reg"})})
- * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\LecturaRepository")
+ * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxLecturaRadiologicaRepository")
  */
 class ImgLectura
 {

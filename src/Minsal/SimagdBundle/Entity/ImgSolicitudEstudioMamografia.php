@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ImgSolicitudEstudioMamografia
  *
  * @ORM\Table(name="img_solicitud_estudio_mamografia", indexes={@ORM\Index(name="IDX_4F4D5C65992127D5", columns={"id_area_servicio_diagnostico"}), @ORM\Index(name="IDX_4F4D5C656AAA01BF", columns={"id_solicitud_estudio"}), @ORM\Index(name="IDX_4F4D5C6515EA100E", columns={"id_tipo_mamografia"})})
- * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\SolicitudEstudioMamografiaRepository")
+ * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxSolicitudEstudioMamografiaRepository")
  */
 class ImgSolicitudEstudioMamografia
 {

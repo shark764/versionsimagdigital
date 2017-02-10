@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ImgCtlPreparacionEstudio
  *
  * @ORM\Table(name="img_ctl_preparacion_estudio", uniqueConstraints={@ORM\UniqueConstraint(name="idx_codigo_preparacion_estudio", columns={"codigo"})}, indexes={@ORM\Index(name="IDX_9E29DEA7EFA31A58", columns={"id_area_servicio_diagnostico_aplica"}), @ORM\Index(name="IDX_9E29DEA7AC39DE56", columns={"id_user_mod"}), @ORM\Index(name="IDX_9E29DEA7D8A5832B", columns={"id_user_reg"}), @ORM\Index(name="IDX_9E29DEA77DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_9E29DEA7592B0EA1", columns={"id_empleado_registra"})})
- * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\PreparacionEstudioRepository")
+ * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxCtlPreparacionEstudioRepository")
  */
 class ImgCtlPreparacionEstudio
 {

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ImgEstudioPaciente
  *
  * @ORM\Table(name="img_estudio_paciente", indexes={@ORM\Index(name="IDX_20B8CA257DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_20B8CA25F485B2E3", columns={"id_estudio_padre"}), @ORM\Index(name="IDX_20B8CA25701624C4", columns={"id_expediente"}), @ORM\Index(name="IDX_20B8CA2533CCFAF2", columns={"id_expediente_ficticio"}), @ORM\Index(name="IDX_20B8CA259E9497EB", columns={"id_procedimiento_realizado"})})
- * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\EstudioRepository")
+ * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxEstudioPorImagenesRepository")
  */
 class ImgEstudioPaciente
 {

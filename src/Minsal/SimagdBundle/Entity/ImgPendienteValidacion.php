@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ImgPendienteValidacion
  *
  * @ORM\Table(name="img_pendiente_validacion", indexes={@ORM\Index(name="IDX_CF5AE920838319BF", columns={"id_diagnostico"}), @ORM\Index(name="IDX_CF5AE9207DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_CF5AE920C6991215", columns={"id_asigna_validador"}), @ORM\Index(name="IDX_CF5AE9206E8C181B", columns={"id_radiologo_asignado"})})
- * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\PendienteValidacionRepository")
+ * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxDiagnosticoPendienteValidacionRepository")
  */
 class ImgPendienteValidacion
 {

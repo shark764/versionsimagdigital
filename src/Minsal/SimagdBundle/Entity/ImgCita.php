@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ImgCita
  *
  * @ORM\Table(name="img_cita", indexes={@ORM\Index(name="IDX_F0266B5A51F7CF06", columns={"id_configuracion_agenda"}), @ORM\Index(name="IDX_F0266B5A890253C7", columns={"id_empleado"}), @ORM\Index(name="IDX_F0266B5A7DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_F0266B5ADD0D821B", columns={"id_estado_cita"}), @ORM\Index(name="IDX_F0266B5ADEFEA3F", columns={"id_responsable_autoriza"}), @ORM\Index(name="IDX_F0266B5A6AAA01BF", columns={"id_solicitud_estudio"}), @ORM\Index(name="IDX_F0266B5A91124CBF", columns={"id_tecnologo_programado"}), @ORM\Index(name="IDX_F0266B5ADEA2D3D3", columns={"id_user_prg"}), @ORM\Index(name="IDX_F0266B5A94AEBFD3", columns={"id_user_reprg"})})
- * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\CitaRepository")
+ * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxCitaProgramadaRepository")
  */
 class ImgCita
 {
