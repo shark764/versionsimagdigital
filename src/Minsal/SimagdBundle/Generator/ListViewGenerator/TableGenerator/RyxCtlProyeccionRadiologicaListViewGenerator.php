@@ -203,8 +203,10 @@ class RyxCtlProyeccionRadiologicaListViewGenerator extends RyxEntityListViewGene
             $this->entityOptions['pageSize']    = '5';
         } elseif ($this->type === 'list') {
             $this->entityOptions['detailView']  = true;
-            // $this->entityOptions['detailFormatter'] = '__FUNCTIONS_CALL__.functions.detailFormatter';
-            $this->entityOptions['detailFormatter'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;"><div class="box-body">__FUNCTIONS_CALL__.functions.detailFormatter</div></div>';
+            $this->entityOptions['detailFormatter'] = '__FUNCTIONS_CALL__.functions.detailFormatter';
+
+            // $this->entityOptions['detailFormatter'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;"><div class="box-body">__FUNCTIONS_CALL__.functions.detailFormatter</div></div>';
+            
             // $this->entityOptions['detailFormatter'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px;">' .
             //         '<div class="box-body" ondblclick="_fn_show_object_detail(this); return false;">' .
             //             '<div class="row"><div class="col-lg-2 col-md-2 col-sm-2 data-box-row"><strong>NOMBRE:</strong></div><div class="col-lg-4 col-md-4 col-sm-4 data-box-row"> </div><div class="col-lg-6 col-md-6 col-sm-6 "><div class="btn-toolbar" role="toolbar" aria-label="..."><div class="btn-group" role="group"><a class="btn btn-primary-v4 worklist-send-pacs" href="javascript:void(0)" > Guardar y asociar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-send" href="javascript:void(0)" ><span class="glyphicon glyphicon-check"></span> Guardar</a></div><div class="btn-group" role="group"><a class="btn btn-emergency worklist-new-external-patient" href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></div></div></div></div>' .
