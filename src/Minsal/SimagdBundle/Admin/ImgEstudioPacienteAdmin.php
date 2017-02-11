@@ -46,7 +46,7 @@ class ImgEstudioPacienteAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'list':
-                return 'MinsalSimagdBundle:ImgEstudioPacienteAdmin:est_busquedaEstudio_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxEstudioPorImagenesAdmin:est_busquedaEstudio_v2.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

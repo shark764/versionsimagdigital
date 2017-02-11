@@ -846,7 +846,7 @@ class ImgSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
             ->with('Proyecciones Solicitadas')
                 ->add('idAreaServicioDiagnostico', null, array('label' => 'Modalidad de diagnóstico por imagen', 'route' => array('name' => 'show')))
                 ->add('solicitudEstudioProyeccion', 'sonata_type_collection', array('label' => 'Proyección', 'route' => array('name' => 'show'),
-                                                                                'template' => 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_explSol_show.html.twig'
+                                                                                'template' => 'MinsalSimagdBundle:RyxSolicitudEstudioAdmin:prc_explSol_show.html.twig'
                                                                             ),
                                                                             array('edit' => 'inline', 'inline' => 'table'))
             ->end()
@@ -1482,13 +1482,13 @@ class ImgSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_edit.html.twig';
+                return 'MinsalSimagdBundle:RyxSolicitudEstudioAdmin:prc_edit.html.twig';
                 break;
             case 'list':
-                return 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxSolicitudEstudioAdmin:prc_list_v2.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_show_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxSolicitudEstudioAdmin:prc_show_v2.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);
@@ -1501,7 +1501,7 @@ class ImgSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
         return array_merge(
             parent::getFormTheme(),
             array('MinsalSimagdBundle::simagd_form_admin_fields.html.twig'),
-            array('MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_admin_fields.html.twig')
+            array('MinsalSimagdBundle:RyxSolicitudEstudioAdmin:prc_admin_fields.html.twig')
        );
     }
 

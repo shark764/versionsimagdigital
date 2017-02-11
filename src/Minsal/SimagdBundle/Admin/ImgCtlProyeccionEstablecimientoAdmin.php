@@ -184,13 +184,13 @@ class ImgCtlProyeccionEstablecimientoAdmin extends MinsalSimagdBundleGeneralAdmi
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgCtlProyeccionEstablecimientoAdmin:explrz_edit.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlProyeccionEstablecimientoAdmin:explrz_edit.html.twig';
                 break;
             case 'list':
-                return 'MinsalSimagdBundle:ImgCtlProyeccionEstablecimientoAdmin:explrz_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlProyeccionEstablecimientoAdmin:explrz_list_v2.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgCtlProyeccionEstablecimientoAdmin:explrz_show.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlProyeccionEstablecimientoAdmin:explrz_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

@@ -296,7 +296,7 @@ class ImgCitaAdminController extends MinsalSimagdBundleGeneralAdminController
                                     $preinscripcionPadre ? $preinscripcionPadre->getIdAreaServicioDiagnostico()->getId() : '-1',
                                     $preinscripcionPadre ? $preinscripcionPadre->getFechaProximaConsulta() : null);
 
-        return $this->render('MinsalSimagdBundle:ImgCitaAdmin:cit_espacios_reservados.html.twig', array('reservasCita' => $reservas, 'paramCitacion' => $paramCitacion));
+        return $this->render('MinsalSimagdBundle:RyxCitaProgramadaAdmin:cit_espacios_reservados.html.twig', array('reservasCita' => $reservas, 'paramCitacion' => $paramCitacion));
     }
 
     public function confirmarCitaAction(Request $request)

@@ -55,13 +55,13 @@ class ImgCtlPatronDiagnosticoAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgCtlPatronDiagnosticoAdmin:ptrDiag_edit.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlPatronDiagnosticoAdmin:ptrDiag_edit.html.twig';
                 break;
             case 'list':
-                return 'MinsalSimagdBundle:ImgCtlPatronDiagnosticoAdmin:ptrDiag_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlPatronDiagnosticoAdmin:ptrDiag_list_v2.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgCtlPatronDiagnosticoAdmin:ptrDiag_show.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlPatronDiagnosticoAdmin:ptrDiag_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

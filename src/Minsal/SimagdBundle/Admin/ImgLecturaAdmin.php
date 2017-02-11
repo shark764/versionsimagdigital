@@ -861,13 +861,13 @@ class ImgLecturaAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgLecturaAdmin:lct_edit.html.twig';
+                return 'MinsalSimagdBundle:RyxLecturaRadiologicaAdmin:lct_edit.html.twig';
                 break;
             case 'list':
-                return 'MinsalSimagdBundle:ImgLecturaAdmin:lct_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxLecturaRadiologicaAdmin:lct_list_v2.html.twig';
                 break;
             // case 'show':
-            //     return 'MinsalSimagdBundle:ImgLecturaAdmin:lct_show.html.twig';
+            //     return 'MinsalSimagdBundle:RyxLecturaRadiologicaAdmin:lct_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);
@@ -880,7 +880,7 @@ class ImgLecturaAdmin extends MinsalSimagdBundleGeneralAdmin
         return array_merge(
             parent::getFormTheme(),
             array('MinsalSimagdBundle::simagd_form_admin_fields.html.twig'),
-            array('MinsalSimagdBundle:ImgLecturaAdmin:lct_estudiosLectura_theme.html.twig')
+            array('MinsalSimagdBundle:RyxLecturaRadiologicaAdmin:lct_estudiosLectura_theme.html.twig')
        );
     }
 

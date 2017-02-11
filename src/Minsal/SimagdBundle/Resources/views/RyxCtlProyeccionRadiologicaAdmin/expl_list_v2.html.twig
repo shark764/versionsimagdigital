@@ -1,0 +1,277 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_list_v2.html.twig' %}
+
+{# Permisos proyecciones #}
+{% set _EXPL_ALLOW_CREATE = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_PROYECCION_CREATE') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _EXPL_ALLOW_EDIT = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_PROYECCION_EDIT') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _EXPL_ALLOW_LIST = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_PROYECCION_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _EXPL_ALLOW_VIEW = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_PROYECCION_VIEW') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{# Permisos locales #}
+{% set _EXPLRZ_ALLOW_CREATE = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_PROYECCION_ESTABLECIMIENTO_CREATE') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _EXPLRZ_ALLOW_EDIT = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_PROYECCION_ESTABLECIMIENTO_EDIT') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _EXPLRZ_ALLOW_LIST = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_PROYECCION_ESTABLECIMIENTO_LIST') or is_granted('ROLE_ADMIN') ? true : false %}
+{% set _EXPLRZ_ALLOW_VIEW = is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_PROYECCION_ESTABLECIMIENTO_VIEW') or is_granted('ROLE_ADMIN') ? true : false %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        /*
+         * 
+         * @type String
+         * navbar menu container for bstables
+         */
+        var $pattern_bstable_container  = 'menu-listas-proyecciones';
+        
+	var $explrz_is_granted_changeStatus,
+            $isGranted_addPryLocalList;
+	
+        $isGranted_addPryLocalList      = {% if _EXPL_ALLOW_CREATE == true and (_EXPLRZ_ALLOW_CREATE == true or _EXPLRZ_ALLOW_EDIT == true) %} true {% else %} false {% endif %};
+	
+	$explrz_is_granted_changeStatus	= {% if _EXPLRZ_ALLOW_CREATE == true or _EXPLRZ_ALLOW_EDIT == true %} true {% else %} false {% endif %};
+    </script>
+    
+    {# bootstrap-editable #}
+    {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap-table-master/dist/extensions/editable/bootstrap-table-editable.min.js') }}" ></script>#}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd-label-bootstrap-table-editable.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js') }}" ></script>
+
+    {# scripts minimized with Assetic #}
+    {% javascripts
+	'bundles/minsalsimagd/js/RyxCtlProyeccionRadiologicaAdmin/*'
+	'bundles/minsalsimagd/js/RyxCtlProyeccionEstablecimientoAdmin/*'
+	
+	output="bundles/minsalsimagd/compiled/js/proyecciones.js" %}
+	<script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}
+
+{% block simagd_bs_alert %}
+    {{ parent() }}
+    
+    {% include 'MinsalSimagdBundle:RyxCtlProyeccionRadiologicaAdmin:expl_addPryLocalList_alert.html.twig' %}
+{% endblock %}
+    
+{% block simagd_navbar_menu_label %}
+    <i class="fa fa-th-large"></i> <i class="fa fa-tasks"></i> Proyecciones de Imagenología
+    {#<a   class="navbar-brand" href="javascript:void(0)">Lecturas sin transcripción</a>#}
+{% endblock %}
+
+{% block simagd_navbar_left_nav %}
+    <li class="list-table-link-navbar active {% if _EXPL_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
+	<a   href="javascript:void(0)" id="show-table-general-list" data-divtabletarget="div-resultado-proyecciones"
+	    {% if _EXPL_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+	    <span class="text-info"><i class="fa fa-tasks"></i> </span> Listado general <span class="sr-only">(current)</span>
+	</a>
+    </li>
+    <li class="list-table-link-navbar {% if _EXPLRZ_ALLOW_LIST == false %} disabled link-full-disabled {% endif %}">
+	<a   href="javascript:void(0)" id="show-table-local-list" data-divtabletarget="div-resultado-proyecciones-locales"
+	    {% if _EXPLRZ_ALLOW_LIST == false %} disabled="disabled" {% endif %}>
+	    <span class="text-info"><i class="fa fa-h-square"></i> <i class="fa fa-tasks"></i> </span> Listado local
+	</a>
+    </li>
+{% endblock %}
+
+{% block simagd_navbar_right_nav %}
+    <li class="dropdown">
+	<a   href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="text-info"><i class="fa fa-plus-circle"></i> </span> Registrar <span class="caret"></span></a>
+	<ul class="dropdown-menu" role="menu">
+	    <li {% if _EXPL_ALLOW_CREATE == false %} class="disabled link-full-disabled" {% endif %}>
+		<a   href="javascript:void(0)" id="nuevaProyeccionBtn" {#data-toggle="modal" data-target="#crearProyeccion-modal"#}
+		    {% if _EXPL_ALLOW_CREATE == false %} disabled="disabled" {% endif %}> <span class="glyphicon glyphicon-cog "></span> Nueva proyección
+		</a>
+	    </li>
+	    <li class="divider"></li>
+	    <li {% if _EXPLRZ_ALLOW_CREATE == false %} class="disabled link-full-disabled" {% endif %}>
+		<a   href="javascript:void(0)" id="navbar_btn_crearExplEnLocal" {#data-toggle="modal" data-target="#crearProyeccionLocal-modal"#}
+		    {% if _EXPLRZ_ALLOW_CREATE == false %} disabled="disabled" {% endif %}> <span class="glyphicon glyphicon-home "></span> Agregar a catálogo
+		</a>
+	    </li>
+	</ul>
+    </li>
+{% endblock %}
+    
+{% block sonata_admin_content -%}
+    {#<span class="label label-primary-v4">NO VALIDATED SIGUE DANDO PROBLEMA</span>#}
+    {{ parent() }}
+
+    {% if _EXPL_ALLOW_LIST == true %}
+        <!-- toolbar for table-lista-proyecciones -->
+        {% set code_entity  = 'expl' %}
+        <div id="bs_{{ code_entity }}_toolbar" class="table_bsTable_toolbar"> <!-- toolbar for table-lista-entity -->
+
+            {#<div class="columns columns-left btn-group pull-left">#}
+                <!-- Single button -->
+                <div class="btn-group">
+                    <button type="button"    id="btn_{{ code_entity }}_filter_display" class="btn btn-primary-v4 btn-outline dropdown-toggle btn_filter_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filtrar datos" disabled="disabled">
+                        <i class="glyphicon glyphicon-filter"></i>
+                        Filtrar <span class="caret"></span>
+                    </button>
+                    <!-- Menu -->
+                    <ul class="dropdown-menu table_bsTable_toolbar_menuFilter" id="bs_{{ code_entity }}_menuFilter" >
+                    </ul>
+                </div>
+                <button id="btn_{{ code_entity }}_filter_send" class="btn btn-primary-v4 btn-outline btn_toolbar_filter_send" title="Filtrar" {#disabled#}>
+                    <i class="glyphicon glyphicon-repeat"></i>
+                </button>
+                <button id="btn_{{ code_entity }}_filter_remove" class="btn btn-danger{#default-alternative-version#} btn-outline btn_toolbar_filter_clear" title="Restablecer" {#disabled#}>
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+
+                <!-- --| custom buttons for toolbar -->
+                <span class="btn-separator"></span>
+                
+                <button id="btn_add_pry_locallist" class="btn btn-element-v2 btn-outline btn_add_pry_locallist" title="Agregar a lista local" style="margin-left: 15px" disabled="disabled">
+                    <i class="glyphicon glyphicon-list-alt "></i>
+                </button>
+                <!-- END --| custom buttons for toolbar -->
+            {#</div>#}
+
+        </div> <!-- END --| toolbar for table-lista-proyecciones -->
+        
+	<div id="div-resultado-proyecciones" class="menu-listas-proyecciones" data-refresh-url="{{ path('simagd_proyeccion_generateData') }}">
+	    <table class="table table-condensed" id="table-lista-proyecciones"
+		  data-toggle="table"
+		  data-id-field="expl_id"
+		  data-url="{{ path('simagd_proyeccion_generateData') }}"
+                  data-backup-url="simagd_proyeccion_generateData"
+                  data-toolbar="#bs_expl_toolbar"
+		  {#data-toolbar-align="right"#}
+		  data-cache="false"
+		  data-show-refresh="true"
+		  data-show-toggle="true"
+		  data-show-columns="true"
+		  data-search="true"
+		  data-select-item-name="listaProyeccionesToolbar"
+		  data-pagination="true"
+		  data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+		  data-page-size="10"
+		  {#data-sort-name="id"
+		  data-sort-order="desc"#}
+		  data-classes="table table-hover table-condensed table-no-bordered {#table-striped#} table-bstable-report"
+		  data-height="2170">
+		<thead>
+		    <tr>
+			<th data-field="expl_id" rowspan="2" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" {#data-visible="false"#} data-align="center" data-halign="center" data-sortable="true">ID</th>
+			<th colspan="3">Examen / Grupo</th>
+			<th colspan="{#5#}6">Proyección / Exploración</th>
+			<th colspan="2"><span class="glyphicon glyphicon-cog"></span> Acciones</th>
+		    </tr>
+		    <tr>
+			<th data-field="exm_imgCodigo" data-filter-bstable-apply="true" data-filter-bstable-type="text" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Código</th>
+			<th data-field="exm_descripcion" data-filter-bstable-apply="true" data-filter-bstable-by="exm_id" data-filter-bstable-type="select2" class="col-md-3" data-formatter="simagdDescriptionFormatter" data-align="left" data-halign="center" data-sortable="true">Nombre</th>
+			<th data-field="exm_sexo" {#data-visible="false"#} data-filter-bstable-apply="true" data-filter-bstable-by="sex_id" data-filter-bstable-type="select2" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Sexo</th>
+			<th data-field="expl_codigo" data-filter-bstable-apply="true" data-filter-bstable-type="text" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Código</th>
+			<th data-field="expl_nombre" data-filter-bstable-apply="true" data-filter-bstable-by="expl_id" data-filter-bstable-type="select2" data-switchable="false" class="col-md-3" data-align="left" data-halign="center" data-sortable="true">Nombre</th>
+			<th data-field="expl_tiempoMedico" {#data-visible="false"#} data-formatter="simagdValueInMinutesFormatter" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Médico</th>
+			<th data-field="expl_tiempoOcupacionSala" {#data-visible="false"#} data-formatter="simagdValueInMinutesFormatter" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Sala</th>
+			<th data-field="expl_fechaHoraReg" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Registrada</th>
+			<th data-field="expl_fechaHoraMod" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" {#data-visible="false"#} class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Editada</th>
+			<th data-field="action" data-formatter="actionFormatter" data-events="actionEvents" class="col-md-3" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+                        <th data-field="expl_chk" data-checkbox="true" data-formatter="__pryX_selectableRowFormatter"{# #} class="col-md-1" data-align="center" data-halign="center" data-valign="middle"></th>
+		    </tr>
+		</thead>
+		{#<tfoot>
+		    <tr>
+			<th rowspan="2">&nbsp;</th>
+			<th colspan="3">&nbsp;</th>
+			<th colspan="7">&nbsp;</th>
+			<th colspan="2">&nbsp;</th>
+		    </tr>
+		</tfoot>#}
+	    </table>
+	    
+	    {#<table id="table"
+		  data-toggle="table"
+		  data-url="../json/data1.json">
+		<thead>
+		    <tr>
+			<th colspan="2">Item Detail</th>
+			<th data-field="id" rowspan="2" data-valign="middle">Item ID</th>
+		    </tr>
+		    <tr>
+			<th data-field="name">Item Name</th>
+			<th data-field="price">Item Price</th>
+		    </tr>
+		</thead>
+	    </table>#}
+	    
+	</div>
+    {% endif %}
+
+    {% if _EXPLRZ_ALLOW_LIST == true %}
+        <!-- toolbar for table-lista-proyecciones-locales -->
+        {% include 'MinsalSimagdBundle:Menu:simagd_bstable_toolbar.html.twig' ignore missing with { 'code_entity': 'explrz' } %}
+        <!-- END --| toolbar for table-lista-proyecciones-locales -->
+        
+	<div id="div-resultado-proyecciones-locales" style="display: none;" class="menu-listas-proyecciones" data-refresh-url="{{ path('simagd_proyeccion_establecimiento_generateData') }}">
+	    <table class="table table-condensed" id="table-lista-proyecciones-locales"
+		  data-toggle="table"
+		  data-id-field="explrz_id"
+		  data-url=""
+                  data-backup-url="simagd_proyeccion_establecimiento_generateData"
+                  data-toolbar="#bs_explrz_toolbar"
+		  data-cache="false"
+		  data-show-refresh="true"
+		  data-show-toggle="true"
+		  data-show-columns="true"
+		  data-search="true"
+		  data-select-item-name="listaProyeccionesLocalesToolbar"
+		  data-pagination="true"
+		  data-page-list="[5, 10, 15, 25, 50, 75, 100{#, 200, 300, 500, 1000, All#}]"
+		  {#data-sort-name="id"
+		  data-sort-order="desc"#}
+		  data-classes="table table-hover table-condensed table-no-bordered"
+		  data-height="760">
+		<thead>
+		    <tr style="background-color: #183f52; color: #fff;">
+			{#<th data-field="action" data-switchable="false" class="col-md-2" data-halign="center" data-align="center" data-sortable="false">Acciones</th>#}
+			<th data-field="explrz_id" data-filter-bstable-apply="true" data-filter-bstable-type="number" class="col-md-1" data-visible="false" data-align="center" data-halign="center" data-sortable="true">ID</th>
+			<th data-field="expl_nombre" data-filter-bstable-apply="true" data-filter-bstable-by="expl_id" data-filter-bstable-type="select2" data-switchable="false" class="col-md-4" data-align="left" data-halign="center" data-sortable="true">Nombre</th>
+			<th data-field="expl_codigo" data-filter-bstable-apply="true" data-filter-bstable-type="text" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Código</th>
+			<th data-field="explrz_fechaHoraReg" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Agregada</th>
+			<th data-field="explrz_fechaHoraMod" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Editada</th>
+			<th data-field="explrz_nombreUserReg" data-visible="false" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Agregó</th>
+			<th data-field="explrz_habilitado" data-filter-bstable-apply="true" data-filter-bstable-type="boolean" {% if _EXPLRZ_ALLOW_CREATE == false and _EXPLRZ_ALLOW_EDIT == false %} data-formatter="habilitadaFormatter" {% endif %} data-filter-bstable-data-source="getProyeccionHabilitadaSourceData" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Habilitada</th>
+			<th data-field="expl_fechaHoraReg" data-filter-bstable-apply="true" data-filter-bstable-type="combodate" data-formatter="simagdDateTimeFormatter" data-visible="false" class="col-md-1" data-align="right" data-halign="center" data-sortable="true">Registrada</th>
+			<th data-field="m_nombrearea" data-filter-bstable-apply="true" data-filter-bstable-by="m_id" data-filter-bstable-type="select2" class="col-md-2" data-align="left" data-halign="center" data-sortable="true">Modalidad</th>
+			<th data-field="m_imgCodigo" data-filter-bstable-apply="true" data-filter-bstable-type="text" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Código</th>
+			<th data-field="exm_descripcion" data-filter-bstable-apply="true" data-filter-bstable-by="exm_id" data-filter-bstable-type="select2" class="col-md-4" data-formatter="simagdDescriptionFormatter" data-align="left" data-halign="center" data-sortable="true">Examen</th>
+			<th data-field="exm_imgCodigo" data-filter-bstable-apply="true" data-filter-bstable-type="text" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Código</th>
+			<th data-field="exm_sexo" data-filter-bstable-apply="true" data-filter-bstable-by="sex_id" data-filter-bstable-type="select2" data-visible="false" class="col-md-1" data-align="left" data-halign="center" data-sortable="true">Aplica al sexo</th>
+			<th data-field="action" data-formatter="actionLocalesFormatter" data-events="actionLocalesEvents" class="col-md-2" data-align="left" data-halign="center"><span class="glyphicon glyphicon-cog"></span></th>
+		    </tr>
+		</thead>
+	    </table>
+	</div>
+    {% endif %}
+
+    {# Modal Crear nueva #}
+	{% if _EXPL_ALLOW_CREATE == true or _EXPL_ALLOW_EDIT == true %}
+	    {% include 'MinsalSimagdBundle:RyxCtlProyeccionRadiologicaAdmin:expl_crearProyeccion_modal.html.twig'
+		    ignore missing with { 'modalidades': modalidades, 'examenes': examenes, 'default_mldRx': default_mldRx, 'default_exmRx': default_exmRx } %}
+	{% endif %}
+    {# Modal Agregar en Local #}
+	{% if _EXPLRZ_ALLOW_CREATE == true %}
+	    {% include 'MinsalSimagdBundle:RyxCtlProyeccionRadiologicaAdmin:expl_agregarEnCatalogoLocal_modal.html.twig' ignore missing with { 'modalidades': modalidades, 'default_mldRx': default_mldRx } %}
+	{% endif %}
+    {# Modal Crear nueva en local #}
+	{% if _EXPLRZ_ALLOW_CREATE == true or _EXPLRZ_ALLOW_EDIT == true %}
+	    {% include 'MinsalSimagdBundle:RyxCtlProyeccionEstablecimientoAdmin:explrz_crearProyeccionLocal_modal.html.twig'
+		    ignore missing with { 'modalidades': modalidades, 'examenes': examenes, 'proyecciones': proyecciones, 'default_mldRx': default_mldRx, 'default_exmRx': default_exmRx } %}
+	{% endif %}
+    
+    <!-- form for add rows to local list -->
+    {% if _EXPL_ALLOW_CREATE == true and (_EXPLRZ_ALLOW_CREATE == true or _EXPLRZ_ALLOW_EDIT == true) %}
+        {% include 'MinsalSimagdBundle:RyxCtlProyeccionRadiologicaAdmin:expl_agregarElementosListaLocal_modal.html.twig'
+		ignore missing with { 'modalidades': modalidades, 'examenes': examenes, 'proyecciones': proyecciones, 'default_mldRx': default_mldRx, 'default_exmRx': default_exmRx } %}
+    {% endif %}
+    
+{% endblock %}

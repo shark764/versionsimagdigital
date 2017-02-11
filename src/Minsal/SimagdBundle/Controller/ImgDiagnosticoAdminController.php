@@ -162,7 +162,7 @@ class ImgDiagnosticoAdminController extends MinsalSimagdBundleGeneralAdminContro
         $entityExmFsc = $em->getRepository('MinsalSeguimientoBundle:SecSignosVitales')->findOneBy(array('idhistorialclinico' => $entityHcl->getId()));
         $entityHojaCnt =  $em->getRepository('MinsalSeguimientoBundle:SecMotivoConsulta')->findOneBy(array('idhistorialclinico' => $entityHcl->getId()));
 
-        return $this->render('MinsalSimagdBundle:ImgDiagnosticoAdmin:diag_modal_support.html.twig', array(
+        return $this->render('MinsalSimagdBundle:RyxDiagnosticoRadiologicoAdmin:diag_modal_support.html.twig', array(
             'expedienteInfo' => $entityExp,
             'pacienteInfo' => $entityEst->getIdExpediente()->getIdPaciente(),
             'historiaClinicaInfo' => $entityHcl,

@@ -54,13 +54,13 @@ class ImgCtlMaterialAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgCtlMaterialAdmin:mtrl_edit.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlMaterialAdmin:mtrl_edit.html.twig';
                 break;
             case 'list':
-                return 'MinsalSimagdBundle:ImgCtlMaterialAdmin:mtrl_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlMaterialAdmin:mtrl_list_v2.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgCtlMaterialAdmin:mtrl_show.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlMaterialAdmin:mtrl_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

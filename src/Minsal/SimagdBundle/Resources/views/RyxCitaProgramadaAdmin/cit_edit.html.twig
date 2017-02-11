@@ -1,0 +1,85 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_edit.html.twig' %}
+
+{% set _pacienteTitle = object.idSolicitudEstudio is not null ? object.idSolicitudEstudio.idExpediente.idPaciente|truncate(50) : 'No hay preinscripción' %}
+{% set _citMessageTemplate = action is defined and action == 'edit' ?
+        '<i class="fa fa-tags"></i> <i class="fa fa-pencil-square-o"></i> Edición de Cita programada para: <i>' ~ _pacienteTitle ~ '</i>' :
+        '<i class="fa fa-tags"></i> <i class="fa fa-plus-circle"></i> Programación de cita a paciente preinscrito: <i>' ~ _pacienteTitle ~ '</i>' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    
+    {# FullCalendar #}
+    <link href="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/fullcalendar.min.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxCitaProgramadaAdmin/cit_config_picker.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxCitaProgramadaAdmin/cit_calendar_modal_config.js') }}" ></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxCitaProgramadaAdmin/cit_form_config.js') }}" ></script>
+    
+    {# FullCalendar #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/fullcalendar.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/locale-all.js') }}" ></script>
+    
+    {% include 'MinsalSimagdBundle:RyxCitaProgramadaAdmin:cit_funcionesClienteServidor.js.twig' %}
+    
+    {% include 'MinsalSimagdBundle:RyxCitaProgramadaAdmin:cit_bootstrapValidator.js.twig' %}
+    
+{% endblock %}
+
+{% block actions %}
+    {#<li>{% include 'SonataAdminBundle:Button:show_button.html.twig' %}</li>#}
+    <li>{% include 'SonataAdminBundle:Button:history_button.html.twig' %}</li>
+    <li>{% include 'SonataAdminBundle:Button:acl_button.html.twig' %}</li>
+    <li>{% include 'SonataAdminBundle:Button:list_button.html.twig' %}</li>
+    {#<li>{% include 'SonataAdminBundle:Button:create_button.html.twig' %}</li>#}
+{% endblock %}
+
+{% block simagd_form_navbar_brand_title %}
+    <span class="navbar-brand">
+        <span class="label label-{{ action is defined and action == 'edit' ? 'primary-v4' : 'element-v2' }}"> {{ _citMessageTemplate|raw }} </span>
+    </span>
+{% endblock %}
+    
+{% block form %}
+    {% set cit_vars = { 'simagd_title': 'FORMULARIO PARA PROGRAMACIÓN DE CITA DE IMAGENOLOGÍA',
+                        'simagd_message': 'Llene este formulario para concertar una cita para el paciente preinscrito'
+    }%}
+    {% include 'MinsalSimagdBundle:Menu:simagd_cabecera.html.twig' ignore missing with cit_vars %}
+    
+    {{ block('parentForm') }}
+    
+    {% include 'MinsalSimagdBundle:RyxCitaProgramadaAdmin:cit_calendarioCitasProgramadas.html.twig' %}
+    
+{% endblock %}
+
+{# muestra de información de apoyo #}
+{% block custom_entity_support %}
+    <div id="custom-entity-content-body">
+        {% if object.idSolicitudEstudio is not null %}
+            {{ render(controller( 'MinsalSimagdBundle:RyxCitaProgramadaAdmin:mostrarInformacionModal',
+                                                    { 'idSolicitudEstudioPadre' : object.idSolicitudEstudio.id,
+                                                        'id' : object.id ? object.id : -1,
+                                                        '_sonata_admin' : 'minsal_simagd.admin.img_cita' } )) }}
+        {% endif %}
+    </div>
+{% endblock %}
+    
+{#  http://js-tutorial.com/fullcalendar-full-sized-drag-drop-event-calendar-672
+    http://fullcalendar.io/docs/ 
+#}
+    
+{% block content %}
+    
+    {{ parent() }}
+    
+    <a   href="{{ path('simagd_cita_calendario') }}">Calendario</a>
+    
+    <a   href="{{ path('simagd_cita_agenda') }}">Agenda</a>
+    
+{% endblock %}

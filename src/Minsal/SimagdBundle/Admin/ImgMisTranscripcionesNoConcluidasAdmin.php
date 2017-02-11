@@ -101,7 +101,7 @@ class ImgMisTranscripcionesNoConcluidasAdmin extends MinsalSimagdBundleGeneralAd
     {
         switch ($name) {
             case 'list':
-                return 'MinsalSimagdBundle:ImgPendienteTranscripcionAdmin:pndT_personal_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxLecturaPendienteTranscripcionAdmin:pndT_personal_list_v2.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

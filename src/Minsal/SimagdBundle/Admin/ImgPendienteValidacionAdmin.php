@@ -100,7 +100,7 @@ class ImgPendienteValidacionAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'list':
-                return 'MinsalSimagdBundle:ImgPendienteValidacionAdmin:pndV_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxDiagnosticoPendienteValidacionAdmin:pndV_list_v2.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

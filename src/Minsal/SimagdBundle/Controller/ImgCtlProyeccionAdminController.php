@@ -211,7 +211,7 @@ class ImgCtlProyeccionAdminController extends MinsalSimagdBundleGeneralAdminCont
 
         $modalidades = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesImagenologia($areaAtn);
 
-        return $this->render('MinsalSimagdBundle:ImgCtlProyeccionAdmin:expl_modalidadesComboBox.html.twig', array('modalidades' => $modalidades->getQuery()->getResult()));
+        return $this->render('MinsalSimagdBundle:RyxCtlProyeccionRadiologicaAdmin:expl_modalidadesComboBox.html.twig', array('modalidades' => $modalidades->getQuery()->getResult()));
     }
 
     public function crearProyeccionAction(Request $request)

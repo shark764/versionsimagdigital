@@ -434,22 +434,22 @@ class ImgCitaAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgCitaAdmin:cit_edit.html.twig';
+                return 'MinsalSimagdBundle:RyxCitaProgramadaAdmin:cit_edit.html.twig';
                 break;
             case 'list':
-                return 'MinsalSimagdBundle:ImgCitaAdmin:cit_agenda.html.twig';
+                return 'MinsalSimagdBundle:RyxCitaProgramadaAdmin:cit_agenda.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgCitaAdmin:cit_show.html.twig';
+                return 'MinsalSimagdBundle:RyxCitaProgramadaAdmin:cit_show.html.twig';
                 break;
             // case 'calendario':
-            //     return 'MinsalSimagdBundle:ImgCitaAdmin:cit_calendario.html.twig';
+            //     return 'MinsalSimagdBundle:RyxCitaProgramadaAdmin:cit_calendario.html.twig';
             //     break;
             case 'agenda':
-                return 'MinsalSimagdBundle:ImgCitaAdmin:cit_agenda.html.twig';
+                return 'MinsalSimagdBundle:RyxCitaProgramadaAdmin:cit_agenda.html.twig';
                 break;
             case 'print':
-                return 'MinsalSimagdBundle:ImgCitaAdmin:cit_print.html.twig';
+                return 'MinsalSimagdBundle:RyxCitaProgramadaAdmin:cit_print.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

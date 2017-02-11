@@ -223,13 +223,13 @@ class ImgNotaDiagnosticoAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgNotaDiagnosticoAdmin:notdiag_edit.html.twig';
+                return 'MinsalSimagdBundle:RyxDiagnosticoSegundaOpinionMedicaAdmin:notdiag_edit.html.twig';
                 break;
             case 'list':
-                return 'MinsalSimagdBundle:ImgNotaDiagnosticoAdmin:notdiag_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxDiagnosticoSegundaOpinionMedicaAdmin:notdiag_list_v2.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgNotaDiagnosticoAdmin:notdiag_show.html.twig';
+                return 'MinsalSimagdBundle:RyxDiagnosticoSegundaOpinionMedicaAdmin:notdiag_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

@@ -46,13 +46,13 @@ class ImgCtlPreparacionEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgCtlPreparacionEstudioAdmin:indCit_edit.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlPreparacionEstudioAdmin:indCit_edit.html.twig';
                 break;
             case 'list':
-                return 'MinsalSimagdBundle:ImgCtlPreparacionEstudioAdmin:indCit_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlPreparacionEstudioAdmin:indCit_list_v2.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgCtlPreparacionEstudioAdmin:indCit_show.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlPreparacionEstudioAdmin:indCit_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

@@ -156,13 +156,13 @@ class ImgCtlConfiguracionAgendaAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgCtlConfiguracionAgendaAdmin:prmCit_edit.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlConfiguracionAgendaAdmin:prmCit_edit.html.twig';
                 break;
             case 'list':
                 return 'MinsalSimagdBundle::simagd_base_list.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgCtlConfiguracionAgendaAdmin:prmCit_show.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlConfiguracionAgendaAdmin:prmCit_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

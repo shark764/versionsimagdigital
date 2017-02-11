@@ -930,16 +930,16 @@ class ImgProcedimientoRealizadoAdmin extends Admin {
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgProcedimientoRealizadoAdmin:prz_edit.html.twig';
+                return 'MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizadoAdmin:prz_edit.html.twig';
                 break;
             case 'list':
-                return 'MinsalSimagdBundle:ImgProcedimientoRealizadoAdmin:prz_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizadoAdmin:prz_list_v2.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgProcedimientoRealizadoAdmin:prz_show.html.twig';
+                return 'MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizadoAdmin:prz_show.html.twig';
                 break;
             case 'diagnostico':
-                return 'MinsalSimagdBundle:ImgProcedimientoRealizadoAdmin:prz_diagnostico.html.twig';
+                return 'MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizadoAdmin:prz_diagnostico.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

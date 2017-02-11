@@ -1,0 +1,165 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_edit.html.twig' %}
+
+{% set _pacienteTitle = object.idSolicitudEstudio is not null ? object.idSolicitudEstudio.idExpediente.idPaciente|truncate(50) : 'No hay solicitud de estudio' %}
+{% set _przMessageTemplate = action is defined and action == 'edit' ?
+        '<i class="fa fa-desktop"></i> <i class="fa fa-pencil-square-o"></i> ' ~ _pacienteTitle :
+        '<i class="fa fa-desktop"></i> <i class="fa fa-plus-circle"></i> ' ~ _pacienteTitle %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    
+    {# iCheck #}
+    <link href="{{ asset('bundles/minsalsimagd/plugin/icheck-1.x/skins/minimal/red.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        /*
+         * from simagd base edit template
+         * @returns {undefined}
+         */
+	$is_objectAllowToSwitch     = {% if object.getIdSolicitudEstudio() is not null %} true {% else %} false {% endif %};
+	
+	console.log($is_objectAllowToSwitch);
+    </script>
+
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_each_values_array.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxProcedimientoRadiologicoRealizadoAdmin/prz_form_config.js') }}" ></script>
+    
+    {#{% include 'MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizadoAdmin:prz_funcionesClienteServidor.js.twig' %}#}
+    
+    {#{% include 'MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizadoAdmin:prz_bootstrapValidator.js.twig' %}#}
+{% endblock %}
+
+{% block actions %}
+    {#<li>{% include 'SonataAdminBundle:Button:show_button.html.twig' %}</li>#}
+    <li>{% include 'SonataAdminBundle:Button:history_button.html.twig' %}</li>
+    <li>{% include 'SonataAdminBundle:Button:acl_button.html.twig' %}</li>
+    <li>{% include 'SonataAdminBundle:Button:list_button.html.twig' %}</li>
+    {#<li>{% include 'SonataAdminBundle:Button:create_button.html.twig' %}</li>#}
+{% endblock %}
+
+{% block simagd_form_navbar_brand_title %}
+    <span class="navbar-brand">
+        <span class="label label-{{ action is defined and action == 'edit' ? 'primary-v4' : 'element-v2' }}"> {{ _przMessageTemplate|raw }} </span>
+    </span>
+{% endblock %}
+    
+{% block form %}
+    {#<span class="label label-success"> EL TRIGGER PARA MATERIALES UTZ, DEBE VER INSERT/UPDATE/DELETE </span><br/>
+    <span class="label label-success"> EL TRIGGER PARA MATERIALES UTZ, TAMBIEN DEBE VER SI SE CAMBIA EL MATERIAL, OLD.IDMAT != NEW.IDMAT </span><br/>
+    <span class="label label-danger"> CUANDO SE REGISTRA UN PRZ NO ALMACENADO, NO TIENE FORMA DE IRSE EL PNDR CON PRZ_INICIADO </span><br/>
+    <span class="label label-primary-v4"> QUITAR LO DE BLOQUEAR ESTADO, XQ SOLO EVALUA POR EL PRC, MEJOR QUITARLO O QUITAR TODOS EN TODOS LOS ADMIN </span><br/>#}
+    {#{% set prz_vars = { 'simagd_title': 'FORMULARIO PARA REGISTRAR EXAMEN REALIZADO',
+                        'simagd_message': 'Llene este formulario para registrar los datos post-examen del procedimiento realizado al paciente'
+    }%}
+    {% include 'MinsalSimagdBundle:Menu:simagd_cabecera.html.twig' ignore missing with prz_vars %}#}
+    
+    <div id="switch_item_container_history" class="bsswitch-container" style="display: none;" >
+        {% block bsswitch_container %}
+        <div id="bs_container_history">
+            {% if object.getIdSolicitudEstudio() is not null %}
+                {% include 'MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizadoAdmin:prz_bsswitch_history.html.twig' ignore missing with {'object': object} %}
+            {% endif %}
+        </div>
+        {% endblock %}
+    </div>
+
+    <div id="switch_item_container_form" class="bsswitch-container" >
+{#        {{ block('parentForm') }}#}
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{# muestra de información de apoyo
+{% block custom_entity_support %}
+    <div id="custom-entity-content-body">
+        {% if object.idSolicitudEstudio is not null and 2 == 3 %}
+            {{ render(controller( 'MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizadoAdmin:mostrarInformacionModal',
+                                                    { 'idSolicitudEstudioPadre' : object.idSolicitudEstudio.id,
+                                                        'idCitaProgramada' : object.idCitaProgramada ? object.idCitaProgramada.id : -1,
+                                                        'id' : object.id ? object.id : -1,
+                                                        '_sonata_admin' : 'minsal_simagd.admin.img_procedimiento_realizado' } )) }}
+        {% endif %}
+    </div>
+{% endblock %} #}
+
+{% block formactions %}
+    <div class="well well-small form-actions">
+        {% if app.request.isxmlhttprequest %}
+            {% if admin.id(object) is not null %}
+                <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_update"><i class="fa fa-save"></i> {{ 'btn_update'|trans({}, 'SonataAdminBundle') }}</button>
+            {% else %}
+                <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_create"><i class="fa fa-plus-circle"></i> {{ 'btn_create'|trans({}, 'SonataAdminBundle') }}</button>
+            {% endif %}
+        {% else %}
+            {% if admin.supportsPreviewMode %}
+                <button class="btn btn-info persist-preview" name="btn_preview" type="submit">
+                    <i class="fa fa-eye"></i>
+                    {{ 'btn_preview'|trans({}, 'SonataAdminBundle') }}
+                </button>
+            {% endif %}
+            {% if admin.id(object) is not null %}
+                {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_ADMIN') %}
+                    <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_edit_and_diagnosticate"><i class="fa fa-save"></i> <i class="fa fa-microphone"></i> Guardar</button>
+                {% endif %}
+		<button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_update_and_edit"><i class="fa fa-save"></i> Guardar</button>
+
+                {#{% if admin.hasroute('list') and admin.isGranted('LIST') %}
+                    <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_update_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                {% endif %}#}
+
+                {% if admin.hasroute('delete') and admin.isGranted('DELETE', object) %}
+                    {{ 'delete_or'|trans({}, 'SonataAdminBundle') }}
+                    <a   class="btn btn-danger btn-outline" href="{{ admin.generateObjectUrl('delete', object) }}"><i class="fa fa-minus-circle"></i> {{ 'link_delete'|trans({}, 'SonataAdminBundle') }}</a>
+                {% endif %}
+
+                {% if admin.isAclEnabled() and admin.hasroute('acl') and admin.isGranted('MASTER', object) %}
+                    <a   class="btn btn-info" href="{{ admin.generateObjectUrl('acl', object) }}"><i class="fa fa-users"></i> {{ 'link_edit_acl'|trans({}, 'SonataAdminBundle') }}</a>
+                {% endif %}
+
+		{% for estudio in object.examenEstudio %}
+		    <a   class="btn btn-primary-v4 btn-outline" href="{{ estudio.url|raw|trim|default('javascript:void(0)') }}" target="_blank" title="Recuperar estudio realizado"
+			{% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN') ) %}
+			    disabled="disabled"
+			{% endif %}>
+			<i class="fa fa-eye"></i> Recuperar estudio
+		    </a>
+		{% endfor %}
+
+		{% for examen in object.examenPendienteRealizar %}
+		    {#<a   class="btn btn-danger btn-outline" href="javascript:void(0)" title="Recuperar examen realizado">
+			<i class="fa fa-eye"></i> Recuperar examen {{ examen.id }}
+		    </a>#}
+		    <span class="label label-danger">
+			Pendiente desde: {{ examen.fechaIngresoLista|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ examen.fechaIngresoLista|date('H:i:s A') }}
+		    </span>
+		{% endfor %}
+            {% else %}
+                {% if admin.hasroute('edit') and admin.isGranted('EDIT') %}
+		    {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_ADMIN') %}
+			<button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_create_and_diagnosticate"><i class="fa fa-save"></i> <i class="fa fa-microphone"></i> Guardar</button>
+		    {% endif %}
+		    <button class="btn btn-primary-v4 btn-outline" type="submit" name="btn_create_and_edit"><i class="fa fa-save"></i> Guardar</button>
+                {% endif %}
+                {#{% if admin.hasroute('list') and admin.isGranted('LIST') %}
+                    <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_create_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                {% endif %}#}
+                {#<button class="btn btn-primary-v4 btn-outline" type="submit" name="btn_create_and_create"><i class="fa fa-plus-circle"></i> Guardar</button>#}
+
+		{% for examen in object.examenPendienteRealizar %}
+		    {#<a   class="btn btn-danger btn-outline" href="javascript:void(0)" title="Recuperar examen realizado">
+			<i class="fa fa-eye"></i> Recuperar examen {{ examen.id }}
+		    </a>#}
+		    <span class="label label-primary-v4">
+			Pendiente desde: {{ examen.fechaIngresoLista|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ examen.fechaIngresoLista|date('H:i:s A') }}
+		    </span>
+		{% endfor %}
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock formactions %}

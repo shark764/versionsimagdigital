@@ -341,13 +341,13 @@ class ImgSolicitudDiagnosticoAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgSolicitudDiagnosticoAdmin:soldiag_edit.html.twig';
+                return 'MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudioAdmin:soldiag_edit.html.twig';
                 break;
             case 'list':
-                return 'MinsalSimagdBundle:ImgSolicitudDiagnosticoAdmin:soldiag_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudioAdmin:soldiag_list_v2.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgSolicitudDiagnosticoAdmin:soldiag_show.html.twig';
+                return 'MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudioAdmin:soldiag_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

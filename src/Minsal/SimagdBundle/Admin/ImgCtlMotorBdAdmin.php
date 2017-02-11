@@ -79,13 +79,13 @@ class ImgCtlMotorBdAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgCtlMotorBdAdmin:mtrBd_edit.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlMotorBdAdmin:mtrBd_edit.html.twig';
                 break;
             case 'list':
                 return 'MinsalSimagdBundle::simagd_base_list.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgCtlMotorBdAdmin:mtrBd_show.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlMotorBdAdmin:mtrBd_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

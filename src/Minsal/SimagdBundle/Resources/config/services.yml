@@ -19,7 +19,7 @@ services:
         tags:
             - {name: sonata.admin, manager_type: orm, group: CTI-1-Catalogos, label: Proyecciones}
 #        calls:
-#            - [setTemplate, [edit, MinsalSimagdBundle:ImgCtlProyeccionAdmin:expl_edit.html.twig]]
+#            - [setTemplate, [edit, MinsalSimagdBundle:RyxCtlProyeccionRadiologicaAdmin:expl_edit.html.twig]]
 
     #EXPLORACIONES REALIZABLES
     minsal_simagd.admin.img_ctl_proyeccion_establecimiento:
@@ -29,7 +29,7 @@ services:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 #            - {name: sonata.admin, manager_type: orm, group: CTI-1-Catalogos, label: Proyecciones Realizables}
 #        calls:
-#            - [setTemplate, [edit, MinsalSimagdBundle:ImgCtlProyeccionEstablecimientoAdmin:explrz_edit.html.twig]]
+#            - [setTemplate, [edit, MinsalSimagdBundle:RyxCtlProyeccionEstablecimientoAdmin:explrz_edit.html.twig]]
 
     #NUEVA MODALIDAD
     minsal_siaps.admin.ctl_area_servicio_diagnostico:
@@ -61,7 +61,7 @@ services:
         tags:
             - {name: sonata.admin, manager_type: orm, group: PI-1-Solicitud, label: Solicitudes}
 #        calls:
-#            - [setTemplate, [edit, MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_edit.html.twig]]
+#            - [setTemplate, [edit, MinsalSimagdBundle:RyxSolicitudEstudioAdmin:prc_edit.html.twig]]
 
     minsal_simagd.admin.img_solicitud_estudio_proyeccion:
         class: Minsal\SimagdBundle\Admin\ImgSolicitudEstudioProyeccionAdmin
@@ -77,7 +77,7 @@ services:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 #            - {name: sonata.admin, manager_type: orm, group: PI-1-Solicitud, label: Solicitudes de Diagnóstico}
 #        calls:
-#            - [setTemplate, [edit, MinsalSimagdBundle:ImgSolicitudDiagnosticoAdmin:soldiag_edit.html.twig]]
+#            - [setTemplate, [edit, MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudioAdmin:soldiag_edit.html.twig]]
 
     #admin para citas  Codigo 'CI' label Citas de Imagenología
     minsal_simagd.admin.img_cita:
@@ -86,7 +86,7 @@ services:
         tags:
             - {name: sonata.admin, manager_type: orm, group: CI-1-Citas de Imagenología, label: Agenda}
 #        calls:
-#            - [setTemplate, [edit, MinsalSimagdBundle:ImgCitaAdmin:cit_edit.html.twig]]
+#            - [setTemplate, [edit, MinsalSimagdBundle:RyxCitaProgramadaAdmin:cit_edit.html.twig]]
 
     #admin para citas Codigo 'CI' label Citas de Imagenologia
     minsal_simagd.admin.img_ctl_configuracion_agenda:
@@ -130,7 +130,7 @@ services:
         tags:
             - {name: sonata.admin, manager_type: orm, group: IM-1-Imagenes Médicas, label: Exámenes Registrados}
 #        calls:
-#            - [setTemplate, [edit, MinsalSimagdBundle:ImgProcedimientoRealizadoAdmin:prz_edit.html.twig]]
+#            - [setTemplate, [edit, MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizadoAdmin:prz_edit.html.twig]]
 
     #admin para imagenes medicas Codigo 'IM' label Imagenes Medicas
     minsal_simagd.admin.img_estudio_paciente:
@@ -139,7 +139,7 @@ services:
         tags:
             - {name: sonata.admin, manager_type: orm, group: IM-1-Imagenes Médicas, label: Búsqueda de estudios}
         #calls:
-           # - [setTemplate, [list, MinsalSimagdBundle:ImgEstudioPacienteAdmin:list.html.twig]]
+           # - [setTemplate, [list, MinsalSimagdBundle:RyxEstudioPorImagenesAdmin:list.html.twig]]
 
     #LISTA DE LECTURA
     minsal_simagd.admin.img_pendiente_lectura:
@@ -162,7 +162,7 @@ services:
         tags:
             - {name: sonata.admin, manager_type: orm, group: DI-1-Diagnosticos, label: Resultados}
 #        calls:
-#            - [setTemplate, [edit, MinsalSimagdBundle:ImgLecturaAdmin:lct_edit.html.twig]]
+#            - [setTemplate, [edit, MinsalSimagdBundle:RyxLecturaRadiologicaAdmin:lct_edit.html.twig]]
 
     minsal_simagd.admin.img_pendiente_transcripcion:
         class: Minsal\SimagdBundle\Admin\ImgPendienteTranscripcionAdmin
@@ -185,7 +185,7 @@ services:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 #            - {name: sonata.admin, manager_type: orm, group: DI-1-Diagnosticos, label: Diagnósticos}
 #        calls:
-#            - [setTemplate, [edit, MinsalSimagdBundle:ImgDiagnosticoAdmin:diag_edit.html.twig]]
+#            - [setTemplate, [edit, MinsalSimagdBundle:RyxDiagnosticoRadiologicoAdmin:diag_edit.html.twig]]
 
     minsal_simagd.admin.busqueda_diagnostico:
         class: Minsal\SimagdBundle\Admin\BusquedaDiagnosticoAdmin
@@ -210,7 +210,7 @@ services:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 #            - {name: sonata.admin, manager_type: orm, group: DI-1-Diagnosticos, label: Notas de Diagnósticos}
 #        calls:
-#            - [setTemplate, [edit, MinsalSimagdBundle:ImgNotaDiagnosticoAdmin:notdiag_edit.html.twig]]
+#            - [setTemplate, [edit, MinsalSimagdBundle:RyxDiagnosticoSegundaOpinionMedicaAdmin:notdiag_edit.html.twig]]
 
     minsal_seguimiento.admin.sec_historial_clinico:
         class: Minsal\SeguimientoBundle\Admin\SecHistorialClinicoAdmin

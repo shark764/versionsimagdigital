@@ -35,13 +35,13 @@ class ImgSolicitudEstudioComplementarioAdmin extends MinsalSimagdBundleGeneralAd
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgSolicitudEstudioComplementarioAdmin:solcmpl_edit.html.twig';
+                return 'MinsalSimagdBundle:RyxSolicitudEstudioComplementarioAdmin:solcmpl_edit.html.twig';
                 break;
             case 'list':
-                return 'MinsalSimagdBundle:ImgSolicitudEstudioComplementarioAdmin:solcmpl_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxSolicitudEstudioComplementarioAdmin:solcmpl_list_v2.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgSolicitudEstudioComplementarioAdmin:solcmpl_show_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxSolicitudEstudioComplementarioAdmin:solcmpl_show_v2.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

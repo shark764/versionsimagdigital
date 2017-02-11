@@ -254,13 +254,13 @@ class ImgCtlPacsEstablecimientoAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgCtlPacsEstablecimientoAdmin:conexion-edit.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlConexionPacsEstablecimientoAdmin:conexion-edit.html.twig';
                 break;
             case 'list':
-                return 'MinsalSimagdBundle:ImgCtlPacsEstablecimientoAdmin:pacs_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlConexionPacsEstablecimientoAdmin:pacs_list_v2.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgCtlPacsEstablecimientoAdmin:pacs_show.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlConexionPacsEstablecimientoAdmin:pacs_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

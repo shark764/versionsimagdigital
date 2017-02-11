@@ -341,7 +341,7 @@ class ImgProcedimientoRealizadoAdminController extends MinsalSimagdBundleGeneral
         //Cita programada, si existe
         $entityCit = $em->getRepository('MinsalSimagdBundle:ImgCita')->find($idCitaProgramada);
 
-        return $this->render('MinsalSimagdBundle:ImgProcedimientoRealizadoAdmin:prz_modal_support.html.twig', array(
+        return $this->render('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizadoAdmin:prz_modal_support.html.twig', array(
             'expedienteInfo' => $entityExp,
             'pacienteInfo' => $entityPrc->getIdExpediente()->getIdPaciente(),
             'historiaClinicaInfo' => $entityHcl,
@@ -363,7 +363,7 @@ class ImgProcedimientoRealizadoAdminController extends MinsalSimagdBundleGeneral
         $entityEst = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')
 				->findOneBy(array('idProcedimientoRealizado' => $id));
 
-        return $this->render('MinsalSimagdBundle:ImgProcedimientoRealizadoAdmin:prz_recuperarEstudio.html.twig', array(
+        return $this->render('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizadoAdmin:prz_recuperarEstudio.html.twig', array(
             'estudioPacienteObject' => $entityEst,
         ));
     }

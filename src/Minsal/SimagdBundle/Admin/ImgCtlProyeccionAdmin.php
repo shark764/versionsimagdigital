@@ -301,13 +301,13 @@ class ImgCtlProyeccionAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgCtlProyeccionAdmin:expl_edit.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlProyeccionRadiologicaAdmin:expl_edit.html.twig';
                 break;
             case 'list':
-                return 'MinsalSimagdBundle:ImgCtlProyeccionAdmin:expl_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlProyeccionRadiologicaAdmin:expl_list_v2.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgCtlProyeccionAdmin:expl_show.html.twig';
+                return 'MinsalSimagdBundle:RyxCtlProyeccionRadiologicaAdmin:expl_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

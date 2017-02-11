@@ -1,0 +1,78 @@
+{% extends 'SonataAdminBundle::layout.html.twig' %}
+{%block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{ asset('bundles/minsalsiaps/css/MntPacienteAdmin/list.css') }}" type="text/css" media="all" />  
+{% endblock %}
+
+{%block javascripts %}
+    {{parent()}}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsiaps/js/datepicker/jquery.ui.datepicker-es.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsiaps/js/maskedinput/jquery.maskedinput.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxEstudioPorImagenesAdmin/ImgEstudioPaciente_list_v2.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsiaps/js/funciones_generales.js') }}" ></script>
+{% endblock %}
+{% block sonata_admin_content -%}
+    <h4><img class="icono" src={{ asset('bundles/minsalsimagd/images/search.jpg') }} />Buscar Exámenes</h4>
+    <br/>
+    <form id="buscarForm" method="post" >
+        <table class="table table-bordered ">
+            <tbody>
+                <tr>
+                    <td class="sonata-ba-list-field-header "><strong>N° DE EXPEDIENTE</strong></td>
+                    <td><input id="nec" name="nec" type="text" class="nombres form-control"  maxlength="10" /></td>
+                    
+                    <td class="sonata-ba-list-field-header "><strong>Realizado Desde:</td>
+                    <td><input id="fecha_desde" name="fecha_desde" type="text" class="fecha form-control" /></td>
+                    
+                    <td class="sonata-ba-list-field-header "><strong>Realizado Hasta:</td>
+                    <td><input id="fecha_hasta" name="fecha_hasta" type="text" class="fecha form-control" /></td>
+                   
+                </tr>
+                
+                <tr>
+                    <td class="sonata-ba-list-field-header "><strong>Fecha Nacimiento:</strong></td>
+                    <td><input id="fecha_nacimiento" name="fecha_nacimiento" type="text" class="fecha form-control" /></td>
+                    <td class="sonata-ba-list-field-header "><strong>Primer Nombre: *</strong></td>
+                    <td><input id="primer_nombre" name="primer_nombre" type="text" class="nombres form-control"  maxlength="25"/></td>
+                    <td class="sonata-ba-list-field-header "><strong>Primer Apellido:*</strong></td>
+                    <td><input id="primer_apellido" name="primer_apellido" class="nombres form-control" type="text"  maxlength="25"/></td>
+                    
+                </tr>
+                <tr>
+                    <td class="sonata-ba-list-field-header "><strong>DUI: </strong></td>
+                    <td><input id="dui" name="dui" type="text" class="nombres form-control" /></td>
+                    <td class="sonata-ba-list-field-header "><strong>Conocido por:</strong></td>
+                    <td colspan="3"><input id="conocido_por" name="conocido_por" type="text"  class="nombresLargos form-control"  maxlength="20" /></td>
+                </tr>
+                
+                <tr>
+                    <td colspan="6" class="no-bottom-border">
+                        <div class="pull-right">
+                            {#<a   id="capturar" class="btn btn-info" href="{{ admin.generateUrl('create') }}">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                Capturar Datos
+                            </a>#}
+                            
+                            <a   id="Btnbuscar" class="btn btn-primary-v4 btn-outline" href="">
+                                <span class="glyphicon glyphicon-search"></span>
+                                Buscar
+                            </a>
+
+                            {#<a   id="buscarGlobal" class="btn btn-primary-v4 btn-outline" href="">
+                                <span class="glyphicon glyphicon-search"></span>
+                                Buscar Global
+                            </a>#}
+                            <a   id="limpiar" class="btn btn-primary-v4 btn-outline" href="">
+                                <span class="glyphicon glyphicon-trash"></span>
+                                Limpiar
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <div id="resultadoBusqueda"></div>
+    <br><br>
+{% endblock -%}
+

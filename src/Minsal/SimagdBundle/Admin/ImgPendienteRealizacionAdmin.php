@@ -60,7 +60,7 @@ class ImgPendienteRealizacionAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'list':
-                return 'MinsalSimagdBundle:ImgPendienteRealizacionAdmin:pndR_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxExamenPendienteRealizacionAdmin:pndR_list_v2.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

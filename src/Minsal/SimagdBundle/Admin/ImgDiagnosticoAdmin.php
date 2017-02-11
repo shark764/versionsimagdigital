@@ -368,13 +368,13 @@ class ImgDiagnosticoAdmin extends Admin {
     {
         switch ($name) {
             case 'edit':
-                return 'MinsalSimagdBundle:ImgDiagnosticoAdmin:diag_edit.html.twig';
+                return 'MinsalSimagdBundle:RyxDiagnosticoRadiologicoAdmin:diag_edit.html.twig';
                 break;
             case 'list':
-                return 'MinsalSimagdBundle:ImgDiagnosticoAdmin:diag_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxDiagnosticoRadiologicoAdmin:diag_list_v2.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgDiagnosticoAdmin:diag_show.html.twig';
+                return 'MinsalSimagdBundle:RyxDiagnosticoRadiologicoAdmin:diag_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

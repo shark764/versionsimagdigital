@@ -401,7 +401,7 @@ class ImgLecturaAdminController extends MinsalSimagdBundleGeneralAdminController
         $entityExmFsc = $em->getRepository('MinsalSeguimientoBundle:SecSignosVitales')->findOneBy(array('idhistorialclinico' => $entityHcl->getId()));
         $entityHojaCnt =  $em->getRepository('MinsalSeguimientoBundle:SecMotivoConsulta')->findOneBy(array('idhistorialclinico' => $entityHcl->getId()));
 
-        return $this->render('MinsalSimagdBundle:ImgLecturaAdmin:lct_modal_support.html.twig', array(
+        return $this->render('MinsalSimagdBundle:RyxLecturaRadiologicaAdmin:lct_modal_support.html.twig', array(
             'expedienteInfo' => $entityExp,
             'pacienteInfo' => $entityEst->getIdExpediente()->getIdPaciente(),
             'historiaClinicaInfo' => $entityHcl,
@@ -424,7 +424,7 @@ class ImgLecturaAdminController extends MinsalSimagdBundleGeneralAdminController
         $entitySolDiag = $em->getRepository('MinsalSimagdBundle:ImgSolicitudDiagnostico')
                                         ->findOneBy(array('idEstudio' => $idEstudioPadre,));
 
-        return $this->render('MinsalSimagdBundle:ImgLecturaAdmin:lct_rowProximaConsulta.html.twig', array(
+        return $this->render('MinsalSimagdBundle:RyxLecturaRadiologicaAdmin:lct_rowProximaConsulta.html.twig', array(
             'soldiagProximaConsulta' => $entitySolDiag->getFechaProximaConsulta(),
             'warningRow' => $warningRow,
             'dangerRow' => $dangerRow,

@@ -58,7 +58,7 @@ class ImgMisLecturasNoConcluidasAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         switch ($name) {
             case 'list':
-                return 'MinsalSimagdBundle:ImgPendienteLecturaAdmin:pndL_personal_list_v2.html.twig';
+                return 'MinsalSimagdBundle:RyxEstudioPendienteLecturaAdmin:pndL_personal_list_v2.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);
