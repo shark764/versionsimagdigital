@@ -13,37 +13,37 @@
              */
             window.__RADIOLOGICALRESULT_MENU_ACTIONEVENTS__ = {
                 'click .radiologicalresult_show_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
                 'click .radiologicalresult_edit_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_lectura_edit', {id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
                 'click .radiologicalresult_delete_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
                     // window.location.href = url; // simulate link click
                 },
                 'click .radiologicalresult_goto_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'undiagnosed_studies', lct_id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
                 'click .radiologicalresult_checktranscript_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'transcribed_diagnosis', lct_id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
                 'click .radiologicalresult_studydownload_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
                     // window.location.href = url; // simulate link click
                 },
                 'click .radiologicalresult_create_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_lectura_create', {id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },

@@ -88,7 +88,7 @@ class RyxCtlPatronDiagnosticoListViewGenerator extends RyxEntityListViewGenerato
                         'field' => 'radiologo',
                         'sortable' => true,
                         'title' => 'Radiólogo',
-                        'class' => 'bstable-column-radiology',
+                        'class' => 'bstable-column-highlighted',
                     ),
                     array(
                         'field' => 'tipo_resultado',

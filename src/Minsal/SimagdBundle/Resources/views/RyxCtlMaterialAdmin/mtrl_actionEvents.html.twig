@@ -13,27 +13,27 @@
              */
             window.__MATERIALS_MENU_ACTIONEVENTS__ = {
                 'click .materials_show_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_material_show', {id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
                 'click .materials_edit_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_material_edit', {id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
                 'click .materials_delete_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_material_delete', {id: row.id, mode: 'ajax', confirmation: false});
                     // window.location.href = url; // simulate link click
                 },
                 'click .materials_create_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_material_create', {id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
                 'click .materials_addtolocal_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_material_create', {id: row.id, mode: 'ajax', confirmation: false});
                     // window.location.href = url; // simulate link click
                 },

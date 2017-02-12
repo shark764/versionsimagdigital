@@ -13,42 +13,42 @@
              */
             window.__UNDIAGNOSEDSTUDIESWORKLIST_MENU_ACTIONEVENTS__ = {
                 'click .undiagnosedstudiesworklist_show_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_sin_lectura_show', {id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
                 'click .undiagnosedstudiesworklist_edit_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_sin_lectura_edit', {id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
                 'click .undiagnosedstudiesworklist_delete_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_sin_lectura_delete', {id: row.id, mode: 'ajax', confirmation: false});
                     // window.location.href = url; // simulate link click
                 },
                 'click .undiagnosedstudiesworklist_save_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_sin_lectura_save', {id: row.id, mode: 'ajax', confirmation: false});
                     // window.location.href = url; // simulate link click
                 },
                 'click .undiagnosedstudiesworklist_saveandclose_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_sin_lectura_saveandclose', {id: row.id, mode: 'ajax', confirmation: false});
                     // window.location.href = url; // simulate link click
                 },
                 'click .undiagnosedstudiesworklist_goto_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_lectura_create', {id: row.id, worklist_id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
                 'click .undiagnosedstudiesworklist_studydownload_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_sin_lectura_create', {id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
                 'click .undiagnosedstudiesworklist_create_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_sin_lectura_create', {id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },

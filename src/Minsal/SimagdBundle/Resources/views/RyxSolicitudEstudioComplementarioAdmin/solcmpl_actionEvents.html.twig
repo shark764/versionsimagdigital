@@ -13,32 +13,32 @@
              */
             window.__FURTHERSTUDYREQUEST_MENU_ACTIONEVENTS__ = {
                 'click .furtherstudyrequest_show_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_solicitud_estudio_complementario_show', {id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
                 'click .furtherstudyrequest_edit_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_solicitud_estudio_complementario_edit', {id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
                 'click .furtherstudyrequest_delete_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_solicitud_estudio_complementario_delete', {id: row.id, confirmation: false});
                     // window.location.href = url; // simulate link click
                 },
                 'click .furtherstudyrequest_studydownload_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_lectura_show', {id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
                 'click .furtherstudyrequest_create_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_solicitud_estudio_complementario_create', {id: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
                 'click .furtherstudyrequest_addtothis_action': function (e, value, row, index) {
-                    window.console.log(e, value, row, index);
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
                     var url = Routing.generate('simagd_solicitud_estudio_complementario_create', {id: row.id, preview: row.id, mode: 'standard'});
                     // window.location.href = url; // simulate link click
                 },
