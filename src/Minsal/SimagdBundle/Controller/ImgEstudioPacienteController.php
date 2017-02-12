@@ -17,7 +17,7 @@ class ImgEstudioPacienteController extends Controller {
         //establecimiento donde se realizara la busqueda
         $estabLocal = $this->container->get('security.context')->getToken()->getUser()->getIdEstablecimiento()->getId();
         
-        return $this->render('MinsalSimagdBundle:ImgEstudioPacienteAdmin:resultado_busqueda_estudios.html.twig', array('tipo_busqueda' => 'l'));
+        return $this->render('MinsalSimagdBundle:RyxEstudioPorImagenesAdmin:resultado_busqueda_estudios.html.twig', array('tipo_busqueda' => 'l'));
        }
         
     /**

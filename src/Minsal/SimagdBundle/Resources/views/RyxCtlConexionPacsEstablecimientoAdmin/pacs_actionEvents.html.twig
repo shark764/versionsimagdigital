@@ -1,0 +1,46 @@
+{% autoescape false %}
+
+	<script type="text/javascript">
+
+        /////////////////////////////////////////////////////
+        //////// PACS SERVER CONNECTIONS - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__PACSSERVERCONNECTIONS_MENU_ACTIONEVENTS__ = {
+                'click .pacsserverconnections_show_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_pacs_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .pacsserverconnections_edit_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_pacs_edit', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .pacsserverconnections_delete_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_pacs_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .pacsserverconnections_create_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_pacs_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .pacsserverconnections_testconnection_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_pacs_testconnection', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+        
+    </script>
+
+{% endautoescape %}

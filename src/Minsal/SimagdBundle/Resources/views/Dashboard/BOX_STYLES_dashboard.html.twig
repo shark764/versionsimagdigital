@@ -23,25 +23,25 @@
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/fullcalendar-3.1.0/locale-all.js') }}" ></script>
 
     {# agenda #}
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_agenda.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_config_search.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_accionesCita.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_pendientesCita.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_pendingPatients_v2.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_agendaGenerator.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxCitaProgramadaAdmin/cit_agenda.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxCitaProgramadaAdmin/cit_config_search.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxCitaProgramadaAdmin/cit_accionesCita.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxCitaProgramadaAdmin/cit_pendientesCita.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxCitaProgramadaAdmin/cit_pendingPatients_v2.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxCitaProgramadaAdmin/cit_agendaGenerator.js') }}" ></script>
     {# bloqueos #}
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_crearBloqueo.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_generateData.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_excluirRadiologos.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgBloqueoAgendaAdmin/blAgd_set_form_data.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxBloqueoAgendaAdmin/blAgd_crearBloqueo.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxBloqueoAgendaAdmin/blAgd_generateData.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxBloqueoAgendaAdmin/blAgd_excluirRadiologos.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxBloqueoAgendaAdmin/blAgd_set_form_data.js') }}" ></script>
 
     {# Scripts cit #}
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_queued_cit_alert.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_list_v2.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_form_config.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgCitaAdmin/cit_set_form_data.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxCitaProgramadaAdmin/cit_queued_cit_alert.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxCitaProgramadaAdmin/cit_list_v2.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxCitaProgramadaAdmin/cit_form_config.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxCitaProgramadaAdmin/cit_set_form_data.js') }}" ></script>
 
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgEstudioPacienteAdmin/est_crear_ventana_estudio.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxEstudioPorImagenesAdmin/est_crear_ventana_estudio.js') }}" ></script>
 {% endblock %}
 
 
@@ -168,7 +168,7 @@
         </div>
     </div>
 
-    <div class="{#col-lg-9 col-md-9 col-sm-9#} col-lg-10 col-md-10 col-sm-10 ">
+    <div class=" {#col-lg-10 col-md-10 col-sm-10#} col-lg-12 col-md-12 col-sm-12 ">
         {#<div class="row">#} <!-- row block -->
             <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
                 <div class="box-body">
@@ -209,7 +209,7 @@
             //////////////////////////////////////////////////////////////
              -->
             <!-- table for any result -->
-            <div class="{#col-lg-12 col-md-12 col-sm-12#} {#col-lg-9 col-md-9 col-sm-9#} ">
+            <div class=" {#col-lg-9 col-md-9 col-sm-9#} ">
                 <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
                     <thead>
                     </thead>
@@ -225,18 +225,18 @@
 
     </div>
 
-    <div class="{#col-lg-3 col-md-3 col-sm-3#} col-lg-2 col-md-2 col-sm-2 ">
+    {#<div class=" col-lg-2 col-md-2 col-sm-2 ">
 
         <!-- vertical pills -->
-        <div class="{#col-lg-3 col-md-3 col-sm-3#} {#nav-pills-medicine#} {#nav-pills-darkblue#} nav-pills-primary-v4 ">
-            <ul class="nav nav-pills nav-stacked {#nav-justified#} " id="_stacked_agenda_dashboard_display_items">
+        <div class=" nav-pills-primary-v4 ">
+            <ul class="nav nav-pills nav-stacked " id="_stacked_agenda_dashboard_display_items">
                 <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'events_calendar_and_exams'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-calendar"></span> AGENDA</a></li>
                 <li><a href="javascript:void(0)" onclick="generate(this, 'scheduled_appointments_for_exams', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-tags"></span> CITAS PROGRAMADAS</a></li>
                 <li><a href="javascript:void(0)" onclick="generate(this, 'blocked_days_and_festivities'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-comment"></span> BLOQUEOS Y FEST.</a></li>
             </ul>
         </div>
 
-    </div>
+    </div>#}
 
     <!--
     //////////////////////////////////////////////////////////////

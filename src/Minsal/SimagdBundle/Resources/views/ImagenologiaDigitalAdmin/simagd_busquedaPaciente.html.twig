@@ -39,7 +39,7 @@
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImagenologiaDigitalAdmin/simagd_funciones_validacion.js') }}" ></script>
 
     {# new record for patient typeahead #}
-    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/ImgSolicitudEstudioAdmin/prc_assignToNewRecord_alert.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxSolicitudEstudioAdmin/prc_assignToNewRecord_alert.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_newRecord_typeahead.js') }}" ></script>
 
     {# Scripts pct #}
@@ -53,7 +53,7 @@
 {% block simagd_bs_alert %}
     {{ parent() }}
     
-    {% include 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_assignToNewRecord_alert.html.twig' %}
+    {% include 'MinsalSimagdBundle:RyxSolicitudEstudioAdmin:prc_assignToNewRecord_alert.html.twig' %}
 {% endblock %}
     
 {% block simagd_navbar_menu_label %}
@@ -359,7 +359,7 @@
         {% include 'MinsalSimagdBundle:show_container_fullEntity:prc_total_info_modal_v2.html.twig' %}          {# solicitud de estudio #}
     {% endif %}
     {% if _PRC_ALLOW_CREATE == true or _PRC_ALLOW_EDIT == true %}
-        {% include 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_crearSolicitudEstudio_formatoRapido_modal.html.twig'
+        {% include 'MinsalSimagdBundle:RyxSolicitudEstudioAdmin:prc_crearSolicitudEstudio_formatoRapido_modal.html.twig'
             ignore missing with { 'medicos': medicos, 'default_empLogged': default_empLogged, 'modalidades': modalidades, 'default_mldRx': default_mldRx, 'proyecciones': proyecciones } %}     {# solicitud de estudio #}
     {% endif %}
     

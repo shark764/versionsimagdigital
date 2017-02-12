@@ -1,0 +1,22 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_show.html.twig' %}
+
+{% block simagd_form_navbar_brand_title %}
+    <span class="navbar-brand">
+        <span class="label label-primary-v4">
+            <i class="fa fa-calendar"></i> <i class="fa fa-eye"></i> Parámetros configurados para Examen: <i>{{ object.idAreaExamenEstab.idExamenServicioDiagnostico|truncate(45) }}</i>
+        </span>
+    </span>
+{% endblock %}
+
+{# muestra de información de apoyo #}
+{% block custom_entity_support %}
+    <div id="custom-entity-content-body">
+        {% include 'MinsalSimagdBundle:RyxCtlConfiguracionAgendaAdmin:prmCit_modal_support.html.twig'
+                    ignore missing with { 'examenInfo': object.idAreaExamenEstab ? object.idAreaExamenEstab.idExamenServicioDiagnostico : null,
+                                            'modalidadInfo': object.idAreaExamenEstab ? object.idAreaExamenEstab.idAreaServicioDiagnostico : null,
+                                            'establecimientoInfo': object.idAreaExamenEstab ? object.idAreaExamenEstab.idEstablecimiento : null,
+                                         } %}
+    </div>
+{% endblock %}

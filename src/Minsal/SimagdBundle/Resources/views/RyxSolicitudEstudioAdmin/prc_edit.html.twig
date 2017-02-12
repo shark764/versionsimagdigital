@@ -1,0 +1,219 @@
+{# empty Twig template #}
+
+{% extends 'MinsalSimagdBundle::simagd_base_edit.html.twig' %}
+{% set localRecord_number   = localRecord is not null ? localRecord.numero : '' %}
+{% set _pacienteTitle       = object.idExpediente is not null ? object.idExpediente.idPaciente|truncate(50) ~ ' ' ~  localRecord_number : 'No hay expediente' %}
+{% set _prcMessageTemplate  = action is defined and action == 'edit' ?
+        '<i class="fa fa-inbox"></i> <i class="fa fa-pencil-square-o"></i> ' ~ _pacienteTitle :
+        '<i class="fa fa-inbox"></i> <i class="fa fa-plus-circle"></i> ' ~ _pacienteTitle %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {# bootstrap text-editor summernote #}
+    <link href="{{ asset('bundles/minsalsimagd/plugin/summernote-master/dist/summernote.css') }}" type="text/css" rel="stylesheet" />
+    
+    {# iCheck #}
+    <link href="{{ asset('bundles/minsalsimagd/plugin/icheck-1.x/skins/minimal/red.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {# bootstrap text-editor summernote #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/summernote-master/dist/summernote.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/plugin/summernote-master/dist/lang/summernote-es-ES.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_summernote_config.js') }}" ></script>
+    
+    {# google chrome - SpeechRecognition #}
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_webkitSpeechRecognition.js') }}" ></script>
+
+    <script>
+	var $prc_dateCreation,
+	    $id_exp,
+	    $name_pct;
+	
+	/** Obtener fecha de solicitud */
+	$prc_dateCreation           = {% if admin.id(object) is not null %} new Date('{{ object.fechaCreacion|date('m/d/Y')|raw }}') {% else %} false {% endif %};
+	
+	/** Obtener datos contacto paciente */
+	$id_exp                     = {% if object.idExpediente is not null %} {{ object.getIdExpediente.getId()|escape('js') }} {% else %} false {% endif %};
+	$name_pct                   = {% if object.idExpediente is not null %} "{{ object.idExpediente.idPaciente|escape('js')|trim }}" {% else %} false {% endif %};
+        
+        /*
+         * from simagd base edit template
+         * @returns {undefined}
+         */
+	$is_objectAllowToSwitch     = {% if object.getIdExpediente() is not null %} true {% else %} false {% endif %};
+
+	console.log($prc_dateCreation, $id_exp, $name_pct, $is_objectAllowToSwitch);
+        
+        var $stdref_association_id  = 'idEstablecimientoReferido';  // --| establecimiento referido
+        var $msol_association_id    = 'idAreaServicioDiagnostico';      // --| modalidad solicitada
+    </script>
+
+    {#<script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxSolicitudEstudioAdmin/prc_config_picker.js') }}" ></script>#}
+
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxSolicitudEstudioAdmin/prc_form_config.js') }}" ></script>
+    
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxSolicitudEstudioAdmin/prc_solicitar_diagnostico.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxSolicitudEstudioAdmin/prc_calc_peso_actual.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxSolicitudEstudioAdmin/prc_realizables.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxSolicitudEstudioAdmin/prc_atenciones.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxSolicitudEstudioAdmin/prc_empleados.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxSolicitudEstudioAdmin/prc_modalidad_exploraciones.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxSolicitudEstudioAdmin/prc_exploraciones_realizables.js') }}" ></script>
+    
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_cargar_datos.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_cargar_datos_seleccionados.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_each_values_array.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_valor_campo_compuesto.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/simagd_extract_campos_componentes.js') }}" ></script>
+    
+    {#{% include 'MinsalSimagdBundle:RyxSolicitudEstudioAdmin:prc_funcionesClienteServidor.js.twig' %}#}
+    
+    {#{% include 'MinsalSimagdBundle:RyxSolicitudEstudioAdmin:prc_bootstrapValidator.js.twig' %}#}
+{% endblock %}
+
+{% block actions %}
+    {#<li>{% include 'SonataAdminBundle:Button:show_button.html.twig' %}</li>#}
+    <li>{% include 'SonataAdminBundle:Button:history_button.html.twig' %}</li>
+    <li>{% include 'SonataAdminBundle:Button:acl_button.html.twig' %}</li>
+    <li>{% include 'SonataAdminBundle:Button:list_button.html.twig' %}</li>
+    {#<li>{% include 'SonataAdminBundle:Button:create_button.html.twig' %}</li>#}
+{% endblock %}
+
+{% block simagd_form_navbar_brand_title %}
+    <span class="navbar-brand">
+        <span class="label label-{{ action is defined and action == 'edit' ? 'primary-v4' : 'element-v2' }}"> {{ _prcMessageTemplate|raw }} </span>
+    </span>
+{% endblock %}
+
+{% block simagd_navbar_middle_nav %}
+    <form class="navbar-form navbar-left navbar-input-group" style="margin-left: 50px !important;" role="search">
+        <div class="form-group has-feedback">
+            <input type="text" class="typeahead explocal_navbar_typeahead form-control" autocomplete="off" placeholder="expediente" id="navbar_filter_expNumero" name="navbar_filter_expNumero" data-xparam-filter="true">
+            <i class="glyphicon glyphicon-remove-circle form-control-feedback typeahead-custom-clear" id="clear-typeahead-filter-exp"></i>
+        </div>
+        <button type="submit"    id="btn_search_filter_expNumero" name="btn_search_filter_expNumero" class="btn btn-primary-v4 btn-outline {#btn-sm#}">
+            <i class="fa fa-search"></i>
+        </button>
+    </form>
+{% endblock %}
+
+{% block simagd_navbar_right_nav %}
+    <li>
+        <div style="padding-top: 10px; padding-left: 10px;">
+            <button id="btn_start_recognition" class="btn btn-element-v2 btn-outline btn-sm btn_start_recognition" title="Iniciar transcripción por voz" >
+                <i class="fa fa-microphone" id="icon_start_recognition"></i>
+            </button>
+        </div>
+    </li>
+{% endblock %}
+    
+{% block form %}
+    {#<span class="label label-primary-v4"> SE DEBE ARREGLAR EL TRIGGER CHANGE DE REFERIR_PACIENTE, PARA Q ACEPTE AMBOS CASOS, iCheck </span><br/>
+    <span class="label label-danger"> BUSCAR DONDE ESTA EL EDITACTION MODIFICADO PARA QUE AGARRE EL AAMS </span><br/>
+    <span class="label label-danger"> PERSONA DE CITAS X EL MOMENTO DEBE PODER REGISTRAR PRC, AJUSTAR EL SESSION_EMP_ESPECIALIDAD </span><br/>
+    <span class="label label-warning"> EL EXPEDIENTE NO SIEMPRE SERA EL DEL MISMO ESTAB, SE DEBE TENER OTRO TIPO DE CONDICION EN JOINS </span><br/>
+    <span class="label label-danger"> ProyeccionRepository_1 contiene para ultima talla y peso </span><br/>#}
+    {#<span style="color:rgb(43, 145, 175);">SqlCalcFoundRowsEventListener</span><br/>
+    <span style="color:rgb(12, 101, 165);">SqlCalcFoundRowsEventListener</span><br/>
+    <span class="text-element-v2">SqlCalcFoundRowsEventListener</span><br/>
+    <span class="label label-element-v2">SqlCalcFoundRowsEventListener</span><br/>
+    <button class="btn btn-element-v2 btn-outline" type="submit" name="btn_create_and_create"><i class="fa fa-plus-circle"></i> Guardar</button>#}
+    {#{% set prc_vars = { 'simagd_title': 'FORMULARIO PARA SOLICITAR ESTUDIO DE IMAGENOLOGÍA',
+                        'simagd_message': 'Llene este formulario para solicitar estudio para el paciente'
+    }%}
+    {% include 'MinsalSimagdBundle:Menu:simagd_cabecera.html.twig' ignore missing with prc_vars %}#}
+    {#
+    <span class="label label-element-v2">Se necesita un titulo para saber de q es el form</span><br/>
+    <span class="label label-element-v2">También solcmpl necesita reformar los select, ademas de material y proyeccion</span><br/>
+    <span class="label label-element-v2">< div class="form-group" style="display: none;" > --| en proyeccion form se probo que puede enviarse a form aunq este hide() -- style: display:none</span><br/>
+    <span class="label label-primary-v4">en los navbar expediente, se debe poder agregar botones al template, con un metodo asi como en filterPlugin</span><br/>
+    <span class="label label-danger">boton de preinscripcion debe tener stopPropagation o algo asi</span><br/>
+    <span class="label label-element-v2">boton consulta del modal full debe redirigir hacia la consulta completa</span><br/>
+    <span class="label label-danger">boton crear solicitud en typeahead de busqueda de paciente para mas rapidez</span><br/>
+    <span class="label label-warning">PROYECCIONES NO DEBEN BUSCARSE EN SERVER, NO SE AÑADEN CONSTANTEMENTE, NI EMPLEADOS, NI ATENCIONES --> MAS RAPIDEZ</span><br/>
+    <span class="label label-danger">SOLICITUDES NECESITAN CAMPOS EXTRA, PARA MAMO, SI ES TAMIZAJE, ETC</span><br/>#}
+    
+    <div id="switch_item_container_history" class="bsswitch-container" style="display: none;" >
+        {% block bsswitch_container %}
+        <div id="bs_container_history">
+            {% if object.getIdExpediente() is not null %}
+                {% include 'MinsalSimagdBundle:RyxSolicitudEstudioAdmin:prc_bsswitch_history.html.twig' ignore missing with {'object': object} %}
+            {% endif %}
+        </div>
+        {% endblock %}
+    </div>
+
+    <div id="switch_item_container_form" class="bsswitch-container" >
+{#        {{ block('parentForm') }}#}
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{# muestra de información de apoyo
+{% block custom_entity_support %}
+    <div id="custom-entity-content-body">
+        {% if object.idExpediente is not null %}
+            {{ render(controller( 'MinsalSimagdBundle:RyxSolicitudEstudioAdmin:mostrarInformacionModal',
+                                                    { 'idPacientePadre' : object.idExpediente.idPaciente.id,
+                                                        '__hcl' : app.request.get('__hcl') ? app.request.get('__hcl') : -1,
+                                                        'solicitudEstudios' : object.idSolicitudestudios ? object.idSolicitudestudios.id : -1,
+                                                        'id' : object.id ? object.id : -1,
+                                                        '_sonata_admin' : 'minsal_simagd.admin.img_solicitud_estudio' } )) }}
+        {% endif %}
+    </div>
+{% endblock %} #}
+    
+{% block content %}
+    
+    {{ parent() }}
+    
+    {% include 'MinsalSimagdBundle:RyxLecturaRadiologicaAdmin:lct_speechRecognition_modal.html.twig' %}    {# speech recognition #}
+    
+{% endblock %}
+
+{% block formactions %}
+    <div class="well well-small form-actions">
+        {% if app.request.isxmlhttprequest %}
+            {% if admin.id(object) is not null %}
+                <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_update"><i class="fa fa-save"></i> {{ 'btn_update'|trans({}, 'SonataAdminBundle') }}</button>
+            {% else %}
+                <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_create"><i class="fa fa-plus-circle"></i> {{ 'btn_create'|trans({}, 'SonataAdminBundle') }}</button>
+            {% endif %}
+        {% else %}
+            {% if admin.supportsPreviewMode %}
+                <button class="btn btn-info persist-preview" name="btn_preview" type="submit">
+                    <i class="fa fa-eye"></i>
+                    {{ 'btn_preview'|trans({}, 'SonataAdminBundle') }}
+                </button>
+            {% endif %}
+            {% if admin.id(object) is not null %}
+		<button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_edit_and_request"><i class="fa fa-save"></i> <i class="fa fa-inbox"></i> Guardar</button>
+
+                {#{% if admin.hasroute('list') and admin.isGranted('LIST') %}
+                    <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_update_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                {% endif %}#}
+
+                {% if admin.hasroute('delete') and admin.isGranted('DELETE', object) %}
+                    {{ 'delete_or'|trans({}, 'SonataAdminBundle') }}
+                    <a   class="btn btn-danger btn-outline" href="{{ admin.generateObjectUrl('delete', object) }}"><i class="fa fa-minus-circle"></i> {{ 'link_delete'|trans({}, 'SonataAdminBundle') }}</a>
+                {% endif %}
+
+                {% if admin.isAclEnabled() and admin.hasroute('acl') and admin.isGranted('MASTER', object) %}
+                    <a   class="btn btn-info" href="{{ admin.generateObjectUrl('acl', object) }}"><i class="fa fa-users"></i> {{ 'link_edit_acl'|trans({}, 'SonataAdminBundle') }}</a>
+                {% endif %}
+            {% else %}
+                {% if admin.hasroute('edit') and admin.isGranted('EDIT') %}
+		    <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_create_and_request"><i class="fa fa-save"></i> <i class="fa fa-inbox"></i> Guardar</button>
+                {% endif %}
+                {#{% if admin.hasroute('list') and admin.isGranted('LIST') %}
+                    <button type="submit"    class="btn btn-primary-v4 btn-outline" name="btn_create_and_list"><i class="fa fa-save"></i> <i class="fa fa-list"></i> Guardar</button>
+                {% endif %}#}
+                {#<button class="btn btn-primary-v4 btn-outline" type="submit" name="btn_create_and_create"><i class="fa fa-plus-circle"></i> Guardar</button>#}
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock formactions %}

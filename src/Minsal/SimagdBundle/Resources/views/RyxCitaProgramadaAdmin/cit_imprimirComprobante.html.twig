@@ -1,0 +1,228 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% extends 'MinsalSimagdBundle::simagd_base_list_v2.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+	var $is_prcAux,
+	    $is_cit;
+	
+	$is_prcAux	= {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_CREATE') and app.user.idEmpleado.idTipoEmpleado.codigo != 'MED' %} true {% else %} false {% endif %};
+	$is_cit		= {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') %} true {% else %} false {% endif %};
+
+	console.log($is_prcAux, $is_cit);
+    </script>
+    
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxCitaProgramadaAdmin/cit_print.js') }}" ></script>
+
+{% endblock %}
+
+{% block actions %}
+{% endblock %}
+
+{% block tab_menu %}
+{% endblock %}
+
+{% block simagd_navbar_menu_list %}
+{% endblock %}
+    
+{% block simagd_navbar_menu_label %}
+{% endblock %}
+
+{% block simagd_navbar_left_nav %}
+{% endblock %}
+
+{% block simagd_navbar_right_nav %}
+{% endblock %}
+
+{% block simagd_bs_alert %}
+{% endblock %}
+
+{% block sonata_admin_content -%}
+    {{ parent() }}
+    
+    {% set solicitud = object.idSolicitudEstudio %}
+    
+    <div class="imprimir-comprobante-cita">
+
+        <div class="box box-danger">
+	    {#{% set solicitud = solicitud.idSolicitudEstudio %}#}
+            <div class="box-header">
+                <h3 class="box-title"><span class="label label-primary-v4">Comprobante de cita de Imagenología</span></h3>
+            </div>
+            <div class="box-body">
+		<table class="table table-hover table-condensed table-responsive table-borderless">
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">id:</span></th>
+			<td colspan="3" class="col-md-9" ><span class="badge">{{ object.id }}</span></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Nombre:</span></th>
+			<td class="col-md-3" >{{ expediente.idPaciente }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">N° de Registro:</span></th>
+			<td class="col-md-3" ><span class="badge">{{ expediente.numero }}</span></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Peso (lb):</span></th>
+			<td class="col-md-3" >{{ solicitud.pesoActualLb ~ ' lb' }} <i>{{ '(' ~ solicitud.pesoActualKg ~ ' kg)' }}</i></td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Talla (m):</span></th>
+			<td class="col-md-3" >{{ solicitud.tallaPaciente ~ ' m' }} <i>{{ '(' ~ solicitud.tallaPaciente*100.0 ~ ' cm)' }}</i></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Procedencia:</span></th>
+			<td class="col-md-3" >{{ solicitud.idAtenAreaModEstab.idAreaModEstab.idAreaAtencion }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Servicio clínico:</span></th>
+			<td class="col-md-3" >{{ solicitud.idAtenAreaModEstab.idAtencion }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Solicitado por:</span></th>
+			<td class="col-md-3" >{{ solicitud.idEmpleado }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Se solicitó:</span></th>
+			<td class="col-md-3" >{{ solicitud.fechaCreacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ solicitud.fechaCreacion|date('H:i:s A') }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Referido a:</span></th>
+			<td colspan="3" class="col-md-9" >{{ solicitud.idEstablecimientoReferido }} {% if app.user.getIdEstablecimiento.getId() == solicitud.idEstablecimientoReferido.getId() %} <span class="label label-element-v2" style="">[Servicio local]</span> {% endif %}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Datos clínicos:</span></th>
+			<td colspan="3" class="col-md-9" ><pre class="pre-display-code-natural">{{ solicitud.datosClinicos|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Hipótesis diagnóstica:</span></th>
+			<td colspan="3" class="col-md-9" ><pre class="pre-display-code-natural">{{ solicitud.hipotesisDiagnostica|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Investigando:</span></th>
+			<td colspan="3" class="col-md-9" ><pre class="pre-display-code-natural">{{ solicitud.investigando|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Justificación médica:</span></th>
+			<td colspan="3" class="col-md-9" ><pre class="pre-display-code-natural">{{ solicitud.justificacionMedica|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Antecedentes clínicos:</span></th>
+			<td colspan="3" class="col-md-9" ><pre class="pre-display-code-no-natural">{{ solicitud.antecedentesClinicosRelevantes|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Próxima consulta médica:</span></th>
+			<td class="col-md-3" >{{ solicitud.fechaProximaConsulta|format_date('EEEE, MMMM d, yyyy', 'es_ES') }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Prioridad requerida:</span></th>
+			<td class="col-md-3" ><span class="label label-{{ solicitud.idPrioridadAtencion.estiloPresentacion|default('primary-v4') }}">{{ solicitud.idPrioridadAtencion }}</span></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Modalidad:</span></th>
+			<td colspan="3" class="col-md-9" >{{ solicitud.idAreaServicioDiagnostico }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Proyecciones:</span></th>
+			<td colspan="3" class="col-md-9" >
+			
+			    {% set examenesLoop = [] %}
+			    {% for proyeccion in solicitud.solicitudEstudioProyeccion %}
+				{% set i = '_' ~ proyeccion.idProyeccionSolicitada.idExamenServicioDiagnostico.id %}
+				
+				{% if i not in examenesLoop|keys %}
+				    {% set examenesLoop = examenesLoop|merge({ (i): proyeccion.idProyeccionSolicitada.idExamenServicioDiagnostico }) %}
+				{% endif %}
+			    {% endfor %}
+
+                            <ul class="list-unstyled">
+                                {% for key, value in examenesLoop %}
+                                    <li>
+                                        <strong> {{ value }} </strong>
+                                        <ul class="list-unstyled" style="margin-left: 25px;">
+                                            {% for proyeccion in solicitud.solicitudEstudioProyeccion if proyeccion.idProyeccionSolicitada.idExamenServicioDiagnostico.id == key|trim('_') %}
+                                                <li>
+                                                    <a    class="btn-link btn-link-v2"
+                                                        role="button"
+                                                        title="{{ proyeccion.idProyeccionSolicitada }}"
+                                                        href="javascript:void(0)"
+                                                        data-id="{{ proyeccion.id }}" >
+                                                        {{ proyeccion.idProyeccionSolicitada }}
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            
+			</td>
+		    </tr>
+		    
+		</table>
+            </div>
+        </div>
+
+        <div class="box box-danger">
+            <div class="box-body">
+		<table class="table table-hover table-condensed table-responsive table-borderless">
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Fecha programada:</span></th>
+			<td class="col-md-3" >{{ object.fechaHoraInicio|format_date('EEEE, MMMM d, yyyy', 'es_ES') }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Hora programada:</span></th>
+			<td class="col-md-3" ><span class="badge">{{ object.fechaHoraInicio|date('H:i A') }}</span></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Recibió:</span></th>
+			<td class="col-md-3" >{{ object.idEmpleado }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Se recibió:</span></th>
+			<td class="col-md-3" >{{ object.fechaCreacion|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ object.fechaCreacion|date('H:i:s A') }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Atenderá:</span></th>
+			<td class="col-md-3" >{{ object.idTecnologoProgramado }}</td>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Se reprogramó:</span></th>
+			<td class="col-md-3" ><span class="label label-{{ object.reprogramada ? 'danger' : 'primary-v4' }}">{{ object.reprogramada ? 'Si' : 'No' }}</span></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Indicaciones:</span></th>
+			<td colspan="3" class="col-md-9" >
+                            {% for indicacion in indicaciones %}
+                                <pre class="pre-display-code-no-natural">
+                                    {{ indicacion.preparacionEstudio|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}
+                                </pre>
+                            {% endfor %}
+                        </td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Recomendaciones:</span></th>
+			<td colspan="3" class="col-md-9" >
+                            {% for indicacion in indicaciones %}
+                                <pre class="pre-display-code-no-natural">
+                                    {{ indicacion.recomendaciones|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}
+                                </pre>
+                            {% endfor %}
+                        </td>
+		    </tr>
+                    {% if solicitud.indicacionesMedicoRadiologo|trim is not null  %}
+                        <tr>
+                            <th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Indicaciones del médico radiólogo:</span></th>
+                            <td colspan="3" class="col-md-9" ><pre class="pre-display-code-no-natural">{{ solicitud.indicacionesMedicoRadiologo|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre></td>
+                        </tr>
+                    {% endif %}
+		    
+		</table>
+            </div>
+        </div>
+        
+    </div>
+    
+{% endblock %}

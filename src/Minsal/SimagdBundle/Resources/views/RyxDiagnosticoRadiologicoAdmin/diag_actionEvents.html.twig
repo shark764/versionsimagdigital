@@ -1,0 +1,62 @@
+{% autoescape false %}
+
+	<script type="text/javascript">
+
+        /////////////////////////////////////////////////////
+        //////// TRANSCRIBED DIAGNOSIS - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__TRANSCRIBEDDIAGNOSIS_MENU_ACTIONEVENTS__ = {
+                'click .transcribeddiagnosis_show_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_diagnostico_show', {id: row.id, mode: 'standard', worklist: true, worklist_id: row.id});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .transcribeddiagnosis_edit_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_diagnostico_edit', {id: row.id, mode: 'standard', worklist: true, worklist_id: row.id});
+                    var url = Routing.generate('simagd_lectura_edit', {id: row.lct_id, mode: 'standard', worklist: true, worklist_id: row.id});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .transcribeddiagnosis_delete_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_sin_transcribir_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .transcribeddiagnosis_goto_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_imagenologia_digital_worklist', {menu: 'transcribed_diagnosis', id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .transcribeddiagnosis_approve_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_diagnostico_approve', {id: row.id, approve: true, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .transcribeddiagnosis_reprobate_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_diagnostico_approve', {id: row.id, approve: false, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .transcribeddiagnosis_studydownload_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_lectura_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .transcribeddiagnosis_create_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_sin_transcribir_create', {lct_id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+        
+    </script>
+
+{% endautoescape %}

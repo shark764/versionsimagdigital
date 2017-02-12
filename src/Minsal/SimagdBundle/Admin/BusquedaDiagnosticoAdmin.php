@@ -64,7 +64,7 @@ class BusquedaDiagnosticoAdmin extends MinsalSimagdBundleGeneralAdmin
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array('template' => 'MinsalSimagdBundle:list_button_action:simagd_show_action.html.twig'),
-                    'nota' => array('template' => 'MinsalSimagdBundle:ImgDiagnosticoAdmin:diag_nota_action.html.twig')
+                    'nota' => array('template' => 'MinsalSimagdBundle:RyxDiagnosticoRadiologicoAdmin:diag_nota_action.html.twig')
                 )
             ))
         ;
@@ -107,7 +107,7 @@ class BusquedaDiagnosticoAdmin extends MinsalSimagdBundleGeneralAdmin
             ->end()
             ->with('Notas agregadas')
                 ->add('notasDiagnostico', 'sonata_type_collection', array('label' => 'Nota', 'route' => array('name' => 'show'),
-//                                                                                'template' => 'MinsalSimagdBundle:ImgSolicitudEstudioAdmin:prc_explSol_show.html.twig'
+//                                                                                'template' => 'MinsalSimagdBundle:RyxSolicitudEstudioAdmin:prc_explSol_show.html.twig'
                                                                             ),
                                                                             array('edit' => 'inline', 'inline' => 'table'))
             ->end()
@@ -121,7 +121,7 @@ class BusquedaDiagnosticoAdmin extends MinsalSimagdBundleGeneralAdmin
                 return 'MinsalSimagdBundle::simagd_base_list.html.twig';
                 break;
             case 'show':
-                return 'MinsalSimagdBundle:ImgDiagnosticoAdmin:diag_show.html.twig';
+                return 'MinsalSimagdBundle:RyxDiagnosticoRadiologicoAdmin:diag_show.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

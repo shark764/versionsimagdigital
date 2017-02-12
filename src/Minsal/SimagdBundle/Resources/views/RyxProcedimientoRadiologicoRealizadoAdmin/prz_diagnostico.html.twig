@@ -1,0 +1,217 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% extends 'MinsalSimagdBundle::simagd_base_list_v2.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+	var $is_tcnlX;
+	
+	$is_tcnlX		= {% if is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') %} true {% else %} false {% endif %};
+
+	console.log($is_tcnlX);
+    </script>
+    
+    <script type="text/javascript" src="{{ asset('bundles/minsalsimagd/js/RyxProcedimientoRadiologicoRealizadoAdmin/prz_diagnostico_config.js') }}" ></script>
+
+{% endblock %}
+
+{% block actions %}
+{% endblock %}
+
+{% block tab_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active', 'template': admin_pool.getTemplate('tab_menu_template')}, 'twig') }}{% endblock %}
+    
+{% block simagd_navbar_menu_label %}
+    <i class="fa fa-desktop"></i> <i class="fa fa-eye"></i> <i class="fa fa-microphone"></i> Examen ha sido guardado
+{% endblock %}
+
+{% block simagd_navbar_left_nav %}
+    <li class="list-table-link-navbar {% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_LIST') or is_granted('ROLE_ADMIN') ) %} disabled link-full-disabled {% endif %}">
+	<a   title="Regresar a edición de formulario" target="_self" class=""
+	    href="{{ admin.generateUrl('list') }}" autofocus>
+	    <span class="text-info"> <i class="fa fa-wheelchair"></i> <i class="fa fa-eye-slash"></i> </span> Procedimientos realizados <span class="sr-only">(current)</span>
+	</a>
+    </li>
+{% endblock %}
+
+{% block simagd_navbar_right_nav %}
+{% endblock %}
+    
+{% block sonata_admin_content -%}
+    {{ parent() }}
+
+    {% set study = null %}
+    {% for estudio in examen.examenEstudio %}
+	{% set study = estudio %}
+    {% endfor %}
+    {% set studyParent = null %}
+    {% set diagnostic = null %}
+    {% if study is not null %}
+	{% if study.getIdEstudioPadre() is not null %}
+	    {% set studyParent = study.getIdEstudioPadre() %}
+	    {% for lectura in studyParent.estudioLecturasRealizadas if lectura.getIdEstablecimiento().getId() == studyParent.getIdEstablecimiento().getId() %}
+		{% set diagnostic = lectura %}
+	    {% endfor %}
+	{% else %}
+	    {% for lectura in study.estudioLecturasRealizadas if lectura.getIdEstablecimiento().getId() == study.getIdEstablecimiento().getId() %}
+		{% set diagnostic = lectura %}
+	    {% endfor %}
+	{% endif %}
+    {% endif %}
+    
+    <div class="anexo-lectura-examen">
+
+        <div class="box box-danger">
+	    {% set solicitud = examen.idSolicitudEstudio %}
+            <div class="box-header">
+                <h3 class="box-title">Anexar interpretación radiológica</h3>
+            </div>
+            <div class="box-body">
+		<table class="table table-hover table-condensed table-responsive table-borderless">
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">id:</span></th>
+			<td colspan="3" class="col-md-9" ><span class="badge">{{ examen.id }}</span></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Solicitado por:</span></th>
+			<td colspan="3" class="col-md-9" >{{ solicitud.idEmpleado }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Realizado en:</span></th>
+			<td colspan="3" class="col-md-9" >{{ solicitud.idEstablecimientoReferido }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Se registró:</span></th>
+			<td colspan="3" class="col-md-9" >{{ examen.fechaRegistro|format_date('EEEE, MMMM d, yyyy', 'es_ES') ~ ' ' ~ examen.fechaRegistro|date('H:i:s A') }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Tecnólogo:</span></th>
+			<td colspan="3" class="col-md-9" >{{ examen.idTecnologoRealiza }}</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Técnica:</span></th>
+			<td colspan="3" class="col-md-9" ><pre class="pre-display-code-natural">{{ examen.tecnicaUtilizada|trim|default('<span style="color: #bbb;">Sin especificar...</span>')|raw }}</pre></td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3 simagd-th-text-primary"><span class="simagd-text-primary">Materiales:</span></th>
+			<td colspan="2" class="col-md-5" >
+			
+			    <ul class="list-group">
+				{% for material in examen.materialUtilizadoV2 %}
+				    <li class="list-group-item">
+					<span class="badge">{{ material.cantidadUtilizada }}</span>
+					
+					<a    tabindex="0"
+					    class="btn-link btn-link-v2"
+					    role="button"
+					    data-toggle="popover"
+					    rel="popover"
+					    data-trigger="hover"
+					    title="{{ material.getIdMaterial()|trim|default('Material sin especificar...')|raw }}"
+					    data-original-title="{{ material.getIdMaterial()|trim|default('Material sin especificar...')|raw }}"
+					    data-contentwrapper=".mtrl_container_contentwrapper_id_{{ material.id }}"
+					    data-placement="top"
+					    href="javascript:void(0)"
+					    data-id="{{ material.id }}" >
+					    {{ material.getIdMaterial()|trim|default('Material sin especificar...')|raw }}
+					</a>
+
+					<div class="mtrl_container_contentwrapper_id_{{ material.id }}" style="display: none;"> <!-- Here i define my content and add an attribute data-contentwrapper t0 a selector-->
+					    <strong>Código:</strong> {{ material.getIdMaterial().codigo }} <br/>
+					    <strong>Cantidad utilizada:</strong> {{ material.cantidadUtilizada }} <br/>
+					    {#<strong>Cantidad disponible:</strong> {{ material.getIdMaterial().cantidadDisponible }} <br/>#}
+					    <strong>Otras especificaciones:</strong> {{ material.otrasEspecificaciones }}
+					</div>
+				    </li>
+				{% endfor %}
+			    </ul>
+			    
+			</td>
+			<td class="col-md-4" >
+			</td>
+		    </tr>
+		    <tr>
+			<th class="col-md-3"></th>
+			<td colspan="3" class="col-md-9">
+			    <div class="btn-toolbar" role="toolbar" aria-label="...">
+				<div class="btn-group" role="group">
+                                    <a   title="Recuperar estudio de Servidor PACS" target="_blank" class="btn btn-primary-v4 btn-outline btn-sm"
+                                        href="{{ study ? study.url|raw|trim|default('javascript:void(0)') : 'javascript:void(0)' }}"
+                                        {% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_ESTUDIO_PACIENTE_VIEW') or is_granted('ROLE_ADMIN') ) %}
+                                            disabled="disabled"
+                                        {% endif %}>
+                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                        Descargar</a>
+				</div>
+				<div class="btn-group" role="group">
+                                    <a   title="Solicitar estudio complementario" target="_blank" class="btn btn-primary-v4 btn-outline btn-sm ml10"
+                                        href="{{ study ? path('simagd_solicitud_estudio_complementario_create',
+						    { '__prc' : solicitud is not null ? solicitud.id : null, '__est': study ? study.id : null }) : 'javascript:void(0)' }}"
+                                        {% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_COMPLEMENTARIO_CREATE') or is_granted('ROLE_ADMIN') ) or
+						examen.idSolicitudEstudioComplementario is not null %}
+					    disabled="disabled"
+					{% endif %}>
+					<i class="glyphicon glyphicon-random"></i>
+                                        Complementar</a>
+				</div>
+			    </div>
+			</td>
+		    </tr>
+		    
+		</table>
+            </div>
+        </div>
+
+        <div class="box box-danger">
+            <div class="box-body">
+                ¿Desea {{ diagnostic is not null ? 'editar' : 'iniciar' }} lectura de este estudio?
+            </div>
+            <div class="box-footer clearfix">
+		<div class="btn-toolbar" role="toolbar" aria-label="...">
+		    <div class="btn-group" role="group">
+			<a   title="Regresar a edición de formulario" target="_self" class="btn btn-primary-v4 btn-outline btn-sm "
+			    href="{{ admin.generateObjectUrl('edit', examen) }}" autofocus>
+			    <i class="fa fa-times"></i>
+			    No, Regresar</a>
+		    </div>
+		    <div class="btn-group" role="group">
+			{% if diagnostic is not null %}
+			    <a   title="Iniciar lectura de estudio" target="_self" class="btn btn-element-v2 btn-outline btn-sm "
+				href="{{ path('simagd_lectura_edit', { 'id': diagnostic.getId(), '__est': study ? study.getId() : null, '__estPdr': study and study.getIdEstudioPadre() ? study.getIdEstudioPadre().getId() : null }) }}"
+				{% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_EDIT') or is_granted('ROLE_ADMIN') ) or study is null %}
+				    disabled="disabled"
+				{% endif %}>
+				<i class="fa fa-save"></i> <i class="fa fa-microphone"></i>
+				Si, Editar</a>
+			{% else %}
+			    <a   title="Iniciar lectura de estudio" target="_self" class="btn btn-element-v2 btn-outline btn-sm "
+				href="{{ path('simagd_lectura_create', { '__est': study ? study.getId() : null, '__estPdr': study and study.getIdEstudioPadre() ? study.getIdEstudioPadre().getId() : null, '__xrad': true, '__xradAnx': app.user.getIdEmpleado.getId(), '__przLct': true }) }}"
+				{% if not ( is_granted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') or is_granted('ROLE_ADMIN') ) or study is null %}
+				    disabled="disabled"
+				{% endif %}>
+				<i class="fa fa-save"></i> <i class="fa fa-microphone"></i>
+				Si, Continuar</a>
+			{% endif %}
+		    </div>
+		</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="empty-layout-clear" style="height:76px;"></div>
+{% endblock %}

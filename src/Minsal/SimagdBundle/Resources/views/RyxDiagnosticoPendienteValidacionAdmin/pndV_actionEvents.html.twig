@@ -1,0 +1,63 @@
+{% autoescape false %}
+
+	<script type="text/javascript">
+
+        /////////////////////////////////////////////////////
+        //////// CHECK DIAGNOSIS WORKLIST - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__NONVALIDATEDRESULTSWORKLIST_MENU_ACTIONEVENTS__ = {
+                'click .nonvalidatedresultsworklist_show_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_sin_validar_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nonvalidatedresultsworklist_edit_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_sin_validar_edit', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nonvalidatedresultsworklist_delete_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_sin_validar_delete', {id: row.id, mode: 'ajax', confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nonvalidatedresultsworklist_approve_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    // var url = Routing.generate('simagd_sin_validar_approve', {id: row.id, mode: 'ajax', confirmation: false});
+                    var url = Routing.generate('simagd_diagnostico_approve', {id: row.diag_id, mode: 'ajax', approve: true, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nonvalidatedresultsworklist_reprobate_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    // var url = Routing.generate('simagd_sin_validar_approve', {id: row.id, mode: 'ajax', confirmation: false});
+                    var url = Routing.generate('simagd_diagnostico_approve', {id: row.diag_id, mode: 'ajax', approve: false, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nonvalidatedresultsworklist_goto_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_diagnostico_edit', {id: row.id, worklist_id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nonvalidatedresultsworklist_studydownload_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_lectura_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .nonvalidatedresultsworklist_create_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_sin_validar_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+        
+    </script>
+
+{% endautoescape %}

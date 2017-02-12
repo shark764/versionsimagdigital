@@ -1,0 +1,41 @@
+{% autoescape false %}
+
+	<script type="text/javascript">
+
+        /////////////////////////////////////////////////////
+        //////// LOCAL MATERIALS - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__LOCALMATERIALS_MENU_ACTIONEVENTS__ = {
+                'click .localmaterials_show_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_material_local_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .localmaterials_edit_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_material_local_edit', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .localmaterials_delete_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_material_local_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .localmaterials_create_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_material_local_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+        
+    </script>
+
+{% endautoescape %}

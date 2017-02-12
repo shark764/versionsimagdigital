@@ -1,0 +1,41 @@
+{% autoescape false %}
+
+	<script type="text/javascript">
+
+        /////////////////////////////////////////////////////
+        //////// RADIOLOGICAL DIAGNOSTIC PATTERNS - CONTEXT MENU
+        /////////////////////////////////////////////////////
+        (function ($) {
+            /*
+             *
+             * @type Array
+             * Global variables for plugin
+             */
+            window.__RADIOLOGICALDIAGNOSTICPATTERNS_MENU_ACTIONEVENTS__ = {
+                'click .radiologicaldiagnosticpatterns_show_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_patron_diagnostico_show', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .radiologicaldiagnosticpatterns_edit_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_patron_diagnostico_edit', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .radiologicaldiagnosticpatterns_delete_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_patron_diagnostico_delete', {id: row.id, confirmation: false});
+                    // window.location.href = url; // simulate link click
+                },
+                'click .radiologicaldiagnosticpatterns_create_action': function (e, value, row, index) {
+                    window.console.log('e', e, '\n\nvalue', value, '\n\nrow', row, '\n\nindex', index);
+                    var url = Routing.generate('simagd_patron_diagnostico_create', {id: row.id, mode: 'standard'});
+                    // window.location.href = url; // simulate link click
+                },
+            };   // --| build data collection
+
+        }(jQuery));
+        
+    </script>
+
+{% endautoescape %}
