@@ -24,7 +24,7 @@
     <field name="habilitado" type="boolean" column="habilitado" nullable="true"/>
     <field name="fechaHoraReg" type="datetime" column="fecha_hora_reg" nullable="true"/>
     <field name="fechaHoraMod" type="datetime" column="fecha_hora_mod" nullable="true"/>
-    <field name="principal" type="boolean" column="principal" nullable="true"/>
+    <field name="principal" type="boolean" column="principal" nullable="false"/>
     <many-to-one field="idUserReg" target-entity="FosUserUser">
       <join-columns>
         <join-column name="id_user_reg" referenced-column-name="id"/>
