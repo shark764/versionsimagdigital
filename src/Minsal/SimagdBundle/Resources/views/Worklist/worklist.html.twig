@@ -161,6 +161,48 @@
             {#</div>#} <!-- end row block -->
         {#</div>#} <!-- END --| WORKLIST elements -->
 
+        <!-- WORKLIST TRY - NEW FOREIGN PATIENT -->
+        <!-- <div class="box box-drop-outside-emergency box-emergency"> -->
+        <!-- <div class="box box-drop-outside-primary-v4 box-primary-v4"> -->
+        <!-- <div class="box box-drop-outside-medicine box-shadow-medicine"> -->
+        <div class="box box-drop-outside-shadow box-primary-v4">
+            <div class="box-body">
+
+                <!-- FORM --| SEARCH PATIENT -->
+                <form id="_fc_filter_box_form" name="_fc_filter_box_form" method="post" class="form-horizontal" role="search">
+
+                    <div class="form-group">
+                        <div class="col-xs-5">
+                            <ul class="list-unstyled list-inline formstyle-radio-list-inline input-sm col-lg-12 col-md-12 col-sm-12" id="_fc_filter_search_type">
+                                <li>
+                                    <label class="">
+                                        <input type="radio" value="agenda" name="_fc_filter_search_type" id="_fc_filter_search_type_0">
+                                        <span style="margin-left: 5px;"> Lista de pacientes</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="">
+                                        <input type="radio" checked="checked" value="summary" name="_fc_filter_search_type" id="_fc_filter_search_type_1">
+                                        <span style="margin-left: 5px;"> Resumen</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="_group_new_patient">
+                        <div class="col-xs-12">
+                            <a class="btn btn-emergency" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
+                        </div>
+                    </div>
+
+                </form>
+                <!-- END --| FORM -->
+
+            </div>
+        </div>
+        <!-- END --| NEW FOREIGN PATIENT -->
+
         <div class="tab-pane fade in active" id="tab_list__" style="min-height: 768px;" >
 
             <!--
