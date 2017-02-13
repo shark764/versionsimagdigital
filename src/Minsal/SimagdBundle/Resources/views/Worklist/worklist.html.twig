@@ -27,45 +27,48 @@
 
     {% include 'MinsalSimagdBundle:Menu:panel_top_menu.html.twig' %} {#ignore missing with {'id': 'patient_modal_search_'}#}
 
+    <div class=" col-lg-8 col-md-8 col-sm-8 col-xs-offset-2 ">
+        <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
+            <div class="box-body">
+
+                <!-- WORKLIST MENU -->
+                <div class="{# col-lg-10 col-md-10 col-sm-10 #} col-lg-9 col-md-9 col-sm-9 nav-pills-darkblue ">
+                    <ul class="nav nav-pills nav-justified" id="_worklist_display_items">
+                        <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-film"></span> Examinar</a></li>
+                        <li><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-adjust"></span> Lectura</a></li>
+                        <li><a href="javascript:void(0)" onclick="generate(this, 'non_transcribed_results'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-headphones"></span> Transcripción</a></li>
+                        <li><a href="javascript:void(0)" onclick="generate(this, 'non_validated_results'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-check"></span> Revisión</a></li>
+                    </ul>
+                </div>
+
+                <!-- DISPLAY TYPE -->
+                <ul class="list-unstyled list-inline input-sm " id="_worklist_display_type" style="margin-top: 3px; margin-bottom: 6px;">
+                    <li>
+                        <label class="">
+                            <input type="radio" checked="checked" value="list" name="_worklist_display_type" id="_worklist_display_type_0">
+                            <span style="margin-left: 5px;"> Lista</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="">
+                            <input type="radio" {#checked="checked"#} value="detail" name="_worklist_display_type" id="_worklist_display_type_1">
+                            <span style="margin-left: 5px;"> Detalle</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="">
+                            <input type="radio" {#checked="checked"#} value="agenda" name="_worklist_display_type" id="_worklist_display_type_2">
+                            <span style="margin-left: 5px;"> Agenda</span>
+                        </label>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
     <div class=" {#col-lg-10 col-md-10 col-sm-10#} col-lg-12 col-md-12 col-sm-12 ">
         {#<div class="row">#} <!-- row block -->
-            <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
-                <div class="box-body">
-
-                    <!-- WORKLIST MENU -->
-                    <div class="{# col-lg-10 col-md-10 col-sm-10 #} col-lg-9 col-md-9 col-sm-9 nav-pills-darkblue ">
-                        <ul class="nav nav-pills nav-justified" id="_worklist_display_items">
-                            <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-film"></span> EXAMINAR</a></li>
-                            <li><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-adjust"></span> LECTURA</a></li>
-                            <li><a href="javascript:void(0)" onclick="generate(this, 'non_transcribed_results'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-headphones"></span> TRANSCRIPCIÓN</a></li>
-                            <li><a href="javascript:void(0)" onclick="generate(this, 'non_validated_results'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-check"></span> REVISIÓN</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- DISPLAY TYPE -->
-                    <ul class="list-unstyled list-inline input-sm " id="_worklist_display_type" style="margin-top: 3px; margin-bottom: 6px;">
-                        <li>
-                            <label class="">
-                                <input type="radio" checked="checked" value="list" name="_worklist_display_type" id="_worklist_display_type_0">
-                                <span style="margin-left: 5px;"> Lista</span>
-                            </label>
-                        </li>
-                        <li>
-                            <label class="">
-                                <input type="radio" {#checked="checked"#} value="detail" name="_worklist_display_type" id="_worklist_display_type_1">
-                                <span style="margin-left: 5px;"> Detalle</span>
-                            </label>
-                        </li>
-                        <li>
-                            <label class="">
-                                <input type="radio" {#checked="checked"#} value="agenda" name="_worklist_display_type" id="_worklist_display_type_2">
-                                <span style="margin-left: 5px;"> Agenda</span>
-                            </label>
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
         {#</div>#} <!-- end row block -->
 
         <!-- WORKLIST elements -->
