@@ -34,12 +34,27 @@
                 <!-- WORKLIST MENU -->
                 <div class="col-lg-10 col-md-10 col-sm-10 nav-pills-darkblue ">
                     <ul class="nav nav-pills nav-justified" id="_catalogs_dashboard_display_items">
-                        <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'radiological_examinations'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-list-alt"></span> Proyecciones</a></li>
-                        <li><a href="javascript:void(0)" onclick="generate(this, 'local_radiological_examinations', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-home"></span> Proyecciones (loc.)</a></li>
-                        <li><a href="javascript:void(0)" onclick="generate(this, 'materials'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-list-alt"></span> Materiales</a></li>
-                        <li><a href="javascript:void(0)" onclick="generate(this, 'local_materials'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-home"></span> Materiales (loc.)</a></li>
-                        <li><a href="javascript:void(0)" onclick="generate(this, 'pacs_server_connections'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-signal"></span> Conexiones (PACS)</a></li>
-                        <li><a href="javascript:void(0)" onclick="generate(this, 'radiological_diagnostic_patterns'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-headphones"></span> Patrones (Dx)</a></li>
+                        <li role="presentation" class="dropdown active">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-list-alt"></span> Proyecciones <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu highlight-success-dropdown-menu" role="menu">
+                                <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'radiological_examinations'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-list-alt"></span> Proyecciones</a></li>
+                                <li class="divider" role="separator"></li>
+                                <li><a href="javascript:void(0)" onclick="generate(this, 'local_radiological_examinations', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-home"></span> Proyecciones (loc.)</a></li>
+                            </ul>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-list-alt"></span> Materiales <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu highlight-success-dropdown-menu" role="menu">
+                                <li><a href="javascript:void(0)" onclick="generate(this, 'materials'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-list-alt"></span> Materiales</a></li>
+                                <li><a href="javascript:void(0)" onclick="generate(this, 'local_materials'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-home"></span> Materiales (loc.)</a></li>
+                            </ul>
+                        </li>
+                        <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'pacs_server_connections'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-signal"></span> Conexiones (PACS)</a></li>
+                        <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'radiological_diagnostic_patterns'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-headphones"></span> Patrones (Dx)</a></li>
                     </ul>
                 </div>
 

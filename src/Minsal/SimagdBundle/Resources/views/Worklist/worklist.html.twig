@@ -25,7 +25,15 @@
 {% block content %}
     {{ parent() }}
 
-    {% include 'MinsalSimagdBundle:Menu:panel_top_menu.html.twig' %} {#ignore missing with {'id': 'patient_modal_search_'}#}
+    <div class=" {#col-lg-10 col-md-10 col-sm-10#} col-lg-12 col-md-12 col-sm-12 ">
+        <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
+            <div class="box-body">
+                <div class="row">
+                    {% include 'MinsalSimagdBundle:Menu:panel_top_menu.html.twig' %} {#ignore missing with {'id': 'patient_modal_search_'}#}
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class=" col-lg-8 col-md-8 col-sm-8 col-xs-offset-2 ">
         <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
@@ -34,10 +42,10 @@
                 <!-- WORKLIST MENU -->
                 <div class="{# col-lg-10 col-md-10 col-sm-10 #} col-lg-9 col-md-9 col-sm-9 nav-pills-darkblue ">
                     <ul class="nav nav-pills nav-justified" id="_worklist_display_items">
-                        <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-film"></span> Examinar</a></li>
-                        <li><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-adjust"></span> Lectura</a></li>
-                        <li><a href="javascript:void(0)" onclick="generate(this, 'non_transcribed_results'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-headphones"></span> Transcripción</a></li>
-                        <li><a href="javascript:void(0)" onclick="generate(this, 'non_validated_results'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-check"></span> Revisión</a></li>
+                        <li role="presentation" class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-film"></span> Examinar</a></li>
+                        <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-adjust"></span> Lectura</a></li>
+                        <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'non_transcribed_results'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-headphones"></span> Transcripción</a></li>
+                        <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'non_validated_results'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-check"></span> Revisión</a></li>
                     </ul>
                 </div>
 
@@ -206,30 +214,40 @@
         </div>
         <!-- END --| NEW FOREIGN PATIENT -->
 
-        <div class="tab-pane fade in active" id="tab_list__" style="min-height: 768px;" >
+    </div>
 
-            <!--
-            //////////////////////////////////////////////////////////////
-            //////// TABLE
-            //////////////////////////////////////////////////////////////
-             -->
-            <!-- table for any result -->
-            <div class=" {#col-lg-9 col-md-9 col-sm-9#} ">
-                <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
-                    <thead>
-                    </thead>
-                </table>
+    <div class="tab-pane fade in active" id="tab_list__" style="min-height: 768px;" >
+
+        <!--
+        //////////////////////////////////////////////////////////////
+        //////// TABLE
+        //////////////////////////////////////////////////////////////
+         -->
+        <!-- table for any result -->
+        {#<div class=" col-lg-9 col-md-9 col-sm-9 ">#}
+
+            <div class=" {#col-lg-10 col-md-10 col-sm-10#} {#col-lg-12 col-md-12 col-sm-12#} col-lg-8 col-md-8 col-sm-8 col-xs-offset-2 ">
+                <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
+                    <div class="box-body">
+                        <div class="row">
+                            <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
+                                <thead>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- end table -->
+            
+        {#</div>#}
+        <!-- end table -->
 
 
-            <!--
-            //////////////////////////////////////////////////////////////
-            //////// END --| TABLE
-            //////////////////////////////////////////////////////////////
-             -->
-
-        </div>
+        <!--
+        //////////////////////////////////////////////////////////////
+        //////// END --| TABLE
+        //////////////////////////////////////////////////////////////
+         -->
 
     </div>
 
@@ -238,10 +256,10 @@
         <!-- vertical pills -->
         <div class=" nav-pills-primary-v4 ">
             <ul class="nav nav-pills nav-stacked " id="_stacked_worklist_display_items">
-                <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-film"></span> EXAMINAR</a></li>
-                <li><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-adjust"></span> LECTURA</a></li>
-                <li><a href="javascript:void(0)" onclick="generate(this, 'non_transcribed_results'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-headphones"></span> TRANSCRIPCIÓN</a></li>
-                <li><a href="javascript:void(0)" onclick="generate(this, 'non_validated_results'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-check"></span> REVISIÓN</a></li>
+                <li role="presentation" class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-film"></span> EXAMINAR</a></li>
+                <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-adjust"></span> LECTURA</a></li>
+                <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'non_transcribed_results'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-headphones"></span> TRANSCRIPCIÓN</a></li>
+                <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'non_validated_results'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-check"></span> REVISIÓN</a></li>
             </ul>
         </div>
 
