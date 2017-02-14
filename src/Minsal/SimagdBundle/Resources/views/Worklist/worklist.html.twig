@@ -75,7 +75,66 @@
         </div>
     </div>
 
-    <div class=" {#col-lg-10 col-md-10 col-sm-10#} col-lg-12 col-md-12 col-sm-12 ">
+
+
+    <div class=" col-lg-12 col-md-12 col-sm-12 ">
+        <div class="jumbotron" style="background-color: /*#ebc5b9*/ #284858;">
+            <div class="container">
+                <h2><strong><span class="text-emergency"> pacientes pendientes de examinar </span></strong></h2>
+                {#<strong><span class="badge badge-primary-v4" style="font-size: 25px;"> data.item.numero </span></strong>#}
+                {#<p><a class="btn btn-primary-v4 " role="button">Crear solicitud</a> <a class="btn btn-emergency " role="button"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></p>#}
+                <div class="btn-toolbar" role="toolbar" aria-label="...">
+                    {% for i in ['proyecciones', 'locales', 'lecturas', 'diagnósticos', 'exámenes', 'solicitudes', 'materiales', 'locales'] %}
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-{#primary-v4#}success-v3" role="button" href="javascript:void(0)" id="pry{{ loop.index }}" onclick="generate(this); return false;" title="generar tabla">
+                                {{ i }}
+                            </a>
+                        </div>
+                    {% endfor %}
+                    {#<div class="btn-group" role="group">
+                        <a class="btn btn-success-v4" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-emergency" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-emergency" role="button" href="javascript:void(0)" id="pry" onclick="generate(this); return false;" title="generar tabla">
+                            botón de prueba
+                        </a>
+                    </div>#}
+                </div>
+                <p></p>
+                <div class="btn-toolbar" role="toolbar" aria-label="...">
+                    {% for i in ['proyecciones', 'locales', 'lecturas', 'diagnósticos', 'exámenes', 'solicitudes', 'materiales', 'locales'] %}
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-primary-v4{#success-v3#}" role="button" href="javascript:void(0)" id="pry{{ loop.index }}" onclick="generate(this); return false;" title="generar tabla">
+                                {{ i }}
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <p></p>
+                <div class="btn-toolbar" role="toolbar" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-emergency" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
+                    </div>
+                    {#<div class="btn-group" role="group">
+                        <a class="btn btn-danger" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-success-v3" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-success-v4" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
+                    </div>#}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class=" {#col-lg-10 col-md-10 col-sm-10#} col-lg-12 col-md-12 col-sm-12 {#col-lg-6 col-md-6 col-sm-6#} ">
         {#<div class="row">#} <!-- row block -->
         {#</div>#} <!-- end row block -->
 
@@ -171,6 +230,10 @@
                 </div>
             {#</div>#} <!-- end row block -->
         {#</div>#} <!-- END --| WORKLIST elements -->
+
+    </div>
+
+    <div class=" {#col-lg-10 col-md-10 col-sm-10#} col-lg-12 col-md-12 col-sm-12 {#col-lg-6 col-md-6 col-sm-6#} ">
 
         <!-- WORKLIST TRY - NEW FOREIGN PATIENT -->
         <!-- <div class="box box-drop-outside-emergency box-emergency"> -->
