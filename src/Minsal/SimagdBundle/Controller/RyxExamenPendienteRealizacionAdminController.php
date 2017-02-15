@@ -35,10 +35,11 @@ class RyxExamenPendienteRealizacionAdminController extends MinsalSimagdBundleGen
                 $this->container,
                 $this->admin->getRouteGenerator(),
                 $this->admin->getClass(),
-                $__REQUEST__type
+                $__REQUEST__type,
+                $__REQUEST__slug
         );
         //////// --|
-        $ENTITY_LIST_VIEW_GENERATOR_->setSlug($__REQUEST__slug);
+        // $ENTITY_LIST_VIEW_GENERATOR_->setSlug($__REQUEST__slug);
         $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
 
         return $this->renderJson(array(

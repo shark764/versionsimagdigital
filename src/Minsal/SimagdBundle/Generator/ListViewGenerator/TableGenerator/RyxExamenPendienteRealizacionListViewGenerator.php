@@ -31,16 +31,23 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
-     * @var array
+     * @var string
      */
     protected $slug = '';
 
     /**
-     * Sets the string.
-     *
-     * @param string $slug
-     *
-     * @api
+     * Constructor
+     */
+    public function __construct(ContainerInterface $container, RouteGeneratorInterface $routeGenerator, $class, $type = 'list', $slug = '')
+    {
+        parent::__construct($container, $routeGenerator, $class, $type);
+
+        $this->setSlug($slug);
+        $this->initialize();
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function setSlug($slug)
     {
