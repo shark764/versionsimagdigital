@@ -31,6 +31,31 @@ use Sonata\AdminBundle\Route\RouteGeneratorInterface;
 class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGenerator
 {
     /**
+     * @var array
+     */
+    protected $slug = '';
+
+    /**
+     * Sets the string.
+     *
+     * @param string $slug
+     *
+     * @api
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
      * Sets the array.
      *
      * @param array $columns An array instance
@@ -215,7 +240,7 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
     public function defineEntityOptions()
     {
         ////////
-        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_sin_realizar_generateData', array('type' => $this->type));
+        $this->entityOptions['url']         = $this->routeGenerator->generate('simagd_sin_realizar_generateData', array('type' => $this->type, 'slug' => $this->slug));
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-darkblue-head';
         // $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-black-head';
         $this->entityOptions['classes']     = 'table table-hover table-condensed table-striped table-xray-supreme-head';

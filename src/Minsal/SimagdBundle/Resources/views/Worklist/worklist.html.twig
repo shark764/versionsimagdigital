@@ -84,6 +84,11 @@
                 {#<strong><span class="badge badge-primary-v4" style="font-size: 25px;"> data.item.numero </span></strong>#}
                 {#<p><a class="btn btn-primary-v4 " role="button">Crear solicitud</a> <a class="btn btn-emergency " role="button"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></p>#}
                 <div class="btn-toolbar" role="toolbar" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-{#primary-v4#}success-v3" role="button" href="javascript:void(0)" id="unrealized_procedures_today" onclick="generate(this, 'unrealized_procedures_today'); return false;" title="generar tabla">
+                                Del día
+                            </a>
+                        </div>
                     {% for i in ['proyecciones', 'locales', 'lecturas', 'diagnósticos', 'exámenes', 'solicitudes', 'materiales', 'locales'] %}
                         <div class="btn-group" role="group">
                             <a class="btn btn-{#primary-v4#}success-v3" role="button" href="javascript:void(0)" id="pry{{ loop.index }}" onclick="generate(this); return false;" title="generar tabla">

@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class RyxExamenPendienteRealizacionRepository extends EntityRepository
 {
-    public function getWorkList($id_estab, $bs_filters = array())
+    public function getWorkList($id_estab, $bs_filters = array(), $worklist_range_ = 'range')
     {
         /** SubQuery */
         $subQuery = $this->getEntityManager()
@@ -96,6 +96,11 @@ class RyxExamenPendienteRealizacionRepository extends EntityRepository
                                             )
                             )
                             ->setParameter('id_est_explocal', $id_estab);
+
+        if ($worklist_range_ === 'today') {
+            $query->andWhere('cit.fechaHoraInicio >= :_start_today')
+                            ->setParameter('_start_today', (new \DateTime('now'))->setTime(0, 0));
+        }
 
         $query/*->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())))*/
 			    ->distinct();

@@ -26,6 +26,7 @@ class RyxExamenPendienteRealizacionAdminController extends MinsalSimagdBundleGen
     {
         $request->isXmlHttpRequest();
         $__REQUEST__type = $request->request->get('type', 'list');
+        $__REQUEST__slug = $request->request->get('slug', 'unrealized_procedures');
 
         // $em = $this->getDoctrine()->getManager();
 
@@ -37,6 +38,7 @@ class RyxExamenPendienteRealizacionAdminController extends MinsalSimagdBundleGen
                 $__REQUEST__type
         );
         //////// --|
+        $ENTITY_LIST_VIEW_GENERATOR_->setSlug($__REQUEST__slug);
         $options = $ENTITY_LIST_VIEW_GENERATOR_->getTable();
 
         return $this->renderJson(array(
@@ -205,6 +207,9 @@ class RyxExamenPendienteRealizacionAdminController extends MinsalSimagdBundleGen
     	$sessionUser		= $securityContext->getToken()->getUser();
         $estabLocal      	= $sessionUser->getIdEstablecimiento();
 
+        $__REQUEST__slug = $this->get('request')->query->get('slug', 'unrealized_procedures');
+        $worklist_range_ = $__REQUEST__slug === 'unrealized_procedures_today' ? 'today' : 'range';
+
         if ($__REQUEST__type === 'agenda')
         {
             //////////////////////////////////////////////////////////////////////
@@ -274,7 +279,7 @@ class RyxExamenPendienteRealizacionAdminController extends MinsalSimagdBundleGen
             }
         }
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgPendienteRealizacion')->getWorkList($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:ImgPendienteRealizacion')->getWorkList($estabLocal->getId(), $BS_FILTERS_DECODE, $worklist_range_);
 
         $isUser_allowRealizar               = ($this->admin->getRoutes()->has('realizar') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_EDIT')) ||
