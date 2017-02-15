@@ -40,10 +40,9 @@ class RyxExamenPendienteRealizacionListViewGenerator extends RyxEntityListViewGe
      */
     public function __construct(ContainerInterface $container, RouteGeneratorInterface $routeGenerator, $class, $type = 'list', $slug = '')
     {
-        parent::__construct($container, $routeGenerator, $class, $type);
-
         $this->setSlug($slug);
-        $this->initialize();
+        
+        parent::__construct($container, $routeGenerator, $class, $type);
     }
 
     /**

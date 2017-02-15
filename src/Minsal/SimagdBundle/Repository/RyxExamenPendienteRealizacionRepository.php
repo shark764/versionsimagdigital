@@ -99,7 +99,7 @@ class RyxExamenPendienteRealizacionRepository extends EntityRepository
 
         if ($worklist_range_ === 'today') {
             $query->andWhere('cit.fechaHoraInicio >= :start_today_')
-                            ->setParameter('start_today_', (new \DateTime('now'))->setTime(0, 0));
+                            ->setParameter('start_today_', (new \DateTime('now'))/*->modify('-399 day')*/->setTime(0, 0));
         }
 
         $query/*->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())))*/
