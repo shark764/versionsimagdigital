@@ -108,16 +108,16 @@
                         </a>
                     </div>#}
                 </div>
-                <p></p>
+                {#<p></p>
                 <div class="btn-toolbar" role="toolbar" aria-label="...">
                     {% for i in ['proyecciones', 'locales', 'lecturas', 'diagnósticos', 'exámenes', 'solicitudes', 'materiales', 'locales'] %}
                         <div class="btn-group" role="group">
-                            <a class="btn btn-primary-v4{#success-v3#}" role="button" href="javascript:void(0)" id="pry{{ loop.index }}" onclick="generate(this); return false;" title="generar tabla">
+                            <a class="btn btn-primary-v4" role="button" href="javascript:void(0)" id="pry{{ loop.index }}" onclick="generate(this); return false;" title="generar tabla">
                                 {{ i }}
                             </a>
                         </div>
                     {% endfor %}
-                </div>
+                </div>#}
                 <p></p>
                 <div class="btn-toolbar" role="toolbar" aria-label="...">
                     <div class="btn-group" role="group">
