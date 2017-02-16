@@ -30,8 +30,10 @@
 			    return {
 			    	view: $last_view.name,
 			    	type: $type_val,
-					idAreaServicioDiagnostico: jQuery('select[id="navbar_field_cita_modalidad"]').val(),
-					idTecnologo: jQuery('select[id="navbar_field_cita_tecnologo"]').val(),
+					// idAreaServicioDiagnostico: jQuery('select[id="navbar_field_cita_modalidad"]').val(),
+					// idTecnologo: jQuery('select[id="navbar_field_cita_tecnologo"]').val(),
+					idAreaServicioDiagnostico: jQuery('select[id="_filter_agenda_modality"]').val(),
+					idTecnologo: jQuery('select[id="_filter_agenda_radiologist"]').val(),
 					numeroExp: jQuery.trim(jQuery('input[id="navbar_filter_expNumero"]').val()),
 					start : $last_view.intervalStart.format('YYYY-MM-DD HH:mm'),
 					end: $last_view.intervalEnd.format('YYYY-MM-DD HH:mm'),
@@ -431,6 +433,13 @@
 		    	var $el_fc_calendar = jQuery('#calendar');	//  --| calendar DOM element
 				$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('removeEvents', event._id);
 		    }
+
+		    var fc_view = $el_fc_calendar.fullCalendar('getView');
+			if (event.hasOwnProperty('type') && event.type === 'summary' && fc_view.name === 'month') {
+				var summary_height = element.closest('table').height() - element.closest('table').find('thead').height();
+				window.console.log('summary_height', summary_height);
+				element.find('.fc-content').css({'display': "table", 'height': summary_height + "px", 'width': "100%"});
+			}
 	    },
 	    loading: function(isLoading, view) {
 			if (isLoading !== false) {
