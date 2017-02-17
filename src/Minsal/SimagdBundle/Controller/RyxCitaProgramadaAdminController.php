@@ -736,7 +736,24 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
 
             $results[$key]['color']                              = $r['prc_id_areaAtencion'] == 2 ? '#e0533d' : ($r['prc_id_areaAtencion'] == 3 ? '#16677d' : '#183f52');
 
-            $results[$key]['prc_solicitudEstudioProyeccion']      = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
+            // $results[$key]['prc_solicitudEstudioProyeccion']      = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
+
+            $results[$key]['event_detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px; color: #444;">' .
+                    '<div class="box-body" >' .
+                        '<div class="row">' .
+                            '<div class="col-lg-12 col-md-12 col-sm-12 data-box-row"><h5>' . $r['paciente'] . '</h5>' .
+                                // '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3></div></div>' .
+                                '<div class="row"><div class="col-lg-12 col-md-12 col-sm-12 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 12px;">' . $r['numero_expediente'] . '</span></div></div><p></p>' .
+                                '<div class="row"><div class="col-lg-3 col-md-3 col-sm-3 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['origen'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-3 col-md-3 col-sm-3 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['area_atencion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-3 col-md-3 col-sm-3 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['atencion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-3 col-md-3 col-sm-3 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['medico'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-3 col-md-3 col-sm-3 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['modalidad'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-3 col-md-3 col-sm-3 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['triage'] . '</div></div>' .
+                            '</div>' .
+                        '</div>' .
+                    '</div>' .
+                '</div>';
         }
 
         return $this->renderJson($results);
