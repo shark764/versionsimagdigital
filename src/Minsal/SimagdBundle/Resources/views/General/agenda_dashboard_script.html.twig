@@ -66,6 +66,10 @@
                             .fullCalendar(fc_options);
                         console.log('%cfullCalendar is successfully initiated', 'background: #183f52; color: #eee');
                     } else {
+                        var $el_fc_calendar = jQuery('#calendar');  //  --| calendar DOM element
+                        $el_fc_calendar
+                            .filter(':not([disabled]):visible')
+                                    .fullCalendar('destroy');   // --| destroy calendar
                         $table
                             .bootstrapTable('destroy')
                             .bootstrapTable(response.options);

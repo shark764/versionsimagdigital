@@ -75,9 +75,9 @@ class AgendaGenerator
         'slotEventOverlap' => false,
         'slotLabelFormat' => 'h:mm A',
         'timeFormat' => 'H(:mm) A',
-        'eventLimit' => true,
+        'eventLimit' => true,   // for all non-agenda views
         'views' => array(
-            'agenda' => array('eventLimit' => 6,),
+            'agenda' => array('eventLimit' => 6,),  // adjust to 6 only for agendaWeek/agendaDay
         ),
         'handleWindowResize' => true,
         'events' => '__FULL_CAL__.functions.events',
