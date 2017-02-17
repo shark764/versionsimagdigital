@@ -25,7 +25,15 @@
 {% block content %}
     {{ parent() }}
 
-    {% include 'MinsalSimagdBundle:Menu:panel_top_menu.html.twig' %} {#ignore missing with {'id': 'patient_modal_search_'}#}
+    <div class=" {#col-lg-10 col-md-10 col-sm-10#} col-lg-12 col-md-12 col-sm-12 ">
+        <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
+            <div class="box-body">
+                <div class="row">
+                    {% include 'MinsalSimagdBundle:Menu:panel_top_menu.html.twig' %} {#ignore missing with {'id': 'patient_modal_search_'}#}
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class=" col-lg-8 col-md-8 col-sm-8 col-xs-offset-2 ">
         <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">

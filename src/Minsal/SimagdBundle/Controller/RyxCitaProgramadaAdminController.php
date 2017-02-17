@@ -183,7 +183,7 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
             $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion'] ? $r['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
             $results[$key]['prc_fechaProximaConsulta']           = $r['prc_fechaProximaConsulta'] ? $r['prc_fechaProximaConsulta']->format('Y-m-d') : '';
 
-            $results[$key]['prc_solicitudEstudioProyeccion']  = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
+            // $results[$key]['prc_solicitudEstudioProyeccion']  = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
 
             $results[$key]['url']    = $this->admin->generateUrl('show', array('id' => $r['cit_id']));
         }

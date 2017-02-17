@@ -769,7 +769,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         // the key used to lookup the template
         $templateKey = 'worklist';
 
-        $securityContext = $this->container->get('security.context');
+        // $securityContext = $this->container->get('security.context');
 
         $em = $this->getDoctrine()->getManager();
 
@@ -777,10 +777,10 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $tiposEmpleado = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
-        $radiologos = $em->getRepository('MinsalSiapsBundle:MntEmpleado')
-                                        ->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(4, 5))
-                                                ->getQuery()->getResult();
+        // $tiposEmpleado = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
+        // $radiologos = $em->getRepository('MinsalSiapsBundle:MntEmpleado')
+        //                                 ->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(4, 5))
+        //                                         ->getQuery()->getResult();
         $modalidades = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
 
         // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
@@ -809,8 +809,8 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         return $this->render($this->admin->getTemplate($templateKey), array(
             'action'        => 'worklist',
             'csrf_token'    => $this->getCsrfToken('sonata.batch'),
-            'tiposEmpleado' => $tiposEmpleado,
-            'radiologos'    => $radiologos,
+            // 'tiposEmpleado' => $tiposEmpleado,
+            // 'radiologos'    => $radiologos,
             'modalidades'   => $modalidades,
             'DEFAULT_TABLE_OPTIONS' => $options,
         ));
@@ -827,7 +827,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         // the key used to lookup the template
         $templateKey = 'request_dashboard';
 
-        $securityContext = $this->container->get('security.context');
+        // $securityContext = $this->container->get('security.context');
 
         // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
         //     return new RedirectResponse($this->generateUrl('simagd_solicitud_estudio_accessDenied'));
@@ -870,7 +870,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         // the key used to lookup the template
         $templateKey = 'results_dashboard';
 
-        $securityContext = $this->container->get('security.context');
+        // $securityContext = $this->container->get('security.context');
 
         // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
         //     return new RedirectResponse($this->generateUrl('simagd_solicitud_estudio_accessDenied'));
@@ -913,7 +913,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         // the key used to lookup the template
         $templateKey = 'catalogs_dashboard';
 
-        $securityContext = $this->container->get('security.context');
+        // $securityContext = $this->container->get('security.context');
 
         // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
         //     return new RedirectResponse($this->generateUrl('simagd_solicitud_estudio_accessDenied'));
@@ -956,7 +956,17 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         // the key used to lookup the template
         $templateKey = 'agenda_dashboard';
 
-        $securityContext = $this->container->get('security.context');
+        $em = $this->getDoctrine()->getManager();
+
+        $securityContext    = $this->container->get('security.context');
+        $sessionUser        = $securityContext->getToken()->getUser();
+        $estabLocal         = $sessionUser->getIdEstablecimiento();
+
+        $tiposEmpleado = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
+        $radiologos = $em->getRepository('MinsalSiapsBundle:MntEmpleado')
+                                        ->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(4, 5))
+                                                ->getQuery()->getResult();
+        $modalidades = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
 
         // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
         //     return new RedirectResponse($this->generateUrl('simagd_solicitud_estudio_accessDenied'));
@@ -984,6 +994,9 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         return $this->render($this->admin->getTemplate($templateKey), array(
             'action'        => 'agenda_dashboard',
             'csrf_token'    => $this->getCsrfToken('sonata.batch'),
+            'tiposEmpleado' => $tiposEmpleado,
+            'radiologos'    => $radiologos,
+            'modalidades'   => $modalidades,
             'FC_OPTIONS'    => $options,
         ));
     }

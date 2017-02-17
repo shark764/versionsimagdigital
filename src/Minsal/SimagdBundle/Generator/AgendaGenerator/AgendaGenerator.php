@@ -59,6 +59,7 @@ class AgendaGenerator
         'locale' => 'es',
         'timezone' => 'America/El_Salvador',
         'editable' => true,
+        'selectable' => true,
         'editExternalEvent' => true,
         'defaultView' => 'agendaWeek',
         'hiddenDays' => array(6, 0),    // hide saturdays (6) and sundays (0)
@@ -86,6 +87,7 @@ class AgendaGenerator
         //     'error' => '__FULL_CAL__.functions.error',
         //     'currentTimezone' => 'America/El_Salvador',
         // ),
+        'select' => '__FULL_CAL__.functions.select',
         'drop' => '__FULL_CAL__.functions.drop',
         'eventResizeStart' => '__FULL_CAL__.functions.eventResizeStart',
         'eventDragStart' => '__FULL_CAL__.functions.eventDragStart',

@@ -14,6 +14,57 @@ and open the template in the editor.
     margin-right: 1%;
 }
 
+.btn.btn-default,
+.btn.btn-emergency,
+.btn.btn-success-v2,
+.btn.btn-success-v3,
+.btn.btn-success-v4,
+.btn.btn-primary-v2,
+.btn.btn-primary-v3,
+.btn.btn-primary-v4,
+.btn.btn-black-thrash,
+.btn.btn-dcm4chee-highlightable-even,
+.btn.btn-medicine-green-v2,
+.btn.btn-medicine-green-dark-v2,
+.btn.btn-highlighted {
+    font-size: 12px;
+    transition: all .5s;
+}
+
+
+/*
+ * *************************************************************************************************************************************************
+ * HIGHLIGHTED (YELLOW OPACITY)
+ * *************************************************************************************************************************************************
+ */
+.btn-highlighted,
+.btn.btn-highlighted {
+  background-color: #f5f2d4;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  /*color: #444;*/
+  color: #151e23;
+  border-color: #eeeec9;
+}
+.btn.btn-highlighted:hover,
+.btn.btn-highlighted:active,
+.btn.btn-highlighted.hover {
+  background-color: #ffffcc;
+}
+.btn-highlighted:hover,
+.btn-highlighted:focus,
+.btn-highlighted:active,
+.btn-highlighted.active,
+.open .dropdown-toggle.btn-highlighted {
+  /*color: #444;*/
+  color: #151e23;
+  /*background-color: #f3efb2;*/
+  background-color: #f7f7be;
+  border-color: #dcd8a0;
+}
+
+
+
 td .dropdown-menu {
   text-align: left;
   /*z-index: 1000;*/
@@ -1705,14 +1756,16 @@ a.anchor-camry-celestial-silver-metallic {
 
 
 .btn .btn-emergency {
-  background-color: #d86e5e;
+  /*background-color: #d86e5e;*/
+  background-color: #df6c4f;
   border-color: #c6695b;
   transition: all .5s;
 }
 
 .btn-emergency {
   color: rgb(255, 255, 255);
-  background-color: #d86e5e;
+  /*background-color: #d86e5e;*/
+  background-color: #df6c4f;
   border-color: #c6695b;
 }
 
@@ -1774,13 +1827,8 @@ a.anchor-camry-celestial-silver-metallic {
 
 .badge.badge-emergency.badge-inverse {
     color: white;
-    /*background-color: #e45315;*/
-    /*background-color: #e86646;*/
-    /*background-color: #db5c3d;*/
-    /*background-color: #ec5b44;*/
-    /*background-color: #e46753;*/
-    /*background-color: #e6715f;*/
-    background-color: #d86e5e;
+    /*background-color: #d86e5e;*/
+    background-color: #df6c4f;
 }
 
 .label_form_sm .badge {

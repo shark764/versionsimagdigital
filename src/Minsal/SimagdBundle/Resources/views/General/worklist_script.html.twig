@@ -16,12 +16,16 @@
             ////////
             $table.bootstrapTable('showLoading');
 
-            $url = null;
+            var $url = null;
 			switch (slug) {
 				case 'unrealized_procedures':
 					// $url = 'simagd_sin_realizar_generateTable';
 					// break;
                 case 'unrealized_procedures_today':
+                case 'unrealized_procedures_yesterday':
+                case 'unrealized_procedures_tomorrow':
+                case 'unrealized_procedures_week':
+                case 'unrealized_procedures_month':
                     $url = 'simagd_sin_realizar_generateTable';
                     break;
 				case 'undiagnosed_studies':

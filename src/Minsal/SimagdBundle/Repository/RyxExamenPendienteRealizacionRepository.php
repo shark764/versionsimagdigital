@@ -102,8 +102,8 @@ class RyxExamenPendienteRealizacionRepository extends EntityRepository
             //                 ->andWhere('cit.fechaHoraInicio <= :end_today_')
             $query->andWhere('pndR.fechaIngresoLista >= :start_today_')
                             ->andWhere('pndR.fechaIngresoLista <= :end_today_')
-                            ->setParameter('start_today_', (new \DateTime('now'))->modify('-394 day')->setTime(0, 0))
-                            ->setParameter('end_today_', (new \DateTime('now'))->modify('-394 day')->modify('+1 day')->setTime(0, 0));
+                            ->setParameter('start_today_', (new \DateTime('now'))->modify('-395 day')->setTime(0, 0))
+                            ->setParameter('end_today_', (new \DateTime('now'))->modify('-395 day')->modify('+1 day')->setTime(0, 0));
         }
 
         $query/*->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())))*/

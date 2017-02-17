@@ -429,17 +429,20 @@
 		    return false;
 	    },
 	    eventAfterRender: function(event, element, view) {
+	    	var $el_fc_calendar = jQuery('#calendar');	//  --| calendar DOM element
+
 		    if (event._id === 'false_event_id' || event._id === 'bl_false_event_id') {
 		    	var $el_fc_calendar = jQuery('#calendar');	//  --| calendar DOM element
 				$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('removeEvents', event._id);
 		    }
 
 		    var fc_view = $el_fc_calendar.fullCalendar('getView');
+            //////// << summary view mode >>
 			if (event.hasOwnProperty('type') && event.type === 'summary' && fc_view.name === 'month') {
-				var summary_height = element.closest('table').height() - element.closest('table').find('thead').height();
-				window.console.log('summary_height', summary_height);
-				element.find('.fc-content').css({'display': "table", 'height': summary_height + "px", 'width': "100%"});
+				var summary_height = element.closest('.fc-widget-content').height() - element.closest('table').find('thead').height() - 6;	// padding botton 6px
+				element.find('.fc-content').css({'display': "table", 'height': summary_height.toString() + "px", 'width': "100%"});
 			}
+			////////
 	    },
 	    loading: function(isLoading, view) {
 			if (isLoading !== false) {
@@ -465,6 +468,12 @@
 				    'AGENDA'
 				].join('');
 		    }*/);
+	    },
+	    select: function(start, end, jsEvent, view) {
+	    	var $fc_calendar_panel  = jQuery('[id="fc-calendar-panel"]');
+
+	    	var $modal = jQuery('[id="field_dialog_patient_modal_search_"]');
+	    	$modal.modal();
 	    },
     };	// --| build function object
 
