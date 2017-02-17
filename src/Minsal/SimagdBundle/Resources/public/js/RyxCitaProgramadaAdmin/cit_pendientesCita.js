@@ -35,7 +35,7 @@
 
 jQuery.fn.loadPacientesSinCita = function() {
     var $div_load   = this.find('.panel-body');
-    var $field      = $('input[id="filter_patientsNoDated"]').filter(':not([disabled]):enabled:not([readonly])');
+    var $field      = jQuery('input[id="filter_patientsNoDated"]').filter(':not([disabled]):enabled:not([readonly])');
     
     jQuery(this).find('.panel-title').html(function() {
         return [
@@ -45,7 +45,7 @@ jQuery.fn.loadPacientesSinCita = function() {
         ].join('');
     });
     
-    $('[data-toggle="popover"]').popover('hide');
+    jQuery('[data-toggle="popover"]').popover('hide');
 
     $div_load.find('div.fc-event').remove();
             
@@ -73,9 +73,9 @@ jQuery.fn.loadPacientesSinCita = function() {
         },
         success: function(data) {
             $.each(data, function(i) {
-		var $prc_object_data = this;
+				var $prc_object_data = this;
                 $div_load.append($('<div>')
-				      .addClass('fc-event')
+				      .addClass('fc-event draggable-external-fc-event')
 				      .css({ 'background-color' : this.color, 'border' : '1px double ' + this.color, 'padding-left' : '2px', 'padding-right' : '2px' })
 				      .attr({ 'data-solicitud' : this.prc_id,
 					      'data-numero' : this.exp_numero,
@@ -90,7 +90,7 @@ jQuery.fn.loadPacientesSinCita = function() {
 
 					  return $result;
 				      })
-//				      .text(this.prc_paciente)
+				      // .text(this.prc_paciente)
 				      .data('event', {
 					  prc_id: this.prc_id, // use the element's text as the event title
 					  prc_fechaProximaConsulta: this.prc_fechaProximaConsulta,
@@ -250,7 +250,7 @@ jQuery.fn.loadPacientesSinCita = function() {
 					  });
 				      })
 				      .click(function() {
-					  $('[data-toggle="popover"]').not(this).popover('hide');
+					  jQuery('[data-toggle="popover"]').not(this).popover('hide');
 // 					  console.log('hizo click aqui');
 					  console.log($prc_object_data);
 				      })
@@ -285,9 +285,9 @@ jQuery.fn.loadPacientesSinCita = function() {
     
 jQuery.fn.filterPacientesSinCita = function() {
     var $div_load = this.find('.panel-body');
-    var filterDiv = jQuery.trim($('input[id="filter_patientsNoDated"]').filter(':not([disabled]):enabled:not([readonly])').val());
+    var filterDiv = jQuery.trim(jQuery('input[id="filter_patientsNoDated"]').filter(':not([disabled]):enabled:not([readonly])').val());
     
-    $('[data-toggle="popover"]').popover('hide');
+    jQuery('[data-toggle="popover"]').popover('hide');
     
     $div_load.find('div.fc-event').each(function () {
         jQuery.trim(jQuery(this).data("numero")) !== filterDiv ? jQuery(this).fadeOut() : jQuery(this).fadeIn();
@@ -298,7 +298,7 @@ jQuery.fn.filterPacientesSinCita = function() {
 jQuery.fn.mostrarPacientesSinCita = function() {
     var $div_load = this.find('.panel-body');
     
-    $('[data-toggle="popover"]').popover('hide');
+    jQuery('[data-toggle="popover"]').popover('hide');
     
     $div_load.find('div.fc-event').fadeIn();
 
@@ -369,9 +369,9 @@ jQuery(document).ready(function() {
      * 
      * @type @call;$|@call;$
      */
-    var $tt_elem_patientLc  = $('input[id="filter_patientsNoDated"]');
+    var $tt_elem_patientLc  = jQuery('input[id="filter_patientsNoDated"]');
     
-    var $tt_elem_clear      = $('i[id="clear-typeahead-filter-patient-exp"]');
+    var $tt_elem_clear      = jQuery('i[id="clear-typeahead-filter-patient-exp"]');
     
     /*
      * --| add animated icon for typeahead

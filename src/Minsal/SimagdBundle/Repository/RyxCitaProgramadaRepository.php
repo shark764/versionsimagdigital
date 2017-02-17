@@ -64,6 +64,9 @@ class RyxCitaProgramadaRepository extends EntityRepository
                             ->addSelect('explocal')
                             ->addSelect('unknExp')
                             ->addSelect('prAtn')
+
+                            ->addSelect('stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea AS modalidad, prAtn.nombre AS triage, prc.fechaCreacion AS fecha_solicitud, statusSc.nombreEstado AS estado, COALESCE(statusSc.porcentajeAvance, 0) AS progreso')
+
                             ->addSelect('cit.id AS id, cit.diaCompleto AS allDay, cit.color AS color')
                             ->addSelect('stdcit.nombre AS cit_establecimiento, stdcit.id AS cit_id_establecimiento, statuscit.nombreEstado AS cit_estado, statuscit.codigo AS cit_codEstado, statuscit.id AS cit_id_estado, cit.observaciones AS description')
                             ->addSelect('stdroot.nombre AS prc_origen, stdroot.id AS prc_id_origen, ar.nombre AS prc_areaAtencion, ar.id AS prc_id_areaAtencion, atn.nombre AS prc_atencion, atn.id AS prc_id_atencion')

@@ -200,7 +200,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/RyxCitaProgramadaAdminController.php",
 			"settings":
 			{
-				"buffer_size": 46278,
+				"buffer_size": 48520,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -209,7 +209,7 @@
 			"file": "src/Minsal/SimagdBundle/Repository/RyxCitaProgramadaRepository.php",
 			"settings":
 			{
-				"buffer_size": 16759,
+				"buffer_size": 17388,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -227,7 +227,7 @@
 			"file": "src/Minsal/SimagdBundle/Resources/views/RyxCitaProgramadaAdmin/cit_agenda.html.twig",
 			"settings":
 			{
-				"buffer_size": 40865,
+				"buffer_size": 40869,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -955,7 +955,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 46278,
+						"buffer_size": 48520,
 						"regions":
 						{
 						},
@@ -985,7 +985,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16759,
+						"buffer_size": 17388,
 						"regions":
 						{
 						},
@@ -1045,7 +1045,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 40865,
+						"buffer_size": 40869,
 						"regions":
 						{
 						},
