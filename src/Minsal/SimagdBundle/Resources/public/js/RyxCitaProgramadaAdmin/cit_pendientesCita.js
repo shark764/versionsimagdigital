@@ -54,7 +54,7 @@ jQuery.fn.loadPacientesSinCita = function() {
             navbar_search_modalidad: {
                 type    : 'undefined',
                 target  : 'm_id',
-                value   : jQuery('select[id="navbar_field_cita_modalidad"]').val()
+                value   : jQuery('select[id="_setting_calendar_filters_modality"]').val()
             },
             navbar_search_expediente: {
                 type    : 'undefined',
@@ -479,7 +479,7 @@ jQuery(document).ready(function() {
 	    .loadPacientesSinCita();
     });
     
-    jQuery('select[id="navbar_field_cita_modalidad"]').change(function() {
+    jQuery('select[id="_setting_calendar_filters_modality"]').change(function() {
         $fc_patient_panel.filter(':not([disabled]):visible')
 	    .loadPacientesSinCita();
 	    console.log('%c.tt-highlight en search no puede verse ahora que se cambió el label-default-v2', 'background: #183f52; color: #fff');

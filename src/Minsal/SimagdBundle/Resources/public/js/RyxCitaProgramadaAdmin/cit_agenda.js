@@ -116,7 +116,7 @@ jQuery(document).ready(function() {
 		 */
 		jQuery('#external-events').find('.fc-event').html(function($i, $html) {
 		    var $this	= jQuery(this),
-			var $event	= $this.data('event').event_server_object;
+				$event	= $this.data('event').event_server_object;
 		    // var $result	= $html + [
 			//     '<br/>',
 			//     '<span style="font-weight: 900;">', $event.explocal_numero, '</span>',

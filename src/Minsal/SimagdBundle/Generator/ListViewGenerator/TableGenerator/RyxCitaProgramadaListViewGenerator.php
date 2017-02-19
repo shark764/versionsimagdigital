@@ -180,18 +180,25 @@ class RyxCitaProgramadaListViewGenerator extends RyxEntityListViewGenerator
                         // 'switchable' => false,
                     ),
                     array(
-                        'field' => 'fecha_examen',
+                        'field' => 'fecha_solicitud',
                         'sortable' => true,
-                        'title' => 'Fecha (Exm.)',
+                        'title' => 'Fecha (Slct.)',
+                        // 'visible' => false,
+                        // 'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'fecha_registro',
+                        'sortable' => true,
+                        'title' => 'Fecha (Reg.)',
                         'visible' => false,
                         // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     array(
-                        'field' => 'fecha_solicitud',
+                        'field' => 'fecha_confirmacion',
                         'sortable' => true,
-                        'title' => 'Fecha (Reg.)',
-                        // 'visible' => false,
-                        // 'switchable' => false,
+                        'title' => 'Fecha (Cnfd.)',
+                        'visible' => false,
+                        // 'formatter' => 'simagdDateTimeFormatter',
                     ),
                     // array(
                     //     'field' => 'context_menu',
@@ -209,7 +216,7 @@ class RyxCitaProgramadaListViewGenerator extends RyxEntityListViewGenerator
                         'halign' => 'center',
                         'title' => '<span class="glyphicon glyphicon-cog"></span> OP.',
                         // 'formatter' => 'operateFormatter',
-                        'events' => '__EVENTSCALENDARANDEXAMS_MENU_ACTIONEVENTS__',
+                        'events' => '__SCHEDULEDAPPOINTMENTSFOREXAMS_MENU_ACTIONEVENTS__',
                     )
             );
         }

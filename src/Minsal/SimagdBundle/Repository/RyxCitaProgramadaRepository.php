@@ -175,6 +175,9 @@ class RyxCitaProgramadaRepository extends EntityRepository
                             ->addSelect('statusSc')
                             ->addSelect('explocal')->addSelect('unknExp')
                             ->addSelect('prAtn')
+
+                            ->addSelect('cit.id AS id, stdroot.nombre AS origen, CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS paciente, explocal.numero AS numero_expediente, CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS medico, ar.nombre AS area_atencion, atn.nombre AS atencion, m.nombrearea AS modalidad, prAtn.nombre AS triage, prc.fechaCreacion AS fecha_solicitud, cit.fechaCreacion as fecha_registro, cit.fechaConfirmacion as fecha_confirmacion, statuscit.nombreEstado AS estado, COALESCE(statusSc.porcentajeAvance, 0) AS progreso')
+
                             // ->addSelect('prc.datosClinicos AS datosClinicosV2')
                             ->addSelect('statuscit.nombreEstado AS cit_estado, statuscit.codigo AS cit_codEstado, statuscit.id AS cit_id_estado, rpAtz.parentesco AS cit_responsable, rpAtz.id AS cit_id_responsable')
                             ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS prc_paciente')

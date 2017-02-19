@@ -327,7 +327,7 @@
                         <div class="form-group">
                             <label class="col-xs-1 control-label">Radiólogo</label>
                             <div class="col-xs-4">
-                                <select id="navbar_field_cita_tecnologo" name="navbar_field_cita_tecnologo" class="form-control select2-select" >
+                                <select id="_setting_calendar_filters_radiologist" name="_setting_calendar_filters_radiologist" class="form-control select2-select" >
                                     <option value=""></option>
                                     {% for tipo in tiposEmpleado if tipo.codigo == 'TRY' or tipo.codigo == 'MRY' %}
                                         <optgroup label="{{ tipo }}">
@@ -343,7 +343,7 @@
                             </div>
                             <label class="col-xs-2 control-label required">Modalidad</label>
                             <div class="col-xs-4">
-                                <select id="navbar_field_cita_modalidad" name="navbar_field_cita_modalidad" class="form-control select2-select" >
+                                <select id="_setting_calendar_filters_modality" name="_setting_calendar_filters_modality" class="form-control select2-select" >
                                     <option value=""></option>
                                     {#<optgroup label="Servicio de Diagnóstico por imagen">#}
                                         {% for modalidad in modalidades %}

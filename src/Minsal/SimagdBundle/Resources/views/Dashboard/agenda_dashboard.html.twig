@@ -176,7 +176,7 @@
 
                         <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">MODALIDAD</label>
                         <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
-                            <select id="_filter_agenda_modality" name="_filter_agenda_modality" class="form-control select2-select" >
+                            <select id="_setting_calendar_filters_modality" name="_setting_calendar_filters_modality" class="form-control select2-select" >
                                 <option value=""></option>
                                 {#<optgroup label="Servicio de Diagnóstico por imagen">#}
                                     {% for modalidad in modalidades %}
@@ -188,7 +188,7 @@
 
                         <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 control-label">TECNÓLOGO</label>
                         <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 ">
-                            <select id="_filter_agenda_radiologist" name="_filter_agenda_radiologist" class="form-control select2-select" >
+                            <select id="_setting_calendar_filters_radiologist" name="_setting_calendar_filters_radiologist" class="form-control select2-select" >
                                 <option value=""></option>
                                 {% for tipo in tiposEmpleado if tipo.codigo == 'TRY' or tipo.codigo == 'MRY' %}
                                     <optgroup label="{{ tipo }}">
@@ -246,7 +246,6 @@
             //////// PENDING PATIENTS
             //////////////////////////////////////////////////////////////
              -->
-            <!-- table for any result -->
             <div class=" col-lg-3 col-md-3 col-sm-3 {#col-lg-12 col-md-12 col-sm-12#} {#col-lg-8 col-md-8 col-sm-8 col-xs-offset-3#} " style="min-height: 768px;">
                 <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
                     <div class="box-body">
@@ -255,9 +254,6 @@
                     </div>
                 </div>
             </div>
-            <!-- end table -->
-
-
             <!--
             //////////////////////////////////////////////////////////////
             //////// END --| PENDING PATIENTS
@@ -269,7 +265,6 @@
             //////// CALENDAR
             //////////////////////////////////////////////////////////////
              -->
-            <!-- table for any result -->
             <div class=" col-lg-9 col-md-9 col-sm-9 {#col-lg-12 col-md-12 col-sm-12#} {#col-lg-8 col-md-8 col-sm-8 col-xs-offset-3#} " style="min-height: 768px;">
                 <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
                     <div class="box-body">
@@ -279,9 +274,6 @@
                     </div>
                 </div>
             </div>
-            <!-- end table -->
-
-
             <!--
             //////////////////////////////////////////////////////////////
             //////// END --| CALENDAR
@@ -298,7 +290,7 @@
             //////////////////////////////////////////////////////////////
              -->
             <!-- table for any result -->
-            <div class=" {#col-lg-10 col-md-10 col-sm-10#} {#col-lg-12 col-md-12 col-sm-12#} col-lg-8 col-md-8 col-sm-8 col-xs-offset-2 " style="min-height: 768px;">
+            <div class=" {#col-lg-10 col-md-10 col-sm-10#} col-lg-12 col-md-12 col-sm-12 {#col-lg-8 col-md-8 col-sm-8 col-xs-offset-2#} " style="min-height: 768px;">
                 <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
                     <div class="box-body">
                         <div class="row">
@@ -311,8 +303,6 @@
                 </div>
             </div>
             <!-- end table -->
-
-
             <!--
             //////////////////////////////////////////////////////////////
             //////// END --| TABLE

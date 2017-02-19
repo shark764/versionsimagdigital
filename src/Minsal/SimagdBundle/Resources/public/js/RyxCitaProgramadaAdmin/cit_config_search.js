@@ -119,8 +119,8 @@
          * set select2
          * @type @call;$
          */
-        var $el_tcnl_prg                        = $('select[id="navbar_field_cita_tecnologo"]');   //  --| select tcnl DOM element (default configuration)
-        var $el_mod_prc                         = $('select[id="navbar_field_cita_modalidad"]');      //  --| select modalidad DOM element
+        var $el_tcnl_prg                        = $('select[id="_setting_calendar_filters_radiologist"]');   //  --| select tcnl DOM element (default configuration)
+        var $el_mod_prc                         = $('select[id="_setting_calendar_filters_modality"]');      //  --| select modalidad DOM element
 
         $el_tcnl_prg.change(function(e) {
             console.log(jQuery(this).attr('id'), jQuery(this).val());

@@ -30,10 +30,10 @@
 			    return {
 			    	view: $last_view.name,
 			    	type: $type_val,
-					// idAreaServicioDiagnostico: jQuery('select[id="navbar_field_cita_modalidad"]').val(),
-					// idTecnologo: jQuery('select[id="navbar_field_cita_tecnologo"]').val(),
-					idAreaServicioDiagnostico: jQuery('select[id="_filter_agenda_modality"]').val(),
-					idTecnologo: jQuery('select[id="_filter_agenda_radiologist"]').val(),
+					// idAreaServicioDiagnostico: jQuery('select[id="_setting_calendar_filters_modality"]').val(),
+					// idTecnologo: jQuery('select[id="_setting_calendar_filters_radiologist"]').val(),
+					idAreaServicioDiagnostico: jQuery('select[id="_setting_calendar_filters_modality"]').val(),
+					idTecnologo: jQuery('select[id="_setting_calendar_filters_radiologist"]').val(),
 					numeroExp: jQuery.trim(jQuery('input[id="navbar_filter_expNumero"]').val()),
 					start : $last_view.intervalStart.format('YYYY-MM-DD HH:mm'),
 					end: $last_view.intervalEnd.format('YYYY-MM-DD HH:mm'),
@@ -266,7 +266,7 @@
 					start : event.start.format('YYYY-MM-DD HH:mm'),
 					end: event.end.format('YYYY-MM-DD HH:mm'),
 					color: event.color,
-					idTecnologoProgramado: jQuery('select[id="navbar_field_cita_tecnologo"]').val()
+					idTecnologoProgramado: jQuery('select[id="_setting_calendar_filters_radiologist"]').val()
 				},
 				success: function(response) {
 					console.log('Evento agregado satisfactoriamente', event._id, response.cit_id);
