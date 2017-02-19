@@ -65,19 +65,27 @@
 {% block content %}
     {{ parent() }}
 
-    {% include 'MinsalSimagdBundle:Menu:panel_top_menu.html.twig' %} {#ignore missing with {'id': 'patient_modal_search_'}#}
+    <div class=" {#col-lg-10 col-md-10 col-sm-10#} col-lg-12 col-md-12 col-sm-12 ">
+        <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
+            <div class="box-body">
+                <div class="row">
+                    {% include 'MinsalSimagdBundle:Menu:panel_top_menu.html.twig' %} {#ignore missing with {'id': 'patient_modal_search_'}#}
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class=" col-lg-8 col-md-8 col-sm-8 col-xs-offset-2 ">
         <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
             <div class="box-body">
 
                 <!-- WORKLIST MENU -->
-                <div class="col-lg-10 col-md-10 col-sm-10 nav-pills-darkblue ">
+                <div class="{# col-lg-10 col-md-10 col-sm-10 #} col-lg-9 col-md-9 col-sm-9 nav-pills-darkblue ">
                     <ul class="nav nav-pills nav-justified" id="_agenda_dashboard_display_items">
-                        <li role="presentation" class="active"><a href="javascript:void(0)" onclick="generate(this, 'events_calendar_and_exams'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-calendar"></span> Agenda</a></li>
-                        <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'scheduled_appointments_for_exams', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-tags"></span> Citas Programadas</a></li>
-                        <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'blocked_days_and_festivities'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-ban-circle"></span> Bloqueos.</a></li>
-                        <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'study_request'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-inbox"></span> Solicitudes Pendientes</a></li>
+                        <li role="presentation" class="active"><a {#href="javascript:void(0)"#} href="#tab_agenda__" onclick="generate(this, 'events_calendar_and_exams'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-calendar"></span> Agenda</a></li>
+                        <li role="presentation" ><a {#href="javascript:void(0)"#} href="#tab_list__" onclick="generate(this, 'scheduled_appointments_for_exams'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-tags"></span> Citas Programadas</a></li>
+                        <li role="presentation" ><a {#href="javascript:void(0)"#} href="#tab_list__" onclick="generate(this, 'blocked_days_and_festivities'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-ban-circle"></span> Bloqueos.</a></li>
+                        <li role="presentation" ><a {#href="javascript:void(0)"#} href="#tab_list__" onclick="generate(this, 'study_request'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-inbox"></span> Solicitudes Pendientes</a></li>
                     </ul>
                 </div>
 
@@ -95,17 +103,194 @@
                             <span style="margin-left: 5px;"> Detalle</span>
                         </label>
                     </li>
+                    <li>
+                        <label class="">
+                            <input type="radio" {#checked="checked"#} value="agenda" name="_agenda_dashboard_display_type" id="_agenda_dashboard_display_type_2">
+                            <span style="margin-left: 5px;"> Agenda</span>
+                        </label>
+                    </li>
                 </ul>
 
             </div>
         </div>
     </div>
 
-    <div class=" {#col-lg-10 col-md-10 col-sm-10#} col-lg-12 col-md-12 col-sm-12 ">
-        {#<div class="row">#} <!-- row block -->
-        {#</div>#} <!-- end row block -->
 
-        <div class="tab-pane fade in active" id="tab_list__" style="min-height: 768px;" >
+
+    <div class=" col-lg-12 col-md-12 col-sm-12 ">
+        <div class="jumbotron" style="background-color: {##ebc5b9#}{##183f52;#}#284858;">
+            <div class="container">
+                <h2><strong><span class="text-emergency"> Pacientes {#pendientes de#}sin examinar </span></strong></h2>
+                {#<strong><span class="badge badge-primary-v4" style="font-size: 25px;"> data.item.numero </span></strong>#}
+                <div class="btn-toolbar" role="toolbar" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures_today'); return false;" title="generar tabla" >
+                            Pacientes del día
+                        </a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures_week'); return false;" title="generar tabla" >
+                            Pacientes de la semana
+                        </a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" title="generar tabla" >
+                            Todos los pacientes
+                        </a>
+                    </div>
+                    {% for i in ['proyecciones', 'locales', 'lecturas', 'diagnósticos', 'exámenes'] %}
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-highlighted" role="button" href="javascript:void(0)" id="pry{{ loop.index }}" onclick="generate(this); return false;" title="generar tabla" >
+                                {{ i }}
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <p></p>
+                <div class="btn-toolbar" role="toolbar" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-emergency" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class=" {#col-lg-10 col-md-10 col-sm-10#} col-lg-12 col-md-12 col-sm-12 {#col-lg-6 col-md-6 col-sm-6#} ">
+
+        <!-- WORKLIST elements -->
+        <div class="box box-drop-outside-shadow box-primary-v4">
+            <div class="box-body">
+
+                <div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h5>CONFIGURACIÓN DE AGENDA <small>(PARA ASIGNACIÓN Y BÚSQUEDA DE CITAS)</small></h5></div></div>
+                <!-- <p></p> -->
+
+                <form id="_exam_agenda_filter_form" name="_fc_filter_box_form" method="post" class="form-horizontal" role="search" style="margin-top: 0px; margin-bottom: -14px;">
+
+                    <div class="form-group">
+                        <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">BUSCAR FECHA</label>
+                        <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
+                        </div>
+
+                        <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">MODALIDAD</label>
+                        <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
+                            <select id="_filter_agenda_modality" name="_filter_agenda_modality" class="form-control select2-select" >
+                                <option value=""></option>
+                                {#<optgroup label="Servicio de Diagnóstico por imagen">#}
+                                    {% for modalidad in modalidades %}
+                                        <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
+                                    {% endfor %}
+                                {#</optgroup>#}
+                            </select>
+                        </div>
+
+                        <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 control-label">TECNÓLOGO</label>
+                        <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 ">
+                            <select id="_filter_agenda_radiologist" name="_filter_agenda_radiologist" class="form-control select2-select" >
+                                <option value=""></option>
+                                {% for tipo in tiposEmpleado if tipo.codigo == 'TRY' or tipo.codigo == 'MRY' %}
+                                    <optgroup label="{{ tipo }}">
+                                    {% for radiologo in radiologos if radiologo.idTipoEmpleado is not null and radiologo.idTipoEmpleado.id == tipo.id %}
+                                        <option value="{{ radiologo.id }}" {% if radiologo.id == app.user.getIdEmpleado().getId() %} selected {% endif %}>{{ radiologo }}</option>
+                                    {% endfor %}
+                                    </optgroup>
+                                {% endfor %}
+                                {% for radiologo in radiologos if radiologo.idTipoEmpleado is null %}
+                                    <option value="{{ radiologo.id }}" {% if radiologo.id == app.user.getIdEmpleado().getId() %} selected {% endif %}>{{ radiologo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-5">
+                            <ul class="list-unstyled list-inline formstyle-radio-list-inline input-sm col-lg-12 col-md-12 col-sm-12" id="_fc_filter_search_type">
+                                <li>
+                                    <label class="">
+                                        <input type="radio" value="agenda" name="_fc_filter_search_type" id="_fc_filter_search_type_0">
+                                        <span style="margin-left: 5px;"> Lista de pacientes</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="">
+                                        <input type="radio" checked="checked" value="summary" name="_fc_filter_search_type" id="_fc_filter_search_type_1">
+                                        <span style="margin-left: 5px;"> Resumen</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="_group_new_patient">
+                        <div class="col-xs-12">
+                            <a class="btn btn-emergency" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
+                        </div>
+                    </div>
+
+                </form>
+                <!-- END --| FORM -->
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="tab-content {#col-lg-12 col-md-12 col-sm-12#}">
+
+        <div class="tab-pane fade in active" id="tab_agenda__" style="min-height: 768px;" >
+
+            <!--
+            //////////////////////////////////////////////////////////////
+            //////// PENDING PATIENTS
+            //////////////////////////////////////////////////////////////
+             -->
+            <!-- table for any result -->
+            <div class=" col-lg-3 col-md-3 col-sm-3 {#col-lg-12 col-md-12 col-sm-12#} {#col-lg-8 col-md-8 col-sm-8 col-xs-offset-3#} " style="min-height: 768px;">
+                <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
+                    <div class="box-body">
+                        <div class="row">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end table -->
+
+
+            <!--
+            //////////////////////////////////////////////////////////////
+            //////// END --| PENDING PATIENTS
+            //////////////////////////////////////////////////////////////
+             -->
+
+            <!--
+            //////////////////////////////////////////////////////////////
+            //////// CALENDAR
+            //////////////////////////////////////////////////////////////
+             -->
+            <!-- table for any result -->
+            <div class=" col-lg-9 col-md-9 col-sm-9 {#col-lg-12 col-md-12 col-sm-12#} {#col-lg-8 col-md-8 col-sm-8 col-xs-offset-3#} " style="min-height: 768px;">
+                <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
+                    <div class="box-body">
+                        <div class="row">
+                            <div id="calendar" {% if not (is_granted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_CITA_PROGRAMADA_CREATE') or is_granted('ROLE_ADMIN')) %} disabled="disabled" {% endif %}></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end table -->
+
+
+            <!--
+            //////////////////////////////////////////////////////////////
+            //////// END --| CALENDAR
+            //////////////////////////////////////////////////////////////
+             -->
+
+        </div>
+
+        <div class="tab-pane fade {#in active#}" id="tab_list__" style="min-height: 768px;" >
 
             <!--
             //////////////////////////////////////////////////////////////
@@ -113,11 +298,17 @@
             //////////////////////////////////////////////////////////////
              -->
             <!-- table for any result -->
-            <div class=" {#col-lg-9 col-md-9 col-sm-9#} ">
-                <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
-                    <thead>
-                    </thead>
-                </table>
+            <div class=" {#col-lg-10 col-md-10 col-sm-10#} {#col-lg-12 col-md-12 col-sm-12#} col-lg-8 col-md-8 col-sm-8 col-xs-offset-2 " style="min-height: 768px;">
+                <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
+                    <div class="box-body">
+                        <div class="row">
+                            <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
+                                <thead>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- end table -->
 
@@ -152,17 +343,17 @@
     //////////////////////////////////////////////////////////////
      -->
     {% include 'MinsalSimagdBundle:General:agenda_dashboard_script.html.twig' %}
-    {% include 'MinsalSimagdBundle:RyxCitaProgramadaAdmin:cit_actionEvents.html.twig' %}
-    {% include 'MinsalSimagdBundle:RyxBloqueoAgendaAdmin:blAgd_actionEvents.html.twig' %}
+    {#{% include 'MinsalSimagdBundle:RyxCitaProgramadaAdmin:cit_actionEvents.html.twig' %}#}
+    {#{% include 'MinsalSimagdBundle:RyxBloqueoAgendaAdmin:blAgd_actionEvents.html.twig' %}#}
     {#{% include 'MinsalSimagdBundle:RyxCtlPreparacionEstudioAdmin:prpEst_actionEvents.html.twig' %}#}
-    {% include 'MinsalSimagdBundle:RyxSolicitudEstudioAdmin:prc_actionEvents.html.twig' %}
+    {#{% include 'MinsalSimagdBundle:RyxSolicitudEstudioAdmin:prc_actionEvents.html.twig' %}#}
     <!--
     //////////////////////////////////////////////////////////////
     //////// END --| SCRIPT FUNCTIONS
     //////////////////////////////////////////////////////////////
      -->
 
-    {#{% include 'MinsalSimagdBundle:CRUD:simagd_edit_orm_modal.html.twig' ignore missing with {'id': 'patient_modal_search_'} %}#}
+    {% include 'MinsalSimagdBundle:CRUD:simagd_edit_orm_modal.html.twig' ignore missing with {'id': 'patient_modal_search_'} %}
 
 {% endblock %}
 

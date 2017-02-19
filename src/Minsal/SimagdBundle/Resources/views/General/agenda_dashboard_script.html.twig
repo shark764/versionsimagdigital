@@ -14,7 +14,7 @@
             ////////
             $table.bootstrapTable('showLoading');
 
-            $url = null;
+            var $url = null;
             switch (slug) {
                 case 'events_calendar_and_exams':
                     $url = 'simagd_cita_generateCalendar';
@@ -66,6 +66,10 @@
                             .fullCalendar(fc_options);
                         console.log('%cfullCalendar is successfully initiated', 'background: #183f52; color: #eee');
                     } else {
+                        var $el_fc_calendar = jQuery('#calendar');  //  --| calendar DOM element
+                        $el_fc_calendar
+                            .filter(':not([disabled]):visible')
+                                    .fullCalendar('destroy');   // --| destroy calendar
                         $table
                             .bootstrapTable('destroy')
                             .bootstrapTable(response.options);
@@ -78,14 +82,14 @@
             });
         }
 
-        {#jQuery(document).ready(function() {
+        jQuery(document).ready(function() {
             /*
              *
              * @type type
              * Get Table definition
              */
 
-            //////
+            {#//////
             var $table = jQuery('#ryx_target_bstable');
             ////////
             // $table.bootstrapTable('showLoading');
@@ -96,7 +100,7 @@
             $table
                 .bootstrapTable('destroy')
                 .bootstrapTable(DEFAULT_TABLE_OPTIONS);
-            ////////
+            ////////#}
 
 
             //////////////////////////////////////////////////////////////////////////
@@ -113,7 +117,7 @@
             //////////////////////////////////////////////////////////////////////////
 
             // jQuery('#_switch_display').iCheck('destroy').bootstrapSwitch();
-        });#}
+        });
         
         (function ($) {
 
@@ -139,7 +143,7 @@
 
         }(jQuery));
 
-        fc_goto_calendarDate = function(el) {
+        var fc_goto_calendarDate = function(el) {
             jQuery('#_fc_goto_dtpicker').data('DateTimePicker').show();
         }
 

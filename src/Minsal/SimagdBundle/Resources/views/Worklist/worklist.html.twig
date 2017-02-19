@@ -78,60 +78,39 @@
 
 
     <div class=" col-lg-12 col-md-12 col-sm-12 ">
-        <div class="jumbotron" style="background-color: /*#ebc5b9*/ #284858;">
+        <div class="jumbotron" style="background-color: {##ebc5b9#}{##183f52;#}#284858;">
             <div class="container">
-                <h2><strong><span class="text-emergency"> pacientes pendientes de examinar </span></strong></h2>
+                <h2><strong><span class="text-emergency"> Pacientes {#pendientes de#}sin examinar </span></strong></h2>
                 {#<strong><span class="badge badge-primary-v4" style="font-size: 25px;"> data.item.numero </span></strong>#}
-                {#<p><a class="btn btn-primary-v4 " role="button">Crear solicitud</a> <a class="btn btn-emergency " role="button"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a></p>#}
                 <div class="btn-toolbar" role="toolbar" aria-label="...">
-                        <div class="btn-group" role="group">
-                            <a class="btn btn-{#primary-v4#}success-v3" role="button" href="javascript:void(0)" id="unrealized_procedures_today" onclick="generate(this, 'unrealized_procedures_today'); return false;" title="generar tabla">
-                                Del día
-                            </a>
-                        </div>
-                    {% for i in ['proyecciones', 'locales', 'lecturas', 'diagnósticos', 'exámenes', 'solicitudes', 'materiales', 'locales'] %}
-                        <div class="btn-group" role="group">
-                            <a class="btn btn-{#primary-v4#}success-v3" role="button" href="javascript:void(0)" id="pry{{ loop.index }}" onclick="generate(this); return false;" title="generar tabla">
-                                {{ i }}
-                            </a>
-                        </div>
-                    {% endfor %}
-                    {#<div class="btn-group" role="group">
-                        <a class="btn btn-success-v4" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
-                    </div>
                     <div class="btn-group" role="group">
-                        <a class="btn btn-emergency" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-emergency" role="button" href="javascript:void(0)" id="pry" onclick="generate(this); return false;" title="generar tabla">
-                            botón de prueba
+                        <a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures_today'); return false;" title="generar tabla" >
+                            Pacientes del día
                         </a>
-                    </div>#}
-                </div>
-                {#<p></p>
-                <div class="btn-toolbar" role="toolbar" aria-label="...">
-                    {% for i in ['proyecciones', 'locales', 'lecturas', 'diagnósticos', 'exámenes', 'solicitudes', 'materiales', 'locales'] %}
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures_week'); return false;" title="generar tabla" >
+                            Pacientes de la semana
+                        </a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" title="generar tabla" >
+                            Todos los pacientes
+                        </a>
+                    </div>
+                    {% for i in ['proyecciones', 'locales', 'lecturas', 'diagnósticos', 'exámenes'] %}
                         <div class="btn-group" role="group">
-                            <a class="btn btn-primary-v4" role="button" href="javascript:void(0)" id="pry{{ loop.index }}" onclick="generate(this); return false;" title="generar tabla">
+                            <a class="btn btn-highlighted" role="button" href="javascript:void(0)" id="pry{{ loop.index }}" onclick="generate(this); return false;" title="generar tabla" >
                                 {{ i }}
                             </a>
                         </div>
                     {% endfor %}
-                </div>#}
+                </div>
                 <p></p>
                 <div class="btn-toolbar" role="toolbar" aria-label="...">
                     <div class="btn-group" role="group">
                         <a class="btn btn-emergency" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
                     </div>
-                    {#<div class="btn-group" role="group">
-                        <a class="btn btn-danger" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-success-v3" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-success-v4" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
-                    </div>#}
                 </div>
             </div>
         </div>
@@ -140,110 +119,101 @@
 
 
     <div class=" {#col-lg-10 col-md-10 col-sm-10#} col-lg-12 col-md-12 col-sm-12 {#col-lg-6 col-md-6 col-sm-6#} ">
-        {#<div class="row">#} <!-- row block -->
-        {#</div>#} <!-- end row block -->
 
         <!-- WORKLIST elements -->
-        {#<div class="col-lg-9 col-md-9 col-sm-9 ">#}
-            {#<div class="row">#} <!-- row block -->
-                <div class="box box-drop-outside-shadow box-primary-v4">
-                    <div class="box-body">
+        <div class="box box-drop-outside-shadow box-primary-v4">
+            <div class="box-body">
 
-                        <div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h5>CONFIGURACIÓN DE LISTA DE TRABAJO <small>(PARA LISTA DE PACIENTES A EXAMINAR)</small></h5></div></div>
-                        <!-- <p></p> -->
+                <div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h5>CONFIGURACIÓN DE LISTA DE TRABAJO <small>(PARA LISTA DE PACIENTES A EXAMINAR)</small></h5></div></div>
+                <!-- <p></p> -->
 
-                        <form id="_exam_worklist_form" name="_fc_filter_box_form" method="post" class="form-horizontal" role="search" style="margin-top: 0px; margin-bottom: -14px;">
+                <form id="_exam_worklist_form" name="_fc_filter_box_form" method="post" class="form-horizontal" role="search" style="margin-top: 0px; margin-bottom: -14px;">
 
-                            <div class="form-group">
-                                <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">MODALIDAD</label>
-                                <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
-                                    <select id="_exam_worklist_modality" name="_exam_worklist_modality" class="form-control select2-select" >
-                                        <option value=""></option>
-                                        {#<optgroup label="Servicio de Diagnóstico por imagen">#}
-                                            {% for modalidad in modalidades %}
-                                                <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
-                                            {% endfor %}
-                                        {#</optgroup>#}
-                                    </select>
-                                </div>
-                            {#</div>
-                            <div class="form-group">#}
-                                <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">SALA</label>
-                                <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
-                                    <select id="_exam_worklist_hospital_room" name="_exam_worklist_hospital_room" class="form-control select2-select" >
-                                        <option value=""></option>
-                                        {#<optgroup label="Servicio de Diagnóstico por imagen">#}
-                                            {#{% for modalidad in modalidades %}
-                                                <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
-                                            {% endfor %}#}
-                                        {#</optgroup>#}
-                                    </select>
-                                </div>
-                            {#</div>
-                            <div class="form-group">#}
-                                <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">EQUIPO</label>
-                                <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
-                                    <select id="_exam_worklist_x_ray_equipment" name="_exam_worklist_x_ray_equipment" class="form-control select2-select" >
-                                        <option value=""></option>
-                                        {#<optgroup label="Servicio de Diagnóstico por imagen">#}
-                                            {#{% for modalidad in modalidades %}
-                                                <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
-                                            {% endfor %}#}
-                                        {#</optgroup>#}
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                {#<label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 control-label">TECNÓLOGO</label>
-                                <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 ">
-                                    <select id="_exam_worklist_radiologist" name="_exam_worklist_radiologist" class="form-control select2-select" >
-                                        <option value=""></option>
-                                        {% for tipo in tiposEmpleado if tipo.codigo == 'TRY' or tipo.codigo == 'MRY' %}
-                                            <optgroup label="{{ tipo }}">
-                                            {% for radiologo in radiologos if radiologo.idTipoEmpleado is not null and radiologo.idTipoEmpleado.id == tipo.id %}
-                                                <option value="{{ radiologo.id }}" {% if radiologo.id == app.user.getIdEmpleado().getId() %} selected {% endif %}>{{ radiologo }}</option>
-                                            {% endfor %}
-                                            </optgroup>
-                                        {% endfor %}
-                                        {% for radiologo in radiologos if radiologo.idTipoEmpleado is null %}
-                                            <option value="{{ radiologo.id }}" {% if radiologo.id == app.user.getIdEmpleado().getId() %} selected {% endif %}>{{ radiologo }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>#}
-                            {#</div>
-                            <div class="form-group">#}
-                                <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">PACS</label>
-                                <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
-                                    <select id="_exam_worklist_hospital_pacs" name="_exam_worklist_hospital_pacs" class="form-control select2-select" >
-                                        <option value=""></option>
-                                        {#{% for hospital in hospitales %}
-                                            <optgroup label="{{ hospital }}">
-                                            {% for pacs in servidores_pacs if pacs.idEstablecimiento.id == hospital.id %}
-                                                <option value="{{ pacs.id }}" {% if pacs.principal %} selected {% endif %}>{{ pacs }}</option>
-                                            {% endfor %}
-                                            </optgroup>
-                                        {% endfor %}#}
-                                    </select>
-                                </div>
-                            </div>
-
-                        </form>
-                        <!-- END --| FORM -->
-
+                    <div class="form-group">
+                        <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">MODALIDAD</label>
+                        <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
+                            <select id="_exam_worklist_modality" name="_exam_worklist_modality" class="form-control select2-select" >
+                                <option value=""></option>
+                                {#<optgroup label="Servicio de Diagnóstico por imagen">#}
+                                    {% for modalidad in modalidades %}
+                                        <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
+                                    {% endfor %}
+                                {#</optgroup>#}
+                            </select>
+                        </div>
+                    {#</div>
+                    <div class="form-group">#}
+                        <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">SALA</label>
+                        <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
+                            <select id="_exam_worklist_hospital_room" name="_exam_worklist_hospital_room" class="form-control select2-select" >
+                                <option value=""></option>
+                                {#<optgroup label="Servicio de Diagnóstico por imagen">#}
+                                    {#{% for modalidad in modalidades %}
+                                        <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
+                                    {% endfor %}#}
+                                {#</optgroup>#}
+                            </select>
+                        </div>
+                    {#</div>
+                    <div class="form-group">#}
+                        <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">EQUIPO</label>
+                        <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
+                            <select id="_exam_worklist_x_ray_equipment" name="_exam_worklist_x_ray_equipment" class="form-control select2-select" >
+                                <option value=""></option>
+                                {#<optgroup label="Servicio de Diagnóstico por imagen">#}
+                                    {#{% for modalidad in modalidades %}
+                                        <option value="{{ modalidad.id }}" {% if 'RX001' is sameas(modalidad.imgCodigo|trim) %} selected {% endif %}>{{ modalidad }}</option>
+                                    {% endfor %}#}
+                                {#</optgroup>#}
+                            </select>
+                        </div>
                     </div>
-                </div>
-            {#</div>#} <!-- end row block -->
-        {#</div>#} <!-- END --| WORKLIST elements -->
+
+                    <div class="form-group">
+                        {#<label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 control-label">TECNÓLOGO</label>
+                        <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 ">
+                            <select id="_exam_worklist_radiologist" name="_exam_worklist_radiologist" class="form-control select2-select" >
+                                <option value=""></option>
+                                {% for tipo in tiposEmpleado if tipo.codigo == 'TRY' or tipo.codigo == 'MRY' %}
+                                    <optgroup label="{{ tipo }}">
+                                    {% for radiologo in radiologos if radiologo.idTipoEmpleado is not null and radiologo.idTipoEmpleado.id == tipo.id %}
+                                        <option value="{{ radiologo.id }}" {% if radiologo.id == app.user.getIdEmpleado().getId() %} selected {% endif %}>{{ radiologo }}</option>
+                                    {% endfor %}
+                                    </optgroup>
+                                {% endfor %}
+                                {% for radiologo in radiologos if radiologo.idTipoEmpleado is null %}
+                                    <option value="{{ radiologo.id }}" {% if radiologo.id == app.user.getIdEmpleado().getId() %} selected {% endif %}>{{ radiologo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>#}
+                    {#</div>
+                    <div class="form-group">#}
+                        <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">PACS</label>
+                        <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3 {#col-xs-9 col-lg-9 col-md-9 col-sm-9#} ">
+                            <select id="_exam_worklist_hospital_pacs" name="_exam_worklist_hospital_pacs" class="form-control select2-select" >
+                                <option value=""></option>
+                                {#{% for hospital in hospitales %}
+                                    <optgroup label="{{ hospital }}">
+                                    {% for pacs in servidores_pacs if pacs.idEstablecimiento.id == hospital.id %}
+                                        <option value="{{ pacs.id }}" {% if pacs.principal %} selected {% endif %}>{{ pacs }}</option>
+                                    {% endfor %}
+                                    </optgroup>
+                                {% endfor %}#}
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+                <!-- END --| FORM -->
+
+            </div>
+        </div>
 
     </div>
 
     <div class=" {#col-lg-10 col-md-10 col-sm-10#} col-lg-12 col-md-12 col-sm-12 {#col-lg-6 col-md-6 col-sm-6#} ">
 
         <!-- WORKLIST TRY - NEW FOREIGN PATIENT -->
-        <!-- <div class="box box-drop-outside-emergency box-emergency"> -->
-        <!-- <div class="box box-drop-outside-primary-v4 box-primary-v4"> -->
-        <!-- <div class="box box-drop-outside-medicine box-shadow-medicine"> -->
         <div class="box box-drop-outside-shadow box-primary-v4">
             <div class="box-body">
 
@@ -292,22 +262,18 @@
         //////////////////////////////////////////////////////////////
          -->
         <!-- table for any result -->
-        {#<div class=" col-lg-9 col-md-9 col-sm-9 ">#}
-
-            <div class=" {#col-lg-10 col-md-10 col-sm-10#} {#col-lg-12 col-md-12 col-sm-12#} col-lg-8 col-md-8 col-sm-8 col-xs-offset-2 ">
-                <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
-                    <div class="box-body">
-                        <div class="row">
-                            <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
-                                <thead>
-                                </thead>
-                            </table>
-                        </div>
+        <div class=" {#col-lg-10 col-md-10 col-sm-10#} {#col-lg-12 col-md-12 col-sm-12#} col-lg-8 col-md-8 col-sm-8 col-xs-offset-2 " style="min-height: 768px;">
+            <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
+                <div class="box-body">
+                    <div class="row">
+                        <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
+                            <thead>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
-            
-        {#</div>#}
+        </div>
         <!-- end table -->
 
 
@@ -318,20 +284,6 @@
          -->
 
     </div>
-
-    {#<div class=" col-lg-2 col-md-2 col-sm-2 ">
-
-        <!-- vertical pills -->
-        <div class=" nav-pills-primary-v4 ">
-            <ul class="nav nav-pills nav-stacked " id="_stacked_worklist_display_items">
-                <li role="presentation" class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-film"></span> EXAMINAR</a></li>
-                <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-adjust"></span> LECTURA</a></li>
-                <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'non_transcribed_results'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-headphones"></span> TRANSCRIPCIÓN</a></li>
-                <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'non_validated_results'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-check"></span> REVISIÓN</a></li>
-            </ul>
-        </div>
-
-    </div>#}
 
     <!--
     //////////////////////////////////////////////////////////////
