@@ -71,3 +71,8 @@ nbproject/
 *.jar
 *.war
 *.ear
+
+# Sublime Text Files
+*.sublime-project
+*.sublime-workspace
+
