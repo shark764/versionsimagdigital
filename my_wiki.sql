@@ -245,3 +245,8 @@ git pull origin farid
 ######### helper store
 git config --global credential.helper 'cache --timeout 7200'
 git config credential.helper store
+
+
+######### merge conflicts
+git diff --name-only --diff-filter=U
+
