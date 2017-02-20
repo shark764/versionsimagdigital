@@ -85,7 +85,15 @@
                         <li role="presentation" class="active"><a {#href="javascript:void(0)"#} href="#tab_agenda__" onclick="generate(this, 'events_calendar_and_exams'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-calendar"></span> Agenda</a></li>
                         <li role="presentation" ><a {#href="javascript:void(0)"#} href="#tab_list__" onclick="generate(this, 'scheduled_appointments_for_exams'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-tags"></span> Citas Programadas</a></li>
                         <li role="presentation" ><a {#href="javascript:void(0)"#} href="#tab_list__" onclick="generate(this, 'blocked_days_and_festivities'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-ban-circle"></span> Bloqueos.</a></li>
-                        <li role="presentation" ><a {#href="javascript:void(0)"#} href="#tab_list__" onclick="generate(this, 'study_request'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-inbox"></span> Solicitudes Pendientes</a></li>
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-inbox"></span> Solicitudes (est.) <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu highlight-success-dropdown-menu" role="menu">
+                                <li><a {#href="javascript:void(0)"#} href="#tab_list__" onclick="generate(this, 'study_request'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-inbox"></span> Solicitudes pendientes</a></li>
+                                <li><a {#href="javascript:void(0)"#} href="#tab_list__" onclick="generate(this, 'emergency_study_request', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-send"></span> Solicitudes (Emerg)</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
 
@@ -239,7 +247,7 @@
 
     <div class="tab-content {#col-lg-12 col-md-12 col-sm-12#}">
 
-        <div class="tab-pane fade in active" id="tab_agenda__" style="min-height: 768px;" >
+        <div class="tab-pane {#fade#} in active" id="tab_agenda__" style="min-height: 768px;" >
 
             <!--
             //////////////////////////////////////////////////////////////
@@ -282,7 +290,7 @@
 
         </div>
 
-        <div class="tab-pane fade {#in active#}" id="tab_list__" style="min-height: 768px;" >
+        <div class="tab-pane {#fade#} {#in active#}" id="tab_list__" style="min-height: 768px;" >
 
             <!--
             //////////////////////////////////////////////////////////////
@@ -295,8 +303,7 @@
                     <div class="box-body">
                         <div class="row">
                             <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
-                                <thead>
-                                </thead>
+                                <thead></thead>
                             </table>
                         </div>
                     </div>

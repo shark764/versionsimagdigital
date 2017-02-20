@@ -149,7 +149,7 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
                                                         '</table>' .
                                                     '</div>' .
                                                     '<div style="float: right; margin-left: 5px; margin-right: 10px; text-align: center;">' .
-                                                        '<h6>TOTAL<br/><small>' . $r['total'] . '</small></h6>' .
+                                                        '<h5>TOTAL<br/><small>' . $r['total'] . '</small></h5>' .
                                                     '</div>';
                 $results[$k]['start']   = $date_truncated->format('Y-m-d\TH:i:s');
                 $results[$k]['end']     = $date_truncated->modify('+23 hours 59 minutes')->format('Y-m-d\TH:i:s');
@@ -167,7 +167,8 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
         {
             // $r = new \Minsal\SimagdBundle\Entity\ImgCita();
 
-            $results[$key]['tooltip_title']  = ($r['explocal_numero'] ? '<span class="label label-primary-v4" style="margin-left: 5px; padding: .4em .6em;"><span class="badge badge-primary-v4">' . $r['explocal_numero'] . '</span></span> &nbsp;' : '') . $r['title'];
+            $results[$key]['tooltip_title'] = ($r['explocal_numero'] ? '<span class="label label-primary-v4" style="margin-left: 5px; padding: .4em .6em;"><span class="badge badge-primary-v4">' . $r['explocal_numero'] . '</span></span> &nbsp;' : '') . $r['title'];
+            $results[$key]['title_detail'] = ($r['explocal_numero'] ? '<span class="badge badge-primary-v4 " style="/*margin-left: 15px; padding: .2em .6em;*/">' . $r['explocal_numero'] . '</span>' : '') /*. $r['title']*/;
 
             $results[$key]['start']  = $r['cit_fechaHoraInicio']->format('Y-m-d\TH:i:s');
             $results[$key]['end']    = $r['cit_fechaHoraFin']->format('Y-m-d\TH:i:s');
@@ -738,18 +739,18 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
 
             // $results[$key]['prc_solicitudEstudioProyeccion']      = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
 
-            $results[$key]['event_detail'] = '<div class="box box-drop-outside-shadow box-primary-v4" style="margin-top: 5px; color: #444;">' .
+            $results[$key]['event_detail'] = '<div class="box ' /*box-drop-outside-shadow */ . ' box-primary-v4" style="margin-top: 0px; color: #444; margin-bottom: 0px;">' .
                     '<div class="box-body" >' .
                         '<div class="row">' .
-                            '<div class="col-lg-12 col-md-12 col-sm-12 data-box-row"><h5>' . $r['paciente'] . '</h5>' .
+                            '<div class="col-lg-12 col-md-12 col-sm-12 data-box-row">'/*<h5>' . $r['paciente'] . '</h5>'*/ .
                                 // '<div class="row"><div class="col-lg-6 col-md-6 col-sm-6 data-box-row"><h3>' . $r['paciente'] . '</h3></div></div>' .
-                                '<div class="row"><div class="col-lg-12 col-md-12 col-sm-12 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 12px;">' . $r['numero_expediente'] . '</span></div></div><p></p>' .
-                                '<div class="row"><div class="col-lg-3 col-md-3 col-sm-3 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['origen'] . '</div></div>' .
-                                '<div class="row"><div class="col-lg-3 col-md-3 col-sm-3 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['area_atencion'] . '</div></div>' .
-                                '<div class="row"><div class="col-lg-3 col-md-3 col-sm-3 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['atencion'] . '</div></div>' .
-                                '<div class="row"><div class="col-lg-3 col-md-3 col-sm-3 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['medico'] . '</div></div>' .
-                                '<div class="row"><div class="col-lg-3 col-md-3 col-sm-3 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['modalidad'] . '</div></div>' .
-                                '<div class="row"><div class="col-lg-3 col-md-3 col-sm-3 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-9 col-md-9 col-sm-9 data-box-row">' . $r['triage'] . '</div></div>' .
+                                // '<div class="row"><div class="col-lg-12 col-md-12 col-sm-12 data-box-row"><span class="badge badge-emergency badge-inverse" style="font-size: 12px;">' . $r['numero_expediente'] . '</span></div></div><p></p>' .
+                                '<div class="row"><div class="col-lg-4 col-md-4 col-sm-4 data-box-row"><strong>ORIGEN:</strong></div><div class="col-lg-8 col-md-8 col-sm-8 data-box-row">' . $r['origen'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-4 col-md-4 col-sm-4 data-box-row"><strong>PROCEDENCIA:</strong></div><div class="col-lg-8 col-md-8 col-sm-8 data-box-row">' . $r['area_atencion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-4 col-md-4 col-sm-4 data-box-row"><strong>SERVICIO:</strong></div><div class="col-lg-8 col-md-8 col-sm-8 data-box-row">' . $r['atencion'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-4 col-md-4 col-sm-4 data-box-row"><strong>MÉDICO:</strong></div><div class="col-lg-8 col-md-8 col-sm-8 data-box-row">' . $r['medico'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-4 col-md-4 col-sm-4 data-box-row"><strong>MODALIDAD:</strong></div><div class="col-lg-8 col-md-8 col-sm-8 data-box-row">' . $r['modalidad'] . '</div></div>' .
+                                '<div class="row"><div class="col-lg-4 col-md-4 col-sm-4 data-box-row"><strong>TRIAGE:</strong></div><div class="col-lg-8 col-md-8 col-sm-8 data-box-row">' . $r['triage'] . '</div></div>' .
                             '</div>' .
                         '</div>' .
                     '</div>' .

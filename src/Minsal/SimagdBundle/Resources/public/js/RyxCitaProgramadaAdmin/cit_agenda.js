@@ -117,25 +117,26 @@ jQuery(document).ready(function() {
 		jQuery('#external-events').find('.fc-event').html(function($i, $html) {
 		    var $this	= jQuery(this),
 				$event	= $this.data('event').event_server_object;
-		    // var $result	= $html + [
-			//     '<br/>',
-			//     '<span style="font-weight: 900;">', $event.explocal_numero, '</span>',
-			//     '<br/>',
-			//     '<div class="pending-patient-request">',
-			//     	'<u>' + $event.prc_areaAtencion + ' - ' + $event.prc_atencion + '</u>',
-			//     	'<br/>',
-			//     	'<strong>', $event.prc_modalidad, '</strong>',
-			//     	'<br/>',
-			//     	'<strong>Solicitó</strong>&nbsp; ' + $event.prc_empleado,
-			// 	'<br/>',
-			//     	'<strong>Se solicitó</strong>&nbsp; ' + simagdDateTimeFormatter($event.prc_fechaCreacion, $event, $event.prc_id),
-			// 	'<br/>',
-			//     	'<strong>Próxima consulta</strong>&nbsp; ' + simagdDateFormatter($event.prc_fechaProximaConsulta, $event, $event.prc_id),
-			// 	'<br/>',
-			//     	'<strong>Prioridad</strong>&nbsp; ' + $event.prAtn_nombre,
-			//     '</div>',
-			// ].join('');
-			var $result	= $html + $event.event_detail;
+		    var $result	= $html + [
+			    '<br/>',
+			    '<span style="font-weight: 900;">', $event.explocal_numero, '</span>',
+			    '<br/>',
+			    '<div class="pending-patient-request">',
+			  //   	'<u>' + $event.prc_areaAtencion + ' - ' + $event.prc_atencion + '</u>',
+			  //   	'<br/>',
+			  //   	'<strong>', $event.prc_modalidad, '</strong>',
+			  //   	'<br/>',
+			  //   	'<strong>Solicitó</strong>&nbsp; ' + $event.prc_empleado,
+					// '<br/>',
+			  //   	'<strong>Se solicitó</strong>&nbsp; ' + simagdDateTimeFormatter($event.prc_fechaCreacion, $event, $event.prc_id),
+					// '<br/>',
+			  //   	'<strong>Próxima consulta</strong>&nbsp; ' + simagdDateFormatter($event.prc_fechaProximaConsulta, $event, $event.prc_id),
+					// '<br/>',
+			  //   	'<strong>Prioridad</strong>&nbsp; ' + $event.prAtn_nombre,
+			  		$event.event_detail,
+			    '</div>',
+			].join('');
+			// var $result	= $html + $event.event_detail;
 		    return $result;
 		});
 

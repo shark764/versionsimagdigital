@@ -96,6 +96,8 @@
 			}
 			////////
 
+			element.find('.fc-title').append('<br/>' + event.title_detail);
+
 			element.popover({
 				html: true,
 				placement: 'top',
@@ -468,6 +470,8 @@
 				    'AGENDA'
 				].join('');
 		    }*/);
+
+		    window.console.log('%cAgenda was successfully reloaded', 'background: #183f52; color: #eee');
 	    },
 	    select: function(start, end, jsEvent, view) {
 	    	var $fc_calendar_panel  = jQuery('[id="fc-calendar-panel"]');
@@ -475,6 +479,19 @@
 	    	var $modal = jQuery('[id="field_dialog_patient_modal_search_"]');
 	    	$modal.modal();
 	    },
+	    customButtons: {
+		    reload: {
+				text: 'recargar',
+	            // icon: '',
+	            // themeIcon: '',
+				click: function(e) {
+			    	var $el_fc_calendar = jQuery('#calendar');	//  --| calendar DOM element
+					$el_fc_calendar
+						// .filter(':not([disabled]):visible')
+						.fullCalendar('refetchEvents');	// --| refresh the view
+				},
+			},
+		},
     };	// --| build function object
 
 }(jQuery));

@@ -51,8 +51,18 @@ class AgendaGenerator
      */
     protected $options = array(
         'lazyFetching' => false,    // prevent lazy events fetch
+        // 'customButtons' => array(
+        //     // 'reload' => '__FULL_CAL__.functions.reload',
+        //     'reload' => array(
+        //         'text' => 'recargar',
+        //         // 'icon' => 'arrowrefresh-1-s',
+        //         // 'themeIcon' => '',
+        //         'click' => '__FULL_CAL__.functions.customButtons.reload',
+        //     ),  // add refresh button
+        // ),
+        'customButtons' => '__FULL_CAL__.functions.customButtons',
         'header' => array(
-            'left' => 'prev,next today',
+            'left' => 'reload prev,next today',
             'center' => 'title',
             'right' => 'prevYear,nextYear month,agendaWeek,agendaDay',
         ),

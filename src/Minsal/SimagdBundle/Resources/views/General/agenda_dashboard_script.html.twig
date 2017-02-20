@@ -48,6 +48,8 @@
                 },
                 success: function(response) {
                     if (slug === 'events_calendar_and_exams') {
+                        $table.bootstrapTable('destroy');   // --| destroy bstable
+
                         var $el_fc_calendar = jQuery('#calendar');   //  --| calendar DOM element
                         var fc_options = response.options;
                         $.each(fc_options, function(i, opt) {
@@ -64,12 +66,12 @@
                         $el_fc_calendar
                             .filter(':not([disabled]):visible')
                             .fullCalendar(fc_options);
-                        console.log('%cfullCalendar is successfully initiated', 'background: #183f52; color: #eee');
+                        window.console.log('%cfullCalendar is successfully initiated', 'background: #183f52; color: #eee');
                     } else {
                         var $el_fc_calendar = jQuery('#calendar');  //  --| calendar DOM element
                         $el_fc_calendar
                             // .filter(':not([disabled]):visible')
-                                    .fullCalendar('destroy');   // --| destroy calendar
+                            .fullCalendar('destroy');   // --| destroy calendar
                         $table
                             .bootstrapTable('destroy')
                             .bootstrapTable(response.options);

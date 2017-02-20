@@ -802,41 +802,40 @@ class RyxSolicitudEstudioAdminController extends MinsalSimagdBundleGeneralAdminC
             //     '</div>';
 
             $results[$key]['prc_editUrl']                        = $this->generateUrl('simagd_solicitud_estudio_edit', array('id' => $r['prc_id']));
-            $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion']->format('Y-m-d H:i:s A');
-            $results[$key]['prc_fechaProximaConsulta']           = $r['prc_fechaProximaConsulta']->format('Y-m-d');
+            // $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion']->format('Y-m-d H:i:s A');
+            // $results[$key]['prc_fechaProximaConsulta']           = $r['prc_fechaProximaConsulta']->format('Y-m-d');
 
-            $results[$key]['allowShow']                          = $isUser_allowShow;
+            // $results[$key]['allowShow']                          = $isUser_allowShow;
 
-            $results[$key]['allowEdit']                          = (false !== $isUser_allowEdit &&
-                    ((in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) && $estabLocal->getId() == $r['prc_id_referido']) ||
-                    ($estabLocal->getId() == $r['prc_id_origen'] && $this->admin->isGranted('CREATE'))) &&
-                    ($r['prc_id_userReg'] == $sessionUser->getId() || ($r['prc_id_userMod'] == $sessionUser->getId()) ||
-			($r['prc_id_empleado'] == $sessionUser->getIdEmpleado()->getId()) ||
-                        $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
+            // $results[$key]['allowEdit']                          = (false !== $isUser_allowEdit &&
+            //         ((in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) && $estabLocal->getId() == $r['prc_id_referido']) ||
+            //         ($estabLocal->getId() == $r['prc_id_origen'] && $this->admin->isGranted('CREATE'))) &&
+            //         ($r['prc_id_userReg'] == $sessionUser->getId() || ($r['prc_id_userMod'] == $sessionUser->getId()) || ($r['prc_id_empleado'] == $sessionUser->getIdEmpleado()->getId()) ||
+            //             $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
 
-            $results[$key]['allowSinCita']                       = ($r['prc_requiereCita'] && $this->admin->getRoutes()->has('requiereCita') &&
-                    (in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) || $securityContext->isGranted('ROLE_ADMIN')) && ($estabLocal->getId() == $r['prc_id_referido']) &&
-                    (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_EDIT') &&
-                        $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_EDIT')) || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
+            // $results[$key]['allowSinCita']                       = ($r['prc_requiereCita'] && $this->admin->getRoutes()->has('requiereCita') &&
+            //         (in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) || $securityContext->isGranted('ROLE_ADMIN')) && ($estabLocal->getId() == $r['prc_id_referido']) &&
+            //         (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_EDIT') &&
+            //             $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_ESTUDIO_EDIT')) || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
 
-            $results[$key]['allowChangePriority']                = (false !== $allowChangePriority &&
-                    ((in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) && $estabLocal->getId() == $r['prc_id_referido']) ||
-                    ($estabLocal->getId() == $r['prc_id_origen'] && $this->admin->isGranted('CREATE'))) &&
-                    ($r['prc_id_userReg'] == $sessionUser->getId() || ($r['prc_id_userMod'] == $sessionUser->getId()) ||
-                        $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
+            // $results[$key]['allowChangePriority']                = (false !== $allowChangePriority &&
+            //         ((in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('ARY', 'CRY', 'MRY', 'TRY', 'CIT', 'ACL')) && $estabLocal->getId() == $r['prc_id_referido']) ||
+            //         ($estabLocal->getId() == $r['prc_id_origen'] && $this->admin->isGranted('CREATE'))) &&
+            //         ($r['prc_id_userReg'] == $sessionUser->getId() || ($r['prc_id_userMod'] == $sessionUser->getId()) ||
+            //             $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CITA_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
 
-            $results[$key]['allowIndRadx']                       = $isUser_allowIndRadx;
+            // $results[$key]['allowIndRadx']                       = $isUser_allowIndRadx;
 
             /** Solicitar Diagnóstico */
-            $rEst                                           = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')->obtenerEstudioSinSolicitudDiagV2($r['prc_id']);
-            $results[$key]['est']                                = $rEst;
+            // $rEst                                           = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')->obtenerEstudioSinSolicitudDiagV2($r['prc_id']);
+            // $results[$key]['est']                                = $rEst;
 
-            $results[$key]['allowSolDiag']                       = (count($rEst) >= 1 && !$r['prc_requiereDiagnostico'] && $this->admin->getRoutes()->has('solicitarDiag') && ($estabLocal->getId() == $r['prc_id_origen']) &&
-                    ($r['prc_id_userReg'] == $sessionUser->getId() || ($r['prc_id_userMod'] == $sessionUser->getId()) || $securityContext->isGranted('ROLE_ADMIN')) &&
-                    (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_DIAGNOSTICO_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_DIAGNOSTICO_EDIT') &&
-                        $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_VIEW')) || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
+            // $results[$key]['allowSolDiag']                       = (count($rEst) >= 1 && !$r['prc_requiereDiagnostico'] && $this->admin->getRoutes()->has('solicitarDiag') && ($estabLocal->getId() == $r['prc_id_origen']) &&
+            //         ($r['prc_id_userReg'] == $sessionUser->getId() || ($r['prc_id_userMod'] == $sessionUser->getId()) || $securityContext->isGranted('ROLE_ADMIN')) &&
+            //         (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_DIAGNOSTICO_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_SOLICITUD_DIAGNOSTICO_EDIT') &&
+            //             $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_VIEW')) || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
 
-            $results[$key]['prc_solicitudEstudioProyeccion']     = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
+            // $results[$key]['prc_solicitudEstudioProyeccion']     = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
         }
 
         return $this->renderJson($results);

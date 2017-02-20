@@ -48,7 +48,7 @@ and open the template in the editor.
 }
 .btn.btn-highlighted:hover,
 .btn.btn-highlighted:active,
-.btn.btn-highlighted.hover {
+.btn.btn-highlighted:hover {
   background-color: #ffffcc;
 }
 .btn-highlighted:hover,
@@ -166,7 +166,7 @@ td .dropdown-menu {
 
 .btn.btn-black-thrash:hover,
 .btn.btn-black-thrash:active,
-.btn.btn-black-thrash.hover {
+.btn.btn-black-thrash:hover {
   background-color: #333 !important;
 }
 
@@ -452,7 +452,7 @@ td .dropdown-menu {
 
 .btn.btn-primary-v3:hover,
 .btn.btn-primary-v3:active,
-.btn.btn-primary-v3.hover {
+.btn.btn-primary-v3:hover {
   background-color: #124057;
 }
 
@@ -573,7 +573,7 @@ a.anchor-primary-v3 {
 
 .btn.btn-success-v3:hover,
 .btn.btn-success-v3:active,
-.btn.btn-success-v3.hover {
+.btn.btn-success-v3:hover {
   background-color: #124057;
 }
 
@@ -697,7 +697,7 @@ a.anchor-success-v3 {
 
 .btn.btn-primary-v4:hover,
 .btn.btn-primary-v4:active,
-.btn.btn-primary-v4.hover {
+.btn.btn-primary-v4:hover {
   background-color: #123140 !important;
 }
 
@@ -817,7 +817,7 @@ a.anchor-primary-v4 {
 
 .btn.btn-success-v4:hover,
 .btn.btn-success-v4:active,
-.btn.btn-success-v4.hover {
+.btn.btn-success-v4:hover {
   background-color: #1a6975;
 }
 
@@ -938,7 +938,7 @@ a.anchor-success-v4 {
 
 .btn.btn-dcm4chee-highlightable-even:hover,
 .btn.btn-dcm4chee-highlightable-even:active,
-.btn.btn-dcm4chee-highlightable-even.hover {
+.btn.btn-dcm4chee-highlightable-even:hover {
   background-color: #336666 !important;
 }
 
@@ -1058,7 +1058,7 @@ a.anchor-dcm4chee-highlightable-even {
 
 .btn.btn-medicine-green-v2:hover,
 .btn.btn-medicine-green-v2:active,
-.btn.btn-medicine-green-v2.hover {
+.btn.btn-medicine-green-v2:hover {
   background-color: #024d45 !important;
 }
 
@@ -1178,7 +1178,7 @@ a.anchor-medicine-green-v2 {
 
 .btn.btn-medicine-green-dark-v2:hover,
 .btn.btn-medicine-green-dark-v2:active,
-.btn.btn-medicine-green-dark-v2.hover {
+.btn.btn-medicine-green-dark-v2:hover {
   background-color: #005252 !important;
 }
 
@@ -1298,7 +1298,7 @@ a.anchor-medicine-green-dark-v2 {
 
 .btn.btn-ckan-api-masthead:hover,
 .btn.btn-ckan-api-masthead:active,
-.btn.btn-ckan-api-masthead.hover {
+.btn.btn-ckan-api-masthead:hover {
   background-color: #01475c !important;
 }
 
@@ -1418,7 +1418,7 @@ a.anchor-ckan-api-masthead {
 
 .btn.btn-camry-cosmic-gray-mica:hover,
 .btn.btn-camry-cosmic-gray-mica:active,
-.btn.btn-camry-cosmic-gray-mica.hover {
+.btn.btn-camry-cosmic-gray-mica:hover {
     background-color: #09304a !important;
 }
 
@@ -1538,7 +1538,7 @@ a.anchor-camry-cosmic-gray-mica {
 
 .btn.btn-camry-parisian-night-pearl:hover,
 .btn.btn-camry-parisian-night-pearl:active,
-.btn.btn-camry-parisian-night-pearl.hover {
+.btn.btn-camry-parisian-night-pearl:hover {
     background-color: #09304a !important;
 }
 
@@ -1658,7 +1658,7 @@ a.anchor-camry-parisian-night-pearl {
 
 .btn.btn-camry-celestial-silver-metallic:hover,
 .btn.btn-camry-celestial-silver-metallic:active,
-.btn.btn-camry-celestial-silver-metallic.hover {
+.btn.btn-camry-celestial-silver-metallic:hover {
     background-color: #09304a !important;
 }
 
@@ -1771,7 +1771,7 @@ a.anchor-camry-celestial-silver-metallic {
 
 .btn.btn-emergency:hover,
 .btn.btn-emergency:active,
-.btn.btn-emergency.hover {
+.btn.btn-emergency:hover {
   background-color: #bc5545;
 }
 
