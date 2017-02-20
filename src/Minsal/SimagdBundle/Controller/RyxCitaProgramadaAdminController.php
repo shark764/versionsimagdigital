@@ -136,10 +136,27 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
 
             foreach ($results as $k => $r)
             {
+                // https://www.wecodex.com/tienda/item/2/sistema-de-inventario-y-venta-en-php-y-mysql.html
+                // https://www.youtube.com/playlist?list=PL-Mlm_HYjCo-T8_c4cq_Turulaizs4tgj
+
                 $date_truncated         = \DateTime::createFromFormat('Y-m-d H:i:s', $r['fecha']);
                 $results[$k]['id']      = 'fc_ev_' . $date_truncated->format('Y-m-d');
                 $results[$k]['title']   = $date_truncated->format('Y-m-d');
-                $results[$k]['title_detail']    = '<div style="float: left; width: 68%; padding-top: 5px; padding-botton: 5px;">' .
+                $results[$k]['title_detail']    = '<div class=" fc-event-btn-toolbar-summary " style=" ">' .
+                                                        '<p><span class="text-black-thrash">Elija una opción</span></p>' .
+                                                        '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
+                                                            '<div class="btn-group" role="group">' .
+                                                                '<a class="btn-link btn-link-black-thrash " href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Nuevo</a>' .
+                                                            '</div>' .
+                                                            '<div class="btn-group" role="group">' .
+                                                                '<a class="btn-link btn-link-black-thrash " href="javascript:void(0)" ><span class="glyphicon glyphicon-list"></span> Listar</a>' .
+                                                            '</div>' .
+                                                            '<div class="btn-group" role="group">' .
+                                                                '<a class="btn-link btn-link-emergency " href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>' .
+                                                            '</div>' .
+                                                        '</div>' .
+                                                    '</div>' .
+                                                    '<div style="float: left; width: 68%; padding-top: 5px; padding-botton: 5px;">' .
                                                         '<table class="fc-table-title-detail" style="">' .
                                                             '<tr><th>En espera:</th><td class="col-md-2">' . $r['esp'] . '</td></tr>' .
                                                             '<tr><th>Confirmados:</th><td class="col-md-2">' . $r['cnf'] . '</td></tr>' .

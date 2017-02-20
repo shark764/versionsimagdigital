@@ -63,6 +63,16 @@ and open the template in the editor.
   border-color: #dcd8a0;
 }
 
+.btn-link-highlighted {
+  color: #f5f2d4;
+}
+.btn-link-highlighted:focus,
+.btn-link-highlighted:hover {
+    color: #f7f7be !important;
+    text-decoration: underline !important;
+    background-color: transparent !important;
+}
+
 
 
 td .dropdown-menu {
@@ -140,6 +150,10 @@ td .dropdown-menu {
 
 
 
+
+.text-black-thrash {
+  color: #555;
+}
 
 .btn-link-black-thrash {
   color: #555;
