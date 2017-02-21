@@ -91,12 +91,13 @@
             //////// << summary view mode >>
 			if (event.hasOwnProperty('type') && event.type === 'summary' && fc_view.name === 'month') {
 				element.find('.fc-time').hide();
-				element.find('.fc-title').append('<br/>' + event.title_detail);
+				element.find('.fc-title').css({'margin-left': "5px"});
+				element.find('.fc-title').after(/*'<br/>' +*/ event.title_detail);
                 return;
 			}
 			////////
 
-			element.find('.fc-title').append('<br/>' + event.title_detail);
+			element.find('.fc-title').after('<br/>' + event.title_detail);
 
 			element.popover({
 				html: true,
@@ -474,10 +475,12 @@
 		    window.console.log('%cAgenda was successfully reloaded', 'background: #183f52; color: #eee');
 	    },
 	    select: function(start, end, jsEvent, view) {
-	    	var $fc_calendar_panel  = jQuery('[id="fc-calendar-panel"]');
+	    	if (view.name !== 'month') {
+		    	var $fc_calendar_panel  = jQuery('[id="fc-calendar-panel"]');
 
-	    	var $modal = jQuery('[id="field_dialog_patient_modal_search_"]');
-	    	$modal.modal();
+		    	var $modal = jQuery('[id="field_dialog_patient_modal_search_"]');
+		    	$modal.modal();
+			}
 	    },
 	    customButtons: {
 		    reload: {

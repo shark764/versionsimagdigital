@@ -142,8 +142,48 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
                 $date_truncated         = \DateTime::createFromFormat('Y-m-d H:i:s', $r['fecha']);
                 $results[$k]['id']      = 'fc_ev_' . $date_truncated->format('Y-m-d');
                 $results[$k]['title']   = $date_truncated->format('Y-m-d');
-                $results[$k]['title_detail']    = '<div class=" fc-event-btn-toolbar-summary " style=" ">' .
-                                                        '<p><span class="text-black-thrash">Elija una opción</span></p>' .
+                // $results[$k]['title_detail']    = '<div class=" fc-event-btn-toolbar-summary " style=" ">' .
+                //                                         '<p><span class="text-black-thrash">Elija una opción</span></p>' .
+                //                                         '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
+                //                                             '<div class="btn-group" role="group">' .
+                //                                                 '<a class="btn-link btn-link-black-thrash " href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Nuevo</a>' .
+                //                                             '</div>' .
+                //                                             '<div class="btn-group" role="group">' .
+                //                                                 '<a class="btn-link btn-link-black-thrash " href="javascript:void(0)" ><span class="glyphicon glyphicon-list"></span> Listar</a>' .
+                //                                             '</div>' .
+                //                                             '<div class="btn-group" role="group">' .
+                //                                                 '<a class="btn-link btn-link-emergency " href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>' .
+                //                                             '</div>' .
+                //                                         '</div>' .
+                //                                     '</div>' .
+                //                                     '<div style="float: left; width: 68%; padding-top: 5px; padding-botton: 5px;">' .
+                //                                         '<table class="fc-table-title-detail" style="">' .
+                //                                             '<tr><th>En espera:</th><td class="col-md-2">' . $r['esp'] . '</td></tr>' .
+                //                                             '<tr><th>Confirmados:</th><td class="col-md-2">' . $r['cnf'] . '</td></tr>' .
+                //                                             '<tr><th>Atendidos:</th><td class="col-md-2">' . $r['atn'] . '</td></tr>' .
+                //                                             '<tr><th>Reprogramados:</th><td class="col-md-2">' . $r['rpg'] . '</td></tr>' .
+                //                                             '<tr><th>Cancelados:</th><td class="col-md-2">' . $r['cnl'] . '</td></tr>' .
+                //                                         '</table>' .
+                //                                     '</div>' .
+                //                                     '<div style="float: right; margin-left: 5px; margin-right: 10px; text-align: center;">' .
+                //                                         '<h5>TOTAL<br/><small>' . $r['total'] . '</small></h5>' .
+                //                                     '</div>';
+                $results[$k]['title_detail']    = '<div style=" float: right; margin-left: 5px; margin-right: 5px; ">' .
+                                                        /*'<h5>*/'TOTAL &nbsp;'/*<small>'*/ . $r['total'] /*. '</small>'*//*</h5>'*/ .
+                                                    '</div>' .
+                                                    '<br/><br/>' .
+                                                    '<div class=" fc-event-btn-toolbar-summary " style=" ">' .
+                                                        '<div style=" ">' .
+                                                            '<table class="fc-table-title-detail" style="">' .
+                                                                '<tr><th>En espera:</th><td class="col-md-6">' . $r['esp'] . ' pacientes</td></tr>' .
+                                                                '<tr><th>Confirmados:</th><td class="col-md-6">' . $r['cnf'] . ' pacientes</td></tr>' .
+                                                                '<tr><th>Atendidos:</th><td class="col-md-6">' . $r['atn'] . ' pacientes</td></tr>' .
+                                                                '<tr><th>Reprogramados:</th><td class="col-md-6">' . $r['rpg'] . ' pacientes</td></tr>' .
+                                                                '<tr><th>Cancelados:</th><td class="col-md-6">' . $r['cnl'] . ' pacientes</td></tr>' .
+                                                            '</table>' .
+                                                        '</div>' .
+                                                        // '<p><span class="text-black-thrash">Elija una opción</span></p>' .
+                                                        '<br/><br/>' .
                                                         '<div class="btn-toolbar" role="toolbar" aria-label="...">' .
                                                             '<div class="btn-group" role="group">' .
                                                                 '<a class="btn-link btn-link-black-thrash " href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Nuevo</a>' .
@@ -155,18 +195,6 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
                                                                 '<a class="btn-link btn-link-emergency " href="javascript:void(0)" ><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>' .
                                                             '</div>' .
                                                         '</div>' .
-                                                    '</div>' .
-                                                    '<div style="float: left; width: 68%; padding-top: 5px; padding-botton: 5px;">' .
-                                                        '<table class="fc-table-title-detail" style="">' .
-                                                            '<tr><th>En espera:</th><td class="col-md-2">' . $r['esp'] . '</td></tr>' .
-                                                            '<tr><th>Confirmados:</th><td class="col-md-2">' . $r['cnf'] . '</td></tr>' .
-                                                            '<tr><th>Atendidos:</th><td class="col-md-2">' . $r['atn'] . '</td></tr>' .
-                                                            '<tr><th>Reprogramados:</th><td class="col-md-2">' . $r['rpg'] . '</td></tr>' .
-                                                            '<tr><th>Cancelados:</th><td class="col-md-2">' . $r['cnl'] . '</td></tr>' .
-                                                        '</table>' .
-                                                    '</div>' .
-                                                    '<div style="float: right; margin-left: 5px; margin-right: 10px; text-align: center;">' .
-                                                        '<h5>TOTAL<br/><small>' . $r['total'] . '</small></h5>' .
                                                     '</div>';
                 $results[$k]['start']   = $date_truncated->format('Y-m-d\TH:i:s');
                 $results[$k]['end']     = $date_truncated->modify('+23 hours 59 minutes')->format('Y-m-d\TH:i:s');

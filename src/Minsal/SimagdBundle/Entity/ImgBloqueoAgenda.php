@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ImgBloqueoAgenda
  *
  * @ORM\Table(name="img_bloqueo_agenda", indexes={@ORM\Index(name="IDX_DC5C2770992127D5", columns={"id_area_servicio_diagnostico"}), @ORM\Index(name="IDX_DC5C2770592B0EA1", columns={"id_empleado_registra"}), @ORM\Index(name="IDX_DC5C27707DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_DC5C277032E38BF3", columns={"id_radiologo_bloqueo"}), @ORM\Index(name="IDX_DC5C2770AC39DE56", columns={"id_user_mod"}), @ORM\Index(name="IDX_DC5C2770D8A5832B", columns={"id_user_reg"})})
- * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\BloqueoAgendaRepository")
+ * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxBloqueoAgendaRepository")
  */
 class ImgBloqueoAgenda
 {
