@@ -16,6 +16,15 @@
 
             var $url = null;
 			switch (slug) {
+                case 'diagnostic_service_modalities':
+                    $url = 'simagd_area_servicio_diagnostico_generateTable';
+                    break;
+                case 'diagnostic_service_exams':
+                    $url = 'simagd_examen_servicio_diagnostico_generateTable';
+                    break;
+                case 'local_diagnostic_service_exams_by_modality':
+                    $url = 'simagd_area_examen_establecimiento_generateTable';
+                    break;
 				case 'radiological_examinations':
 					$url = 'simagd_proyeccion_generateTable';
 					break;
@@ -93,6 +102,10 @@
             __DOM__worklistDisplayType.on('ifChecked', function(e) {
 
                         jQuery('#_catalogs_dashboard_display_items li.active').find('a').triggerHandler('click');
+
+                        if (jQuery('#_catalogs_dashboard_display_items li.active').hasClass('dropdown')) {
+                            jQuery('#_catalogs_dashboard_display_items li.active').find('li.active').find('a').triggerHandler('click');
+                        }
 
             });
             //////////////////////////////////////////////////////////////////////////

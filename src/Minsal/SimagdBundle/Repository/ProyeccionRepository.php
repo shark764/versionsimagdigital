@@ -17,8 +17,8 @@ class ProyeccionRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('m')
-                            ->from('MinsalSiapsBundle:CtlAreaServicioDiagnostico', 'm')
-                            ->innerJoin('MinsalSiapsBundle:MntAreaExamenEstablecimiento', 'mr',
+                            ->from('MinsalSimagdBundle:CtlAreaServicioDiagnostico', 'm')
+                            ->innerJoin('MinsalSimagdBundle:MntAreaExamenEstablecimiento', 'mr',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                     'm.id = mr.idAreaServicioDiagnostico')
                             ->where('mr.idEstablecimiento = :id_est')
@@ -73,8 +73,8 @@ class ProyeccionRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('exm')
-                            ->from('MinsalSiapsBundle:CtlExamenServicioDiagnostico', 'exm')
-                            ->innerJoin('MinsalSiapsBundle:MntAreaExamenEstablecimiento', 'mr',
+                            ->from('MinsalSimagdBundle:CtlExamenServicioDiagnostico', 'exm')
+                            ->innerJoin('MinsalSimagdBundle:MntAreaExamenEstablecimiento', 'mr',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                     'exm.id = mr.idExamenServicioDiagnostico')
                             ->where('mr.idEstablecimiento = :id_est')
@@ -126,7 +126,7 @@ class ProyeccionRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('mr' . $aliasNum)
-                            ->from('MinsalSiapsBundle:MntAreaExamenEstablecimiento', 'mr' . $aliasNum)
+                            ->from('MinsalSimagdBundle:MntAreaExamenEstablecimiento', 'mr' . $aliasNum)
                             ->where('stdiag.id = mr' . $aliasNum . '.idEstablecimiento')
                             ->andWhere('mr' . $aliasNum . '.idAreaServicioDiagnostico = :id_mod')
                             ->andWhere('mr' . $aliasNum . '.idExamenServicioDiagnostico = :id_exm' . $aliasNum)
@@ -140,7 +140,7 @@ class ProyeccionRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('exm.id')
-                            ->from('MinsalSiapsBundle:CtlExamenServicioDiagnostico', 'exm')
+                            ->from('MinsalSimagdBundle:CtlExamenServicioDiagnostico', 'exm')
                             ->innerJoin('MinsalSimagdBundle:ImgCtlProyeccion', 'expl',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                     'exm.id = expl.idExamenServicioDiagnostico')

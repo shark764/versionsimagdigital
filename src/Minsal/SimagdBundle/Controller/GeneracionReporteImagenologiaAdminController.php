@@ -46,11 +46,11 @@ class GeneracionReporteImagenologiaAdminController extends MinsalSimagdBundleGen
         
         $tecnologos = $em->getRepository('MinsalSiapsBundle:MntEmpleado')->obtenerTecnologosExaminantesEstab($estabLocal);
         
-        $modalidades = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesSolicitadasEstab($estabLocal);
+        $modalidades = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesSolicitadasEstab($estabLocal);
         
-        $modalidadesPrc = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesPreinscritasEstab($estabLocal);
+        $modalidadesPrc = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesPreinscritasEstab($estabLocal);
         
-        $modalidadesDiag = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesDiagnosticadasEstab($estabLocal);
+        $modalidadesDiag = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesDiagnosticadasEstab($estabLocal);
         
         $expedientes = $em->getRepository('MinsalSiapsBundle:MntPaciente')->obtenerPacientesAtendidosImagenologiaEstab($estabLocal);
         

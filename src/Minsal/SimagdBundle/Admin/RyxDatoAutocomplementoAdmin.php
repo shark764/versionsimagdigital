@@ -14,15 +14,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RyxDatoAutocomplementoAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName    = 'simagd_dato_autocomplemento';            //SUSTITUIR METODO GET NEW INSTANCE CON EL ESTABLECIMIENTO YA SETEADO
+    protected $baseRouteName    = 'simagd_dato_autocomplemento';
     protected $baseRoutePattern = 'rayos-x-dato-autocomplemento';
     
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        parent::configureRoutes($collection);
+    // protected function configureRoutes(RouteCollection $collection)
+    // {
+    //     parent::configureRoutes($collection);
         
-        // $collection->remove('delete');
-        // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
-    }
+    //     // $collection->remove('delete');
+    //     // $collection->add('getObjectVarsAsArray', null, [], ['_method' => 'POST'], ['expose' => true]);
+    // }
 
 }

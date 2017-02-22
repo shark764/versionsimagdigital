@@ -67,7 +67,7 @@ class RyxCtlPatronDiagnosticoRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('mr')
-                            ->from('MinsalSiapsBundle:MntAreaExamenEstablecimiento', 'mr')
+                            ->from('MinsalSimagdBundle:MntAreaExamenEstablecimiento', 'mr')
                             ->where('m.id = mr.idAreaServicioDiagnostico')
                             ->andWhere('mr.imgHabilitado = TRUE')
                             ->andWhere('mr.idEstablecimiento = :id_est');

@@ -16,7 +16,7 @@ use Minsal\SimagdBundle\Entity\ImgCtlMaterialEstablecimiento;
 
 class RyxCtlMaterialAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName    = 'simagd_material';            //SUSTITUIR METODO GET NEW INSTANCE CON EL ESTABLECIMIENTO YA SETEADO
+    protected $baseRouteName    = 'simagd_material';
     protected $baseRoutePattern = 'rayos-x-material';
 
     protected function configureRoutes(RouteCollection $collection)

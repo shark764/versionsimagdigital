@@ -92,8 +92,8 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
 
         $prioridades            = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2();
 
-        $modalidades            = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
-        $examenes               = $em->getRepository('MinsalSiapsBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
+        $modalidades            = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
+        $examenes               = $em->getRepository('MinsalSimagdBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
         $proyecciones           = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
         $sexos                  = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
 
@@ -107,8 +107,8 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         $collection_tiposEmpleado  = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
         $collection_radiologos     = $em->getRepository('MinsalSiapsBundle:MntEmpleado')->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(4, 5))->getQuery()->getResult();
         $collection_prioridades    = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2();
-        $collection_modalidades    = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
-        $collection_examenes       = $em->getRepository('MinsalSiapsBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
+        $collection_modalidades    = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
+        $collection_examenes       = $em->getRepository('MinsalSimagdBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
         $collection_proyecciones   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
         $collection_sexos          = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
 
@@ -544,7 +544,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         if (in_array('m', $BS_SOURCES_DECODE))
         {
             try {
-                $resultados['m']            = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')
+                $resultados['m']            = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')
                                                     ->getSourceDataModalidad($estabLocal->getId());
             } catch (Exception $e) {
                 $status                     = 'failed';
@@ -781,7 +781,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         // $radiologos = $em->getRepository('MinsalSiapsBundle:MntEmpleado')
         //                                 ->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(4, 5))
         //                                         ->getQuery()->getResult();
-        $modalidades = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
+        $modalidades = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
 
         // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
         //     return new RedirectResponse($this->generateUrl('simagd_solicitud_estudio_accessDenied'));
@@ -966,7 +966,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         $radiologos = $em->getRepository('MinsalSiapsBundle:MntEmpleado')
                                         ->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(4, 5))
                                                 ->getQuery()->getResult();
-        $modalidades = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
+        $modalidades = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
 
         // if (false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_CREATE') && false === $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_RYX_SOLICITUD_ESTUDIO_LIST') && false === $securityContext->isGranted('ROLE_ADMIN')) {
         //     return new RedirectResponse($this->generateUrl('simagd_solicitud_estudio_accessDenied'));

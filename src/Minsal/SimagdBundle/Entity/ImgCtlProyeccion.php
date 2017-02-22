@@ -79,9 +79,9 @@ class ImgCtlProyeccion
     private $observaciones;
 
     /**
-     * @var \Minsal\SiapsBundle\Entity\CtlExamenServicioDiagnostico
+     * @var \CtlExamenServicioDiagnostico
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlExamenServicioDiagnostico")
+     * @ORM\ManyToOne(targetEntity="CtlExamenServicioDiagnostico", inversedBy="examenProyeccionesRadiologicas")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_examen_servicio_diagnostico", referencedColumnName="id")
      * })
@@ -325,10 +325,10 @@ class ImgCtlProyeccion
     /**
      * Set idExamenServicioDiagnostico
      *
-     * @param \Minsal\SiapsBundle\Entity\CtlExamenServicioDiagnostico $idExamenServicioDiagnostico
+     * @param \Minsal\SimagdBundle\Entity\CtlExamenServicioDiagnostico $idExamenServicioDiagnostico
      * @return ImgCtlProyeccion
      */
-    public function setIdExamenServicioDiagnostico(\Minsal\SiapsBundle\Entity\CtlExamenServicioDiagnostico $idExamenServicioDiagnostico = null)
+    public function setIdExamenServicioDiagnostico(\Minsal\SimagdBundle\Entity\CtlExamenServicioDiagnostico $idExamenServicioDiagnostico = null)
     {
         $this->idExamenServicioDiagnostico = $idExamenServicioDiagnostico;
 
@@ -338,7 +338,7 @@ class ImgCtlProyeccion
     /**
      * Get idExamenServicioDiagnostico
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlExamenServicioDiagnostico
+     * @return \Minsal\SimagdBundle\Entity\CtlExamenServicioDiagnostico
      */
     public function getIdExamenServicioDiagnostico()
     {

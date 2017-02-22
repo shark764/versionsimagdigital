@@ -630,7 +630,7 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
                         ->add('idAreaServicioDiagnostico', null, array(//SI ESTAS QUEDAN CON EL LOCAL, OCURRIRÁ EL ERROR DE UNA MODALIDAD QUE NO EXISTAN EN LOCAL, "ESTE VALOR NO ES VALIDO"
                                                         'label' => 'Modalidad de diagnóstico por imagen',//MEJOR SOLO FILTRARLAS POR '97'
                                                         'required' => true,
-    //                                                    'class' => 'MinsalSiapsBundle:CtlAreaServicioDiagnostico',   //ESTAS DEBEN SER CON EL REFERIDO POR DEFECTO
+    //                                                    'class' => 'MinsalSimagdBundle:CtlAreaServicioDiagnostico',   //ESTAS DEBEN SER CON EL REFERIDO POR DEFECTO
 //                                                         'property' => 'nombrearea',                             //MISMO TRUCO DE FILTRARLAS EN CLIENTE CON EL Q ESTE DE REFERIDO
                                                         'query_builder' => function(EntityRepository $er ) {
                                                                                 return $er->obtenerModalidadesParaPreinscribir('97');
@@ -1229,7 +1229,7 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
         $imagenologiaReference = $em->getReference('Minsal\SiapsBundle\Entity\CtlAtencion', '97');
 
         //Obtener estado exclusivo para Imagenología
-        $estadoImg = $this->getModelManager()->findOneBy('MinsalSiapsBundle:CtlEstadoServicioDiagnostico',
+        $estadoImg = $this->getModelManager()->findOneBy('MinsalSimagdBundle:CtlEstadoServicioDiagnostico',
                                                         array('idestado' => 'PR', 'idAtencion' => '97'));
 
         $solicitudEstudios = new SecSolicitudestudios();
@@ -1309,8 +1309,8 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
         $instance->setIdEstablecimientoReferido($estabLocal);
 
         //Modalidad por defecto
-        $em = $this->getModelManager()->getEntityManager('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico');
-        $modReference = $em->getReference('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico', '13');
+        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico');
+        $modReference = $em->getReference('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico', '13');
         $instance->setIdAreaServicioDiagnostico($modReference);
 
         //Extracción de valores de Historial Clínico
@@ -1430,7 +1430,7 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
 
         $mrPorExplArray = array();  //Array de ids de MntAreaExamenEstablecimiento a partir de las proyecciones
         foreach ($preinscripcion->getSolicitudEstudioProyeccion() as $solicitudEstudioProyeccion)  {
-            $areaExmEstab = $this->getModelManager()->findOneBy('MinsalSiapsBundle:MntAreaExamenEstablecimiento',
+            $areaExmEstab = $this->getModelManager()->findOneBy('MinsalSimagdBundle:MntAreaExamenEstablecimiento',
                                             array('idEstablecimiento' => $preinscripcion->getIdEstablecimientoReferido()->getId(),
                                                 'idExamenServicioDiagnostico' => $solicitudEstudioProyeccion->getIdExamenServicioDiagnostico()->getId(),
                                                 'idAreaServicioDiagnostico' => $preinscripcion->getIdAreaServicioDiagnostico()->getId()));
@@ -1459,9 +1459,9 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
 
         $estadoImg = $preinscripcion->getIdSolicitudestudios()->getEstado();
         //Insertar nuevos detalles con idExamen pendientes
-        $em = $this->getModelManager()->getEntityManager('Minsal\SiapsBundle\Entity\MntAreaExamenEstablecimiento');
+        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\MntAreaExamenEstablecimiento');
         foreach ($mrNoInsertadosPorExplArray as $mrPorInsertar) {
-            $areaExmEstabReference = $em->getReference('Minsal\SiapsBundle\Entity\MntAreaExamenEstablecimiento', $mrPorInsertar);
+            $areaExmEstabReference = $em->getReference('Minsal\SimagdBundle\Entity\MntAreaExamenEstablecimiento', $mrPorInsertar);
 
             $detalleSolicitud = new SecDetallesolicitudestudios();
             $detalleSolicitud->setIdsolicitudestudio($preinscripcion->getIdSolicitudestudios());

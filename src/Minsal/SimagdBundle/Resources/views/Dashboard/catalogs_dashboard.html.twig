@@ -47,6 +47,11 @@
                                 <span class="glyphicon glyphicon-list-alt"></span> Proyecciones <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu highlight-success-dropdown-menu" role="menu">
+                                <li><a href="javascript:void(0)" onclick="generate(this, 'diagnostic_service_modalities'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-list-alt"></span> Modalidades (Gral.)</a></li>
+                                <li><a href="javascript:void(0)" onclick="generate(this, 'diagnostic_service_exams'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-list-alt"></span> Exámenes (Gral.)</a></li>
+                                <li class="divider" role="separator"></li>
+                                <li><a href="javascript:void(0)" onclick="generate(this, 'local_diagnostic_service_exams_by_modality'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-list-alt"></span> Exámenes agregados (loc.)</a></li>
+                                <li class="divider" role="separator"></li>
                                 <li class="active"><a href="javascript:void(0)" onclick="generate(this, 'radiological_examinations'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-list-alt"></span> Proyecciones</a></li>
                                 <li class="divider" role="separator"></li>
                                 <li><a href="javascript:void(0)" onclick="generate(this, 'local_radiological_examinations', 1); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-home"></span> Proyecciones (loc.)</a></li>
@@ -129,6 +134,9 @@
     //////////////////////////////////////////////////////////////
      -->
     {% include 'MinsalSimagdBundle:General:catalogs_dashboard_script.html.twig' %}
+    {% include 'MinsalSimagdBundle:CtlAreaServicioDiagnosticoAdmin:m_actionEvents.html.twig' %}
+    {% include 'MinsalSimagdBundle:CtlExamenServicioDiagnosticoAdmin:exm_actionEvents.html.twig' %}
+    {% include 'MinsalSimagdBundle:MntAreaExamenEstablecimientoAdmin:mr_actionEvents.html.twig' %}
     {% include 'MinsalSimagdBundle:RyxCtlProyeccionRadiologicaAdmin:expl_actionEvents.html.twig' %}
     {% include 'MinsalSimagdBundle:RyxCtlProyeccionEstablecimientoAdmin:explrz_actionEvents.html.twig' %}
     {% include 'MinsalSimagdBundle:RyxCtlMaterialAdmin:mtrl_actionEvents.html.twig' %}

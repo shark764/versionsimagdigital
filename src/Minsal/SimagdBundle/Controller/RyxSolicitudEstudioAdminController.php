@@ -620,8 +620,8 @@ class RyxSolicitudEstudioAdminController extends MinsalSimagdBundleGeneralAdminC
 
         $prioridades            = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2();
 
-        $modalidades            = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
-        $examenes               = $em->getRepository('MinsalSiapsBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
+        $modalidades            = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
+        $examenes               = $em->getRepository('MinsalSimagdBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
         $proyecciones           = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
         $sexos                  = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
 
@@ -633,8 +633,8 @@ class RyxSolicitudEstudioAdminController extends MinsalSimagdBundleGeneralAdminC
         $collection_tiposEmpleado  = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
         $collection_radiologos     = $em->getRepository('MinsalSiapsBundle:MntEmpleado')->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(4, 5))->getQuery()->getResult();
         $collection_prioridades    = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2();
-        $collection_modalidades    = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
-        $collection_examenes       = $em->getRepository('MinsalSiapsBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
+        $collection_modalidades    = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
+        $collection_examenes       = $em->getRepository('MinsalSimagdBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
         $collection_proyecciones   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
         $collection_sexos          = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
 
@@ -1129,7 +1129,7 @@ class RyxSolicitudEstudioAdminController extends MinsalSimagdBundleGeneralAdminC
         /*
          * Modalidad
          */
-        $ref_modalidad              = $em->getReference('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico', $request_modalidad);
+        $ref_modalidad              = $em->getReference('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico', $request_modalidad);
         $new_studyRequest->setIdAreaServicioDiagnostico($ref_modalidad);
         /*
          * Proyecciones
@@ -1238,7 +1238,7 @@ class RyxSolicitudEstudioAdminController extends MinsalSimagdBundleGeneralAdminC
         /*
          * Modalidad
          */
-        $ref_modalidad              = $em->getReference('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico', $request_modalidad);
+        $ref_modalidad              = $em->getReference('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico', $request_modalidad);
         $edit_studyRequest->setIdAreaServicioDiagnostico($ref_modalidad);
         /*
          * Proyecciones

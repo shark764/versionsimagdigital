@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 
-use Minsal\SiapsBundle\Entity\MntAreaExamenEstablecimiento;
+use Minsal\SimagdBundle\Entity\MntAreaExamenEstablecimiento;
 
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxCtlProyeccionEstablecimientoListViewGenerator;
@@ -212,14 +212,14 @@ class RyxCtlProyeccionEstablecimientoAdminController extends MinsalSimagdBundleG
         //Habilitado
         $proyeccionRz->setHabilitado($habilitado);
 
-        $areaExmEstab       = $em->getRepository('MinsalSiapsBundle:MntAreaExamenEstablecimiento')
+        $areaExmEstab       = $em->getRepository('MinsalSimagdBundle:MntAreaExamenEstablecimiento')
                                         ->findOneBy(array('idEstablecimiento' => $estabLocal->getId(), 'idAreaServicioDiagnostico' => $areaSrvApy, 'idExamenServicioDiagnostico' => $exmSrvApy));
 
         if (!$areaExmEstab) {
             /** CtlAreaServicioDiagnostico */
-            $areaSrvApyRef      = $em->getReference('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico', $areaSrvApy);
+            $areaSrvApyRef      = $em->getReference('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico', $areaSrvApy);
             /** CtlExamenServicioDiagnostico */
-            $exmSrvApyRef       = $em->getReference('Minsal\SiapsBundle\Entity\CtlExamenServicioDiagnostico', $exmSrvApy);
+            $exmSrvApyRef       = $em->getReference('Minsal\SimagdBundle\Entity\CtlExamenServicioDiagnostico', $exmSrvApy);
 
             /** MntAreaExamenEstablecimiento */
             $areaExamenEstab    = new MntAreaExamenEstablecimiento();
@@ -275,7 +275,7 @@ class RyxCtlProyeccionEstablecimientoAdminController extends MinsalSimagdBundleG
         $proyeccionRz->setObservaciones($observaciones);
         $proyeccionRz->setHabilitado($habilitado);
 
-        $areaExmEstab           = $em->getRepository('MinsalSiapsBundle:MntAreaExamenEstablecimiento')
+        $areaExmEstab           = $em->getRepository('MinsalSimagdBundle:MntAreaExamenEstablecimiento')
                                             ->findOneBy(array('idEstablecimiento' => $estabLocal->getId(),
                                                                 'idAreaServicioDiagnostico' => $area,
                                                                 'idExamenServicioDiagnostico' => $examen
@@ -322,7 +322,7 @@ class RyxCtlProyeccionEstablecimientoAdminController extends MinsalSimagdBundleG
         $proyeccionRz->setObservaciones($observaciones);
         $proyeccionRz->setHabilitado($habilitado);
 
-        $areaExmEstab           = $em->getRepository('MinsalSiapsBundle:MntAreaExamenEstablecimiento')
+        $areaExmEstab           = $em->getRepository('MinsalSimagdBundle:MntAreaExamenEstablecimiento')
                                             ->findOneBy(array('idEstablecimiento' => $estabLocal->getId(),
                                                                 'idAreaServicioDiagnostico' => $area,
                                                                 'idExamenServicioDiagnostico' => $examen

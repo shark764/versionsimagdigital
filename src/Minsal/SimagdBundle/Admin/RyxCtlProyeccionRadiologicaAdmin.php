@@ -13,11 +13,11 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Minsal\SimagdBundle\Entity\ImgCtlProyeccionEstablecimiento;
-use Minsal\SiapsBundle\Entity\MntAreaExamenEstablecimiento;
+use Minsal\SimagdBundle\Entity\MntAreaExamenEstablecimiento;
 
 class RyxCtlProyeccionRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName    = 'simagd_proyeccion';            //SUSTITUIR METODO GET NEW INSTANCE CON EL ESTABLECIMIENTO YA SETEADO
+    protected $baseRouteName    = 'simagd_proyeccion';
     protected $baseRoutePattern = 'rayos-x-proyecciones';
 
     protected function configureRoutes(RouteCollection $collection)
@@ -142,7 +142,7 @@ class RyxCtlProyeccionRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
                                                             'label' => 'Modalidad',
                                                             'required' => false,
                                                             'mapped' => false,
-                                                            'class' => 'MinsalSiapsBundle:CtlAreaServicioDiagnostico',
+                                                            'class' => 'MinsalSimagdBundle:CtlAreaServicioDiagnostico',
                                                             'query_builder' => function(EntityRepository $er ) use ($imgAtn ) {
                                                                                     return $er->obtenerModalidadesImagenologia ($imgAtn);
                                                                             },
@@ -153,7 +153,7 @@ class RyxCtlProyeccionRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
                     ))//Modalidad debe ser filtrada por atn 97
                     ->add('idAreaExamenEstab', 'sonata_type_model_hidden', array(
                                                             'mapped' => false,
-                                                            'class' => 'MinsalSiapsBundle:MntAreaExamenEstablecimiento'
+                                                            'class' => 'MinsalSimagdBundle:MntAreaExamenEstablecimiento'
                     ))
                 ->end()
             ->end()
@@ -169,7 +169,7 @@ class RyxCtlProyeccionRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
                                                                 'empty_value' => '', //REVISAR TODOS LOS ADMIN PARA QUE QUEDEN BIEN LOS REQUIRED, SIZE, ETC
                                                                 'help' => 'Examen en que se agrupa',
                                                                 'attr' => array('style' => 'min-width: 100%; max-width: 100%;'),
-                                                                'class' => 'MinsalSiapsBundle:CtlExamenServicioDiagnostico',
+                                                                'class' => 'MinsalSimagdBundle:CtlExamenServicioDiagnostico',
                                                                 'query_builder' => function(EntityRepository $er ) use ($imgAtn ) {
                                                                                         return $er->obtenerExamenesImagenologia ($imgAtn);
                                                                                 },

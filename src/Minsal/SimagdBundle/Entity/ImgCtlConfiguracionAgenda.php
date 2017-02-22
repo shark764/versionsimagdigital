@@ -51,9 +51,9 @@ class ImgCtlConfiguracionAgenda
     private $maximoCitasMedico;
 
     /**
-     * @var \Minsal\SiapsBundle\Entity\MntAreaExamenEstablecimiento
+     * @var \MntAreaExamenEstablecimiento
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntAreaExamenEstablecimiento")
+     * @ORM\ManyToOne(targetEntity="MntAreaExamenEstablecimiento")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_area_examen_estab", referencedColumnName="id")
      * })
@@ -192,10 +192,10 @@ class ImgCtlConfiguracionAgenda
     /**
      * Set idAreaExamenEstab
      *
-     * @param \Minsal\SiapsBundle\Entity\MntAreaExamenEstablecimiento $idAreaExamenEstab
+     * @param \Minsal\SimagdBundle\Entity\MntAreaExamenEstablecimiento $idAreaExamenEstab
      * @return ImgCtlConfiguracionAgenda
      */
-    public function setIdAreaExamenEstab(\Minsal\SiapsBundle\Entity\MntAreaExamenEstablecimiento $idAreaExamenEstab = null)
+    public function setIdAreaExamenEstab(\Minsal\SimagdBundle\Entity\MntAreaExamenEstablecimiento $idAreaExamenEstab = null)
     {
         $this->idAreaExamenEstab = $idAreaExamenEstab;
 
@@ -205,7 +205,7 @@ class ImgCtlConfiguracionAgenda
     /**
      * Get idAreaExamenEstab
      *
-     * @return \Minsal\SiapsBundle\Entity\MntAreaExamenEstablecimiento 
+     * @return \Minsal\SimagdBundle\Entity\MntAreaExamenEstablecimiento 
      */
     public function getIdAreaExamenEstab()
     {

@@ -41,7 +41,7 @@
 
                 <!-- WORKLIST MENU -->
                 <div class="{# col-lg-10 col-md-10 col-sm-10 #} col-lg-9 col-md-9 col-sm-9 nav-pills-darkblue ">
-                    <ul class="nav nav-pills nav-justified" id="_worklist_display_items">
+                    <ul class="nav nav-pills nav-justified" id="_worklist_dashboard_display_items">
                         <li role="presentation" class="active"><a href="javascript:void(0)" onclick="generate(this, 'unrealized_procedures'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-film"></span> Examinar</a></li>
                         <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'undiagnosed_studies'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-adjust"></span> Lectura</a></li>
                         <li role="presentation" ><a href="javascript:void(0)" onclick="generate(this, 'non_transcribed_results'); return false;" data-toggle="pill"> <span class="glyphicon glyphicon-headphones"></span> Transcripción</a></li>
@@ -50,22 +50,22 @@
                 </div>
 
                 <!-- DISPLAY TYPE -->
-                <ul class="list-unstyled list-inline input-sm " id="_worklist_display_type" style="margin-top: 3px; margin-bottom: 6px;">
+                <ul class="list-unstyled list-inline input-sm " id="_worklist_dashboard_display_type" style="margin-top: 3px; margin-bottom: 6px;">
                     <li>
                         <label class="">
-                            <input type="radio" checked="checked" value="list" name="_worklist_display_type" id="_worklist_display_type_0">
+                            <input type="radio" checked="checked" value="list" name="_worklist_dashboard_display_type" id="_worklist_dashboard_display_type_0">
                             <span style="margin-left: 5px;"> Lista</span>
                         </label>
                     </li>
                     <li>
                         <label class="">
-                            <input type="radio" {#checked="checked"#} value="detail" name="_worklist_display_type" id="_worklist_display_type_1">
+                            <input type="radio" {#checked="checked"#} value="detail" name="_worklist_dashboard_display_type" id="_worklist_dashboard_display_type_1">
                             <span style="margin-left: 5px;"> Detalle</span>
                         </label>
                     </li>
                     <li>
                         <label class="">
-                            <input type="radio" {#checked="checked"#} value="agenda" name="_worklist_display_type" id="_worklist_display_type_2">
+                            <input type="radio" {#checked="checked"#} value="agenda" name="_worklist_dashboard_display_type" id="_worklist_dashboard_display_type_2">
                             <span style="margin-left: 5px;"> Agenda</span>
                         </label>
                     </li>

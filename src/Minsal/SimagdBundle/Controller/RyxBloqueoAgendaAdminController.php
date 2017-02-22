@@ -86,7 +86,7 @@ class RyxBloqueoAgendaAdminController extends MinsalSimagdBundleGeneralAdminCont
         
         //Modalidad en caso de ser enviada
         if ($idAreaServicioDiagnostico) {
-            $modalidadReference = $em->getReference('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico', $idAreaServicioDiagnostico);
+            $modalidadReference = $em->getReference('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico', $idAreaServicioDiagnostico);
             $nuevoBloqueo->setIdAreaServicioDiagnostico($modalidadReference);
         }
         
@@ -147,7 +147,7 @@ class RyxBloqueoAgendaAdminController extends MinsalSimagdBundleGeneralAdminCont
         
         //Modalidad en caso de ser enviada
         if ($idAreaServicioDiagnostico) {
-            $modalidadReference = $em->getReference('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico', $idAreaServicioDiagnostico);
+            $modalidadReference = $em->getReference('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico', $idAreaServicioDiagnostico);
             $editBloqueo->setIdAreaServicioDiagnostico($modalidadReference);
         } else {
             $editBloqueo->setIdAreaServicioDiagnostico($idAreaServicioDiagnostico);

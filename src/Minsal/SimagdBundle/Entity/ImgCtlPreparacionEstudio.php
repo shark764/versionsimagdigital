@@ -72,9 +72,9 @@ class ImgCtlPreparacionEstudio
     private $codigo;
 
     /**
-     * @var \Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico
+     * @var \CtlAreaServicioDiagnostico
      *
-     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico")
+     * @ORM\ManyToOne(targetEntity="CtlAreaServicioDiagnostico")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_area_servicio_diagnostico_aplica", referencedColumnName="id")
      * })
@@ -303,10 +303,10 @@ class ImgCtlPreparacionEstudio
     /**
      * Set idAreaServicioDiagnosticoAplica
      *
-     * @param \Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico $idAreaServicioDiagnosticoAplica
+     * @param \Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico $idAreaServicioDiagnosticoAplica
      * @return ImgCtlPreparacionEstudio
      */
-    public function setIdAreaServicioDiagnosticoAplica(\Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico $idAreaServicioDiagnosticoAplica = null)
+    public function setIdAreaServicioDiagnosticoAplica(\Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico $idAreaServicioDiagnosticoAplica = null)
     {
         $this->idAreaServicioDiagnosticoAplica = $idAreaServicioDiagnosticoAplica;
 
@@ -316,7 +316,7 @@ class ImgCtlPreparacionEstudio
     /**
      * Get idAreaServicioDiagnosticoAplica
      *
-     * @return \Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico
+     * @return \Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico
      */
     public function getIdAreaServicioDiagnosticoAplica()
     {
