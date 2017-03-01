@@ -145,7 +145,7 @@
 			"file": "src/Minsal/SimagdBundle/Resources/views/General/agenda_dashboard_script.html.twig",
 			"settings":
 			{
-				"buffer_size": 8810,
+				"buffer_size": 9076,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -190,7 +190,7 @@
 			"file": "src/Minsal/SimagdBundle/Controller/RyxCitaProgramadaAdminController.php",
 			"settings":
 			{
-				"buffer_size": 59592,
+				"buffer_size": 59594,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -815,15 +815,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8810,
+						"buffer_size": 9076,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7124,
-								7124
+								0,
+								0
 							]
 						],
 						"settings":
@@ -961,15 +961,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 59592,
+						"buffer_size": 59594,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7948,
-								7948
+								0,
+								0
 							]
 						],
 						"settings":

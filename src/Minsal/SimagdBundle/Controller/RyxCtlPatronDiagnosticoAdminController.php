@@ -63,7 +63,7 @@ class RyxCtlPatronDiagnosticoAdminController extends MinsalSimagdBundleGeneralAd
                                         ->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(1, 2, 4, 5, 6, 7))
                                         ->getQuery()->getResult();
 
-        $modalidades        = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')
+        $modalidades        = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')
                                             ->obtenerModalidadesRealizablesLocalV2($estabLocal->getId());
 
         $radiologos         = $em->getRepository('MinsalSiapsBundle:MntEmpleado')
@@ -212,7 +212,7 @@ class RyxCtlPatronDiagnosticoAdminController extends MinsalSimagdBundleGeneralAd
         $empleadoReference      = $em->getReference('Minsal\SiapsBundle\Entity\MntEmpleado', $empleado);
         $patronDiagnostico->setIdEmpleadoRegistra($empleadoReference);
         //Modalidad
-        $modalidadReference     = $em->getReference('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico', $modalidad);
+        $modalidadReference     = $em->getReference('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico', $modalidad);
         $patronDiagnostico->setIdAreaServicioDiagnostico($modalidadReference);
         //Tipo Resultado
         $tipoResultReference    = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlTipoResultado', $tipoResult);
@@ -273,7 +273,7 @@ class RyxCtlPatronDiagnosticoAdminController extends MinsalSimagdBundleGeneralAd
         $empleadoReference 	= $em->getReference('Minsal\SiapsBundle\Entity\MntEmpleado', $empleado);
         $patronDiagnostico->setIdEmpleadoRegistra($empleadoReference);
         //Modalidad
-        $modalidadReference 	= $em->getReference('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico', $modalidad);
+        $modalidadReference 	= $em->getReference('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico', $modalidad);
         $patronDiagnostico->setIdAreaServicioDiagnostico($modalidadReference);
         //Tipo Resultado
         $tipoResultReference 	= $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlTipoResultado', $tipoResult);
@@ -328,7 +328,7 @@ class RyxCtlPatronDiagnosticoAdminController extends MinsalSimagdBundleGeneralAd
         //Empleado
         $object_ptrDiag->setIdEmpleadoRegistra($sessionUser->getIdEmpleado());
         //Modalidad
-        $object_ptrDiag->setIdAreaServicioDiagnostico($em->getReference('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico', $request->request->get('form_diagAsPattern_idAreaServicioDiagnostico')));
+        $object_ptrDiag->setIdAreaServicioDiagnostico($em->getReference('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico', $request->request->get('form_diagAsPattern_idAreaServicioDiagnostico')));
         // $object_ptrDiag->setIdAreaServicioDiagnostico($em->getReference('Minsal\LaboratorioBundle\Entity\CtlAreaServicioDiagnostico', $request->request->get('form_diagAsPattern_idAreaServicioDiagnostico')));
         //Tipo Resultado
         $object_ptrDiag->setIdTipoResultado($em->getReference('Minsal\SimagdBundle\Entity\ImgCtlTipoResultado', $request->request->get('form_diagAsPattern_idTipoResultado')));

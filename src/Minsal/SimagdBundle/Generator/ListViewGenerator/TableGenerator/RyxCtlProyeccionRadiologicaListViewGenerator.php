@@ -72,7 +72,7 @@ class RyxCtlProyeccionRadiologicaListViewGenerator extends RyxEntityListViewGene
                     array(
                         'field' => 'codigo_modalidad',
                         'sortable' => true,
-                        'title' => 'Cód. (Modalidad)',
+                        'title' => 'Cód. (Mdld.)',
                     ),
                     array(
                         'field' => 'modalidad',

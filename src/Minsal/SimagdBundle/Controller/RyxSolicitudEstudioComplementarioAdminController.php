@@ -556,7 +556,7 @@ class RyxSolicitudEstudioComplementarioAdminController extends MinsalSimagdBundl
         /*
          * Modalidad
          */
-        $ref_modalidad  = $em->getReference('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico', $request_modalidad);
+        $ref_modalidad  = $em->getReference('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico', $request_modalidad);
         $new_studyRequest->setIdAreaServicioDiagnostico($ref_modalidad);
         /*
          * Proyecciones
@@ -626,7 +626,7 @@ class RyxSolicitudEstudioComplementarioAdminController extends MinsalSimagdBundl
         /*
          * Modalidad
          */
-        $ref_modalidad  = $em->getReference('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico', $request_modalidad);
+        $ref_modalidad  = $em->getReference('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico', $request_modalidad);
         $edit_studyRequest->setIdAreaServicioDiagnostico($ref_modalidad);
         /*
          * Proyecciones

@@ -131,7 +131,7 @@ class RyxSolicitudEstudioComplementarioAdmin extends MinsalSimagdBundleGeneralAd
 		    ->add('idAreaServicioDiagnostico', null, array(//SI ESTAS QUEDAN CON EL LOCAL, OCURRIRÁ EL ERROR DE UNA MODALIDAD QUE NO EXISTAN EN LOCAL, "ESTE VALOR NO ES VALIDO"
                                                     'label' => 'Modalidad de diagnóstico por imagen',//MEJOR SOLO FILTRARLAS POR '97'
                                                     'required' => true,
-//                                                    'class' => 'MinsalSiapsBundle:CtlAreaServicioDiagnostico',   //ESTAS DEBEN SER CON EL REFERIDO POR DEFECTO
+//                                                    'class' => 'MinsalSimagdBundle:CtlAreaServicioDiagnostico',   //ESTAS DEBEN SER CON EL REFERIDO POR DEFECTO
 //                                                         'property' => 'nombrearea',                             //MISMO TRUCO DE FILTRARLAS EN CLIENTE CON EL Q ESTE DE REFERIDO
                                                     'query_builder' => function(EntityRepository $er) use ($estabLocal) {
                                                                             return $er->obtenerModalidadesRealizablesLocalV2($estabLocal, '97', 'query');
@@ -212,8 +212,8 @@ class RyxSolicitudEstudioComplementarioAdmin extends MinsalSimagdBundleGeneralAd
         $instance->setIdEstablecimientoSolicitado($estabLocal);
 
         //Modalidad por defecto
-        $em = $this->getModelManager()->getEntityManager('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico');
-        $modReference = $em->getReference('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico', '13');
+        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico');
+        $modReference = $em->getReference('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico', '13');
         $instance->setIdAreaServicioDiagnostico($modReference);
 
         //Prioridad por defecto

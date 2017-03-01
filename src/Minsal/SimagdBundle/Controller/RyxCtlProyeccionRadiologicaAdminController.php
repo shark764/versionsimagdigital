@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
-use Minsal\SiapsBundle\Entity\MntAreaExamenEstablecimiento;
+use Minsal\SimagdBundle\Entity\MntAreaExamenEstablecimiento;
 use Minsal\SimagdBundle\Entity\ImgCtlProyeccionEstablecimiento;
 
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
@@ -93,8 +93,8 @@ class RyxCtlProyeccionRadiologicaAdminController extends MinsalSimagdBundleGener
 
         $em = $this->getDoctrine()->getManager();
 
-        $modalidades        = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
-        $examenes           = $em->getRepository('MinsalSiapsBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
+        $modalidades        = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
+        $examenes           = $em->getRepository('MinsalSimagdBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
         $proyecciones       = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
         $sexos              = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
 
@@ -209,7 +209,7 @@ class RyxCtlProyeccionRadiologicaAdminController extends MinsalSimagdBundleGener
 
         $areaAtn = '97';
 
-        $modalidades = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesImagenologia($areaAtn);
+        $modalidades = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesImagenologia($areaAtn);
 
         return $this->render('MinsalSimagdBundle:RyxCtlProyeccionRadiologicaAdmin:expl_modalidadesComboBox.html.twig', array('modalidades' => $modalidades->getQuery()->getResult()));
     }
@@ -239,7 +239,7 @@ class RyxCtlProyeccionRadiologicaAdminController extends MinsalSimagdBundleGener
         $em = $this->getDoctrine()->getManager();
 
         //Examen
-        $examenReference    = $em->getReference('Minsal\SiapsBundle\Entity\CtlExamenServicioDiagnostico', $examen);
+        $examenReference    = $em->getReference('Minsal\SimagdBundle\Entity\CtlExamenServicioDiagnostico', $examen);
         $proyeccion->setIdExamenServicioDiagnostico($examenReference);
 
         $proyeccion->setNombre($nombre);
@@ -273,16 +273,16 @@ class RyxCtlProyeccionRadiologicaAdminController extends MinsalSimagdBundleGener
 	    $pryRealizable->setHabilitado($habilitado);
 	    $pryRealizable->setObservaciones($observacionesLc);
 
-            $areaExmEstab       = $em->getRepository('MinsalSiapsBundle:MntAreaExamenEstablecimiento')
+            $areaExmEstab       = $em->getRepository('MinsalSimagdBundle:MntAreaExamenEstablecimiento')
                                                     ->findOneBy(array('idEstablecimiento' => $estabLocal->getId(),
                                                                         'idAreaServicioDiagnostico' => $area,
                                                                         'idExamenServicioDiagnostico' => $examen));
 
             if (!$areaExmEstab) {
                 /** CtlAreaServicioDiagnostico */
-                $areaSrvApyRef      = $em->getReference('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico', $area);
+                $areaSrvApyRef      = $em->getReference('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico', $area);
                 /** CtlExamenServicioDiagnostico */
-                $exmSrvApyRef       = $em->getReference('Minsal\SiapsBundle\Entity\CtlExamenServicioDiagnostico', $examen);
+                $exmSrvApyRef       = $em->getReference('Minsal\SimagdBundle\Entity\CtlExamenServicioDiagnostico', $examen);
 
                 /** MntAreaExamenEstablecimiento */
                 $areaExamenEstab    = new MntAreaExamenEstablecimiento();
@@ -328,7 +328,7 @@ class RyxCtlProyeccionRadiologicaAdminController extends MinsalSimagdBundleGener
         $em = $this->getDoctrine()->getManager();
 
         //Examen
-        $examenReference    = $em->getReference('Minsal\SiapsBundle\Entity\CtlExamenServicioDiagnostico', $examen);
+        $examenReference    = $em->getReference('Minsal\SimagdBundle\Entity\CtlExamenServicioDiagnostico', $examen);
         $proyeccion->setIdExamenServicioDiagnostico($examenReference);
 
         $proyeccion->setNombre($nombre);

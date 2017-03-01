@@ -8,7 +8,7 @@
         var generate = function(el, slug/*, type = 'list'*/) {
 			////////
 			var form_worklist = jQuery('#_exam_worklist_form');
-			form_worklist.find('select').prop('disabled', slug !== 'unrealized_procedures');
+			form_worklist.find('select').prop('disabled', jQuery.inArray(slug, ['unrealized_procedures', 'unrealized_procedures_today', 'unrealized_procedures_yesterday', 'unrealized_procedures_week', 'unrealized_procedures_month']) === -1);
             ////////
 
             ////////
@@ -41,7 +41,7 @@
 					break;
 			}
 
-            var type = jQuery('input[name=_worklist_display_type]:checked').val();
+            var type = jQuery('input[name=_worklist_dashboard_display_type]:checked').val();
 
             $.ajax({
                 type: 'POST',
@@ -90,11 +90,15 @@
             //////////////////////////////////////////////////////////////////////////
             //////// change content type - worklist
             //////////////////////////////////////////////////////////////////////////
-            var __DOM__worklistDisplayType = jQuery('input[name=_worklist_display_type]');
+            var __DOM__worklistDisplayType = jQuery('input[name=_worklist_dashboard_display_type]');
 
             __DOM__worklistDisplayType.on('ifChecked', function(e) {
 
-                        jQuery('#_worklist_display_items li.active').find('a').triggerHandler('click');
+                        jQuery('#_worklist_dashboard_display_items li.active').find('a').triggerHandler('click');
+
+                        if (jQuery('#_worklist_dashboard_display_items li.active').hasClass('dropdown')) {
+                            jQuery('#_worklist_dashboard_display_items li.active').find('li.active').find('a').triggerHandler('click');
+                        }
 
             });
             //////////////////////////////////////////////////////////////////////////

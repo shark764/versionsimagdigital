@@ -128,7 +128,7 @@
             var $table = jQuery('#ryx_target_bstable');
             $table.on('dbl-click-row.bs.table', function (e, row, $element, field) {
                 var url = null;
-                var type_view = jQuery('input[name=_worklist_display_type]:checked').val();
+                var type_view = jQuery('input[name=_worklist_dashboard_display_type]:checked').val();
                 if (row.hasOwnProperty('table_dbl_click_url') && type_view === 'list') {
                     url = row.table_dbl_click_url;
                 }
@@ -233,11 +233,11 @@
         //     //////////////////////////////////////////////////////////////////////////
         //     //////// change content type - worklist
         //     //////////////////////////////////////////////////////////////////////////
-        //     var __DOM__worklistDisplayType = jQuery('input[name=_worklist_display_type]');
+        //     var __DOM__worklistDisplayType = jQuery('input[name=_worklist_dashboard_display_type]');
 
         //     __DOM__worklistDisplayType.on('ifChecked', function(e) {
 
-        //                 jQuery('#_worklist_display_items li.active').find('a').triggerHandler('click');
+        //                 jQuery('#_worklist_dashboard_display_items li.active').find('a').triggerHandler('click');
 
         //     });
         //     //////////////////////////////////////////////////////////////////////////

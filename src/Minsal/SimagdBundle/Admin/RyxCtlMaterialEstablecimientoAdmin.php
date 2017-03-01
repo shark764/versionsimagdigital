@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RyxCtlMaterialEstablecimientoAdmin extends MinsalSimagdBundleGeneralAdmin
 {
-    protected $baseRouteName    = 'simagd_material_local';            //SUSTITUIR METODO GET NEW INSTANCE CON EL ESTABLECIMIENTO YA SETEADO
+    protected $baseRouteName    = 'simagd_material_local';
     protected $baseRoutePattern = 'rayos-x-material-local';
 
     protected function configureRoutes(RouteCollection $collection)

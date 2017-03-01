@@ -70,7 +70,7 @@ class RyxCtlProyeccionEstablecimientoAdmin extends MinsalSimagdBundleGeneralAdmi
                                                             'label' => 'Modalidad',
                                                             'required' => false,
                                                             'mapped' => false,
-                                                            'class' => 'MinsalSiapsBundle:CtlAreaServicioDiagnostico',
+                                                            'class' => 'MinsalSimagdBundle:CtlAreaServicioDiagnostico',
                                                             'query_builder' => function(EntityRepository $er ) use ($imgAtn ) {
                                                                                     return $er->obtenerModalidadesImagenologia ($imgAtn);
                                                                             },
@@ -83,7 +83,7 @@ class RyxCtlProyeccionEstablecimientoAdmin extends MinsalSimagdBundleGeneralAdmi
                                                             'label' => 'Examen',
                                                             'required' => false, //PONER TODOS LOS QUE DEBEN SER TRUE/FALSE **************************
                                                             'mapped' => false,
-                                                            'class' => 'MinsalSiapsBundle:CtlExamenServicioDiagnostico',
+                                                            'class' => 'MinsalSimagdBundle:CtlExamenServicioDiagnostico',
                                                             'query_builder' => function(EntityRepository $er ) use ($imgAtn ) {
                                                                                     return $er->obtenerExamenesImagenologia ($imgAtn);
                                                                             },

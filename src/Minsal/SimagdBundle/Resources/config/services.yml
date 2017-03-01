@@ -259,3 +259,21 @@ services:
         arguments: [~, Minsal\SimagdBundle\Entity\ImgSolicitudEstudioMamografiaSintomatologia, MinsalSimagdBundle:RyxSolicitudEstudioMamografiaSintomatologiaAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
+
+    minsal_simagd.admin.ctl_area_servicio_diagnostico:
+        class: Minsal\SimagdBundle\Admin\CtlAreaServicioDiagnosticoAdmin
+        arguments: [~, Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico, MinsalSimagdBundle:CtlAreaServicioDiagnosticoAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
+
+    minsal_simagd.admin.ctl_examen_servicio_diagnostico:
+        class: Minsal\SimagdBundle\Admin\CtlExamenServicioDiagnosticoAdmin
+        arguments: [~, Minsal\SimagdBundle\Entity\CtlExamenServicioDiagnostico, MinsalSimagdBundle:CtlExamenServicioDiagnosticoAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
+
+    minsal_simagd.admin.mnt_area_examen_establecimiento:
+        class: Minsal\SimagdBundle\Admin\MntAreaExamenEstablecimientoAdmin
+        arguments: [~, Minsal\SimagdBundle\Entity\MntAreaExamenEstablecimiento, MinsalSimagdBundle:MntAreaExamenEstablecimientoAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}

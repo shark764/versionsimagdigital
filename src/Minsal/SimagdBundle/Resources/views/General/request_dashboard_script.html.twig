@@ -88,6 +88,10 @@
 
                         jQuery('#_request_dashboard_display_items li.active').find('a').triggerHandler('click');
 
+                        if (jQuery('#_request_dashboard_display_items li.active').hasClass('dropdown')) {
+                            jQuery('#_request_dashboard_display_items li.active').find('li.active').find('a').triggerHandler('click');
+                        }
+
             });
             //////////////////////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////////////////////

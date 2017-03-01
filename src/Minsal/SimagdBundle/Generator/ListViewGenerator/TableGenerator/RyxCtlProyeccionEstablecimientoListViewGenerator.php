@@ -72,7 +72,7 @@ class RyxCtlProyeccionEstablecimientoListViewGenerator extends RyxEntityListView
                     array(
                         'field' => 'codigo_modalidad',
                         'sortable' => true,
-                        'title' => 'Cód. (Modalidad)',
+                        'title' => 'Cód. (Mdld.)',
                     ),
                     array(
                         'field' => 'modalidad',

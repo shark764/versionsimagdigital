@@ -30,7 +30,7 @@ class RyxCtlPreparacionEstudioAdminController extends MinsalSimagdBundleGeneralA
                                 ->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(1, 2, 4, 5, 6, 7))
                                 ->getQuery()->getResult();
 
-        $modalidades = $em->getRepository('MinsalSiapsBundle:CtlAreaServicioDiagnostico')
+        $modalidades = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')
                 ->obtenerModalidadesRealizablesLocalV2($estabLocal->getId());
 
         return $this->render($this->admin->getTemplate('list'),
@@ -99,7 +99,7 @@ class RyxCtlPreparacionEstudioAdminController extends MinsalSimagdBundleGeneralA
         $empleadoReference 	= $em->getReference('Minsal\SiapsBundle\Entity\MntEmpleado', $empleado);
         $indicacionesCita->setIdEmpleadoRegistra($empleadoReference);
         //Modalidad
-        $modalidadReference 	= $em->getReference('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico', $modalidad);
+        $modalidadReference 	= $em->getReference('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico', $modalidad);
         $indicacionesCita->setIdAreaServicioDiagnosticoAplica($modalidadReference);
         
         $indicacionesCita->setPreparacionEstudio($indicaciones);
@@ -138,7 +138,7 @@ class RyxCtlPreparacionEstudioAdminController extends MinsalSimagdBundleGeneralA
         $empleadoReference 	= $em->getReference('Minsal\SiapsBundle\Entity\MntEmpleado', $empleado);
         $indicacionesCita->setIdEmpleadoRegistra($empleadoReference);
         //Modalidad
-        $modalidadReference 	= $em->getReference('Minsal\SiapsBundle\Entity\CtlAreaServicioDiagnostico', $modalidad);
+        $modalidadReference 	= $em->getReference('Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico', $modalidad);
         $indicacionesCita->setIdAreaServicioDiagnosticoAplica($modalidadReference);
         
         $indicacionesCita->setPreparacionEstudio($indicaciones);

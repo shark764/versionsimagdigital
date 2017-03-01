@@ -305,7 +305,7 @@ class AreaServicioDiagnosticoRepository extends EntityRepository
                             ->select('m.id as id, m.nombrearea as text')
                             ->from('MinsalSiapsBundle:CtlAreaServicioDiagnostico', 'm');
 
-	$query->where($query->expr()->orx(
+        $query->where($query->expr()->orx(
 				$query->expr()->exists($subQuery->getDql()),
 				$query->expr()->exists($subQuery2->getDql())
 			    ))
@@ -339,4 +339,5 @@ class AreaServicioDiagnosticoRepository extends EntityRepository
 
         return $query->getQuery()->getScalarResult();
     }
+
 }
