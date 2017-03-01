@@ -26,6 +26,11 @@ class RyxCtlPreparacionEstudio
      * @var string
      *
      * @ORM\Column(name="preparacion_estudio", type="text", nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $preparacionEstudio;
 
@@ -33,6 +38,11 @@ class RyxCtlPreparacionEstudio
      * @var string
      *
      * @ORM\Column(name="recomendaciones", type="text", nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $recomendaciones;
 
@@ -40,6 +50,11 @@ class RyxCtlPreparacionEstudio
      * @var string
      *
      * @ORM\Column(name="observaciones", type="string", length=255, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $observaciones;
 
@@ -47,6 +62,7 @@ class RyxCtlPreparacionEstudio
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_hora_reg", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechaHoraReg = '(now())::timestamp(0) without time zone';
 
@@ -54,6 +70,7 @@ class RyxCtlPreparacionEstudio
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_hora_mod", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechaHoraMod;
 
@@ -61,6 +78,11 @@ class RyxCtlPreparacionEstudio
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=150, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $nombre;
 
@@ -68,6 +90,11 @@ class RyxCtlPreparacionEstudio
      * @var string
      *
      * @ORM\Column(name="codigo", type="string", nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $codigo;
 
@@ -82,9 +109,9 @@ class RyxCtlPreparacionEstudio
     private $idAreaServicioDiagnosticoAplica;
 
     /**
-     * @var \MntEmpleado
+     * @var \Minsal\SiapsBundle\Entity\MntEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="MntEmpleado")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntEmpleado")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_empleado_registra", referencedColumnName="id")
      * })
@@ -92,9 +119,9 @@ class RyxCtlPreparacionEstudio
     private $idEmpleadoRegistra;
 
     /**
-     * @var \CtlEstablecimiento
+     * @var \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlEstablecimiento")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
      * })
@@ -102,9 +129,9 @@ class RyxCtlPreparacionEstudio
     private $idEstablecimiento;
 
     /**
-     * @var \FosUserUser
+     * @var \Application\Sonata\UserBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="FosUserUser")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user_mod", referencedColumnName="id")
      * })
@@ -112,14 +139,52 @@ class RyxCtlPreparacionEstudio
     private $idUserMod;
 
     /**
-     * @var \FosUserUser
+     * @var \Application\Sonata\UserBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="FosUserUser")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user_reg", referencedColumnName="id")
      * })
      */
     private $idUserReg;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * ToString
+     */
+    public function __toString()
+    {
+        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+    }
+    
+    /**
+     * Text converter for the Entity (Second form).
+     */
+    public function getPresentacionEntidad()
+    {
+    }
+    
+    /**
+     * Text converter for the Entity (Third form).
+     */
+    public function getFormatoPresentacionEntidad()
+    {
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
 }

@@ -26,6 +26,11 @@ class RyxExpedienteFicticio
      * @var string
      *
      * @ORM\Column(name="numero", type="string", length=12, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $numero;
 
@@ -40,6 +45,7 @@ class RyxExpedienteFicticio
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_hora_reg", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechaHoraReg = '(now())::timestamp(0) without time zone';
 
@@ -47,6 +53,11 @@ class RyxExpedienteFicticio
      * @var string
      *
      * @ORM\Column(name="nombre_ficticio", type="string", length=75, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $nombreFicticio = 'Paciente desconocido';
 
@@ -54,13 +65,18 @@ class RyxExpedienteFicticio
      * @var string
      *
      * @ORM\Column(name="caracteristicas", type="string", length=255, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $caracteristicas = 'El paciente se encuentra inconsciente';
 
     /**
-     * @var \CtlEstablecimiento
+     * @var \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlEstablecimiento")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
      * })
@@ -68,14 +84,52 @@ class RyxExpedienteFicticio
     private $idEstablecimiento;
 
     /**
-     * @var \FosUserUser
+     * @var \Application\Sonata\UserBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="FosUserUser")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user_reg", referencedColumnName="id")
      * })
      */
     private $idUserReg;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * ToString
+     */
+    public function __toString()
+    {
+        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+    }
+    
+    /**
+     * Text converter for the Entity (Second form).
+     */
+    public function getPresentacionEntidad()
+    {
+    }
+    
+    /**
+     * Text converter for the Entity (Third form).
+     */
+    public function getFormatoPresentacionEntidad()
+    {
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
 }

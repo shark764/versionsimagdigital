@@ -33,6 +33,11 @@ class RyxCitaProgramada
      * @var string
      *
      * @ORM\Column(name="incidencias", type="string", length=255, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $incidencias;
 
@@ -40,6 +45,11 @@ class RyxCitaProgramada
      * @var string
      *
      * @ORM\Column(name="observaciones", type="string", length=255, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $observaciones;
 
@@ -47,6 +57,11 @@ class RyxCitaProgramada
      * @var string
      *
      * @ORM\Column(name="razon_anulada", type="string", length=150, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $razonAnulada;
 
@@ -54,6 +69,7 @@ class RyxCitaProgramada
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_creacion", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechaCreacion = '(now())::timestamp(0) without time zone';
 
@@ -61,6 +77,7 @@ class RyxCitaProgramada
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_confirmacion", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechaConfirmacion;
 
@@ -68,6 +85,7 @@ class RyxCitaProgramada
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_reprogramacion", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechaReprogramacion;
 
@@ -89,6 +107,11 @@ class RyxCitaProgramada
      * @var string
      *
      * @ORM\Column(name="nombre_responsable_autoriza", type="string", nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $nombreResponsableAutoriza;
 
@@ -103,6 +126,8 @@ class RyxCitaProgramada
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_hora_inicio", type="datetime", nullable=false)
+     * @Assert\NotBlank(message = "foreign.default.not_blank")
+     * @Assert\DateTime()
      */
     private $fechaHoraInicio;
 
@@ -110,6 +135,8 @@ class RyxCitaProgramada
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_hora_fin", type="datetime", nullable=false)
+     * @Assert\NotBlank(message = "foreign.default.not_blank")
+     * @Assert\DateTime()
      */
     private $fechaHoraFin;
 
@@ -117,6 +144,11 @@ class RyxCitaProgramada
      * @var string
      *
      * @ORM\Column(name="color", type="string", length=15, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $color = '#31708f';
 
@@ -124,6 +156,7 @@ class RyxCitaProgramada
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_hora_inicio_anterior", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechaHoraInicioAnterior;
 
@@ -131,6 +164,7 @@ class RyxCitaProgramada
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_hora_fin_anterior", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechaHoraFinAnterior;
 
@@ -145,9 +179,9 @@ class RyxCitaProgramada
     private $idConfiguracionAgenda;
 
     /**
-     * @var \MntEmpleado
+     * @var \Minsal\SiapsBundle\Entity\MntEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="MntEmpleado")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntEmpleado")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_empleado", referencedColumnName="id")
      * })
@@ -155,9 +189,9 @@ class RyxCitaProgramada
     private $idEmpleado;
 
     /**
-     * @var \CtlEstablecimiento
+     * @var \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlEstablecimiento")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
      * })
@@ -175,9 +209,9 @@ class RyxCitaProgramada
     private $idEstadoCita;
 
     /**
-     * @var \CtlParentesco
+     * @var \Minsal\SiapsBundle\Entity\CtlParentesco
      *
-     * @ORM\ManyToOne(targetEntity="CtlParentesco")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlParentesco")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_responsable_autoriza", referencedColumnName="id")
      * })
@@ -195,9 +229,9 @@ class RyxCitaProgramada
     private $idSolicitudEstudio;
 
     /**
-     * @var \MntEmpleado
+     * @var \Minsal\SiapsBundle\Entity\MntEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="MntEmpleado")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntEmpleado")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_tecnologo_programado", referencedColumnName="id")
      * })
@@ -205,9 +239,9 @@ class RyxCitaProgramada
     private $idTecnologoProgramado;
 
     /**
-     * @var \FosUserUser
+     * @var \Application\Sonata\UserBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="FosUserUser")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user_prg", referencedColumnName="id")
      * })
@@ -215,14 +249,52 @@ class RyxCitaProgramada
     private $idUserPrg;
 
     /**
-     * @var \FosUserUser
+     * @var \Application\Sonata\UserBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="FosUserUser")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user_reprg", referencedColumnName="id")
      * })
      */
     private $idUserReprg;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * ToString
+     */
+    public function __toString()
+    {
+        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+    }
+    
+    /**
+     * Text converter for the Entity (Second form).
+     */
+    public function getPresentacionEntidad()
+    {
+    }
+    
+    /**
+     * Text converter for the Entity (Third form).
+     */
+    public function getFormatoPresentacionEntidad()
+    {
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
 }

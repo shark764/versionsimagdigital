@@ -33,6 +33,11 @@ class CtlEstadoServicioDiagnostico
      * @var string
      *
      * @ORM\Column(name="descripcion", type="string", length=40, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $descripcion;
 

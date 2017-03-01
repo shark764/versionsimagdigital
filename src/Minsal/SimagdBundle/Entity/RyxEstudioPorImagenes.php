@@ -26,6 +26,7 @@ class RyxEstudioPorImagenes
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_estudio", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechaEstudio = '(now())::timestamp(0) without time zone';
 
@@ -47,6 +48,11 @@ class RyxEstudioPorImagenes
      * @var string
      *
      * @ORM\Column(name="servidor", type="string", nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $servidor = 'MINSAL';
 
@@ -54,6 +60,11 @@ class RyxEstudioPorImagenes
      * @var string
      *
      * @ORM\Column(name="url", type="text", nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $url;
 
@@ -65,9 +76,9 @@ class RyxEstudioPorImagenes
     private $eliminadoEnPacs = false;
 
     /**
-     * @var \CtlEstablecimiento
+     * @var \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlEstablecimiento")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
      * })
@@ -85,9 +96,9 @@ class RyxEstudioPorImagenes
     private $idEstudioPadre;
 
     /**
-     * @var \MntExpediente
+     * @var \Minsal\SiapsBundle\Entity\MntExpediente
      *
-     * @ORM\ManyToOne(targetEntity="MntExpediente")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntExpediente")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_expediente", referencedColumnName="id")
      * })
@@ -114,5 +125,43 @@ class RyxEstudioPorImagenes
      */
     private $idProcedimientoRealizado;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * ToString
+     */
+    public function __toString()
+    {
+        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+    }
+    
+    /**
+     * Text converter for the Entity (Second form).
+     */
+    public function getPresentacionEntidad()
+    {
+    }
+    
+    /**
+     * Text converter for the Entity (Third form).
+     */
+    public function getFormatoPresentacionEntidad()
+    {
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
 }

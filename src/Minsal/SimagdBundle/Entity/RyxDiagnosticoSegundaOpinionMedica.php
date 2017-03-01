@@ -26,6 +26,11 @@ class RyxDiagnosticoSegundaOpinionMedica
      * @var string
      *
      * @ORM\Column(name="contenido", type="text", nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $contenido;
 
@@ -33,6 +38,7 @@ class RyxDiagnosticoSegundaOpinionMedica
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_emision", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechaEmision = '(now())::timestamp(0) without time zone';
 
@@ -40,6 +46,11 @@ class RyxDiagnosticoSegundaOpinionMedica
      * @var string
      *
      * @ORM\Column(name="observaciones", type="string", length=255, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $observaciones;
 
@@ -54,9 +65,9 @@ class RyxDiagnosticoSegundaOpinionMedica
     private $idDiagnostico;
 
     /**
-     * @var \MntEmpleado
+     * @var \Minsal\SiapsBundle\Entity\MntEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="MntEmpleado")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntEmpleado")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_empleado", referencedColumnName="id")
      * })
@@ -64,9 +75,9 @@ class RyxDiagnosticoSegundaOpinionMedica
     private $idEmpleado;
 
     /**
-     * @var \CtlEstablecimiento
+     * @var \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlEstablecimiento")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
      * })
@@ -84,14 +95,52 @@ class RyxDiagnosticoSegundaOpinionMedica
     private $idTipoNotaDiagnostico;
 
     /**
-     * @var \FosUserUser
+     * @var \Application\Sonata\UserBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="FosUserUser")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user_reg", referencedColumnName="id")
      * })
      */
     private $idUserReg;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * ToString
+     */
+    public function __toString()
+    {
+        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+    }
+    
+    /**
+     * Text converter for the Entity (Second form).
+     */
+    public function getPresentacionEntidad()
+    {
+    }
+    
+    /**
+     * Text converter for the Entity (Third form).
+     */
+    public function getFormatoPresentacionEntidad()
+    {
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
 }

@@ -26,6 +26,7 @@ class RyxExamenPendienteRealizacion
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_ingreso_lista", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechaIngresoLista = '(now())::timestamp(0) without time zone';
 
@@ -44,9 +45,9 @@ class RyxExamenPendienteRealizacion
     private $esComplementario = false;
 
     /**
-     * @var \MntEmpleado
+     * @var \Minsal\SiapsBundle\Entity\MntEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="MntEmpleado")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntEmpleado")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_asigna_examinante", referencedColumnName="id")
      * })
@@ -64,9 +65,9 @@ class RyxExamenPendienteRealizacion
     private $idCitaProgramada;
 
     /**
-     * @var \CtlEstablecimiento
+     * @var \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlEstablecimiento")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
      * })
@@ -84,9 +85,9 @@ class RyxExamenPendienteRealizacion
     private $idProcedimientoIniciado;
 
     /**
-     * @var \MntEmpleado
+     * @var \Minsal\SiapsBundle\Entity\MntEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="MntEmpleado")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntEmpleado")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_registra_emergencia", referencedColumnName="id")
      * })
@@ -114,14 +115,52 @@ class RyxExamenPendienteRealizacion
     private $idSolicitudEstudio;
 
     /**
-     * @var \MntEmpleado
+     * @var \Minsal\SiapsBundle\Entity\MntEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="MntEmpleado")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntEmpleado")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_tecnologo_asignado", referencedColumnName="id")
      * })
      */
     private $idTecnologoAsignado;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * ToString
+     */
+    public function __toString()
+    {
+        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+    }
+    
+    /**
+     * Text converter for the Entity (Second form).
+     */
+    public function getPresentacionEntidad()
+    {
+    }
+    
+    /**
+     * Text converter for the Entity (Third form).
+     */
+    public function getFormatoPresentacionEntidad()
+    {
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
 }

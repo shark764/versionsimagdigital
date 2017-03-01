@@ -26,6 +26,11 @@ class RyxSolicitudEstudio
      * @var string
      *
      * @ORM\Column(name="datos_clinicos", type="string", length=150, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $datosClinicos;
 
@@ -33,6 +38,11 @@ class RyxSolicitudEstudio
      * @var string
      *
      * @ORM\Column(name="consulta_por", type="string", length=255, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $consultaPor;
 
@@ -40,6 +50,11 @@ class RyxSolicitudEstudio
      * @var string
      *
      * @ORM\Column(name="estado_clinico", type="string", length=50, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $estadoClinico;
 
@@ -47,6 +62,11 @@ class RyxSolicitudEstudio
      * @var string
      *
      * @ORM\Column(name="hipotesis_diagnostica", type="string", length=100, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $hipotesisDiagnostica;
 
@@ -54,6 +74,11 @@ class RyxSolicitudEstudio
      * @var string
      *
      * @ORM\Column(name="investigando", type="string", length=150, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $investigando;
 
@@ -61,6 +86,11 @@ class RyxSolicitudEstudio
      * @var string
      *
      * @ORM\Column(name="antecedentes_clinicos_relevantes", type="text", nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $antecedentesClinicosRelevantes;
 
@@ -68,6 +98,11 @@ class RyxSolicitudEstudio
      * @var string
      *
      * @ORM\Column(name="justificacion_medica", type="string", length=150, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $justificacionMedica;
 
@@ -75,6 +110,7 @@ class RyxSolicitudEstudio
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_creacion", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechaCreacion = '(now())::timestamp(0) without time zone';
 
@@ -89,6 +125,11 @@ class RyxSolicitudEstudio
      * @var string
      *
      * @ORM\Column(name="justificacion_referencia", type="string", length=255, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $justificacionReferencia;
 
@@ -96,6 +137,7 @@ class RyxSolicitudEstudio
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_proxima_consulta", type="date", nullable=true)
+     * @Assert\Date()
      */
     private $fechaProximaConsulta;
 
@@ -117,6 +159,11 @@ class RyxSolicitudEstudio
      * @var string
      *
      * @ORM\Column(name="justificacion_diagnostico", type="string", length=255, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $justificacionDiagnostico;
 
@@ -173,6 +220,11 @@ class RyxSolicitudEstudio
      * @var string
      *
      * @ORM\Column(name="contacto", type="string", length=75, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $contacto = 'No posee';
 
@@ -180,6 +232,11 @@ class RyxSolicitudEstudio
      * @var string
      *
      * @ORM\Column(name="nombre_contacto", type="string", length=75, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $nombreContacto;
 
@@ -187,6 +244,11 @@ class RyxSolicitudEstudio
      * @var string
      *
      * @ORM\Column(name="indicaciones_medico_radiologo", type="text", nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $indicacionesMedicoRadiologo;
 
@@ -201,9 +263,9 @@ class RyxSolicitudEstudio
     private $idAreaServicioDiagnostico;
 
     /**
-     * @var \MntAtenAreaModEstab
+     * @var \Minsal\SiapsBundle\Entity\MntAtenAreaModEstab
      *
-     * @ORM\ManyToOne(targetEntity="MntAtenAreaModEstab")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntAtenAreaModEstab")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_aten_area_mod_estab", referencedColumnName="id")
      * })
@@ -211,9 +273,9 @@ class RyxSolicitudEstudio
     private $idAtenAreaModEstab;
 
     /**
-     * @var \MntEmpleado
+     * @var \Minsal\SiapsBundle\Entity\MntEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="MntEmpleado")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntEmpleado")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_empleado", referencedColumnName="id")
      * })
@@ -221,9 +283,9 @@ class RyxSolicitudEstudio
     private $idEmpleado;
 
     /**
-     * @var \CtlEstablecimiento
+     * @var \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlEstablecimiento")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_establecimiento_diagnosticante", referencedColumnName="id")
      * })
@@ -231,9 +293,9 @@ class RyxSolicitudEstudio
     private $idEstablecimientoDiagnosticante;
 
     /**
-     * @var \CtlEstablecimiento
+     * @var \Minsal\SiapsBundle\Entity\CtlEstablecimiento
      *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlEstablecimiento")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_establecimiento_referido", referencedColumnName="id")
      * })
@@ -261,9 +323,9 @@ class RyxSolicitudEstudio
     private $idExpedienteFicticio;
 
     /**
-     * @var \MntExpediente
+     * @var \Minsal\SiapsBundle\Entity\MntExpediente
      *
-     * @ORM\ManyToOne(targetEntity="MntExpediente")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntExpediente")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_expediente", referencedColumnName="id")
      * })
@@ -281,9 +343,9 @@ class RyxSolicitudEstudio
     private $idFormaContacto;
 
     /**
-     * @var \CtlParentesco
+     * @var \Minsal\SiapsBundle\Entity\CtlParentesco
      *
-     * @ORM\ManyToOne(targetEntity="CtlParentesco")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\CtlParentesco")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_contacto_paciente", referencedColumnName="id")
      * })
@@ -301,9 +363,9 @@ class RyxSolicitudEstudio
     private $idPrioridadAtencion;
 
     /**
-     * @var \MntEmpleado
+     * @var \Minsal\SiapsBundle\Entity\MntEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="MntEmpleado")
+     * @ORM\ManyToOne(targetEntity="Minsal\SiapsBundle\Entity\MntEmpleado")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_radiologo_agrega_indicaciones", referencedColumnName="id")
      * })
@@ -321,9 +383,9 @@ class RyxSolicitudEstudio
     private $idSolicitudestudios;
 
     /**
-     * @var \FosUserUser
+     * @var \Application\Sonata\UserBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="FosUserUser")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user_mod", referencedColumnName="id")
      * })
@@ -331,14 +393,52 @@ class RyxSolicitudEstudio
     private $idUserMod;
 
     /**
-     * @var \FosUserUser
+     * @var \Application\Sonata\UserBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="FosUserUser")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user_reg", referencedColumnName="id")
      * })
      */
     private $idUserReg;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * ToString
+     */
+    public function __toString()
+    {
+        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+    }
+    
+    /**
+     * Text converter for the Entity (Second form).
+     */
+    public function getPresentacionEntidad()
+    {
+    }
+    
+    /**
+     * Text converter for the Entity (Third form).
+     */
+    public function getFormatoPresentacionEntidad()
+    {
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
 }
