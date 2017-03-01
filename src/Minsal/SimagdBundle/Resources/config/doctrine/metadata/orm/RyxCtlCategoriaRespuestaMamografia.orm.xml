@@ -5,7 +5,7 @@
       <index name="IDX_10AC4AB03B0C60A0" columns="id_categoria_padre"/>
     </indexes>
     <unique-constraints>
-      <unique-constraint name="idx_ryx_codigo_categoria_respuesta_mamografia" columns="codigo"/>
+      <unique-constraint name="idx_codigo_categoria_resultado_mamografia" columns="codigo"/>
     </unique-constraints>
     <id name="id" type="smallint" column="id">
       <generator strategy="SEQUENCE"/>

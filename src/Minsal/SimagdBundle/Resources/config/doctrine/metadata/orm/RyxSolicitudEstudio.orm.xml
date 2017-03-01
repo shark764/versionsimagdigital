@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RyxSolicitudEstudio" table="ryx_solicitud_estudio">
+    <indexes>
+      <index name="IDX_FB3FA449992127D5" columns="id_area_servicio_diagnostico"/>
+      <index name="IDX_FB3FA4498627A85B" columns="id_aten_area_mod_estab"/>
+      <index name="IDX_FB3FA449890253C7" columns="id_empleado"/>
+      <index name="IDX_FB3FA4499C29FA00" columns="id_establecimiento_diagnosticante"/>
+      <index name="IDX_FB3FA44950AC6C0" columns="id_establecimiento_referido"/>
+      <index name="IDX_FB3FA449AB124167" columns="id_estado_solicitud"/>
+      <index name="IDX_FB3FA44933CCFAF2" columns="id_expediente_ficticio"/>
+      <index name="IDX_FB3FA449701624C4" columns="id_expediente"/>
+      <index name="IDX_FB3FA44933DDBCDD" columns="id_forma_contacto"/>
+      <index name="IDX_FB3FA4491F3E256A" columns="id_contacto_paciente"/>
+      <index name="IDX_FB3FA4497E7CB1E8" columns="id_prioridad_atencion"/>
+      <index name="IDX_FB3FA4495DA5A9A5" columns="id_radiologo_agrega_indicaciones"/>
+      <index name="IDX_FB3FA449F8EAA696" columns="id_solicitudestudios"/>
+      <index name="IDX_FB3FA449AC39DE56" columns="id_user_mod"/>
+      <index name="IDX_FB3FA449D8A5832B" columns="id_user_reg"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="datosClinicos" type="string" column="datos_clinicos" length="150" nullable="true"/>
+    <field name="consultaPor" type="string" column="consulta_por" length="255" nullable="true"/>
+    <field name="estadoClinico" type="string" column="estado_clinico" length="50" nullable="true"/>
+    <field name="hipotesisDiagnostica" type="string" column="hipotesis_diagnostica" length="100" nullable="true"/>
+    <field name="investigando" type="string" column="investigando" length="150" nullable="true"/>
+    <field name="antecedentesClinicosRelevantes" type="text" column="antecedentes_clinicos_relevantes" nullable="true"/>
+    <field name="justificacionMedica" type="string" column="justificacion_medica" length="150" nullable="true"/>
+    <field name="fechaCreacion" type="datetime" column="fecha_creacion" nullable="true"/>
+    <field name="referirPaciente" type="boolean" column="referir_paciente" nullable="true"/>
+    <field name="justificacionReferencia" type="string" column="justificacion_referencia" length="255" nullable="true"/>
+    <field name="fechaProximaConsulta" type="date" column="fecha_proxima_consulta" nullable="true"/>
+    <field name="requiereCita" type="boolean" column="requiere_cita" nullable="true"/>
+    <field name="requiereDiagnostico" type="boolean" column="requiere_diagnostico" nullable="true"/>
+    <field name="justificacionDiagnostico" type="string" column="justificacion_diagnostico" length="255" nullable="true"/>
+    <field name="pacienteAmbulatorio" type="boolean" column="paciente_ambulatorio" nullable="true"/>
+    <field name="numeroSala" type="integer" column="numero_sala" nullable="true"/>
+    <field name="numeroCama" type="integer" column="numero_cama" nullable="true"/>
+    <field name="pacienteDesconocido" type="boolean" column="paciente_desconocido" nullable="true"/>
+    <field name="pesoActualLb" type="decimal" column="peso_actual_lb" precision="6" scale="2" nullable="true"/>
+    <field name="pesoActualKg" type="decimal" column="peso_actual_kg" precision="6" scale="2" nullable="true"/>
+    <field name="tallaPaciente" type="decimal" column="talla_paciente" precision="6" scale="2" nullable="true"/>
+    <field name="contacto" type="string" column="contacto" length="75" nullable="true"/>
+    <field name="nombreContacto" type="string" column="nombre_contacto" length="75" nullable="true"/>
+    <field name="indicacionesMedicoRadiologo" type="text" column="indicaciones_medico_radiologo" nullable="true"/>
+    <many-to-one field="idPrioridadAtencion" target-entity="RyxCtlPrioridadAtencionPaciente">
+      <join-columns>
+        <join-column name="id_prioridad_atencion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idContactoPaciente" target-entity="CtlParentesco">
+      <join-columns>
+        <join-column name="id_contacto_paciente" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idRadiologoAgregaIndicaciones" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_radiologo_agrega_indicaciones" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idSolicitudestudios" target-entity="SecSolicitudestudios">
+      <join-columns>
+        <join-column name="id_solicitudestudios" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUserReg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_reg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUserMod" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_mod" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idFormaContacto" target-entity="RyxCtlFormaContacto">
+      <join-columns>
+        <join-column name="id_forma_contacto" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idExpediente" target-entity="MntExpediente">
+      <join-columns>
+        <join-column name="id_expediente" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEmpleado" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_empleado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idAtenAreaModEstab" target-entity="MntAtenAreaModEstab">
+      <join-columns>
+        <join-column name="id_aten_area_mod_estab" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimientoDiagnosticante" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento_diagnosticante" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimientoReferido" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento_referido" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idExpedienteFicticio" target-entity="RyxExpedienteFicticio">
+      <join-columns>
+        <join-column name="id_expediente_ficticio" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstadoSolicitud" target-entity="RyxCtlEstadoSolicitud">
+      <join-columns>
+        <join-column name="id_estado_solicitud" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idAreaServicioDiagnostico" target-entity="CtlAreaServicioDiagnostico">
+      <join-columns>
+        <join-column name="id_area_servicio_diagnostico" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

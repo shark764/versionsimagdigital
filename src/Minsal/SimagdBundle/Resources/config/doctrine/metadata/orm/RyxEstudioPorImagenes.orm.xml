@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RyxEstudioPorImagenes" table="ryx_estudio_por_imagenes">
+    <indexes>
+      <index name="IDX_AB43E1E67DFA12F6" columns="id_establecimiento"/>
+      <index name="IDX_AB43E1E6F485B2E3" columns="id_estudio_padre"/>
+      <index name="IDX_AB43E1E6701624C4" columns="id_expediente"/>
+      <index name="IDX_AB43E1E633CCFAF2" columns="id_expediente_ficticio"/>
+      <index name="IDX_AB43E1E69E9497EB" columns="id_procedimiento_realizado"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="fechaEstudio" type="datetime" column="fecha_estudio" nullable="true"/>
+    <field name="estudioUid" type="text" column="estudio_uid" nullable="false"/>
+    <field name="seriesUid" type="text" column="series_uid" nullable="false"/>
+    <field name="servidor" type="string" column="servidor" nullable="true"/>
+    <field name="url" type="text" column="url" nullable="true"/>
+    <field name="eliminadoEnPacs" type="boolean" column="eliminado_en_pacs" nullable="true"/>
+    <many-to-one field="idProcedimientoRealizado" target-entity="RyxProcedimientoRadiologicoRealizado">
+      <join-columns>
+        <join-column name="id_procedimiento_realizado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idExpedienteFicticio" target-entity="RyxExpedienteFicticio">
+      <join-columns>
+        <join-column name="id_expediente_ficticio" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idExpediente" target-entity="MntExpediente">
+      <join-columns>
+        <join-column name="id_expediente" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstudioPadre" target-entity="RyxEstudioPorImagenes">
+      <join-columns>
+        <join-column name="id_estudio_padre" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimiento" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
