@@ -241,12 +241,12 @@
 				});
 			});
 
-			if (event._id === 'false_event_id') {
-				$false_eventObject = jQuery.extend(true, {}, event);
-			}
-			if (event._id === 'bl_false_event_id') {
-				$false_blockObject = jQuery.extend(true, {}, event);
-			}
+			// if (event._id === 'false_event_id') {
+			// 	$false_eventObject = jQuery.extend(true, {}, event);
+			// }
+			// if (event._id === 'bl_false_event_id') {
+			// 	$false_blockObject = jQuery.extend(true, {}, event);
+			// }
 		},
 	    eventReceive: function(event) {
 	    	var $el_fc_calendar = jQuery('#calendar');	//  --| calendar DOM element
@@ -434,10 +434,10 @@
 	    eventAfterRender: function(event, element, view) {
 	    	var $el_fc_calendar = jQuery('#calendar');	//  --| calendar DOM element
 
-		    if (event._id === 'false_event_id' || event._id === 'bl_false_event_id') {
-		    	var $el_fc_calendar = jQuery('#calendar');	//  --| calendar DOM element
-				$el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('removeEvents', event._id);
-		    }
+		  //   if (event._id === 'false_event_id' || event._id === 'bl_false_event_id') {
+		  //   	var $el_fc_calendar = jQuery('#calendar');	//  --| calendar DOM element
+				// $el_fc_calendar.filter(':not([disabled]):visible').fullCalendar('removeEvents', event._id);
+		  //   }
 
 		    var fc_view = $el_fc_calendar.fullCalendar('getView');
             //////// << summary view mode >>
@@ -448,29 +448,29 @@
 			////////
 	    },
 	    loading: function(isLoading, view) {
-			if (isLoading !== false) {
-				var $fc_calendar_panel  = jQuery('[id="fc-calendar-panel"]');
+			// if (isLoading !== false) {
+			// 	var $fc_calendar_panel  = jQuery('[id="fc-calendar-panel"]');
 
-			    $fc_calendar_panel.find('.panel-title').html(function() {
-					return [
-					    '<i class="fa fa-spinner icon-refresh-animate"></i>',
-					    ' ',
-					    ' Actualizando'
-					].join('');
-			    });
-			}
+			//     $fc_calendar_panel.find('.panel-title').html(function() {
+			// 		return [
+			// 		    '<i class="fa fa-spinner icon-refresh-animate"></i>',
+			// 		    ' ',
+			// 		    ' Actualizando'
+			// 		].join('');
+			//     });
+			// }
 	    },
 	    eventAfterAllRender: function(view) {
-	    	var $fc_calendar_panel  = jQuery('[id="fc-calendar-panel"]');
+	    	// var $fc_calendar_panel  = jQuery('[id="fc-calendar-panel"]');
 
-		    $fc_calendar_panel.find('.panel-title').html('AGENDA'/*function() {
-				return [
-				    // '<i class="fa fa-calendar"></i>',
-				    // ' ',
-				    // '<i class="fa fa-calendar-check-o"></i>',
-				    'AGENDA'
-				].join('');
-		    }*/);
+		    // $fc_calendar_panel.find('.panel-title').html('AGENDA'function() {
+				// // return [
+				// //     // '<i class="fa fa-calendar"></i>',
+				// //     // ' ',
+				// //     // '<i class="fa fa-calendar-check-o"></i>',
+				// //     'AGENDA'
+				// // ].join('');
+		    // });
 
 		    window.console.log('%cAgenda was successfully reloaded', 'background: #183f52; color: #eee');
 	    },
