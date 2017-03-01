@@ -235,22 +235,22 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
         }
 
         /* Creación de evento falso */
-        $falseEvent['id']                       = 'false_event_id';
-        $falseEvent['title']                    = 'false_event_title';
-        $falseEvent['start']                    = (new \DateTime('now'))->format('Y-m-d\TH:i:s');
-        $falseEvent['end']                      = (new \DateTime('now'))->format('Y-m-d\TH:i:s');
-        $falseEvent['url']                      = $this->admin->generateUrl('show', array('id' => 0));
-        $falseEvent['allDay']                   = false;
-        $falseEvent['color']                    = '#183f52';
-        $falseEvent['idTecnologoProgramado']    = NULL;
-        $falseEvent['idEstadoCita']             = 1;
-        $falseEvent['razonAnulada']             = NULL;
-        $falseEvent['incidencias']          = NULL;
-        $falseEvent['observaciones']        = NULL;
-        $falseEvent['description']              = NULL;
-        $falseEvent['prxConsulta']              = (new \DateTime('now'))->format('Y-m-d');
-        $falseEvent['range']  = $this->createDateRangeArray($start, $end);
-        $results[]                           = $falseEvent;
+        // $falseEvent['id']                       = 'false_event_id';
+        // $falseEvent['title']                    = 'false_event_title';
+        // $falseEvent['start']                    = (new \DateTime('now'))->format('Y-m-d\TH:i:s');
+        // $falseEvent['end']                      = (new \DateTime('now'))->format('Y-m-d\TH:i:s');
+        // $falseEvent['url']                      = $this->admin->generateUrl('show', array('id' => 0));
+        // $falseEvent['allDay']                   = false;
+        // $falseEvent['color']                    = '#183f52';
+        // $falseEvent['idTecnologoProgramado']    = NULL;
+        // $falseEvent['idEstadoCita']             = 1;
+        // $falseEvent['razonAnulada']             = NULL;
+        // $falseEvent['incidencias']          = NULL;
+        // $falseEvent['observaciones']        = NULL;
+        // $falseEvent['description']              = NULL;
+        // $falseEvent['prxConsulta']              = (new \DateTime('now'))->format('Y-m-d');
+        // $falseEvent['range']  = $this->createDateRangeArray($start, $end);
+        // $results[]                           = $falseEvent;
 
         /* Agregar bloqueos */
         $results = $this->addCalendarLocks($estabLocal, $start, $end, $results, $idAreaServicioDiagnostico, $idTecnologo);
@@ -302,16 +302,16 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
 
         }
 
-        $falseEvent['id']           = 'bl_false_event_id';
-        $falseEvent['title']        = 'bl_false_event_title';
-        $falseEvent['allDay']       = false;
-        $falseEvent['color']        = 'yellow';
-        $falseEvent['description']  = NULL;
-        $falseEvent['overlap']      = false;
-        $falseEvent['rendering']    = 'background';
-        $falseEvent['start']        = (new \DateTime('now'))->format('Y-m-d\TH:i:s');
-        $falseEvent['end']          = (new \DateTime('now'))->format('Y-m-d\TH:i:s');
-        $results[]                  = $falseEvent;
+        // $falseEvent['id']           = 'bl_false_event_id';
+        // $falseEvent['title']        = 'bl_false_event_title';
+        // $falseEvent['allDay']       = false;
+        // $falseEvent['color']        = 'yellow';
+        // $falseEvent['description']  = NULL;
+        // $falseEvent['overlap']      = false;
+        // $falseEvent['rendering']    = 'background';
+        // $falseEvent['start']        = (new \DateTime('now'))->format('Y-m-d\TH:i:s');
+        // $falseEvent['end']          = (new \DateTime('now'))->format('Y-m-d\TH:i:s');
+        // $results[]                  = $falseEvent;
 
         return $results;
     }
@@ -323,26 +323,26 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
      */
     public function espaciosReservadosAction()
     {
-        $idEstablecimiento = $this->container->get('security.context')->getToken()->getUser()->getIdEstablecimiento()->getId();
+     //    $idEstablecimiento = $this->container->get('security.context')->getToken()->getUser()->getIdEstablecimiento()->getId();
 
-        $idSolicitudEstudioPadre = $this->get('request')->query->get('idSolicitudEstudioPadre');
-        $idParamCitacion = $this->get('request')->query->get('idParamCitacion');
+     //    $idSolicitudEstudioPadre = $this->get('request')->query->get('idSolicitudEstudioPadre');
+     //    $idParamCitacion = $this->get('request')->query->get('idParamCitacion');
 
-	    /*
-         * obtener los espacios reservados agrupados por fecha y hora
-         */
-        $em = $this->getDoctrine()->getManager();
+	    // /*
+     //     * obtener los espacios reservados agrupados por fecha y hora
+     //     */
+     //    $em = $this->getDoctrine()->getManager();
 
-        $preinscripcionPadre = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->find($idSolicitudEstudioPadre);
+     //    $preinscripcionPadre = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->find($idSolicitudEstudioPadre);
 
-        $paramCitacion = $em->getRepository('MinsalSimagdBundle:ImgCtlConfiguracionAgenda')->find($idParamCitacion);
+     //    $paramCitacion = $em->getRepository('MinsalSimagdBundle:ImgCtlConfiguracionAgenda')->find($idParamCitacion);
 
-        $reservas = $em->getRepository('MinsalSimagdBundle:ImgCita')
-                ->obtenerReservados($idEstablecimiento,
-                                    $preinscripcionPadre ? $preinscripcionPadre->getIdAreaServicioDiagnostico()->getId() : '-1',
-                                    $preinscripcionPadre ? $preinscripcionPadre->getFechaProximaConsulta() : null);
+     //    $reservas = $em->getRepository('MinsalSimagdBundle:ImgCita')
+     //            ->obtenerReservados($idEstablecimiento,
+     //                                $preinscripcionPadre ? $preinscripcionPadre->getIdAreaServicioDiagnostico()->getId() : '-1',
+     //                                $preinscripcionPadre ? $preinscripcionPadre->getFechaProximaConsulta() : null);
 
-        return $this->render('MinsalSimagdBundle:RyxCitaProgramadaAdmin:cit_espacios_reservados.html.twig', array('reservasCita' => $reservas, 'paramCitacion' => $paramCitacion));
+     //    return $this->render('MinsalSimagdBundle:RyxCitaProgramadaAdmin:cit_espacios_reservados.html.twig', array('reservasCita' => $reservas, 'paramCitacion' => $paramCitacion));
     }
 
     public function confirmarCitaAction(Request $request)
@@ -916,28 +916,26 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
             //         '</div>' .
             //     '</div>';
 
-            $results[$key]['cit_fechaCreacion']              = $r['cit_fechaCreacion']->format('Y-m-d H:i:s A');
-            $results[$key]['cit_fechaHoraInicio']                = $r['cit_fechaHoraInicio']->format('Y-m-d H:i:s A');
-            $results[$key]['cit_fechaHoraFin']                   = $r['cit_fechaHoraFin']->format('Y-m-d H:i:s A');
-            $results[$key]['cit_fechaHoraInicioAnterior']        = $r['cit_fechaHoraInicioAnterior'] ? $r['cit_fechaHoraInicioAnterior']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['cit_fechaHoraFinAnterior']           = $r['cit_fechaHoraFinAnterior'] ? $r['cit_fechaHoraFinAnterior']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['cit_fechaConfirmacion']          = $r['cit_fechaConfirmacion'] ? $r['cit_fechaConfirmacion']->format('Y-m-d H:i:s A') : '';
-            $results[$key]['cit_fechaReprogramacion']        = $r['cit_fechaReprogramacion'] ? $r['cit_fechaReprogramacion']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['cit_fechaCreacion']              = $r['cit_fechaCreacion']->format('Y-m-d H:i:s A');
+            // $results[$key]['cit_fechaHoraInicio']                = $r['cit_fechaHoraInicio']->format('Y-m-d H:i:s A');
+            // $results[$key]['cit_fechaHoraFin']                   = $r['cit_fechaHoraFin']->format('Y-m-d H:i:s A');
+            // $results[$key]['cit_fechaHoraInicioAnterior']        = $r['cit_fechaHoraInicioAnterior'] ? $r['cit_fechaHoraInicioAnterior']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['cit_fechaHoraFinAnterior']           = $r['cit_fechaHoraFinAnterior'] ? $r['cit_fechaHoraFinAnterior']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['cit_fechaConfirmacion']          = $r['cit_fechaConfirmacion'] ? $r['cit_fechaConfirmacion']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['cit_fechaReprogramacion']        = $r['cit_fechaReprogramacion'] ? $r['cit_fechaReprogramacion']->format('Y-m-d H:i:s A') : '';
 
-            $results[$key]['prc_fechaProximaConsulta']           = $r['prc_fechaProximaConsulta'] ? $r['prc_fechaProximaConsulta']->format('Y-m-d') : '';
-            $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion'] ? $r['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
+            // $results[$key]['prc_fechaProximaConsulta']           = $r['prc_fechaProximaConsulta'] ? $r['prc_fechaProximaConsulta']->format('Y-m-d') : '';
+            // $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion'] ? $r['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
 
-            $results[$key]['allowShow'] 	= $isUser_allowShow; /** Permiso compartido */
+            // $results[$key]['allowShow'] 	= $isUser_allowShow; /** Permiso compartido */
 
-            $results[$key]['allowEdit'] 	= $isUser_allowEdit; /** Permiso compartido */
+            // $results[$key]['allowEdit'] 	= $isUser_allowEdit; /** Permiso compartido */
 
-            $results[$key]['allowConfirm'] 	= (false !== $isUser_allowConfirm &&
-		    !in_array($r['cit_codEstado'], array('CNF'))) ? TRUE : FALSE;
+            // $results[$key]['allowConfirm'] 	= (false !== $isUser_allowConfirm && !in_array($r['cit_codEstado'], array('CNF'))) ? TRUE : FALSE;
 
-            $results[$key]['allowCancel'] 	= (false !== $isUser_allowCancel &&
-		    !in_array($r['cit_codEstado'], array('CNL', 'ANL'))) ? TRUE : FALSE;
+            // $results[$key]['allowCancel'] 	= (false !== $isUser_allowCancel && !in_array($r['cit_codEstado'], array('CNL', 'ANL'))) ? TRUE : FALSE;
 
-            $results[$key]['allowIndRadx'] 	= $isUser_allowIndRadx;
+            // $results[$key]['allowIndRadx'] 	= $isUser_allowIndRadx;
         }
 
         return $this->renderJson($results);
