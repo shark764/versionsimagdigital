@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="MntAreaExamenEstablecimiento" table="mnt_area_examen_establecimiento">
+    <indexes>
+      <index name="IDX_B9629B61992127D5" columns="id_area_servicio_diagnostico"/>
+      <index name="IDX_B9629B617DFA12F6" columns="id_establecimiento"/>
+      <index name="IDX_B9629B6142479DDC" columns="id_examen_servicio_diagnostico"/>
+      <index name="IDX_B9629B61735E702C" columns="id_usuario_mod"/>
+      <index name="IDX_B9629B617C22D51" columns="id_usuario_reg"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="fechaHoraReg" type="date" column="fecha_hora_reg" nullable="false"/>
+    <field name="fechaHoraMod" type="date" column="fecha_hora_mod" nullable="true"/>
+    <field name="imgHabilitado" type="boolean" column="img_habilitado" nullable="true"/>
+    <field name="imgRealizaLectura" type="boolean" column="img_realiza_lectura" nullable="true"/>
+    <field name="imgDuracionClinicaEstudio" type="smallint" column="img_duracion_clinica_estudio" nullable="true"/>
+    <field name="imgDescripcion" type="string" column="img_descripcion" length="255" nullable="true"/>
+    <many-to-one field="idUsuarioReg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_usuario_reg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUsuarioMod" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_usuario_mod" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idExamenServicioDiagnostico" target-entity="CtlExamenServicioDiagnostico">
+      <join-columns>
+        <join-column name="id_examen_servicio_diagnostico" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimiento" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idAreaServicioDiagnostico" target-entity="CtlAreaServicioDiagnostico">
+      <join-columns>
+        <join-column name="id_area_servicio_diagnostico" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
