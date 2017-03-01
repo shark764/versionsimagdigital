@@ -186,7 +186,7 @@ class RyxBloqueoAgendaAdminController extends MinsalSimagdBundleGeneralAdminCont
         $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
         
-        $results = $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxBloqueoAgenda')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
         
         $isUser_allowShow       = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit       = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('actualizarBloqueo')) ? TRUE : FALSE;
@@ -196,7 +196,7 @@ class RyxBloqueoAgendaAdminController extends MinsalSimagdBundleGeneralAdminCont
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgBloqueoAgenda();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxBloqueoAgenda();
 
             if ($__REQUEST__type === 'detail')
             {
@@ -284,7 +284,7 @@ class RyxBloqueoAgendaAdminController extends MinsalSimagdBundleGeneralAdminCont
             
             $results[$key]['allowRemove']	= $isUser_allowRemove;
             
-            $results[$key]['blAgd_bloqueoExclusionesBloqueo']	= $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')->obtenerExclusionesBloqueo($r['blAgd_id']);
+            $results[$key]['blAgd_bloqueoExclusionesBloqueo']	= $em->getRepository('MinsalSimagdBundle:RyxBloqueoAgenda')->obtenerExclusionesBloqueo($r['blAgd_id']);
         }
         
         return $this->renderJson($results);
@@ -325,7 +325,7 @@ class RyxBloqueoAgendaAdminController extends MinsalSimagdBundleGeneralAdminCont
 
         $em = $this->getDoctrine()->getManager();
         
-//         $object_blAgd       = new \Minsal\SimagdBundle\Entity\ImgBloqueoAgenda();
+//         $object_blAgd       = new \Minsal\SimagdBundle\Entity\RyxBloqueoAgenda();
         
         /*
          * Radiólogos excluidos

@@ -263,7 +263,7 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
     {
         $em = $this->getDoctrine()->getManager();
 
-        $events = $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')
+        $events = $em->getRepository('MinsalSimagdBundle:RyxBloqueoAgenda')
                                 ->getCalendarLocks($idEstablecimiento, $start, $end, $idAreaServicioDiagnostico, $idTecnologo);
         // var_dump($events);
 
@@ -279,7 +279,7 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
             $events[$key]['blAgd_horaInicio']           = $r['blAgd_horaInicio']->format('H:i:s A');
             $events[$key]['blAgd_horaFin']              = $r['blAgd_horaFin']->format('H:i:s A');
 
-            $events[$key]['blAgd_bloqueoExclusionesBloqueo']	= $em->getRepository('MinsalSimagdBundle:ImgBloqueoAgenda')->obtenerExclusionesBloqueo($r['blAgd_id']);
+            $events[$key]['blAgd_bloqueoExclusionesBloqueo']	= $em->getRepository('MinsalSimagdBundle:RyxBloqueoAgenda')->obtenerExclusionesBloqueo($r['blAgd_id']);
 
             $iv     = $r['blAgd_fechaInicio']->diff($r['blAgd_fechaFin'])->days;
             $i      = 0;

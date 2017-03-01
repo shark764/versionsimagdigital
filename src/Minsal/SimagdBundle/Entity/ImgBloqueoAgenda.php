@@ -5,12 +5,12 @@ namespace Minsal\SimagdBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ImgBloqueoAgenda
+ * RyxBloqueoAgenda
  *
  * @ORM\Table(name="img_bloqueo_agenda", indexes={@ORM\Index(name="IDX_DC5C2770992127D5", columns={"id_area_servicio_diagnostico"}), @ORM\Index(name="IDX_DC5C2770592B0EA1", columns={"id_empleado_registra"}), @ORM\Index(name="IDX_DC5C27707DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_DC5C277032E38BF3", columns={"id_radiologo_bloqueo"}), @ORM\Index(name="IDX_DC5C2770AC39DE56", columns={"id_user_mod"}), @ORM\Index(name="IDX_DC5C2770D8A5832B", columns={"id_user_reg"})})
  * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxBloqueoAgendaRepository")
  */
-class ImgBloqueoAgenda
+class RyxBloqueoAgenda
 {
     /**
      * @var integer
@@ -192,7 +192,7 @@ class ImgBloqueoAgenda
      * Set fechaCreacion
      *
      * @param \DateTime $fechaCreacion
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setFechaCreacion($fechaCreacion)
     {
@@ -215,7 +215,7 @@ class ImgBloqueoAgenda
      * Set titulo
      *
      * @param string $titulo
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setTitulo($titulo)
     {
@@ -238,7 +238,7 @@ class ImgBloqueoAgenda
      * Set descripcion
      *
      * @param string $descripcion
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setDescripcion($descripcion)
     {
@@ -261,7 +261,7 @@ class ImgBloqueoAgenda
      * Set diaCompleto
      *
      * @param boolean $diaCompleto
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setDiaCompleto($diaCompleto)
     {
@@ -284,7 +284,7 @@ class ImgBloqueoAgenda
      * Set fechaInicio
      *
      * @param \DateTime $fechaInicio
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setFechaInicio($fechaInicio)
     {
@@ -307,7 +307,7 @@ class ImgBloqueoAgenda
      * Set fechaFin
      *
      * @param \DateTime $fechaFin
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setFechaFin($fechaFin)
     {
@@ -330,7 +330,7 @@ class ImgBloqueoAgenda
      * Set horaInicio
      *
      * @param \DateTime $horaInicio
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setHoraInicio($horaInicio)
     {
@@ -353,7 +353,7 @@ class ImgBloqueoAgenda
      * Set horaFin
      *
      * @param \DateTime $horaFin
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setHoraFin($horaFin)
     {
@@ -376,7 +376,7 @@ class ImgBloqueoAgenda
      * Set color
      *
      * @param string $color
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setColor($color)
     {
@@ -399,7 +399,7 @@ class ImgBloqueoAgenda
      * Set fechaUltimaEdicion
      *
      * @param \DateTime $fechaUltimaEdicion
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setFechaUltimaEdicion($fechaUltimaEdicion)
     {
@@ -422,7 +422,7 @@ class ImgBloqueoAgenda
      * Set superposicion
      *
      * @param boolean $superposicion
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setSuperposicion($superposicion)
     {
@@ -445,7 +445,7 @@ class ImgBloqueoAgenda
      * Set idAreaServicioDiagnostico
      *
      * @param \Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico $idAreaServicioDiagnostico
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setIdAreaServicioDiagnostico(\Minsal\SimagdBundle\Entity\CtlAreaServicioDiagnostico $idAreaServicioDiagnostico = null)
     {
@@ -468,7 +468,7 @@ class ImgBloqueoAgenda
      * Set idEmpleadoRegistra
      *
      * @param \Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleadoRegistra
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setIdEmpleadoRegistra(\Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleadoRegistra = null)
     {
@@ -491,7 +491,7 @@ class ImgBloqueoAgenda
      * Set idEstablecimiento
      *
      * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
     {
@@ -514,7 +514,7 @@ class ImgBloqueoAgenda
      * Set idRadiologoBloqueo
      *
      * @param \Minsal\SiapsBundle\Entity\MntEmpleado $idRadiologoBloqueo
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setIdRadiologoBloqueo(\Minsal\SiapsBundle\Entity\MntEmpleado $idRadiologoBloqueo = null)
     {
@@ -537,7 +537,7 @@ class ImgBloqueoAgenda
      * Set idUserMod
      *
      * @param \Application\Sonata\UserBundle\Entity\User $idUserMod
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setIdUserMod(\Application\Sonata\UserBundle\Entity\User $idUserMod = null)
     {
@@ -560,7 +560,7 @@ class ImgBloqueoAgenda
      * Set idUserReg
      *
      * @param \Application\Sonata\UserBundle\Entity\User $idUserReg
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function setIdUserReg(\Application\Sonata\UserBundle\Entity\User $idUserReg = null)
     {
@@ -583,7 +583,7 @@ class ImgBloqueoAgenda
      * Add bloqueoExclusionesBloqueo
      *
      * @param \Minsal\SimagdBundle\Entity\ImgExclusionBloqueo $bloqueoExclusionesBloqueo
-     * @return ImgBloqueoAgenda
+     * @return RyxBloqueoAgenda
      */
     public function addBloqueoExclusionesBloqueo(\Minsal\SimagdBundle\Entity\ImgExclusionBloqueo $bloqueoExclusionesBloqueo)
     {
