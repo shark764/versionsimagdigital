@@ -33,6 +33,11 @@ class CtlExamenServicioDiagnostico
      * @var string
      *
      * @ORM\Column(name="descripcion", type="string", length=250, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $descripcion;
 
@@ -40,6 +45,7 @@ class CtlExamenServicioDiagnostico
      * @var \DateTime
      *
      * @ORM\Column(name="fechahorareg", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechahorareg;
 
@@ -47,6 +53,7 @@ class CtlExamenServicioDiagnostico
      * @var \DateTime
      *
      * @ORM\Column(name="fechahoramod", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechahoramod;
 
@@ -54,6 +61,11 @@ class CtlExamenServicioDiagnostico
      * @var string
      *
      * @ORM\Column(name="img_codigo", type="string", nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $imgCodigo;
 
@@ -61,6 +73,11 @@ class CtlExamenServicioDiagnostico
      * @var string
      *
      * @ORM\Column(name="img_observaciones", type="string", length=255, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $imgObservaciones;
 

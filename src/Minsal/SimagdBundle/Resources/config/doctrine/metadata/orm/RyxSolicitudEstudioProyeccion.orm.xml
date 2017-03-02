@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RyxSolicitudEstudioProyeccion" table="ryx_solicitud_estudio_proyeccion">
+    <indexes>
+      <index name="IDX_26885BF5CA460C63" columns="id_proyeccion_solicitada"/>
+      <index name="IDX_26885BF56AAA01BF" columns="id_solicitud_estudio"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="idx_solicitud_estudio_proyeccion" columns="id_solicitud_estudio,id_proyeccion_solicitada"/>
+    </unique-constraints>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="vistasRequeridas" type="smallint" column="vistas_requeridas" nullable="true"/>
+    <field name="dimensiones" type="string" column="dimensiones" length="25" nullable="true"/>
+    <field name="otrasEspecificaciones" type="string" column="otras_especificaciones" length="100" nullable="true"/>
+    <many-to-one field="idSolicitudEstudio" target-entity="RyxSolicitudEstudio">
+      <join-columns>
+        <join-column name="id_solicitud_estudio" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idProyeccionSolicitada" target-entity="RyxCtlProyeccionRadiologica">
+      <join-columns>
+        <join-column name="id_proyeccion_solicitada" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

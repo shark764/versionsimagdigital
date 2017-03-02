@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RyxCtlConexionPacsEstablecimiento" table="ryx_ctl_conexion_pacs_establecimiento">
+    <indexes>
+      <index name="IDX_A65D35F7DFA12F6" columns="id_establecimiento"/>
+      <index name="IDX_A65D35F25D64570" columns="id_motor"/>
+      <index name="IDX_A65D35FAC39DE56" columns="id_user_mod"/>
+      <index name="IDX_A65D35FD8A5832B" columns="id_user_reg"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="idx_nombre_conexion_pacs" columns="nombre_conexion"/>
+    </unique-constraints>
+    <id name="id" type="smallint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="nombreConexion" type="string" column="nombre_conexion" nullable="true"/>
+    <field name="ip" type="string" column="ip" nullable="false"/>
+    <field name="usuario" type="string" column="usuario" nullable="false"/>
+    <field name="clave" type="string" column="clave" length="255" nullable="false"/>
+    <field name="puerto" type="integer" column="puerto" nullable="false"/>
+    <field name="host" type="string" column="host" nullable="false"/>
+    <field name="duracionEstudio" type="smallint" column="duracion_estudio" nullable="true"/>
+    <field name="nombreBaseDatos" type="string" column="nombre_base_datos" nullable="false"/>
+    <field name="habilitado" type="boolean" column="habilitado" nullable="true"/>
+    <field name="fechaHoraReg" type="datetime" column="fecha_hora_reg" nullable="true"/>
+    <field name="fechaHoraMod" type="datetime" column="fecha_hora_mod" nullable="true"/>
+    <field name="principal" type="boolean" column="principal" nullable="false"/>
+    <many-to-one field="idUserReg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_reg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUserMod" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_mod" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idMotor" target-entity="RyxCtlMotorBd">
+      <join-columns>
+        <join-column name="id_motor" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimiento" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

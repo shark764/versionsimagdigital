@@ -694,14 +694,14 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
 
         $resultados         = array();
         /** Coincidencias en campos de texto */
-        if (in_array('m_expl', $BS_SOURCES_DECODE))
-        {
-            try {
-                $resultados['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->getRadiologicalProceduresGrouped($estabLocal->getId());
-            } catch (Exception $e) {
-                $status                 = 'failed';
-            }
-        }
+        // if (in_array('m_expl', $BS_SOURCES_DECODE))
+        // {
+        //     try {
+        //         $resultados['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->getRadiologicalProceduresGrouped($estabLocal->getId());
+        //     } catch (Exception $e) {
+        //         $status                 = 'failed';
+        //     }
+        // }
         if (in_array('ar_atn', $BS_SOURCES_DECODE))
         {
             try {

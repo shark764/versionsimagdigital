@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RyxLecturaPendienteTranscripcion" table="ryx_lectura_pendiente_transcripcion">
+    <indexes>
+      <index name="IDX_5809D741408A6B12" columns="id_asigna_transcriptor"/>
+      <index name="IDX_5809D7417DFA12F6" columns="id_establecimiento"/>
+      <index name="IDX_5809D74118971421" columns="id_lectura"/>
+      <index name="IDX_5809D741CC6E65C8" columns="id_transcriptor_asignado"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="fechaIngresoLista" type="datetime" column="fecha_ingreso_lista" nullable="true"/>
+    <field name="fueImpugnado" type="boolean" column="fue_impugnado" nullable="true"/>
+    <many-to-one field="idTranscriptorAsignado" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_transcriptor_asignado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idLectura" target-entity="RyxLecturaRadiologica">
+      <join-columns>
+        <join-column name="id_lectura" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimiento" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idAsignaTranscriptor" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_asigna_transcriptor" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

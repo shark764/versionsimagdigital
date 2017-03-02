@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RyxCtlMaterial" table="ryx_ctl_material">
+    <indexes>
+      <index name="IDX_5D0400F7A599A5B7" columns="id_subgrupo_material"/>
+      <index name="IDX_5D0400F7AC39DE56" columns="id_user_mod"/>
+      <index name="IDX_5D0400F7D8A5832B" columns="id_user_reg"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="idx_codigo_material" columns="codigo"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="nombre" type="string" column="nombre" length="255" nullable="false"/>
+    <field name="descripcion" type="text" column="descripcion" nullable="true"/>
+    <field name="codigo" type="string" column="codigo" nullable="true"/>
+    <field name="fechaHoraReg" type="datetime" column="fecha_hora_reg" nullable="true"/>
+    <field name="fechaHoraMod" type="datetime" column="fecha_hora_mod" nullable="true"/>
+    <many-to-one field="idUserReg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_reg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUserMod" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_mod" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idSubgrupoMaterial" target-entity="RyxCtlSubgrupoMaterial">
+      <join-columns>
+        <join-column name="id_subgrupo_material" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

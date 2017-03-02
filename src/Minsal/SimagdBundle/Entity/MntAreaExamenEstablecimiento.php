@@ -26,6 +26,8 @@ class MntAreaExamenEstablecimiento
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_hora_reg", type="date", nullable=false)
+     * @Assert\NotBlank(message = "foreign.default.not_blank")
+     * @Assert\Date()
      */
     private $fechaHoraReg;
 
@@ -33,6 +35,7 @@ class MntAreaExamenEstablecimiento
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_hora_mod", type="date", nullable=true)
+     * @Assert\Date()
      */
     private $fechaHoraMod;
 
@@ -55,12 +58,17 @@ class MntAreaExamenEstablecimiento
      *
      * @ORM\Column(name="img_duracion_clinica_estudio", type="smallint", nullable=true)
      */
-    private $imgDuracionClinicaEstudio = '6';
+    private $imgDuracionClinicaEstudio = 6;
 
     /**
      * @var string
      *
      * @ORM\Column(name="img_descripcion", type="string", length=255, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $imgDescripcion;
 

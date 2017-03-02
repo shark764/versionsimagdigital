@@ -103,4 +103,33 @@ class RyxCtlProyeccionRadiologicaRepository extends EntityRepository
         return $query->getQuery()->getScalarResult();
     }
 
+    public function getRadiologicalProceduresGrouped($id_estabLocal, $id_atencion = '97', $return = 'scalar')
+    {
+        $query = $this->getEntityManager()
+                        ->createQueryBuilder()
+                            ->select('m.id AS id_m, expl.id AS id_expl')
+                            ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
+                            ->innerJoin('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento', 'explrz',
+                                    \Doctrine\ORM\Query\Expr\Join::WITH,
+                                    'expl.id = explrz.idProyeccion')
+                            ->innerJoin('explrz.idAreaExamenEstab', 'mr')
+                            ->innerJoin('mr.idAreaServicioDiagnostico', 'm')
+                            ->where('mr.idEstablecimiento = :id_est')
+                            ->setParameter('id_est', $id_estabLocal)
+                            ->andWhere('m.idAtencion = :id_atn')
+                            ->setParameter('id_atn', $id_atencion)
+                            ->andWhere('mr.imgHabilitado = TRUE')
+                            ->andWhere('explrz.habilitado = TRUE')
+                            ->groupBy('m.id')
+                            ->addGroupBy('expl.id')
+                            ->orderBy('m.id', 'DESC')
+                            ->addOrderBy('expl.id', 'DESC')
+                            ->distinct();
+
+        return $return == 'query' ?
+        $query : ($return == 'scalar' ? $query->getQuery()->getScalarResult()
+        : $query->getQuery()->getResult()
+        );
+    }
+
 }

@@ -33,6 +33,11 @@ class CtlAreaServicioDiagnostico
      * @var string
      *
      * @ORM\Column(name="nombrearea", type="string", length=75, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $nombrearea;
 
@@ -40,6 +45,11 @@ class CtlAreaServicioDiagnostico
      * @var string
      *
      * @ORM\Column(name="administrativa", type="string", nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $administrativa = 'N';
 
@@ -47,6 +57,7 @@ class CtlAreaServicioDiagnostico
      * @var \DateTime
      *
      * @ORM\Column(name="fechahorareg", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechahorareg;
 
@@ -54,6 +65,7 @@ class CtlAreaServicioDiagnostico
      * @var \DateTime
      *
      * @ORM\Column(name="fechahoramod", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $fechahoramod;
 
@@ -61,6 +73,11 @@ class CtlAreaServicioDiagnostico
      * @var string
      *
      * @ORM\Column(name="img_codigo", type="string", nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $imgCodigo;
 
@@ -68,6 +85,11 @@ class CtlAreaServicioDiagnostico
      * @var string
      *
      * @ORM\Column(name="img_descripcion", type="text", nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $imgDescripcion;
 
@@ -75,6 +97,11 @@ class CtlAreaServicioDiagnostico
      * @var string
      *
      * @ORM\Column(name="img_observaciones", type="string", length=255, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $imgObservaciones;
 

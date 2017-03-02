@@ -23,9 +23,9 @@ class ImgExclusionBloqueo
     private $id;
 
     /**
-     * @var \ImgBloqueoAgenda
+     * @var \RyxBloqueoAgenda
      *
-     * @ORM\ManyToOne(targetEntity="ImgBloqueoAgenda", inversedBy="bloqueoExclusionesBloqueo")
+     * @ORM\ManyToOne(targetEntity="RyxBloqueoAgenda", inversedBy="bloqueoExclusionesBloqueo")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_bloqueo_agenda", referencedColumnName="id")
      * })
@@ -63,10 +63,10 @@ class ImgExclusionBloqueo
     /**
      * Set idBloqueoAgenda
      *
-     * @param \Minsal\SimagdBundle\Entity\ImgBloqueoAgenda $idBloqueoAgenda
+     * @param \Minsal\SimagdBundle\Entity\RyxBloqueoAgenda $idBloqueoAgenda
      * @return ImgExclusionBloqueo
      */
-    public function setIdBloqueoAgenda(\Minsal\SimagdBundle\Entity\ImgBloqueoAgenda $idBloqueoAgenda = null)
+    public function setIdBloqueoAgenda(\Minsal\SimagdBundle\Entity\RyxBloqueoAgenda $idBloqueoAgenda = null)
     {
         $this->idBloqueoAgenda = $idBloqueoAgenda;
 
@@ -76,7 +76,7 @@ class ImgExclusionBloqueo
     /**
      * Get idBloqueoAgenda
      *
-     * @return \Minsal\SimagdBundle\Entity\ImgBloqueoAgenda 
+     * @return \Minsal\SimagdBundle\Entity\RyxBloqueoAgenda 
      */
     public function getIdBloqueoAgenda()
     {

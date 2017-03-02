@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RyxDatoAutocomplemento" table="ryx_dato_autocomplemento">
+    <indexes>
+      <index name="IDX_FDAC171D992127D5" columns="id_area_servicio_diagnostico"/>
+      <index name="IDX_FDAC171D926EE634" columns="id_campo_autocomplementar"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="dato" type="string" column="dato" length="100" nullable="false"/>
+    <many-to-one field="idCampoAutocomplementar" target-entity="RyxCtlCampoAutocomplementar">
+      <join-columns>
+        <join-column name="id_campo_autocomplementar" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idAreaServicioDiagnostico" target-entity="CtlAreaServicioDiagnostico">
+      <join-columns>
+        <join-column name="id_area_servicio_diagnostico" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

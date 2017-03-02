@@ -208,7 +208,7 @@ services:
 
     minsal_simagd.admin.img_bloqueo_agenda:
         class: Minsal\SimagdBundle\Admin\RyxBloqueoAgendaAdmin
-        arguments: [~, Minsal\SimagdBundle\Entity\ImgBloqueoAgenda, MinsalSimagdBundle:RyxBloqueoAgendaAdmin]
+        arguments: [~, Minsal\SimagdBundle\Entity\RyxBloqueoAgenda, MinsalSimagdBundle:RyxBloqueoAgendaAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 

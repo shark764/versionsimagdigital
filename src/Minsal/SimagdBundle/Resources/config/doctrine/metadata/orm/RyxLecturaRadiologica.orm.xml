@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RyxLecturaRadiologica" table="ryx_lectura_radiologica">
+    <indexes>
+      <index name="IDX_A2CC7AB6890253C7" columns="id_empleado"/>
+      <index name="IDX_A2CC7AB67DFA12F6" columns="id_establecimiento"/>
+      <index name="IDX_A2CC7AB6D93DAF86" columns="id_estado_lectura"/>
+      <index name="IDX_A2CC7AB66196B359" columns="id_estudio"/>
+      <index name="IDX_A2CC7AB633CCFAF2" columns="id_expediente_ficticio"/>
+      <index name="IDX_A2CC7AB6701624C4" columns="id_expediente"/>
+      <index name="IDX_A2CC7AB6F80B40A" columns="id_patron_asociado"/>
+      <index name="IDX_A2CC7AB663643B18" columns="id_radiologo_designado_aprobacion"/>
+      <index name="IDX_A2CC7AB64E924116" columns="id_radiologo_solicita"/>
+      <index name="IDX_A2CC7AB6526C8D52" columns="id_solicitud_diagnostico"/>
+      <index name="IDX_A2CC7AB6D426DB54" columns="id_tipo_resultado"/>
+      <index name="IDX_A2CC7AB6CC6E65C8" columns="id_transcriptor_asignado"/>
+      <index name="IDX_A2CC7AB6D8A5832B" columns="id_user_reg"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="correlativo" type="string" column="correlativo" nullable="true"/>
+    <field name="fechaLectura" type="datetime" column="fecha_lectura" nullable="true"/>
+    <field name="lecturaRemota" type="boolean" column="lectura_remota" nullable="true"/>
+    <field name="indicaciones" type="string" column="indicaciones" length="255" nullable="true"/>
+    <field name="observaciones" type="string" column="observaciones" length="255" nullable="true"/>
+    <field name="solicitadaPorRadiologo" type="boolean" column="solicitada_por_radiologo" nullable="true"/>
+    <many-to-one field="idSolicitudDiagnostico" target-entity="RyxSolicitudDiagnosticoPostEstudio">
+      <join-columns>
+        <join-column name="id_solicitud_diagnostico" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idRadiologoSolicita" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_radiologo_solicita" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idTipoResultado" target-entity="RyxCtlTipoRespuestaRadiologica">
+      <join-columns>
+        <join-column name="id_tipo_resultado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idTranscriptorAsignado" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_transcriptor_asignado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUserReg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_reg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idRadiologoDesignadoAprobacion" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_radiologo_designado_aprobacion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idPatronAsociado" target-entity="RyxCtlPatronDiagnostico">
+      <join-columns>
+        <join-column name="id_patron_asociado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstadoLectura" target-entity="RyxCtlEstadoLectura">
+      <join-columns>
+        <join-column name="id_estado_lectura" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstablecimiento" target-entity="CtlEstablecimiento">
+      <join-columns>
+        <join-column name="id_establecimiento" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstudio" target-entity="RyxEstudioPorImagenes">
+      <join-columns>
+        <join-column name="id_estudio" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idExpedienteFicticio" target-entity="RyxExpedienteFicticio">
+      <join-columns>
+        <join-column name="id_expediente_ficticio" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idExpediente" target-entity="MntExpediente">
+      <join-columns>
+        <join-column name="id_expediente" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEmpleado" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_empleado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

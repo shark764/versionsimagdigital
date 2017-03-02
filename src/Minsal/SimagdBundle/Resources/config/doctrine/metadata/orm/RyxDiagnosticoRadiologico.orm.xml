@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RyxDiagnosticoRadiologico" table="ryx_diagnostico_radiologico">
+    <indexes>
+      <index name="IDX_84921FBF890253C7" columns="id_empleado"/>
+      <index name="IDX_84921FBF22BF8FB7" columns="id_estado_diagnostico"/>
+      <index name="IDX_84921FBF18971421" columns="id_lectura"/>
+      <index name="IDX_84921FBF9DF124FC" columns="id_patron_aplicado"/>
+      <index name="IDX_84921FBFD4D28F5A" columns="id_radiologo_aprueba"/>
+      <index name="IDX_84921FBFAC39DE56" columns="id_user_mod"/>
+      <index name="IDX_84921FBFD8A5832B" columns="id_user_reg"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="hallazgos" type="text" column="hallazgos" nullable="true"/>
+    <field name="conclusion" type="text" column="conclusion" nullable="true"/>
+    <field name="fechaTranscrito" type="datetime" column="fecha_transcrito" nullable="true"/>
+    <field name="fechaCorregido" type="datetime" column="fecha_corregido" nullable="true"/>
+    <field name="fechaAprobado" type="datetime" column="fecha_aprobado" nullable="true"/>
+    <field name="errores" type="text" column="errores" nullable="true"/>
+    <field name="incidencias" type="string" column="incidencias" length="255" nullable="true"/>
+    <field name="observaciones" type="string" column="observaciones" length="255" nullable="true"/>
+    <field name="recomendaciones" type="text" column="recomendaciones" nullable="true"/>
+    <field name="fechaRegistro" type="datetime" column="fecha_registro" nullable="true"/>
+    <many-to-one field="idUserMod" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_mod" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUserReg" target-entity="FosUserUser">
+      <join-columns>
+        <join-column name="id_user_reg" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idRadiologoAprueba" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_radiologo_aprueba" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idPatronAplicado" target-entity="RyxCtlPatronDiagnostico">
+      <join-columns>
+        <join-column name="id_patron_aplicado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEstadoDiagnostico" target-entity="RyxCtlEstadoDiagnostico">
+      <join-columns>
+        <join-column name="id_estado_diagnostico" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idLectura" target-entity="RyxLecturaRadiologica">
+      <join-columns>
+        <join-column name="id_lectura" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idEmpleado" target-entity="MntEmpleado">
+      <join-columns>
+        <join-column name="id_empleado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

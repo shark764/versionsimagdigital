@@ -14,6 +14,23 @@ and open the template in the editor.
     margin-right: 1%;
 }
 
+
+/*
+ * *************************************************************************************************************************************************
+ * AWESOME DARKBLUE COLOR XRAY
+ * *************************************************************************************************************************************************
+ */
+.xray-awesome-blue {
+  background-color: #08222e;
+}
+.table.table-xray-awesome-blue-head>thead>tr>th,
+.table.table-xray-awesome-blue-head>thead>tr>td {
+  /*background-color: #333;*/
+  background-color: #08222e;
+  color: #fdfdfd;
+}
+
+
 .btn.btn-default,
 .btn.btn-emergency,
 .btn.btn-success-v2,
