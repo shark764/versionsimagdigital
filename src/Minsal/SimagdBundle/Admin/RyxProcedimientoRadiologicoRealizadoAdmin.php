@@ -409,7 +409,8 @@ class RyxProcedimientoRadiologicoRealizadoAdmin extends Admin {
     /* ME QUE CREA UNA CONEXION GENERICA AL PACS DEL ESTABLECIMIENTO QUE
       REALIZA EL ESTUDIO */
 
-    public function getConexionGenerica($objeto_prueba, $idmotor, $idconexion) {
+    public function getConexionGenerica($objeto_prueba, $idmotor, $idconexion)
+    {
         $req = $this->getRequest();
         $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getEntityManager();
 
@@ -469,7 +470,8 @@ class RyxProcedimientoRadiologicoRealizadoAdmin extends Admin {
 
     /* METODO DEVUELVE EL RESULTADO DE LA CONSULTA SQL ENVIADA */
 
-    public function consultaSQL($sentenciaSQL, $conn) {
+    public function consultaSQL($sentenciaSQL, $conn)
+    {
         $retorna = null;
         try {
             if ($this->driver == 'pdo_dblib') {
@@ -505,14 +507,16 @@ class RyxProcedimientoRadiologicoRealizadoAdmin extends Admin {
 
     /* Actualiza la BD del PACS cada ves que un estudio es asociado a un paciente */
 
-    public function actualizarBaseRemota($conn, $sentencia) {
+    public function actualizarBaseRemota($conn, $sentencia)
+    {
         $filasAfectadas = null;
         $conn->prepare($sentencia);
         $filasAfectadas = $conn->exec($sentencia);
         return $filasAfectadas;
     }
 
-    protected function fechaHoraPorEstado($realizado) {
+    protected function fechaHoraPorEstado($realizado)
+    {
         $estado = $realizado->getIdEstadoProcedimientoRealizado()->getCodigo();
 
         switch ($estado) {

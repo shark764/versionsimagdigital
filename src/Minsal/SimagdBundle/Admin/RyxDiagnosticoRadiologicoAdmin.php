@@ -228,7 +228,8 @@ class RyxDiagnosticoRadiologicoAdmin extends Admin {
         ;
     }
     
-    public function prePersist($diagnostico) {
+    public function prePersist($diagnostico)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $diagnostico->setIdUserReg($user);
         $diagnostico->setFechaRegistro(new \DateTime('now'));
@@ -249,7 +250,8 @@ class RyxDiagnosticoRadiologicoAdmin extends Admin {
         }
     }
     
-    public function preUpdate($diagnostico) {
+    public function preUpdate($diagnostico)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $diagnostico->setIdUserMod($user);
         $diagnostico = $this->fechaHoraPorEstado($diagnostico);
@@ -271,7 +273,8 @@ class RyxDiagnosticoRadiologicoAdmin extends Admin {
         }
     }
     
-    protected function fechaHoraPorEstado($diagnostico) {
+    protected function fechaHoraPorEstado($diagnostico)
+    {
         $estado = $diagnostico->getIdEstadoDiagnostico()->getCodigo();
         
         switch ($estado) {
@@ -290,7 +293,8 @@ class RyxDiagnosticoRadiologicoAdmin extends Admin {
         return $diagnostico;
     }
     
-    public function validate(ErrorElement $errorElement, $diagnostico) {
+    public function validate(ErrorElement $errorElement, $diagnostico)
+    {
         $errorElement
             ->with('idEmpleado') //Transcriptor: médico o transcriptor
                 ->assertNotNull(array('message' => 'No ha seleccionado ningún elemento de la lista'))

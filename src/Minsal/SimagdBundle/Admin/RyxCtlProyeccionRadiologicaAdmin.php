@@ -181,21 +181,24 @@ class RyxCtlProyeccionRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
         }
     }
 
-    public function prePersist($proyeccion) {
+    public function prePersist($proyeccion)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $proyeccion->setIdUserReg($user);
         $proyeccion->setFechaHoraReg(new \DateTime('now'));
         if ($proyeccion->getCodigo()) { $proyeccion->setCodigo(strtoupper($proyeccion->getCodigo())); }
     }
 
-    public function preUpdate($proyeccion) {
+    public function preUpdate($proyeccion)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $proyeccion->setIdUserMod($user);
         $proyeccion->setFechaHoraMod(new \DateTime('now'));
         if ($proyeccion->getCodigo()) { $proyeccion->setCodigo(strtoupper($proyeccion->getCodigo())); }
     }
 
-    public function validate(ErrorElement $errorElement, $proyeccion) {
+    public function validate(ErrorElement $errorElement, $proyeccion)
+    {
         $errorElement
             ->with('idExamenServicioDiagnostico') //Examen en que se agrupa
                 ->assertNotNull(array('message' => 'No ha seleccionado ningún elemento de la lista.'))
