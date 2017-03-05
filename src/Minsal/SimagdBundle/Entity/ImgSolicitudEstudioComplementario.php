@@ -123,7 +123,6 @@ class ImgSolicitudEstudioComplementario
      */
     private $idUserReg;
 
-
     /**
      * @ORM\ManyToMany(targetEntity="ImgCtlProyeccion")
      * @ORM\JoinTable(name="img_solicitud_estudio_complementario_proyeccion",
@@ -133,12 +132,10 @@ class ImgSolicitudEstudioComplementario
      */
     private $solicitudEstudioComplementarioProyeccion;
 
-
     /**
      * @ORM\OneToMany(targetEntity="ImgProcedimientoRealizado", mappedBy="idSolicitudEstudioComplementario", cascade={"all"}, orphanRemoval=true)
      */
     private $complementarioExamenes;
-
 
     /**
      * @ORM\OneToMany(targetEntity="ImgPendienteRealizacion", mappedBy="idSolicitudEstudioComplementario", cascade={"all"}, orphanRemoval=true)

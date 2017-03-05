@@ -224,12 +224,10 @@ class ImgCita
      */
     private $idUserReprg;
 
-
     /**
      * @ORM\OneToMany(targetEntity="ImgProcedimientoRealizado", mappedBy="idCitaProgramada", cascade={"all"}, orphanRemoval=true)
      */
     private $citaProcedimientosRealizados;
-
 
     /**
      * @ORM\OneToMany(targetEntity="ImgPendienteRealizacion", mappedBy="idCitaProgramada", cascade={"all"}, orphanRemoval=true)

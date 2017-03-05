@@ -159,7 +159,6 @@ class RyxBloqueoAgenda
      */
     private $idUserReg;
 
-
     /**
      * @ORM\OneToMany(targetEntity="ImgExclusionBloqueo", mappedBy="idBloqueoAgenda", cascade={"all"}, orphanRemoval=true)
      */

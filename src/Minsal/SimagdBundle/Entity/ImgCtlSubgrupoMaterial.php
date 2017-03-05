@@ -53,7 +53,6 @@ class ImgCtlSubgrupoMaterial
      */
     private $idGrupoMaterial;
 
-
     /**
      * @ORM\OneToMany(targetEntity="ImgCtlMaterial", mappedBy="idSubgrupoMaterial", cascade={"all"}, orphanRemoval=true)
      */

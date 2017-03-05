@@ -215,12 +215,10 @@ class ImgProcedimientoRealizado
      */
     private $materialUtilizadoV2;
 
-
     /**
      * @ORM\OneToMany(targetEntity="ImgEstudioPaciente", mappedBy="idProcedimientoRealizado", cascade={"all"}, orphanRemoval=true)
      */
     private $examenEstudio;
-
 
     /**
      * @ORM\OneToMany(targetEntity="ImgPendienteRealizacion", mappedBy="idProcedimientoIniciado", cascade={"all"}, orphanRemoval=true)

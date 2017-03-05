@@ -114,36 +114,30 @@ class ImgEstudioPaciente
      */
     private $idProcedimientoRealizado;
 
-
     /**
      * @ORM\OneToMany(targetEntity="ImgSolicitudEstudioComplementario", mappedBy="idEstudioPadre", cascade={"all"}, orphanRemoval=true)
      */
     private $estudioEstudiosComplementarios;
-
 
     /**
      * @ORM\OneToMany(targetEntity="ImgSolicitudDiagnostico", mappedBy="idEstudio", cascade={"all"}, orphanRemoval=true)
      */
     private $estudioSolicitudesDiagnostico;
 
-
     /**
      * @ORM\OneToMany(targetEntity="ImgLectura", mappedBy="idEstudio", cascade={"all"}, orphanRemoval=true)
      */
     private $estudioLecturasRealizadas;
-
 
     /**
      * @ORM\OneToMany(targetEntity="ImgLecturaEstudio", mappedBy="idEstudio", cascade={"all"}, orphanRemoval=true)
      */
     private $estudioLecturaEstudio;
 
-
     /**
      * @ORM\OneToMany(targetEntity="ImgPendienteLectura", mappedBy="idEstudio", cascade={"all"}, orphanRemoval=true)
      */
     private $estudioPendienteLectura;
-
 
     /**
      * @ORM\OneToMany(targetEntity="ImgEstudioPaciente", mappedBy="idEstudioPadre", cascade={"all"}, orphanRemoval=true)

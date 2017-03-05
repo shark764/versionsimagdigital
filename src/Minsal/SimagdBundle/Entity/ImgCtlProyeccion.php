@@ -108,7 +108,6 @@ class ImgCtlProyeccion
      */
     private $idUserReg;
 
-
     /**
      * @ORM\OneToMany(targetEntity="ImgCtlProyeccionEstablecimiento", mappedBy="idProyeccion", cascade={"all"}, orphanRemoval=true)
      */

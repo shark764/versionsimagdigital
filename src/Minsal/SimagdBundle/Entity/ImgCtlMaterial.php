@@ -87,7 +87,6 @@ class ImgCtlMaterial
      */
     private $idUserReg;
 
-
     /**
      * @ORM\OneToMany(targetEntity="ImgCtlMaterialEstablecimiento", mappedBy="idMaterial", cascade={"all"}, orphanRemoval=true)
      */

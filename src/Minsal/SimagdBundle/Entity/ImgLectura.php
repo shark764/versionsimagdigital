@@ -204,7 +204,6 @@ class ImgLectura
      */
     private $estudiosLectura;
 
-
     /**
      * @ORM\OneToMany(targetEntity="ImgDiagnostico", mappedBy="idLectura", cascade={"all"}, orphanRemoval=true)
      */

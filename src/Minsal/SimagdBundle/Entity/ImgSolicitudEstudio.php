@@ -349,30 +349,25 @@ class ImgSolicitudEstudio
      */
     private $solicitudEstudioProyeccion;
 
-
     /**
      * @ORM\OneToMany(targetEntity="ImgCita", mappedBy="idSolicitudEstudio", cascade={"all"}, orphanRemoval=true)
      */
     private $solicitudEstudioCitas;
-
 
     /**
      * @ORM\OneToMany(targetEntity="ImgProcedimientoRealizado", mappedBy="idSolicitudEstudio", cascade={"all"}, orphanRemoval=true)
      */
     private $solicitudEstudioProcedimientosRealizados;
 
-
     /**
      * @ORM\OneToMany(targetEntity="ImgSolicitudEstudioComplementario", mappedBy="idSolicitudEstudio", cascade={"all"}, orphanRemoval=true)
      */
     private $solicitudEstudioSolicitudesEstudioComplementario;
 
-
     /**
      * @ORM\OneToMany(targetEntity="ImgSolicitudDiagnostico", mappedBy="idSolicitudEstudio", cascade={"all"}, orphanRemoval=true)
      */
     private $solicitudEstudioSolicitudesDiagnostico;
-
 
     /**
      * @ORM\OneToMany(targetEntity="ImgPendienteRealizacion", mappedBy="idSolicitudEstudio", cascade={"all"}, orphanRemoval=true)
