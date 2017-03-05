@@ -100,7 +100,7 @@ class ImgCtlMaterialEstablecimiento
 
     public function __toString()
     {
-        return '' . $this->getIdMaterial();
+        return (string) $this->getIdMaterial();
     }
 
 

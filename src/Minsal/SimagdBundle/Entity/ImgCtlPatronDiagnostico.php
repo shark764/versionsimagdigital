@@ -129,6 +129,7 @@ class ImgCtlPatronDiagnostico
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_tipo_resultado", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idTipoResultado;
 

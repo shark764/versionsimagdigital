@@ -148,7 +148,7 @@ class ImgSolicitudEstudioComplementario
 
     public function __toString()
     {
-        return '' . $this->idRadiologoSolicita . ' :: ' . $this->idEstudioPadre;
+        return (string) $this->idRadiologoSolicita . ' :: ' . $this->idEstudioPadre;
     }
 
 

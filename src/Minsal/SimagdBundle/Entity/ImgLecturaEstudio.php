@@ -45,7 +45,7 @@ class ImgLecturaEstudio
 
     public function __toString()
     {
-        return '' . $this->idLectura . ' :: ' . $this->idEstudio;
+        return (string) $this->idLectura . ' :: ' . $this->idEstudio;
     }
 
 
