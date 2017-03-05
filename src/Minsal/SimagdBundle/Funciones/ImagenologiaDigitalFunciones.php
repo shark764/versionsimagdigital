@@ -39,7 +39,7 @@ class ImagenologiaDigitalFunciones {
 
         //Solicitud de estudio no existe
         $em = $this->entityManager;
-        $prcEntity = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->find($prc);
+        $prcEntity = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->find($prc);
         if ( !$prcEntity ) { return array(false, 1003); }
 
         //No está marcada para cita
@@ -69,12 +69,12 @@ class ImagenologiaDigitalFunciones {
 
         //Estudio no existe
         $em = $this->entityManager;
-        $estEntity = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')->find($est);
+        $estEntity = $em->getRepository('MinsalSimagdBundle:RyxEstudioPorImagenes')->find($est);
         if ( !$estEntity ) { return array(false, 1003); }
 
         //No se ha solicitado diagnótico
         $prcEntity = $estEntity->getIdProcedimientoRealizado()->getIdSolicitudEstudio();
-        $solDiagEntity = $em->getRepository('MinsalSimagdBundle:ImgSolicitudDiagnostico')
+        $solDiagEntity = $em->getRepository('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio')
                                                 ->findOneBy( array('idSolicitudEstudio' => $prcEntity->getId(), 'idEstudio' => $est) );
         if ( !$prcEntity->getRequiereDiagnostico() && !$solDiagEntity ) { return array(false, 1006); }
 
@@ -99,7 +99,7 @@ class ImagenologiaDigitalFunciones {
 
         //Lectura no existe
         $em = $this->entityManager;
-        $lctEntity = $em->getRepository('MinsalSimagdBundle:ImgLectura')->find($lct);
+        $lctEntity = $em->getRepository('MinsalSimagdBundle:RyxLecturaRadiologica')->find($lct);
         if ( !$lctEntity ) { return array(false, 1003); }
 
         //Lectura no ha sido culminada, esta descartada, o pendiente
@@ -124,8 +124,8 @@ class ImagenologiaDigitalFunciones {
 
         //Registros no existen
         $em = $this->entityManager;
-        $prcEntity = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->find($prc);
-        $estEntity = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')->find($est);
+        $prcEntity = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->find($prc);
+        $estEntity = $em->getRepository('MinsalSimagdBundle:RyxEstudioPorImagenes')->find($est);
         if ( !( $prcEntity && $estEntity ) ) { return array(false, 1003); }
         
         //No se ha registrado estudio
@@ -143,7 +143,7 @@ class ImagenologiaDigitalFunciones {
             { return array(false, 1011); }
             
         //Ya existe diagnóstico
-        $diagnostico = $em->getRepository('MinsalSimagdBundle:ImgLectura')->findOneBy(array('idEstudio' => $est));
+        $diagnostico = $em->getRepository('MinsalSimagdBundle:RyxLecturaRadiologica')->findOneBy(array('idEstudio' => $est));
         if ( $diagnostico ) { return array(false, 1012); }
 
         return array(true, 0);
@@ -160,7 +160,7 @@ class ImagenologiaDigitalFunciones {
 
         //Solicitud de estudio no existe
         $em = $this->entityManager;
-        $prcEntity = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->find($prc);
+        $prcEntity = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->find($prc);
         if ( !$prcEntity ) { return array(false, 1003); }
         
         //Está marcada para cita, parámetro no enviado
@@ -170,7 +170,7 @@ class ImagenologiaDigitalFunciones {
         if ( $cit && !$prcEntity->getRequiereCita() ) { return array(false, 1017); }
         
         //Está marcada para cita, cita no existe
-        $citaEntity = $em->getRepository('MinsalSimagdBundle:ImgCita')->findOneBy(array( 'idSolicitudEstudio' => $prc ));
+        $citaEntity = $em->getRepository('MinsalSimagdBundle:RyxCitaProgramada')->findOneBy(array( 'idSolicitudEstudio' => $prc ));
         if ( !$citaEntity && $prcEntity->getRequiereCita() ) { return array(false, 1015); }
         
         //Cita asociada no corresponde a parámetro
@@ -237,7 +237,7 @@ class ImagenologiaDigitalFunciones {
 
         //Diagnóstico no existe
         $em = $this->entityManager;
-        $diagEntity = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->find($diag);
+        $diagEntity = $em->getRepository('MinsalSimagdBundle:RyxDiagnosticoRadiologico')->find($diag);
         if ( !$diagEntity ) { return array(false, 1003); }
 
         //Transcripción no ha sido culminada, esta descartada, o pendiente
