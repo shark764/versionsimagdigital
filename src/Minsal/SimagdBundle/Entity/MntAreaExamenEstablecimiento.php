@@ -133,10 +133,34 @@ class MntAreaExamenEstablecimiento implements EntityInterface
      * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idUsuarioReg;
-    
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * ToString
+     */
     public function __toString()
     {
         return $this->idAreaServicioDiagnostico . ' :: ' . $this->idExamenServicioDiagnostico . ' :: ' . $this->idEstablecimiento;
+    }
+    
+    /**
+     * Text converter for the Entity (Second form).
+     */
+    public function getPresentacionEntidad()
+    {
+    }
+    
+    /**
+     * Text converter for the Entity (Third form).
+     */
+    public function getFormatoPresentacionEntidad()
+    {
     }
 
     /**

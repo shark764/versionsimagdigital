@@ -155,11 +155,6 @@ class CtlExamenServicioDiagnostico implements EntityInterface
      * @ORM\OneToMany(targetEntity="RyxCtlProyeccionRadiologica", mappedBy="idExamenServicioDiagnostico", cascade={"all"}, orphanRemoval=true)
      */
     private $examenProyeccionesRadiologicas;
-    
-    public function __toString()
-    {
-        return $this->descripcion ? strtoupper($this->idestandar) . ' - ' . mb_strtoupper($this->descripcion, 'utf-8') : '';
-    }
 
     /**
      * Constructor
@@ -167,6 +162,28 @@ class CtlExamenServicioDiagnostico implements EntityInterface
     public function __construct()
     {
         $this->examenProyeccionesRadiologicas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * ToString
+     */
+    public function __toString()
+    {
+        return $this->descripcion ? strtoupper($this->idestandar) . ' - ' . mb_strtoupper($this->descripcion, 'utf-8') : '';
+    }
+    
+    /**
+     * Text converter for the Entity (Second form).
+     */
+    public function getPresentacionEntidad()
+    {
+    }
+    
+    /**
+     * Text converter for the Entity (Third form).
+     */
+    public function getFormatoPresentacionEntidad()
+    {
     }
 
     /**

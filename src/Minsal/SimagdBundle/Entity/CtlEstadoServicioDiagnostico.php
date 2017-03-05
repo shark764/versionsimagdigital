@@ -53,10 +53,34 @@ class CtlEstadoServicioDiagnostico implements EntityInterface
      * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idAtencion;
-    
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * ToString
+     */
     public function __toString()
     {
         return $this->descripcion ? strtoupper($this->idestado) . ' - ' . mb_strtoupper($this->descripcion, 'utf-8') : '';
+    }
+    
+    /**
+     * Text converter for the Entity (Second form).
+     */
+    public function getPresentacionEntidad()
+    {
+    }
+    
+    /**
+     * Text converter for the Entity (Third form).
+     */
+    public function getFormatoPresentacionEntidad()
+    {
     }
 
     /**

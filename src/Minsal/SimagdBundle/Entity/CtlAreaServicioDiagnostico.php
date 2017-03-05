@@ -149,11 +149,6 @@ class CtlAreaServicioDiagnostico implements EntityInterface
      * @ORM\OneToMany(targetEntity="CtlExamenServicioDiagnostico", mappedBy="idAreaServicioDiagnostico", cascade={"all"}, orphanRemoval=true)
      */
     private $areaExamenesServicioDiagnostico;
-    
-    public function __toString()
-    {
-        return $this->nombrearea ? strtoupper($this->idarea) . ' - ' . mb_strtoupper($this->nombrearea, 'utf-8') : '';
-    }
 
     /**
      * Constructor
@@ -161,6 +156,28 @@ class CtlAreaServicioDiagnostico implements EntityInterface
     public function __construct()
     {
         $this->areaExamenesServicioDiagnostico = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * ToString
+     */
+    public function __toString()
+    {
+        return $this->nombrearea ? strtoupper($this->idarea) . ' - ' . mb_strtoupper($this->nombrearea, 'utf-8') : '';
+    }
+    
+    /**
+     * Text converter for the Entity (Second form).
+     */
+    public function getPresentacionEntidad()
+    {
+    }
+    
+    /**
+     * Text converter for the Entity (Third form).
+     */
+    public function getFormatoPresentacionEntidad()
+    {
     }
 
     /**
