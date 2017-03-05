@@ -69,11 +69,13 @@ class RyxEstudioPendienteLecturaAdmin extends MinsalSimagdBundleGeneralAdmin
         }
     }
     
-    public function prePersist($pndLectura) {
+    public function prePersist($pndLectura)
+    {
         $pndLectura->setFechaIngresoLista(new \DateTime('now'));
     }
     
-    public function preUpdate($pndLectura) {
+    public function preUpdate($pndLectura)
+    {
         $pndLectura->setFechaIngresoLista(new \DateTime('now'));
     }
 

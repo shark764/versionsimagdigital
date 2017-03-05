@@ -31,7 +31,8 @@ class RyxBloqueoAgendaAdmin extends MinsalSimagdBundleGeneralAdmin
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
     
-    public function prePersist($bloqueo) {
+    public function prePersist($bloqueo)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $bloqueo->setIdUserReg($user);
         $bloqueo->setFechaCreacion(new \DateTime('now'));
@@ -40,7 +41,8 @@ class RyxBloqueoAgendaAdmin extends MinsalSimagdBundleGeneralAdmin
         }
     }
     
-    public function preUpdate($bloqueo) {
+    public function preUpdate($bloqueo)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $bloqueo->setIdUserMod($user);
         $bloqueo->setFechaUltimaEdicion(new \DateTime('now'));

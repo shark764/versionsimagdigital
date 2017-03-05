@@ -137,13 +137,15 @@ class RyxDiagnosticoSegundaOpinionMedicaAdmin extends MinsalSimagdBundleGeneralA
         ;
     }
     
-    public function prePersist($nota) {
+    public function prePersist($nota)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $nota->setIdUserReg($user);
         $nota->setFechaEmision(new \DateTime('now'));
     }
     
-    public function validate(ErrorElement $errorElement, $nota) {
+    public function validate(ErrorElement $errorElement, $nota)
+    {
         $errorElement
             ->with('idTipoNotaDiagnostico') //Tipo de la nota agregada
                 ->assertNotBlank(array('message' => '¿Qué tipo de nota está agregando al diagnóstico?'))

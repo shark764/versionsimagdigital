@@ -14,7 +14,8 @@ class GeneracionReporteImagenologiaAdmin extends MinsalSimagdBundleGeneralAdmin
     protected $baseRouteName    = 'simagd_generacion_reporte';
     protected $baseRoutePattern = 'rayos-x-imagenologia-reportes';
     
-    protected function configureRoutes(RouteCollection $collection) {
+    protected function configureRoutes(RouteCollection $collection)
+    {
         $collection->clear();
         $collection->add('list', 'reportes');
         $collection->add('generarReporteImagenologico', 'reporte', [], [], ['expose' => true]);

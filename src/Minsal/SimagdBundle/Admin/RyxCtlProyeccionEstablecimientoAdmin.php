@@ -124,19 +124,22 @@ class RyxCtlProyeccionEstablecimientoAdmin extends MinsalSimagdBundleGeneralAdmi
         ;
     }
 
-    public function prePersist($pryRealizable) {
+    public function prePersist($pryRealizable)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $pryRealizable->setIdUserReg($user);
         $pryRealizable->setFechaHoraReg(new \DateTime('now'));
     }
 
-    public function preUpdate($pryRealizable) {
+    public function preUpdate($pryRealizable)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $pryRealizable->setIdUserMod($user);
         $pryRealizable->setFechaHoraMod(new \DateTime('now'));
     }
 
-    public function validate(ErrorElement $errorElement, $pryRealizable) {
+    public function validate(ErrorElement $errorElement, $pryRealizable)
+    {
         $errorElement
             ->with('idProyeccion') //Nombre de la proyección
                 ->assertNotNull(array('message' => 'No ha seleccionado ningún elemento de la lista'))

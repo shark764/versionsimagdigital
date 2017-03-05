@@ -176,7 +176,8 @@ class RyxCitaProgramadaAdmin extends MinsalSimagdBundleGeneralAdmin
         ;
     }
     
-    public function prePersist($cita) {
+    public function prePersist($cita)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $cita->setIdUserPrg($user);
         $cita->setFechaCreacion(new \DateTime('now'));
@@ -197,15 +198,16 @@ class RyxCitaProgramadaAdmin extends MinsalSimagdBundleGeneralAdmin
             }
         }
         if (!$cita->getColor()) {
-	    $cita->setColor('#183f52');
+	       $cita->setColor('#183f52');
         }
     }
     
-    public function preUpdate($cita) {
+    public function preUpdate($cita)
+    {
         $em = $this->getModelManager()->getEntityManager($this->getClass());
         
         $citaOriginal = $em->getUnitOfWork()->getOriginalEntityData($cita);
-//         $fechaProgramadaOriginal = $citaOriginal['fechaProgramada'];
+        // $fechaProgramadaOriginal = $citaOriginal['fechaProgramada'];
         
         $originalFechaHoraIni = $citaOriginal['fechaHoraInicio'];
         $originalFechaHoraFin = $citaOriginal['fechaHoraFin'];
@@ -239,11 +241,12 @@ class RyxCitaProgramadaAdmin extends MinsalSimagdBundleGeneralAdmin
             }
         }
         if (!$cita->getColor()) {
-	    $cita->setColor('#183f52');
+	       $cita->setColor('#183f52');
         }
     }
 
-    public function validate(ErrorElement $errorElement, $cita) {
+    public function validate(ErrorElement $errorElement, $cita)
+    {
         $errorElement
             ->with('idEmpleado') //Solicitante
                 ->assertNotNull(array('message' => 'No ha seleccionado ningún elemento de la lista'))
@@ -357,37 +360,41 @@ class RyxCitaProgramadaAdmin extends MinsalSimagdBundleGeneralAdmin
 
     public function getNewInstance()
     {
-        $instance = parent::getNewInstance();
+        // $instance = parent::getNewInstance();
+        $instance = $this->getModelManager()->getModelInstance($this->getClass());
+        foreach ($this->getExtensions() as $extension) {
+            $extension->alterNewInstance($this, $instance);
+        }
          
         //Fecha programada
-//         $instance->setFechaProgramada((new \DateTime('now'))->modify('+8 day')); //Verificar la próxima consulta -- dependiendo, dejar la default del construct
+        // $instance->setFechaProgramada((new \DateTime('now'))->modify('+8 day')); //Verificar la próxima consulta -- dependiendo, dejar la default del construct
         
         $securityContext = $this->getConfigurationPool()->getContainer()->get('security.context');
         
         $sessionUser = $securityContext->getToken()->getUser();
         
         //Solicitud de estudio
-//         if ($this->hasRequest()) {
-//             $preinscripcion = $this->getRequest()->get('preinscripcion', null);
-//             if ($preinscripcion !== null) {
-//                 $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxSolicitudEstudio');
-//                 $preinscripcionReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxSolicitudEstudio', $preinscripcion);
-//                 $instance->setIdSolicitudEstudio($preinscripcionReference);
-//                 
-//                 $instance->setIdParametroCitacion($this->obtenerParametroCitacionPorExpl($preinscripcion ));
-//             }
-//         }
+        // if ($this->hasRequest()) {
+        //     $preinscripcion = $this->getRequest()->get('preinscripcion', null);
+        //     if ($preinscripcion !== null) {
+        //         $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxSolicitudEstudio');
+        //         $preinscripcionReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxSolicitudEstudio', $preinscripcion);
+        //         $instance->setIdSolicitudEstudio($preinscripcionReference);
+                
+        //         $instance->setIdParametroCitacion($this->obtenerParametroCitacionPorExpl($preinscripcion ));
+        //     }
+        // }
         
         //Establecimiento al que se refirió
         //Debe venir de la preinscripción
         $estabLocal = $sessionUser->getIdEstablecimiento();
-//        $em = $this->getModelManager()->getEntityManager('Minsal\SiapsBundle\Entity\CtlEstablecimiento');
-//        $estabReference = $em->getReference('Minsal\SiapsBundle\Entity\CtlEstablecimiento', $estab);
+       // $em = $this->getModelManager()->getEntityManager('Minsal\SiapsBundle\Entity\CtlEstablecimiento');
+       // $estabReference = $em->getReference('Minsal\SiapsBundle\Entity\CtlEstablecimiento', $estab);
         $instance->setIdEstablecimiento($estabLocal);
         
         if (in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('CIT', 'ACL')) || $securityContext->isGranted('ROLE_ADMIN') ) {
-	    $instance->setIdEmpleado($sessionUser->getIdEmpleado());
-	}
+    	    $instance->setIdEmpleado($sessionUser->getIdEmpleado());
+    	}
         
         //Estado inicial de la cita
         $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxCtlEstadoCita');

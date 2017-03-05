@@ -32,7 +32,8 @@ class RyxCtlMaterialAdmin extends MinsalSimagdBundleGeneralAdmin
         $collection->add('generateData', 'generar-datos', [], [], ['expose' => true]);
     }
 
-    public function prePersist($material) {
+    public function prePersist($material)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $material->setIdUserReg($user);
         $material->setFechaHoraReg(new \DateTime('now'));
@@ -41,7 +42,8 @@ class RyxCtlMaterialAdmin extends MinsalSimagdBundleGeneralAdmin
 	}
     }
 
-    public function preUpdate($material) {
+    public function preUpdate($material)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $material->setIdUserMod($user);
         $material->setFechaHoraMod(new \DateTime('now'));

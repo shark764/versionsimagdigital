@@ -94,7 +94,8 @@ class RyxCtlConfiguracionAgendaAdmin extends MinsalSimagdBundleGeneralAdmin
         ;
     }
 
-    public function validate(ErrorElement $errorElement, $paramCita) {
+    public function validate(ErrorElement $errorElement, $paramCita)
+    {
         $errorElement
             ->with('maximoCitasDia')
                 ->assertRange(array('min' => 1, 'minMessage' => 'Citas máximas por día debe ser mayor a 1.'))
@@ -128,12 +129,14 @@ class RyxCtlConfiguracionAgendaAdmin extends MinsalSimagdBundleGeneralAdmin
                                                                         ->addViolation ('¿Qué examen desea parametrizar?')->end(); }
     }
 
-    public function prePersist($paramCita) {
+    public function prePersist($paramCita)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $paramCita->setIdUserReg($user);
     }
 
-    public function preUpdate($paramCita) {
+    public function preUpdate($paramCita)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $paramCita->setIdUserMod($user);
     }

@@ -59,7 +59,8 @@ class RyxCtlMotorBdAdmin extends MinsalSimagdBundleGeneralAdmin
         ;
     }
     
-    public function validate(ErrorElement $errorElement, $motorBd) {
+    public function validate(ErrorElement $errorElement, $motorBd)
+    {
         $errorElement
             ->with('nombre') //Nombre
                 ->assertNotNull(array('message' => 'No puede dejar este campo vacío'))

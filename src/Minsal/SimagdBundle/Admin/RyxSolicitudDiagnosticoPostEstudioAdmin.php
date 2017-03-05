@@ -182,13 +182,15 @@ class RyxSolicitudDiagnosticoPostEstudioAdmin extends MinsalSimagdBundleGeneralA
         ;
     }
     
-    public function prePersist($sol_diagnostico) {
+    public function prePersist($sol_diagnostico)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $sol_diagnostico->setIdUserReg($user);
         $sol_diagnostico->setFechaCreacion(new \DateTime('now'));
     }
     
-    public function validate(ErrorElement $errorElement, $sol_diagnostico) {
+    public function validate(ErrorElement $errorElement, $sol_diagnostico)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         
         //Solicitud de estudio del estudio

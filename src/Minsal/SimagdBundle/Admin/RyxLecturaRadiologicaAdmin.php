@@ -691,7 +691,8 @@ class RyxLecturaRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
         /** --Fin Diagnóstico */
     }
 
-    public function validate(ErrorElement $errorElement, $lectura) {
+    public function validate(ErrorElement $errorElement, $lectura)
+    {
         $errorElement
             ->with('idEmpleado') //Intérprete
                 ->assertNotNull(array('message' => 'No ha seleccionado ningún elemento de la lista'))

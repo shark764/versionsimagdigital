@@ -68,11 +68,13 @@ class RyxExamenPendienteRealizacionAdmin extends MinsalSimagdBundleGeneralAdmin
         }
     }
     
-    public function prePersist($pndRealizar) {
+    public function prePersist($pndRealizar)
+    {
         $pndRealizar->setFechaIngresoLista(new \DateTime('now'));
     }
     
-    public function preUpdate($pndRealizar) {
+    public function preUpdate($pndRealizar)
+    {
         $pndRealizar->setFechaIngresoLista(new \DateTime('now'));
     }
 

@@ -289,7 +289,8 @@ class RyxCtlConexionPacsEstablecimientoAdmin extends MinsalSimagdBundleGeneralAd
 
     }
 
-    public function preUpdate($pacs) {
+    public function preUpdate($pacs)
+    {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $pacs->setIdUserMod($user);
         $pacs->setFechaHoraMod(new \DateTime('now'));
