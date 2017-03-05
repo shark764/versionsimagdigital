@@ -1229,7 +1229,7 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
         $imagenologiaReference = $em->getReference('Minsal\SiapsBundle\Entity\CtlAtencion', '97');
 
         //Obtener estado exclusivo para Imagenología
-        $estadoImg = $this->getModelManager()->findOneBy('MinsalSimagdBundle:CtlEstadoServicioDiagnostico',
+        $estadoRyx = $this->getModelManager()->findOneBy('MinsalSimagdBundle:CtlEstadoServicioDiagnostico',
                                                         array('idestado' => 'PR', 'idAtencion' => '97'));
 
         $solicitudEstudios = new SecSolicitudestudios();
@@ -1241,7 +1241,7 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
         $solicitudEstudios->setCama($preinscripcion->getNumeroCama());
         $solicitudEstudios->setIdEstablecimiento($sessionUser->getIdEstablecimiento());
         $solicitudEstudios->setIdExpediente($preinscripcion->getIdExpediente());
-        $solicitudEstudios->setEstado($estadoImg);  //ESTADO EXCLUSIVO PARA REGISTROS DE IMAGENOLOGIA
+        $solicitudEstudios->setEstado($estadoRyx);  //ESTADO EXCLUSIVO PARA REGISTROS DE IMAGENOLOGIA
         $this->getModelManager()->create($solicitudEstudios);
 
         /** Preinscripcion */
@@ -1457,7 +1457,7 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
             }
         }
 
-        $estadoImg = $preinscripcion->getIdSolicitudestudios()->getEstado();
+        $estadoRyx = $preinscripcion->getIdSolicitudestudios()->getEstado();
         //Insertar nuevos detalles con idExamen pendientes
         $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\MntAreaExamenEstablecimiento');
         foreach ($mrNoInsertadosPorExplArray as $mrPorInsertar) {
@@ -1472,7 +1472,7 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
             $detalleSolicitud->setIdempleado($preinscripcion->getIdEmpleado());
             $detalleSolicitud->setIdusuarioreg($sessionUser);
             $detalleSolicitud->setFechahorareg(new \DateTime('now'));
-            $detalleSolicitud->setEstadodetalle($estadoImg);
+            $detalleSolicitud->setEstadodetalle($estadoRyx);
             $this->getModelManager()->create($detalleSolicitud);
         }
 
