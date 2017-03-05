@@ -18,7 +18,7 @@ class DiagnosticoRepository extends EntityRepository
         $queryDiag = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('diag.id AS diagId')
-                            ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
+                            ->from('MinsalSimagdBundle:RyxDiagnosticoRadiologico', 'diag')
                             ->innerJoin('diag.idLectura', 'lct')
                             ->innerJoin('lct.idEstudio', 'est')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
@@ -35,7 +35,7 @@ class DiagnosticoRepository extends EntityRepository
         $querySoldiag = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('soldiag.id AS soldiagId')
-                            ->from('MinsalSimagdBundle:ImgSolicitudDiagnostico', 'soldiag')
+                            ->from('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio', 'soldiag')
                             ->where('soldiag.idSolicitudEstudio = :id_prc')
                             ->setParameter('id_prc', $idSolicitudEstudio);
 
@@ -49,7 +49,7 @@ class DiagnosticoRepository extends EntityRepository
         $queryEst = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('est.id AS estId')
-                            ->from('MinsalSimagdBundle:ImgEstudioPaciente', 'est')
+                            ->from('MinsalSimagdBundle:RyxEstudioPorImagenes', 'est')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
                             ->where('prz.idSolicitudEstudio = :id_prc')
                             ->setParameter('id_prc', $idSolicitudEstudio);
@@ -68,7 +68,7 @@ class DiagnosticoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('diag.id AS diagId')
-                            ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
+                            ->from('MinsalSimagdBundle:RyxDiagnosticoRadiologico', 'diag')
                             ->innerJoin('diag.idLectura', 'lct')
                             ->where('diag.id = :id_diag')
                             ->setParameter('id_diag', $id);
@@ -93,7 +93,7 @@ class DiagnosticoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('diag.id AS diagId')
-                            ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
+                            ->from('MinsalSimagdBundle:RyxDiagnosticoRadiologico', 'diag')
                             ->innerJoin('diag.idLectura', 'lct')
                             ->where('diag.id = :id_diag')
                             ->setParameter('id_diag', $id)
@@ -111,7 +111,7 @@ class DiagnosticoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('diag')
-                            ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
+                            ->from('MinsalSimagdBundle:RyxDiagnosticoRadiologico', 'diag')
                             ->innerJoin('diag.idLectura', 'lct')
                             ->where('lct.idEstablecimiento = :id_est_diag')
                             ->setParameter('id_est_diag', $id_estab)
@@ -129,7 +129,7 @@ class DiagnosticoRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('diag')
-                            ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
+                            ->from('MinsalSimagdBundle:RyxDiagnosticoRadiologico', 'diag')
                            // ->where('diag.idEstadoDiagnostico NOT IN ( 3, 5, 6 )')
                             ->andWhere('diag.idLectura = pndT.idLectura');
 
@@ -137,7 +137,7 @@ class DiagnosticoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('pndT')
-                            ->from('MinsalSimagdBundle:ImgPendienteTranscripcion', 'pndT')
+                            ->from('MinsalSimagdBundle:RyxLecturaPendienteTranscripcion', 'pndT')
                             ->where('pndT.idEstablecimiento = :id_est_diag')
                             ->setParameter('id_est_diag', $id_estab)
                             ->orderBy('pndT.fechaIngresoLista', 'ASC')
@@ -156,7 +156,7 @@ class DiagnosticoRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('diag')
-                            ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
+                            ->from('MinsalSimagdBundle:RyxDiagnosticoRadiologico', 'diag')
                             ->innerJoin('diag.idEstadoDiagnostico', 'statusdiag')
                             ->where('diag.idUserReg = :id_user')
                             // ->andWhere('diag.idEstadoDiagnostico NOT IN ( 3, 5, 6 )')
@@ -167,7 +167,7 @@ class DiagnosticoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('pndT')
-                            ->from('MinsalSimagdBundle:ImgPendienteTranscripcion', 'pndT')
+                            ->from('MinsalSimagdBundle:RyxLecturaPendienteTranscripcion', 'pndT')
                             ->where('pndT.idEstablecimiento = :id_est_diag')
                             ->setParameter('id_est_diag', $id_estab)
                             ->orderBy('pndT.fechaIngresoLista', 'ASC')
@@ -187,7 +187,7 @@ class DiagnosticoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('pndV')
-                            ->from('MinsalSimagdBundle:ImgPendienteValidacion', 'pndV')
+                            ->from('MinsalSimagdBundle:RyxDiagnosticoPendienteValidacion', 'pndV')
                             ->innerJoin('pndV.idDiagnostico', 'diag')
                             ->innerJoin('diag.idLectura', 'lct')
                             ->where('pndV.idEstablecimiento = :id_est_diag')
@@ -236,7 +236,7 @@ class DiagnosticoRepository extends EntityRepository
                             // ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS diag_nombreUserMod')
                             // ->addSelect('CASE WHEN (tcnlprz.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) ELSE \'\' END AS prz_tecnologo')
 
-                            ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
+                            ->from('MinsalSimagdBundle:RyxDiagnosticoRadiologico', 'diag')
                             ->innerJoin('diag.idLectura', 'lct')
                             ->innerJoin('diag.idEstadoDiagnostico', 'statusdiag')
                             ->leftJoin('lct.idPatronAsociado', 'ptrAsc')
@@ -289,7 +289,7 @@ class DiagnosticoRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -307,7 +307,7 @@ class DiagnosticoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('COUNT(diag.id) AS numDiag')
-                            ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
+                            ->from('MinsalSimagdBundle:RyxDiagnosticoRadiologico', 'diag')
                             ->where('diag.idLectura = :id_lct')
                             ->setParameter('id_lct', $id_lct);
 

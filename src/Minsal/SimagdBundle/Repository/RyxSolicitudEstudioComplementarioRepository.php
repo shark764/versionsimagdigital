@@ -34,7 +34,7 @@ class RyxSolicitudEstudioComplementarioRepository extends EntityRepository
                             ->addSelect('usrRg.username AS solcmpl_usernameUserReg, usrRg.id AS solcmpl_id_userReg')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS solcmpl_nombreUserReg')
                             ->addSelect('CASE WHEN (tcnlprz.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) ELSE \'\' END AS prz_tecnologo')
-                            ->from('MinsalSimagdBundle:ImgSolicitudEstudioComplementario', 'solcmpl')
+                            ->from('MinsalSimagdBundle:RyxSolicitudEstudioComplementario', 'solcmpl')
                             ->leftJoin('solcmpl.idSolicitudEstudio', 'prc')
                             ->innerJoin('solcmpl.idEstudioPadre', 'est')
                             ->innerJoin('solcmpl.idAreaServicioDiagnostico', 'mcmpl')
@@ -88,7 +88,7 @@ class RyxSolicitudEstudioComplementarioRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {

@@ -37,8 +37,8 @@ class ProyeccionRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('expl')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
-                            ->innerJoin('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento', 'explrz',
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionRadiologica', 'expl')
+                            ->innerJoin('MinsalSimagdBundle:RyxCtlProyeccionEstablecimiento', 'explrz',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                     'expl.id = explrz.idProyeccion')
                             ->innerJoin('explrz.idAreaExamenEstab', 'mr')
@@ -141,7 +141,7 @@ class ProyeccionRepository extends EntityRepository
                         ->createQueryBuilder()
                             ->select('exm.id')
                             ->from('MinsalSimagdBundle:CtlExamenServicioDiagnostico', 'exm')
-                            ->innerJoin('MinsalSimagdBundle:ImgCtlProyeccion', 'expl',
+                            ->innerJoin('MinsalSimagdBundle:RyxCtlProyeccionRadiologica', 'expl',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                     'exm.id = expl.idExamenServicioDiagnostico')
                             ->where('expl.id IN (:id_expl_array)')
@@ -163,7 +163,7 @@ class ProyeccionRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('explrz')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento', 'explrz')
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionEstablecimiento', 'explrz')
                             ->innerJoin('explrz.idAreaExamenEstab', 'mr')
                             ->where('expl.id = explrz.idProyeccion')
                             ->andWhere('mr.idEstablecimiento = :id_est')
@@ -173,7 +173,7 @@ class ProyeccionRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('expl')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionRadiologica', 'expl')
                             ->where('expl.idExamenServicioDiagnostico = :id_exm')
                             ->setParameter('id_exm', $idExamenServicioDiagnostico);
 
@@ -194,7 +194,7 @@ class ProyeccionRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('explrz.id AS explrzId')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento', 'explrz')
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionEstablecimiento', 'explrz')
                             ->innerJoin('explrz.idAreaExamenEstab', 'mr')
                             ->where('explrz.id = :id_explrz')
                             ->setParameter('id_explrz', $id)
@@ -212,7 +212,7 @@ class ProyeccionRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('explrz', 'mr', 'expl')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento', 'explrz')
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionEstablecimiento', 'explrz')
                             ->innerJoin('explrz.idAreaExamenEstab', 'mr')
                             ->innerJoin('explrz.idProyeccion', 'expl')
                             ->where('mr.idEstablecimiento = :id_est')
@@ -232,7 +232,7 @@ class ProyeccionRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('explrz')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento', 'explrz')
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionEstablecimiento', 'explrz')
                             ->innerJoin('explrz.idAreaExamenEstab', 'mr')
                             ->where('expl.id = explrz.idProyeccion')
                             ->andWhere('mr.idEstablecimiento = :id_est');
@@ -241,7 +241,7 @@ class ProyeccionRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('expl.id AS explId')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionRadiologica', 'expl')
                             ->where('expl.id = :id_expl')
                             ->setParameter('id_expl', $idProyeccion);
 
@@ -268,7 +268,7 @@ class ProyeccionRepository extends EntityRepository
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS expl_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS expl_nombreUserMod')
                             ->addSelect('CASE WHEN (sex.id IS NOT NULL) THEN sex.nombre ELSE \'Todos los sexos\' END AS exm_sexo')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionRadiologica', 'expl')
                             ->innerJoin('expl.idExamenServicioDiagnostico', 'exm')
                             ->leftJoin('exm.idsexo', 'sex')
                             ->innerJoin('expl.idUserReg', 'usrRg')
@@ -282,7 +282,7 @@ class ProyeccionRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -304,10 +304,10 @@ class ProyeccionRepository extends EntityRepository
                             ->addSelect('prcExpl')
                             ->addSelect('IDENTITY(exm.idAtencion) AS exm_id_atencion')
                             ->addSelect('CASE WHEN (sex.id IS NOT NULL) THEN sex.nombre ELSE \'Todos los sexos\' END AS exm_sexo')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionRadiologica', 'expl')
                             ->innerJoin('expl.idExamenServicioDiagnostico', 'exm')
                             ->leftJoin('exm.idsexo', 'sex')
-                            ->innerJoin('MinsalSimagdBundle:ImgSolicitudEstudioProyeccion', 'prcExpl',
+                            ->innerJoin('MinsalSimagdBundle:RyxSolicitudEstudioProyeccion', 'prcExpl',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                     'expl.id = prcExpl.idProyeccionSolicitada')
                             ->where('prcExpl.idSolicitudEstudio = :id_solest')
@@ -336,7 +336,7 @@ class ProyeccionRepository extends EntityRepository
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS explrz_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS explrz_nombreUserMod')
                             ->addSelect('CASE WHEN (sex.id IS NOT NULL) THEN sex.nombre ELSE \'Todos los sexos\' END AS exm_sexo')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento', 'explrz')
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionEstablecimiento', 'explrz')
                             ->innerJoin('explrz.idProyeccion', 'expl')
                             ->innerJoin('explrz.idAreaExamenEstab', 'mr')
                             ->innerJoin('mr.idAreaServicioDiagnostico', 'm')
@@ -356,7 +356,7 @@ class ProyeccionRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -375,7 +375,7 @@ class ProyeccionRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('explrz.id AS explrzId')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento', 'explrz')
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionEstablecimiento', 'explrz')
                             ->innerJoin('explrz.idAreaExamenEstab', 'mr')
                             ->where('explrz.idProyeccion = :id_expl')
                             ->setParameter('id_expl', $idProyeccion)
@@ -394,7 +394,7 @@ class ProyeccionRepository extends EntityRepository
                         ->createQueryBuilder('expl')
                             ->select('expl')
                             ->addSelect('exm')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionRadiologica', 'expl')
                             ->innerJoin('expl.idExamenServicioDiagnostico', 'exm')
                             ->orderBy('exm.id', 'DESC')
                             ->addOrderBy('expl.id', 'DESC')
@@ -416,8 +416,8 @@ class ProyeccionRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('m.id AS id_m, expl.id AS id_expl')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
-                            ->innerJoin('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento', 'explrz',
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionRadiologica', 'expl')
+                            ->innerJoin('MinsalSimagdBundle:RyxCtlProyeccionEstablecimiento', 'explrz',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                     'expl.id = explrz.idProyeccion')
                             ->innerJoin('explrz.idAreaExamenEstab', 'mr')
@@ -449,10 +449,10 @@ class ProyeccionRepository extends EntityRepository
                             ->addSelect('solcmplExpl')
                             ->addSelect('IDENTITY(exm.idAtencion) AS exm_id_atencion')
                             ->addSelect('CASE WHEN (sex.id IS NOT NULL) THEN sex.nombre ELSE \'Todos los sexos\' END AS exm_sexo')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionRadiologica', 'expl')
                             ->innerJoin('expl.idExamenServicioDiagnostico', 'exm')
                             ->leftJoin('exm.idsexo', 'sex')
-                            ->innerJoin('MinsalSimagdBundle:ImgSolicitudEstudioComplementarioProyeccion', 'solcmplExpl',
+                            ->innerJoin('MinsalSimagdBundle:RyxSolicitudEstudioComplementarioProyeccion', 'solcmplExpl',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                     'expl.id = solcmplExpl.idProyeccionSolicitada')
                             ->where('solcmplExpl.idSolicitudEstudioComplementario = :id_solcmpl')

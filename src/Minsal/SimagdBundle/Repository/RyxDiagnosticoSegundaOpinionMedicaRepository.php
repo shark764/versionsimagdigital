@@ -39,7 +39,7 @@ class RyxDiagnosticoSegundaOpinionMedicaRepository extends EntityRepository
                             ->addSelect('usrRg.username AS notdiag_usernameUserReg, usrRg.id AS notdiag_id_userReg')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS notdiag_nombreUserReg')
                             ->addSelect('CASE WHEN (tcnlprz.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) ELSE \'\' END AS prz_tecnologo')
-                            ->from('MinsalSimagdBundle:ImgNotaDiagnostico', 'notdiag')
+                            ->from('MinsalSimagdBundle:RyxDiagnosticoSegundaOpinionMedica', 'notdiag')
                             ->innerJoin('notdiag.idDiagnostico', 'diag')
                             ->innerJoin('notdiag.idTipoNotaDiagnostico', 'tipoN')
                             ->innerJoin('notdiag.idEmpleado', 'empnotdiag')
@@ -92,7 +92,7 @@ class RyxDiagnosticoSegundaOpinionMedicaRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {

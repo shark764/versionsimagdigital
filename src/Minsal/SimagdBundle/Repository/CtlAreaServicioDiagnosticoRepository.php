@@ -23,7 +23,7 @@ class CtlAreaServicioDiagnosticoRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prc')
-                            ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
+                            ->from('MinsalSimagdBundle:RyxSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
                             ->where('m.id = prc.idAreaServicioDiagnostico');
 
@@ -114,7 +114,7 @@ class CtlAreaServicioDiagnosticoRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prc')
-                            ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
+                            ->from('MinsalSimagdBundle:RyxSolicitudEstudio', 'prc')
                             ->where('m.id = prc.idAreaServicioDiagnostico');
 
         /** Query */
@@ -143,7 +143,7 @@ class CtlAreaServicioDiagnosticoRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prz')
-                            ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz')
+                            ->from('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado', 'prz')
                             ->innerJoin('prz.idSolicitudEstudio', 'prc')
                             ->where('m.id = prc.idAreaServicioDiagnostico')
                             ->andWhere('prc.idEstablecimientoReferido = :id_est_ref');
@@ -175,7 +175,7 @@ class CtlAreaServicioDiagnosticoRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('lct')
-                            ->from('MinsalSimagdBundle:ImgLectura', 'lct')
+                            ->from('MinsalSimagdBundle:RyxLecturaRadiologica', 'lct')
                             ->innerJoin('lct.idEstudio', 'est')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
                             ->innerJoin('prz.idSolicitudEstudio', 'prc')
@@ -209,7 +209,7 @@ class CtlAreaServicioDiagnosticoRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prc')
-                            ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
+                            ->from('MinsalSimagdBundle:RyxSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
                             ->where('m.id = prc.idAreaServicioDiagnostico')
                             ->andWhere('aams.idEstablecimiento = :id_est');
@@ -278,7 +278,7 @@ class CtlAreaServicioDiagnosticoRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prc')
-                            ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
+                            ->from('MinsalSimagdBundle:RyxSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
                             ->where('m.id = prc.idAreaServicioDiagnostico');
 
@@ -295,7 +295,7 @@ class CtlAreaServicioDiagnosticoRepository extends EntityRepository
         $subQuery2 = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('solcmpl')
-                            ->from('MinsalSimagdBundle:ImgSolicitudEstudioComplementario', 'solcmpl')
+                            ->from('MinsalSimagdBundle:RyxSolicitudEstudioComplementario', 'solcmpl')
                             ->where('m.id = solcmpl.idAreaServicioDiagnostico')
                             ->andWhere('solcmpl.idEstablecimientoSolicitado = :id_est_sol');
 
@@ -362,7 +362,7 @@ class CtlAreaServicioDiagnosticoRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {

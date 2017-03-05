@@ -44,7 +44,7 @@ class RyxProcedimientoRadiologicoRealizadoRepository extends EntityRepository
                             // ->addSelect('CASE WHEN (empcmpl.id IS NOT NULL) THEN CONCAT(COALESCE(empcmpl.apellido, \'\'), \', \', COALESCE(empcmpl.nombre, \'\')) ELSE \'\' END AS solcmpl_solicitante')
                             // ->addSelect('mcmpl.nombrearea AS solcmpl_modalidad, prAtnCmpl.nombre AS solcmpl_prioridadAtencion, prAtnCmpl.codigo AS solcmpl_codigoPrioridad')
                             
-                            ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz')
+                            ->from('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado', 'prz')
                             ->innerJoin('prz.idEstadoProcedimientoRealizado', 'statusprz')
                             ->innerJoin('prz.idTecnologoRealiza', 'tcnlprz')
                             // ->leftJoin('tcnlprz.idTipoEmpleado', 'tpEmp')
@@ -100,7 +100,7 @@ class RyxProcedimientoRadiologicoRealizadoRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {

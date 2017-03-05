@@ -59,7 +59,7 @@ class CitaRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('cit.fechaProgramada, COUNT(cit.fechaProgramada) AS reservados')
-                            ->from('MinsalSimagdBundle:ImgCita', 'cit')
+                            ->from('MinsalSimagdBundle:RyxCitaProgramada', 'cit')
                             ->innerJoin('cit.idSolicitudEstudio', 'prc')
                             ->where('cit.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
@@ -80,7 +80,7 @@ class CitaRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('cit')
-                            ->from('MinsalSimagdBundle:ImgCita', 'cit')
+                            ->from('MinsalSimagdBundle:RyxCitaProgramada', 'cit')
                             ->innerJoin('cit.idSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
                             ->where('prc.idExpediente = :id_exp')
@@ -115,7 +115,7 @@ class CitaRepository extends EntityRepository
                             ->addSelect('CASE WHEN (tcnlcit.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlcit.apellido, \'\'), \', \', COALESCE(tcnlcit.nombre, \'\')) ELSE \'\' END AS cit_tecnologo, tcnlcit.id AS cit_id_tecnologo')
                             ->addSelect('CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS prc_solicitante')
                             ->addSelect('CASE WHEN (radXInd.id IS NOT NULL) THEN CONCAT(COALESCE(radXInd.apellido, \'\'), \', \', COALESCE(radXInd.nombre, \'\')) ELSE \'\' END AS prc_radXInd, radXInd.id AS prc_id_radXInd')
-                            ->from('MinsalSimagdBundle:ImgCita', 'cit')
+                            ->from('MinsalSimagdBundle:RyxCitaProgramada', 'cit')
                             ->innerJoin('cit.idEstadoCita', 'statuscit')
                             ->innerJoin('cit.idEstablecimiento', 'stdcit')
                             ->innerJoin('cit.idSolicitudEstudio', 'prc')
@@ -183,7 +183,7 @@ class CitaRepository extends EntityRepository
 
     public function obtenerParametroCitacion($id_estab, $idAreaServicioDiagnostico, $idProyeccionesSolicitadas)
     {
-    	$examenesIdArray = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')
+    	$examenesIdArray = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')
     								->obtenerExamenesPorExplArray($idProyeccionesSolicitadas, false);
 
     	$countExmArray = array_count_values($examenesIdArray );
@@ -192,7 +192,7 @@ class CitaRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prmCit')
-                            ->from('MinsalSimagdBundle:ImgCtlConfiguracionAgenda', 'prmCit')
+                            ->from('MinsalSimagdBundle:RyxCtlConfiguracionAgenda', 'prmCit')
                             ->innerJoin('prmCit.idAreaExamenEstab', 'mr')
                             ->where('mr.idAreaServicioDiagnostico = :id_mod')
                             ->setParameter('id_mod', $idAreaServicioDiagnostico)
@@ -217,7 +217,7 @@ class CitaRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('cit.id AS citId')
-                            ->from('MinsalSimagdBundle:ImgCita', 'cit')
+                            ->from('MinsalSimagdBundle:RyxCitaProgramada', 'cit')
                             ->where('cit.id = :id_cit')
                             ->setParameter('id_cit', $id)
                             ->andWhere('cit.idEstablecimiento = :id_est')
@@ -234,7 +234,7 @@ class CitaRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prmCit.id AS prmCitId')
-                            ->from('MinsalSimagdBundle:ImgCtlConfiguracionAgenda', 'prmCit')
+                            ->from('MinsalSimagdBundle:RyxCtlConfiguracionAgenda', 'prmCit')
                             ->innerJoin('prmCit.idAreaExamenEstab', 'mr')
                             ->where('prmCit.id = :id_prmCit')
                             ->setParameter('id_prmCit', $id)
@@ -273,7 +273,7 @@ class CitaRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('cit.id AS citId')
-                            ->from('MinsalSimagdBundle:ImgCita', 'cit')
+                            ->from('MinsalSimagdBundle:RyxCitaProgramada', 'cit')
                             ->where('cit.idSolicitudEstudio = :id_prc')
                             ->setParameter('id_prc', $idSolicitudEstudio)
                             ->andWhere('cit.idEstablecimiento = :id_est')
@@ -309,7 +309,7 @@ class CitaRepository extends EntityRepository
                             ->addSelect('CASE WHEN (tcnlcit.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlcit.apellido, \'\'), \', \', COALESCE(tcnlcit.nombre, \'\')) ELSE \'\' END AS cit_tecnologo, tcnlcit.id AS cit_id_tecnologo')
                             ->addSelect('CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS prc_solicitante')
                             ->addSelect('CASE WHEN (radXInd.id IS NOT NULL) THEN CONCAT(COALESCE(radXInd.apellido, \'\'), \', \', COALESCE(radXInd.nombre, \'\')) ELSE \'\' END AS prc_radXInd, radXInd.id AS prc_id_radXInd')
-                            ->from('MinsalSimagdBundle:ImgCita', 'cit')
+                            ->from('MinsalSimagdBundle:RyxCitaProgramada', 'cit')
                             ->leftJoin('cit.idSolicitudEstudio', 'prc')
                             ->innerJoin('cit.idEmpleado', 'empcit')
                             ->innerJoin('cit.idEstadoCita', 'statuscit')
@@ -354,7 +354,7 @@ class CitaRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {

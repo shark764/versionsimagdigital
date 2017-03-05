@@ -18,7 +18,7 @@ class MaterialRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('mtrLc')
-                            ->from('MinsalSimagdBundle:ImgCtlMaterialEstablecimiento', 'mtrLc')
+                            ->from('MinsalSimagdBundle:RyxCtlMaterialEstablecimiento', 'mtrLc')
                             ->where('mtrl.id = mtrLc.idMaterial')
                             ->andWhere('mtrLc.idEstablecimiento = :id_est');
 
@@ -26,7 +26,7 @@ class MaterialRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('mtrl')
-                            ->from('MinsalSimagdBundle:ImgCtlMaterial', 'mtrl');
+                            ->from('MinsalSimagdBundle:RyxCtlMaterial', 'mtrl');
 
         $query->andWhere($query->expr()->not($query->expr()->exists($subQuery->getDql())))
                             ->setParameter('id_est', $id_estab);
@@ -43,8 +43,8 @@ class MaterialRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('mtrl')
-                            ->from('MinsalSimagdBundle:ImgCtlMaterial', 'mtrl')
-                            ->innerJoin('MinsalSimagdBundle:ImgCtlMaterialEstablecimiento', 'mtrLc',
+                            ->from('MinsalSimagdBundle:RyxCtlMaterial', 'mtrl')
+                            ->innerJoin('MinsalSimagdBundle:RyxCtlMaterialEstablecimiento', 'mtrLc',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                     'mtrl.id = mtrLc.idMaterial')
                             ->where('mtrLc.idEstablecimiento = :id_est')
@@ -62,7 +62,7 @@ class MaterialRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('mtrLc', 'mtrl')
-                            ->from('MinsalSimagdBundle:ImgCtlMaterialEstablecimiento', 'mtrLc')
+                            ->from('MinsalSimagdBundle:RyxCtlMaterialEstablecimiento', 'mtrLc')
                             ->innerJoin('mtrLc.idMaterial', 'mtrl')
                             ->where('mtrLc.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
@@ -80,7 +80,7 @@ class MaterialRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('mtrLc')
-                            ->from('MinsalSimagdBundle:ImgCtlMaterialEstablecimiento', 'mtrLc')
+                            ->from('MinsalSimagdBundle:RyxCtlMaterialEstablecimiento', 'mtrLc')
                             ->where('mtrl.id = mtrLc.idMaterial')
                             ->andWhere('mtrLc.idEstablecimiento = :id_est');
 
@@ -88,7 +88,7 @@ class MaterialRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('mtrl.id AS mtrlId')
-                            ->from('MinsalSimagdBundle:ImgCtlMaterial', 'mtrl')
+                            ->from('MinsalSimagdBundle:RyxCtlMaterial', 'mtrl')
                             ->where('mtrl.id = :id_mtrl')
                             ->setParameter('id_mtrl', $idMaterial);
 
@@ -106,7 +106,7 @@ class MaterialRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder('mtrl')
                             ->select('mtrl')
-                            ->from('MinsalSimagdBundle:ImgCtlMaterial', 'mtrl')
+                            ->from('MinsalSimagdBundle:RyxCtlMaterial', 'mtrl')
                             ->orderBy('mtrl.id', 'DESC')
                             ->distinct();
 
@@ -119,7 +119,7 @@ class MaterialRepository extends EntityRepository
                         ->createQueryBuilder('mtrLc')
                             ->select('mtrLc')
                             ->addSelect('mtrl')
-                            ->from('MinsalSimagdBundle:ImgCtlMaterialEstablecimiento', 'mtrLc')
+                            ->from('MinsalSimagdBundle:RyxCtlMaterialEstablecimiento', 'mtrLc')
                             ->innerJoin('mtrLc.idMaterial', 'mtrl')
                             ->where('mtrLc.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
@@ -135,7 +135,7 @@ class MaterialRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('mtrLc.id AS mtrLcId')
-                            ->from('MinsalSimagdBundle:ImgCtlMaterialEstablecimiento', 'mtrLc')
+                            ->from('MinsalSimagdBundle:RyxCtlMaterialEstablecimiento', 'mtrLc')
                             ->where('mtrLc.idMaterial = :id_mtrl')
                             ->setParameter('id_mtrl', $idMaterial)
                             ->andWhere('mtrLc.idEstablecimiento = :id_est')
@@ -158,7 +158,7 @@ class MaterialRepository extends EntityRepository
                             ->addSelect('usrRg.username AS mtrl_usernameUserReg, usrRg.id AS mtrl_id_userReg, usrMd.username AS mtrl_usernameUserMod, usrMd.id AS mtrl_id_userMod')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS mtrl_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS mtrl_nombreUserMod')
-                            ->from('MinsalSimagdBundle:ImgCtlMaterial', 'mtrl')
+                            ->from('MinsalSimagdBundle:RyxCtlMaterial', 'mtrl')
                             ->innerJoin('mtrl.idSubgrupoMaterial', 'sgm')
                             ->innerJoin('sgm.idGrupoMaterial', 'gm')
                             ->innerJoin('mtrl.idUserReg', 'usrRg')
@@ -171,7 +171,7 @@ class MaterialRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -199,7 +199,7 @@ class MaterialRepository extends EntityRepository
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS mtrLc_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS mtrLc_nombreUserMod')
                             ->addSelect('CONCAT(COALESCE(usrRgMtrlEmp.apellido, \'\'), \', \', COALESCE(usrRgMtrlEmp.nombre, \'\')) AS mtrl_nombreUserReg')
-                            ->from('MinsalSimagdBundle:ImgCtlMaterialEstablecimiento', 'mtrLc')
+                            ->from('MinsalSimagdBundle:RyxCtlMaterialEstablecimiento', 'mtrLc')
                             ->innerJoin('mtrLc.idMaterial', 'mtrl')
                             ->innerJoin('mtrl.idSubgrupoMaterial', 'sgm')
                             ->innerJoin('sgm.idGrupoMaterial', 'gm')
@@ -218,7 +218,7 @@ class MaterialRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -236,7 +236,7 @@ class MaterialRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder('mtrl')
                             ->select('mtrl')
-                            ->from('MinsalSimagdBundle:ImgCtlMaterial', 'mtrl')
+                            ->from('MinsalSimagdBundle:RyxCtlMaterial', 'mtrl')
                             ->orderBy('mtrl.id', 'DESC')
                             ->distinct();
 

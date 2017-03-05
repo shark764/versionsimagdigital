@@ -17,7 +17,7 @@ class SolicitudDiagnosticoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('soldiag.id AS soldiagId')
-                            ->from('MinsalSimagdBundle:ImgSolicitudDiagnostico', 'soldiag')
+                            ->from('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio', 'soldiag')
                             ->innerJoin('soldiag.idSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
                             ->where('soldiag.id = :id_soldiag')
@@ -41,7 +41,7 @@ class SolicitudDiagnosticoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('soldiag.id AS soldiagId')
-                            ->from('MinsalSimagdBundle:ImgSolicitudDiagnostico', 'soldiag')
+                            ->from('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio', 'soldiag')
                             ->where('soldiag.id = :id_soldiag')
                             ->setParameter('id_soldiag', $id)
                             ->andWhere('soldiag.idUserReg = :id_user_soldiag_reg')
@@ -58,7 +58,7 @@ class SolicitudDiagnosticoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('soldiag.id AS soldiagId')
-                            ->from('MinsalSimagdBundle:ImgSolicitudDiagnostico', 'soldiag')
+                            ->from('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio', 'soldiag')
                             ->innerJoin('soldiag.idSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
                             ->where('soldiag.id = :id_soldiag')
@@ -74,9 +74,9 @@ class SolicitudDiagnosticoRepository extends EntityRepository
     
     public function bloquearSolDiagnostico($idPrc = '-1')
     {
-        $prc_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');  // --| entity manager for ImgSolicitudEstudio
+        $prc_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');  // --| entity manager for RyxSolicitudEstudio
         
-        return ($prc_er_model->estudioPreinscritoFueAlmacenado($idPrc) || $prc_er_model->existeRegistroPorPreinscripcion($idPrc, 'soldiag', 'ImgSolicitudDiagnostico') ||
+        return ($prc_er_model->estudioPreinscritoFueAlmacenado($idPrc) || $prc_er_model->existeRegistroPorPreinscripcion($idPrc, 'soldiag', 'RyxSolicitudDiagnosticoPostEstudio') ||
                         $prc_er_model->existeLecturaPorPreinscripcion($idPrc));
     }
     
@@ -85,7 +85,7 @@ class SolicitudDiagnosticoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('soldiag')
-                            ->from('MinsalSimagdBundle:ImgSolicitudDiagnostico', 'soldiag')
+                            ->from('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio', 'soldiag')
                             ->innerJoin('soldiag.idSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams');
 
@@ -123,7 +123,7 @@ class SolicitudDiagnosticoRepository extends EntityRepository
                             ->addSelect('usrRg.username AS soldiag_usernameUserReg, usrRg.id AS soldiag_id_userReg')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS soldiag_nombreUserReg')
                             ->addSelect('CASE WHEN (tcnlprz.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) ELSE \'\' END AS prz_tecnologo')
-                            ->from('MinsalSimagdBundle:ImgSolicitudDiagnostico', 'soldiag')
+                            ->from('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio', 'soldiag')
                             ->innerJoin('soldiag.idSolicitudEstudio', 'prc')
                             ->leftJoin('soldiag.idEstudio', 'est')
                             ->leftJoin('est.idProcedimientoRealizado', 'prz')
@@ -170,7 +170,7 @@ class SolicitudDiagnosticoRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {

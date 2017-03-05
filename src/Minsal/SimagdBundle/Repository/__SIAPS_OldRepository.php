@@ -36,7 +36,7 @@ class __SIAPS_OldRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prc')
-                            ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
+                            ->from('MinsalSimagdBundle:RyxSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
                             ->innerJoin('aams.idAreaModEstab', 'ams')
                             ->where('ar.id = ams.idAreaAtencion');

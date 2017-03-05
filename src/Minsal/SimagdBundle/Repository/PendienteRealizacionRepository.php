@@ -18,7 +18,7 @@ class PendienteRealizacionRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prz')
-                            ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz');
+                            ->from('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado', 'prz');
                            // ->where('prz.idEstadoProcedimientoRealizado NOT IN (5, 6, 7, 8, 9)');
 
         $subQuery->andWhere($subQuery->expr()->orx(
@@ -55,7 +55,7 @@ class PendienteRealizacionRepository extends EntityRepository
                             ->addSelect('CASE WHEN (empcmpl.id IS NOT NULL) THEN CONCAT(COALESCE(empcmpl.apellido, \'\'), \', \', COALESCE(empcmpl.nombre, \'\')) ELSE \'\' END AS solcmpl_solicitante')
                             ->addSelect('mcmpl.nombrearea AS solcmpl_modalidad, prAtnCmpl.nombre AS solcmpl_prioridadAtencion, prAtnCmpl.codigo AS solcmpl_codigoPrioridad')
 
-                            ->from('MinsalSimagdBundle:ImgPendienteRealizacion', 'pndR')
+                            ->from('MinsalSimagdBundle:RyxExamenPendienteRealizacion', 'pndR')
                             ->innerJoin('pndR.idEstablecimiento', 'stdPndR')
 
                             ->leftJoin('pndR.idSolicitudEstudio', 'prc')
@@ -103,7 +103,7 @@ class PendienteRealizacionRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -122,7 +122,7 @@ class PendienteRealizacionRepository extends EntityRepository
         //         $subQuery = $this->getEntityManager()
         //                         ->createQueryBuilder()
         //                             ->select('prz')
-        //                             ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz');
+        //                             ->from('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado', 'prz');
         // //                            ->where('prz.idEstadoProcedimientoRealizado NOT IN (5, 6, 7, 8, 9)');
         //
         //         $subQuery->andWhere($subQuery->expr()->orx(
@@ -161,7 +161,7 @@ class PendienteRealizacionRepository extends EntityRepository
                             ->addSelect('CASE WHEN (empcmpl.id IS NOT NULL) THEN CONCAT(COALESCE(empcmpl.apellido, \'\'), \', \', COALESCE(empcmpl.nombre, \'\')) ELSE \'\' END AS solcmpl_solicitante')
                             ->addSelect('mcmpl.nombrearea AS solcmpl_modalidad, prAtnCmpl.nombre AS solcmpl_prioridadAtencion, prAtnCmpl.codigo AS solcmpl_codigoPrioridad')
 
-                            ->from('MinsalSimagdBundle:ImgPendienteRealizacion', 'pndR')
+                            ->from('MinsalSimagdBundle:RyxExamenPendienteRealizacion', 'pndR')
                             ->innerJoin('pndR.idEstablecimiento', 'stdPndR')
 
                             ->innerJoin('pndR.idProcedimientoIniciado', 'prz')
@@ -215,7 +215,7 @@ class PendienteRealizacionRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {

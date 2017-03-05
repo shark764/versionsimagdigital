@@ -17,7 +17,7 @@ class ProcedimientoRealizadoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prz')
-                            ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz')
+                            ->from('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado', 'prz')
                             ->innerJoin('prz.idSolicitudEstudio', 'prc')
                             ->where('prc.idExpediente = :id_exp')
                             ->setParameter('id_exp', $idExpediente)
@@ -34,7 +34,7 @@ class ProcedimientoRealizadoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prz.id AS przId')
-                            ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz')
+                            ->from('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado', 'prz')
                             ->innerJoin('prz.idSolicitudEstudio', 'prc')
                             ->where('prz.id = :id_prz')
                             ->setParameter('id_prz', $id)
@@ -52,7 +52,7 @@ class ProcedimientoRealizadoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prz')
-                            ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz')
+                            ->from('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado', 'prz')
                             ->innerJoin('prz.idSolicitudEstudio', 'prc')
                             ->andWhere('prc.idEstablecimientoReferido = :id_est_ref')
                             ->setParameter('id_est_ref', $id_estab);
@@ -70,7 +70,7 @@ class ProcedimientoRealizadoRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prz')
-                            ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz')
+                            ->from('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado', 'prz')
                            // ->where('prz.idEstadoProcedimientoRealizado NOT IN (5, 6, 7, 8, 9)')
                             ->andWhere('prz.idSolicitudEstudio = pndR.idSolicitudEstudio');
                 
@@ -78,7 +78,7 @@ class ProcedimientoRealizadoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('pndR')
-                            ->from('MinsalSimagdBundle:ImgPendienteRealizacion', 'pndR')
+                            ->from('MinsalSimagdBundle:RyxExamenPendienteRealizacion', 'pndR')
                             ->where('pndR.idEstablecimiento = :id_est_ref')
                             ->setParameter('id_est_ref', $id_estab)
                             ->orderBy('pndR.fechaIngresoLista', 'ASC')
@@ -97,7 +97,7 @@ class ProcedimientoRealizadoRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prz')
-                            ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz')
+                            ->from('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado', 'prz')
                             ->where('prz.idUserReg = :id_user')
                             ->andWhere('prz.idEstadoProcedimientoRealizado NOT IN (5, 6, 7, 8, 9)')
                             ->andWhere('prz.idSolicitudEstudio = pndR.idSolicitudEstudio');
@@ -106,7 +106,7 @@ class ProcedimientoRealizadoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('pndR')
-                            ->from('MinsalSimagdBundle:ImgPendienteRealizacion', 'pndR')
+                            ->from('MinsalSimagdBundle:RyxExamenPendienteRealizacion', 'pndR')
                             ->where('pndR.idEstablecimiento = :id_est_ref')
                             ->setParameter('id_est_ref', $id_estab)
                             ->orderBy('pndR.fechaIngresoLista', 'ASC')
@@ -152,7 +152,7 @@ class ProcedimientoRealizadoRepository extends EntityRepository
                             // ->addSelect('CASE WHEN (empcmpl.id IS NOT NULL) THEN CONCAT(COALESCE(empcmpl.apellido, \'\'), \', \', COALESCE(empcmpl.nombre, \'\')) ELSE \'\' END AS solcmpl_solicitante')
                             // ->addSelect('mcmpl.nombrearea AS solcmpl_modalidad, prAtnCmpl.nombre AS solcmpl_prioridadAtencion, prAtnCmpl.codigo AS solcmpl_codigoPrioridad')
                             
-                            ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz')
+                            ->from('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado', 'prz')
                             ->innerJoin('prz.idEstadoProcedimientoRealizado', 'statusprz')
                             ->innerJoin('prz.idTecnologoRealiza', 'tcnlprz')
                             // ->leftJoin('tcnlprz.idTipoEmpleado', 'tpEmp')
@@ -208,7 +208,7 @@ class ProcedimientoRealizadoRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -226,8 +226,8 @@ class ProcedimientoRealizadoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('prz.idTecnologoRealiza AS prz_id_tcnl, COUNT(prz.id) AS prz_num_realizados')
-                            ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz')
-                            ->leftJoin('MinsalSimagdBundle:ImgEstudioPaciente', 'est',
+                            ->from('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado', 'prz')
+                            ->leftJoin('MinsalSimagdBundle:RyxEstudioPorImagenes', 'est',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                     'prz.id = est.idProcedimientoRealizado')
                             ->innerJoin('cit.idSolicitudEstudio', 'prc')
@@ -247,18 +247,18 @@ class ProcedimientoRealizadoRepository extends EntityRepository
     
     public function getSourceDataEstado($id_estab, $alias = 'prz')
     {
-        $entity     = 'ImgCtlEstadoProcedimientoRealizado';
+        $entity     = 'RyxCtlEstadoProcedimientoRealizado';
         if ($alias === 'cit')
         {
-            $entity = 'ImgCtlEstadoCita';
+            $entity = 'RyxCtlEstadoCita';
         }
         if ($alias === 'lct')
         {
-            $entity = 'ImgCtlEstadoLectura';
+            $entity = 'RyxCtlEstadoLectura';
         }
         if ($alias === 'diag')
         {
-            $entity = 'ImgCtlEstadoDiagnostico';
+            $entity = 'RyxCtlEstadoDiagnostico';
         }
         $query      = $this->getEntityManager()
                         ->createQueryBuilder()

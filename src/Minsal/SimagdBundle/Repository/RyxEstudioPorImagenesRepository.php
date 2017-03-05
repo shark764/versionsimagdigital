@@ -17,7 +17,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('est')
-                            ->from('MinsalSimagdBundle:ImgEstudioPaciente', 'est')
+                            ->from('MinsalSimagdBundle:RyxEstudioPorImagenes', 'est')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
                             ->where('prz.idSolicitudEstudio = :id_prc')
                             ->setParameter('id_prc', $idSolicitudEstudio);
@@ -34,7 +34,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('m')
-                            ->from('MinsalSimagdBundle:ImgEstudioPaciente', 'm')
+                            ->from('MinsalSimagdBundle:RyxEstudioPorImagenes', 'm')
                             ->where('m.idProcedimientoRealizado = :id_proc')
                             ->setParameter('id_proc', $idProcedimiento);
         $query->distinct();
@@ -47,7 +47,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
         $query = $this->getEntityManager()
                 ->createQueryBuilder()
                 ->select('u')
-                ->from('MinsalSimagdBundle:ImgEstudioPaciente', 'u')
+                ->from('MinsalSimagdBundle:RyxEstudioPorImagenes', 'u')
                 ->where('u.estudioUid = :estudio_iuid')
                 ->setParameter('estudio_iuid', $iuid);
 
@@ -65,7 +65,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('lctEst')
-                            ->from('MinsalSimagdBundle:ImgLecturaEstudio', 'lctEst')
+                            ->from('MinsalSimagdBundle:RyxLecturaEstudio', 'lctEst')
                             ->innerJoin('lctEst.idLectura', 'lct')
                             ->where('est.id = lctEst.idEstudio')
                             ->andWhere('lct.idEstablecimiento = :id_est');
@@ -74,7 +74,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
 	$subQuery4 = $this->getEntityManager()
 			->createQueryBuilder()
                             ->select('soldiag')
-                            ->from('MinsalSimagdBundle:ImgSolicitudDiagnostico', 'soldiag')
+                            ->from('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio', 'soldiag')
 			    ->where('est.id = soldiag.idEstudio')
 			    ->andWhere('soldiag.idEstablecimientoSolicitado = :id_est_sol');
 
@@ -82,8 +82,8 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
 	$subQuery5 = $this->getEntityManager()
 			->createQueryBuilder()
                             ->select('prc')
-                            ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
-                            ->innerJoin('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz_2',
+                            ->from('MinsalSimagdBundle:RyxSolicitudEstudio', 'prc')
+                            ->innerJoin('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado', 'prz_2',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                     'prc.id = prz_2.idSolicitudEstudio')
 			    ->where('prz.id = prz_2.id')
@@ -94,7 +94,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
 	$subQuery6 = $this->getEntityManager()
 			->createQueryBuilder()
                             ->select('pndL')
-                            ->from('MinsalSimagdBundle:ImgPendienteLectura', 'pndL')
+                            ->from('MinsalSimagdBundle:RyxEstudioPendienteLectura', 'pndL')
 			    ->where('est.id = pndL.idEstudio')
 			    ->andWhere('pndL.idEstablecimiento = :id_est_2');
 
@@ -102,7 +102,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('est', 'prz')
-                            ->from('MinsalSimagdBundle:ImgEstudioPaciente', 'est')
+                            ->from('MinsalSimagdBundle:RyxEstudioPorImagenes', 'est')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz');
 
         if ($idLectura) {
@@ -110,7 +110,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
             $subQuery2 = $this->getEntityManager()
                             ->createQueryBuilder()
                                 ->select('lctEst2')
-                                ->from('MinsalSimagdBundle:ImgLecturaEstudio', 'lctEst2')
+                                ->from('MinsalSimagdBundle:RyxLecturaEstudio', 'lctEst2')
                                 ->where('est.id = lctEst2.idEstudio')
                                 ->andWhere('lctEst2.idLectura = :id_lct');
 
@@ -125,7 +125,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
             $subQuery3 = $this->getEntityManager()
                             ->createQueryBuilder()
                                 ->select('lct_2')
-				->from('MinsalSimagdBundle:ImgLectura', 'lct_2')
+				->from('MinsalSimagdBundle:RyxLecturaRadiologica', 'lct_2')
                                 ->where('est.id = lct_2.idEstudio')
 				->andWhere('lct_2.solicitadaPorRadiologo = TRUE')
                                 ->andWhere('lct_2.id = :id_lct_2');
@@ -196,7 +196,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
                             ->addSelect('exp')
                             ->addSelect('CONCAT(pct.primerApellido, \' \', COALESCE(pct.segundoApellido, \'\'), \', \', pct.primerNombre, \' \', COALESCE(pct.segundoNombre, \'\')) AS est_paciente')
                             ->addSelect('stdest.nombre AS est_almacenado, stdest.id AS est_id_almacenado')
-                            ->from('MinsalSimagdBundle:ImgEstudioPaciente', 'est')
+                            ->from('MinsalSimagdBundle:RyxEstudioPorImagenes', 'est')
                             ->innerJoin('est.idExpediente', 'exp')
                             ->innerJoin('exp.idPaciente', 'pct')
                             ->innerJoin('est.idEstablecimiento', 'stdest')
@@ -252,7 +252,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('COUNT(lct.id) AS numReg')
-                            ->from('MinsalSimagdBundle:ImgLectura', 'lct')
+                            ->from('MinsalSimagdBundle:RyxLecturaRadiologica', 'lct')
                             ->where('lct.idEstudio = :id_est')
                             ->setParameter('id_est', $idEstudio);
 
@@ -267,7 +267,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('COUNT(pndL.id) AS numReg')
-                            ->from('MinsalSimagdBundle:ImgPendienteLectura', 'pndL')
+                            ->from('MinsalSimagdBundle:RyxEstudioPendienteLectura', 'pndL')
                             ->where('pndL.idEstudio = :id_est')
                             ->setParameter('id_est', $idEstudio);
 
@@ -282,7 +282,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('COUNT(lctEst.id) AS numReg')
-                            ->from('MinsalSimagdBundle:ImgLecturaEstudio', 'lctEst')
+                            ->from('MinsalSimagdBundle:RyxLecturaEstudio', 'lctEst')
                             ->where('lctEst.idEstudio = :id_est')
                             ->setParameter('id_est', $idEstudio);
 
@@ -325,7 +325,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
                             ->addSelect('CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) AS prz_tecnologo, tcnlprz.id AS prz_id_tecnologo')
                             ->addSelect('stdest.nombre AS est_almacenado, stdest.id AS est_id_almacenado')
                             ->addSelect('mcmpl.nombrearea AS solcmpl_modalidad, mcmpl.id AS solcmpl_id_modalidad, prAtnCmpl.nombre AS solcmpl_prioridadAtencion, prAtnCmpl.id AS solcmpl_id_prioridad, prAtnCmpl.codigo AS solcmpl_codigoPrioridad')
-                            ->from('MinsalSimagdBundle:ImgEstudioPaciente', 'est')
+                            ->from('MinsalSimagdBundle:RyxEstudioPorImagenes', 'est')
                             ->innerJoin('est.idEstablecimiento', 'stdest')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
                             ->innerJoin('prz.idEstadoProcedimientoRealizado', 'statusprz')
@@ -409,7 +409,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -432,7 +432,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('lctEst')
-                            ->from('MinsalSimagdBundle:ImgLecturaEstudio', 'lctEst')
+                            ->from('MinsalSimagdBundle:RyxLecturaEstudio', 'lctEst')
 //                             ->innerJoin('lctEst.idLectura', 'lct')
                             ->where('est.id = lctEst.idEstudio');
 //                             ->andWhere('lct.idEstablecimiento = :id_est');
@@ -441,7 +441,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
 	$subQuery2 = $this->getEntityManager()
 			->createQueryBuilder()
                             ->select('soldiag')
-                            ->from('MinsalSimagdBundle:ImgSolicitudDiagnostico', 'soldiag')
+                            ->from('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio', 'soldiag')
 			    ->where('est.id = soldiag.idEstudio')
                             ->andWhere('soldiag.idSolicitudEstudio = :id_prc_2');
 // 			    ->andWhere('soldiag.idEstablecimientoSolicitado = :id_est_2');
@@ -450,7 +450,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
 	$subQuery3 = $this->getEntityManager()
 			->createQueryBuilder()
 			    ->select('lct')
-			    ->from('MinsalSimagdBundle:ImgLectura', 'lct')
+			    ->from('MinsalSimagdBundle:RyxLecturaRadiologica', 'lct')
 			    ->where('est.id = lct.idEstudio');
 //                             ->andWhere('lct.idEstablecimiento = :id_est_3');
 
@@ -458,7 +458,7 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder('est')
                             ->select('est')
-                            ->from('MinsalSimagdBundle:ImgEstudioPaciente', 'est')
+                            ->from('MinsalSimagdBundle:RyxEstudioPorImagenes', 'est')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
                             ->where('prz.idSolicitudEstudio = :id_prc')
                             ->setParameter('id_prc', $prc_id)

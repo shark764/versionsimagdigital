@@ -15,7 +15,7 @@ class RyxLecturaRadiologicaRepository extends EntityRepository
     public function obtenerTiposResultadoList()
     {
         $tiposResultado = $this->getEntityManager()
-                    ->getRepository('MinsalSimagdBundle:ImgCtlTipoResultado')->findAll();
+                    ->getRepository('MinsalSimagdBundle:RyxCtlTipoRespuestaRadiologica')->findAll();
 
         $list = array();
 
@@ -37,7 +37,7 @@ class RyxLecturaRadiologicaRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('MAX(lct.correlativo) AS maxCod, IDENTITY(lct.idEstablecimiento), IDENTITY(prc.idAreaServicioDiagnostico )')
-                            ->from('MinsalSimagdBundle:ImgLectura', 'lct')
+                            ->from('MinsalSimagdBundle:RyxLecturaRadiologica', 'lct')
                             ->innerJoin('lct.idEstudio', 'est')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
                             ->innerJoin('prz.idSolicitudEstudio', 'prc')
@@ -80,7 +80,7 @@ class RyxLecturaRadiologicaRepository extends EntityRepository
                             // ->addSelect('usrRg.username AS lct_usernameUserReg, usrRg.id AS lct_id_userReg')
                             // ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS lct_nombreUserReg')
                             // ->addSelect('CASE WHEN (tcnlprz.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) ELSE \'\' END AS prz_tecnologo')
-                            ->from('MinsalSimagdBundle:ImgLectura', 'lct')
+                            ->from('MinsalSimagdBundle:RyxLecturaRadiologica', 'lct')
                             ->innerJoin('lct.idEstadoLectura', 'statuslct')
                             ->innerJoin('lct.idTipoResultado', 'tipoR')
                             ->innerJoin('lct.idEmpleado', 'emplct')
@@ -128,7 +128,7 @@ class RyxLecturaRadiologicaRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {

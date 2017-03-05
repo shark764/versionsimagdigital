@@ -26,7 +26,7 @@ class RyxEstudioPendienteLecturaRepository extends EntityRepository
         /*
          * Query
          */
-        $q  = $qb->update('MinsalSimagdBundle:ImgPendienteLectura', 'pndL')
+        $q  = $qb->update('MinsalSimagdBundle:RyxEstudioPendienteLectura', 'pndL')
                     ->set('pndL.idRadiologoAsignado', $qb->expr()->literal($id_radX))
                     ->set('pndL.idAsignaRadiologo', $qb->expr()->literal($id_empUsserAssign))
                     ->where('pndL.idEstablecimiento = :id_est_pndL')
@@ -46,7 +46,7 @@ class RyxEstudioPendienteLecturaRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('lct')
-                            ->from('MinsalSimagdBundle:ImgLectura', 'lct')
+                            ->from('MinsalSimagdBundle:RyxLecturaRadiologica', 'lct')
                             // ->where('lct.idEstadoLectura NOT IN ( 4, 5, 6 )')
                             ->andWhere('lct.idEstudio = pndL.idEstudio');
 
@@ -54,7 +54,7 @@ class RyxEstudioPendienteLecturaRepository extends EntityRepository
         $subQuery2 = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('lctEst')
-                            ->from('MinsalSimagdBundle:ImgLecturaEstudio', 'lctEst')
+                            ->from('MinsalSimagdBundle:RyxLecturaEstudio', 'lctEst')
                             // ->where('lctEst.idEstadoLectura NOT IN ( 4, 5, 6 )')
                             ->andWhere('lctEst.idEstudio = pndL.idEstudio');
 
@@ -83,7 +83,7 @@ class RyxEstudioPendienteLecturaRepository extends EntityRepository
                             ->addSelect('stdPacs.nombre AS est_establecimiento, stdPacs.id AS est_id_establecimiento, stdPndL.nombre AS pndL_establecimiento, stdPndL.id AS pndL_id_establecimiento')
                             ->addSelect('m.nombrearea AS prc_modalidad, m.id AS prc_id_modalidad, prAtn.nombre AS prc_prioridadAtencion, prAtn.codigo AS prc_codigoPrioridad, frCt.nombre AS prc_formaContacto, ctPct.parentesco AS prc_contactoPaciente')
                             ->addSelect('mcmpl.nombrearea AS solcmpl_modalidad, prAtnCmpl.nombre AS solcmpl_prioridadAtencion, prAtnCmpl.codigo AS solcmpl_codigoPrioridad')
-                            ->from('MinsalSimagdBundle:ImgPendienteLectura', 'pndL')
+                            ->from('MinsalSimagdBundle:RyxEstudioPendienteLectura', 'pndL')
                             ->leftJoin('pndL.idRadiologoAnexa', 'empradxpndL')
                             ->innerJoin('pndL.idEstudio', 'est')
                             ->innerJoin('est.idProcedimientoRealizado', 'prz')
@@ -110,7 +110,7 @@ class RyxEstudioPendienteLecturaRepository extends EntityRepository
                             ->leftJoin('solcmpl.idRadiologoSolicita', 'empcmpl')
                             ->leftJoin('solcmpl.idPrioridadAtencion', 'prAtnCmpl')
                             ->leftJoin('solcmpl.idEstudioPadre', 'estPdr')
-                            ->leftJoin('MinsalSimagdBundle:ImgLectura', 'lctPdr',
+                            ->leftJoin('MinsalSimagdBundle:RyxLecturaRadiologica', 'lctPdr',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                     'estPdr.id = lctPdr.idEstudio')
                             ->where('pndL.idEstablecimiento = :id_est_diag')
@@ -137,7 +137,7 @@ class RyxEstudioPendienteLecturaRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -177,8 +177,8 @@ class RyxEstudioPendienteLecturaRepository extends EntityRepository
                             ->addSelect('stdPacs.nombre AS est_establecimiento, stdPacs.id AS est_id_establecimiento, stdPndL.nombre AS pndL_establecimiento, stdPndL.id AS pndL_id_establecimiento')
                             ->addSelect('m.nombrearea AS prc_modalidad, m.id AS prc_id_modalidad, prAtn.nombre AS prc_prioridadAtencion, prAtn.codigo AS prc_codigoPrioridad, frCt.nombre AS prc_formaContacto, ctPct.parentesco AS prc_contactoPaciente')
                             ->addSelect('mcmpl.nombrearea AS solcmpl_modalidad, prAtnCmpl.nombre AS solcmpl_prioridadAtencion, prAtnCmpl.codigo AS solcmpl_codigoPrioridad')
-                            ->from('MinsalSimagdBundle:ImgPendienteLectura', 'pndL')
-                            ->innerJoin('MinsalSimagdBundle:ImgLectura', 'lct',
+                            ->from('MinsalSimagdBundle:RyxEstudioPendienteLectura', 'pndL')
+                            ->innerJoin('MinsalSimagdBundle:RyxLecturaRadiologica', 'lct',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                     'lct.idEstudio = pndL.idEstudio')
                             ->innerJoin('lct.idEstadoLectura', 'statuslct')
@@ -234,7 +234,7 @@ class RyxEstudioPendienteLecturaRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {

@@ -20,7 +20,7 @@ class PacsEstablecimientoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('m')
-                            ->from('MinsalSimagdBundle:ImgCtlPacsEstablecimiento', 'm')
+                            ->from('MinsalSimagdBundle:RyxCtlConexionPacsEstablecimiento', 'm')
                             ->where('m.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
                             ->andWhere('m.habilitado = :habilitado')
@@ -44,7 +44,7 @@ class PacsEstablecimientoRepository extends EntityRepository
                             ->addSelect('usrRg.username AS pacs_usernameUserReg, usrRg.id AS pacs_id_userReg, usrMd.username AS pacs_usernameUserMod, usrMd.id AS pacs_id_userMod')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS pacs_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS pacs_nombreUserMod')
-                            ->from('MinsalSimagdBundle:ImgCtlPacsEstablecimiento', 'pacs')
+                            ->from('MinsalSimagdBundle:RyxCtlConexionPacsEstablecimiento', 'pacs')
                             ->innerJoin('pacs.idEstablecimiento', 'stdpacs')
                             ->innerJoin('pacs.idMotor', 'mtrBd')
                             ->innerJoin('pacs.idUserReg', 'usrRg')
@@ -58,7 +58,7 @@ class PacsEstablecimientoRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -76,7 +76,7 @@ class PacsEstablecimientoRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('pacs')
-                            ->from('MinsalSimagdBundle:ImgCtlPacsEstablecimiento', 'pacs')
+                            ->from('MinsalSimagdBundle:RyxCtlConexionPacsEstablecimiento', 'pacs')
                             ->where('pacs.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estab)
                             ->andWhere('pacs.habilitado = TRUE')

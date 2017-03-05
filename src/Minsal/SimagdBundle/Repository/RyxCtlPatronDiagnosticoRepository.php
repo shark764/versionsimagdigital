@@ -28,7 +28,7 @@ class RyxCtlPatronDiagnosticoRepository extends EntityRepository
                             ->addSelect('usrRg.username AS ptrDiag_usernameUserReg, usrRg.id AS ptrDiag_id_userReg, usrMd.username AS ptrDiag_usernameUserMod, usrMd.id AS ptrDiag_id_userMod')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS ptrDiag_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS ptrDiag_nombreUserMod')
-                            ->from('MinsalSimagdBundle:ImgCtlPatronDiagnostico', 'ptrDiag')
+                            ->from('MinsalSimagdBundle:RyxCtlPatronDiagnostico', 'ptrDiag')
                             ->innerJoin('ptrDiag.idAreaServicioDiagnostico', 'm')
                             ->leftJoin('ptrDiag.idRadiologoDefine', 'radX')
                             ->innerJoin('ptrDiag.idTipoResultado', 'tpR')
@@ -48,7 +48,7 @@ class RyxCtlPatronDiagnosticoRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -78,7 +78,7 @@ class RyxCtlPatronDiagnosticoRepository extends EntityRepository
                             ->select('ptrDiag')
                             ->addSelect('m')
                             ->addSelect('radxPtrDiag')
-                            ->from('MinsalSimagdBundle:ImgCtlPatronDiagnostico', 'ptrDiag')
+                            ->from('MinsalSimagdBundle:RyxCtlPatronDiagnostico', 'ptrDiag')
                             ->innerJoin('ptrDiag.idAreaServicioDiagnostico', 'm')
                             ->leftJoin('ptrDiag.idRadiologoDefine', 'radxPtrDiag')
                             ->where('ptrDiag.habilitado = TRUE')

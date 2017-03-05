@@ -26,7 +26,7 @@ class PendienteValidacionRepository extends EntityRepository
         /*
          * Query
          */
-        $q  = $qb->update('MinsalSimagdBundle:ImgPendienteValidacion', 'pndV')
+        $q  = $qb->update('MinsalSimagdBundle:RyxDiagnosticoPendienteValidacion', 'pndV')
                     ->set('pndV.idRadiologoAsignado', $qb->expr()->literal($id_radX))
                     ->set('pndV.idAsignaValidador', $qb->expr()->literal($id_empUsserAssign))
                     ->where('pndV.idEstablecimiento = :id_est_pndV')
@@ -69,7 +69,7 @@ class PendienteValidacionRepository extends EntityRepository
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS diag_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS diag_nombreUserMod')
                             ->addSelect('CASE WHEN (tcnlprz.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) ELSE \'\' END AS prz_tecnologo')
-                            ->from('MinsalSimagdBundle:ImgPendienteValidacion', 'pndV')
+                            ->from('MinsalSimagdBundle:RyxDiagnosticoPendienteValidacion', 'pndV')
                             ->innerJoin('pndV.idDiagnostico', 'diag')
                             ->innerJoin('diag.idLectura', 'lct')
                             ->leftJoin('diag.idEstadoDiagnostico', 'statusdiag')
@@ -129,7 +129,7 @@ class PendienteValidacionRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {

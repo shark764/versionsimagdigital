@@ -26,7 +26,7 @@ class PendienteTranscripcionRepository extends EntityRepository
         /*
          * Query
          */
-        $q  = $qb->update('MinsalSimagdBundle:ImgPendienteTranscripcion', 'pndT')
+        $q  = $qb->update('MinsalSimagdBundle:RyxLecturaPendienteTranscripcion', 'pndT')
                     ->set('pndT.idTranscriptorAsignado', $qb->expr()->literal($id_trcX))
                     ->set('pndT.idAsignaTranscriptor', $qb->expr()->literal($id_empUsserAssign))
                     ->where('pndT.idEstablecimiento = :id_est_pndT')
@@ -46,7 +46,7 @@ class PendienteTranscripcionRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('diag')
-                            ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
+                            ->from('MinsalSimagdBundle:RyxDiagnosticoRadiologico', 'diag')
                             // ->where('diag.idEstadoDiagnostico NOT IN ( 3, 5, 6 )')
                             ->andWhere('diag.idLectura = pndT.idLectura');
 
@@ -74,7 +74,7 @@ class PendienteTranscripcionRepository extends EntityRepository
                             ->addSelect('usrRg.username AS lct_usernameUserReg, usrRg.id AS lct_id_userReg')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS lct_nombreUserReg')
                             ->addSelect('CASE WHEN (tcnlprz.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) ELSE \'\' END AS prz_tecnologo')
-                            ->from('MinsalSimagdBundle:ImgPendienteTranscripcion', 'pndT')
+                            ->from('MinsalSimagdBundle:RyxLecturaPendienteTranscripcion', 'pndT')
                             ->innerJoin('pndT.idLectura', 'lct')
                             ->innerJoin('lct.idEstadoLectura', 'statuslct')
                             ->innerJoin('lct.idTipoResultado', 'tipoR')
@@ -104,7 +104,7 @@ class PendienteTranscripcionRepository extends EntityRepository
                             ->leftJoin('exp.idPaciente', 'pct')
                             ->innerJoin('usrRg.idEmpleado', 'usrRgEmp')
                             ->leftJoin('emplct.idTipoEmpleado', 'tpEmp')
-                            // ->leftJoin('MinsalSimagdBundle:ImgDiagnostico', 'diag',
+                            // ->leftJoin('MinsalSimagdBundle:RyxDiagnosticoRadiologico', 'diag',
                             //         \Doctrine\ORM\Query\Expr\Join::WITH,
                             //         'lct.id = diag.idLectura')
                             ->where('pndT.idEstablecimiento = :id_est_diag')
@@ -127,7 +127,7 @@ class PendienteTranscripcionRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -166,9 +166,9 @@ class PendienteTranscripcionRepository extends EntityRepository
                             ->addSelect('usrRg.username AS lct_usernameUserReg, usrRg.id AS lct_id_userReg')
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS lct_nombreUserReg')
                             ->addSelect('CASE WHEN (tcnlprz.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlprz.apellido, \'\'), \', \', COALESCE(tcnlprz.nombre, \'\')) ELSE \'\' END AS prz_tecnologo')
-                            ->from('MinsalSimagdBundle:ImgPendienteTranscripcion', 'pndT')
+                            ->from('MinsalSimagdBundle:RyxLecturaPendienteTranscripcion', 'pndT')
                             ->innerJoin('pndT.idLectura', 'lct')
-                            ->innerJoin('MinsalSimagdBundle:ImgDiagnostico', 'diag',
+                            ->innerJoin('MinsalSimagdBundle:RyxDiagnosticoRadiologico', 'diag',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                     'lct.id = diag.idLectura')
                             ->innerJoin('diag.idEstadoDiagnostico', 'statusdiag')
@@ -228,7 +228,7 @@ class PendienteTranscripcionRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {

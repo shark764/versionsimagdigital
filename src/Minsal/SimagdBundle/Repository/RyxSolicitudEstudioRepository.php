@@ -33,7 +33,7 @@ class RyxSolicitudEstudioRepository extends EntityRepository
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS prc_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS prc_nombreUserMod')
                             ->addSelect('CASE WHEN (radXInd.id IS NOT NULL) THEN CONCAT(COALESCE(radXInd.apellido, \'\'), \', \', COALESCE(radXInd.nombre, \'\')) ELSE \'\' END AS prc_radXInd, radXInd.id AS prc_id_radXInd')
-                            ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
+                            ->from('MinsalSimagdBundle:RyxSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idEmpleado', 'empprc')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
                             ->innerJoin('prc.idUserReg', 'usrRg')
@@ -84,7 +84,7 @@ class RyxSolicitudEstudioRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -164,7 +164,7 @@ class RyxSolicitudEstudioRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -184,7 +184,7 @@ class RyxSolicitudEstudioRepository extends EntityRepository
         $subQuery = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('cit')
-                            ->from('MinsalSimagdBundle:ImgCita', 'cit')
+                            ->from('MinsalSimagdBundle:RyxCitaProgramada', 'cit')
                             ->where('prc.id = cit.idSolicitudEstudio');
 
         /** Query */
@@ -207,7 +207,7 @@ class RyxSolicitudEstudioRepository extends EntityRepository
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS prc_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS prc_nombreUserMod')
                             ->addSelect('CASE WHEN (radXInd.id IS NOT NULL) THEN CONCAT(COALESCE(radXInd.apellido, \'\'), \', \', COALESCE(radXInd.nombre, \'\')) ELSE \'\' END AS prc_radXInd, radXInd.id AS prc_id_radXInd')
-                            ->from('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
+                            ->from('MinsalSimagdBundle:RyxSolicitudEstudio', 'prc')
                             ->innerJoin('prc.idEmpleado', 'emp')
                             ->innerJoin('prc.idAtenAreaModEstab', 'aams')
                             ->innerJoin('prc.idUserReg', 'usrRg')
@@ -276,7 +276,7 @@ class RyxSolicitudEstudioRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {

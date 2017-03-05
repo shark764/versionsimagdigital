@@ -26,7 +26,7 @@ class RyxCtlProyeccionRadiologicaRepository extends EntityRepository
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS expl_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS expl_nombreUserMod')
                             ->addSelect('CASE WHEN (sex.id IS NOT NULL) THEN sex.nombre ELSE \'Todos los sexos\' END AS exm_sexo')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionRadiologica', 'expl')
                             ->innerJoin('expl.idExamenServicioDiagnostico', 'exm')
                             ->leftJoin('exm.idsexo', 'sex')
                             ->innerJoin('expl.idUserReg', 'usrRg')
@@ -40,7 +40,7 @@ class RyxCtlProyeccionRadiologicaRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -70,7 +70,7 @@ class RyxCtlProyeccionRadiologicaRepository extends EntityRepository
                             ->addSelect('CONCAT(COALESCE(usrRgEmp.apellido, \'\'), \', \', COALESCE(usrRgEmp.nombre, \'\')) AS explrz_nombreUserReg')
                             ->addSelect('CASE WHEN (usrMd.username IS NOT NULL) THEN CONCAT(COALESCE(usrMdEmp.apellido, \'\'), \', \', COALESCE(usrMdEmp.nombre, \'\')) ELSE \'\' END AS explrz_nombreUserMod')
                             ->addSelect('CASE WHEN (sex.id IS NOT NULL) THEN sex.nombre ELSE \'Todos los sexos\' END AS exm_sexo')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento', 'explrz')
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionEstablecimiento', 'explrz')
                             ->innerJoin('explrz.idProyeccion', 'expl')
                             ->innerJoin('explrz.idAreaExamenEstab', 'mr')
                             ->innerJoin('mr.idAreaServicioDiagnostico', 'm')
@@ -90,7 +90,7 @@ class RyxCtlProyeccionRadiologicaRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -108,8 +108,8 @@ class RyxCtlProyeccionRadiologicaRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('m.id AS id_m, expl.id AS id_expl')
-                            ->from('MinsalSimagdBundle:ImgCtlProyeccion', 'expl')
-                            ->innerJoin('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento', 'explrz',
+                            ->from('MinsalSimagdBundle:RyxCtlProyeccionRadiologica', 'expl')
+                            ->innerJoin('MinsalSimagdBundle:RyxCtlProyeccionEstablecimiento', 'explrz',
                                     \Doctrine\ORM\Query\Expr\Join::WITH,
                                     'expl.id = explrz.idProyeccion')
                             ->innerJoin('explrz.idAreaExamenEstab', 'mr')

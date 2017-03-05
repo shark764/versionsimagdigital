@@ -79,7 +79,7 @@ class RyxCitaProgramadaRepository extends EntityRepository
                             ->addSelect('CASE WHEN (tcnlcit.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlcit.apellido, \'\'), \', \', COALESCE(tcnlcit.nombre, \'\')) ELSE \'\' END AS cit_tecnologo, tcnlcit.id AS cit_id_tecnologo')
                             ->addSelect('CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS prc_solicitante')
                             ->addSelect('CASE WHEN (radXInd.id IS NOT NULL) THEN CONCAT(COALESCE(radXInd.apellido, \'\'), \', \', COALESCE(radXInd.nombre, \'\')) ELSE \'\' END AS prc_radXInd, radXInd.id AS prc_id_radXInd')
-                            ->from('MinsalSimagdBundle:ImgCita', 'cit')
+                            ->from('MinsalSimagdBundle:RyxCitaProgramada', 'cit')
                             ->innerJoin('cit.idEstadoCita', 'statuscit')
                             ->innerJoin('cit.idEstablecimiento', 'stdcit')
                             ->innerJoin('cit.idSolicitudEstudio', 'prc')
@@ -191,7 +191,7 @@ class RyxCitaProgramadaRepository extends EntityRepository
                             ->addSelect('CASE WHEN (tcnlcit.id IS NOT NULL) THEN CONCAT(COALESCE(tcnlcit.apellido, \'\'), \', \', COALESCE(tcnlcit.nombre, \'\')) ELSE \'\' END AS cit_tecnologo, tcnlcit.id AS cit_id_tecnologo')
                             ->addSelect('CASE WHEN (empprc.id IS NOT NULL) THEN CONCAT(COALESCE(empprc.apellido, \'\'), \', \', COALESCE(empprc.nombre, \'\')) ELSE \'\' END AS prc_solicitante')
                             ->addSelect('CASE WHEN (radXInd.id IS NOT NULL) THEN CONCAT(COALESCE(radXInd.apellido, \'\'), \', \', COALESCE(radXInd.nombre, \'\')) ELSE \'\' END AS prc_radXInd, radXInd.id AS prc_id_radXInd')
-                            ->from('MinsalSimagdBundle:ImgCita', 'cit')
+                            ->from('MinsalSimagdBundle:RyxCitaProgramada', 'cit')
                             ->leftJoin('cit.idSolicitudEstudio', 'prc')
                             ->innerJoin('cit.idEmpleado', 'empcit')
                             ->innerJoin('cit.idEstadoCita', 'statuscit')
@@ -236,7 +236,7 @@ class RyxCitaProgramadaRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {

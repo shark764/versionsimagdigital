@@ -17,7 +17,7 @@ class PrioridadAtencionRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder('prAtn')
                             ->select('prAtn')
-                            ->from('MinsalSimagdBundle:ImgCtlPrioridadAtencion', 'prAtn')
+                            ->from('MinsalSimagdBundle:RyxCtlPrioridadAtencionPaciente', 'prAtn')
                             ->orderBy('prAtn.id', 'ASC')
                             ->distinct();
 

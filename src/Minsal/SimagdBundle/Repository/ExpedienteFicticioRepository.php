@@ -20,7 +20,7 @@ class ExpedienteFicticioRepository extends EntityRepository
         $query = $this->getEntityManager()
                         ->createQueryBuilder()
                             ->select('IDENTITY(unknExp.idEstablecimiento) AS idEstab, MAX(unknExp.numero) AS maxNumber')   // last is not always max numer
-                            ->from('MinsalSimagdBundle:ImgExpedienteFicticio', 'unknExp')
+                            ->from('MinsalSimagdBundle:RyxExpedienteFicticio', 'unknExp')
                             ->where('unknExp.idEstablecimiento = :id_est')
                             ->setParameter('id_est', $id_estabLocal)
                             ->groupBy('unknExp.idEstablecimiento');
@@ -45,7 +45,7 @@ class ExpedienteFicticioRepository extends EntityRepository
         /*
          * Query
          */
-        $q  = $qb->update('MinsalSimagdBundle:ImgSolicitudEstudio', 'prc')
+        $q  = $qb->update('MinsalSimagdBundle:RyxSolicitudEstudio', 'prc')
                     ->set('prc.idExpediente', $qb->expr()->literal($id_expLocal))
                     ->set('prc.idExpedienteFicticio',':null_unkExp')
                     ->setParameter('null_unkExp', NULL)

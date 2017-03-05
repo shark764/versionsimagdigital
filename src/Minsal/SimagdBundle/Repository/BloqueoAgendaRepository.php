@@ -93,7 +93,7 @@ class BloqueoAgendaRepository extends EntityRepository
         /*
          * --| add filters from BSTABLE_FILTER to query
          */
-        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio');
+        $simagd_er_model    = $this->getEntityManager()->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio');
         $apply_filters      = $simagd_er_model->getBsTableFiltersV2($query, $bs_filters);
         if ($apply_filters !== false)
         {
@@ -112,7 +112,7 @@ class BloqueoAgendaRepository extends EntityRepository
                         ->createQueryBuilder('exclBlAgd')
                             ->select('exclBlAgd')
                             ->addSelect('IDENTITY(exclBlAgd.idRadiologoExcluido) AS exclBlAgd_id_radiologo')
-                            ->from('MinsalSimagdBundle:ImgExclusionBloqueo', 'exclBlAgd')
+                            ->from('MinsalSimagdBundle:RyxExclusionBloqueo', 'exclBlAgd')
                             ->where('exclBlAgd.idBloqueoAgenda = :id_blAgd')
                             ->setParameter('id_blAgd', $id_blAgd)
                             ->orderBy('exclBlAgd.idRadiologoExcluido', 'ASC')
