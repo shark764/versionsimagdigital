@@ -333,16 +333,16 @@ class RyxDiagnosticoRadiologicoAdmin extends Admin {
 	}
         
         //Estado inicial del diagnóstico
-        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlEstadoDiagnostico');
-        $estadoReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlEstadoDiagnostico', '2');
+        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxCtlEstadoDiagnostico');
+        $estadoReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlEstadoDiagnostico', '2');
         $instance->setIdEstadoDiagnostico($estadoReference);
         
         //Lectura padre
         if ($this->hasRequest()) {
             $lectura = $this->getRequest()->get('__lct', null);
             if ($lectura !== null) {
-                $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgLectura');
-                $lecturaReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgLectura', $lectura);
+                $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxLecturaRadiologica');
+                $lecturaReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxLecturaRadiologica', $lectura);
                 $instance->setIdLectura($lecturaReference);
             }
         }

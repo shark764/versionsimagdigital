@@ -67,7 +67,7 @@ class RyxSolicitudDiagnosticoPostEstudioAdmin extends MinsalSimagdBundleGeneralA
         if ($this->id($subject)) {
 
             $setLockSolicitarEn = $this->getConfigurationPool()->getContainer()->get('doctrine')
-                                            ->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+                                            ->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')
                                                         ->existeLecturaPorPreinscripcion($subject->getIdSolicitudEstudio()->getId());
 
         }
@@ -287,7 +287,7 @@ class RyxSolicitudDiagnosticoPostEstudioAdmin extends MinsalSimagdBundleGeneralA
         if ($this->hasRequest()) {
             $preinscripcion = $this->getRequest()->get('preinscripcion', null);
             if ($preinscripcion !== null) {
-                $preinscripcionSolicitada = $this->getModelManager()->find('MinsalSimagdBundle:ImgSolicitudEstudio', $preinscripcion);
+                $preinscripcionSolicitada = $this->getModelManager()->find('MinsalSimagdBundle:RyxSolicitudEstudio', $preinscripcion);
                 $instance->setIdSolicitudEstudio($preinscripcionSolicitada);
                 $instance->setIdEmpleado($preinscripcionSolicitada->getIdEmpleado());
                 $instance->setFechaProximaConsulta($preinscripcionSolicitada->getFechaProximaConsulta());
@@ -295,8 +295,8 @@ class RyxSolicitudDiagnosticoPostEstudioAdmin extends MinsalSimagdBundleGeneralA
             
             $estudio = $this->getRequest()->get('estudio', null);
             if ($estudio !== null) {
-                $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgEstudioPaciente');
-                $estudioReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgEstudioPaciente', $estudio);
+                $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes');
+                $estudioReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes', $estudio);
                 $instance->setIdEstudio($estudioReference);
             }
         }
@@ -325,7 +325,7 @@ class RyxSolicitudDiagnosticoPostEstudioAdmin extends MinsalSimagdBundleGeneralA
     
     public function exploracionesSolicitadas($preinscripcionRequest)
     {
-        $preinscripcionSolicitada = $this->getModelManager()->find('MinsalSimagdBundle:ImgSolicitudEstudio', $preinscripcionRequest);
+        $preinscripcionSolicitada = $this->getModelManager()->find('MinsalSimagdBundle:RyxSolicitudEstudio', $preinscripcionRequest);
         
         $explArray = array();
         foreach ($preinscripcionSolicitada->getSolicitudEstudioProyeccion() as $solicitudEstudioProyeccion)  {
@@ -333,7 +333,7 @@ class RyxSolicitudDiagnosticoPostEstudioAdmin extends MinsalSimagdBundleGeneralA
         }
         
         return $this->getConfigurationPool()->getContainer()->get('doctrine')
-                                ->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')
+                                ->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')
                                             ->obtenerEstabDiagnosticantes($preinscripcionSolicitada->getIdAreaServicioDiagnostico()->getId(), $explArray, 'query');
     }
 

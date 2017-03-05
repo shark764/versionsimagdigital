@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Minsal\SimagdBundle\Entity\ImgCtlProyeccionEstablecimiento;
+use Minsal\SimagdBundle\Entity\RyxCtlProyeccionEstablecimiento;
 use Minsal\SimagdBundle\Entity\MntAreaExamenEstablecimiento;
 
 class RyxCtlProyeccionRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
@@ -83,7 +83,7 @@ class RyxCtlProyeccionRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
         $explEditable = false;
 
         if ($this->id($subject)) {
-	    $existsExplrz = $this->getModelManager()->findBy('MinsalSimagdBundle:ImgCtlProyeccionEstablecimiento',
+	    $existsExplrz = $this->getModelManager()->findBy('MinsalSimagdBundle:RyxCtlProyeccionEstablecimiento',
                                             array('idProyeccion' => $subject->getId()));
 	    if ( !$existsExplrz ) { $explEditable = true; }
 	}
@@ -283,8 +283,8 @@ class RyxCtlProyeccionRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
 //                    $this->getRequest()->getSession()->getFlashBag()->add("warning", $messageReg);
 //                }
 //
-//                /** ImgCtlProyeccionEstablecimiento */
-//                $pryRealizable = new ImgCtlProyeccionEstablecimiento();
+//                /** RyxCtlProyeccionEstablecimiento */
+//                $pryRealizable = new RyxCtlProyeccionEstablecimiento();
 //                $pryRealizable->setIdProyeccion($proyeccion);
 //                $pryRealizable->setIdAreaExamenEstab($areaExmEst);
 //                $pryRealizable->setIdUserReg($user);

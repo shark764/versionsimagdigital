@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Minsal\SimagdBundle\Entity\ImgCtlMaterialEstablecimiento;
+use Minsal\SimagdBundle\Entity\RyxCtlMaterialEstablecimiento;
 
 class RyxCtlMaterialAdmin extends MinsalSimagdBundleGeneralAdmin
 {

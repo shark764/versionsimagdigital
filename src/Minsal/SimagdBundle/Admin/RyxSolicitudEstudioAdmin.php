@@ -95,23 +95,23 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
         if ($this->id($subject)) {
 
             $setLockDatosGenerales = $this->getConfigurationPool()->getContainer()->get('doctrine')
-                                            ->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
-                                                        ->existeRegistroPorPreinscripcion($subject->getId(), 'cit', 'ImgCita');
+                                            ->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')
+                                                        ->existeRegistroPorPreinscripcion($subject->getId(), 'cit', 'RyxCitaProgramada');
 
             $setLockDatosPaciente = $this->getConfigurationPool()->getContainer()->get('doctrine')
-                                            ->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
-                                                        ->existeRegistroPorPreinscripcion($subject->getId(), 'prz', 'ImgProcedimientoRealizado');
+                                            ->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')
+                                                        ->existeRegistroPorPreinscripcion($subject->getId(), 'prz', 'RyxProcedimientoRadiologicoRealizado');
 
             $setLockRefPaciente = $this->getConfigurationPool()->getContainer()->get('doctrine')
-                                            ->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+                                            ->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')
                                                         ->bloquearTrasladoPaciente($subject->getId());
 
             $setLockSolDiagnostico = $this->getConfigurationPool()->getContainer()->get('doctrine')
-                                            ->getRepository('MinsalSimagdBundle:ImgSolicitudDiagnostico')
+                                            ->getRepository('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio')
                                                         ->bloquearSolDiagnostico($subject->getId());
 
             $setLockExplSolicitadas = $this->getConfigurationPool()->getContainer()->get('doctrine')
-                                            ->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+                                            ->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')
                                                         ->bloquearEstudioSolicitado($subject->getId());
 
         }
@@ -658,7 +658,7 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
                                                         'empty_value' => '',
                                                         'expanded' => false,
                                                         'multiple' => true,
-                                                        'class' => 'MinsalSimagdBundle:ImgCtlProyeccion',
+                                                        'class' => 'MinsalSimagdBundle:RyxCtlProyeccionRadiologica',
                                                         'group_by' => 'idExamenServicioDiagnostico',
                                                         'query_builder' => function(EntityRepository $er) use ($estabLocal) {
                                                                             return $er->createQueryBuilder('expl')
@@ -875,8 +875,8 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
 //        }
 
         if (!$preinscripcion->getIdPrioridadAtencion()) {
-	    $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion');
-	    $prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion', '4');
+	    $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxCtlPrioridadAtencionPaciente');
+	    $prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlPrioridadAtencionPaciente', '4');
 	    $preinscripcion->setIdPrioridadAtencion($prioridadReference);
         }
     }
@@ -894,8 +894,8 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
 //        }
 
         if (!$preinscripcion->getIdPrioridadAtencion()) {
-	    $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion');
-	    $prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion', '4');
+	    $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxCtlPrioridadAtencionPaciente');
+	    $prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlPrioridadAtencionPaciente', '4');
 	    $preinscripcion->setIdPrioridadAtencion($prioridadReference);
         }
 
@@ -1278,8 +1278,8 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
         /*
          * ADD FORM FOR MAMOGRAFY STUDY
          */
-//        $instance = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudio();
-        /*$form_mamografia = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioMamografia();
+//        $instance = new \Minsal\SimagdBundle\Entity\RyxSolicitudEstudio();
+        /*$form_mamografia = new \Minsal\SimagdBundle\Entity\RyxSolicitudEstudioMamografia();
         $instance->addSolicitudEstudioMamografium($form_mamografia);*/
         /*
          * END
@@ -1369,8 +1369,8 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
 		$instance->setNombreContacto($infoContacto['nmCt']);
 		$instance->setContacto($infoContacto['cnt']);
 
-                $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlFormaContacto');
-                $formaContactoRef = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlFormaContacto', $infoContacto['idFrmCt']);
+                $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxCtlFormaContacto');
+                $formaContactoRef = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlFormaContacto', $infoContacto['idFrmCt']);
 		$instance->setIdFormaContacto($formaContactoRef);
 
                 $em = $this->getModelManager()->getEntityManager('Minsal\SiapsBundle\Entity\CtlParentesco');
@@ -1397,8 +1397,8 @@ class RyxSolicitudEstudioAdmin extends MinsalSimagdBundleGeneralAdmin
 	}
 
 	/** Prioridad por defecto */
-	$em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion');
-	$prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion', '4');
+	$em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxCtlPrioridadAtencionPaciente');
+	$prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlPrioridadAtencionPaciente', '4');
 	$instance->setIdPrioridadAtencion($prioridadReference);
 
         return $instance;

@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Minsal\SimagdBundle\Entity\ImgDiagnostico;
+use Minsal\SimagdBundle\Entity\RyxDiagnosticoRadiologico;
 
 class RyxLecturaRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
 {
@@ -63,7 +63,7 @@ class RyxLecturaRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
 
         if ($this->id($subject)) {
             $setLockEstado = $this->getConfigurationPool()->getContainer()->get('doctrine')
-                                            ->getRepository('MinsalSimagdBundle:ImgLectura')
+                                            ->getRepository('MinsalSimagdBundle:RyxLecturaRadiologica')
                                                         ->lecturaFueTranscrita($subject->getId());
 
             $lctId = $this->id($subject);
@@ -104,7 +104,7 @@ class RyxLecturaRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
                                                         'required' => true,
                                                         'empty_value' => '',
                                                         'choices' => $this->getConfigurationPool()->getContainer()->get('Doctrine')
-                                                                                            ->getRepository('MinsalSimagdBundle:ImgLectura')
+                                                                                            ->getRepository('MinsalSimagdBundle:RyxLecturaRadiologica')
                                                                                                                 ->obtenerTiposResultadoList(),
 //                                                        'help' => 'Seleccione un tipo',
                                                         'attr' => array('style' => 'min-width: 100%; max-width: 100%;',
@@ -242,7 +242,7 @@ class RyxLecturaRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
 //                                                        'empty_value' => '',
                                                         'expanded' => true,
                                                         'multiple' => true,
-                                                        'class' => 'MinsalSimagdBundle:ImgEstudioPaciente',
+                                                        'class' => 'MinsalSimagdBundle:RyxEstudioPorImagenes',
                                                         'query_builder' => function(EntityRepository $er) use ($estabLocal, $lctId, $pctId) {
                                                                                 return $er->getStudiesWithoutRadiologicalDiagnosis($estabLocal, $lctId, $pctId);
                                                                             },
@@ -267,7 +267,7 @@ class RyxLecturaRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
 							'mapped' => false,
 							'required' => false,
 							'empty_value' => '',
-                                                        'class' => 'MinsalSimagdBundle:ImgCtlPatronDiagnostico',
+                                                        'class' => 'MinsalSimagdBundle:RyxCtlPatronDiagnostico',
                                                         'query_builder' => function(EntityRepository $er) use ($estabLocal) {
                                                                                 return $er->getUsableDiagnosticPatterns($estabLocal);
                                                                             },
@@ -351,7 +351,7 @@ class RyxLecturaRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
 							'mapped' => false,
 							'required' => false,
 							'empty_value' => '',
-                                                        'class' => 'MinsalSimagdBundle:ImgCtlEstadoDiagnostico',
+                                                        'class' => 'MinsalSimagdBundle:RyxCtlEstadoDiagnostico',
 //                                                         'property' => 'nombreEstado',
                                                         'attr' => array('style' => 'min-width: 100%; max-width: 100%;',
 									'data-select2-formatter' => 'diagnosticStatus',
@@ -500,8 +500,8 @@ class RyxLecturaRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
         {
 	    if ($this->getForm()->get('activarTranscripcion')->getData())
 	    {
-		/** ImgDiagnostico */
-		$diagMapped = new ImgDiagnostico();
+		/** RyxDiagnosticoRadiologico */
+		$diagMapped = new RyxDiagnosticoRadiologico();
 
 		$diagMapped->setIdLectura($lectura);
 		$diagMapped->setIdUserReg($sessionUser);
@@ -621,7 +621,7 @@ class RyxLecturaRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
 		$count_diagMapped = 0; /* contador de diagnósticos incrustados */
 		foreach ($lectura->getLecturaDiagnostico() as $diagMapped)
 		{
-		    /** ImgDiagnostico */
+		    /** RyxDiagnosticoRadiologico */
 		    $diagMapped->setIdUserMod($sessionUser);
 
 		    $diagMapped->setIdPatronAplicado($this->getForm()->get('idPatronAplicado')->getData());
@@ -651,8 +651,8 @@ class RyxLecturaRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
 
 		if ($count_diagMapped === 0)
 		{
-		    /** ImgDiagnostico */
-		    $diagMapped = new ImgDiagnostico();
+		    /** RyxDiagnosticoRadiologico */
+		    $diagMapped = new RyxDiagnosticoRadiologico();
 
 		    $diagMapped->setIdLectura($lectura);
 		    $diagMapped->setIdUserReg($sessionUser);
@@ -741,16 +741,16 @@ class RyxLecturaRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
     public function getNewInstance()
     {
         $instance = parent::getNewInstance();
-//        $instance = new \Minsal\SimagdBundle\Entity\ImgLectura();
+//        $instance = new \Minsal\SimagdBundle\Entity\RyxLecturaRadiologica();
 
         //Estado inicial de la lectura
-        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlEstadoLectura');
-        $estadoReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlEstadoLectura', '2');
+        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxCtlEstadoLectura');
+        $estadoReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlEstadoLectura', '2');
         $instance->setIdEstadoLectura($estadoReference);
 
         //Tipo de Resultado
-        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlTipoResultado');
-        $tipoResultReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlTipoResultado', '1');
+        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxCtlTipoRespuestaRadiologica');
+        $tipoResultReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlTipoRespuestaRadiologica', '1');
         $instance->setIdTipoResultado($tipoResultReference);
 
         $sessionUser = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
@@ -775,19 +775,19 @@ class RyxLecturaRadiologicaAdmin extends MinsalSimagdBundleGeneralAdmin
             $estudioPdr 	= $this->getRequest()->get('__estPdr', null);
             if ($estudio !== null) {
 		if ($estudioPdr === null) {
-		    $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgEstudioPaciente');
-		    $estudioReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgEstudioPaciente', $estudio);
+		    $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes');
+		    $estudioReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes', $estudio);
 		    $instance->setIdEstudio($estudioReference);
 
 		    $instance->addEstudiosLectura($estudioReference);
 		} else {
-		    $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgEstudioPaciente');
-		    $estudioPdrReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgEstudioPaciente', $estudioPdr);
+		    $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes');
+		    $estudioPdrReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes', $estudioPdr);
 		    $instance->setIdEstudio($estudioPdrReference);
 		    $instance->addEstudiosLectura($estudioPdrReference);
 
-		    $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgEstudioPaciente');
-		    $estudioReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgEstudioPaciente', $estudio);
+		    $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes');
+		    $estudioReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes', $estudio);
 		    $instance->addEstudiosLectura($estudioReference);
 		}
             }

@@ -308,8 +308,8 @@ class RyxCtlConexionPacsEstablecimientoAdmin extends MinsalSimagdBundleGeneralAd
         $instance->setIdEstablecimiento($estabLocal);
 
         //Motor de BD por defecto (PostgreSQL)
-        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlMotorBd');
-        $motorReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlMotorBd', '2');
+        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxCtlMotorBd');
+        $motorReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlMotorBd', '2');
         $instance->setIdMotor($motorReference);
 
         return $instance;

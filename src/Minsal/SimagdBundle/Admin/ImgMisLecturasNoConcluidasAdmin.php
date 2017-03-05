@@ -31,10 +31,10 @@ class ImgMisLecturasNoConcluidasAdmin extends MinsalSimagdBundleGeneralAdmin
         $query = parent::createQuery($context);
         
         /** SubQuery */
-        $subQuery = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgLectura')
+        $subQuery = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxLecturaRadiologica')
                         ->createQueryBuilder()
                             ->select('lct')
-                            ->from('MinsalSimagdBundle:ImgLectura', 'lct')
+                            ->from('MinsalSimagdBundle:RyxLecturaRadiologica', 'lct')
                             ->where('lct.idUserReg = :id_user')
                             ->andWhere('lct.idEstadoLectura NOT IN ( 4, 5, 6 )')
                             ->andWhere('lct.idEstudio = ' . $query->getRootAlias() . '.idEstudio');

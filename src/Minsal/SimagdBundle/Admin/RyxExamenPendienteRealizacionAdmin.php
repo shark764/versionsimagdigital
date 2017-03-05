@@ -35,10 +35,10 @@ class RyxExamenPendienteRealizacionAdmin extends MinsalSimagdBundleGeneralAdmin
         $query = parent::createQuery($context);
         
         /** SubQuery */
-        $subQuery = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgProcedimientoRealizado')
+        $subQuery = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxProcedimientoRadiologicoRealizado')
                         ->createQueryBuilder()
                             ->select('prz')
-                            ->from('MinsalSimagdBundle:ImgProcedimientoRealizado', 'prz')
+                            ->from('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado', 'prz')
 //                            ->where('prz.idEstadoProcedimientoRealizado NOT IN ( 5, 6, 7, 8, 9 )')
                             ->andWhere('prz.idSolicitudEstudio = ' . $query->getRootAlias() . '.idSolicitudEstudio');
         

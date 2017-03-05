@@ -187,16 +187,16 @@ class RyxDiagnosticoSegundaOpinionMedicaAdmin extends MinsalSimagdBundleGeneralA
         $instance->setIdEstablecimiento($estabLocal);
         
         //Tipo de nota por defecto
-        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlTipoNotaDiagnostico');
-        $tipoReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlTipoNotaDiagnostico', '1');
+        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxCtlTipoOpinionMedicaDiagnostico');
+        $tipoReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlTipoOpinionMedicaDiagnostico', '1');
         $instance->setIdTipoNotaDiagnostico($tipoReference);
         
         //Diagnóstico padre
         if ($this->hasRequest()) {
             $diagnostico = $this->getRequest()->get('diagnostico', null);
             if ($diagnostico !== null) {
-                $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgDiagnostico');
-                $diagnosticoReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgDiagnostico', $diagnostico);
+                $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxDiagnosticoRadiologico');
+                $diagnosticoReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxDiagnosticoRadiologico', $diagnostico);
                 $instance->setIdDiagnostico($diagnosticoReference);
             }
         }

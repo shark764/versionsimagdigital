@@ -165,8 +165,8 @@ class RyxSolicitudEstudioMamografiaAdmin extends MinsalSimagdBundleGeneralAdmin
         /*
          * ADD FORM FOR SINTOMATOLOGY OF MAMOGRAFY STUDY
          */
-//        $instance = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioMamografia();
-        $form_sintomatologia = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioMamografiaSintomatologia();
+//        $instance = new \Minsal\SimagdBundle\Entity\RyxSolicitudEstudioMamografia();
+        $form_sintomatologia = new \Minsal\SimagdBundle\Entity\RyxSolicitudEstudioMamografiaSintomatologia();
         $instance->addSolicitudEstudioMamografiaSintomatologium($form_sintomatologia);
         /*
          * END

@@ -69,11 +69,11 @@ class RyxCitaProgramadaAdmin extends MinsalSimagdBundleGeneralAdmin
         if ($this->id($subject)) {
 
             $setLockProgramacion = $this->getConfigurationPool()->getContainer()->get('doctrine')
-                                            ->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
-                                                        ->existeRegistroPorPreinscripcion($subject->getIdSolicitudEstudio()->getId(), 'prz', 'ImgProcedimientoRealizado');
+                                            ->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')
+                                                        ->existeRegistroPorPreinscripcion($subject->getIdSolicitudEstudio()->getId(), 'prz', 'RyxProcedimientoRadiologicoRealizado');
 
             $setLockEstado = $this->getConfigurationPool()->getContainer()->get('doctrine')
-                                            ->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+                                            ->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')
                                                         ->estudioPreinscritoFueAlmacenado($subject->getIdSolicitudEstudio()->getId());
 
         }
@@ -370,8 +370,8 @@ class RyxCitaProgramadaAdmin extends MinsalSimagdBundleGeneralAdmin
 //         if ($this->hasRequest()) {
 //             $preinscripcion = $this->getRequest()->get('preinscripcion', null);
 //             if ($preinscripcion !== null) {
-//                 $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgSolicitudEstudio');
-//                 $preinscripcionReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgSolicitudEstudio', $preinscripcion);
+//                 $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxSolicitudEstudio');
+//                 $preinscripcionReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxSolicitudEstudio', $preinscripcion);
 //                 $instance->setIdSolicitudEstudio($preinscripcionReference);
 //                 
 //                 $instance->setIdParametroCitacion($this->obtenerParametroCitacionPorExpl($preinscripcion ));
@@ -390,8 +390,8 @@ class RyxCitaProgramadaAdmin extends MinsalSimagdBundleGeneralAdmin
 	}
         
         //Estado inicial de la cita
-        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlEstadoCita');
-        $estadoReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlEstadoCita', '1');
+        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxCtlEstadoCita');
+        $estadoReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlEstadoCita', '1');
         $instance->setIdEstadoCita($estadoReference);
         
         return $instance;
@@ -416,7 +416,7 @@ class RyxCitaProgramadaAdmin extends MinsalSimagdBundleGeneralAdmin
     {
         $sessionUser = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
     
-        $preinscripcionSolicitada = $this->getModelManager()->find('MinsalSimagdBundle:ImgSolicitudEstudio', $preinscripcionRequest);
+        $preinscripcionSolicitada = $this->getModelManager()->find('MinsalSimagdBundle:RyxSolicitudEstudio', $preinscripcionRequest);
         
         $explArray = array();
         foreach ($preinscripcionSolicitada->getSolicitudEstudioProyeccion() as $solicitudEstudioProyeccion)  {
@@ -424,7 +424,7 @@ class RyxCitaProgramadaAdmin extends MinsalSimagdBundleGeneralAdmin
         }
         
         return $this->getConfigurationPool()->getContainer()->get('doctrine')
-                                ->getRepository('MinsalSimagdBundle:ImgCtlConfiguracionAgenda')
+                                ->getRepository('MinsalSimagdBundle:RyxCtlConfiguracionAgenda')
                                             ->obtenerParametroCitacion($sessionUser->getIdEstablecimiento()->getId(),
 									$preinscripcionSolicitada->getIdAreaServicioDiagnostico()->getId(),
 									$explArray);

@@ -36,10 +36,10 @@ class RyxEstudioPendienteLecturaAdmin extends MinsalSimagdBundleGeneralAdmin
         $query = parent::createQuery($context);
         
         /** SubQuery */
-        $subQuery = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgLectura')
+        $subQuery = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxLecturaRadiologica')
                         ->createQueryBuilder()
                             ->select('lct')
-                            ->from('MinsalSimagdBundle:ImgLectura', 'lct')
+                            ->from('MinsalSimagdBundle:RyxLecturaRadiologica', 'lct')
 //                            ->where('lct.idEstadoLectura NOT IN ( 4, 5, 6 )')
                             ->andWhere('lct.idEstudio = ' . $query->getRootAlias() . '.idEstudio');
         
@@ -92,8 +92,8 @@ class RyxEstudioPendienteLecturaAdmin extends MinsalSimagdBundleGeneralAdmin
         if ($this->hasRequest()) {
             $estudio = $this->getRequest()->get('__est', null);
             if ($estudio !== null) {
-                $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgEstudioPaciente');
-                $estudioReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgEstudioPaciente', $estudio);
+                $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes');
+                $estudioReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes', $estudio);
                 $instance->setIdEstudio($estudioReference);
             }
             

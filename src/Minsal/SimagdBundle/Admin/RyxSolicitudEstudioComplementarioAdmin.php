@@ -159,7 +159,7 @@ class RyxSolicitudEstudioComplementarioAdmin extends MinsalSimagdBundleGeneralAd
                                                     'empty_value' => '',
                                                     'expanded' => false,
                                                     'multiple' => true,
-                                                    'class' => 'MinsalSimagdBundle:ImgCtlProyeccion',
+                                                    'class' => 'MinsalSimagdBundle:RyxCtlProyeccionRadiologica',
                                                     'group_by' => 'idExamenServicioDiagnostico',
                                                     'query_builder' => function(EntityRepository $er) use ($estabLocal) {
                                                                         return $er->createQueryBuilder('expl')
@@ -203,7 +203,7 @@ class RyxSolicitudEstudioComplementarioAdmin extends MinsalSimagdBundleGeneralAd
     public function getNewInstance()
     {
         $instance = parent::getNewInstance();
-//        $instance = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioComplementario();
+//        $instance = new \Minsal\SimagdBundle\Entity\RyxSolicitudEstudioComplementario();
 
         $sessionUser = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
 
@@ -217,8 +217,8 @@ class RyxSolicitudEstudioComplementarioAdmin extends MinsalSimagdBundleGeneralAd
         $instance->setIdAreaServicioDiagnostico($modReference);
 
         //Prioridad por defecto
-        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion');
-        $prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion', '4');
+        $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxCtlPrioridadAtencionPaciente');
+        $prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlPrioridadAtencionPaciente', '4');
         $instance->setIdPrioridadAtencion($prioridadReference);
 
         if ( in_array($sessionUser->getIdEmpleado()->getIdTipoEmpleado()->getCodigo(), array('MED', 'TRY')) ) {
@@ -229,15 +229,15 @@ class RyxSolicitudEstudioComplementarioAdmin extends MinsalSimagdBundleGeneralAd
         if ($this->hasRequest()) {
             $solicitud = $this->getRequest()->get('__prc', null);
             if ($solicitud !== null) {
-                $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgSolicitudEstudio');
-                $solicitudReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgSolicitudEstudio', $solicitud);
+                $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxSolicitudEstudio');
+                $solicitudReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxSolicitudEstudio', $solicitud);
                 $instance->setIdSolicitudEstudio($solicitudReference);
             }
 
             $estudioP = $this->getRequest()->get('__est', null);
             if ($estudioP !== null) {
-                $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgEstudioPaciente');
-                $estudioPReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgEstudioPaciente', $estudioP);
+                $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes');
+                $estudioPReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes', $estudioP);
                 $instance->setIdEstudioPadre($estudioPReference);
             }
         }
@@ -246,7 +246,7 @@ class RyxSolicitudEstudioComplementarioAdmin extends MinsalSimagdBundleGeneralAd
     }
 
     public function prePersist($solEstCmpl) {
-//        $solEstCmpl = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioComplementario();
+//        $solEstCmpl = new \Minsal\SimagdBundle\Entity\RyxSolicitudEstudioComplementario();
 
         $solEstCmpl->setIdUserReg($this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser());
         $solEstCmpl->setFechaSolicitud(new \DateTime('now'));
@@ -257,15 +257,15 @@ class RyxSolicitudEstudioComplementarioAdmin extends MinsalSimagdBundleGeneralAd
 
         if (!$solEstCmpl->getIdPrioridadAtencion()) {
 	    //Prioridad por defecto
-	    $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion');
-	    $prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion', '4');
+	    $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxCtlPrioridadAtencionPaciente');
+	    $prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlPrioridadAtencionPaciente', '4');
 	    $solEstCmpl->setIdPrioridadAtencion($prioridadReference);
 	}
 
     }
 
     public function preUpdate($solEstCmpl) {
-//        $solEstCmpl = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioComplementario();
+//        $solEstCmpl = new \Minsal\SimagdBundle\Entity\RyxSolicitudEstudioComplementario();
 
 //        foreach ($solEstCmpl->getSolicitudEstudioComplementarioProyeccion() as $solEstCmplProyeccion)  {
 //            $solEstCmplProyeccion->setIdSolicitudEstudioComplementario($solEstCmpl);
@@ -273,8 +273,8 @@ class RyxSolicitudEstudioComplementarioAdmin extends MinsalSimagdBundleGeneralAd
 
         if (!$solEstCmpl->getIdPrioridadAtencion()) {
 	    //Prioridad por defecto
-	    $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion');
-	    $prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion', '4');
+	    $em = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxCtlPrioridadAtencionPaciente');
+	    $prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlPrioridadAtencionPaciente', '4');
 	    $solEstCmpl->setIdPrioridadAtencion($prioridadReference);
 	}
 

@@ -74,10 +74,10 @@ class ImgMisTranscripcionesNoConcluidasAdmin extends MinsalSimagdBundleGeneralAd
         $query = parent::createQuery($context);
         
         /** SubQuery */
-        $subQuery = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\ImgDiagnostico')
+        $subQuery = $this->getModelManager()->getEntityManager('Minsal\SimagdBundle\Entity\RyxDiagnosticoRadiologico')
                         ->createQueryBuilder()
                             ->select('diag')
-                            ->from('MinsalSimagdBundle:ImgDiagnostico', 'diag')
+                            ->from('MinsalSimagdBundle:RyxDiagnosticoRadiologico', 'diag')
                             ->where('diag.idUserReg = :id_user')
                             ->andWhere('diag.idEstadoDiagnostico NOT IN ( 3, 5, 6 )')
                             ->andWhere('diag.idLectura = ' . $query->getRootAlias() . '.idLectura');
