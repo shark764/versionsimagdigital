@@ -18,7 +18,7 @@
 		--- ////////////////Complementarios no deben poder complementarse aunque el user sea admin
 		    
 		---- 'data-apply-formatter-mode' => $setLockEstado ? 'disabled' : 'enabled',
-		    -- Ejemplo: Empleado de ImgProcedimientoRealizado
+		    -- Ejemplo: Empleado de RyxProcedimientoRadiologicoRealizado
 		    
 		---- Bloqueo de estados en transcripcion
 		    -- Ejemplo: funcionesClienteServidor de diag_
