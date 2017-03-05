@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_ctl_forma_contacto")
  * @ORM\Entity
  */
-class RyxCtlFormaContacto
+class RyxCtlFormaContacto implements EntityInterface
 {
     /**
      * @var integer

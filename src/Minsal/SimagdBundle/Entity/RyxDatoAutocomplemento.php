@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_dato_autocomplemento", indexes={@ORM\Index(name="IDX_FDAC171D992127D5", columns={"id_area_servicio_diagnostico"}), @ORM\Index(name="IDX_FDAC171D926EE634", columns={"id_campo_autocomplementar"})})
  * @ORM\Entity
  */
-class RyxDatoAutocomplemento
+class RyxDatoAutocomplemento implements EntityInterface
 {
     /**
      * @var integer

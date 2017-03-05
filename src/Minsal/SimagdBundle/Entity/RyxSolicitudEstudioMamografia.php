@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_solicitud_estudio_mamografia", indexes={@ORM\Index(name="IDX_5046AB08992127D5", columns={"id_area_servicio_diagnostico"}), @ORM\Index(name="IDX_5046AB086AAA01BF", columns={"id_solicitud_estudio"}), @ORM\Index(name="IDX_5046AB0815EA100E", columns={"id_tipo_mamografia"})})
  * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxSolicitudEstudioMamografiaRepository")
  */
-class RyxSolicitudEstudioMamografia
+class RyxSolicitudEstudioMamografia implements EntityInterface
 {
     /**
      * @var integer

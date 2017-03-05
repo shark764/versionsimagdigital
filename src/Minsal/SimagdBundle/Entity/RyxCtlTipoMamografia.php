@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_ctl_tipo_mamografia")
  * @ORM\Entity
  */
-class RyxCtlTipoMamografia
+class RyxCtlTipoMamografia implements EntityInterface
 {
     /**
      * @var integer

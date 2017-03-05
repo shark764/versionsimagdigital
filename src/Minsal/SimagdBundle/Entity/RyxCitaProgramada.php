@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_cita_programada", indexes={@ORM\Index(name="IDX_4639A1FE51F7CF06", columns={"id_configuracion_agenda"}), @ORM\Index(name="IDX_4639A1FE890253C7", columns={"id_empleado"}), @ORM\Index(name="IDX_4639A1FE7DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_4639A1FEDD0D821B", columns={"id_estado_cita"}), @ORM\Index(name="IDX_4639A1FEDEFEA3F", columns={"id_responsable_autoriza"}), @ORM\Index(name="IDX_4639A1FE6AAA01BF", columns={"id_solicitud_estudio"}), @ORM\Index(name="IDX_4639A1FE91124CBF", columns={"id_tecnologo_programado"}), @ORM\Index(name="IDX_4639A1FEDEA2D3D3", columns={"id_user_prg"}), @ORM\Index(name="IDX_4639A1FE94AEBFD3", columns={"id_user_reprg"})})
  * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxCitaProgramadaRepository")
  */
-class RyxCitaProgramada
+class RyxCitaProgramada implements EntityInterface
 {
     /**
      * @var integer

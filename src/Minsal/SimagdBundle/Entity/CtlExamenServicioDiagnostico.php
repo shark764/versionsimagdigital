@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ctl_examen_servicio_diagnostico", indexes={@ORM\Index(name="IDX_1B539A80695EA351", columns={"id_atencion"}), @ORM\Index(name="IDX_1B539A805A0BF7CA", columns={"idgrupo"}), @ORM\Index(name="IDX_1B539A806724C8DC", columns={"idusuariomod"}), @ORM\Index(name="IDX_1B539A8013B895A1", columns={"idusuarioreg"}), @ORM\Index(name="IDX_1B539A80FFF6A732", columns={"idsexo"}), @ORM\Index(name="IDX_1B539A80992127D5", columns={"id_area_servicio_diagnostico"})})
  * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\CtlExamenServicioDiagnosticoRepository")
  */
-class CtlExamenServicioDiagnostico
+class CtlExamenServicioDiagnostico implements EntityInterface
 {
     /**
      * @var integer

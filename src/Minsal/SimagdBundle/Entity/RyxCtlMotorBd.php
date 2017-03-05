@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_ctl_motor_bd", uniqueConstraints={@ORM\UniqueConstraint(name="idx_codigo_motor_bd", columns={"codigo"})})
  * @ORM\Entity
  */
-class RyxCtlMotorBd
+class RyxCtlMotorBd implements EntityInterface
 {
     /**
      * @var integer

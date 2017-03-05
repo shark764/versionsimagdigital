@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_lectura_radiologica", indexes={@ORM\Index(name="IDX_A2CC7AB6890253C7", columns={"id_empleado"}), @ORM\Index(name="IDX_A2CC7AB67DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_A2CC7AB6D93DAF86", columns={"id_estado_lectura"}), @ORM\Index(name="IDX_A2CC7AB66196B359", columns={"id_estudio"}), @ORM\Index(name="IDX_A2CC7AB633CCFAF2", columns={"id_expediente_ficticio"}), @ORM\Index(name="IDX_A2CC7AB6701624C4", columns={"id_expediente"}), @ORM\Index(name="IDX_A2CC7AB6F80B40A", columns={"id_patron_asociado"}), @ORM\Index(name="IDX_A2CC7AB663643B18", columns={"id_radiologo_designado_aprobacion"}), @ORM\Index(name="IDX_A2CC7AB64E924116", columns={"id_radiologo_solicita"}), @ORM\Index(name="IDX_A2CC7AB6526C8D52", columns={"id_solicitud_diagnostico"}), @ORM\Index(name="IDX_A2CC7AB6D426DB54", columns={"id_tipo_resultado"}), @ORM\Index(name="IDX_A2CC7AB6CC6E65C8", columns={"id_transcriptor_asignado"}), @ORM\Index(name="IDX_A2CC7AB6D8A5832B", columns={"id_user_reg"})})
  * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxLecturaRadiologicaRepository")
  */
-class RyxLecturaRadiologica
+class RyxLecturaRadiologica implements EntityInterface
 {
     /**
      * @var integer

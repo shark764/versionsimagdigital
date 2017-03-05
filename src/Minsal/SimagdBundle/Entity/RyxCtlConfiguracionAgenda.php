@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_ctl_configuracion_agenda", indexes={@ORM\Index(name="IDX_1A45BF94A7750BE9", columns={"id_area_examen_estab"}), @ORM\Index(name="IDX_1A45BF94AC39DE56", columns={"id_user_mod"}), @ORM\Index(name="IDX_1A45BF94D8A5832B", columns={"id_user_reg"})})
  * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxCtlConfiguracionAgendaRepository")
  */
-class RyxCtlConfiguracionAgenda
+class RyxCtlConfiguracionAgenda implements EntityInterface
 {
     /**
      * @var integer

@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_diagnostico_pendiente_validacion", indexes={@ORM\Index(name="IDX_84FBD63DC6991215", columns={"id_asigna_validador"}), @ORM\Index(name="IDX_84FBD63D838319BF", columns={"id_diagnostico"}), @ORM\Index(name="IDX_84FBD63D7DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_84FBD63D6E8C181B", columns={"id_radiologo_asignado"})})
  * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxDiagnosticoPendienteValidacionRepository")
  */
-class RyxDiagnosticoPendienteValidacion
+class RyxDiagnosticoPendienteValidacion implements EntityInterface
 {
     /**
      * @var integer

@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_ctl_grupo_material", uniqueConstraints={@ORM\UniqueConstraint(name="idx_codigo_grupo_material", columns={"codigo"})})
  * @ORM\Entity
  */
-class RyxCtlGrupoMaterial
+class RyxCtlGrupoMaterial implements EntityInterface
 {
     /**
      * @var integer

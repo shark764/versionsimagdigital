@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_ctl_categoria_respuesta_mamografia", uniqueConstraints={@ORM\UniqueConstraint(name="idx_codigo_categoria_resultado_mamografia", columns={"codigo"})}, indexes={@ORM\Index(name="IDX_10AC4AB03B0C60A0", columns={"id_categoria_padre"})})
  * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxCtlCategoriaRespuestaMamografiaRepository")
  */
-class RyxCtlCategoriaRespuestaMamografia
+class RyxCtlCategoriaRespuestaMamografia implements EntityInterface
 {
     /**
      * @var integer

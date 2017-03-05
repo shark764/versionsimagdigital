@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_exclusion_bloqueo", uniqueConstraints={@ORM\UniqueConstraint(name="idx_radiologo_bloqueo", columns={"id_radiologo_excluido", "id_bloqueo_agenda"})}, indexes={@ORM\Index(name="IDX_AC86B68137A05A00", columns={"id_bloqueo_agenda"}), @ORM\Index(name="IDX_AC86B681B781D14A", columns={"id_radiologo_excluido"})})
  * @ORM\Entity
  */
-class RyxExclusionBloqueo
+class RyxExclusionBloqueo implements EntityInterface
 {
     /**
      * @var integer

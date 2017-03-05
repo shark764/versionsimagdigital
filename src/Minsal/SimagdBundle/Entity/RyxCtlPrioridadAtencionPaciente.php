@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_ctl_prioridad_atencion_paciente", uniqueConstraints={@ORM\UniqueConstraint(name="idx_codigo_prioridad_atencion", columns={"codigo"})})
  * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxCtlPrioridadAtencionPacienteRepository")
  */
-class RyxCtlPrioridadAtencionPaciente
+class RyxCtlPrioridadAtencionPaciente implements EntityInterface
 {
     /**
      * @var integer

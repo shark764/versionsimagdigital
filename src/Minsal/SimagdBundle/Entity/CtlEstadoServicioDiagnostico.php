@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ctl_estado_servicio_diagnostico", indexes={@ORM\Index(name="IDX_8D5C8BAA695EA351", columns={"id_atencion"})})
  * @ORM\Entity
  */
-class CtlEstadoServicioDiagnostico
+class CtlEstadoServicioDiagnostico implements EntityInterface
 {
     /**
      * @var integer

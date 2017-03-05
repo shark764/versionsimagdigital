@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_ctl_material", uniqueConstraints={@ORM\UniqueConstraint(name="idx_codigo_material", columns={"codigo"})}, indexes={@ORM\Index(name="IDX_5D0400F7A599A5B7", columns={"id_subgrupo_material"}), @ORM\Index(name="IDX_5D0400F7AC39DE56", columns={"id_user_mod"}), @ORM\Index(name="IDX_5D0400F7D8A5832B", columns={"id_user_reg"})})
  * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxCtlMaterialRepository")
  */
-class RyxCtlMaterial
+class RyxCtlMaterial implements EntityInterface
 {
     /**
      * @var integer

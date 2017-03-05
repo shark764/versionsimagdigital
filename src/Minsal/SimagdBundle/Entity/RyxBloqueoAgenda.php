@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_bloqueo_agenda", indexes={@ORM\Index(name="IDX_3BCEF10992127D5", columns={"id_area_servicio_diagnostico"}), @ORM\Index(name="IDX_3BCEF10592B0EA1", columns={"id_empleado_registra"}), @ORM\Index(name="IDX_3BCEF107DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_3BCEF1032E38BF3", columns={"id_radiologo_bloqueo"}), @ORM\Index(name="IDX_3BCEF10AC39DE56", columns={"id_user_mod"}), @ORM\Index(name="IDX_3BCEF10D8A5832B", columns={"id_user_reg"})})
  * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxBloqueoAgendaRepository")
  */
-class RyxBloqueoAgenda
+class RyxBloqueoAgenda implements EntityInterface
 {
     /**
      * @var integer

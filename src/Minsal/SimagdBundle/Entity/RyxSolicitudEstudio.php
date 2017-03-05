@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_solicitud_estudio", indexes={@ORM\Index(name="IDX_FB3FA449992127D5", columns={"id_area_servicio_diagnostico"}), @ORM\Index(name="IDX_FB3FA4498627A85B", columns={"id_aten_area_mod_estab"}), @ORM\Index(name="IDX_FB3FA449890253C7", columns={"id_empleado"}), @ORM\Index(name="IDX_FB3FA4499C29FA00", columns={"id_establecimiento_diagnosticante"}), @ORM\Index(name="IDX_FB3FA44950AC6C0", columns={"id_establecimiento_referido"}), @ORM\Index(name="IDX_FB3FA449AB124167", columns={"id_estado_solicitud"}), @ORM\Index(name="IDX_FB3FA44933CCFAF2", columns={"id_expediente_ficticio"}), @ORM\Index(name="IDX_FB3FA449701624C4", columns={"id_expediente"}), @ORM\Index(name="IDX_FB3FA44933DDBCDD", columns={"id_forma_contacto"}), @ORM\Index(name="IDX_FB3FA4491F3E256A", columns={"id_contacto_paciente"}), @ORM\Index(name="IDX_FB3FA4497E7CB1E8", columns={"id_prioridad_atencion"}), @ORM\Index(name="IDX_FB3FA4495DA5A9A5", columns={"id_radiologo_agrega_indicaciones"}), @ORM\Index(name="IDX_FB3FA449F8EAA696", columns={"id_solicitudestudios"}), @ORM\Index(name="IDX_FB3FA449AC39DE56", columns={"id_user_mod"}), @ORM\Index(name="IDX_FB3FA449D8A5832B", columns={"id_user_reg"})})
  * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxSolicitudEstudioRepository")
  */
-class RyxSolicitudEstudio
+class RyxSolicitudEstudio implements EntityInterface
 {
     /**
      * @var integer

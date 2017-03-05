@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_ctl_estado_cita", uniqueConstraints={@ORM\UniqueConstraint(name="idx_codigo_estado_cita", columns={"codigo"})})
  * @ORM\Entity
  */
-class RyxCtlEstadoCita
+class RyxCtlEstadoCita implements EntityInterface
 {
     /**
      * @var integer

@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_expediente_ficticio", uniqueConstraints={@ORM\UniqueConstraint(name="idx_numero_expediente_ficticio", columns={"id_establecimiento", "numero"})}, indexes={@ORM\Index(name="IDX_D7967A3B7DFA12F6", columns={"id_establecimiento"}), @ORM\Index(name="IDX_D7967A3BD8A5832B", columns={"id_user_reg"})})
  * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxExpedienteFicticioRepository")
  */
-class RyxExpedienteFicticio
+class RyxExpedienteFicticio implements EntityInterface
 {
     /**
      * @var integer

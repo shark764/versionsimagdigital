@@ -12,7 +12,7 @@ use Minsal\SimagdBundle\Entity\EntityInterface;
  * @ORM\Table(name="ryx_ctl_campo_autocomplementar")
  * @ORM\Entity
  */
-class RyxCtlCampoAutocomplementar
+class RyxCtlCampoAutocomplementar implements EntityInterface
 {
     /**
      * @var integer
