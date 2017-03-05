@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Admin\BaseFieldDescription;
 use Sonata\AdminBundle\Util\AdminObjectAclData;
 use Sonata\AdminBundle\Admin\AdminInterface;
-use Minsal\SimagdBundle\Entity\ImgCita;
+use Minsal\SimagdBundle\Entity\RyxCitaProgramada;
 use Doctrine\ORM\EntityRepository;
 use DateInterval;
 
@@ -132,7 +132,7 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
                 'technologist'  => $idTecnologo,
             );
 
-            $results = $em->getRepository('MinsalSimagdBundle:ImgCita')->events($p);
+            $results = $em->getRepository('MinsalSimagdBundle:RyxCitaProgramada')->events($p);
 
             foreach ($results as $k => $r)
             {
@@ -203,14 +203,14 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
             return $this->renderJson($results);
         }
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgCita')
+        $results = $em->getRepository('MinsalSimagdBundle:RyxCitaProgramada')
                                         ->pendingEvents($estabLocal, $start, $end, $idAreaServicioDiagnostico, $idTecnologo, $numeroExp);
 
         $formatter = new Formatter();
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgCita();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxCitaProgramada();
 
             $results[$key]['tooltip_title'] = ($r['explocal_numero'] ? '<span class="label label-primary-v4" style="margin-left: 5px; padding: .4em .6em;"><span class="badge badge-primary-v4">' . $r['explocal_numero'] . '</span></span> &nbsp;' : '') . $r['title'];
             $results[$key]['title_detail'] = ($r['explocal_numero'] ? '<span class="badge badge-primary-v4 " style="/*margin-left: 15px; padding: .2em .6em;*/">' . $r['explocal_numero'] . '</span>' : '') /*. $r['title']*/;
@@ -229,7 +229,7 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
             $results[$key]['prc_fechaCreacion']    = $r['prc_fechaCreacion'] ? $r['prc_fechaCreacion']->format('Y-m-d H:i:s A') : '';
             $results[$key]['prc_fechaProximaConsulta']           = $r['prc_fechaProximaConsulta'] ? $r['prc_fechaProximaConsulta']->format('Y-m-d') : '';
 
-            // $results[$key]['prc_solicitudEstudioProyeccion']  = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
+            // $results[$key]['prc_solicitudEstudioProyeccion']  = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
 
             $results[$key]['url']    = $this->admin->generateUrl('show', array('id' => $r['cit_id']));
         }
@@ -333,11 +333,11 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
      //     */
      //    $em = $this->getDoctrine()->getManager();
 
-     //    $preinscripcionPadre = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->find($idSolicitudEstudioPadre);
+     //    $preinscripcionPadre = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->find($idSolicitudEstudioPadre);
 
-     //    $paramCitacion = $em->getRepository('MinsalSimagdBundle:ImgCtlConfiguracionAgenda')->find($idParamCitacion);
+     //    $paramCitacion = $em->getRepository('MinsalSimagdBundle:RyxCtlConfiguracionAgenda')->find($idParamCitacion);
 
-     //    $reservas = $em->getRepository('MinsalSimagdBundle:ImgCita')
+     //    $reservas = $em->getRepository('MinsalSimagdBundle:RyxCitaProgramada')
      //            ->obtenerReservados($idEstablecimiento,
      //                                $preinscripcionPadre ? $preinscripcionPadre->getIdAreaServicioDiagnostico()->getId() : '-1',
      //                                $preinscripcionPadre ? $preinscripcionPadre->getFechaProximaConsulta() : null);
@@ -357,7 +357,7 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
 
         //Cambio de estado de cita
         $em = $this->getDoctrine()->getManager();
-        $estadoReference    = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlEstadoCita', '2');
+        $estadoReference    = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlEstadoCita', '2');
         $cita->setIdEstadoCita($estadoReference);
         //Fecha de confirmación
         $cita->setFechaConfirmacion(new \DateTime('now'));
@@ -386,8 +386,8 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
         $cita = $this->admin->getObject($id);
 
         $em     = $this->getDoctrine()->getManager();
-        // if ($em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
-        //                    ->existeRegistroPorPreinscripcion($cita->getIdSolicitudEstudio()->getId(), 'prz', 'ImgProcedimientoRealizado')) {
+        // if ($em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')
+        //                    ->existeRegistroPorPreinscripcion($cita->getIdSolicitudEstudio()->getId(), 'prz', 'RyxProcedimientoRadiologicoRealizado')) {
         //    $this->addFlash('sonata_flash_error', 'El procedimiento preinscrito ya fué realizado al paciente');
         //    return new RedirectResponse($this->admin->generateUrl('list'));
         // }
@@ -398,7 +398,7 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
         $observaciones      = $request->request->get('formCancelCitObservaciones');
 
         //Cambio de estado de cita
-        $estadoReference    = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlEstadoCita', $IdEstadoCita);
+        $estadoReference    = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlEstadoCita', $IdEstadoCita);
         $cita->setIdEstadoCita($estadoReference);
 
         //Razón de cancelación
@@ -426,13 +426,13 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
         $em = $this->getDoctrine()->getManager();
 
         // No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCita', 'cit')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxCitaProgramada', 'cit')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
         // No puede acceder al registro
         $sessionUser = $this->container->get('security.context')->getToken()->getUser();
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgCita')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxCitaProgramada')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
@@ -449,13 +449,13 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
         $em = $this->getDoctrine()->getManager();
 
         // No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCita', 'cit')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxCitaProgramada', 'cit')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
         // No puede acceder al registro
         $sessionUser = $this->container->get('security.context')->getToken()->getUser();
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgCita')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxCitaProgramada')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
@@ -506,13 +506,13 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
         //                                 ->obtenerEstabParaRefDiag('idEstablecimientoDiagnosticante')
         //                                         ->getQuery()->getResult();
 
-        // $estados                = $em->getRepository('MinsalSimagdBundle:ImgCtlEstadoCita')->findAll();
+        // $estados                = $em->getRepository('MinsalSimagdBundle:RyxCtlEstadoCita')->findAll();
 
-        // $prioridades            = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2();
+        // $prioridades            = $em->getRepository('MinsalSimagdBundle:RyxCtlPrioridadAtencionPaciente')->obtenerPrioridadesAtencionV2();
 
         $modalidades            = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
         // $examenes               = $em->getRepository('MinsalSimagdBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
-        // $proyecciones           = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
+        // $proyecciones           = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->findAll();
         // $sexos                  = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
 
         // $areasAtencion          = $em->getRepository('MinsalSiapsBundle:CtlAreaAtencion')->findAll();
@@ -525,17 +525,17 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
          */
         // $GROUP_DEPENDENT_ENTITIES   = array();
         // try {
-        //     $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->getRadiologicalProceduresGrouped($estabLocal->getId());
+        //     $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->getRadiologicalProceduresGrouped($estabLocal->getId());
         // } catch (Exception $e) {
         //     $status = 'failed';
         // }
         // try {
-        //     $GROUP_DEPENDENT_ENTITIES['ar_atn']   = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerAtencionesAgrupadasV2($estabLocal->getId());
+        //     $GROUP_DEPENDENT_ENTITIES['ar_atn']   = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->obtenerAtencionesAgrupadasV2($estabLocal->getId());
         // } catch (Exception $e) {
         //     $status = 'failed';
         // }
         // try {
-        //     $GROUP_DEPENDENT_ENTITIES['atn_emp']  = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerEmpleadosAgrupadosV2($estabLocal->getId());
+        //     $GROUP_DEPENDENT_ENTITIES['atn_emp']  = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->obtenerEmpleadosAgrupadosV2($estabLocal->getId());
         // } catch (Exception $e) {
         //     $status = 'failed';
         // }
@@ -599,13 +599,13 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
         $em = $this->getDoctrine()->getManager();
 
         //solicitud
-        $preinscripcionReference    = $em->getReference('Minsal\SimagdBundle\Entity\ImgSolicitudEstudio', $solicitud);
+        $preinscripcionReference    = $em->getReference('Minsal\SimagdBundle\Entity\RyxSolicitudEstudio', $solicitud);
         $cita->setIdSolicitudEstudio($preinscripcionReference);
 
-        // $cita->setIdSolicitudEstudio($em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->find($solicitud));
+        // $cita->setIdSolicitudEstudio($em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->find($solicitud));
         $cita->setFechaHoraInicio(\DateTime::createFromFormat('Y-m-d H:i', $start));
         $cita->setFechaHoraFin(\DateTime::createFromFormat('Y-m-d H:i', $end));
-        // $cita->setIdParametroCitacion($em->getRepository('MinsalSimagdBundle:ImgCtlConfiguracionAgenda')->find(9));
+        // $cita->setIdParametroCitacion($em->getRepository('MinsalSimagdBundle:RyxCtlConfiguracionAgenda')->find(9));
         $cita->setColor($color);
 
         //Asignación de tecnólogo en caso de ser enviado
@@ -719,7 +719,7 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
         $em = $this->getDoctrine()->getManager();
 
         //Cambio de estado de cita
-        $estadoReference        = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlEstadoCita', $idEstado);
+        $estadoReference        = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlEstadoCita', $idEstado);
         $cita->setIdEstadoCita($estadoReference);
         //Asignación de tecnólogo en caso de ser enviado
         if ($idTecnologoProgramado) {
@@ -766,13 +766,13 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
         $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->getPendingPatients($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->getPendingPatients($estabLocal->getId(), $BS_FILTERS_DECODE);
 
         $formatter = new Formatter();
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudio();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxSolicitudEstudio();
 
             $results[$key]['tooltip_title']  = ($r['explocal_numero'] ? '<span class="label label-primary-v4" style="margin-left: 5px; padding: .4em .6em .3em;"><span class="badge badge-primary-v4">' . $r['explocal_numero'] . '</span></span> &nbsp;' : '') . $r['prc_paciente'];
 
@@ -782,7 +782,7 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
 
             $results[$key]['color']                              = $r['prc_id_areaAtencion'] == 2 ? '#e0533d' : ($r['prc_id_areaAtencion'] == 3 ? '#16677d' : '#183f52');
 
-            // $results[$key]['prc_solicitudEstudioProyeccion']      = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
+            // $results[$key]['prc_solicitudEstudioProyeccion']      = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->obtenerProyeccionesSolicitudEstudio($r['prc_id']);
 
             $results[$key]['event_detail'] = '<div class="box ' /*box-drop-outside-shadow */ . ' box-primary-v4" style="margin-top: 0px; color: #444; margin-bottom: 0px;">' .
                     '<div class="box-body" >' .
@@ -822,7 +822,7 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
     	$sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgCita')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxCitaProgramada')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
 
         $isUser_allowShow 	= ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit 	= ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('editarCita')) ? TRUE : FALSE;
@@ -839,7 +839,7 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgCita();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxCitaProgramada();
 
             if ($__REQUEST__type === 'detail')
             {
@@ -966,7 +966,7 @@ class RyxCitaProgramadaAdminController extends MinsalSimagdBundleGeneralAdminCon
                                                     'idPaciente' => $solicitud->getIdExpediente()->getIdPaciente()->getId()
                                         ));
 
-        $indicaciones       = $em->getRepository('MinsalSimagdBundle:ImgCtlPreparacionEstudio')->findBy(array(
+        $indicaciones       = $em->getRepository('MinsalSimagdBundle:RyxCtlPreparacionEstudio')->findBy(array(
                                                             'idAreaServicioDiagnosticoAplica' => $solicitud->getIdAreaServicioDiagnostico()->getId()
                                                         ));
 

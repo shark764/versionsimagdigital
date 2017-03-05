@@ -100,7 +100,7 @@ class OrigenDatoController extends Controller
 
         try {
             if ($objeto_prueba == 'base_datos') {
-                $motor = $em->find('MinsalSimagdBundle:ImgCtlMotorBd', $req->get('idMotor'));
+                $motor = $em->find('MinsalSimagdBundle:RyxCtlMotorBd', $req->get('idMotor'));
                 $datos = array('dbname' => $req->get('nombreBaseDatos'),
                     'user' => $req->get('usuario'),
                     'password' => $req->get('clavefirst'),

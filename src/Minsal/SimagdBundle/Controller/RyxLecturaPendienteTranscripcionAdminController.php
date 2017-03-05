@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
-use Minsal\SimagdBundle\Entity\ImgPendienteTranscripcion;
+use Minsal\SimagdBundle\Entity\RyxLecturaPendienteTranscripcion;
 
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxLecturaPendienteTranscripcionListViewGenerator;
@@ -59,7 +59,7 @@ class RyxLecturaPendienteTranscripcionAdminController extends MinsalSimagdBundle
 
         $em = $this->getDoctrine()->getManager();
 
-        $diagnostico = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->findOneBy(array('idLectura' => $lectura));
+        $diagnostico = $em->getRepository('MinsalSimagdBundle:RyxDiagnosticoRadiologico')->findOneBy(array('idLectura' => $lectura));
         if ($diagnostico) {
             $paciente = $diagnostico->getIdLectura()->getIdEstudio()->getIdExpediente()->getIdPaciente();
             if ($object->getFueImpugnado()) { $this->addFlash('sonata_flash_error', 'Transcripción ha sido impugnada para lectura de: <br/> <strong>' . $paciente . '</strong>'); }
@@ -106,13 +106,13 @@ class RyxLecturaPendienteTranscripcionAdminController extends MinsalSimagdBundle
                                         ->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(1, 4, 5, 6))
                                         ->getQuery()->getResult();
 
-        $tipos              = $em->getRepository('MinsalSimagdBundle:ImgCtlTipoNotaDiagnostico')->findAll();
-        $estadosDiag        = $em->getRepository('MinsalSimagdBundle:ImgCtlEstadoDiagnostico')->findAll();
+        $tipos              = $em->getRepository('MinsalSimagdBundle:RyxCtlTipoOpinionMedicaDiagnostico')->findAll();
+        $estadosDiag        = $em->getRepository('MinsalSimagdBundle:RyxCtlEstadoDiagnostico')->findAll();
 
         $modalidades        = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->findBy(array('idAtencion' => '97'));
 
         /** Patrones para diagnóstico */
-        $patronesDiag       = $em->getRepository('MinsalSimagdBundle:ImgCtlPatronDiagnostico')
+        $patronesDiag       = $em->getRepository('MinsalSimagdBundle:RyxCtlPatronDiagnostico')
                                         ->getUsableDiagnosticPatterns($estabLocal->getId())
                                         ->getQuery()->getResult();
         /** Fin --- Patrones para diagnóstico */
@@ -146,7 +146,7 @@ class RyxLecturaPendienteTranscripcionAdminController extends MinsalSimagdBundle
     	$sessionUser               = $securityContext->getToken()->getUser();
         $estabLocal                 = $sessionUser->getIdEstablecimiento();
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgPendienteTranscripcion')->getWorkList($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxLecturaPendienteTranscripcion')->getWorkList($estabLocal->getId(), $BS_FILTERS_DECODE);
 
         $isUser_allowTranscribir    = ($this->admin->getRoutes()->has('transcribir') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_EDIT')) ||
@@ -159,7 +159,7 @@ class RyxLecturaPendienteTranscripcionAdminController extends MinsalSimagdBundle
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgPendienteTranscripcion();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxLecturaPendienteTranscripcion();
 
             if ($__REQUEST__type === 'detail')
             {
@@ -268,7 +268,7 @@ class RyxLecturaPendienteTranscripcionAdminController extends MinsalSimagdBundle
 
         //Actualizar registros
         try {
-            $result = $em->getRepository('MinsalSimagdBundle:ImgPendienteTranscripcion')
+            $result = $em->getRepository('MinsalSimagdBundle:RyxLecturaPendienteTranscripcion')
                             ->addToWorkList($estabLocal->getId(), $id_trcX, $sessionUser->getIdEmpleado()->getId(), $pndT_rows);
         } catch (Exception $e) {
             $status = 'failed';

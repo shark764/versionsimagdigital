@@ -32,7 +32,7 @@ class RyxCtlMotorBdAdminController extends MinsalSimagdBundleGeneralAdminControl
         $em = $this->getDoctrine()->getManager();
 
         // No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlMotorBd', 'mtrBd')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxCtlMotorBd', 'mtrBd')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
         
@@ -49,7 +49,7 @@ class RyxCtlMotorBdAdminController extends MinsalSimagdBundleGeneralAdminControl
         $em = $this->getDoctrine()->getManager();
 
         // No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlMotorBd', 'mtrBd')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxCtlMotorBd', 'mtrBd')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
         

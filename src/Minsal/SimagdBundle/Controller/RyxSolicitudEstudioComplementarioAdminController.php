@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Admin\BaseFieldDescription;
 use Sonata\AdminBundle\Util\AdminObjectAclData;
 use Sonata\AdminBundle\Admin\AdminInterface;
-use Minsal\SimagdBundle\Entity\ImgSolicitudEstudioComplementario;
+use Minsal\SimagdBundle\Entity\RyxSolicitudEstudioComplementario;
 use Doctrine\ORM\EntityRepository;
 
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
@@ -71,7 +71,7 @@ class RyxSolicitudEstudioComplementarioAdminController extends MinsalSimagdBundl
     	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudioComplementario')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudioComplementario')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
                                         
     	$isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
     	$isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
@@ -80,7 +80,7 @@ class RyxSolicitudEstudioComplementarioAdminController extends MinsalSimagdBundl
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudioComplementario();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxSolicitudEstudioComplementario();
 
             $results[$key]['menu_code'] = 'furtherstudyrequest';
 
@@ -146,7 +146,7 @@ class RyxSolicitudEstudioComplementarioAdminController extends MinsalSimagdBundl
             // $results[$key]['allowEdit']              = (false !== $isUser_allowEdit && ($estabLocal->getId() == $r['solcmpl_id_solicitado']) &&
             //         ($r['solcmpl_id_userReg'] == $sessionUser->getId() || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
             
-            // $results[$key]['solcmpl_solicitudEstudioComplementarioProyeccion']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->obtenerProyeccionesSolicitudEstudioComplementario($r['solcmpl_id']);
+            // $results[$key]['solcmpl_solicitudEstudioComplementarioProyeccion']   = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->obtenerProyeccionesSolicitudEstudioComplementario($r['solcmpl_id']);
         }
         
         return $this->renderJson($results);
@@ -414,7 +414,7 @@ class RyxSolicitudEstudioComplementarioAdminController extends MinsalSimagdBundl
         $em = $this->getDoctrine()->getManager();
 
         //Cambio de prioridad requerida
-        $prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion', $prioridadNv);
+        $prioridadReference = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlPrioridadAtencionPaciente', $prioridadNv);
         $solEstudioCmpl->setIdPrioridadAtencion($prioridadReference);
 
         //Actualizar solicitud
@@ -538,14 +538,14 @@ class RyxSolicitudEstudioComplementarioAdminController extends MinsalSimagdBundl
         
         $em = $this->getDoctrine()->getManager();
         
-        // $new_studyRequest = new ImgSolicitudEstudioComplementario();
+        // $new_studyRequest = new RyxSolicitudEstudioComplementario();
         
         /*
          * Registros padres
          */
-        $ref_solicitudPadre  = $em->getReference('Minsal\SimagdBundle\Entity\ImgSolicitudEstudio', $request_solicitudPadre);
+        $ref_solicitudPadre  = $em->getReference('Minsal\SimagdBundle\Entity\RyxSolicitudEstudio', $request_solicitudPadre);
         $new_studyRequest->setIdSolicitudEstudio($ref_solicitudPadre);
-        $ref_estudioPadre  = $em->getReference('Minsal\SimagdBundle\Entity\ImgEstudioPaciente', $request_estudioPadre);
+        $ref_estudioPadre  = $em->getReference('Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes', $request_estudioPadre);
         $new_studyRequest->setIdEstudioPadre($ref_estudioPadre);
         
         /*
@@ -562,13 +562,13 @@ class RyxSolicitudEstudioComplementarioAdminController extends MinsalSimagdBundl
          * Proyecciones
          */
         foreach ($request_proyecciones as $request_proyeccion)  {
-            $ref_proyeccion = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlProyeccion', $request_proyeccion);
+            $ref_proyeccion = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlProyeccionRadiologica', $request_proyeccion);
             $new_studyRequest->addSolicitudEstudioComplementarioProyeccion($ref_proyeccion);
         }
         /*
          * Cambio de prioridad requerida
          */
-        $ref_prioridad  = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion', $request_prioridad);
+        $ref_prioridad  = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlPrioridadAtencionPaciente', $request_prioridad);
         $new_studyRequest->setIdPrioridadAtencion($ref_prioridad);
         /*
          * Generales
@@ -616,7 +616,7 @@ class RyxSolicitudEstudioComplementarioAdminController extends MinsalSimagdBundl
         
         $em = $this->getDoctrine()->getManager();
         
-        // $edit_studyRequest = new ImgSolicitudEstudioComplementario();
+        // $edit_studyRequest = new RyxSolicitudEstudioComplementario();
         
         /*
          * Radiólogo
@@ -640,14 +640,14 @@ class RyxSolicitudEstudioComplementarioAdminController extends MinsalSimagdBundl
         }
         foreach ($request_proyecciones as $request_proyeccion)  {
             if (!in_array($request_proyeccion, $arr_pryAdded)) {
-                $ref_proyeccion = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlProyeccion', $request_proyeccion);
+                $ref_proyeccion = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlProyeccionRadiologica', $request_proyeccion);
                 $edit_studyRequest->addSolicitudEstudioComplementarioProyeccion($ref_proyeccion);              // --| add to collection if is not in, but is in request
             }
         }
         /*
          * Cambio de prioridad requerida
          */
-        $ref_prioridad  = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlPrioridadAtencion', $request_prioridad);
+        $ref_prioridad  = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlPrioridadAtencionPaciente', $request_prioridad);
         $edit_studyRequest->setIdPrioridadAtencion($ref_prioridad);
         /*
          * Generales

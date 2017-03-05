@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 use Minsal\SimagdBundle\Entity\MntAreaExamenEstablecimiento;
-use Minsal\SimagdBundle\Entity\ImgCtlProyeccionEstablecimiento;
+use Minsal\SimagdBundle\Entity\RyxCtlProyeccionEstablecimiento;
 
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxCtlProyeccionRadiologicaListViewGenerator;
@@ -56,7 +56,7 @@ class RyxCtlProyeccionRadiologicaAdminController extends MinsalSimagdBundleGener
         $em = $this->getDoctrine()->getManager();
 
         // No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlProyeccion', 'expl')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxCtlProyeccionRadiologica', 'expl')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
@@ -73,7 +73,7 @@ class RyxCtlProyeccionRadiologicaAdminController extends MinsalSimagdBundleGener
         $em = $this->getDoctrine()->getManager();
 
         // No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlProyeccion', 'expl')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxCtlProyeccionRadiologica', 'expl')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
@@ -95,7 +95,7 @@ class RyxCtlProyeccionRadiologicaAdminController extends MinsalSimagdBundleGener
 
         $modalidades        = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
         $examenes           = $em->getRepository('MinsalSimagdBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
-        $proyecciones       = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
+        $proyecciones       = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->findAll();
         $sexos              = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
 
         return $this->render($this->admin->getTemplate('list'),
@@ -124,7 +124,7 @@ class RyxCtlProyeccionRadiologicaAdminController extends MinsalSimagdBundleGener
         $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->data($BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->data($BS_FILTERS_DECODE);
 
         $isUser_allowShow       = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit       = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
@@ -133,7 +133,7 @@ class RyxCtlProyeccionRadiologicaAdminController extends MinsalSimagdBundleGener
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgCtlProyeccion();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxCtlProyeccionRadiologica();
 
             if ($__REQUEST__type === 'detail')
             {
@@ -189,7 +189,7 @@ class RyxCtlProyeccionRadiologicaAdminController extends MinsalSimagdBundleGener
             $results[$key]['allowEdit']          = $isUser_allowEdit;
 
             $results[$key]['allowAgregarLc']     = ($this->admin->getRoutes()->has('agregarEnMiCatalogo') &&
-                    false === $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->existeProyeccionEnLocalV2($estabLocal->getId(), $r['expl_id']) &&
+                    false === $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->existeProyeccionEnLocalV2($estabLocal->getId(), $r['expl_id']) &&
                     ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_PROYECCION_ESTABLECIMIENTO_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
         }
 
@@ -224,7 +224,7 @@ class RyxCtlProyeccionRadiologicaAdminController extends MinsalSimagdBundleGener
 
         //Nueva instancia
         $proyeccion        = $this->admin->getNewInstance();
-        // $proyeccion = new \Minsal\SimagdBundle\Entity\ImgCtlProyeccion();
+        // $proyeccion = new \Minsal\SimagdBundle\Entity\RyxCtlProyeccionRadiologica();
 
         $nombre             = $request->request->get('formExplNombre');
         $codigo             = $request->request->get('formExplCodigo');
@@ -261,8 +261,8 @@ class RyxCtlProyeccionRadiologicaAdminController extends MinsalSimagdBundleGener
         }
 
         if ($realizable) {
-            /** ImgCtlProyeccionEstablecimiento */
-            $pryRealizable     = new ImgCtlProyeccionEstablecimiento();
+            /** RyxCtlProyeccionEstablecimiento */
+            $pryRealizable     = new RyxCtlProyeccionEstablecimiento();
             $pryRealizable->setIdProyeccion($proyeccion);
             $pryRealizable->setIdUserReg($sessionUser);
             $pryRealizable->setFechaHoraReg(new \DateTime('now'));
@@ -372,7 +372,7 @@ class RyxCtlProyeccionRadiologicaAdminController extends MinsalSimagdBundleGener
 
         //Actualizar registros
         try {
-            $result = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')
+            $result = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')
                         ->addToLocalCatalogue($estabLocal->getId(), $id_areaSrvDiag, $sessionUser->getId(), $pryX_rows);
         } catch (Exception $e) {
             $status = 'failed';

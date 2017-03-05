@@ -57,7 +57,7 @@ class RyxCtlConexionPacsEstablecimientoAdminController extends MinsalSimagdBundl
         $em = $this->getDoctrine()->getManager();
 
         // No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlPacsEstablecimiento', 'pacs')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxCtlConexionPacsEstablecimiento', 'pacs')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
@@ -74,7 +74,7 @@ class RyxCtlConexionPacsEstablecimientoAdminController extends MinsalSimagdBundl
         $em = $this->getDoctrine()->getManager();
 
         // No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlPacsEstablecimiento', 'pacs')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxCtlConexionPacsEstablecimiento', 'pacs')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
@@ -96,7 +96,7 @@ class RyxCtlConexionPacsEstablecimientoAdminController extends MinsalSimagdBundl
         $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgCtlPacsEstablecimiento')->data($BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxCtlConexionPacsEstablecimiento')->data($BS_FILTERS_DECODE);
 
         $isUser_allowShow       = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit       = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
@@ -105,7 +105,7 @@ class RyxCtlConexionPacsEstablecimientoAdminController extends MinsalSimagdBundl
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgCtlPacsEstablecimiento();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxCtlConexionPacsEstablecimiento();
 
             if ($__REQUEST__type === 'detail')
             {

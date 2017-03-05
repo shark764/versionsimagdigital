@@ -89,10 +89,10 @@ class RyxEstudioPorImagenesAdminController extends CRUDController
         
         $collection_tiposEmpleado  = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
         $collection_radiologos     = $em->getRepository('MinsalSiapsBundle:MntEmpleado')->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(4, 5))->getQuery()->getResult();
-        $collection_prioridades    = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2();
+        $collection_prioridades    = $em->getRepository('MinsalSimagdBundle:RyxCtlPrioridadAtencionPaciente')->obtenerPrioridadesAtencionV2();
         $collection_modalidades    = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
         $collection_examenes       = $em->getRepository('MinsalSimagdBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
-        $collection_proyecciones   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
+        $collection_proyecciones   = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->findAll();
         $collection_sexos          = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
         
         /*
@@ -100,7 +100,7 @@ class RyxEstudioPorImagenesAdminController extends CRUDController
          */
         $GROUP_DEPENDENT_ENTITIES   = array();
         try {
-            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->getRadiologicalProceduresGrouped($estabLocal->getId());
+            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->getRadiologicalProceduresGrouped($estabLocal->getId());
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -185,7 +185,7 @@ class RyxEstudioPorImagenesAdminController extends CRUDController
                  * advance search
                  */
                 $BS_FILTERS_DECODE['xparam']['explocal_numero']['value']    = null;
-                $results = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')
+                $results = $em->getRepository('MinsalSimagdBundle:RyxEstudioPorImagenes')
                                                 ->data(
                                                                 $estabAlojado,
                                                                 $fechaDesde,
@@ -205,7 +205,7 @@ class RyxEstudioPorImagenesAdminController extends CRUDController
                 /*
                  * minimum search
                  */
-                $results = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')
+                $results = $em->getRepository('MinsalSimagdBundle:RyxEstudioPorImagenes')
                                                 ->data(
                                                         $estabLocal->getId(),
                                                         null,
@@ -229,14 +229,14 @@ class RyxEstudioPorImagenesAdminController extends CRUDController
                         $securityContext->isGranted('ROLE_ADMIN')) ? TRUE : FALSE;
     	
     	$PACS_SERVER_CONFIGURED = $isUser_allowDownload !== false ?
-				      $em->getRepository('MinsalSimagdBundle:ImgCtlPacsEstablecimiento')->getConfiguredServerPACSConnection($estabLocal->getId())
+				      $em->getRepository('MinsalSimagdBundle:RyxCtlConexionPacsEstablecimiento')->getConfiguredServerPACSConnection($estabLocal->getId())
 				      : null;
 
         $formatter = new Formatter();
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgEstudioPaciente();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes();
 
             if ($__REQUEST__type === 'detail')
             {
@@ -321,9 +321,9 @@ class RyxEstudioPorImagenesAdminController extends CRUDController
 		    array('__prc' => $r['prc_id'], '__est' => $r['est_id']));
 		    
 	    /** Anexar por radiólogo */
-	    $countLct       = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')->countEstudioLecturasRealizadas($r['est_id']);
-	    $countPndL      = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')->countEstudioPendienteLectura($r['est_id']);
-	    $countLctEst    = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')->countEstudioLecturaEstudio($r['est_id']);
+	    $countLct       = $em->getRepository('MinsalSimagdBundle:RyxEstudioPorImagenes')->countEstudioLecturasRealizadas($r['est_id']);
+	    $countPndL      = $em->getRepository('MinsalSimagdBundle:RyxEstudioPorImagenes')->countEstudioPendienteLectura($r['est_id']);
+	    $countLctEst    = $em->getRepository('MinsalSimagdBundle:RyxEstudioPorImagenes')->countEstudioLecturaEstudio($r['est_id']);
                     
             $results[$key]['allowAnexarPndL']                    = ($countLct['numReg'] === 0 && $countPndL['numReg'] === 0 && $countLctEst['numReg'] === 0 &&
                     ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') ||
@@ -358,13 +358,13 @@ class RyxEstudioPorImagenesAdminController extends CRUDController
         
         $em = $this->getDoctrine()->getManager();
         
-        $results = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')->getPatients($estabLocal->getId(), $numeroExp);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxEstudioPorImagenes')->getPatients($estabLocal->getId(), $numeroExp);
 
         $formatter = new Formatter();
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgEstudioPaciente();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes();
 
             $results[$key]['pct_edad']   = $r['pct_fechaNacimiento'] ? $r['pct_fechaNacimiento']->diff((new \DateTime('now'))) : null;
         }

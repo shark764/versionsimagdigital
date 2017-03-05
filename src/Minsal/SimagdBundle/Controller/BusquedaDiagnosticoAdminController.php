@@ -28,7 +28,7 @@ class BusquedaDiagnosticoAdminController extends MinsalSimagdBundleGeneralAdminC
         $em = $this->getDoctrine()->getManager();
 
         // No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgDiagnostico', 'diag')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxDiagnosticoRadiologico', 'diag')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
         

@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
-use Minsal\SimagdBundle\Entity\ImgPendienteRealizacion;
+use Minsal\SimagdBundle\Entity\RyxExamenPendienteRealizacion;
 
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxExamenPendienteRealizacionListViewGenerator;
@@ -59,7 +59,7 @@ class RyxExamenPendienteRealizacionAdminController extends MinsalSimagdBundleGen
         $preinscripcion = $object->getIdSolicitudEstudio()->getId();
 
         $em = $this->getDoctrine()->getManager();
-        $realizado = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')->findOneBy(array('idSolicitudEstudio' => $preinscripcion));
+        $realizado = $em->getRepository('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado')->findOneBy(array('idSolicitudEstudio' => $preinscripcion));
         if (!is_null($realizado)) {
             $this->addFlash('sonata_flash_info', 'Información post-examen registrada para preinscripción de: <br/> <strong>' .
 						$object->getIdSolicitudEstudio()->getIdExpediente()->getIdPaciente() . '</strong>');
@@ -67,7 +67,7 @@ class RyxExamenPendienteRealizacionAdminController extends MinsalSimagdBundleGen
         }
 
         $this->addFlash('sonata_flash_success', 'Información post-examen para estudio preinscrito');
-        $citaAsociada = $em->getRepository('MinsalSimagdBundle:ImgCita')->findOneBy(array('idSolicitudEstudio' => $preinscripcion));
+        $citaAsociada = $em->getRepository('MinsalSimagdBundle:RyxCitaProgramada')->findOneBy(array('idSolicitudEstudio' => $preinscripcion));
         return $this->redirect($this->generateUrl('simagd_realizado_create',
 					array('__prc' => $preinscripcion, '__cit' => $citaAsociada ? $citaAsociada->getId() : null)));
     }
@@ -83,7 +83,7 @@ class RyxExamenPendienteRealizacionAdminController extends MinsalSimagdBundleGen
         $preinscripcion = $pndR->getIdSolicitudEstudio()->getId();
 
         $em = $this->getDoctrine()->getManager();
-        $citaAsociada   = $em->getRepository('MinsalSimagdBundle:ImgCita')->findOneBy(array('idSolicitudEstudio' => $preinscripcion));
+        $citaAsociada   = $em->getRepository('MinsalSimagdBundle:RyxCitaProgramada')->findOneBy(array('idSolicitudEstudio' => $preinscripcion));
 
         return $this->redirect($this->generateUrl('simagd_realizado_addPendingToWorkList',
                         array('__prc' => $preinscripcion,
@@ -136,11 +136,11 @@ class RyxExamenPendienteRealizacionAdminController extends MinsalSimagdBundleGen
                                         ->obtenerEstabParaRefDiag('idEstablecimientoDiagnosticante')
                                                 ->getQuery()->getResult();
 
-        $prioridades            = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2();
+        $prioridades            = $em->getRepository('MinsalSimagdBundle:RyxCtlPrioridadAtencionPaciente')->obtenerPrioridadesAtencionV2();
 
         $modalidades            = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
         $examenes               = $em->getRepository('MinsalSimagdBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
-        $proyecciones           = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
+        $proyecciones           = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->findAll();
         $sexos                  = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
 
         $areasAtencion          = $em->getRepository('MinsalSiapsBundle:CtlAreaAtencion')->findAll();
@@ -153,17 +153,17 @@ class RyxExamenPendienteRealizacionAdminController extends MinsalSimagdBundleGen
          */
         $GROUP_DEPENDENT_ENTITIES   = array();
         try {
-            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->getRadiologicalProceduresGrouped($estabLocal->getId());
+            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->getRadiologicalProceduresGrouped($estabLocal->getId());
         } catch (Exception $e) {
             $status = 'failed';
         }
         try {
-            $GROUP_DEPENDENT_ENTITIES['ar_atn']   = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerAtencionesAgrupadasV2($estabLocal->getId());
+            $GROUP_DEPENDENT_ENTITIES['ar_atn']   = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->obtenerAtencionesAgrupadasV2($estabLocal->getId());
         } catch (Exception $e) {
             $status = 'failed';
         }
         try {
-            $GROUP_DEPENDENT_ENTITIES['atn_emp']  = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerEmpleadosAgrupadosV2($estabLocal->getId());
+            $GROUP_DEPENDENT_ENTITIES['atn_emp']  = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->obtenerEmpleadosAgrupadosV2($estabLocal->getId());
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -234,7 +234,7 @@ class RyxExamenPendienteRealizacionAdminController extends MinsalSimagdBundleGen
                     // 'technologist'  => $idTecnologo,
                 );
 
-                $results = $em->getRepository('MinsalSimagdBundle:ImgPendienteRealizacion')->getWorkListSummaryAgenda($p, $BS_FILTERS_DECODE);
+                $results = $em->getRepository('MinsalSimagdBundle:RyxExamenPendienteRealizacion')->getWorkListSummaryAgenda($p, $BS_FILTERS_DECODE);
 
                 foreach ($results as $k => $r)
                 {
@@ -274,13 +274,13 @@ class RyxExamenPendienteRealizacionAdminController extends MinsalSimagdBundleGen
                     // 'technologist'  => $idTecnologo,
                 );
                 
-                $results = $em->getRepository('MinsalSimagdBundle:ImgPendienteRealizacion')->getWorkListEventsAgenda($p, $BS_FILTERS_DECODE);
+                $results = $em->getRepository('MinsalSimagdBundle:RyxExamenPendienteRealizacion')->getWorkListEventsAgenda($p, $BS_FILTERS_DECODE);
 
                 return $this->renderJson($results);
             }
         }
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgPendienteRealizacion')->getWorkList($estabLocal->getId(), $BS_FILTERS_DECODE, $worklist_range_);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxExamenPendienteRealizacion')->getWorkList($estabLocal->getId(), $BS_FILTERS_DECODE, $worklist_range_);
 
         $isUser_allowRealizar               = ($this->admin->getRoutes()->has('realizar') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_EDIT')) ||
@@ -296,7 +296,7 @@ class RyxExamenPendienteRealizacionAdminController extends MinsalSimagdBundleGen
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgPendienteRealizacion;
+            // $r = new \Minsal\SimagdBundle\Entity\RyxExamenPendienteRealizacion;
 
             if ($__REQUEST__type === 'detail')
             {

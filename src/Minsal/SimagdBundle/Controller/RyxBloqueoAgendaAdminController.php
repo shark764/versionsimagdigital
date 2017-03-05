@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Admin\BaseFieldDescription;
 use Sonata\AdminBundle\Util\AdminObjectAclData;
 use Sonata\AdminBundle\Admin\AdminInterface;
-use Minsal\SimagdBundle\Entity\ImgCita;
+use Minsal\SimagdBundle\Entity\RyxCitaProgramada;
 use Doctrine\ORM\EntityRepository;
 
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
@@ -339,7 +339,7 @@ class RyxBloqueoAgendaAdminController extends MinsalSimagdBundleGeneralAdminCont
         }
         foreach ($request_radiologos as $request_radiologo)  {
             if (!in_array($request_radiologo, $arr_radxExcluded)) {
-		$new_exclBlAgd	= new \Minsal\SimagdBundle\Entity\ImgExclusionBloqueo();
+		$new_exclBlAgd	= new \Minsal\SimagdBundle\Entity\RyxExclusionBloqueo();
 		$new_exclBlAgd->setIdBloqueoAgenda($object_blAgd);
                 $ref_excludedRadx = $em->getReference('Minsal\SiapsBundle\Entity\MntEmpleado', $request_radiologo);
 		$new_exclBlAgd->setIdRadiologoExcluido($ref_excludedRadx);

@@ -37,7 +37,7 @@ class DefaultController extends Controller
         $pacienteEntity = $expedienteEntity->getIdPaciente();
         
         /** Establecimientos en donde se ha realizado estudios al paciente */
-        $estabsEstudiosRealizados = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')
+        $estabsEstudiosRealizados = $em->getRepository('MinsalSimagdBundle:RyxEstudioPorImagenes')
                                             ->obtenerEstabsEstudiosRealizados($pacienteEntity->getId());
         
         /** Array multidimensional que contendra todos los 'numero' de expedientes y el establecimiento al que pertenecen */

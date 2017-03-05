@@ -42,7 +42,7 @@ class ImgMisTranscripcionesNoConcluidasAdminController extends MinsalSimagdBundl
         $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
-        $resultados = $em->getRepository('MinsalSimagdBundle:ImgPendienteTranscripcion')->assignedWorkList($estabLocal->getId(), $sessionUser->getId(), $BS_FILTERS_DECODE);
+        $resultados = $em->getRepository('MinsalSimagdBundle:RyxLecturaPendienteTranscripcion')->assignedWorkList($estabLocal->getId(), $sessionUser->getId(), $BS_FILTERS_DECODE);
         
         $isUser_allowTranscribir = ($this->admin->getRoutes()->has('transcribir') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_DIAGNOSTICO_EDIT')) ||
@@ -52,7 +52,7 @@ class ImgMisTranscripcionesNoConcluidasAdminController extends MinsalSimagdBundl
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgPendienteTranscripcion();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxLecturaPendienteTranscripcion();
 
             $resultados[$key]['diag_fechaTranscrito'] = $resultado['diag_fechaTranscrito'] ? $resultado['diag_fechaTranscrito']->format('Y-m-d H:i:s A') : '';
             $resultados[$key]['diag_fechaCorregido'] = $resultado['diag_fechaCorregido'] ? $resultado['diag_fechaCorregido']->format('Y-m-d H:i:s A') : '';

@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
 
-use Minsal\SimagdBundle\Entity\ImgCtlMaterialEstablecimiento;
+use Minsal\SimagdBundle\Entity\RyxCtlMaterialEstablecimiento;
 
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxCtlMaterialListViewGenerator;
@@ -56,7 +56,7 @@ class RyxCtlMaterialAdminController extends MinsalSimagdBundleGeneralAdminContro
         // $em = $this->getDoctrine()->getManager();
         //
         //	//No existe el registro
-        //        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlProyeccion', 'expl')) {
+        //        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxCtlProyeccionRadiologica', 'expl')) {
         //            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         //        }
 
@@ -73,7 +73,7 @@ class RyxCtlMaterialAdminController extends MinsalSimagdBundleGeneralAdminContro
         // $em = $this->getDoctrine()->getManager();
         //
         //	//No existe el registro
-        //        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlProyeccion', 'expl')) {
+        //        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxCtlProyeccionRadiologica', 'expl')) {
         //            return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         //        }
 
@@ -95,7 +95,7 @@ class RyxCtlMaterialAdminController extends MinsalSimagdBundleGeneralAdminContro
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')->data($BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxCtlMaterial')->data($BS_FILTERS_DECODE);
 
         $isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
@@ -104,7 +104,7 @@ class RyxCtlMaterialAdminController extends MinsalSimagdBundleGeneralAdminContro
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgCtlMaterial();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxCtlMaterial();
 
             if ($__REQUEST__type === 'detail')
             {
@@ -162,7 +162,7 @@ class RyxCtlMaterialAdminController extends MinsalSimagdBundleGeneralAdminContro
             // $results[$key]['allowEdit']          = $isUser_allowEdit;
 
             // $results[$key]['allowAgregarLc']     = ($this->admin->getRoutes()->has('agregarEnMiCatalogo') &&
-            //         false === $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')->existeMaterialEnLocalV2($estabLocal->getId(), $r['mtrl_id']) &&
+            //         false === $em->getRepository('MinsalSimagdBundle:RyxCtlMaterial')->existeMaterialEnLocalV2($estabLocal->getId(), $r['mtrl_id']) &&
             //         ($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_CTL_MATERIAL_ESTABLECIMIENTO_CREATE') || $securityContext->isGranted('ROLE_ADMIN'))) ? TRUE : FALSE;
         }
 
@@ -181,7 +181,7 @@ class RyxCtlMaterialAdminController extends MinsalSimagdBundleGeneralAdminContro
 
         //Nueva instancia
         $material           = $this->admin->getNewInstance();
-        // $material = new \Minsal\SimagdBundle\Entity\ImgCtlMaterial();
+        // $material = new \Minsal\SimagdBundle\Entity\RyxCtlMaterial();
 
         $nombre             = $request->request->get('formMtrlNombre');
         $codigo             = $request->request->get('formMtrlCodigo');
@@ -204,8 +204,8 @@ class RyxCtlMaterialAdminController extends MinsalSimagdBundleGeneralAdminContro
         $local              = $request->request->get('formMtrlAgregarEnLocal') ? TRUE : FALSE;
 
         if ($local) {
-            /** ImgCtlMaterialEstablecimiento */
-            $mtrLocal       = new ImgCtlMaterialEstablecimiento();
+            /** RyxCtlMaterialEstablecimiento */
+            $mtrLocal       = new RyxCtlMaterialEstablecimiento();
             $mtrLocal->setIdMaterial($material);
             $mtrLocal->setIdEstablecimiento($estabLocal);
             if ($cantidadDisponible) {
@@ -239,7 +239,7 @@ class RyxCtlMaterialAdminController extends MinsalSimagdBundleGeneralAdminContro
 
         //Objeto
         $material       = $this->admin->getObject($id);
-        // $material = new \Minsal\SimagdBundle\Entity\ImgCtlMaterial();
+        // $material = new \Minsal\SimagdBundle\Entity\RyxCtlMaterial();
 
         $nombre         = $request->request->get('formMtrlNombre');
         $codigo         = $request->request->get('formMtrlCodigo');

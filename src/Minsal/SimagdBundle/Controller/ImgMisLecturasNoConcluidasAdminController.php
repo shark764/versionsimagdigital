@@ -42,7 +42,7 @@ class ImgMisLecturasNoConcluidasAdminController extends MinsalSimagdBundleGenera
         $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
-        $resultados = $em->getRepository('MinsalSimagdBundle:ImgPendienteLectura')->assignedWorkList($estabLocal->getId(), $sessionUser->getId(), $BS_FILTERS_DECODE);
+        $resultados = $em->getRepository('MinsalSimagdBundle:RyxEstudioPendienteLectura')->assignedWorkList($estabLocal->getId(), $sessionUser->getId(), $BS_FILTERS_DECODE);
 
         $isUser_allowInterpretar = ($this->admin->getRoutes()->has('leer') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_EDIT')) ||
@@ -52,7 +52,7 @@ class ImgMisLecturasNoConcluidasAdminController extends MinsalSimagdBundleGenera
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgPendienteLectura();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxEstudioPendienteLectura();
 
             $resultados[$key]['pndL_fechaIngresoLista'] = $resultado['pndL_fechaIngresoLista']->format('Y-m-d H:i:s A');
             $resultados[$key]['est_fechaEstudio'] = $resultado['est_fechaEstudio']->format('Y-m-d H:i:s A');

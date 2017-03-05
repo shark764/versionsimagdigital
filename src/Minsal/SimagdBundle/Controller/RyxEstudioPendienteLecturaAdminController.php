@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
-use Minsal\SimagdBundle\Entity\ImgPendienteLectura;
+use Minsal\SimagdBundle\Entity\RyxEstudioPendienteLectura;
 
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxEstudioPendienteLecturaListViewGenerator;
@@ -61,7 +61,7 @@ class RyxEstudioPendienteLecturaAdminController extends MinsalSimagdBundleGenera
 
         $estabLocal = $this->container->get('security.context')->getToken()->getUser()->getIdEstablecimiento()->getId();
 
-        $lectura = $em->getRepository('MinsalSimagdBundle:ImgLectura')->findOneBy(array(
+        $lectura = $em->getRepository('MinsalSimagdBundle:RyxLecturaRadiologica')->findOneBy(array(
                                                     'idEstudio' => $estudio,
                                                     'idEstablecimiento' => $estabLocal));
         if ($lectura) {
@@ -109,13 +109,13 @@ class RyxEstudioPendienteLecturaAdminController extends MinsalSimagdBundleGenera
                                     ->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(1, 4, 5))
                                     ->getQuery()->getResult();
 
-        $tipos              = $em->getRepository('MinsalSimagdBundle:ImgCtlTipoNotaDiagnostico')->findAll();
-        $estadosDiag        = $em->getRepository('MinsalSimagdBundle:ImgCtlEstadoDiagnostico')->findAll();
+        $tipos              = $em->getRepository('MinsalSimagdBundle:RyxCtlTipoOpinionMedicaDiagnostico')->findAll();
+        $estadosDiag        = $em->getRepository('MinsalSimagdBundle:RyxCtlEstadoDiagnostico')->findAll();
 
         $modalidades        = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->findBy(array('idAtencion' => '97'));
 
         /** Patrones para diagnóstico */
-        $patronesDiag       = $em->getRepository('MinsalSimagdBundle:ImgCtlPatronDiagnostico')
+        $patronesDiag       = $em->getRepository('MinsalSimagdBundle:RyxCtlPatronDiagnostico')
                                     ->getUsableDiagnosticPatterns($estabLocal->getId())
                                     ->getQuery()->getResult();
         /** Fin --- Patrones para diagnóstico */
@@ -149,7 +149,7 @@ class RyxEstudioPendienteLecturaAdminController extends MinsalSimagdBundleGenera
     	$sessionUser               = $securityContext->getToken()->getUser();
         $estabLocal                 = $sessionUser->getIdEstablecimiento();
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgPendienteLectura')->getWorkList($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxEstudioPendienteLectura')->getWorkList($estabLocal->getId(), $BS_FILTERS_DECODE);
 
         $isUser_allowInterpretar    = ($this->admin->getRoutes()->has('leer') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_EDIT')) ||
@@ -163,7 +163,7 @@ class RyxEstudioPendienteLecturaAdminController extends MinsalSimagdBundleGenera
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgPendienteLectura();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxEstudioPendienteLectura();
 
             if ($__REQUEST__type === 'detail')
             {
@@ -315,7 +315,7 @@ class RyxEstudioPendienteLecturaAdminController extends MinsalSimagdBundleGenera
 
         //Actualizar registros
         try {
-            $result = $em->getRepository('MinsalSimagdBundle:ImgPendienteLectura')
+            $result = $em->getRepository('MinsalSimagdBundle:RyxEstudioPendienteLectura')
                         ->addToWorkList($estabLocal->getId(), $id_radX, $sessionUser->getIdEmpleado()->getId(), $pndL_rows);
         } catch (Exception $e) {
             $status = 'failed';

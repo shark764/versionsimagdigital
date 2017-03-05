@@ -15,8 +15,8 @@ use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Admin\BaseFieldDescription;
 use Sonata\AdminBundle\Util\AdminObjectAclData;
 use Sonata\AdminBundle\Admin\AdminInterface;
-use Minsal\SimagdBundle\Entity\ImgProcedimientoRealizado;
-use Minsal\SimagdBundle\Entity\ImgMaterialUtilizado;
+use Minsal\SimagdBundle\Entity\RyxProcedimientoRadiologicoRealizado;
+use Minsal\SimagdBundle\Entity\RyxProcedimientoMaterialUtilizado;
 use Doctrine\ORM\EntityRepository;
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
@@ -99,7 +99,7 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
 //             }
 //         }
 //
-//         $realizado = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')->findOneBy(array('idSolicitudEstudio' => $idPrc));
+//         $realizado = $em->getRepository('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado')->findOneBy(array('idSolicitudEstudio' => $idPrc));
 //         if ($realizado) {
 //             $this->addFlash('sonata_flash_error', 'Ya existe un registro de información post-examen creado para esta preinscripción');
 //             return new RedirectResponse($this->admin->generateUrl('list'));
@@ -143,7 +143,7 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
          */
         $num_materiales_to_add  = 5;
         for ($x = 0; $x < $num_materiales_to_add; $x++) {
-            $new_added_materialUtilizado    = new ImgMaterialUtilizado();
+            $new_added_materialUtilizado    = new RyxProcedimientoMaterialUtilizado();
             $new_added_materialUtilizado->setIdProcedimientoRealizado($object);
             $object->addMaterialUtilizadoV2($new_added_materialUtilizado);
         }
@@ -294,7 +294,7 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
 
         //Cambio de estado de registro
         $em = $this->getDoctrine()->getManager();
-        $estadoReference    = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlEstadoProcedimientoRealizado', '1'); //Inicial
+        $estadoReference    = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlEstadoProcedimientoRealizado', '1'); //Inicial
         $realizado->setIdEstadoProcedimientoRealizado($estadoReference);
 
         //Crear registro
@@ -311,7 +311,7 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
     {
         //Obtener entidad preinscripcion
         $em = $this->getDoctrine()->getManager();
-        $entityPrc = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->find($idSolicitudEstudioPadre);
+        $entityPrc = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->find($idSolicitudEstudioPadre);
 	if (!$entityPrc) {
             return $this->render('MinsalSimagdBundle:ImagenologiaDigitalAdmin:simagd_modal_support_default.html.twig', array());
 	}
@@ -325,7 +325,7 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
 		                                        'idPaciente' => $entityPrc->getIdExpediente()->getIdPaciente()->getId()
 		                                    ));
         //Estudio de paciente, si este existe
-        $entityEst = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')->findOneBy(array('idProcedimientoRealizado' => $id));
+        $entityEst = $em->getRepository('MinsalSimagdBundle:RyxEstudioPorImagenes')->findOneBy(array('idProcedimientoRealizado' => $id));
 
         //Solicitud de estudio
         $entitySolEst = $entityPrc->getIdSolicitudestudios();
@@ -339,7 +339,7 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
         $entityHojaCnt =  $em->getRepository('MinsalSeguimientoBundle:SecMotivoConsulta')->findOneBy(array('idhistorialclinico' => $entityHcl->getId()));
 
         //Cita programada, si existe
-        $entityCit = $em->getRepository('MinsalSimagdBundle:ImgCita')->find($idCitaProgramada);
+        $entityCit = $em->getRepository('MinsalSimagdBundle:RyxCitaProgramada')->find($idCitaProgramada);
 
         return $this->render('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizadoAdmin:prz_modal_support.html.twig', array(
             'expedienteInfo' => $entityExp,
@@ -360,7 +360,7 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
         $em = $this->getDoctrine()->getManager();
 
         //Estudio de paciente, si este existe
-        $entityEst = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')
+        $entityEst = $em->getRepository('MinsalSimagdBundle:RyxEstudioPorImagenes')
 				->findOneBy(array('idProcedimientoRealizado' => $id));
 
         return $this->render('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizadoAdmin:prz_recuperarEstudio.html.twig', array(
@@ -385,12 +385,12 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
         $em = $this->getDoctrine()->getManager();
 
         // No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgProcedimientoRealizado', 'prz')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxProcedimientoRadiologicoRealizado', 'prz')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
 	//No puede acceder al registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
@@ -486,13 +486,13 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
         $em = $this->getDoctrine()->getManager();
 
         // No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgProcedimientoRealizado', 'prz')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxProcedimientoRadiologicoRealizado', 'prz')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
         // No puede acceder al registro
         $sessionUser = $this->container->get('security.context')->getToken()->getUser();
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado')->obtenerAccesoEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
@@ -543,11 +543,11 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
                                         ->obtenerEstabParaRefDiag('idEstablecimientoDiagnosticante')
                                                 ->getQuery()->getResult();
 
-        $prioridades            = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2();
+        $prioridades            = $em->getRepository('MinsalSimagdBundle:RyxCtlPrioridadAtencionPaciente')->obtenerPrioridadesAtencionV2();
 
         $modalidades            = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
         $examenes               = $em->getRepository('MinsalSimagdBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
-        $proyecciones           = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
+        $proyecciones           = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->findAll();
         $sexos                  = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
 
         $areasAtencion          = $em->getRepository('MinsalSiapsBundle:CtlAreaAtencion')->findAll();
@@ -560,17 +560,17 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
          */
         $GROUP_DEPENDENT_ENTITIES   = array();
         try {
-            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->getRadiologicalProceduresGrouped($estabLocal->getId());
+            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->getRadiologicalProceduresGrouped($estabLocal->getId());
         } catch (Exception $e) {
             $status = 'failed';
         }
         try {
-            $GROUP_DEPENDENT_ENTITIES['ar_atn']   = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerAtencionesAgrupadasV2($estabLocal->getId());
+            $GROUP_DEPENDENT_ENTITIES['ar_atn']   = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->obtenerAtencionesAgrupadasV2($estabLocal->getId());
         } catch (Exception $e) {
             $status = 'failed';
         }
         try {
-            $GROUP_DEPENDENT_ENTITIES['atn_emp']  = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerEmpleadosAgrupadosV2($estabLocal->getId());
+            $GROUP_DEPENDENT_ENTITIES['atn_emp']  = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->obtenerEmpleadosAgrupadosV2($estabLocal->getId());
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -615,7 +615,7 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
 
         $isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
@@ -624,7 +624,7 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgProcedimientoRealizado();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxProcedimientoRadiologicoRealizado();
 
             if ($__REQUEST__type === 'detail')
             {
@@ -810,7 +810,7 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
         $em = $this->getDoctrine()->getManager();
 
         //Cambio de estado de registro
-        $statusAlmc         = $em->getRepository('MinsalSimagdBundle:ImgCtlEstadoProcedimientoRealizado')->findOneBy(array('codigo' => 'ALM'));
+        $statusAlmc         = $em->getRepository('MinsalSimagdBundle:RyxCtlEstadoProcedimientoRealizado')->findOneBy(array('codigo' => 'ALM'));
         $realizado->setIdEstadoProcedimientoRealizado($statusAlmc); // --| Almacenado
 
         /*
@@ -818,7 +818,7 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
          * ASOCIAR ESTUDIO
          ************************************************************************
          */
-        // $realizado = new ImgProcedimientoRealizado();
+        // $realizado = new RyxProcedimientoRadiologicoRealizado();
         $associated_study = $this->admin->getAssociatedStudy($realizado);
         $realizado->addExamenEstudio($associated_study);
 
@@ -859,7 +859,7 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
         $em = $this->getDoctrine()->getManager();
 
         //Cambio de estado de registro
-        $statusAlmc         = $em->getRepository('MinsalSimagdBundle:ImgCtlEstadoProcedimientoRealizado')->findOneBy(array('codigo' => 'ALM'));
+        $statusAlmc         = $em->getRepository('MinsalSimagdBundle:RyxCtlEstadoProcedimientoRealizado')->findOneBy(array('codigo' => 'ALM'));
         $realizado->setIdEstadoProcedimientoRealizado($statusAlmc); // --| Almacenado
 
         //Crear registro
@@ -874,14 +874,14 @@ class RyxProcedimientoRadiologicoRealizadoAdminController extends MinsalSimagdBu
 
     public function enlazarEstudio($new_przObject = null)
     {
-        $new_przObject = new ImgProcedimientoRealizado();
+        $new_przObject = new RyxProcedimientoRadiologicoRealizado();
         $securityContext    = $this->container->get('security.context');
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
         $em = $this->getDoctrine()->getManager();
 
-        $new_studyObject    = new \Minsal\SimagdBundle\Entity\ImgEstudioPaciente();
+        $new_studyObject    = new \Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes();
         $new_studyObject->setFechaEstudio(new \DateTime('now'));
         $new_studyObject->setIdProcedimientoRealizado($new_przObject);
         $new_studyObject->setIdEstablecimiento($estabLocal);

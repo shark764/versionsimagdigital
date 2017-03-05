@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Minsal\Metodos\Funciones;
 use Doctrine\DBAL as DBAL;
-class ImgEstudioPacienteController extends Controller {
+class RyxEstudioPorImagenesController extends Controller {
     /**
      * @Route("/buscar/estudio", name="buscar_estudio", options={"expose"=true})
      */

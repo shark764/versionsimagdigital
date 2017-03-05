@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Minsal\SimagdBundle\Entity\ImgNotaDiagnostico;
+use Minsal\SimagdBundle\Entity\RyxDiagnosticoSegundaOpinionMedica;
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
 
@@ -50,7 +50,7 @@ class RyxDiagnosticoSegundaOpinionMedicaAdminController extends MinsalSimagdBund
     {
         //Obtener entidad diagnostico
         $em = $this->getDoctrine()->getManager();
-        $entityDiag = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')->find($idDiagnosticoPadre);
+        $entityDiag = $em->getRepository('MinsalSimagdBundle:RyxDiagnosticoRadiologico')->find($idDiagnosticoPadre);
     	if (!$entityDiag) {
                 return $this->render('MinsalSimagdBundle:ImagenologiaDigitalAdmin:simagd_modal_support_default.html.twig', array());
     	}
@@ -70,13 +70,13 @@ class RyxDiagnosticoSegundaOpinionMedicaAdminController extends MinsalSimagdBund
 		                                    ));
 
         //Solicitud de diagnóstico, si este existe
-        $entitySolDiag = $em->getRepository('MinsalSimagdBundle:ImgSolicitudDiagnostico')
+        $entitySolDiag = $em->getRepository('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio')
                                         ->findOneBy(array('idEstudio' => $entityEst->getId(),
                                                             'idSolicitudEstudio' => $entityPrc->getId()
                                                         ));
 
         //Notas al diagnóstico
-        $entityNotaDiag = $em->getRepository('MinsalSimagdBundle:ImgNotaDiagnostico')->findBy(array('idDiagnostico' => $entityDiag->getId()));
+        $entityNotaDiag = $em->getRepository('MinsalSimagdBundle:RyxDiagnosticoSegundaOpinionMedica')->findBy(array('idDiagnostico' => $entityDiag->getId()));
 
         //Historial clínico y tablas asociadas
         $entityHcl = $entityPrc->getIdSolicitudestudios()->getIdHistorialClinico();
@@ -143,19 +143,19 @@ class RyxDiagnosticoSegundaOpinionMedicaAdminController extends MinsalSimagdBund
         $em = $this->getDoctrine()->getManager();
 
         //No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgNotaDiagnostico', 'notdiag')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxDiagnosticoSegundaOpinionMedica', 'notdiag')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
     	//No puede acceder al registro
     	$securityContext 	= $this->container->get('security.context');
     	$sessionUser 		= $securityContext->getToken()->getUser();
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgNotaDiagnostico')->obtenerAccesoNotDiagEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxDiagnosticoSegundaOpinionMedica')->obtenerAccesoNotDiagEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
 
         //No está autorizado a editar el registro
-        if (!($em->getRepository('MinsalSimagdBundle:ImgNotaDiagnostico')->obtenerAccesoNotDiag($id, $sessionUser->getId()) ||
+        if (!($em->getRepository('MinsalSimagdBundle:RyxDiagnosticoSegundaOpinionMedica')->obtenerAccesoNotDiag($id, $sessionUser->getId()) ||
 			$securityContext->isGranted('ROLE_ADMIN'))) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -173,13 +173,13 @@ class RyxDiagnosticoSegundaOpinionMedicaAdminController extends MinsalSimagdBund
         $em = $this->getDoctrine()->getManager();
 
      //    //No existe el registro
-     //    if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgNotaDiagnostico', 'notdiag')) {
+     //    if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxDiagnosticoSegundaOpinionMedica', 'notdiag')) {
      //        return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
      //    }
 
     	// //No puede acceder al registro
     	// $sessionUser = $this->container->get('security.context')->getToken()->getUser();
-     //    if (false === $em->getRepository('MinsalSimagdBundle:ImgNotaDiagnostico')->obtenerAccesoNotDiagEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
+     //    if (false === $em->getRepository('MinsalSimagdBundle:RyxDiagnosticoSegundaOpinionMedica')->obtenerAccesoNotDiagEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
      //        return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
      //    }
         
@@ -211,7 +211,7 @@ class RyxDiagnosticoSegundaOpinionMedicaAdminController extends MinsalSimagdBund
     	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgNotaDiagnostico')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxDiagnosticoSegundaOpinionMedica')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
 
     	$isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
     	$isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
@@ -220,7 +220,7 @@ class RyxDiagnosticoSegundaOpinionMedicaAdminController extends MinsalSimagdBund
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgNotaDiagnostico();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxDiagnosticoSegundaOpinionMedica();
 
             $results[$key]['menu_code'] = 'secondmedicalopinions';
 
@@ -316,7 +316,7 @@ class RyxDiagnosticoSegundaOpinionMedicaAdminController extends MinsalSimagdBund
 
         //Nueva instancia
         $nota               = $this->admin->getNewInstance();
-        // $nota = new ImgNotaDiagnostico();
+        // $nota = new RyxDiagnosticoSegundaOpinionMedica();
         
         $empleado           = $request->request->get('formNotaIdEmpleado');
         $tipo               = $request->request->get('formNotaIdTipoNotaDiagnostico');
@@ -329,7 +329,7 @@ class RyxDiagnosticoSegundaOpinionMedicaAdminController extends MinsalSimagdBund
         $empleadoReference  = $em->getReference('Minsal\SiapsBundle\Entity\MntEmpleado', $empleado);
         $nota->setIdEmpleado($empleadoReference);
         //Tipo
-        $tipoReference      = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlTipoNotaDiagnostico', $tipo);
+        $tipoReference      = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlTipoOpinionMedicaDiagnostico', $tipo);
         $nota->setIdTipoNotaDiagnostico($tipoReference);
         
         $nota->setContenido($notaDiag);
@@ -366,7 +366,7 @@ class RyxDiagnosticoSegundaOpinionMedicaAdminController extends MinsalSimagdBund
         $empleadoReference  = $em->getReference('Minsal\SiapsBundle\Entity\MntEmpleado', $empleado);
         $nota->setIdEmpleado($empleadoReference);
         //Tipo
-        $tipoReference      = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlTipoNotaDiagnostico', $tipo);
+        $tipoReference      = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlTipoOpinionMedicaDiagnostico', $tipo);
         $nota->setIdTipoNotaDiagnostico($tipoReference);
         
         $nota->setContenido($notaDiag);

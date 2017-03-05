@@ -32,13 +32,13 @@ class RyxCtlConfiguracionAgendaAdminController extends MinsalSimagdBundleGeneral
         $em = $this->getDoctrine()->getManager();
 
         // No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlConfiguracionAgenda', 'prmCit')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxCtlConfiguracionAgenda', 'prmCit')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
         // No puede acceder al registro
         $sessionUser = $this->container->get('security.context')->getToken()->getUser();
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgCtlConfiguracionAgenda')->obtenerAccesoEstabParamCit($id, $sessionUser->getIdEstablecimiento()->getId())) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxCtlConfiguracionAgenda')->obtenerAccesoEstabParamCit($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
         
@@ -55,13 +55,13 @@ class RyxCtlConfiguracionAgendaAdminController extends MinsalSimagdBundleGeneral
         $em = $this->getDoctrine()->getManager();
 
         // No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgCtlConfiguracionAgenda', 'prmCit')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxCtlConfiguracionAgenda', 'prmCit')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
         // No puede acceder al registro
         $sessionUser = $this->container->get('security.context')->getToken()->getUser();
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgCtlConfiguracionAgenda')->obtenerAccesoEstabParamCit($id, $sessionUser->getIdEstablecimiento()->getId())) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxCtlConfiguracionAgenda')->obtenerAccesoEstabParamCit($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
         

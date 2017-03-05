@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Minsal\SimagdBundle\Entity\ImgSolicitudEstudio;
+use Minsal\SimagdBundle\Entity\RyxSolicitudEstudio;
 
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sonata\AdminBundle\Exception\ModelManagerException;
@@ -90,11 +90,11 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
                                         ->obtenerEstabParaRefDiag('idEstablecimientoDiagnosticante')
                                                 ->getQuery()->getResult();
 
-        $prioridades            = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2();
+        $prioridades            = $em->getRepository('MinsalSimagdBundle:RyxCtlPrioridadAtencionPaciente')->obtenerPrioridadesAtencionV2();
 
         $modalidades            = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
         $examenes               = $em->getRepository('MinsalSimagdBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
-        $proyecciones           = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
+        $proyecciones           = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->findAll();
         $sexos                  = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
 
         $areasAtencion          = $em->getRepository('MinsalSiapsBundle:CtlAreaAtencion')->findAll();
@@ -106,10 +106,10 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
 
         $collection_tiposEmpleado  = $em->getRepository('MinsalSiapsBundle:MntTipoEmpleado')->findAll();
         $collection_radiologos     = $em->getRepository('MinsalSiapsBundle:MntEmpleado')->obtenerEmpleadosRayosXCargoV2($estabLocal->getId(), array(4, 5))->getQuery()->getResult();
-        $collection_prioridades    = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')->obtenerPrioridadesAtencionV2();
+        $collection_prioridades    = $em->getRepository('MinsalSimagdBundle:RyxCtlPrioridadAtencionPaciente')->obtenerPrioridadesAtencionV2();
         $collection_modalidades    = $em->getRepository('MinsalSimagdBundle:CtlAreaServicioDiagnostico')->obtenerModalidadesRealizablesLocalV2($estabLocal->getId(), '97');
         $collection_examenes       = $em->getRepository('MinsalSimagdBundle:CtlExamenServicioDiagnostico')->obtenerExamenesRealizablesLocal($estabLocal->getId(), '97');
-        $collection_proyecciones   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->findAll();
+        $collection_proyecciones   = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->findAll();
         $collection_sexos          = $em->getRepository('MinsalSiapsBundle:CtlSexo')->findAll();
 
         /*
@@ -117,17 +117,17 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
          */
         $GROUP_DEPENDENT_ENTITIES   = array();
         try {
-            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->getRadiologicalProceduresGrouped($estabLocal->getId());
+            $GROUP_DEPENDENT_ENTITIES['m_expl']   = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->getRadiologicalProceduresGrouped($estabLocal->getId());
         } catch (Exception $e) {
             $status = 'failed';
         }
         try {
-            $GROUP_DEPENDENT_ENTITIES['ar_atn']   = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerAtencionesAgrupadasV2($estabLocal->getId());
+            $GROUP_DEPENDENT_ENTITIES['ar_atn']   = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->obtenerAtencionesAgrupadasV2($estabLocal->getId());
         } catch (Exception $e) {
             $status = 'failed';
         }
         try {
-            $GROUP_DEPENDENT_ENTITIES['atn_emp']  = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerEmpleadosAgrupadosV2($estabLocal->getId());
+            $GROUP_DEPENDENT_ENTITIES['atn_emp']  = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->obtenerEmpleadosAgrupadosV2($estabLocal->getId());
         } catch (Exception $e) {
             $status = 'failed';
         }
@@ -230,14 +230,14 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
                 $criteria['segundoApellido']    = trim($segundoApellido);
             }
 
-	    $resultados     = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+	    $resultados     = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')
 				    ->getPatients($estabLocal->getId(), $numeroExp, $criteria, $fechaNacimiento, $dui, $limiteResultados, $BS_FILTERS_DECODE);
     	} else {
     	    /** ********* Obtención de resultados de búsqueda Mínima *** */
     	    /**
     	    *NUM Expediente como criterio
     	    */
-    	    $resultados     = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+    	    $resultados     = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')
     			  ->getPatients($estabLocal->getId(), null, array(), null, null, 100, $min_numeroExp, $BS_FILTERS_DECODE);
     	}
 
@@ -294,13 +294,13 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         //Expediente local e información del paciente
     	$entityExp = $em->getRepository('MinsalSiapsBundle:MntExpediente')->find($idExpediente);
 
-    	$preinscripcionesPctReg = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+    	$preinscripcionesPctReg = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')
     					->obtenerPreinscripcionesEstabPorPaciente($idExpediente, $idEstablecimiento);
-    	$citasPctReg = $em->getRepository('MinsalSimagdBundle:ImgCita')
+    	$citasPctReg = $em->getRepository('MinsalSimagdBundle:RyxCitaProgramada')
     					->obtenerCitasEstabPorPaciente($idExpediente, $idEstablecimiento);
-    	$procedimientosRealizadosPctReg = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')
+    	$procedimientosRealizadosPctReg = $em->getRepository('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado')
     					->obtenerExamenesRealizadosEstabPorPaciente($idExpediente, $idEstablecimiento);
-    	$diagnosticosPctReg = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')
+    	$diagnosticosPctReg = $em->getRepository('MinsalSimagdBundle:RyxDiagnosticoRadiologico')
 					->obtenerDiagnosticosEstabPorPaciente($idExpediente, $idEstablecimiento);
 
         return $this->render($this->admin->getTemplate('historialImagenologiaPaciente'),
@@ -324,12 +324,12 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
 
         $expediente = $this->get('request')->query->get('__exp');
 
-        $solicitudes = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+        $solicitudes = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')
 					->obtenerPreinscripcionesEstabPorPaciente($expediente, $estabLocal->getId());
 
         $resultados = array();
         foreach ($solicitudes as $solicitud)  {
-           // $solicitud = new \Minsal\SimagdBundle\Entity\ImgSolicitudEstudio();
+           // $solicitud = new \Minsal\SimagdBundle\Entity\RyxSolicitudEstudio();
 
             $resultado['id'] = $solicitud->getId();
             $resultado['origen'] = $solicitud->getIdAtenAreaModEstab()->getIdEstablecimiento()->getNombre();
@@ -358,12 +358,12 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
 
         $expediente = $this->get('request')->query->get('__exp');
 
-        $citas = $em->getRepository('MinsalSimagdBundle:ImgCita')
+        $citas = $em->getRepository('MinsalSimagdBundle:RyxCitaProgramada')
 					->obtenerCitasEstabPorPaciente($expediente, $estabLocal->getId());
 
         $resultados = array();
         foreach ($citas as $cita)  {
-           // $cita = new \Minsal\SimagdBundle\Entity\ImgCita();
+           // $cita = new \Minsal\SimagdBundle\Entity\RyxCitaProgramada();
 
             $solicitud = $cita->getIdSolicitudEstudio();
 
@@ -400,12 +400,12 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
 
         $expediente = $this->get('request')->query->get('__exp');
 
-        $examenes = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')
+        $examenes = $em->getRepository('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado')
 					->obtenerExamenesRealizadosEstabPorPaciente($expediente, $estabLocal->getId());
 
         $resultados = array();
         foreach ($examenes as $examen)  {
-           // $examen = new \Minsal\SimagdBundle\Entity\ImgProcedimientoRealizado();
+           // $examen = new \Minsal\SimagdBundle\Entity\RyxProcedimientoRadiologicoRealizado();
 
             $resultado['id'] = $examen->getId();
             $resultado['origen'] = $examen->getIdSolicitudEstudio()->getIdAtenAreaModEstab()->getIdEstablecimiento()->getNombre();
@@ -435,12 +435,12 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
 
         $expediente = $this->get('request')->query->get('__exp');
 
-        $diagnosticos = $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')
+        $diagnosticos = $em->getRepository('MinsalSimagdBundle:RyxDiagnosticoRadiologico')
 					->obtenerDiagnosticosEstabPorPaciente($expediente, $estabLocal->getId());
 
         $resultados = array();
         foreach ($diagnosticos as $diagnostico)  {
-           // $diagnostico = new \Minsal\SimagdBundle\Entity\ImgDiagnostico();
+           // $diagnostico = new \Minsal\SimagdBundle\Entity\RyxDiagnosticoRadiologico();
 
             $examen = $diagnostico->getIdLectura()->getIdEstudio()->getIdProcedimientoRealizado();
             $solicitud = $examen->getIdSolicitudEstudio();
@@ -526,7 +526,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         if (in_array('ar', $BS_SOURCES_DECODE))
         {
             try {
-                $resultados['ar']           = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+                $resultados['ar']           = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')
                                                     ->getSourceDataAreaAtencion($estabLocal->getId());
             } catch (Exception $e) {
                 $status                     = 'failed';
@@ -535,7 +535,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         if (in_array('atn', $BS_SOURCES_DECODE))
         {
             try {
-                $resultados['atn']          = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')
+                $resultados['atn']          = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')
                                                     ->getSourceDataAtencion($estabLocal->getId());
             } catch (Exception $e) {
                 $status                     = 'failed';
@@ -585,7 +585,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         if (in_array('statuscit', $BS_SOURCES_DECODE))
         {
             try {
-                $resultados['statuscit']    = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')
+                $resultados['statuscit']    = $em->getRepository('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado')
                                                     ->getSourceDataEstado($estabLocal->getId(), 'cit');
             } catch (Exception $e) {
                 $status                     = 'failed';
@@ -594,7 +594,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         if (in_array('statusprz', $BS_SOURCES_DECODE))
         {
             try {
-                $resultados['statusprz']    = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')
+                $resultados['statusprz']    = $em->getRepository('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado')
                                                     ->getSourceDataEstado($estabLocal->getId(), 'prz');
             } catch (Exception $e) {
                 $status                     = 'failed';
@@ -603,7 +603,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         if (in_array('statuslct', $BS_SOURCES_DECODE))
         {
             try {
-                $resultados['statuslct']    = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')
+                $resultados['statuslct']    = $em->getRepository('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado')
                                                     ->getSourceDataEstado($estabLocal->getId(), 'lct');
             } catch (Exception $e) {
                 $status                     = 'failed';
@@ -612,7 +612,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         if (in_array('statusdiag', $BS_SOURCES_DECODE))
         {
             try {
-                $resultados['statusdiag']   = $em->getRepository('MinsalSimagdBundle:ImgProcedimientoRealizado')
+                $resultados['statusdiag']   = $em->getRepository('MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizado')
                                                     ->getSourceDataEstado($estabLocal->getId(), 'diag');
             } catch (Exception $e) {
                 $status                     = 'failed';
@@ -621,7 +621,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         if (in_array('tipoR', $BS_SOURCES_DECODE))
         {
             try {
-                $resultados['tipoR']        = $em->getRepository('MinsalSimagdBundle:ImgLectura')
+                $resultados['tipoR']        = $em->getRepository('MinsalSimagdBundle:RyxLecturaRadiologica')
                                                     ->getSourceDataTipo($estabLocal->getId(), 'tipoR');
             } catch (Exception $e) {
                 $status                     = 'failed';
@@ -630,7 +630,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         if (in_array('tipoN', $BS_SOURCES_DECODE))
         {
             try {
-                $resultados['tipoN']        = $em->getRepository('MinsalSimagdBundle:ImgLectura')
+                $resultados['tipoN']        = $em->getRepository('MinsalSimagdBundle:RyxLecturaRadiologica')
                                                     ->getSourceDataTipo($estabLocal->getId(), 'tipoN');
             } catch (Exception $e) {
                 $status                     = 'failed';
@@ -639,7 +639,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         if (in_array('prAtn', $BS_SOURCES_DECODE))
         {
             try {
-                $resultados['prAtn']        = $em->getRepository('MinsalSimagdBundle:ImgCtlPrioridadAtencion')
+                $resultados['prAtn']        = $em->getRepository('MinsalSimagdBundle:RyxCtlPrioridadAtencionPaciente')
                                                     ->obtenerPrioridadesAtencionV2('scalar');
             } catch (Exception $e) {
                 $status                     = 'failed';
@@ -648,7 +648,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         if (in_array('expl', $BS_SOURCES_DECODE))
         {
             try {
-                $resultados['expl']         = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')
+                $resultados['expl']         = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')
                                                     ->scalarData();
             } catch (Exception $e) {
                 $status                     = 'failed';
@@ -657,7 +657,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         if (in_array('mtrl', $BS_SOURCES_DECODE))
         {
             try {
-                $resultados['mtrl']         = $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')
+                $resultados['mtrl']         = $em->getRepository('MinsalSimagdBundle:RyxCtlMaterial')
                                                     ->scalarData();
             } catch (Exception $e) {
                 $status                     = 'failed';
@@ -697,7 +697,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         // if (in_array('m_expl', $BS_SOURCES_DECODE))
         // {
         //     try {
-        //         $resultados['m_expl']   = $em->getRepository('MinsalSimagdBundle:ImgCtlProyeccion')->getRadiologicalProceduresGrouped($estabLocal->getId());
+        //         $resultados['m_expl']   = $em->getRepository('MinsalSimagdBundle:RyxCtlProyeccionRadiologica')->getRadiologicalProceduresGrouped($estabLocal->getId());
         //     } catch (Exception $e) {
         //         $status                 = 'failed';
         //     }
@@ -705,7 +705,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         if (in_array('ar_atn', $BS_SOURCES_DECODE))
         {
             try {
-                $resultados['ar_atn']   = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerAtencionesAgrupadasV2($estabLocal->getId());
+                $resultados['ar_atn']   = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->obtenerAtencionesAgrupadasV2($estabLocal->getId());
             } catch (Exception $e) {
                 $status                 = 'failed';
             }
@@ -713,7 +713,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
         if (in_array('atn_emp', $BS_SOURCES_DECODE))
         {
             try {
-                $resultados['atn_emp']  = $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->obtenerEmpleadosAgrupadosV2($estabLocal->getId());
+                $resultados['atn_emp']  = $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->obtenerEmpleadosAgrupadosV2($estabLocal->getId());
             } catch (Exception $e) {
                 $status                 = 'failed';
             }
@@ -749,7 +749,7 @@ class ImagenologiaDigitalAdminController extends MinsalSimagdBundleGeneralAdminC
 
         //Actualizar registros
         try {
-            $result = $em->getRepository('MinsalSimagdBundle:ImgExpedienteFicticio')
+            $result = $em->getRepository('MinsalSimagdBundle:RyxExpedienteFicticio')
                         ->cambiarExpediente($estabLocal->getId(), $id_expLocal, $sessionUser->getId(), $prc_rows);
         } catch (Exception $e) {
             $status = 'failed';

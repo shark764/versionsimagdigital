@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\EntityRepository;
-use Minsal\SimagdBundle\Entity\ImgPendienteValidacion;
+use Minsal\SimagdBundle\Entity\RyxDiagnosticoPendienteValidacion;
 
 use Minsal\SimagdBundle\Generator\ListViewGenerator\Formatter\Formatter;
 use Minsal\SimagdBundle\Generator\ListViewGenerator\TableGenerator\RyxDiagnosticoPendienteValidacionListViewGenerator;
@@ -84,7 +84,7 @@ class RyxDiagnosticoPendienteValidacionAdminController extends MinsalSimagdBundl
     	$sessionUser           = $securityContext->getToken()->getUser();
         $estabLocal             = $sessionUser->getIdEstablecimiento();
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgPendienteValidacion')->designatedWorkList($estabLocal->getId(), $sessionUser/*->getId()*/, $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxDiagnosticoPendienteValidacion')->designatedWorkList($estabLocal->getId(), $sessionUser/*->getId()*/, $BS_FILTERS_DECODE);
 
         $isUser_allowValidate   = ($this->admin->getRoutes()->has('validar') &&
                     ((($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_CREATE') || $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_LECTURA_EDIT')) &&
@@ -94,7 +94,7 @@ class RyxDiagnosticoPendienteValidacionAdminController extends MinsalSimagdBundl
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgPendienteValidacion();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxDiagnosticoPendienteValidacion();
 
             if ($__REQUEST__type === 'detail')
             {
@@ -204,7 +204,7 @@ class RyxDiagnosticoPendienteValidacionAdminController extends MinsalSimagdBundl
 
         //Actualizar registros
         try {
-            $result = $em->getRepository('MinsalSimagdBundle:ImgPendienteValidacion')
+            $result = $em->getRepository('MinsalSimagdBundle:RyxDiagnosticoPendienteValidacion')
                         ->addToWorkList($estabLocal->getId(), $id_radX, $sessionUser->getIdEmpleado()->getId(), $pndV_rows);
         } catch (Exception $e) {
             $status = 'failed';

@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Admin\BaseFieldDescription;
 use Sonata\AdminBundle\Util\AdminObjectAclData;
 use Sonata\AdminBundle\Admin\AdminInterface;
-use Minsal\SimagdBundle\Entity\ImgSolicitudDiagnostico;
+use Minsal\SimagdBundle\Entity\RyxSolicitudDiagnosticoPostEstudio;
 use Doctrine\ORM\EntityRepository;
 
 use Minsal\SimagdBundle\Funciones\ImagenologiaDigitalFunciones;
@@ -90,7 +90,7 @@ class RyxSolicitudDiagnosticoPostEstudioAdminController extends MinsalSimagdBund
             }
         }
 
-        $solDiag = $em->getRepository('MinsalSimagdBundle:ImgSolicitudDiagnostico')
+        $solDiag = $em->getRepository('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio')
 						->findOneBy(array('idSolicitudEstudio' => $idPrcRequest, 'idEstudio' => $idEstRequest));
         if ($solDiag) {
             $this->addFlash('sonata_flash_error', 'Ya existe un registro de Solicitud de Diagnostico creado para este Estudio');
@@ -104,7 +104,7 @@ class RyxSolicitudDiagnosticoPostEstudioAdminController extends MinsalSimagdBund
     {
         //Obtener entidad estudio
         $em = $this->getDoctrine()->getManager();
-        $entityEst = $em->getRepository('MinsalSimagdBundle:ImgEstudioPaciente')->find($idEstudioPadre);
+        $entityEst = $em->getRepository('MinsalSimagdBundle:RyxEstudioPorImagenes')->find($idEstudioPadre);
     	if (!$entityEst) {
                 return $this->render('MinsalSimagdBundle:ImagenologiaDigitalAdmin:simagd_modal_support_default.html.twig', array());
     	}
@@ -121,8 +121,8 @@ class RyxSolicitudDiagnosticoPostEstudioAdminController extends MinsalSimagdBund
         $entityPrc = $entityEst->getIdProcedimientoRealizado()->getIdSolicitudEstudio();
 
         //Lectura, si esta existe
-        $entityLct = $em->getRepository('MinsalSimagdBundle:ImgLectura')->findOneBy(array('idEstudio' => $entityEst->getId()));
-        $entityDiag = $entityLct ? $em->getRepository('MinsalSimagdBundle:ImgDiagnostico')
+        $entityLct = $em->getRepository('MinsalSimagdBundle:RyxLecturaRadiologica')->findOneBy(array('idEstudio' => $entityEst->getId()));
+        $entityDiag = $entityLct ? $em->getRepository('MinsalSimagdBundle:RyxDiagnosticoRadiologico')
                                         ->findOneBy(array('idLectura' => $entityLct->getId())) : null;
 
         //Historial clínico y tablas asociadas
@@ -155,15 +155,15 @@ class RyxSolicitudDiagnosticoPostEstudioAdminController extends MinsalSimagdBund
         $em = $this->getDoctrine()->getManager();
 
         //No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgSolicitudDiagnostico', 'soldiag')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxSolicitudDiagnosticoPostEstudio', 'soldiag')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
     	//No está autorizado a editar el registro
     	$securityContext 	= $this->container->get('security.context');
     	$sessionUser 		= $securityContext->getToken()->getUser();
-        if (!(($em->getRepository('MinsalSimagdBundle:ImgSolicitudDiagnostico')->obtenerAccesoSolDiag($id, $sessionUser->getId()) ||
-                $securityContext->isGranted('ROLE_ADMIN')) && $em->getRepository('MinsalSimagdBundle:ImgSolicitudDiagnostico')
+        if (!(($em->getRepository('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio')->obtenerAccesoSolDiag($id, $sessionUser->getId()) ||
+                $securityContext->isGranted('ROLE_ADMIN')) && $em->getRepository('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio')
                                 ->obtenerAccesoSolDiagEstabEdit($id, $sessionUser->getIdEstablecimiento()->getId()))) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
@@ -181,13 +181,13 @@ class RyxSolicitudDiagnosticoPostEstudioAdminController extends MinsalSimagdBund
         $em = $this->getDoctrine()->getManager();
 
         //No existe el registro
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudEstudio')->existeRegistroPorId($id, 'ImgSolicitudDiagnostico', 'soldiag')) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudEstudio')->existeRegistroPorId($id, 'RyxSolicitudDiagnosticoPostEstudio', 'soldiag')) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_registroNoEncontrado'));
         }
 
     	//No puede acceder al registro
     	$sessionUser = $this->container->get('security.context')->getToken()->getUser();
-        if (false === $em->getRepository('MinsalSimagdBundle:ImgSolicitudDiagnostico')->obtenerAccesoSolDiagEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
+        if (false === $em->getRepository('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio')->obtenerAccesoSolDiagEstab($id, $sessionUser->getIdEstablecimiento()->getId())) {
             return $this->redirect($this->generateUrl('simagd_imagenologia_digital_accesoDenegado'));
         }
         
@@ -220,7 +220,7 @@ class RyxSolicitudDiagnosticoPostEstudioAdminController extends MinsalSimagdBund
     	$sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
         
-        $results = $em->getRepository('MinsalSimagdBundle:ImgSolicitudDiagnostico')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudio')->data($estabLocal->getId(), $BS_FILTERS_DECODE);
                                         
     	$isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
     	$isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
@@ -229,7 +229,7 @@ class RyxSolicitudDiagnosticoPostEstudioAdminController extends MinsalSimagdBund
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgSolicitudDiagnostico();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxSolicitudDiagnosticoPostEstudio();
 
             if ($__REQUEST__type === 'detail')
             {
@@ -313,7 +313,7 @@ class RyxSolicitudDiagnosticoPostEstudioAdminController extends MinsalSimagdBund
 
         //Nueva instancia
         $solicitudDiag          = $this->admin->getNewInstance();
-        // $solicitudDiag = new ImgSolicitudDiagnostico();
+        // $solicitudDiag = new RyxSolicitudDiagnosticoPostEstudio();
         
         $em = $this->getDoctrine()->getManager();
         
@@ -364,7 +364,7 @@ class RyxSolicitudDiagnosticoPostEstudioAdminController extends MinsalSimagdBund
         
         //Objeto
         $solicitudDiag          = $this->admin->getObject($id);
-        // $solicitudDiag = new ImgSolicitudDiagnostico();
+        // $solicitudDiag = new RyxSolicitudDiagnosticoPostEstudio();
         
         $em = $this->getDoctrine()->getManager();
         

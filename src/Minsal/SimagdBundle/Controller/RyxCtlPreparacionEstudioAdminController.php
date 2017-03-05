@@ -50,7 +50,7 @@ class RyxCtlPreparacionEstudioAdminController extends MinsalSimagdBundleGeneralA
         $sessionUser 		= $securityContext->getToken()->getUser();
         $estabLocal 		= $sessionUser->getIdEstablecimiento();
 
-        $resultados = $em->getRepository('MinsalSimagdBundle:ImgCtlPreparacionEstudio')->obtenerPreparacionEstudiosV2($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $resultados = $em->getRepository('MinsalSimagdBundle:RyxCtlPreparacionEstudio')->obtenerPreparacionEstudiosV2($estabLocal->getId(), $BS_FILTERS_DECODE);
 
 	$isUser_allowShow = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
 	$isUser_allowEdit = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
@@ -59,7 +59,7 @@ class RyxCtlPreparacionEstudioAdminController extends MinsalSimagdBundleGeneralA
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgCtlPreparacionEstudio();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxCtlPreparacionEstudio();
 
             $resultados[$key]['indCit_fechaHoraReg'] = $resultado['indCit_fechaHoraReg']->format('Y-m-d H:i:s A');
             $resultados[$key]['indCit_fechaHoraMod'] = $resultado['indCit_fechaHoraMod'] ? $resultado['indCit_fechaHoraMod']->format('Y-m-d H:i:s A') : '';
@@ -78,7 +78,7 @@ class RyxCtlPreparacionEstudioAdminController extends MinsalSimagdBundleGeneralA
 
         //Nueva instancia
         $indicacionesCita = $this->admin->getNewInstance();
-        // $indicacionesCita = new ImgCtlPreparacionEstudio();
+        // $indicacionesCita = new RyxCtlPreparacionEstudio();
 
         $empleado 		= $request->request->get('formIndCitIdEmpleado');
         $modalidad 		= $request->request->get('formIndCitIdAreaServicioDiagnosticoAplica');

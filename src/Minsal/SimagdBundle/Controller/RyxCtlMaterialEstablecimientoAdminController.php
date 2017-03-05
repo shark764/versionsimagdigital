@@ -59,7 +59,7 @@ class RyxCtlMaterialEstablecimientoAdminController extends MinsalSimagdBundleGen
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $results = $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')->localData($estabLocal->getId(), $BS_FILTERS_DECODE);
+        $results = $em->getRepository('MinsalSimagdBundle:RyxCtlMaterial')->localData($estabLocal->getId(), $BS_FILTERS_DECODE);
 
         $isUser_allowShow   = ($this->admin->isGranted('VIEW') && $this->admin->getRoutes()->has('show')) ? TRUE : FALSE;
         $isUser_allowEdit   = ($this->admin->isGranted('EDIT') && $this->admin->getRoutes()->has('edit')) ? TRUE : FALSE;
@@ -68,7 +68,7 @@ class RyxCtlMaterialEstablecimientoAdminController extends MinsalSimagdBundleGen
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgCtlMaterialEstablecimiento();
+            // $r = new \Minsal\SimagdBundle\Entity\RyxCtlMaterialEstablecimiento();
 
             if ($__REQUEST__type === 'detail')
             {
@@ -153,10 +153,10 @@ class RyxCtlMaterialEstablecimientoAdminController extends MinsalSimagdBundleGen
 
         //Nueva instancia
         $materialLc         = $this->admin->getNewInstance();
-        // $material = new \Minsal\SimagdBundle\Entity\ImgCtlMaterialEstablecimiento();
+        // $material = new \Minsal\SimagdBundle\Entity\RyxCtlMaterialEstablecimiento();
 
         //material
-        $materialRef        = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlMaterial', $material);
+        $materialRef        = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlMaterial', $material);
         $materialLc->setIdMaterial($materialRef);
 
     	$materialLc->setIdEstablecimiento($estabLocal);
@@ -194,10 +194,10 @@ class RyxCtlMaterialEstablecimientoAdminController extends MinsalSimagdBundleGen
 
         //Nueva instancia
         $materialLc         = $this->admin->getNewInstance();
-        // $material = new \Minsal\SimagdBundle\Entity\ImgCtlMaterialEstablecimiento();
+        // $material = new \Minsal\SimagdBundle\Entity\RyxCtlMaterialEstablecimiento();
 
         //material
-        $materialRef        = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlMaterial', $material);
+        $materialRef        = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlMaterial', $material);
         $materialLc->setIdMaterial($materialRef);
 
     	$materialLc->setIdEstablecimiento($estabLocal);
@@ -238,10 +238,10 @@ class RyxCtlMaterialEstablecimientoAdminController extends MinsalSimagdBundleGen
 
         //Objeto
         $materialLc         = $this->admin->getObject($id);
-        // $materialLc = new \Minsal\SimagdBundle\Entity\ImgCtlMaterialEstablecimiento();
+        // $materialLc = new \Minsal\SimagdBundle\Entity\RyxCtlMaterialEstablecimiento();
 
         //material
-        $materialRef        = $em->getReference('Minsal\SimagdBundle\Entity\ImgCtlMaterial', $material);
+        $materialRef        = $em->getReference('Minsal\SimagdBundle\Entity\RyxCtlMaterial', $material);
         $materialLc->setIdMaterial($materialRef);
 
     	$materialLc->setIdEstablecimiento($estabLocal);
@@ -268,7 +268,7 @@ class RyxCtlMaterialEstablecimientoAdminController extends MinsalSimagdBundleGen
         $sessionUser        = $securityContext->getToken()->getUser();
         $estabLocal         = $sessionUser->getIdEstablecimiento();
 
-        $resultados         = $em->getRepository('MinsalSimagdBundle:ImgCtlMaterial')
+        $resultados         = $em->getRepository('MinsalSimagdBundle:RyxCtlMaterial')
 				    ->getNonAggregatedMaterials($estabLocal->getId());
 
         return $this->renderJson($results);

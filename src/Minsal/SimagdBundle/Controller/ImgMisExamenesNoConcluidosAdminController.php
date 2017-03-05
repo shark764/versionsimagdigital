@@ -42,7 +42,7 @@ class ImgMisExamenesNoConcluidosAdminController extends MinsalSimagdBundleGenera
 	$sessionUser                       = $securityContext->getToken()->getUser();
         $estabLocal                         = $sessionUser->getIdEstablecimiento();
 
-        $resultados                         = $em->getRepository('MinsalSimagdBundle:ImgPendienteRealizacion')->assignedWorkList($estabLocal->getId(), $sessionUser->getId(), $BS_FILTERS_DECODE);
+        $resultados                         = $em->getRepository('MinsalSimagdBundle:RyxExamenPendienteRealizacion')->assignedWorkList($estabLocal->getId(), $sessionUser->getId(), $BS_FILTERS_DECODE);
         
         $isUser_allowRealizar               = ($this->admin->getRoutes()->has('realizar') &&
                     (($securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_CREATE') && $securityContext->isGranted('ROLE_MINSAL_SIMAGD_ADMIN_IMG_PROCEDIMIENTO_REALIZADO_EDIT')) ||
@@ -55,7 +55,7 @@ class ImgMisExamenesNoConcluidosAdminController extends MinsalSimagdBundleGenera
 
         foreach ($results as $key => $r)
         {
-            // $r = new \Minsal\SimagdBundle\Entity\ImgPendienteRealizacion;
+            // $r = new \Minsal\SimagdBundle\Entity\RyxExamenPendienteRealizacion;
 
             $resultados[$key]['pndR_fechaIngresoLista']             = $resultado['pndR_fechaIngresoLista']->format('Y-m-d H:i:s A');
             
