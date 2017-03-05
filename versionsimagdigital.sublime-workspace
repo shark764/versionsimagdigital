@@ -237,6 +237,9 @@
 	},
 	"file_history":
 	[
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Entity/ImgBloqueoAgenda.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Entity/ImgExclusionBloqueo.php",
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Entity/ImgCita.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/css/simagd-extend-bootstrap3_minsalsiaps.css",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Repository/RyxCitaProgramadaRepository.php",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/worklist_script.html.twig",
@@ -361,10 +364,7 @@
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgSolicitudEstudioAdmin/prc_emergency_actionEvents.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/catalogs_dashboard_script.html.twig",
 		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlMaterialEstablecimiento/mtrLc_actionEvents.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlProyeccionAdmin/expl_actionEvents.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlPacsEstablecimientoAdmin/pacs_actionEvents.html.twig",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/public/css/select2-bootstrap_minsalsiaps.css",
-		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/General/general_form_script.html.twig"
+		"/home/farid/NetBeansProjects/versionsimagdigital/src/Minsal/SimagdBundle/Resources/views/ImgCtlProyeccionAdmin/expl_actionEvents.html.twig"
 	],
 	"find":
 	{
@@ -1010,7 +1010,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 546.0,
+						"translation.y": 533.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
