@@ -3,6 +3,8 @@
 namespace Minsal\SimagdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Minsal\SimagdBundle\Entity\EntityInterface;
 
 /**
  * RyxCtlGrupoMaterial
@@ -26,6 +28,12 @@ class RyxCtlGrupoMaterial
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message = "foreign.default.not_blank")
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $nombre;
 
@@ -54,10 +62,16 @@ class RyxCtlGrupoMaterial
     private $descripcion;
 
     /**
+     * @ORM\OneToMany(targetEntity="RyxCtlSubgrupoMaterial", mappedBy="idGrupoMaterial", cascade={"all"}, orphanRemoval=true)
+     */
+    private $grupoSubgrupos;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
+        $this->grupoSubgrupos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -92,4 +106,106 @@ class RyxCtlGrupoMaterial
         return $this->id;
     }
 
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return RyxCtlGrupoMaterial
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set codigo
+     *
+     * @param string $codigo
+     * @return RyxCtlGrupoMaterial
+     */
+    public function setCodigo($codigo)
+    {
+        $this->codigo = $codigo;
+
+        return $this;
+    }
+
+    /**
+     * Get codigo
+     *
+     * @return string 
+     */
+    public function getCodigo()
+    {
+        return $this->codigo;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return RyxCtlGrupoMaterial
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Add grupoSubgrupos
+     *
+     * @param \Minsal\SimagdBundle\Entity\RyxCtlSubgrupoMaterial $grupoSubgrupos
+     * @return RyxCtlGrupoMaterial
+     */
+    public function addGrupoSubgrupo(\Minsal\SimagdBundle\Entity\RyxCtlSubgrupoMaterial $grupoSubgrupos)
+    {
+        $this->grupoSubgrupos[] = $grupoSubgrupos;
+
+        return $this;
+    }
+
+    /**
+     * Remove grupoSubgrupos
+     *
+     * @param \Minsal\SimagdBundle\Entity\RyxCtlSubgrupoMaterial $grupoSubgrupos
+     */
+    public function removeGrupoSubgrupo(\Minsal\SimagdBundle\Entity\RyxCtlSubgrupoMaterial $grupoSubgrupos)
+    {
+        $this->grupoSubgrupos->removeElement($grupoSubgrupos);
+    }
+
+    /**
+     * Get grupoSubgrupos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGrupoSubgrupos()
+    {
+        return $this->grupoSubgrupos;
+    }
 }

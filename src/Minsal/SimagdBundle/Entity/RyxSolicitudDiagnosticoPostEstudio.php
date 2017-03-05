@@ -3,12 +3,14 @@
 namespace Minsal\SimagdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Minsal\SimagdBundle\Entity\EntityInterface;
 
 /**
  * RyxSolicitudDiagnosticoPostEstudio
  *
  * @ORM\Table(name="ryx_solicitud_diagnostico_post_estudio", indexes={@ORM\Index(name="IDX_A1126B86890253C7", columns={"id_empleado"}), @ORM\Index(name="IDX_A1126B869A3949E3", columns={"id_establecimiento_solicitado"}), @ORM\Index(name="IDX_A1126B86AB124167", columns={"id_estado_solicitud"}), @ORM\Index(name="IDX_A1126B866196B359", columns={"id_estudio"}), @ORM\Index(name="IDX_A1126B866AAA01BF", columns={"id_solicitud_estudio"}), @ORM\Index(name="IDX_A1126B86D8A5832B", columns={"id_user_reg"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Minsal\SimagdBundle\Repository\RyxSolicitudDiagnosticoPostEstudioRepository")
  */
 class RyxSolicitudDiagnosticoPostEstudio
 {
@@ -41,6 +43,12 @@ class RyxSolicitudDiagnosticoPostEstudio
      * @var string
      *
      * @ORM\Column(name="justificacion", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message = "foreign.default.not_blank")
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $justificacion;
 
@@ -71,6 +79,7 @@ class RyxSolicitudDiagnosticoPostEstudio
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_empleado", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idEmpleado;
 
@@ -81,6 +90,7 @@ class RyxSolicitudDiagnosticoPostEstudio
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_establecimiento_solicitado", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idEstablecimientoSolicitado;
 
@@ -91,13 +101,14 @@ class RyxSolicitudDiagnosticoPostEstudio
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_estado_solicitud", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idEstadoSolicitud;
 
     /**
      * @var \RyxEstudioPorImagenes
      *
-     * @ORM\ManyToOne(targetEntity="RyxEstudioPorImagenes")
+     * @ORM\ManyToOne(targetEntity="RyxEstudioPorImagenes", inversedBy="estudioSolicitudesDiagnostico")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_estudio", referencedColumnName="id")
      * })
@@ -107,7 +118,7 @@ class RyxSolicitudDiagnosticoPostEstudio
     /**
      * @var \RyxSolicitudEstudio
      *
-     * @ORM\ManyToOne(targetEntity="RyxSolicitudEstudio")
+     * @ORM\ManyToOne(targetEntity="RyxSolicitudEstudio", inversedBy="solicitudEstudioSolicitudesDiagnostico")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_solicitud_estudio", referencedColumnName="id")
      * })
@@ -121,6 +132,7 @@ class RyxSolicitudDiagnosticoPostEstudio
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user_reg", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idUserReg;
 
@@ -136,7 +148,7 @@ class RyxSolicitudDiagnosticoPostEstudio
      */
     public function __toString()
     {
-        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+        return $this->idSolicitudEstudio . ' :: ' . $this->idEstudio;
     }
     
     /**
@@ -163,4 +175,257 @@ class RyxSolicitudDiagnosticoPostEstudio
         return $this->id;
     }
 
+
+    /**
+     * Set solicitudRemota
+     *
+     * @param boolean $solicitudRemota
+     * @return RyxSolicitudDiagnosticoPostEstudio
+     */
+    public function setSolicitudRemota($solicitudRemota)
+    {
+        $this->solicitudRemota = $solicitudRemota;
+
+        return $this;
+    }
+
+    /**
+     * Get solicitudRemota
+     *
+     * @return boolean 
+     */
+    public function getSolicitudRemota()
+    {
+        return $this->solicitudRemota;
+    }
+
+    /**
+     * Set fechaCreacion
+     *
+     * @param \DateTime $fechaCreacion
+     * @return RyxSolicitudDiagnosticoPostEstudio
+     */
+    public function setFechaCreacion($fechaCreacion)
+    {
+        $this->fechaCreacion = $fechaCreacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaCreacion
+     *
+     * @return \DateTime 
+     */
+    public function getFechaCreacion()
+    {
+        return $this->fechaCreacion;
+    }
+
+    /**
+     * Set justificacion
+     *
+     * @param string $justificacion
+     * @return RyxSolicitudDiagnosticoPostEstudio
+     */
+    public function setJustificacion($justificacion)
+    {
+        $this->justificacion = $justificacion;
+
+        return $this;
+    }
+
+    /**
+     * Get justificacion
+     *
+     * @return string 
+     */
+    public function getJustificacion()
+    {
+        return $this->justificacion;
+    }
+
+    /**
+     * Set fechaProximaConsulta
+     *
+     * @param \DateTime $fechaProximaConsulta
+     * @return RyxSolicitudDiagnosticoPostEstudio
+     */
+    public function setFechaProximaConsulta($fechaProximaConsulta)
+    {
+        $this->fechaProximaConsulta = $fechaProximaConsulta;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaProximaConsulta
+     *
+     * @return \DateTime 
+     */
+    public function getFechaProximaConsulta()
+    {
+        return $this->fechaProximaConsulta;
+    }
+
+    /**
+     * Set observaciones
+     *
+     * @param string $observaciones
+     * @return RyxSolicitudDiagnosticoPostEstudio
+     */
+    public function setObservaciones($observaciones)
+    {
+        $this->observaciones = $observaciones;
+
+        return $this;
+    }
+
+    /**
+     * Get observaciones
+     *
+     * @return string 
+     */
+    public function getObservaciones()
+    {
+        return $this->observaciones;
+    }
+
+    /**
+     * Set idEmpleado
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleado
+     * @return RyxSolicitudDiagnosticoPostEstudio
+     */
+    public function setIdEmpleado(\Minsal\SiapsBundle\Entity\MntEmpleado $idEmpleado = null)
+    {
+        $this->idEmpleado = $idEmpleado;
+
+        return $this;
+    }
+
+    /**
+     * Get idEmpleado
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntEmpleado 
+     */
+    public function getIdEmpleado()
+    {
+        return $this->idEmpleado;
+    }
+
+    /**
+     * Set idEstablecimientoSolicitado
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimientoSolicitado
+     * @return RyxSolicitudDiagnosticoPostEstudio
+     */
+    public function setIdEstablecimientoSolicitado(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimientoSolicitado = null)
+    {
+        $this->idEstablecimientoSolicitado = $idEstablecimientoSolicitado;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimientoSolicitado
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     */
+    public function getIdEstablecimientoSolicitado()
+    {
+        return $this->idEstablecimientoSolicitado;
+    }
+
+    /**
+     * Set idEstadoSolicitud
+     *
+     * @param \Minsal\SimagdBundle\Entity\RyxCtlEstadoSolicitud $idEstadoSolicitud
+     * @return RyxSolicitudDiagnosticoPostEstudio
+     */
+    public function setIdEstadoSolicitud(\Minsal\SimagdBundle\Entity\RyxCtlEstadoSolicitud $idEstadoSolicitud = null)
+    {
+        $this->idEstadoSolicitud = $idEstadoSolicitud;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstadoSolicitud
+     *
+     * @return \Minsal\SimagdBundle\Entity\RyxCtlEstadoSolicitud 
+     */
+    public function getIdEstadoSolicitud()
+    {
+        return $this->idEstadoSolicitud;
+    }
+
+    /**
+     * Set idEstudio
+     *
+     * @param \Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes $idEstudio
+     * @return RyxSolicitudDiagnosticoPostEstudio
+     */
+    public function setIdEstudio(\Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes $idEstudio = null)
+    {
+        $this->idEstudio = $idEstudio;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstudio
+     *
+     * @return \Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes 
+     */
+    public function getIdEstudio()
+    {
+        return $this->idEstudio;
+    }
+
+    /**
+     * Set idSolicitudEstudio
+     *
+     * @param \Minsal\SimagdBundle\Entity\RyxSolicitudEstudio $idSolicitudEstudio
+     * @return RyxSolicitudDiagnosticoPostEstudio
+     */
+    public function setIdSolicitudEstudio(\Minsal\SimagdBundle\Entity\RyxSolicitudEstudio $idSolicitudEstudio = null)
+    {
+        $this->idSolicitudEstudio = $idSolicitudEstudio;
+
+        return $this;
+    }
+
+    /**
+     * Get idSolicitudEstudio
+     *
+     * @return \Minsal\SimagdBundle\Entity\RyxSolicitudEstudio 
+     */
+    public function getIdSolicitudEstudio()
+    {
+        return $this->idSolicitudEstudio;
+    }
+
+    /**
+     * Set idUserReg
+     *
+     * @param \Application\Sonata\UserBundle\Entity\User $idUserReg
+     * @return RyxSolicitudDiagnosticoPostEstudio
+     */
+    public function setIdUserReg(\Application\Sonata\UserBundle\Entity\User $idUserReg = null)
+    {
+        $this->idUserReg = $idUserReg;
+
+        return $this;
+    }
+
+    /**
+     * Get idUserReg
+     *
+     * @return \Application\Sonata\UserBundle\Entity\User 
+     */
+    public function getIdUserReg()
+    {
+        return $this->idUserReg;
+    }
 }

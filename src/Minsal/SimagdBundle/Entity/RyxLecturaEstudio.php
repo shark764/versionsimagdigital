@@ -3,6 +3,8 @@
 namespace Minsal\SimagdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Minsal\SimagdBundle\Entity\EntityInterface;
 
 /**
  * RyxLecturaEstudio
@@ -25,7 +27,7 @@ class RyxLecturaEstudio
     /**
      * @var \RyxEstudioPorImagenes
      *
-     * @ORM\ManyToOne(targetEntity="RyxEstudioPorImagenes")
+     * @ORM\ManyToOne(targetEntity="RyxEstudioPorImagenes", inversedBy="estudioLecturaEstudio")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_estudio", referencedColumnName="id")
      * })
@@ -35,7 +37,7 @@ class RyxLecturaEstudio
     /**
      * @var \RyxLecturaRadiologica
      *
-     * @ORM\ManyToOne(targetEntity="RyxLecturaRadiologica")
+     * @ORM\ManyToOne(targetEntity="RyxLecturaRadiologica", inversedBy="lecturaLecturaEstudios")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_lectura", referencedColumnName="id")
      * })
@@ -54,7 +56,7 @@ class RyxLecturaEstudio
      */
     public function __toString()
     {
-        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+        return (string) $this->idLectura . ' :: ' . $this->idEstudio;
     }
     
     /**
@@ -81,4 +83,50 @@ class RyxLecturaEstudio
         return $this->id;
     }
 
+
+    /**
+     * Set idEstudio
+     *
+     * @param \Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes $idEstudio
+     * @return RyxLecturaEstudio
+     */
+    public function setIdEstudio(\Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes $idEstudio = null)
+    {
+        $this->idEstudio = $idEstudio;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstudio
+     *
+     * @return \Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes 
+     */
+    public function getIdEstudio()
+    {
+        return $this->idEstudio;
+    }
+
+    /**
+     * Set idLectura
+     *
+     * @param \Minsal\SimagdBundle\Entity\RyxLecturaRadiologica $idLectura
+     * @return RyxLecturaEstudio
+     */
+    public function setIdLectura(\Minsal\SimagdBundle\Entity\RyxLecturaRadiologica $idLectura = null)
+    {
+        $this->idLectura = $idLectura;
+
+        return $this;
+    }
+
+    /**
+     * Get idLectura
+     *
+     * @return \Minsal\SimagdBundle\Entity\RyxLecturaRadiologica 
+     */
+    public function getIdLectura()
+    {
+        return $this->idLectura;
+    }
 }

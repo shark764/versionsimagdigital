@@ -3,6 +3,8 @@
 namespace Minsal\SimagdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Minsal\SimagdBundle\Entity\EntityInterface;
 
 /**
  * CtlEstadoServicioDiagnostico
@@ -48,6 +50,7 @@ class CtlEstadoServicioDiagnostico
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_atencion", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idAtencion;
     
@@ -55,7 +58,6 @@ class CtlEstadoServicioDiagnostico
     {
         return $this->descripcion ? strtoupper($this->idestado) . ' - ' . mb_strtoupper($this->descripcion, 'utf-8') : '';
     }
-
 
     /**
      * Get id

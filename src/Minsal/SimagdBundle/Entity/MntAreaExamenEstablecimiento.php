@@ -3,6 +3,8 @@
 namespace Minsal\SimagdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Minsal\SimagdBundle\Entity\EntityInterface;
 
 /**
  * MntAreaExamenEstablecimiento
@@ -56,7 +58,13 @@ class MntAreaExamenEstablecimiento
     /**
      * @var integer
      *
-     * @ORM\Column(name="img_duracion_clinica_estudio", type="smallint", nullable=true)
+     * @ORM\Column(name="img_duracion_clinica_estudio", type="smallint", nullable=false)
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 32767,
+     *      minMessage = "Número no puede ser inferior a {{ limit }}",
+     *      maxMessage = "Número no puede ser superior a {{ limit }}"
+     * )
      */
     private $imgDuracionClinicaEstudio = 6;
 
@@ -79,6 +87,7 @@ class MntAreaExamenEstablecimiento
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_area_servicio_diagnostico", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idAreaServicioDiagnostico;
 
@@ -89,6 +98,7 @@ class MntAreaExamenEstablecimiento
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idEstablecimiento;
 
@@ -99,6 +109,7 @@ class MntAreaExamenEstablecimiento
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_examen_servicio_diagnostico", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idExamenServicioDiagnostico;
 
@@ -119,6 +130,7 @@ class MntAreaExamenEstablecimiento
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_usuario_reg", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idUsuarioReg;
     
@@ -126,7 +138,6 @@ class MntAreaExamenEstablecimiento
     {
         return $this->idAreaServicioDiagnostico . ' :: ' . $this->idExamenServicioDiagnostico . ' :: ' . $this->idEstablecimiento;
     }
-
 
     /**
      * Get id

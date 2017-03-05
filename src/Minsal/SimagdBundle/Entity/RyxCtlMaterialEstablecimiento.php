@@ -3,6 +3,8 @@
 namespace Minsal\SimagdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Minsal\SimagdBundle\Entity\EntityInterface;
 
 /**
  * RyxCtlMaterialEstablecimiento
@@ -26,8 +28,15 @@ class RyxCtlMaterialEstablecimiento
      * @var integer
      *
      * @ORM\Column(name="cantidad_disponible", type="integer", nullable=false)
+     * @Assert\NotBlank(message = "foreign.default.not_blank")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 2147483647,
+     *      minMessage = "Número no puede ser inferior a {{ limit }}",
+     *      maxMessage = "Número no puede ser superior a {{ limit }}"
+     * )
      */
-    private $cantidadDisponible = '0';
+    private $cantidadDisponible = 0;
 
     /**
      * @var string
@@ -71,16 +80,18 @@ class RyxCtlMaterialEstablecimiento
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idEstablecimiento;
 
     /**
      * @var \RyxCtlMaterial
      *
-     * @ORM\ManyToOne(targetEntity="RyxCtlMaterial")
+     * @ORM\ManyToOne(targetEntity="RyxCtlMaterial", inversedBy="materialesLocales")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_material", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idMaterial;
 
@@ -101,6 +112,7 @@ class RyxCtlMaterialEstablecimiento
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user_reg", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idUserReg;
 
@@ -116,7 +128,7 @@ class RyxCtlMaterialEstablecimiento
      */
     public function __toString()
     {
-        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+        return (string) $this->idMaterial;
     }
     
     /**
@@ -143,4 +155,211 @@ class RyxCtlMaterialEstablecimiento
         return $this->id;
     }
 
+
+    /**
+     * Set cantidadDisponible
+     *
+     * @param integer $cantidadDisponible
+     * @return RyxCtlMaterialEstablecimiento
+     */
+    public function setCantidadDisponible($cantidadDisponible)
+    {
+        $this->cantidadDisponible = $cantidadDisponible;
+
+        return $this;
+    }
+
+    /**
+     * Get cantidadDisponible
+     *
+     * @return integer 
+     */
+    public function getCantidadDisponible()
+    {
+        return $this->cantidadDisponible;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return RyxCtlMaterialEstablecimiento
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set habilitado
+     *
+     * @param boolean $habilitado
+     * @return RyxCtlMaterialEstablecimiento
+     */
+    public function setHabilitado($habilitado)
+    {
+        $this->habilitado = $habilitado;
+
+        return $this;
+    }
+
+    /**
+     * Get habilitado
+     *
+     * @return boolean 
+     */
+    public function getHabilitado()
+    {
+        return $this->habilitado;
+    }
+
+    /**
+     * Set fechaHoraReg
+     *
+     * @param \DateTime $fechaHoraReg
+     * @return RyxCtlMaterialEstablecimiento
+     */
+    public function setFechaHoraReg($fechaHoraReg)
+    {
+        $this->fechaHoraReg = $fechaHoraReg;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaHoraReg
+     *
+     * @return \DateTime 
+     */
+    public function getFechaHoraReg()
+    {
+        return $this->fechaHoraReg;
+    }
+
+    /**
+     * Set fechaHoraMod
+     *
+     * @param \DateTime $fechaHoraMod
+     * @return RyxCtlMaterialEstablecimiento
+     */
+    public function setFechaHoraMod($fechaHoraMod)
+    {
+        $this->fechaHoraMod = $fechaHoraMod;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaHoraMod
+     *
+     * @return \DateTime 
+     */
+    public function getFechaHoraMod()
+    {
+        return $this->fechaHoraMod;
+    }
+
+    /**
+     * Set idEstablecimiento
+     *
+     * @param \Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento
+     * @return RyxCtlMaterialEstablecimiento
+     */
+    public function setIdEstablecimiento(\Minsal\SiapsBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
+    {
+        $this->idEstablecimiento = $idEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimiento
+     *
+     * @return \Minsal\SiapsBundle\Entity\CtlEstablecimiento 
+     */
+    public function getIdEstablecimiento()
+    {
+        return $this->idEstablecimiento;
+    }
+
+    /**
+     * Set idMaterial
+     *
+     * @param \Minsal\SimagdBundle\Entity\RyxCtlMaterial $idMaterial
+     * @return RyxCtlMaterialEstablecimiento
+     */
+    public function setIdMaterial(\Minsal\SimagdBundle\Entity\RyxCtlMaterial $idMaterial = null)
+    {
+        $this->idMaterial = $idMaterial;
+
+        return $this;
+    }
+
+    /**
+     * Get idMaterial
+     *
+     * @return \Minsal\SimagdBundle\Entity\RyxCtlMaterial 
+     */
+    public function getIdMaterial()
+    {
+        return $this->idMaterial;
+    }
+
+    /**
+     * Set idUserMod
+     *
+     * @param \Application\Sonata\UserBundle\Entity\User $idUserMod
+     * @return RyxCtlMaterialEstablecimiento
+     */
+    public function setIdUserMod(\Application\Sonata\UserBundle\Entity\User $idUserMod = null)
+    {
+        $this->idUserMod = $idUserMod;
+
+        return $this;
+    }
+
+    /**
+     * Get idUserMod
+     *
+     * @return \Application\Sonata\UserBundle\Entity\User 
+     */
+    public function getIdUserMod()
+    {
+        return $this->idUserMod;
+    }
+
+    /**
+     * Set idUserReg
+     *
+     * @param \Application\Sonata\UserBundle\Entity\User $idUserReg
+     * @return RyxCtlMaterialEstablecimiento
+     */
+    public function setIdUserReg(\Application\Sonata\UserBundle\Entity\User $idUserReg = null)
+    {
+        $this->idUserReg = $idUserReg;
+
+        return $this;
+    }
+
+    /**
+     * Get idUserReg
+     *
+     * @return \Application\Sonata\UserBundle\Entity\User 
+     */
+    public function getIdUserReg()
+    {
+        return $this->idUserReg;
+    }
 }

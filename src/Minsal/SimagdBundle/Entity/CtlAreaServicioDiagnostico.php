@@ -3,6 +3,8 @@
 namespace Minsal\SimagdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Minsal\SimagdBundle\Entity\EntityInterface;
 
 /**
  * CtlAreaServicioDiagnostico
@@ -26,6 +28,12 @@ class CtlAreaServicioDiagnostico
      * @var string
      *
      * @ORM\Column(name="idarea", type="string", length=10, nullable=false)
+     * @Assert\NotBlank(message = "foreign.default.not_blank")
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $idarea;
 
@@ -112,6 +120,7 @@ class CtlAreaServicioDiagnostico
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_atencion", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idAtencion;
 
@@ -132,6 +141,7 @@ class CtlAreaServicioDiagnostico
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idusuarioreg", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idusuarioreg;
 

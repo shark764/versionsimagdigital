@@ -3,6 +3,8 @@
 namespace Minsal\SimagdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Minsal\SimagdBundle\Entity\EntityInterface;
 
 /**
  * RyxCtlFormaContacto
@@ -26,6 +28,12 @@ class RyxCtlFormaContacto
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", nullable=false)
+     * @Assert\NotBlank(message = "foreign.default.not_blank")
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $nombre = 'Teléfono Casa';
 
@@ -41,7 +49,7 @@ class RyxCtlFormaContacto
      */
     public function __toString()
     {
-        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+        return $this->nombre ? mb_strtoupper(trim($this->nombre), 'utf-8') : '';
     }
     
     /**
@@ -68,4 +76,27 @@ class RyxCtlFormaContacto
         return $this->id;
     }
 
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return RyxCtlFormaContacto
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
 }

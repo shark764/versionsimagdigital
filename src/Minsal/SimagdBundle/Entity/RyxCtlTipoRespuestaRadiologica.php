@@ -3,6 +3,8 @@
 namespace Minsal\SimagdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Minsal\SimagdBundle\Entity\EntityInterface;
 
 /**
  * RyxCtlTipoRespuestaRadiologica
@@ -26,6 +28,12 @@ class RyxCtlTipoRespuestaRadiologica
      * @var string
      *
      * @ORM\Column(name="nombre_tipo", type="string", length=50, nullable=false)
+     * @Assert\NotBlank(message = "foreign.default.not_blank")
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $nombreTipo;
 
@@ -52,6 +60,12 @@ class RyxCtlTipoRespuestaRadiologica
      * @var string
      *
      * @ORM\Column(name="codigo", type="string", nullable=false)
+     * @Assert\NotBlank(message = "foreign.default.not_blank")
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $codigo;
 
@@ -79,7 +93,7 @@ class RyxCtlTipoRespuestaRadiologica
      */
     public function __toString()
     {
-        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+        return $this->nombreTipo ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombreTipo), 'utf-8') : '';
     }
     
     /**
@@ -106,4 +120,119 @@ class RyxCtlTipoRespuestaRadiologica
         return $this->id;
     }
 
+
+    /**
+     * Set nombreTipo
+     *
+     * @param string $nombreTipo
+     * @return RyxCtlTipoRespuestaRadiologica
+     */
+    public function setNombreTipo($nombreTipo)
+    {
+        $this->nombreTipo = $nombreTipo;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreTipo
+     *
+     * @return string 
+     */
+    public function getNombreTipo()
+    {
+        return $this->nombreTipo;
+    }
+
+    /**
+     * Set indeterminado
+     *
+     * @param boolean $indeterminado
+     * @return RyxCtlTipoRespuestaRadiologica
+     */
+    public function setIndeterminado($indeterminado)
+    {
+        $this->indeterminado = $indeterminado;
+
+        return $this;
+    }
+
+    /**
+     * Get indeterminado
+     *
+     * @return boolean 
+     */
+    public function getIndeterminado()
+    {
+        return $this->indeterminado;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return RyxCtlTipoRespuestaRadiologica
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set codigo
+     *
+     * @param string $codigo
+     * @return RyxCtlTipoRespuestaRadiologica
+     */
+    public function setCodigo($codigo)
+    {
+        $this->codigo = $codigo;
+
+        return $this;
+    }
+
+    /**
+     * Get codigo
+     *
+     * @return string 
+     */
+    public function getCodigo()
+    {
+        return $this->codigo;
+    }
+
+    /**
+     * Set estiloPresentacion
+     *
+     * @param string $estiloPresentacion
+     * @return RyxCtlTipoRespuestaRadiologica
+     */
+    public function setEstiloPresentacion($estiloPresentacion)
+    {
+        $this->estiloPresentacion = $estiloPresentacion;
+
+        return $this;
+    }
+
+    /**
+     * Get estiloPresentacion
+     *
+     * @return string 
+     */
+    public function getEstiloPresentacion()
+    {
+        return $this->estiloPresentacion;
+    }
 }

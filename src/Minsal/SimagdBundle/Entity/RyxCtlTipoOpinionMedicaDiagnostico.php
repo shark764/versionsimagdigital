@@ -3,6 +3,8 @@
 namespace Minsal\SimagdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Minsal\SimagdBundle\Entity\EntityInterface;
 
 /**
  * RyxCtlTipoOpinionMedicaDiagnostico
@@ -26,6 +28,12 @@ class RyxCtlTipoOpinionMedicaDiagnostico
      * @var string
      *
      * @ORM\Column(name="nombre_tipo", type="string", nullable=false)
+     * @Assert\NotBlank(message = "foreign.default.not_blank")
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $nombreTipo;
 
@@ -33,6 +41,12 @@ class RyxCtlTipoOpinionMedicaDiagnostico
      * @var string
      *
      * @ORM\Column(name="codigo", type="string", nullable=false)
+     * @Assert\NotBlank(message = "foreign.default.not_blank")
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $codigo;
 
@@ -60,7 +74,7 @@ class RyxCtlTipoOpinionMedicaDiagnostico
      */
     public function __toString()
     {
-        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+        return $this->nombreTipo ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombreTipo), 'utf-8') : '';
     }
     
     /**
@@ -87,4 +101,73 @@ class RyxCtlTipoOpinionMedicaDiagnostico
         return $this->id;
     }
 
+
+    /**
+     * Set nombreTipo
+     *
+     * @param string $nombreTipo
+     * @return RyxCtlTipoOpinionMedicaDiagnostico
+     */
+    public function setNombreTipo($nombreTipo)
+    {
+        $this->nombreTipo = $nombreTipo;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreTipo
+     *
+     * @return string 
+     */
+    public function getNombreTipo()
+    {
+        return $this->nombreTipo;
+    }
+
+    /**
+     * Set codigo
+     *
+     * @param string $codigo
+     * @return RyxCtlTipoOpinionMedicaDiagnostico
+     */
+    public function setCodigo($codigo)
+    {
+        $this->codigo = $codigo;
+
+        return $this;
+    }
+
+    /**
+     * Get codigo
+     *
+     * @return string 
+     */
+    public function getCodigo()
+    {
+        return $this->codigo;
+    }
+
+    /**
+     * Set estiloPresentacion
+     *
+     * @param string $estiloPresentacion
+     * @return RyxCtlTipoOpinionMedicaDiagnostico
+     */
+    public function setEstiloPresentacion($estiloPresentacion)
+    {
+        $this->estiloPresentacion = $estiloPresentacion;
+
+        return $this;
+    }
+
+    /**
+     * Get estiloPresentacion
+     *
+     * @return string 
+     */
+    public function getEstiloPresentacion()
+    {
+        return $this->estiloPresentacion;
+    }
 }

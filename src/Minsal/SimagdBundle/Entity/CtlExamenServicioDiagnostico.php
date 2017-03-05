@@ -3,6 +3,8 @@
 namespace Minsal\SimagdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Minsal\SimagdBundle\Entity\EntityInterface;
 
 /**
  * CtlExamenServicioDiagnostico
@@ -26,6 +28,12 @@ class CtlExamenServicioDiagnostico
      * @var string
      *
      * @ORM\Column(name="idestandar", type="string", length=10, nullable=false)
+     * @Assert\NotBlank(message = "foreign.default.not_blank")
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z0-9]/",
+     *     match=true,
+     *     message="regex.match.true"
+     * )
      */
     private $idestandar;
 
@@ -88,6 +96,7 @@ class CtlExamenServicioDiagnostico
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_atencion", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idAtencion;
 
@@ -138,11 +147,12 @@ class CtlExamenServicioDiagnostico
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_area_servicio_diagnostico", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idAreaServicioDiagnostico;
 
     /**
-     * @ORM\OneToMany(targetEntity="ImgCtlProyeccion", mappedBy="idExamenServicioDiagnostico", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="RyxCtlProyeccionRadiologica", mappedBy="idExamenServicioDiagnostico", cascade={"all"}, orphanRemoval=true)
      */
     private $examenProyeccionesRadiologicas;
     
@@ -448,10 +458,10 @@ class CtlExamenServicioDiagnostico
     /**
      * Add examenProyeccionesRadiologicas
      *
-     * @param \Minsal\SimagdBundle\Entity\ImgCtlProyeccion $examenProyeccionesRadiologicas
+     * @param \Minsal\SimagdBundle\Entity\RyxCtlProyeccionRadiologica $examenProyeccionesRadiologicas
      * @return CtlExamenServicioDiagnostico
      */
-    public function addExamenProyeccionesRadiologica(\Minsal\SimagdBundle\Entity\ImgCtlProyeccion $examenProyeccionesRadiologicas)
+    public function addExamenProyeccionesRadiologica(\Minsal\SimagdBundle\Entity\RyxCtlProyeccionRadiologica $examenProyeccionesRadiologicas)
     {
         $this->examenProyeccionesRadiologicas[] = $examenProyeccionesRadiologicas;
 
@@ -461,9 +471,9 @@ class CtlExamenServicioDiagnostico
     /**
      * Remove examenProyeccionesRadiologicas
      *
-     * @param \Minsal\SimagdBundle\Entity\ImgCtlProyeccion $examenProyeccionesRadiologicas
+     * @param \Minsal\SimagdBundle\Entity\RyxCtlProyeccionRadiologica $examenProyeccionesRadiologicas
      */
-    public function removeExamenProyeccionesRadiologica(\Minsal\SimagdBundle\Entity\ImgCtlProyeccion $examenProyeccionesRadiologicas)
+    public function removeExamenProyeccionesRadiologica(\Minsal\SimagdBundle\Entity\RyxCtlProyeccionRadiologica $examenProyeccionesRadiologicas)
     {
         $this->examenProyeccionesRadiologicas->removeElement($examenProyeccionesRadiologicas);
     }

@@ -3,6 +3,8 @@
 namespace Minsal\SimagdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Minsal\SimagdBundle\Entity\EntityInterface;
 
 /**
  * RyxProcedimientoMaterialUtilizado
@@ -27,7 +29,7 @@ class RyxProcedimientoMaterialUtilizado
      *
      * @ORM\Column(name="cantidad_utilizada", type="integer", nullable=true)
      */
-    private $cantidadUtilizada = '0';
+    private $cantidadUtilizada = 0;
 
     /**
      * @var string
@@ -48,16 +50,18 @@ class RyxProcedimientoMaterialUtilizado
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_material", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idMaterial;
 
     /**
      * @var \RyxProcedimientoRadiologicoRealizado
      *
-     * @ORM\ManyToOne(targetEntity="RyxProcedimientoRadiologicoRealizado")
+     * @ORM\ManyToOne(targetEntity="RyxProcedimientoRadiologicoRealizado", inversedBy="materialUtilizadoV2")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_procedimiento_realizado", referencedColumnName="id")
      * })
+     * @Assert\NotNull(message = "foreign.default.not_null")
      */
     private $idProcedimientoRealizado;
 
@@ -73,7 +77,7 @@ class RyxProcedimientoMaterialUtilizado
      */
     public function __toString()
     {
-        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+        return (string) $this->idMaterial;
     }
     
     /**
@@ -100,4 +104,96 @@ class RyxProcedimientoMaterialUtilizado
         return $this->id;
     }
 
+
+    /**
+     * Set cantidadUtilizada
+     *
+     * @param integer $cantidadUtilizada
+     * @return RyxProcedimientoMaterialUtilizado
+     */
+    public function setCantidadUtilizada($cantidadUtilizada)
+    {
+        $this->cantidadUtilizada = $cantidadUtilizada;
+
+        return $this;
+    }
+
+    /**
+     * Get cantidadUtilizada
+     *
+     * @return integer 
+     */
+    public function getCantidadUtilizada()
+    {
+        return $this->cantidadUtilizada;
+    }
+
+    /**
+     * Set otrasEspecificaciones
+     *
+     * @param string $otrasEspecificaciones
+     * @return RyxProcedimientoMaterialUtilizado
+     */
+    public function setOtrasEspecificaciones($otrasEspecificaciones)
+    {
+        $this->otrasEspecificaciones = $otrasEspecificaciones;
+
+        return $this;
+    }
+
+    /**
+     * Get otrasEspecificaciones
+     *
+     * @return string 
+     */
+    public function getOtrasEspecificaciones()
+    {
+        return $this->otrasEspecificaciones;
+    }
+
+    /**
+     * Set idMaterial
+     *
+     * @param \Minsal\SimagdBundle\Entity\RyxCtlMaterial $idMaterial
+     * @return RyxProcedimientoMaterialUtilizado
+     */
+    public function setIdMaterial(\Minsal\SimagdBundle\Entity\RyxCtlMaterial $idMaterial = null)
+    {
+        $this->idMaterial = $idMaterial;
+
+        return $this;
+    }
+
+    /**
+     * Get idMaterial
+     *
+     * @return \Minsal\SimagdBundle\Entity\RyxCtlMaterial 
+     */
+    public function getIdMaterial()
+    {
+        return $this->idMaterial;
+    }
+
+    /**
+     * Set idProcedimientoRealizado
+     *
+     * @param \Minsal\SimagdBundle\Entity\RyxProcedimientoRadiologicoRealizado $idProcedimientoRealizado
+     * @return RyxProcedimientoMaterialUtilizado
+     */
+    public function setIdProcedimientoRealizado(\Minsal\SimagdBundle\Entity\RyxProcedimientoRadiologicoRealizado $idProcedimientoRealizado = null)
+    {
+        $this->idProcedimientoRealizado = $idProcedimientoRealizado;
+
+        return $this;
+    }
+
+    /**
+     * Get idProcedimientoRealizado
+     *
+     * @return \Minsal\SimagdBundle\Entity\RyxProcedimientoRadiologicoRealizado 
+     */
+    public function getIdProcedimientoRealizado()
+    {
+        return $this->idProcedimientoRealizado;
+    }
 }

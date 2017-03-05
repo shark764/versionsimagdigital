@@ -3,6 +3,8 @@
 namespace Minsal\SimagdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Minsal\SimagdBundle\Entity\EntityInterface;
 
 /**
  * RyxSolicitudEstudioComplementarioProyeccion
@@ -25,7 +27,13 @@ class RyxSolicitudEstudioComplementarioProyeccion
     /**
      * @var integer
      *
-     * @ORM\Column(name="vistas_requeridas", type="smallint", nullable=true)
+     * @ORM\Column(name="vistas_requeridas", type="smallint", nullable=false)
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 32767,
+     *      minMessage = "Número no puede ser inferior a {{ limit }}",
+     *      maxMessage = "Número no puede ser superior a {{ limit }}"
+     * )
      */
     private $vistasRequeridas = 1;
 
@@ -66,7 +74,7 @@ class RyxSolicitudEstudioComplementarioProyeccion
     /**
      * @var \RyxSolicitudEstudioComplementario
      *
-     * @ORM\ManyToOne(targetEntity="RyxSolicitudEstudioComplementario")
+     * @ORM\ManyToOne(targetEntity="RyxSolicitudEstudioComplementario", inversedBy="solicitudEstudioComplementarioProyeccion")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_solicitud_estudio_complementario", referencedColumnName="id")
      * })
@@ -85,7 +93,7 @@ class RyxSolicitudEstudioComplementarioProyeccion
      */
     public function __toString()
     {
-        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+        return (string) $this->idProyeccionSolicitada;
     }
     
     /**
@@ -112,4 +120,119 @@ class RyxSolicitudEstudioComplementarioProyeccion
         return $this->id;
     }
 
+
+    /**
+     * Set vistasRequeridas
+     *
+     * @param integer $vistasRequeridas
+     * @return RyxSolicitudEstudioComplementarioProyeccion
+     */
+    public function setVistasRequeridas($vistasRequeridas)
+    {
+        $this->vistasRequeridas = $vistasRequeridas;
+
+        return $this;
+    }
+
+    /**
+     * Get vistasRequeridas
+     *
+     * @return integer 
+     */
+    public function getVistasRequeridas()
+    {
+        return $this->vistasRequeridas;
+    }
+
+    /**
+     * Set dimensiones
+     *
+     * @param string $dimensiones
+     * @return RyxSolicitudEstudioComplementarioProyeccion
+     */
+    public function setDimensiones($dimensiones)
+    {
+        $this->dimensiones = $dimensiones;
+
+        return $this;
+    }
+
+    /**
+     * Get dimensiones
+     *
+     * @return string 
+     */
+    public function getDimensiones()
+    {
+        return $this->dimensiones;
+    }
+
+    /**
+     * Set otrasEspecificaciones
+     *
+     * @param string $otrasEspecificaciones
+     * @return RyxSolicitudEstudioComplementarioProyeccion
+     */
+    public function setOtrasEspecificaciones($otrasEspecificaciones)
+    {
+        $this->otrasEspecificaciones = $otrasEspecificaciones;
+
+        return $this;
+    }
+
+    /**
+     * Get otrasEspecificaciones
+     *
+     * @return string 
+     */
+    public function getOtrasEspecificaciones()
+    {
+        return $this->otrasEspecificaciones;
+    }
+
+    /**
+     * Set idProyeccionSolicitada
+     *
+     * @param \Minsal\SimagdBundle\Entity\RyxCtlProyeccionRadiologica $idProyeccionSolicitada
+     * @return RyxSolicitudEstudioComplementarioProyeccion
+     */
+    public function setIdProyeccionSolicitada(\Minsal\SimagdBundle\Entity\RyxCtlProyeccionRadiologica $idProyeccionSolicitada = null)
+    {
+        $this->idProyeccionSolicitada = $idProyeccionSolicitada;
+
+        return $this;
+    }
+
+    /**
+     * Get idProyeccionSolicitada
+     *
+     * @return \Minsal\SimagdBundle\Entity\RyxCtlProyeccionRadiologica 
+     */
+    public function getIdProyeccionSolicitada()
+    {
+        return $this->idProyeccionSolicitada;
+    }
+
+    /**
+     * Set idSolicitudEstudioComplementario
+     *
+     * @param \Minsal\SimagdBundle\Entity\RyxSolicitudEstudioComplementario $idSolicitudEstudioComplementario
+     * @return RyxSolicitudEstudioComplementarioProyeccion
+     */
+    public function setIdSolicitudEstudioComplementario(\Minsal\SimagdBundle\Entity\RyxSolicitudEstudioComplementario $idSolicitudEstudioComplementario = null)
+    {
+        $this->idSolicitudEstudioComplementario = $idSolicitudEstudioComplementario;
+
+        return $this;
+    }
+
+    /**
+     * Get idSolicitudEstudioComplementario
+     *
+     * @return \Minsal\SimagdBundle\Entity\RyxSolicitudEstudioComplementario 
+     */
+    public function getIdSolicitudEstudioComplementario()
+    {
+        return $this->idSolicitudEstudioComplementario;
+    }
 }

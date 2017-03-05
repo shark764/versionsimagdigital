@@ -3,6 +3,8 @@
 namespace Minsal\SimagdBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Minsal\SimagdBundle\Entity\EntityInterface;
 
 /**
  * RyxExclusionBloqueo
@@ -25,7 +27,7 @@ class RyxExclusionBloqueo
     /**
      * @var \RyxBloqueoAgenda
      *
-     * @ORM\ManyToOne(targetEntity="RyxBloqueoAgenda")
+     * @ORM\ManyToOne(targetEntity="RyxBloqueoAgenda", inversedBy="bloqueoExclusionesBloqueo")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_bloqueo_agenda", referencedColumnName="id")
      * })
@@ -54,7 +56,7 @@ class RyxExclusionBloqueo
      */
     public function __toString()
     {
-        return $this->nombre ? strtoupper(trim($this->codigo)) . ' - ' . mb_strtoupper(trim($this->nombre), 'utf-8') : '';
+        return (string) $this->$idBloqueoAgenda . ' :: ' . $this->$idRadiologoExcluido;
     }
     
     /**
@@ -81,4 +83,50 @@ class RyxExclusionBloqueo
         return $this->id;
     }
 
+
+    /**
+     * Set idBloqueoAgenda
+     *
+     * @param \Minsal\SimagdBundle\Entity\RyxBloqueoAgenda $idBloqueoAgenda
+     * @return RyxExclusionBloqueo
+     */
+    public function setIdBloqueoAgenda(\Minsal\SimagdBundle\Entity\RyxBloqueoAgenda $idBloqueoAgenda = null)
+    {
+        $this->idBloqueoAgenda = $idBloqueoAgenda;
+
+        return $this;
+    }
+
+    /**
+     * Get idBloqueoAgenda
+     *
+     * @return \Minsal\SimagdBundle\Entity\RyxBloqueoAgenda 
+     */
+    public function getIdBloqueoAgenda()
+    {
+        return $this->idBloqueoAgenda;
+    }
+
+    /**
+     * Set idRadiologoExcluido
+     *
+     * @param \Minsal\SiapsBundle\Entity\MntEmpleado $idRadiologoExcluido
+     * @return RyxExclusionBloqueo
+     */
+    public function setIdRadiologoExcluido(\Minsal\SiapsBundle\Entity\MntEmpleado $idRadiologoExcluido = null)
+    {
+        $this->idRadiologoExcluido = $idRadiologoExcluido;
+
+        return $this;
+    }
+
+    /**
+     * Get idRadiologoExcluido
+     *
+     * @return \Minsal\SiapsBundle\Entity\MntEmpleado 
+     */
+    public function getIdRadiologoExcluido()
+    {
+        return $this->idRadiologoExcluido;
+    }
 }
