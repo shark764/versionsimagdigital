@@ -106,3 +106,5 @@ class RyxDiagnosticoRadiologicoRepository extends EntityRepository
 
         return $query->getQuery()->getScalarResult();
     }
+
+}

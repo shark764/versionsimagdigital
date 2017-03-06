@@ -60,7 +60,28 @@ class RyxSolicitudDiagnosticoPostEstudioListViewGenerator extends RyxEntityListV
      */
     public function defineColumns()
     {
-        if ($this->type === 'detail')
+        if ($this->type === 'compact')
+        {
+            array_push($this->columns,
+                    array(
+                        'field' => 'id',
+                        'sortable' => true,
+                        'title' => 'ID',
+                        'visible' => false,
+                        'switchable' => false,
+                    ),
+                    array(
+                        'field' => 'compact',
+                        'title' => 'MODO DE VISTA COMPACTO &nbsp; <span class="glyphicon glyphicon-collapse-down"></span>',
+                        'switchable' => false,
+                        'align' => 'center',
+                        'halign' => 'left',
+                        // 'formatter' => '__fnc_worklistDetailFormatter',
+                        'events' => 'operateEvents',
+                    )
+            );
+        }
+        elseif ($this->type === 'detail')
         {
             array_push($this->columns,
                     array(
@@ -72,7 +93,7 @@ class RyxSolicitudDiagnosticoPostEstudioListViewGenerator extends RyxEntityListV
                     ),
                     array(
                         'field' => 'detail',
-                        'title' => 'VISTA EN DETALLE &nbsp; <span class="glyphicon glyphicon-collapse-down"></span>',
+                        'title' => 'MODO DE VISTA DETALLADA &nbsp; <span class="glyphicon glyphicon-collapse-down"></span>',
                         'switchable' => false,
                         'align' => 'center',
                         'halign' => 'left',
@@ -243,10 +264,13 @@ class RyxSolicitudDiagnosticoPostEstudioListViewGenerator extends RyxEntityListV
         $this->entityOptions['buttonsClass']   = 'primary-v4';
         $this->entityOptions['pageSize']    = '50';
         // $this->entityOptions['sortName']    = 'undefined';
-        if ($this->type === 'detail') {
+        if ($this->type === 'detail' || $this->type === 'compact') {
             $this->entityOptions['showToggle']  = false;
             $this->entityOptions['showColumns'] = false;
             $this->entityOptions['pageSize']    = '5';
+        }
+        if ($this->type === 'compact') {
+            $this->entityOptions['pageSize']    = '15';
         }
         // $this->entityOptions['height']      = '1268';
 

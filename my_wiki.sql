@@ -250,3 +250,15 @@ git config credential.helper store
 ######### merge conflicts
 git diff --name-only --diff-filter=U
 
+
+######### app/console
+php app/console doctrine:mapping:convert xml ./src/Minsal/SimagdBundle/Resources/config/doctrine/metadata/orm --from-database --force --filter="Img" --filter="Ryx" --filter="CtlAreaServicioDiagnostico" --filter="CtlExamenServicioDiagnostico" --filter="CtlEstadoServicioDiagnostico" --filter="MntAreaExamenEstablecimiento"
+php app/console doctrine:generate:entities MinsalSimagdBundle --no-backup
+php app/console cache:clear
+php app/console cache:clear --env=dev --no-warmup
+php app/console cache:clear --env=prod
+php app/console cache:clear --env=prod --no-debug
+php app/console assetic:dump --env=prod --no-debug
+php app/console assets:install
+
+
