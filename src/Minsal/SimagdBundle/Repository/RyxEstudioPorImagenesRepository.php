@@ -506,13 +506,13 @@ class RyxEstudioPorImagenesRepository extends EntityRepository
 
 }
 //if ( exists (   select "id"
-//                from "img_solicitud_diagnostico"
+//                from "ryx_solicitud_diagnostico_post_estudio"
 //                where "id_estudio" = old.id_estudio )
 //    ) or
 //    ( exists (  select "prc"."id"
-//                from "img_solicitud_estudio" as "prc"
-//                inner join "img_procedimiento_realizado" as "prz" on ("prc"."id" = "prz"."id_solicitud_estudio")
-//                inner join "img_estudio_paciente" as "est" on ("prz"."id" = "est"."id_procedimiento_realizado")
+//                from "ryx_solicitud_estudio" as "prc"
+//                inner join "ryx_procedimiento_radiologico_realizado" as "prz" on ("prc"."id" = "prz"."id_solicitud_estudio")
+//                inner join "ryx_estudio_por_imagenes" as "est" on ("prz"."id" = "est"."id_procedimiento_realizado")
 //                where "est"."id" = old.id_estudio and
 //                        ( "prc"."requiere_diagnostico" is true or
 //                            "prz"."id_solicitud_estudio_complementario" is not null

@@ -19,12 +19,39 @@
 				case 'study_request':
 				case 'emergency_study_request':
 					$url = 'simagd_solicitud_estudio_generateTable';
+                    jQuery('#_request_dashboard_jumbotron_title').html('Listado de Solicitudes de estudio / procedimiento radiológico' + (emrg === 1 ? ' (de Emergencia)' : ''));
+                    jQuery('#_request_dashboard_jumbotron_btn_toolbar').html(function() {
+                        return [
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'study_request_today\'); return false;" title="generar tabla" >Registros del día</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'study_request_week\'); return false;" title="generar tabla" >Registros de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'study_request_month\'); return false;" title="generar tabla" >Registros de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'study_request\'); return false;" title="generar tabla" >Todos los registros</a></div>'
+                        ].join('');
+                    });
 					break;
 				case 'diagnostic_request':
 					$url = 'simagd_solicitud_diagnostico_generateTable';
+                    jQuery('#_request_dashboard_jumbotron_title').html('Listado de Solicitudes de diagnóstico radiológico (Posterior a realización de estudio)');
+                    jQuery('#_request_dashboard_jumbotron_btn_toolbar').html(function() {
+                        return [
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'diagnostic_request_today\'); return false;" title="generar tabla" >Registros del día</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'diagnostic_request_week\'); return false;" title="generar tabla" >Registros de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'diagnostic_request_month\'); return false;" title="generar tabla" >Registros de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'diagnostic_request\'); return false;" title="generar tabla" >Todos los registros</a></div>'
+                        ].join('');
+                    });
 					break;
 				case 'further_study_request':
 					$url = 'simagd_solicitud_estudio_complementario_generateTable';
+                    jQuery('#_request_dashboard_jumbotron_title').html('Listado de Solicitudes para estudios adicionales / complementarios');
+                    jQuery('#_request_dashboard_jumbotron_btn_toolbar').html(function() {
+                        return [
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'further_study_request_today\'); return false;" title="generar tabla" >Registros del día</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'further_study_request_week\'); return false;" title="generar tabla" >Registros de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'further_study_request_month\'); return false;" title="generar tabla" >Registros de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'further_study_request\'); return false;" title="generar tabla" >Todos los registros</a></div>'
+                        ].join('');
+                    });
 					break;
 				default:
 					break;

@@ -25,10 +25,10 @@ class CitaRepository extends EntityRepository
                         COUNT(c.id) AS total,
                         TRUE AS allDay, /*'#555'*/'#183f52' AS color, 'summary' AS type
                         /*TO_CHAR(c.fecha_hora_inicio, 'FMMonth FMDDth, YYYY') AS title*/
-                    FROM img_cita c
-                        INNER JOIN img_ctl_estado_cita s
+                    FROM ryx_cita_programada c
+                        INNER JOIN ryx_ctl_estado_cita s
                             ON s.id = c.id_estado_cita
-                        LEFT JOIN img_solicitud_estudio r
+                        LEFT JOIN ryx_solicitud_estudio r
                             ON r.id = c.id_solicitud_estudio
                         LEFT JOIN ctl_area_servicio_diagnostico a
                             ON a.id = r.id_area_servicio_diagnostico

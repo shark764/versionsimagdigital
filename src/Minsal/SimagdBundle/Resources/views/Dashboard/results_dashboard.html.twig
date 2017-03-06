@@ -75,33 +75,73 @@
         </div>
     </div>
 
-    <div class=" {#col-lg-10 col-md-10 col-sm-10#} col-lg-12 col-md-12 col-sm-12 ">
-        {#<div class="row">#} <!-- row block -->
-        {#</div>#} <!-- end row block -->
 
-        <div class="tab-pane {#fade#} in active" id="tab_list__" style="min-height: 768px;" >
 
-            <!--
-            //////////////////////////////////////////////////////////////
-            //////// TABLE
-            //////////////////////////////////////////////////////////////
-             -->
-            <!-- table for any result -->
-            <div class=" {#col-lg-9 col-md-9 col-sm-9#} ">
-                <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
-                    <thead></thead>
-                </table>
+    <div class=" col-lg-12 col-md-12 col-sm-12 ">
+        <div class="jumbotron" style="background-color: #284858;">
+            <div class="container">
+                <h2><strong><span class="text-emergency" id="_results_dashboard_jumbotron_title"> Listado de Resultados </span></strong></h2>
+                <div class="btn-toolbar" role="toolbar" aria-label="..." id="_results_dashboard_jumbotron_btn_toolbar">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, 'radiological_result_today'); return false;" title="generar tabla" >
+                            Registros del día
+                        </a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, 'radiological_result_week'); return false;" title="generar tabla" >
+                            Registros de la semana
+                        </a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, 'radiological_result_month'); return false;" title="generar tabla" >
+                            Registros del mes
+                        </a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, 'radiological_result'); return false;" title="generar tabla" >
+                            Todos los registros
+                        </a>
+                    </div>
+                </div>
+                <p></p>
+                <div class="btn-toolbar" role="toolbar" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-emergency" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
+                    </div>
+                </div>
             </div>
-            <!-- end table -->
-
-
-            <!--
-            //////////////////////////////////////////////////////////////
-            //////// END --| TABLE
-            //////////////////////////////////////////////////////////////
-             -->
-
         </div>
+    </div>
+
+
+
+    <div class="tab-pane {#fade#} in active" id="tab_list__" style="min-height: 768px;" >
+
+        <!--
+        //////////////////////////////////////////////////////////////
+        //////// TABLE
+        //////////////////////////////////////////////////////////////
+         -->
+        <!-- table for any result -->
+        <div class=" {#col-lg-10 col-md-10 col-sm-10#} col-lg-12 col-md-12 col-sm-12 {#col-lg-8 col-md-8 col-sm-8 col-xs-offset-2#} " style="min-height: 768px;">
+            <div class="box box-drop-outside-shadow {#box-dark-theme#} box-primary-v4">
+                <div class="box-body">
+                    <div class="row">
+                        <table class="table table-condensed" id="ryx_target_bstable" name="ryx_target_bstable" {#data-toggle="table" #}>
+                            <thead></thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end table -->
+
+
+        <!--
+        //////////////////////////////////////////////////////////////
+        //////// END --| TABLE
+        //////////////////////////////////////////////////////////////
+         -->
 
     </div>
 

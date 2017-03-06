@@ -65,19 +65,19 @@ class RyxEstudioPorImagenesController extends Controller {
 	stdprc.nombre as seprescribio, 
 	case
 		when exists (		select lct.id 
-					from img_lectura lct 
+					from ryx_lectura_radiologica lct 
 					where est.id = lct.id_estudio
 				) then 'diagnosticado'
 		else 'sin lectura'
 	end as diagnosticado
-from img_estudio_paciente est 
-	inner join img_procedimiento_realizado prz 	on prz.id = est.id_procedimiento_realizado
-	inner join img_ctl_estado_procedimiento_realizado estd_prz on estd_prz.id = prz.id_estado_procedimiento_realizado
-	inner join img_solicitud_estudio prc 		on prc.id = prz.id_solicitud_estudio
+from ryx_estudio_por_imagenes est 
+	inner join ryx_procedimiento_radiologico_realizado prz 	on prz.id = est.id_procedimiento_realizado
+	inner join ryx_ctl_estado_procedimiento_realizado estd_prz on estd_prz.id = prz.id_estado_procedimiento_realizado
+	inner join ryx_solicitud_estudio prc 		on prc.id = prz.id_solicitud_estudio
 	inner join mnt_expediente exp 			on exp.id = prc.id_expediente
 	inner join mnt_paciente pct 			on pct.id = exp.id_paciente
-	inner join img_solicitud_estudio_proyeccion prc_expl on prc.id = prc_expl.id_solicitud_estudio
-	inner join img_ctl_proyeccion expl 		on expl.id = prc_expl.id_proyeccion_solicitada
+	inner join ryx_solicitud_estudio_proyeccion prc_expl on prc.id = prc_expl.id_solicitud_estudio
+	inner join ryx_ctl_proyeccion_radiologica expl 		on expl.id = prc_expl.id_proyeccion_solicitada
 	inner join ctl_examen_servicio_diagnostico exm 	on exm.id = expl.id_examen_servicio_diagnostico
 	inner join ctl_area_servicio_diagnostico m 		on m.id = prc.id_area_servicio_diagnostico
 	inner join mnt_aten_area_mod_estab aams 	on aams.id = prc.id_aten_area_mod_estab
@@ -118,19 +118,19 @@ from img_estudio_paciente est
 	stdprc.nombre as seprescribio, 
 	case
 		when exists (		select lct.id 
-					from img_lectura lct 
+					from ryx_lectura_radiologica lct 
 					where est.id = lct.id_estudio
 				) then 'diagnosticado'
 		else 'sin lectura'
 	end as diagnosticado
-from img_estudio_paciente est 
-	inner join img_procedimiento_realizado prz 	on prz.id = est.id_procedimiento_realizado
-	inner join img_ctl_estado_procedimiento_realizado estd_prz on estd_prz.id = prz.id_estado_procedimiento_realizado
-	inner join img_solicitud_estudio prc 		on prc.id = prz.id_solicitud_estudio
+from ryx_estudio_por_imagenes est 
+	inner join ryx_procedimiento_radiologico_realizado prz 	on prz.id = est.id_procedimiento_realizado
+	inner join ryx_ctl_estado_procedimiento_realizado estd_prz on estd_prz.id = prz.id_estado_procedimiento_realizado
+	inner join ryx_solicitud_estudio prc 		on prc.id = prz.id_solicitud_estudio
 	inner join mnt_expediente exp 			on exp.id = prc.id_expediente
 	inner join mnt_paciente pct 			on pct.id = exp.id_paciente
-	inner join img_solicitud_estudio_proyeccion prc_expl on prc.id = prc_expl.id_solicitud_estudio
-	inner join img_ctl_proyeccion expl 		on expl.id = prc_expl.id_proyeccion_solicitada
+	inner join ryx_solicitud_estudio_proyeccion prc_expl on prc.id = prc_expl.id_solicitud_estudio
+	inner join ryx_ctl_proyeccion_radiologica expl 		on expl.id = prc_expl.id_proyeccion_solicitada
 	inner join ctl_examen_servicio_diagnostico exm 	on exm.id = expl.id_examen_servicio_diagnostico
 	inner join ctl_area_servicio_diagnostico m 		on m.id = prc.id_area_servicio_diagnostico
 	inner join mnt_aten_area_mod_estab aams 	on aams.id = prc.id_aten_area_mod_estab
@@ -170,19 +170,19 @@ from img_estudio_paciente est
 	stdprc.nombre as seprescribio, 
 	case
 		when exists (		select lct.id 
-					from img_lectura lct 
+					from ryx_lectura_radiologica lct 
 					where est.id = lct.id_estudio
 				) then 'diagnosticado'
 		else 'sin lectura'
 	end as diagnosticado
-from img_estudio_paciente est 
-	inner join img_procedimiento_realizado prz 	on prz.id = est.id_procedimiento_realizado
-	inner join img_ctl_estado_procedimiento_realizado estd_prz on estd_prz.id = prz.id_estado_procedimiento_realizado
-	inner join img_solicitud_estudio prc 		on prc.id = prz.id_solicitud_estudio
+from ryx_estudio_por_imagenes est 
+	inner join ryx_procedimiento_radiologico_realizado prz 	on prz.id = est.id_procedimiento_realizado
+	inner join ryx_ctl_estado_procedimiento_realizado estd_prz on estd_prz.id = prz.id_estado_procedimiento_realizado
+	inner join ryx_solicitud_estudio prc 		on prc.id = prz.id_solicitud_estudio
 	inner join mnt_expediente exp 			on exp.id = prc.id_expediente
 	inner join mnt_paciente pct 			on pct.id = exp.id_paciente
-	inner join img_solicitud_estudio_proyeccion prc_expl on prc.id = prc_expl.id_solicitud_estudio
-	inner join img_ctl_proyeccion expl 		on expl.id = prc_expl.id_proyeccion_solicitada
+	inner join ryx_solicitud_estudio_proyeccion prc_expl on prc.id = prc_expl.id_solicitud_estudio
+	inner join ryx_ctl_proyeccion_radiologica expl 		on expl.id = prc_expl.id_proyeccion_solicitada
 	inner join ctl_examen_servicio_diagnostico exm 	on exm.id = expl.id_examen_servicio_diagnostico
 	inner join ctl_area_servicio_diagnostico m 		on m.id = prc.id_area_servicio_diagnostico
 	inner join mnt_aten_area_mod_estab aams 	on aams.id = prc.id_aten_area_mod_estab
@@ -222,19 +222,19 @@ from img_estudio_paciente est
 	stdprc.nombre as seprescribio, 
 	case
 		when exists (		select lct.id 
-					from img_lectura lct 
+					from ryx_lectura_radiologica lct 
 					where est.id = lct.id_estudio
 				) then 'diagnosticado'
 		else 'sin lectura'
 	end as diagnosticado
-from img_estudio_paciente est 
-	inner join img_procedimiento_realizado prz 	on prz.id = est.id_procedimiento_realizado
-	inner join img_ctl_estado_procedimiento_realizado estd_prz on estd_prz.id = prz.id_estado_procedimiento_realizado
-	inner join img_solicitud_estudio prc 		on prc.id = prz.id_solicitud_estudio
+from ryx_estudio_por_imagenes est 
+	inner join ryx_procedimiento_radiologico_realizado prz 	on prz.id = est.id_procedimiento_realizado
+	inner join ryx_ctl_estado_procedimiento_realizado estd_prz on estd_prz.id = prz.id_estado_procedimiento_realizado
+	inner join ryx_solicitud_estudio prc 		on prc.id = prz.id_solicitud_estudio
 	inner join mnt_expediente exp 			on exp.id = prc.id_expediente
 	inner join mnt_paciente pct 			on pct.id = exp.id_paciente
-	inner join img_solicitud_estudio_proyeccion prc_expl on prc.id = prc_expl.id_solicitud_estudio
-	inner join img_ctl_proyeccion expl 		on expl.id = prc_expl.id_proyeccion_solicitada
+	inner join ryx_solicitud_estudio_proyeccion prc_expl on prc.id = prc_expl.id_solicitud_estudio
+	inner join ryx_ctl_proyeccion_radiologica expl 		on expl.id = prc_expl.id_proyeccion_solicitada
 	inner join ctl_examen_servicio_diagnostico exm 	on exm.id = expl.id_examen_servicio_diagnostico
 	inner join ctl_area_servicio_diagnostico m 		on m.id = prc.id_area_servicio_diagnostico
 	inner join mnt_aten_area_mod_estab aams 	on aams.id = prc.id_aten_area_mod_estab
@@ -271,19 +271,19 @@ from img_estudio_paciente est
 	stdprc.nombre as seprescribio, 
 	case
 		when exists (		select lct.id 
-					from img_lectura lct 
+					from ryx_lectura_radiologica lct 
 					where est.id = lct.id_estudio
 				) then 'diagnosticado'
 		else 'sin lectura'
 	end as diagnosticado
-from img_estudio_paciente est 
-	inner join img_procedimiento_realizado prz 	on prz.id = est.id_procedimiento_realizado
-	inner join img_ctl_estado_procedimiento_realizado estd_prz on estd_prz.id = prz.id_estado_procedimiento_realizado
-	inner join img_solicitud_estudio prc 		on prc.id = prz.id_solicitud_estudio
+from ryx_estudio_por_imagenes est 
+	inner join ryx_procedimiento_radiologico_realizado prz 	on prz.id = est.id_procedimiento_realizado
+	inner join ryx_ctl_estado_procedimiento_realizado estd_prz on estd_prz.id = prz.id_estado_procedimiento_realizado
+	inner join ryx_solicitud_estudio prc 		on prc.id = prz.id_solicitud_estudio
 	inner join mnt_expediente exp 			on exp.id = prc.id_expediente
 	inner join mnt_paciente pct 			on pct.id = exp.id_paciente
-	inner join img_solicitud_estudio_proyeccion prc_expl on prc.id = prc_expl.id_solicitud_estudio
-	inner join img_ctl_proyeccion expl 		on expl.id = prc_expl.id_proyeccion_solicitada
+	inner join ryx_solicitud_estudio_proyeccion prc_expl on prc.id = prc_expl.id_solicitud_estudio
+	inner join ryx_ctl_proyeccion_radiologica expl 		on expl.id = prc_expl.id_proyeccion_solicitada
 	inner join ctl_examen_servicio_diagnostico exm 	on exm.id = expl.id_examen_servicio_diagnostico
 	inner join ctl_area_servicio_diagnostico m 		on m.id = prc.id_area_servicio_diagnostico
 	inner join mnt_aten_area_mod_estab aams 	on aams.id = prc.id_aten_area_mod_estab

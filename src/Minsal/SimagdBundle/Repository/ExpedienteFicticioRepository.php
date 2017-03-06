@@ -64,19 +64,19 @@ class ExpedienteFicticioRepository extends EntityRepository
 }
 /*
  * *********************************************************************************************
- * SELECT max(substring(numero from (length(numero)-1))) from img_expediente_ficticio;
+ * SELECT max(substring(numero from (length(numero)-1))) from ryx_expediente_ficticio;
  * *********************************************************************************************
  */
 
 /*
  * LA VERDADERA --| PARA TRIGGER
  * *********************************************************************************************
- * select max(numero) AS max_number_exp from img_expediente_ficticio where numero like CONCAT('%-', substring(to_char(now(), 'yyyy') from 3));
+ * select max(numero) AS max_number_exp from ryx_expediente_ficticio where numero like CONCAT('%-', substring(to_char(now(), 'yyyy') from 3));
  * *********************************************************************************************
  */
 
 /*
  * *********************************************************************************************
- * SELECT max(substring(numero from 4 for (length(numero)-1))) from img_expediente_ficticio;
+ * SELECT max(substring(numero from 4 for (length(numero)-1))) from ryx_expediente_ficticio;
  * *********************************************************************************************
  */

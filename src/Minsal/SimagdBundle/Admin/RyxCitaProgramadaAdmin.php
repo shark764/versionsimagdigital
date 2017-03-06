@@ -81,7 +81,7 @@ class RyxCitaProgramadaAdmin extends MinsalSimagdBundleGeneralAdmin
         $formMapper
             ->tab('Programación de cita')
                 ->with('Formulario de Citación')
-                    ->add('idSolicitudEstudio', 'sonata_type_model_hidden', array(), array('admin_code' => 'minsal_simagd.admin.img_solicitud_estudio'))
+                    ->add('idSolicitudEstudio', 'sonata_type_model_hidden', array(), array('admin_code' => 'minsal_simagd.admin.ryx_solicitud_estudio'))
                     ->add('idEmpleado', null, array(
                                                         'label' => 'Recepcionista',
                                                         'required' => true,

@@ -77,7 +77,7 @@ class RyxProcedimientoRadiologicoRealizadoAdmin extends Admin {
         $formMapper
             // ->tab('Registro post-examen')
                 ->with('Registro general')
-                    ->add('idSolicitudEstudio', 'sonata_type_model_hidden', array(), array('admin_code' => 'minsal_simagd.admin.img_solicitud_estudio'))
+                    ->add('idSolicitudEstudio', 'sonata_type_model_hidden', array(), array('admin_code' => 'minsal_simagd.admin.ryx_solicitud_estudio'))
                     ->add('idCitaProgramada', 'sonata_type_model_hidden')
                     ->add('idSolicitudEstudioComplementario', 'sonata_type_model_hidden')
 		    ->add('idExamenPendienteIniciado', 'hidden', array(
@@ -369,7 +369,7 @@ class RyxProcedimientoRadiologicoRealizadoAdmin extends Admin {
         if ($consulta)/* Si devuelve parametros del paciente entra al IF y asocia estudios */ {
             list($uid, $pac) = explode("-", $consulta);
 
-            /* si no existe crear una nueva insercion en img_estudio_paciente */
+            /* si no existe crear una nueva insercion en ryx_estudio_por_imagenes */
 
             /* Limpiar espacios en blanco de la ip ingresada */
             $ip = trim($ip);
@@ -713,7 +713,7 @@ class RyxProcedimientoRadiologicoRealizadoAdmin extends Admin {
                             list($uid, $pac) = explode("-", $result);
 //                                    print_r($result);
 //                                return $this->render($this->admin->getTemplate('resultadosBusquedaPaciente'), array('reservas' => '1'));
-                            /* Comprobar si el uid existe en img_estudio_paciente */
+                            /* Comprobar si el uid existe en ryx_estudio_por_imagenes */
                             $estudioPac = $em->getRepository('MinsalSimagdBundle:RyxEstudioPorImagenes')->verificarUid($uid);
                             if ($estudioPac) {
                                 // $this->getRequest()->getSession()->getFlashBag()->add('warning', 'No se puede guardar el registro con este estado mientras no exista una conexión.');
@@ -797,7 +797,7 @@ class RyxProcedimientoRadiologicoRealizadoAdmin extends Admin {
                             list($uid, $pac) = explode("-", $result);
 //                                    print_r($result);
 //                                return $this->render($this->admin->getTemplate('resultadosBusquedaPaciente'), array('reservas' => '1'));
-                            /* Comprobar si el uid existe en img_estudio_paciente */
+                            /* Comprobar si el uid existe en ryx_estudio_por_imagenes */
                             $estudioPac = $em->getRepository('MinsalSimagdBundle:RyxEstudioPorImagenes')->verificarUid($uid);
                             if ($estudioPac) {
                                 // $this->getRequest()->getSession()->getFlashBag()->add('warning', 'No se puede guardar el registro con este estado mientras no exista una conexión.');

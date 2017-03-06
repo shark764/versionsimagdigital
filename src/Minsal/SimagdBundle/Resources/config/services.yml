@@ -12,14 +12,14 @@ services:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
     #NUEVA EXPLORACION
-    minsal_simagd.admin.img_ctl_proyeccion:
+    minsal_simagd.admin.ryx_ctl_proyeccion_radiologica:
         class: Minsal\SimagdBundle\Admin\RyxCtlProyeccionRadiologicaAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxCtlProyeccionRadiologica, MinsalSimagdBundle:RyxCtlProyeccionRadiologicaAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: CTI-1-Catalogos, label: Proyecciones}
 
     #EXPLORACIONES REALIZABLES
-    minsal_simagd.admin.img_ctl_proyeccion_establecimiento:
+    minsal_simagd.admin.ryx_ctl_proyeccion_establecimiento:
         class: Minsal\SimagdBundle\Admin\RyxCtlProyeccionEstablecimientoAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxCtlProyeccionEstablecimiento, MinsalSimagdBundle:RyxCtlProyeccionEstablecimientoAdmin]
         tags:
@@ -49,54 +49,54 @@ services:
             - {name: sonata.admin, manager_type: orm, group: CTI-1-Catalogos, label: Exámenes Realizables}
 
     #admin para preinscripcion  Codigo 'PI' label Solicitud
-    minsal_simagd.admin.img_solicitud_estudio:
+    minsal_simagd.admin.ryx_solicitud_estudio:
         class: Minsal\SimagdBundle\Admin\RyxSolicitudEstudioAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxSolicitudEstudio, MinsalSimagdBundle:RyxSolicitudEstudioAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: PI-1-Solicitud, label: Solicitudes}
 
-    minsal_simagd.admin.img_solicitud_estudio_proyeccion:
+    minsal_simagd.admin.ryx_solicitud_estudio_proyeccion:
         class: Minsal\SimagdBundle\Admin\RyxSolicitudEstudioProyeccionAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxSolicitudEstudioProyeccion, MinsalSimagdBundle:RyxSolicitudEstudioProyeccionAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
     #admin para solicitud de diagnostico  Codigo 'SD' label Diagnosticos
-    minsal_simagd.admin.img_solicitud_diagnostico:
+    minsal_simagd.admin.ryx_solicitud_diagnostico_post_estudio:
         class: Minsal\SimagdBundle\Admin\RyxSolicitudDiagnosticoPostEstudioAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxSolicitudDiagnosticoPostEstudio, MinsalSimagdBundle:RyxSolicitudDiagnosticoPostEstudioAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
     #admin para citas  Codigo 'CI' label Citas de Imagenología
-    minsal_simagd.admin.img_cita:
+    minsal_simagd.admin.ryx_cita_programada:
         class: Minsal\SimagdBundle\Admin\RyxCitaProgramadaAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxCitaProgramada, MinsalSimagdBundle:RyxCitaProgramadaAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: CI-1-Citas de Imagenología, label: Agenda}
 
     #admin para citas Codigo 'CI' label Citas de Imagenologia
-    minsal_simagd.admin.img_ctl_configuracion_agenda:
+    minsal_simagd.admin.ryx_ctl_configuracion_agenda:
         class: Minsal\SimagdBundle\Admin\RyxCtlConfiguracionAgendaAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxCtlConfiguracionAgenda, MinsalSimagdBundle:RyxCtlConfiguracionAgendaAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
     #CTL de PACS por Establecimiento
-    minsal_simagd.admin.img_ctl_pacs_establecimiento:
+    minsal_simagd.admin.ryx_ctl_conexion_pacs_establecimiento:
         class: Minsal\SimagdBundle\Admin\RyxCtlConexionPacsEstablecimientoAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxCtlConexionPacsEstablecimiento, MinsalSimagdBundle:RyxCtlConexionPacsEstablecimientoAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: CTI-1-Catalogos, label: Servidores PACS}
 
-    minsal_simagd.admin.img_ctl_motor_bd:
+    minsal_simagd.admin.ryx_ctl_motor_bd:
         class: Minsal\SimagdBundle\Admin\RyxCtlMotorBdAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxCtlMotorBd, MinsalSimagdBundle:RyxCtlMotorBdAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: CTI-1-Catalogos, label: Motores de Base de Datos}
 
     #EXAMENES SIN REALIZAR
-    minsal_simagd.admin.img_pendiente_realizacion:
+    minsal_simagd.admin.ryx_examen_pendiente_realizacion:
         class: Minsal\SimagdBundle\Admin\RyxExamenPendienteRealizacionAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxExamenPendienteRealizacion, MinsalSimagdBundle:RyxExamenPendienteRealizacionAdmin]
         tags:
@@ -109,21 +109,21 @@ services:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
     #admin para imagenes medicas Codigo 'IM' label Imagenes Medicas
-    minsal_simagd.admin.img_procedimiento_realizado:
+    minsal_simagd.admin.ryx_procedimiento_radiologico_realizado:
         class: Minsal\SimagdBundle\Admin\RyxProcedimientoRadiologicoRealizadoAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxProcedimientoRadiologicoRealizado, MinsalSimagdBundle:RyxProcedimientoRadiologicoRealizadoAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: IM-1-Imagenes Médicas, label: Exámenes Registrados}
 
     #admin para imagenes medicas Codigo 'IM' label Imagenes Medicas
-    minsal_simagd.admin.img_estudio_paciente:
+    minsal_simagd.admin.ryx_estudio_por_imagenes:
         class: Minsal\SimagdBundle\Admin\RyxEstudioPorImagenesAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxEstudioPorImagenes, MinsalSimagdBundle:RyxEstudioPorImagenesAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: IM-1-Imagenes Médicas, label: Búsqueda de estudios}
 
     #LISTA DE LECTURA
-    minsal_simagd.admin.img_pendiente_lectura:
+    minsal_simagd.admin.ryx_estudio_pendiente_lectura:
         class: Minsal\SimagdBundle\Admin\RyxEstudioPendienteLecturaAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxEstudioPendienteLectura, MinsalSimagdBundle:RyxEstudioPendienteLecturaAdmin]
         tags:
@@ -136,13 +136,13 @@ services:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
     #INTERPRETAR ESTUDIO
-    minsal_simagd.admin.img_lectura:
+    minsal_simagd.admin.ryx_lectura_radiologica:
         class: Minsal\SimagdBundle\Admin\RyxLecturaRadiologicaAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxLecturaRadiologica, MinsalSimagdBundle:RyxLecturaRadiologicaAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: DI-1-Diagnosticos, label: Resultados}
 
-    minsal_simagd.admin.img_pendiente_transcripcion:
+    minsal_simagd.admin.ryx_lectura_pendiente_transcripcion:
         class: Minsal\SimagdBundle\Admin\RyxLecturaPendienteTranscripcionAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxLecturaPendienteTranscripcion, MinsalSimagdBundle:RyxLecturaPendienteTranscripcionAdmin]
         tags:
@@ -155,7 +155,7 @@ services:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
     #TRANSCRIBIR DIAGNOSTICO
-    minsal_simagd.admin.img_diagnostico:
+    minsal_simagd.admin.ryx_diagnostico_radiologico:
         class: Minsal\SimagdBundle\Admin\RyxDiagnosticoRadiologicoAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxDiagnosticoRadiologico, MinsalSimagdBundle:RyxDiagnosticoRadiologicoAdmin]
         tags:
@@ -168,14 +168,14 @@ services:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
     #PENDIENTES DE VALIDAR
-    minsal_simagd.admin.img_pendiente_validacion:
+    minsal_simagd.admin.ryx_diagnostico_pendiente_validacion:
         class: Minsal\SimagdBundle\Admin\RyxDiagnosticoPendienteValidacionAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxDiagnosticoPendienteValidacion, MinsalSimagdBundle:RyxDiagnosticoPendienteValidacionAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
     #AGREGAR NOTAS
-    minsal_simagd.admin.img_nota_diagnostico:
+    minsal_simagd.admin.ryx_diagnostico_segunda_opinion_medica:
         class: Minsal\SimagdBundle\Admin\RyxDiagnosticoSegundaOpinionMedicaAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxDiagnosticoSegundaOpinionMedica, MinsalSimagdBundle:RyxDiagnosticoSegundaOpinionMedicaAdmin]
         tags:
@@ -188,73 +188,73 @@ services:
             # - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
             - {name: sonata.admin, manager_type: orm, group: ID-1-SIMAGD, label: Historial Clínico}
 
-    minsal_simagd.admin.img_material_utilizado:
+    minsal_simagd.admin.ryx_procedimiento_material_utilizado:
         class: Minsal\SimagdBundle\Admin\RyxProcedimientoMaterialUtilizadoAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxProcedimientoMaterialUtilizado, MinsalSimagdBundle:RyxProcedimientoMaterialUtilizadoAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
-    minsal_simagd.admin.img_ctl_material_establecimiento:
+    minsal_simagd.admin.ryx_ctl_material_establecimiento:
         class: Minsal\SimagdBundle\Admin\RyxCtlMaterialEstablecimientoAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxCtlMaterialEstablecimiento, MinsalSimagdBundle:RyxCtlMaterialEstablecimientoAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
-    minsal_simagd.admin.img_ctl_material:
+    minsal_simagd.admin.ryx_ctl_material:
         class: Minsal\SimagdBundle\Admin\RyxCtlMaterialAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxCtlMaterial, MinsalSimagdBundle:RyxCtlMaterialAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: CTI-1-Catalogos, label: Materiales}
 
-    minsal_simagd.admin.img_bloqueo_agenda:
+    minsal_simagd.admin.ryx_bloqueo_agenda:
         class: Minsal\SimagdBundle\Admin\RyxBloqueoAgendaAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxBloqueoAgenda, MinsalSimagdBundle:RyxBloqueoAgendaAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
-    minsal_simagd.admin.img_solicitud_estudio_complementario:
+    minsal_simagd.admin.ryx_solicitud_estudio_complementario:
         class: Minsal\SimagdBundle\Admin\RyxSolicitudEstudioComplementarioAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxSolicitudEstudioComplementario, MinsalSimagdBundle:RyxSolicitudEstudioComplementarioAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
-    minsal_simagd.admin.img_solicitud_estudio_complementario_proyeccion:
+    minsal_simagd.admin.ryx_solicitud_estudio_complementario_proyeccion:
         class: Minsal\SimagdBundle\Admin\RyxSolicitudEstudioComplementarioProyeccionAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxSolicitudEstudioComplementarioProyeccion, MinsalSimagdBundle:RyxSolicitudEstudioComplementarioProyeccionAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
-    minsal_simagd.admin.img_lectura_estudio:
+    minsal_simagd.admin.ryx_lectura_estudio:
         class: Minsal\SimagdBundle\Admin\RyxLecturaEstudioAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxLecturaEstudio, MinsalSimagdBundle:RyxLecturaEstudioAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
-    minsal_simagd.admin.img_dato_autocomplemento:
+    minsal_simagd.admin.ryx_dato_autocomplemento:
         class: Minsal\SimagdBundle\Admin\RyxDatoAutocomplementoAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxDatoAutocomplemento, MinsalSimagdBundle:RyxDatoAutocomplementoAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
-    minsal_simagd.admin.img_ctl_patron_diagnostico:
+    minsal_simagd.admin.ryx_ctl_patron_diagnostico:
         class: Minsal\SimagdBundle\Admin\RyxCtlPatronDiagnosticoAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxCtlPatronDiagnostico, MinsalSimagdBundle:RyxCtlPatronDiagnosticoAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: DI-1-Diagnosticos, label: Patrones de diagnóstico}
 
-    minsal_simagd.admin.img_ctl_preparacion_estudio:
+    minsal_simagd.admin.ryx_ctl_preparacion_estudio:
         class: Minsal\SimagdBundle\Admin\RyxCtlPreparacionEstudioAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxCtlPreparacionEstudio, MinsalSimagdBundle:RyxCtlPreparacionEstudioAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: CI-1-Citas de Imagenología, label: Catálogo de Preparaciones para estudio}
 
-    minsal_simagd.admin.img_solicitud_estudio_mamografia:
+    minsal_simagd.admin.ryx_solicitud_estudio_mamografia:
         class: Minsal\SimagdBundle\Admin\RyxSolicitudEstudioMamografiaAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxSolicitudEstudioMamografia, MinsalSimagdBundle:RyxSolicitudEstudioMamografiaAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, show_in_dashboard: false}
 
-    minsal_simagd.admin.img_solicitud_estudio_mamografia_sintomatologia:
+    minsal_simagd.admin.ryx_solicitud_estudio_mamografia_sintomatologia:
         class: Minsal\SimagdBundle\Admin\RyxSolicitudEstudioMamografiaSintomatologiaAdmin
         arguments: [~, Minsal\SimagdBundle\Entity\RyxSolicitudEstudioMamografiaSintomatologia, MinsalSimagdBundle:RyxSolicitudEstudioMamografiaSintomatologiaAdmin]
         tags:

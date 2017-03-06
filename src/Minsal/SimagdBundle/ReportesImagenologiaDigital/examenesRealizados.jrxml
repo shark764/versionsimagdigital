@@ -38,9 +38,9 @@
 	<queryString>
 		<![CDATA[SELECT mex.numero as numeroexp, (coalesce(mp.primer_nombre ||' '||
 mp.segundo_nombre ||' '|| coalesce(mp.tercer_nombre, '') ||' '|| mp.primer_apellido ||' '|| mp.segundo_apellido
- ||' '|| coalesce(mp.apellido_casada, ''))) as nombre,asap.nombrearea as modalidad,prz.fecha as fecha, prz.nombre_estado as estado , memp.nombreempleado as nombremedico, stdprc.nombre as origen, ar.nombre as procedencia, atn.nombre as servicio FROM img_solicitud_estudio pin INNER JOIN
+ ||' '|| coalesce(mp.apellido_casada, ''))) as nombre,asap.nombrearea as modalidad,prz.fecha as fecha, prz.nombre_estado as estado , memp.nombreempleado as nombremedico, stdprc.nombre as origen, ar.nombre as procedencia, atn.nombre as servicio FROM ryx_solicitud_estudio pin INNER JOIN
 (select  imgpr.id_tecnologo_realiza,imgpr.id_solicitud_estudio,epr.nombre_estado,(case when imgpr.fecha_realizado is not null
-then imgpr.fecha_realizado else imgpr.fecha_almacenado end) as fecha  from img_procedimiento_realizado imgpr inner join img_ctl_estado_procedimiento_realizado epr
+then imgpr.fecha_realizado else imgpr.fecha_almacenado end) as fecha  from ryx_procedimiento_radiologico_realizado imgpr inner join ryx_ctl_estado_procedimiento_realizado epr
 on imgpr.id_estado_procedimiento_realizado = epr.id where (imgpr.id_estado_procedimiento_realizado = 3 OR imgpr.id_estado_procedimiento_realizado = 5)
 and ((imgpr.fecha_realizado between to_date($P{fechaIni},'DD-MM-YYYY') and to_date($P{fechaFin},'DD-MM-YYYY')) OR (imgpr.fecha_almacenado between to_date($P{fechaIni},'DD-MM-YYYY') and to_date($P{fechaFin},'DD-MM-YYYY')) )) as prz
 on pin.id = prz.id_solicitud_estudio

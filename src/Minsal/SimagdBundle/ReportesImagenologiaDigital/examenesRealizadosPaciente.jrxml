@@ -21,9 +21,9 @@
 		<![CDATA[SELECT  asap.nombrearea as modalidad,mex.numero as numeroexp,(coalesce(mp.primer_nombre ||' '||
 mp.segundo_nombre ||' '|| coalesce(mp.tercer_nombre, '') ||' '|| mp.primer_apellido ||' '|| mp.segundo_apellido
 ||' '|| coalesce(mp.apellido_casada, ''))) as nombre,prz.fecha as fecha, prz.nombre_estado as estado , memp.nombreempleado as nombremedico, stdprc.nombre as origen, ar.nombre as procedencia, atn.nombre as servicio
-FROM img_solicitud_estudio pin INNER JOIN
+FROM ryx_solicitud_estudio pin INNER JOIN
 (select  imgpr.id,imgpr.id_tecnologo_realiza,imgpr.id_solicitud_estudio,epr.nombre_estado,(case when imgpr.fecha_realizado is not null
-then imgpr.fecha_realizado else imgpr.fecha_almacenado end) as fecha  from img_procedimiento_realizado imgpr inner join img_ctl_estado_procedimiento_realizado epr
+then imgpr.fecha_realizado else imgpr.fecha_almacenado end) as fecha  from ryx_procedimiento_radiologico_realizado imgpr inner join ryx_ctl_estado_procedimiento_realizado epr
 on imgpr.id_estado_procedimiento_realizado = epr.id where (imgpr.id_estado_procedimiento_realizado = 3 OR imgpr.id_estado_procedimiento_realizado = 5)
 and ((imgpr.fecha_realizado between to_date($P{fechaIni},'DD-MM-YYYY') and to_date($P{fechaFin},'DD-MM-YYYY')) OR (imgpr.fecha_almacenado between to_date($P{fechaIni},'DD-MM-YYYY') and to_date($P{fechaFin},'DD-MM-YYYY')) )) as prz
 on pin.id = prz.id_solicitud_estudio
@@ -36,7 +36,7 @@ inner join ctl_atencion atn on atn.id = aams.id_atencion
 inner join mnt_area_mod_estab ams on ams.id = aams.id_area_mod_estab
 inner join ctl_area_atencion ar on ar.id = ams.id_area_atencion
 inner join mnt_empleado memp on memp.id = prz.id_tecnologo_realiza
-inner join img_estudio_paciente iepc on iepc.id_procedimiento_realizado = prz.id
+inner join ryx_estudio_por_imagenes iepc on iepc.id_procedimiento_realizado = prz.id
 inner join mnt_expediente mex on mex.id = iepc.id_expediente
 inner join mnt_paciente mp on mp.id = mex.id_paciente
 where pin.id_establecimiento_referido = $P{establecimiento} and mex.id = $P{paciente} order by nombre,fecha]]>

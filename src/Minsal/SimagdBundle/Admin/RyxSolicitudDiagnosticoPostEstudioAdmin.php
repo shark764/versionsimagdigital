@@ -75,7 +75,7 @@ class RyxSolicitudDiagnosticoPostEstudioAdmin extends MinsalSimagdBundleGeneralA
         $formMapper
             ->tab('Solicitud')
                 ->with('Solicitar diagnóstico')
-                    ->add('idSolicitudEstudio', 'sonata_type_model_hidden', array(), array('admin_code' => 'minsal_simagd.admin.img_solicitud_estudio'))
+                    ->add('idSolicitudEstudio', 'sonata_type_model_hidden', array(), array('admin_code' => 'minsal_simagd.admin.ryx_solicitud_estudio'))
                     ->add('idEstudio', 'sonata_type_model_hidden')
                     ->add('idEmpleado', null, array(
                                                         'label' => 'Solicitante',

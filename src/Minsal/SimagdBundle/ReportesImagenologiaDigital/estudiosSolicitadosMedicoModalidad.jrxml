@@ -23,7 +23,7 @@
 	<queryString>
 		<![CDATA[select pins.fecha_creacion as fecha,mex.numero as numeroexp, (coalesce(mp.primer_nombre ||' '||
 mp.segundo_nombre ||' '|| coalesce(mp.tercer_nombre, '') ||' '|| mp.primer_apellido ||' '|| mp.segundo_apellido
- ||' '|| coalesce(mp.apellido_casada, ''))) as nombre,asap.nombrearea as modalidad , memp.nombreempleado as nombremedico, stdprc.nombre as origen, ar.nombre as procedencia, atn.nombre as servicio from img_solicitud_estudio pins
+ ||' '|| coalesce(mp.apellido_casada, ''))) as nombre,asap.nombrearea as modalidad , memp.nombreempleado as nombremedico, stdprc.nombre as origen, ar.nombre as procedencia, atn.nombre as servicio from ryx_solicitud_estudio pins
 inner join ctl_area_servicio_diagnostico asap on pins.id_area_servicio_diagnostico = asap.id
 inner join mnt_expediente mex on mex.id = pins.id_expediente
 inner join mnt_paciente mp on mex.id_paciente = mp.id

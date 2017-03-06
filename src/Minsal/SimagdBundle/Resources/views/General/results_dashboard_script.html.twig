@@ -18,15 +18,44 @@
 			switch (slug) {
 				case 'radiological_result':
 					$url = 'simagd_lectura_generateTable';
+                    jQuery('#_results_dashboard_jumbotron_title').html('Listado de Resultados');
+                    jQuery('#_results_dashboard_jumbotron_btn_toolbar').html(function() {
+                        return [
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'radiological_result_today\'); return false;" title="generar tabla" >Registros del día</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'radiological_result_week\'); return false;" title="generar tabla" >Registros de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'radiological_result_month\'); return false;" title="generar tabla" >Registros de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'radiological_result\'); return false;" title="generar tabla" >Todos los registros</a></div>'
+                        ].join('');
+                    });
 					break;
 				case 'transcribed_diagnosis':
 					$url = 'simagd_diagnostico_generateTable';
+                    jQuery('#_results_dashboard_jumbotron_title').html('Listado de Resultados (Transcritos / En fase de transcripción)');
+                    jQuery('#_results_dashboard_jumbotron_btn_toolbar').html(function() {
+                        return [
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'transcribed_diagnosis_today\'); return false;" title="generar tabla" >Registros del día</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'transcribed_diagnosis_week\'); return false;" title="generar tabla" >Registros de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'transcribed_diagnosis_month\'); return false;" title="generar tabla" >Registros de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'transcribed_diagnosis\'); return false;" title="generar tabla" >Todos los registros</a></div>'
+                        ].join('');
+                    });
 					break;
 				case 'second_medical_opinions':
 					$url = 'simagd_segunda_opinion_medica_generateTable';
+                    jQuery('#_results_dashboard_jumbotron_title').html('Segundas opiniones médicas a diagnósticos radiológicos');
+                    jQuery('#_results_dashboard_jumbotron_btn_toolbar').html('');
 					break;
 				case 'further_study_request':
 					$url = 'simagd_solicitud_estudio_complementario_generateTable';
+                    jQuery('#_results_dashboard_jumbotron_title').html('Listado de Solicitudes para estudios adicionales / complementarios');
+                    jQuery('#_results_dashboard_jumbotron_btn_toolbar').html(function() {
+                        return [
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'further_study_request_today\'); return false;" title="generar tabla" >Registros del día</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'further_study_request_week\'); return false;" title="generar tabla" >Registros de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'further_study_request_month\'); return false;" title="generar tabla" >Registros de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'further_study_request\'); return false;" title="generar tabla" >Todos los registros</a></div>'
+                        ].join('');
+                    });
 					break;
 				default:
 					break;

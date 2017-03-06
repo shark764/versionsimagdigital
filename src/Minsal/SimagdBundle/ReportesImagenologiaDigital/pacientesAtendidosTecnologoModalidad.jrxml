@@ -26,8 +26,8 @@ from (
 		select  ar.nombre as procedencia,pres.nombre as prescribe,asap.nombrearea as modalidad,memp.nombreempleado,(coalesce(pct1.primer_nombre ||' '||
 		pct1.segundo_nombre ||' '|| coalesce(pct1.tercer_nombre, '') ||' '|| pct1.primer_apellido ||' '|| pct1.segundo_apellido
 		||' '|| coalesce(pct1.apellido_casada, ''))) as nombre_pac,estab.nombre,exp1.numero,pct1.id, count(prz1.id) as atenciones
-		from img_procedimiento_realizado prz1
-		inner join img_solicitud_estudio prc1 on prc1.id = prz1.id_solicitud_estudio
+		from ryx_procedimiento_radiologico_realizado prz1
+		inner join ryx_solicitud_estudio prc1 on prc1.id = prz1.id_solicitud_estudio
 		inner join ctl_area_servicio_diagnostico asap on prc1.id_area_servicio_diagnostico = asap.id
 		inner join ctl_establecimiento estab on prc1.id_establecimiento_referido = estab.id
 		inner join mnt_aten_area_mod_estab aams on prc1.id_aten_area_mod_estab = aams.id
@@ -44,8 +44,8 @@ from (
 ) sql1
 inner join (
 		select pct2.id, max(prz2.fecha_realizado) as ultima_atencion
-		from img_procedimiento_realizado prz2
-		inner join img_solicitud_estudio prc2 on prc2.id = prz2.id_solicitud_estudio
+		from ryx_procedimiento_radiologico_realizado prz2
+		inner join ryx_solicitud_estudio prc2 on prc2.id = prz2.id_solicitud_estudio
 		inner join ctl_area_servicio_diagnostico asap on prc2.id_area_servicio_diagnostico = asap.id
 		inner join ctl_establecimiento estab on prc2.id_establecimiento_referido = estab.id
 		inner join mnt_aten_area_mod_estab aams on prc2.id_aten_area_mod_estab = aams.id
@@ -63,8 +63,8 @@ on ( sql1.id = sql2.id )
 
 where exists (
 		select prz.id
-		from img_procedimiento_realizado prz
-		inner join img_solicitud_estudio prc on prc.id = prz.id_solicitud_estudio
+		from ryx_procedimiento_radiologico_realizado prz
+		inner join ryx_solicitud_estudio prc on prc.id = prz.id_solicitud_estudio
 		inner join mnt_expediente exp on exp.id = prc.id_expediente
 		where 	exp.id_paciente = sql1.id and
 			prc.id_area_servicio_diagnostico = $P{modalidad} and

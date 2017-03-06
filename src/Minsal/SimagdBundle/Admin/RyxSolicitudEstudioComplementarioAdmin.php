@@ -74,7 +74,7 @@ class RyxSolicitudEstudioComplementarioAdmin extends MinsalSimagdBundleGeneralAd
         $formMapper
 	    // ->tab('Solicitud')
 		->with('Datos generales')
-		    ->add('idSolicitudEstudio', 'sonata_type_model_hidden', array('attr' => array('style' => 'min-width: 100%; max-width: 100%;')), array('admin_code' => 'minsal_simagd.admin.img_solicitud_estudio'))
+		    ->add('idSolicitudEstudio', 'sonata_type_model_hidden', array('attr' => array('style' => 'min-width: 100%; max-width: 100%;')), array('admin_code' => 'minsal_simagd.admin.ryx_solicitud_estudio'))
 		    ->add('idEstablecimientoSolicitado', 'sonata_type_model_hidden', array('attr' => array('style' => 'min-width: 100%; max-width: 100%;')))
 		    ->add('idEstudioPadre', 'sonata_type_model_hidden', array('attr' => array('style' => 'min-width: 100%; max-width: 100%;')))
 		    ->add('idRadiologoSolicita', null, array(//QUIZA FILTRADOS QUE TENGAN UN 'EES' CON 'AAMS' CON ESTAB_LOCAL

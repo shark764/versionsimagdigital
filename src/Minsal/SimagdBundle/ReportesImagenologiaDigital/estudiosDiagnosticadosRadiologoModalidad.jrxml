@@ -25,11 +25,11 @@
 mp.segundo_nombre ||' '|| coalesce(mp.tercer_nombre, '') ||' '|| mp.primer_apellido ||' '|| mp.segundo_apellido
  ||' '|| coalesce(mp.apellido_casada, ''))) as nombre,memp.nombreempleado as nombremedico
  ,celec.nombre_estado, ar.nombre as procedencia, atn.nombre as servicio
-from img_lectura ilec
-inner join img_estudio_paciente iepc on ilec.id_estudio = iepc.id
-inner join img_ctl_estado_lectura celec on ilec.id_estado_lectura = celec.id
-inner join img_procedimiento_realizado prz on iepc.id_procedimiento_realizado = prz.id
-inner join img_solicitud_estudio pins on prz.id_solicitud_estudio = pins.id
+from ryx_lectura_radiologica ilec
+inner join ryx_estudio_por_imagenes iepc on ilec.id_estudio = iepc.id
+inner join ryx_ctl_estado_lectura celec on ilec.id_estado_lectura = celec.id
+inner join ryx_procedimiento_radiologico_realizado prz on iepc.id_procedimiento_realizado = prz.id
+inner join ryx_solicitud_estudio pins on prz.id_solicitud_estudio = pins.id
 inner join ctl_area_servicio_diagnostico asap on pins.id_area_servicio_diagnostico = asap.id
 inner join mnt_aten_area_mod_estab aams on aams.id = pins.id_aten_area_mod_estab
 inner join ctl_atencion atn on atn.id = aams.id_atencion

@@ -159,8 +159,8 @@ regexp_replace(s.codigo, '^\s+', '') as codigo,
 regexp_replace(s.nombre, '^\s+', '') as grupo, 
 regexp_replace(m.codigo, '^\s+', '') as codigo, 
 regexp_replace(m.nombre, '^\s+', '') as grupo 
-from img_ctl_material m 
-    inner join img_ctl_subgrupo_material s on s.id = m.id_subgrupo_material 
-    inner join img_ctl_grupo_material g on g.id = s.id_grupo_material
+from ryx_ctl_material m 
+    inner join ryx_ctl_subgrupo_material s on s.id = m.id_subgrupo_material 
+    inner join ryx_ctl_grupo_material g on g.id = s.id_grupo_material
 where g.nombre like '%RAYO%'
 order by m.id, g.nombre, s.nombre, m.nombre;

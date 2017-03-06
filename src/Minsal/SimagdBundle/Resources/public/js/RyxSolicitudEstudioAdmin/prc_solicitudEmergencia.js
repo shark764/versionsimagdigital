@@ -195,7 +195,7 @@ jQuery(document).ready(function() {
 
 /*
  * ******************************************************************************
- * handle selections for img_solicitud_estudio
+ * handle selections for ryx_solicitud_estudio
  * ******************************************************************************
  */
 

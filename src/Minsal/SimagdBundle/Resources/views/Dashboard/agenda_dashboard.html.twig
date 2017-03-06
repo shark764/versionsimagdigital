@@ -219,29 +219,32 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="col-xs-1 col-lg-1 col-md-1 col-sm-1 {#col-xs-3 col-lg-3 col-md-3 col-sm-3#} control-label">MODO DE VISTA</label>
                         <div class="col-xs-5">
                             <ul class="list-unstyled list-inline formstyle-radio-list-inline input-sm col-lg-12 col-md-12 col-sm-12" id="_fc_filter_search_type">
                                 <li>
                                     <label class="">
                                         <input type="radio" value="agenda" name="_fc_filter_search_type" id="_fc_filter_search_type_0">
-                                        <span style="margin-left: 5px;"> Lista de pacientes</span>
+                                        {#<span style="margin-left: 5px;"> Lista de pacientes</span>#}
+                                        <span class="glyphicon glyphicon-tasks" {# style="margin-left: 3px;" #}></span>
                                     </label>
                                 </li>
                                 <li>
                                     <label class="">
                                         <input type="radio" checked="checked" value="summary" name="_fc_filter_search_type" id="_fc_filter_search_type_1">
-                                        <span style="margin-left: 5px;"> Resumen</span>
+                                        {#<span style="margin-left: 5px;"> Resumen</span>#}
+                                        <span class="glyphicon glyphicon-list-alt" {# style="margin-left: 3px;" #}></span>
                                     </label>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="form-group" id="_group_new_patient">
+                    {#<div class="form-group" id="_group_new_patient">
                         <div class="col-xs-12">
                             <a class="btn btn-emergency" id="_new_external_patient" name="_new_external_patient"><span class="glyphicon glyphicon-plus-sign"></span> Crear externo</a>
                         </div>
-                    </div>
+                    </div>#}
 
                 </form>
                 <!-- END --| FORM -->

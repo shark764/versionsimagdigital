@@ -49,7 +49,7 @@ class RyxDiagnosticoSegundaOpinionMedicaAdmin extends MinsalSimagdBundleGeneralA
         $formMapper
             ->tab('Nota al diagnóstico')
                 ->with('Nota a agregar')
-                    ->add('idDiagnostico', 'sonata_type_model_hidden', array(), array('admin_code' => 'minsal_simagd.admin.img_diagnostico'))
+                    ->add('idDiagnostico', 'sonata_type_model_hidden', array(), array('admin_code' => 'minsal_simagd.admin.ryx_diagnostico_radiologico'))
                     ->add('idEmpleado', null, array(
                                                             'label' => 'Realizó',
                                                             'required' => true,

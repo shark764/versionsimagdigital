@@ -1042,8 +1042,8 @@ class SolicitudEstudioRepository extends EntityRepository
 //select 	l.id 	   as l_id, 	      l.id_establecimiento      as l_id,
 //		    xE.id	 as xE_id, 	xE.numero 			as xE_numero,
 //		    x.id 	 as x_id, 	x.numero 			as x_numero, 	x.id_establecimiento 	as x_establecimiento
-//from img_lectura l
-//	left join img_estudio_paciente e on e.id = l.id_estudio
+//from ryx_lectura_radiologica l
+//	left join ryx_estudio_por_imagenes e on e.id = l.id_estudio
 //	left join mnt_expediente xE on xE.id = e.id_expediente
 //	left join mnt_paciente p on p.id = xE.id_paciente
 //	left join mnt_expediente x on (p.id = x.id_paciente AND x.id_establecimiento = 30)

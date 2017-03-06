@@ -27,15 +27,47 @@
                 case 'unrealized_procedures_week':
                 case 'unrealized_procedures_month':
                     $url = 'simagd_sin_realizar_generateTable';
+                    jQuery('#_worklist_dashboard_jumbotron_title').html('Pacientes sin examinar / Procedimientos sin realizar');
+                    jQuery('#_worklist_dashboard_jumbotron_btn_toolbar').html(function() {
+                        return [
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'unrealized_procedures_today\'); return false;" title="generar tabla" >Pacientes del día</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'unrealized_procedures_week\'); return false;" title="generar tabla" >Pacientes de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'unrealized_procedures\'); return false;" title="generar tabla" >Todos los pacientes</a></div>'
+                        ].join('');
+                    });
                     break;
 				case 'undiagnosed_studies':
 					$url = 'simagd_sin_lectura_generateTable';
+                    jQuery('#_worklist_dashboard_jumbotron_title').html('Estudios sin lectura radiológica');
+                    jQuery('#_worklist_dashboard_jumbotron_btn_toolbar').html(function() {
+                        return [
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'undiagnosed_studies_today\'); return false;" title="generar tabla" >Pacientes del día</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'undiagnosed_studies_week\'); return false;" title="generar tabla" >Pacientes de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'undiagnosed_studies\'); return false;" title="generar tabla" >Todos los pacientes</a></div>'
+                        ].join('');
+                    });
 					break;
 				case 'non_transcribed_results':
 					$url = 'simagd_sin_transcribir_generateTable';
+                    jQuery('#_worklist_dashboard_jumbotron_title').html('Resultados no transcritos');
+                    jQuery('#_worklist_dashboard_jumbotron_btn_toolbar').html(function() {
+                        return [
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'non_transcribed_results_today\'); return false;" title="generar tabla" >Pacientes del día</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'non_transcribed_results_week\'); return false;" title="generar tabla" >Pacientes de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'non_transcribed_results\'); return false;" title="generar tabla" >Todos los pacientes</a></div>'
+                        ].join('');
+                    });
 					break;
 				case 'non_validated_results':
 					$url = 'simagd_sin_validar_generateTable';
+                    jQuery('#_worklist_dashboard_jumbotron_title').html('Resultados no validados por Médico Radiólogo');
+                    jQuery('#_worklist_dashboard_jumbotron_btn_toolbar').html(function() {
+                        return [
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'non_validated_results_today\'); return false;" title="generar tabla" >Pacientes del día</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'non_validated_results_week\'); return false;" title="generar tabla" >Pacientes de la semana</a></div>',
+                            '<div class="btn-group" role="group"><a class="btn btn-highlighted" role="button" href="javascript:void(0)" onclick="generate(this, \'non_validated_results\'); return false;" title="generar tabla" >Todos los pacientes</a></div>'
+                        ].join('');
+                    });
 					break;
 				default:
 					break;
